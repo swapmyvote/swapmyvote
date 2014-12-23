@@ -19,4 +19,10 @@ class ApplicationController < ActionController::Base
   def logged_in?
     return !!current_user
   end
+  
+  def return_to_url
+    url = session[:return_to] || root_url
+    session.delete(:return_to)
+    return url
+  end
 end
