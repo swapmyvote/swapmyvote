@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141223112651) do
+ActiveRecord::Schema.define(version: 20141223155618) do
+
+  create_table "parties", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "provider"
@@ -20,8 +26,10 @@ ActiveRecord::Schema.define(version: 20141223112651) do
     t.string   "image"
     t.string   "token"
     t.datetime "expires_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "preferred_party_id"
+    t.integer  "willing_party_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
 end

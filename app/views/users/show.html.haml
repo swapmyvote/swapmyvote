@@ -1,0 +1,9 @@
+%p
+  - if @user.preferred_party
+    Your preferred party is 
+    %strong= @user.preferred_party.name
+  
+%p
+  - if @user.willing_party
+    but you are willing to vote tactically for
+    %strong= @user.willing_party.name

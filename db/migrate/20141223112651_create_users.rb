@@ -8,6 +8,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :token
       t.datetime :expires_at
 
+      t.integer :preferred_party_id
+      t.integer :willing_party_id
+      
       t.timestamps null: false
     end
   end
