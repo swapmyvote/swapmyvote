@@ -1,0 +1,66 @@
+@import url("//fonts.googleapis.com/css?family=Open+Sans");
+
+$base-font-size: 18px;
+$base-line-height: 1.6;
+$computed-line-height: $base-line-height * $base-font-size;
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+}
+
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.hero {
+  background-color: #e4e4e4;
+  padding: 16px 32px;
+  background-image: image-url('pattern.png');
+
+  .hero-toolbar {
+    a.brand {
+      color: #555;
+    }
+  }
+
+  .hero-text {
+    color: #333;
+    font-size: 46px;
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  select {
+    border-radius: 5px;
+    font-size: 32px;
+    background-color: white;
+  }
+  
+  $button-color: #333;
+  a.swap-my-vote {
+    display: inline-block;
+    color: white;
+    background-color: $button-color;
+    padding: 12px 24px 16px;
+    font-size: 32px;
+    border-radius: 12px;
+    border: 1px solid darken($button-color, 10%);
+    border-bottom-width: 2px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  p.small {
+    font-size: 18px;
+  }
+  
+  border-bottom: 1px solid #ccc;
+}
