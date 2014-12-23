@@ -1,7 +1,8 @@
-.hero
-  .hero-toolbar
-    %a.brand{:href => "/"} SwapMyVote
+.navbar
+  %a.brand{:href => "/"} SwapMyVote
   
+
+.hero
   .hero-text
     = form_for :user, url: user_path do |f|
       %p
@@ -12,7 +13,7 @@
         but the vote that will count the most where I live is
         = select :user, :willing_party_id, options_for_select(@parties.map {|p| [ p.name, p.id ]}), prompt: "..."
       %p
-        %button.swap-my-vote{:type => "submit"} Swap My Vote!
+        %button.button{:type => "submit"} Swap My Vote!
     %p.small
       We will match you with someone who will 
       cast your preferred vote in a different area where it will count for more.

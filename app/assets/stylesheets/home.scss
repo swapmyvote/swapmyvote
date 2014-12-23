@@ -4,6 +4,8 @@ $base-font-size: 18px;
 $base-line-height: 1.6;
 $computed-line-height: $base-line-height * $base-font-size;
 
+$border-color: #ddd;
+
 body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
@@ -12,6 +14,7 @@ body {
 }
 
 a {
+  color: rgb(78, 94, 255);
   text-decoration: none;
   &:hover {
     text-decoration: underline;
@@ -23,15 +26,9 @@ a {
   padding: 16px 32px;
   background-image: image-url('pattern.png');
 
-  .hero-toolbar {
-    a.brand {
-      color: #555;
-    }
-  }
-
   .hero-text {
     color: #333;
-    font-size: 46px;
+    font-size: 36px;
     max-width: 900px;
     margin: auto;
     text-align: center;
@@ -39,23 +36,8 @@ a {
   
   select {
     border-radius: 5px;
-    font-size: 32px;
+    font-size: 28px;
     background-color: white;
-  }
-  
-  $button-color: #333;
-  a.swap-my-vote {
-    display: inline-block;
-    color: white;
-    background-color: $button-color;
-    padding: 12px 24px 16px;
-    font-size: 32px;
-    border-radius: 12px;
-    border: 1px solid darken($button-color, 10%);
-    border-bottom-width: 2px;
-    &:hover {
-      text-decoration: none;
-    }
   }
   
   p.small {
@@ -63,4 +45,59 @@ a {
   }
   
   border-bottom: 1px solid #ccc;
+}
+
+.navbar {
+  padding: 16px 32px;
+  a.brand {
+    color: #555;
+  }
+  border-bottom: 1px solid $border-color;
+}
+
+.container {
+  max-width: 960px;
+  padding: 16px;
+  margin: auto;
+}
+
+.container-narrow {
+  max-width: 600px;
+}
+
+.background-pattern {
+  background-color: #e4e4e4;
+  background-image: image-url('pattern.png');
+}
+
+.border-bottom {
+  border-bottom: 1px solid $border-color;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.small {
+  font-size: $base-font-size * 0.8;
+}
+
+.button {
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 3px;
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.button-facebook {
+  background-color: #3B5998;
+  color: white;
+}
+.button-twitter {
+  background-color: #55ACEE;
+  color: white;
 }

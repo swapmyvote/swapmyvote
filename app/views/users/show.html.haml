@@ -1,14 +1,24 @@
-%p
-  - if @user.preferred_party
-    Your preferred party is 
-    %strong= @user.preferred_party.name
-  
-%p
-  - if @user.willing_party
-    but you are willing to vote tactically for
-    %strong= @user.willing_party.name
-    
-%p
-  - if @user.constituency
-    You are in
-    %strong= @user.constituency.name
+.navbar
+  %a.brand{href: root_path} SwapMyVote
+
+.background-pattern.border-bottom
+  .container
+    %p.text-center
+      Your preferred party is 
+      %strong= @user.preferred_party.name
+      but you are willing to vote tactically for&nbsp;
+      %strong> #{@user.willing_party.name}
+      \. You are in&nbsp;
+      %strong> #{@user.constituency.name}
+      \.
+    %p.small.text-center
+      %a{href: edit_user_path} (Update)
+      
+.container.container-narrow
+  %p.text-center
+    We're still looking for someone for you to swap your vote with.
+    Help us find more people by sharing SwapMyVote:
+  %p.text-center
+    %a.button.button-facebook(href="") Share on Facebook
+  %p.text-center
+    %a.button.button-twitter(href="") Share on Twitter
