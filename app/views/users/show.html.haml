@@ -7,3 +7,8 @@
   - if @user.willing_party
     but you are willing to vote tactically for
     %strong= @user.willing_party.name
+    
+%p
+  - if @user.constituency
+    You are in
+    %strong= @user.constituency.name

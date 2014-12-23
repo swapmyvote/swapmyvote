@@ -25,4 +25,12 @@ class ApplicationController < ActionController::Base
     session.delete(:return_to)
     return url
   end
+
+  def require_login
+    if !logged_in?
+      redirect_to facebook_login_path
+      return
+    end
+    @user = current_user
+  end
 end
