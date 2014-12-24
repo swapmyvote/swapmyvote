@@ -7,7 +7,7 @@ class User::ConstituenciesController < ApplicationController
   
   def update
     @user.update(user_params)
-    redirect_to user_path
+    redirect_to user_share_path
   end
   
 private

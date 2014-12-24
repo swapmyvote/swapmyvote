@@ -5,3 +5,18 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+require "active_record/fixtures"
+
+
+Party.create name: "Conservatives"
+Party.create name: "Green Party"
+Party.create name: "Labour"
+Party.create name: "Liberal Democrats"
+Party.create name: "SNP"
+Party.create name: "UKIP"
+
+for name in File.read("db/fixtures/constituencies.csv").split("\n")
+  Constituency.create name: name
+end

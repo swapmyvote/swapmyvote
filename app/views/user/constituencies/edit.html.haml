@@ -1,8 +1,9 @@
-.hero
-  .hero-text
-    = form_for @user, url: user_constituency_path do |f|
-      %p.text-center
-        My constituency is 
-        = select :user, :constituency_id, options_for_select(@constituencies.map {|c| [c.name, c.id]})
-      %p.text-center
-        = submit_tag("Save", class: "button")
+.background-pattern.border-bottom
+  .container
+    %p.text-center
+      = form_for @user, url: user_constituency_path do |f|
+        %p.text-center
+          My constituency is 
+          = select :user, :constituency_id, options_for_select(@constituencies.map {|c| [c.name, c.id]})
+        %p.text-center
+          = submit_tag("Save", class: "button")

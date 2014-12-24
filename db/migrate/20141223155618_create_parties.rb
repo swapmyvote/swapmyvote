@@ -5,11 +5,5 @@ class CreateParties < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    
-    Party.create name: "Greens"
-    Party.create name: "UKIP"
-    Party.create name: "Lib Dems"
-    Party.create name: "Labour"
-    Party.create name: "Conservatives"
   end
 end
