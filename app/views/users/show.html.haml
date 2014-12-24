@@ -1,15 +1,12 @@
-.navbar
-  %a.brand{href: root_path} SwapMyVote
-
 .background-pattern.border-bottom
   .container
     %p.text-center
       Your preferred party is 
-      %strong= @user.preferred_party.name
-      but you are willing to vote tactically for&nbsp;
-      %strong> #{@user.willing_party.name}
+      %strong= @user.preferred_party.try(:name) || "?"
+      but you are willing to vote for&nbsp;
+      %strong> #{@user.willing_party.try(:name) || "?"}
       \. You are in&nbsp;
-      %strong> #{@user.constituency.name}
+      %strong> #{@user.constituency.try(:name) || "?"}
       \.
     %p.small.text-center
       %a{href: edit_user_path} Not right? Update your info
@@ -20,7 +17,7 @@
     %span
       We're still looking for someone for you to swap your vote with.
   %p.text-center
-    Help us to find someone by sharing SwapMyVote:
+    Help us to find more people by sharing SwapMyVote:
   %p.text-center
     %a.button.button-facebook{href: "#", onclick: "shareOnFacebook('#{ENV['FACEBOOK_KEY']}', 'https://www.swapmyvote.co.uk'); return false"}
       %i.fa.fa-facebook.fa-fw

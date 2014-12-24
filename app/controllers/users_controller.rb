@@ -11,9 +11,8 @@ class UsersController < ApplicationController
   end
   
   def create
-    if @user.update(user_params)
-      redirect_to user_path
-    end
+    @user.update(user_params)
+    redirect_to user_path
   end
   
   def show
@@ -21,6 +20,16 @@ class UsersController < ApplicationController
       redirect_to edit_user_constituency_path
       return
     end
+  end
+  
+  def edit
+    @parties = Party.all
+    @constituencies = Constituency.all
+  end
+  
+  def update
+    @user.update(user_params)
+    redirect_to user_path
   end
   
 private
@@ -34,6 +43,6 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:preferred_party_id, :willing_party_id)
+    params.require(:user).permit(:preferred_party_id, :willing_party_id, :constituency_id)
   end
 end

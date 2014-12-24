@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Swapmyvote</title>
+  <title>SwapMyVote</title>
   
   <!-- Facebook meta tags -->
   <meta property="og:title" content="SwapMyVote - Make your vote count" />
@@ -16,6 +16,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  
+<div class="navbar">
+  <%= link_to "SwapMyVote", root_path, class: "brand" %>
+</div>
+
 
 <%= yield %>
 

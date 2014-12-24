@@ -21,6 +21,14 @@ a {
   }
 }
 
+
+
+select {
+  border-radius: 5px;
+  font-size: 0.9em;
+  background-color: white;
+}
+
 .hero {
   background-color: #e4e4e4;
   padding: 16px 32px;
@@ -32,12 +40,6 @@ a {
     max-width: 900px;
     margin: auto;
     text-align: center;
-  }
-  
-  select {
-    border-radius: 5px;
-    font-size: 28px;
-    background-color: white;
   }
   
   p.small {
@@ -86,8 +88,8 @@ a {
   display: inline-block;
   padding: 16px 32px;
   border-radius: 3px;
-  background-color: #ccc;
-  color: #333;
+  background-color: #F9822E;
+  color: white;
   border: none;
   font-size: 1rem;
   cursor: pointer;

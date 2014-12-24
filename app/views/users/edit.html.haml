@@ -1,0 +1,18 @@
+.background-pattern.border-bottom
+  .container.container-narrow
+    = form_for @user, url: user_path do |f|
+      %p
+        My preferred party is 
+        = f.collection_select :preferred_party_id, @parties, :id, :name, prompt: "...", :selected => @user.preferred_party_id
+        ,
+      %p
+        but the vote that will count the most where I live is
+        = f.collection_select :willing_party_id, @parties, :id, :name, prompt: "...", :selected => @user.willing_party_id
+        \.
+      %p
+        My constituency is 
+        = f.collection_select :constituency_id, @constituencies, :id, :name, prompt: "...", :selected => @user.constituency_id
+        \.
+      %p.text-center
+        = submit_tag("Save", class: "button")
+      

@@ -1,4 +1,5 @@
-%p Saving...
+.container
+  %p.text-center Saving...
 
 = form_for :user, url: user_path do |f|
   = hidden_field :user, :preferred_party_id, value: @user_params["preferred_party_id"]

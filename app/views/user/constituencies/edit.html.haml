@@ -1,3 +1,8 @@
-= form_for @user, url: user_constituency_path do |f|
-  = select :user, :constituency_id, options_for_select(@constituencies.map {|c| [c.name, c.id]})
-  = submit_tag
+.hero
+  .hero-text
+    = form_for @user, url: user_constituency_path do |f|
+      %p.text-center
+        My constituency is 
+        = select :user, :constituency_id, options_for_select(@constituencies.map {|c| [c.name, c.id]})
+      %p.text-center
+        = submit_tag("Save", class: "button")
