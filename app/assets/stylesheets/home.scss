@@ -1,10 +1,6 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans");
 
-$base-font-size: 18px;
-$base-line-height: 1.6;
-$computed-line-height: $base-line-height * $base-font-size;
-
-$border-color: #ddd;
+@import "_variables";
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -21,7 +17,9 @@ a {
   }
 }
 
-
+p {
+  margin: 12px 0;
+}
 
 select {
   border-radius: 5px;
@@ -31,7 +29,7 @@ select {
 
 .hero {
   background-color: #e4e4e4;
-  padding: 16px 32px;
+  padding: 32px 32px;
   background-image: image-url('pattern.png');
 
   .hero-text {
@@ -44,6 +42,10 @@ select {
   
   p.small {
     font-size: 18px;
+  }
+  
+  a {
+    margin: 32px 0;
   }
   
   border-bottom: 1px solid #ccc;
@@ -84,25 +86,8 @@ select {
   font-size: $base-font-size * 0.8;
 }
 
-.button {
-  display: inline-block;
-  padding: 16px 32px;
-  border-radius: 3px;
-  background-color: #F9822E;
-  color: white;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  margin: 6px;
-}
-
-.button-facebook {
-  background-color: #3B5998;
-  color: white;
-}
-.button-twitter {
-  background-color: #55ACEE;
-  color: white;
+.subdued {
+  color: #999;
 }
 
 .searching-for-swap {

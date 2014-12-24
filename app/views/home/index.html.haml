@@ -4,13 +4,24 @@
       %p
         My preferred party is 
         = select :user, :preferred_party_id, options_for_select(@parties.map {|p| [ p.name, p.id ]}), prompt: "..."
-        ,
       %p
-        but the vote that will count the most where I live is
+        but I'm willing to vote for
         = select :user, :willing_party_id, options_for_select(@parties.map {|p| [ p.name, p.id ]}), prompt: "..."
       %p
-        %button.button{:type => "submit"} Swap My Vote!
-    %p.small
+        %a.button.button-large{onclick: "$('.login-modal').show()"} Swap My Vote!
+      
+      .modal.login-modal{style: "display: none;"}
+        .modal-dialog
+          %p.text-center
+            %button.button.button-facebook{type: "submit", name: "log_in_with", value: "facebook"}
+              %i.fa.fa-fw.fa-facebook
+              Log in with Facebook
+          %p.small.subdued &#8212; or &#8212;
+          %p.text-center
+            %button.button.button-twitter{type: "submit", name: "log_in_with", value: "twitter"}
+              %i.fa.fa-fw.fa-twitter
+              Log in with Twitter
+    %p.small.subdued
       We will match you with someone who will 
       cast your preferred vote in a different area where it will count for more.
       In return, you will cast their preferred vote in your area.

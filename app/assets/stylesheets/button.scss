@@ -1,0 +1,40 @@
+@import "_variables";
+
+.button {
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 3px;
+  background-color: $button-color;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 6px;
+  &:hover {
+    background-color: darken($button-color, 10%);
+    text-decoration: none;
+  }
+}
+
+.button-large {
+  font-size: 1.4rem;
+  padding: 18px 36px;
+}
+
+$facebook-color: #3B5998;
+.button-facebook {
+  background-color: $facebook-color;
+  color: white;
+  &:hover {
+    background-color: darken($facebook-color, 10%);
+  }
+}
+
+$twitter-color: #55ACEE;
+.button-twitter {
+  background-color: $twitter-color;
+  color: white;
+  &:hover {
+    background-color: darken($twitter-color, 10%);
+  }
+}
