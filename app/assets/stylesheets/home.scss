@@ -57,6 +57,28 @@ select {
     color: #555;
   }
   border-bottom: 1px solid $border-color;
+  
+  .user {
+    display: inline-block;
+    float: right;
+    position: relative;
+    padding-left: 42px;
+    img {
+      height: 32px;
+      width: 32px;
+      border: 1px solid $border-color;
+      border-radius: 3px;
+      position: absolute;
+      left: 0;
+      top: -4px;;
+    }
+    a.logout {
+      padding-left: 12px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-top: -3px;
+    }
+  }
 }
 
 .container {

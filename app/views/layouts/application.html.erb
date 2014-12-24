@@ -19,6 +19,18 @@
   
 <div class="navbar">
   <%= link_to "SwapMyVote", root_path, class: "brand" %>
+  
+  <% if logged_in? %>
+    <span class="user">
+      <img src="<%= current_user.image %>" />
+      <span class="name">
+        <%= current_user.name %>
+      </span>
+      <%= link_to "Log out", logout_url, class: "small subdued logout" %>
+    </span>
+    
+    
+  <% end %>
 </div>
 
 

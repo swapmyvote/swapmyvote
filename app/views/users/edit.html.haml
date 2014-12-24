@@ -6,7 +6,7 @@
         = f.collection_select :preferred_party_id, @parties, :id, :name, prompt: "...", :selected => @user.preferred_party_id
         ,
       %p
-        but the vote that will count the most where I live is
+        but I'm willing to vote for
         = f.collection_select :willing_party_id, @parties, :id, :name, prompt: "...", :selected => @user.willing_party_id
         \.
       %p
