@@ -115,6 +115,7 @@ GEM
       multi_json (~> 1.3)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
+    pg (0.17.1)
     rack (1.6.0)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -197,6 +198,7 @@ DEPENDENCIES
   jquery-rails
   normalize-rails
   omniauth-facebook
+  pg
   rails (= 4.2.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
