@@ -2,6 +2,15 @@
 <html>
 <head>
   <title>Swapmyvote</title>
+  
+  <!-- Facebook meta tags -->
+  <meta property="og:title" content="SwapMyVote - Make your vote count" />
+  <meta property="og:site_name" content="SwapMyVote" />
+  <meta property="fb:app_id" content="#{ENV['FACEBOOK_KEY']}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="SwapMyVote helps to make sure that your vote in the 2015 General Election counts. Find someone in another constituency to swap your vote with, so that you can cast your preferred vote where it will count. Vote swapping (or pairing) is common between individuals, but by making use of the internet we get better representation for everyone, all across the country." />
+  
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>

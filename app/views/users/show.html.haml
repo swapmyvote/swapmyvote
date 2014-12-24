@@ -12,13 +12,19 @@
       %strong> #{@user.constituency.name}
       \.
     %p.small.text-center
-      %a{href: edit_user_path} (Update)
+      %a{href: edit_user_path} Not right? Update your info
       
 .container.container-narrow
+  %p.searching-for-swap
+    %i.fa.fa-2x.fa-search
+    %span
+      We're still looking for someone for you to swap your vote with.
   %p.text-center
-    We're still looking for someone for you to swap your vote with.
-    Help us find more people by sharing SwapMyVote:
+    Help us to find someone by sharing SwapMyVote:
   %p.text-center
-    %a.button.button-facebook(href="") Share on Facebook
-  %p.text-center
-    %a.button.button-twitter(href="") Share on Twitter
+    %a.button.button-facebook{href: "#", onclick: "shareOnFacebook('#{ENV['FACEBOOK_KEY']}', 'https://www.swapmyvote.co.uk'); return false"}
+      %i.fa.fa-facebook.fa-fw
+      Share on Facebook
+    %a.button.button-twitter(href="")
+      %i.fa.fa-twitter.fa-fw
+      Share on Twitter

@@ -91,6 +91,7 @@ a {
   border: none;
   font-size: 1rem;
   cursor: pointer;
+  margin: 6px;
 }
 
 .button-facebook {
@@ -100,4 +101,45 @@ a {
 .button-twitter {
   background-color: #55ACEE;
   color: white;
+}
+
+.searching-for-swap {
+  position: relative;
+  i {
+    position: absolute;
+    top: -3px;
+    left: 0;
+    color: #aaa;
+    -webkit-animation: oscillate 2s linear infinite; /* Chrome, Safari 5 */
+       -moz-animation: oscillate 2s linear infinite; /* Firefox 5-15 */
+         -o-animation: oscillate 2s linear infinite; /* Opera 12+ */
+            animation: oscillate 2s linear infinite;
+  }
+  
+  
+  span {
+    display: inline-block;
+    margin-left: 50px;
+  }
+}
+
+$oscillation-size: 3px;
+@-webkit-keyframes oscillate {
+	from { 	-webkit-transform: rotate(0deg) translateX($oscillation-size) rotate(0deg); }
+	to   {  -webkit-transform: rotate(360deg) translateX($oscillation-size) rotate(-360deg); }
+}
+
+@-moz-keyframes oscillate {
+	from { 	-moz-transform: rotate(0deg) translateX($oscillation-size) rotate(0deg); }
+	to   {  -moz-transform: rotate(360deg) translateX($oscillation-size) rotate(-360deg); }
+}
+
+@-o-keyframes oscillate {
+	from { 	-o-transform: rotate(0deg) translateX($oscillation-size) rotate(0deg); }
+	to   {  -o-transform: rotate(360deg) translateX($oscillation-size) rotate(-360deg); }
+}
+
+@keyframes oscillate {
+	from { 	transform: rotate(0deg) translateX($oscillation-size) rotate(0deg); }
+	to   {  transform: rotate(360deg) translateX($oscillation-size) rotate(-360deg); }
 }
