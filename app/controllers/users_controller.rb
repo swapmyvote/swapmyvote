@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
   
   def show
-    if !@user.constituency
+    if !@user.constituency or !@user.email
       redirect_to edit_user_constituency_path
       return
     end

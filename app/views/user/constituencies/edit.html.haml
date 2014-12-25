@@ -1,9 +1,13 @@
 .background-pattern.border-bottom
-  .container
-    %p.text-center
-      = form_for @user, url: user_constituency_path do |f|
-        %p.text-center
-          My constituency is 
-          = select :user, :constituency_id, options_for_select(@constituencies.map {|c| [c.name, c.id]})
-        %p.text-center
-          = submit_tag("Save", class: "button")
+  .container.container-narrow
+    = form_for @user, url: user_constituency_path do |f|
+      - if !@user.email
+        %p
+          My email address is
+          = f.text_field :email, placeholder: "me@example.com", autofocus: true
+          .subdued.small We only need your email to let you know when we've found a swap partner for you. No spam, and you're details will stay private with us.
+      %p
+        My constituency is 
+        = f.collection_select :constituency_id, @constituencies, :id, :name, :selected => @user.constituency_id
+      %p.text-center
+        = submit_tag("Save", class: "button")

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
       user.name = auth.info.name
       user.image = auth.info.image
+      user.email = auth.info.email
       user.token = auth.credentials.token
       if auth.credentials.expires_at
         user.expires_at = Time.at(auth.credentials.expires_at)

@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20141223174349) do
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
+    t.string   "email"
     t.string   "image"
     t.string   "token"
     t.datetime "expires_at"
