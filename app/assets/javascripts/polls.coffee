@@ -1,6 +1,16 @@
-google.load("visualization", "1", {packages:["corechart"]})
+charts = []
+window.drawPollChart = (args...) ->
+  charts.push args
 
-window.drawPollChart = (selector, poll_data) ->
+_drawCharts = () ->
+  for chart in charts
+    _drawPollChart(chart...)
+  window.drawPollChart = _drawPollChart
+  
+google.load("visualization", "1", {packages:["corechart"]})
+google.setOnLoadCallback(_drawCharts)
+  
+_drawPollChart = (selector, poll_data) ->
   data = google.visualization.arrayToDataTable([
     ['Party', 'Votes', { role: "style" }]
   ].concat(poll_data))
