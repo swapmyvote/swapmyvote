@@ -11,8 +11,8 @@ class CreateUsers < ActiveRecord::Migration
 
       t.integer :preferred_party_id
       t.integer :willing_party_id
-      
       t.integer :constituency_id
+      t.integer :swap_id
       
       t.timestamps null: false
     end

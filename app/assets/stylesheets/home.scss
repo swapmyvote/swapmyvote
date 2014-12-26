@@ -112,6 +112,10 @@ input[type=text] {
   text-align: center;
 }
 
+.text-error {
+  color: red;
+}
+
 .small {
   font-size: $base-font-size * 0.8;
 }

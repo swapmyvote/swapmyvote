@@ -29,11 +29,16 @@
       </span>
       <%= link_to "Log out", logout_url, class: "small subdued logout" %>
     </span>
-    
-    
   <% end %>
 </div>
 
+<% if flash[:errors] %>
+  <div class="error border-bottom">
+  <% for error in flash[:errors] %>
+    <p class="text-error text-center"><%= error %></p>
+  <% end %>
+  </div>
+<% end %>
 
 <%= yield %>
 
