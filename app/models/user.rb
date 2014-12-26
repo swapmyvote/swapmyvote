@@ -15,4 +15,24 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
+  
+  def is_in_demand
+    my_group_size = User.where(
+      preferred_party_id: self.preferred_party_id,
+      willing_party_id: self.willing_party_id
+    ).count
+    swap_group_size = User.where(
+      preferred_party_id: self.willing_party_id,
+      willing_party_id: self.preferred_party_id
+    ).count
+    print "My group: #{my_group_size}, #{swap_group_size}\n"
+    return my_group_size < swap_group_size
+  end
+  
+  def potential_swaps(count)
+    User.where(
+      preferred_party_id: self.willing_party_id,
+      willing_party_id: self.preferred_party_id
+    ).limit(count)
+  end
 end

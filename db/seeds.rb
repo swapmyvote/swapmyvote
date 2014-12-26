@@ -10,13 +10,13 @@
 require "active_record/fixtures"
 
 
-Party.create name: "Conservatives"
-Party.create name: "Green Party"
-Party.create name: "Labour"
-Party.create name: "Liberal Democrats"
-Party.create name: "SNP"
-Party.create name: "UKIP"
+Party.find_or_create_by name: "Conservatives"
+Party.find_or_create_by name: "Green Party"
+Party.find_or_create_by name: "Labour"
+Party.find_or_create_by name: "Liberal Democrats"
+Party.find_or_create_by name: "SNP"
+Party.find_or_create_by name: "UKIP"
 
 for name in File.read("db/fixtures/constituencies.csv").split("\n")
-  Constituency.create name: name
+  Constituency.find_or_create_by name: name
 end

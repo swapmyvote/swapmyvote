@@ -1,0 +1,40 @@
+@import "_variables";
+
+.profile {
+  position: relative;
+  min-height: 64px;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  }
+  .profile-img {
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    top: 14px;
+  }
+  .profile-content {
+    padding-right: 6px;
+    padding-left: 76px;
+    width: 60%;
+    float: left;
+    box-sizing: border-box;
+  }
+  .profile-votes {
+    margin-top: 12px;
+  }
+  .profile-poll {
+    width: 40%;
+    float: right;
+    height: 100%;
+    padding: 0 6px;
+    border-left: 1px solid $border-color;
+    box-sizing: border-box;
+  }
+  &:after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+}

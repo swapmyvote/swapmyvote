@@ -1,0 +1,56 @@
+.background-pattern
+  .container.container-narrow
+    %p.text-center
+      Who would you like to swap your vote with?
+    %p.text-center.small.subdued
+      Consider their constituency to make your vote count for the most!
+    .spacer
+    %p
+      - for swap in @user.potential_swaps(3)
+        .card.profile
+          %img.profile-img{src: swap.image}
+          .profile-content
+            .profile-name= swap.name
+            .profile-constituency.subdued
+              in #{swap.constituency.name}
+            .profile-votes
+              Will vote
+              %strong= @user.preferred_party.name
+              if you vote
+              %strong= @user.willing_party.name
+          .profile-poll
+            .text-center.small
+              Polls in #{swap.constituency.name}
+            #chart_div
+          
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Party', 'Votes', { role: "style" }],
+      ['Green',  1000, "green"],
+      ['Labour',  1170, "yellow"],
+      ['Conservatives',  660, "blue"]
+    ]);
+
+    var options = {
+      hAxis: { textPosition: 'none' },
+      vAxis: { textPosition: 'none', gridlines: { color: 'transparent' }, viewWindow: {min: 0, max: 1170} },
+      legend: { position: "none" },
+      bar: { groupWidth: '90%' },
+      'chartArea': {'width': '60%', 'height': '80%'},
+      height: 120,
+      tooltip: {
+        textStyle: {
+          fontSize: 12,
+          fontName: "Open Sans"
+        }
+      }
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+    chart.draw(data, options);
+
+  }

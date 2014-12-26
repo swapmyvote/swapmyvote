@@ -120,6 +120,19 @@ input[type=text] {
   color: #999;
 }
 
+.card {
+  border-radius: 6px;
+  border: 1px solid darken($border-color, 10%);
+  padding: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 16px;
+  background-color: white;
+}
+
+.spacer {
+  height: 12px;
+}
+
 .searching-for-swap {
   position: relative;
   i {

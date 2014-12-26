@@ -20,6 +20,11 @@ class UsersController < ApplicationController
       redirect_to edit_user_constituency_path
       return
     end
+    if @user.is_in_demand
+      render "choose_swap"
+    else
+      render "show"
+    end
   end
   
   def edit
