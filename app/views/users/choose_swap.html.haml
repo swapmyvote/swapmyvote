@@ -1,3 +1,43 @@
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  function drawPollChart(selector, poll_data) {
+    var data = google.visualization.arrayToDataTable([
+      ['Party', 'Votes', { role: "style" }]
+    ].concat(poll_data));
+    
+    max = Math.max(poll_data.map(function(d) { return d[1] }));
+
+    var options = {
+      hAxis: { textPosition: 'none' },
+      vAxis: {
+        textPosition: 'none',
+        gridlines: {
+          color: 'transparent'
+        },
+        viewWindow: {
+          min: 0, max: max
+        }
+      },
+      legend: { position: "none" },
+      bar: { groupWidth: '90%' },
+      chartArea: {
+        width: '60%',
+        height: '80%'
+      },
+      height: 120,
+      tooltip: {
+        textStyle: {
+          fontSize: 12,
+          fontName: "Open Sans"
+        }
+      }
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById(selector));
+
+    chart.draw(data, options);
+  }
+
 .background-pattern
   .container.container-narrow
     %p.text-center
@@ -21,36 +61,7 @@
           .profile-poll
             .text-center.small
               Polls in #{swap.constituency.name}
-            #chart_div
+            %div{id: "poll_#{swap.id}"}
+            :javascript
+              drawPollChart("poll_#{swap.id}", #{poll_data_for(swap.constituency)});
           
-:javascript
-  google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Party', 'Votes', { role: "style" }],
-      ['Green',  1000, "green"],
-      ['Labour',  1170, "yellow"],
-      ['Conservatives',  660, "blue"]
-    ]);
-
-    var options = {
-      hAxis: { textPosition: 'none' },
-      vAxis: { textPosition: 'none', gridlines: { color: 'transparent' }, viewWindow: {min: 0, max: 1170} },
-      legend: { position: "none" },
-      bar: { groupWidth: '90%' },
-      'chartArea': {'width': '60%', 'height': '80%'},
-      height: 120,
-      tooltip: {
-        textStyle: {
-          fontSize: 12,
-          fontName: "Open Sans"
-        }
-      }
-    };
-
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-
-    chart.draw(data, options);
-
-  }

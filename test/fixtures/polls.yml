@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  constituency_id: 1
+  party_id: 1
+  votes: 1
+
+two:
+  constituency_id: 1
+  party_id: 1
+  votes: 1
