@@ -1,0 +1,11 @@
+.background-pattern.border-bottom
+  .container.container-narrow
+    %p.text-center
+      Who would you like to swap your vote with?
+    %p.text-center.small.subdued
+      Consider their constituency to make your vote count for the most!
+    .spacer
+    - for swap in @user.potential_swaps(3)
+      = link_to new_user_swap_path(user_id: swap.id), class: "card profile" do
+        = render partial: "swap_profile", object: swap, as: "other_user"
+          

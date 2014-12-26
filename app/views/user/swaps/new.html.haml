@@ -1,0 +1,12 @@
+.background-pattern.border-bottom
+  .container.container-narrow
+    .card.profile
+      = render partial: "swap_profile", object: @swap_with, as: "other_user"
+    %p.text-center
+      Are you sure you would like to swap your vote with #{@swap_with.name}?
+    %p.text-center
+      = link_to "Yes", user_swap_path(user_id: @swap_with.id), method: :post, class: "button"
+    %p.text-center.small.subdued
+      We'll send #{@swap_with.name} a confirmation email, and if they agree,
+      you're all good to go! Democracy here we come.
+      

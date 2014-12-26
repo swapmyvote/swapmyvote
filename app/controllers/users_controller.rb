@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       return
     end
     if @user.is_in_demand
-      render "choose_swap"
+      redirect_to user_swap_path
     else
       render "show"
     end

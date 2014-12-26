@@ -1,12 +1,10 @@
 @import "_variables";
 
 .profile {
+  color: inherit;
+  display: block;
   position: relative;
   min-height: 64px;
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-  }
   .profile-img {
     border-radius: 50%;
     width: 64px;
@@ -36,5 +34,11 @@
     content: "";
     clear: both;
     display: block;
+  }
+}
+
+a.profile {
+  &:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   }
 }
