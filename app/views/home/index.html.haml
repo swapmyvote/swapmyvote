@@ -8,10 +8,11 @@
         but I'm willing to vote for
         = select :user, :willing_party_id, options_for_select(@parties.map {|p| [ p.name, p.id ]}), prompt: "..."
       %p
-        %a.button.button-large{onclick: "$('.login-modal').show()"} Swap My Vote!
+        %a.button.button-large{onclick: "showModal($('.js-login-modal')); return false", href: "#"} Swap My Vote!
       
-      .modal.login-modal{style: "display: none;"}
+      .modal.js-login-modal{style: "display: none;"}
         .modal-dialog
+          %i.fa.fa-times.subdued.modal-close
           %p.text-center
             %button.button.button-facebook{type: "submit", name: "log_in_with", value: "facebook"}
               %i.fa.fa-fw.fa-facebook

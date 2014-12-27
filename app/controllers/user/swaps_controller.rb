@@ -3,6 +3,10 @@ class User::SwapsController < ApplicationController
   before_action :assert_incoming_swap_exists, :only => [:update, :destroy]
 
   def show
+    if @user.is_swapped?
+      redirect_to user_path
+      return
+    end
     @potential_swaps = @user.potential_swaps.limit(5)
   end
   

@@ -1,9 +1,13 @@
 @import "_variables";
 
+$modal-width: 650px;
+$modal-margin: 12px;
+
 .modal {
   .modal-close {
     float: right;
     margin-top: 12px;
+    margin-left: 12px;
     cursor: pointer;
   }
   
@@ -17,16 +21,27 @@
   .modal-dialog {
     padding: 6px 24px;
     box-sizing: border-box;
-    width: 650px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-left: -325px;
-    margin-top: -120px;
     border-radius: 5px;
     background-color: white;
     border: 1px solid $border-color;
     z-index: 20;
     box-shadow: 0 0 5px rgba(0,0,0,0.6);
+    
+    @media screen and (min-width: $modal-width + 2 * $modal-margin) {
+      width: $modal-width;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin-left: -325px;
+      margin-top: -160px;
+    }
+    
+    @media screen and (max-width: $modal-width + 2 * $modal-margin) {
+      position: fixed;
+      margin-top: -160px;
+      top: 50%;
+      left: $modal-margin;
+      right: $modal-margin;
+    }
   }
 }

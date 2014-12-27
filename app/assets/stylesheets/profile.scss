@@ -1,5 +1,7 @@
 @import "_variables";
 
+$profile-small-size: 650px;
+
 .profile {
   color: inherit;
   display: block;
@@ -15,20 +17,29 @@
   .profile-content {
     padding-right: 6px;
     padding-left: 76px;
-    width: 60%;
-    float: left;
     box-sizing: border-box;
+    @media screen and (min-width: $profile-small-size) {
+      width: 60%;
+      float: left;
+    }
   }
   .profile-votes {
     margin-top: 12px;
   }
   .profile-poll {
-    width: 40%;
-    float: right;
     height: 100%;
-    padding: 0 6px;
-    border-left: 1px solid $border-color;
     box-sizing: border-box;
+    @media screen and (min-width: $profile-small-size) {
+      width: 40%;
+      float: right;
+      border-left: 1px solid $border-color;
+      padding-left: 6px
+    }
+    @media screen and (max-width: $profile-small-size) {
+      border-top: 1px solid $border-color;
+      padding-top: 12px;
+      margin-top: 12px;
+    }
   }
   &:after {
     content: "";
@@ -40,5 +51,6 @@
 a.profile {
   &:hover {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
   }
 }

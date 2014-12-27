@@ -42,10 +42,12 @@ input[type=text] {
 
   .hero-text {
     color: #333;
-    font-size: 36px;
     max-width: 900px;
     margin: auto;
     text-align: center;
+    p {
+      font-size: 36px;
+    }
   }
   
   p.small {
