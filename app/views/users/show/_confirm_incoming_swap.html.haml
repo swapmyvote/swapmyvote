@@ -11,8 +11,15 @@
 %p.text-center
   = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"), method: "put", class: "button"
   &nbsp;
-  = link_to "No thanks", "#", class: "small subdued"
-  
-%p.subdued.small.text-center
-  (Some voting preferences are in high demand, and we can't be sure that we'll 
-  find anyone else to swap with if you turn down #{@user.swapped_with.name})
+  = link_to "No thanks", "#", class: "small subdued", onclick: "showModal($('.js-reject-modal')); return false"
+
+.modal.js-reject-modal{style: "display: none"}
+  .modal-dialog
+    %i.fa.fa-times.subdued.modal-close
+    %p.text-center
+      Are you sure you want to reject #{@user.swapped_with.name}?
+    %p.subdued.small.text-center
+      Some voting preferences are in high demand, and we can't be sure that we'll 
+      find anyone else to swap with if you turn down #{@user.swapped_with.name}
+    %p.text-center
+      = link_to "Reject", user_swap_path, method: "delete", class: "button"

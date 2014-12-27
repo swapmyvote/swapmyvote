@@ -1,8 +1,13 @@
 @import "_variables";
 
 .modal {
-  &:before{
-    content: ""; 
+  .modal-close {
+    float: right;
+    margin-top: 12px;
+    cursor: pointer;
+  }
+  
+  .modal-backdrop {
     background: rgba(0,0,0,.5);
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0; 
@@ -10,6 +15,8 @@
   }
   
   .modal-dialog {
+    padding: 6px 24px;
+    box-sizing: border-box;
     width: 650px;
     position: fixed;
     top: 50%;

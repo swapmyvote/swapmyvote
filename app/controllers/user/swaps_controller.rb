@@ -1,5 +1,6 @@
 class User::SwapsController < ApplicationController
   before_action :require_login
+  before_action :assert_incoming_swap_exists, :only => [:update, :destroy]
 
   def show
     @potential_swaps = @user.potential_swaps.limit(5)
@@ -18,18 +19,24 @@ class User::SwapsController < ApplicationController
   end
   
   def update
-    if !@user.incoming_swap
-      flash[:errors] = "You don't have a swap!"
-      redirect_to user_path
-      return
-    end
     confirmed = (swap_params[:confirmed] == "true")
-    print "CONFIRMED", confirmed
     @user.incoming_swap.update(confirmed: confirmed)    
     redirect_to user_path  
   end
   
+  def destroy
+    @user.incoming_swap.destroy
+    redirect_to user_path
+  end
+  
 private
+  def assert_incoming_swap_exists
+    if !@user.incoming_swap
+      flash[:errors] = "You don't have a swap!"
+      redirect_to user_path
+    end
+  end
+
   def swap_params
     params.require(:swap).permit(:confirmed)
   end
