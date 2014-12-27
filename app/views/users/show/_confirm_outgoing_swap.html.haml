@@ -1,0 +1,10 @@
+%h3.text-center
+  You've swapped your vote with #{@user.swapped_with.name}!
+
+%p
+  .card.profile
+    = render partial: "user/swaps/swap_profile", object: @user.swapped_with, as: "other_user"
+
+%p.text-center
+  %i.fa.fa-fw.fa-spin.fa-spinner
+  We're just waiting for #{@user.swapped_with.name} to confirm the swap!

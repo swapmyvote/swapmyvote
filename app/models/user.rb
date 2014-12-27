@@ -65,4 +65,12 @@ class User < ActiveRecord::Base
   def is_swapped?
     return !!self.swapped_with
   end
+  
+  def swap
+    self.incoming_swap || self.outgoing_swap
+  end
+  
+  def swap_confirmed?
+    self.swap.try(:confirmed)
+  end
 end
