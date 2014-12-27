@@ -1,12 +1,12 @@
-$ () ->
+$(document).on "page:change", () -> # Turbolinks event rather than .ready()
   for modal in $(".modal")
     backdrop = $("<div class='modal-backdrop'></div>")
     $(modal).prepend(backdrop)
     $(modal).find(".modal-close").on "click", (e) ->
-      $(modal).hide()
+      $(".modal").hide()
       e.preventDefault()
     backdrop.on "click", () ->
-      $(modal).hide()
+      $(".modal").hide()
       
 window.showModal = (element) ->
   element.show()

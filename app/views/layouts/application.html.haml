@@ -1,0 +1,45 @@
+!!!
+%html
+  %head
+    %title SwapMyVote
+    %meta{:content => "SwapMyVote", :property => "og:site_name"}/
+    %meta{:content => "\#{ENV['FACEBOOK_KEY']}", :property => "fb:app_id"}/
+    %meta{:content => "website", :property => "og:type"}/
+    %meta{:content => "SwapMyVote helps to make sure that your vote in the 2015 General Election counts. Find someone in another constituency to swap your vote with, so that you can cast your preferred vote where it will count. Vote swapping (or pairing) is common between individuals, but by making use of the internet we get better representation for everyone, all across the country.", :property => "og:description"}/
+    %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", :rel => "stylesheet"}/
+    %script{:src => "https://www.google.com/jsapi", :type => "text/javascript"}
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .navbar
+      = link_to "SwapMyVote", root_path, class: "brand"
+      
+      - if logged_in?
+        %span.user
+          %img{:src => current_user.image}/
+          %span.name
+            = current_user.name
+          = link_to "Log out", logout_url, class: "small subdued logout"
+      - else
+        %span.user
+          = link_to "Already been here? Log in", "#", class: "small subdued logout", onclick: "showModal($('.js-login-modal')); return false"
+        .modal.js-login-modal{style: "display: none;"}
+          .modal-dialog
+            %i.fa.fa-times.subdued.modal-close
+            %p.text-center
+              = link_to facebook_login_path, class: "button button-facebook" do
+                %i.fa.fa-fw.fa-facebook
+                Log in with Facebook
+            %p.text-center.subdued &#8212; or &#8212;
+            %p.text-center
+              = link_to twitter_login_path, class: "button button-twitter" do
+                %i.fa.fa-fw.fa-twitter
+                Log in with Twitter
+
+    - if flash[:errors]
+      .error.border-bottom
+        - for error in flash[:errors]
+          %p.text-error.text-center= error
+
+    = yield

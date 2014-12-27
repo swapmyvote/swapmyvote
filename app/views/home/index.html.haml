@@ -14,6 +14,11 @@
       %p
         %a.button.button-large{onclick: "submit(); return false", href: "#"} Swap My Vote!
 
+      %p.small.subdued
+        We will match you with someone who will 
+        cast your preferred vote in a different area where it will count for more.
+        In return, you will cast their preferred vote in your area.
+
       :javascript
         function submit() {
           preferred_party_id = $("select[name='user[preferred_party_id]']").val();
@@ -46,7 +51,3 @@
       %p.text-center
         %a.button.modal-close{href: "#"} OK
 
-%p.small.subdued
-  We will match you with someone who will 
-  cast your preferred vote in a different area where it will count for more.
-  In return, you will cast their preferred vote in your area.
