@@ -4,10 +4,11 @@ $modal-width: 650px;
 $modal-margin: 12px;
 
 .modal {
-  .modal-close {
-    float: right;
-    margin-top: 12px;
-    margin-left: 12px;
+  font-size: $base-font-size;
+  i.modal-close {
+    position: absolute;
+    top: 6px;
+    right: 6px;
     cursor: pointer;
   }
   

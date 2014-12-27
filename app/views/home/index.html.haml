@@ -1,28 +1,52 @@
-.hero
-  .hero-text
-    = form_for :user, url: user_path do |f|
+= form_for :user, url: user_path do |f|
+  .hero
+    .hero-text
       %p
         My preferred party is 
-        = select :user, :preferred_party_id, options_for_select(@parties.map {|p| [ p.name, p.id ]}), prompt: "..."
+        = select :user, :preferred_party_id do
+          %option{disabled: true, selected: true} ...
+          = options_for_select(@parties.map {|p| [ p.name, p.id ]})
       %p
         but I'm willing to vote for
-        = select :user, :willing_party_id, options_for_select(@parties.map {|p| [ p.name, p.id ]}), prompt: "..."
+        = select :user, :willing_party_id do
+          %option{disabled: true, selected: true} ...
+          = options_for_select(@parties.map {|p| [ p.name, p.id ]})
       %p
-        %a.button.button-large{onclick: "showModal($('.js-login-modal')); return false", href: "#"} Swap My Vote!
-      
-      .modal.js-login-modal{style: "display: none;"}
-        .modal-dialog
-          %i.fa.fa-times.subdued.modal-close
-          %p.text-center
-            %button.button.button-facebook{type: "submit", name: "log_in_with", value: "facebook"}
-              %i.fa.fa-fw.fa-facebook
-              Log in with Facebook
-          %p.small.subdued &#8212; or &#8212;
-          %p.text-center
-            %button.button.button-twitter{type: "submit", name: "log_in_with", value: "twitter"}
-              %i.fa.fa-fw.fa-twitter
-              Log in with Twitter
-    %p.small.subdued
-      We will match you with someone who will 
-      cast your preferred vote in a different area where it will count for more.
-      In return, you will cast their preferred vote in your area.
+        %a.button.button-large{onclick: "submit(); return false", href: "#"} Swap My Vote!
+
+      :javascript
+        function submit() {
+          preferred_party_id = $("select[name='user[preferred_party_id]']").val();
+          willing_party_id = $("select[name='user[willing_party_id]']").val();
+          if (preferred_party_id !== null && willing_party_id !== null) {
+            showModal($('.js-submit-modal'));
+          } else {
+            showModal($('.js-error-modal'));
+          }
+        }
+
+  .modal.js-submit-modal{style: "display: none;"}
+    .modal-dialog
+      %i.fa.fa-times.subdued.modal-close
+      %p.text-center
+        %button.button.button-facebook{type: "submit", name: "log_in_with", value: "facebook"}
+          %i.fa.fa-fw.fa-facebook
+          Log in with Facebook
+      %p.text-center.subdued &#8212; or &#8212;
+      %p.text-center
+        %button.button.button-twitter{type: "submit", name: "log_in_with", value: "twitter"}
+          %i.fa.fa-fw.fa-twitter
+          Log in with Twitter
+          
+  .modal.js-error-modal{style: "display: none;"}
+    .modal-dialog
+      %i.fa.fa-times.subdued.modal-close
+      %p.text-center
+        Please choose both your preferred party and your willing party.
+      %p.text-center
+        %a.button.modal-close{href: "#"} OK
+
+%p.small.subdued
+  We will match you with someone who will 
+  cast your preferred vote in a different area where it will count for more.
+  In return, you will cast their preferred vote in your area.
