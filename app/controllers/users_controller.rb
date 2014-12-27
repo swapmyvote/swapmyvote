@@ -20,10 +20,10 @@ class UsersController < ApplicationController
       redirect_to edit_user_constituency_path
       return
     end
-    if @user.swap
+    if @user.is_swapped?
       render "show"
     else
-      if @user.is_in_demand
+      if @user.is_in_demand?
         redirect_to user_swap_path
       else
         render "show"

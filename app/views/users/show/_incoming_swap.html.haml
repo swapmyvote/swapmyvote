@@ -1,0 +1,19 @@
+%h3.text-center
+  #{@user.swapped_with.name} would like to swap their vote with you!
+
+%p
+  .card.profile
+    = render partial: "user/swaps/swap_profile", object: @user.swapped_with, as: "other_user"
+
+%p.text-center
+  Please confirm that you would like to swap with #{@user.swapped_with.name}.
+  
+%p.text-center
+  = link_to "Yes please!", "#", class: "button"
+  &nbsp;
+  = link_to "No thanks", "#", class: "small subdued"
+  
+  
+%p.subdued.small.text-center
+  (Some voting preferences are in high demand, and we can't be sure that we'll 
+  find anyone else to swap with if you turn down #{@user.swapped_with.name})

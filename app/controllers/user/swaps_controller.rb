@@ -2,6 +2,7 @@ class User::SwapsController < ApplicationController
   before_action :require_login
   
   def show
+    @potential_swaps = @user.potential_swaps.limit(5)
   end
   
   def new

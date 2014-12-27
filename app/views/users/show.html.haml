@@ -1,4 +1,13 @@
 .background-pattern.border-bottom
+  .container.container-narrow
+    - if @user.outgoing_swap
+      = render partial: "users/show/outgoing_swap"
+    - elsif @user.incoming_swap
+      = render partial: "users/show/incoming_swap"
+    - else
+      = render partial: "users/show/searching_for_swap"
+    
+.border-bottom
   .container
     %p.text-center
       Your preferred party is 
@@ -11,8 +20,3 @@
     %p.small.text-center
       %a{href: edit_user_path} Not right? Update your info
       
-.container.container-narrow
-  - if @user.swap
-    = render partial: "users/show/waiting_for_confirmation"
-  - else
-    = render partial: "users/show/searching_for_swap"
