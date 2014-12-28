@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   belongs_to :outgoing_swap, class_name: "Swap", foreign_key: "swap_id"
   has_one    :incoming_swap, class_name: "Swap", foreign_key: "chosen_user_id"
   
+  before_save :clear_swap, if: :details_changed?
+  
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
       user.name = auth.info.name
@@ -74,5 +76,18 @@ class User < ActiveRecord::Base
   
   def swap_confirmed?
     self.swap.try(:confirmed)
+  end
+  
+  def clear_swap
+    if self.incoming_swap
+      self.incoming_swap.destroy
+    end
+    if self.outgoing_swap
+      self.outgoing_swap.destroy
+    end
+  end
+  
+  def details_changed?
+    self.preferred_party_id_changed? or self.willing_party_id_changed? or self.constituency_id_changed?
   end
 end

@@ -1,5 +1,10 @@
 .background-pattern.border-bottom
   .container.container-narrow
+    - if @user.is_swapped?
+      %p.text-center.text-warning.small
+        Warning: Changing your party preferences or constituency will undo any swap that
+        you have agreed to.
+    
     = form_for @user, url: user_path do |f|
       %p
         My preferred party is 
@@ -13,6 +18,10 @@
         My constituency is 
         = f.collection_select :constituency_id, @constituencies, :id, :name, prompt: "...", :selected => @user.constituency_id
         \.
+      %p
+        My email address is
+        = f.text_field :email, placeholder: "me@example.com", autofocus: true
+        .subdued.small We only need your email to let you know when we've found a swap partner for you. No spam, and you're details will stay private with us.
       %p.text-center
         = submit_tag("Save", class: "button")
       

@@ -52,6 +52,6 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:preferred_party_id, :willing_party_id, :constituency_id)
+    params.require(:user).permit(:preferred_party_id, :willing_party_id, :constituency_id, :email)
   end
 end

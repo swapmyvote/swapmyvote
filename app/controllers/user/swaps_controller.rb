@@ -29,7 +29,7 @@ class User::SwapsController < ApplicationController
   end
   
   def destroy
-    @user.incoming_swap.destroy
+    @user.clear_swap
     redirect_to user_path
   end
   
