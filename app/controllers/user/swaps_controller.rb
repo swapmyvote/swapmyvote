@@ -7,7 +7,9 @@ class User::SwapsController < ApplicationController
       redirect_to user_path
       return
     end
-    @potential_swaps = @user.potential_swaps.limit(5)
+    @potential_swaps = @user.potential_swaps.limit(5).eager_load(
+      constituency: [{polls: :party}]
+    )
   end
   
   def new
@@ -24,7 +26,7 @@ class User::SwapsController < ApplicationController
   
   def update
     confirmed = (swap_params[:confirmed] == "true")
-    @user.incoming_swap.update(confirmed: confirmed)    
+    @user.incoming_swap.update(confirmed: confirmed)
     redirect_to user_path  
   end
   

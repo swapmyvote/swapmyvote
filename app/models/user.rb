@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
       preferred_party_id: self.willing_party_id,
       willing_party_id: self.preferred_party_id
     ).count
-    print "My group: #{my_group_size}, #{swap_group_size}\n"
     return my_group_size < swap_group_size
   end
   
