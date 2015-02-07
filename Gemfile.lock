@@ -210,6 +210,7 @@ DEPENDENCIES
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails
+  json (= 1.8.1)
   normalize-rails
   omniauth-facebook
   omniauth-twitter
