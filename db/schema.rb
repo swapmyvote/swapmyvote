@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226211307) do
+ActiveRecord::Schema.define(version: 20150223111106) do
 
   create_table "constituencies", force: :cascade do |t|
     t.string   "name"
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(version: 20141226211307) do
     t.integer  "votes"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "potential_swaps", force: :cascade do |t|
+    t.integer  "source_user_id"
+    t.integer  "target_user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "swaps", force: :cascade do |t|

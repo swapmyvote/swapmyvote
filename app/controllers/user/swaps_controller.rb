@@ -7,9 +7,7 @@ class User::SwapsController < ApplicationController
       redirect_to user_path
       return
     end
-    @potential_swaps = @user.potential_swaps.limit(5).eager_load(
-      constituency: [{polls: :party}]
-    )
+    @potential_swaps = @user.potential_swap_users(5)
   end
   
   def new
