@@ -1,0 +1,14 @@
+%p
+	Hi #{@user.name},
+%p
+	You're all set to swap your vote with #{@swap_with.name}!
+	#{@swap_with.name} is going to vote for the #{@swap_with.willing_party.name} party for you, in the #{@swap_with.constituency.name} constituency.
+	In return, you will vote for the #{@swap_with.preferred_party.name} party in your constituency (#{@user.constituency.name}).
+%p
+	We'll send some reminders to #{@swap_with.name} to make sure they vote for your chosen party on May 5th, and we'll ask them for confirmation once they have.
+	In the mean-time, why not reach out to #{@swap_with.name} directly? [TODO... Twitter handle and Facebook id?]
+%p
+	Regards,
+	%br
+	Swap My Vote Team
+	

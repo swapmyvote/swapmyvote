@@ -1,0 +1,19 @@
+%p
+	Hi #{@user.name},
+%p
+	Good news! #{@swap_with.name} would like to swap their vote with you.
+	#{@swap_with.name} is voting in the #{@swap_with.constituency.name} constituency,
+	and will vote for the #{@swap_with.willing_party.name} party if you vote for the #{@swap_with.preferred_party.name} party in
+	your constituency!
+%p
+	= link_to "Click here to confirm this swap!", user_url
+%p
+	Please confirm this swap as soon as possible. Votes for the #{@swap_with.willing_party.name}
+	party are in demand, so if you don't confirm this swap, we may not be able to find you someone else to swap with.
+	If we don't get a confirmation in 7 days, we'll have to look for someone else to swap
+	#{@swap_with.name}'s vote with.
+%p
+	Regards,
+	%br
+	Swap My Vote Team
+	

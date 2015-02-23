@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id"
   
   before_save :clear_swap, if: :details_changed?
+  before_save :send_welcome_email, if: :ready_to_swap?
   
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
@@ -79,6 +80,8 @@ class User < ActiveRecord::Base
 
     self.destroy_all_potential_swaps
     other_user.destroy_all_potential_swaps
+    
+    UserMailer.confirm_swap(self, other_user).deliver_now
 
     self.create_outgoing_swap chosen_user: other_user, confirmed: false
     self.save
@@ -106,6 +109,12 @@ class User < ActiveRecord::Base
     self.swap.try(:confirmed)
   end
   
+  def confirm_swap
+    self.incoming_swap.update(confirmed: true)
+    UserMailer.swap_confirmed(self, self.swapped_with).deliver_now
+    UserMailer.swap_confirmed(self.swapped_with, self).deliver_now
+  end
+  
   def clear_swap
     if self.incoming_swap
       self.incoming_swap.destroy
@@ -117,5 +126,22 @@ class User < ActiveRecord::Base
   
   def details_changed?
     self.preferred_party_id_changed? or self.willing_party_id_changed? or self.constituency_id_changed?
+  end
+  
+  def ready_to_swap?
+    ready =
+      !self.preferred_party_id.blank? &&
+      !self.willing_party_id.blank? &&
+      !self.constituency_id.blank?
+    first_time =
+      self.preferred_party_id_was.blank? ||
+      self.willing_party_id_was.blank? ||
+      self.constituency_id_was.blank?
+    return (ready and first_time)
+  end
+  
+  def send_welcome_email
+    logger.debug "Sending Welcome email"
+    UserMailer.welcome_email(self).deliver_now
   end
 end
