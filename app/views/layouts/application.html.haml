@@ -54,3 +54,29 @@
           %p.text-error.text-center= error
 
     = yield
+    
+    %footer
+      .container
+        %ul
+          %li
+            %h3 Swap My Vote
+          %li
+            = link_to "About", about_path, class: "small"
+          %li
+            = link_to "Privacy Policy", privacy_path, class: "small"
+        %ul
+          %li
+            %h3 Social
+          %li
+            = link_to "Twitter", "https://twitter.com/swapmyvote", class: "small"
+          %li
+            = link_to "Facebook", "#", class: "small"
+        %ul
+          %li
+            %h3 FAQ
+          %li
+            = link_to "Is this legal?", faq_path(anchor: "legal"), class: "small"
+          %li
+            = link_to "How do I know my partner will vote (for who I want)?", faq_path(anchor: "trust"), class: "small"
+          %li
+            = link_to "More ...", faq_path, class: "small"

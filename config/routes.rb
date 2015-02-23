@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'faq', to: "static_pages#faq"
+  get 'about', to: "static_pages#about"
+  get 'privacy', to: "static_pages#privacy"
+
   root 'home#index'
   
   resource :user
@@ -11,7 +15,7 @@ Rails.application.routes.draw do
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy'
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
