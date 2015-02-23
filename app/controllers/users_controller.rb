@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   
   def edit
     @parties = Party.all
-    @constituencies = Constituency.all
+    @constituencies = Constituency.all.order(:name)
   end
   
   def update

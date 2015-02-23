@@ -8,15 +8,27 @@
 
 
 require "active_record/fixtures"
+require "csv"
 
+PARTIES = {
+  "con"    => Party.find_or_create_by(name: "Conservatives", color: "#0087DC"),
+  "green"  => Party.find_or_create_by(name: "Green Party", color: "#6AB023"),
+  "lab"    => Party.find_or_create_by(name: "Labour", color: "#DC241f"),
+  "libdem" => Party.find_or_create_by(name: "Liberal Democrats", color: "#FFB602"),
+  "ukip"   => Party.find_or_create_by(name: "UKIP", color: "#70147A")
+}
+#Party.find_or_create_by name: "SNP", color: "#FFF95D"
 
-Party.find_or_create_by name: "Conservatives", color: "#0087DC"
-Party.find_or_create_by name: "Green Party", color: "#6AB023"
-Party.find_or_create_by name: "Labour", color: "#DC241f"
-Party.find_or_create_by name: "Liberal Democrats", color: "#FFB602"
-Party.find_or_create_by name: "SNP", color: "#FFF95D"
-Party.find_or_create_by name: "UKIP", color: "#70147A"
-
-for name in File.read("db/fixtures/constituencies.csv").split("\n")
-  Constituency.find_or_create_by name: name
+File.open("db/fixtures/constituencies.json", "r") do |file|
+  data = JSON.parse(file.read())
+  for row in data["results"]["constituencies"]
+    constituency = Constituency.find_or_create_by name: row["name"]
+    for party in PARTIES.keys
+      votes = (row[party].to_f * 100).to_i
+      print "ADDING: #{constituency.name}, #{party}, #{votes}\n"
+      poll = Poll.find_or_initialize_by constituency: constituency, party: PARTIES[party]
+      poll.votes = votes
+      poll.save
+    end
+  end
 end

@@ -12,7 +12,7 @@ google.setOnLoadCallback(_drawCharts)
   
 _drawPollChart = (selector, poll_data) ->
   data = google.visualization.arrayToDataTable([
-    ['Party', 'Votes', { role: "style" }]
+    ['Party', 'Vote %', { role: "style" }]
   ].concat(poll_data))
   
   max = Math.max(poll_data.map((d) -> d[1]))

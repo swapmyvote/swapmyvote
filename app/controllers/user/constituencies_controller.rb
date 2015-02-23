@@ -2,7 +2,7 @@ class User::ConstituenciesController < ApplicationController
   before_action :require_login
   
   def edit
-    @constituencies = Constituency.all
+    @constituencies = Constituency.all.order(:name)
   end
   
   def update
