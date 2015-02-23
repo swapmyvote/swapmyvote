@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
     self.destroy_all_potential_swaps
     other_user.destroy_all_potential_swaps
     
-    UserMailer.confirm_swap(self, other_user).deliver_now
+    UserMailer.confirm_swap(other_user, self).deliver_now
 
     self.create_outgoing_swap chosen_user: other_user, confirmed: false
     self.save
