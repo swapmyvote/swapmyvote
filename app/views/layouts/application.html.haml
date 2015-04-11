@@ -5,7 +5,7 @@
     %meta{:content => "SwapMyVote", :property => "og:site_name"}/
     %meta{:content => "\#{ENV['FACEBOOK_KEY']}", :property => "fb:app_id"}/
     %meta{:content => "website", :property => "og:type"}/
-    %meta{:content => "Swap my Vote makes voting count for more, by helping solve the problem of wasted votes. Under the present system, whenever a vote is cast for a candidate who doesn’t win, it is wasted. By introducing complementary voters to each other, Swap my Vote maximises winning votes and makes parliament better represent the will of the people. Result: an enlivened democracy and a more engaged electorate.", :property => "og:description"}/
+    %meta{:content => "SwapMyVote helps to make sure that your vote in the 2015 General Election counts. Find someone in another constituency to swap your vote with, so that you can cast your preferred vote where it will count. Vote swapping (or pairing) is common between individuals, but by making use of the internet we get better representation for everyone, all across the country.", :property => "og:description"}/
     %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", :rel => "stylesheet"}/
     %script{:src => "https://www.google.com/jsapi", :type => "text/javascript"}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
@@ -71,8 +71,7 @@
             = link_to "Twitter", "https://twitter.com/swapmyvote", class: "small"
           %li
             = link_to "Facebook", "https://facebook.com/swapmyvote", class: "small"
-          %li
-            = link_to "Blog", "http://blog.swapmyvote.uk", class: "small"        %ul
+        %ul
           %li
             %h3 FAQ
           %li
