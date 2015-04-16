@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
     swaps = User.where(
       preferred_party_id: self.willing_party_id,
       willing_party_id: self.preferred_party_id
-    )
+    ).where.not({constituency_id: nil})
     offset = rand(swaps.count)
     target_user = swaps.offset(offset).limit(1).first
     return nil if !target_user
