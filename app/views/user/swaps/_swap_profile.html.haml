@@ -2,15 +2,17 @@
 .profile-content
   .profile-name= other_user.name
   .profile-constituency.subdued
-    in #{other_user.constituency.name}
+    in #{other_user.constituency.try(:name) or "Unknown?"}
   .profile-votes
     Will vote
     %strong= other_user.willing_party.name
     if you vote
     %strong= other_user.preferred_party.name
-.profile-poll
-  .text-center.small
-    Polls in #{other_user.constituency.name}
-  %div{id: "poll_#{other_user.id}"}
-:javascript
-  drawPollChart("poll_#{other_user.id}", #{poll_data_for(other_user.constituency)});
+
+-unless other_user.constituency.nil?
+  .profile-poll
+    .text-center.small
+      Polls in #{other_user.constituency.try(:name) or "Unknown"}
+    %div{id: "poll_#{other_user.id}"}
+  :javascript
+    drawPollChart("poll_#{other_user.id}", #{poll_data_for(other_user.constituency)});
