@@ -6,7 +6,7 @@
 	and will vote for the #{@swap_with.willing_party.name} party if you vote for the #{@swap_with.preferred_party.name} party in
 	your constituency!
 %p
-	= link_to "Click here to confirm this swap!", user_url
+	= link_to "Click here to confirm this swap!", user_url(log_in_with: @user.provider)
 %p
 	Please confirm this swap as soon as possible. Votes for the #{@swap_with.willing_party.name}
 	party are in demand, so if you don't confirm this swap, we may not be able to find you someone else to swap with.
