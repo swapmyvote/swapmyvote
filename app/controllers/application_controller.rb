@@ -15,8 +15,10 @@ class ApplicationController < ActionController::Base
     if !logged_in?
       if params[:log_in_with] == "twitter"
         redirect_to twitter_login_path
-      else
+      elsif params[:log_in_with] == "facebook"
         redirect_to facebook_login_path
+      else
+        redirect_to root_path
       end
       return
     end

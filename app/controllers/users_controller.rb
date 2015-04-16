@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_login
+  before_action :require_login_and_save_user_params, :only => :create
+  before_action :require_login, :except => :create
   
   def new
     @user_params = session[:user_params] || {}
@@ -42,8 +43,12 @@ class UsersController < ApplicationController
   end
   
 private
-  def require_login
-    logged_in = super()
+  # The home page sends us to user/create, but if we're not logged in
+  # we need to first divert and do that, then come back to the user/new page
+  # with the constituency still populated. To keep that data around, we save
+  # it into the session here.
+  def require_login_and_save_user_params
+    logged_in = require_login()
     if !logged_in
       # Set params to resume user creation after login
       session[:user_params] = user_params
