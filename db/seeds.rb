@@ -17,7 +17,7 @@ PARTIES = {
   "libdem" => Party.find_or_create_by(name: "Liberal Democrats", color: "#FFB602"),
   "ukip"   => Party.find_or_create_by(name: "UKIP", color: "#70147A"),
   "snp"    => Party.find_or_create_by(name: "SNP", color: "#FFF95D"),
-  "plaid"  => Party.find_or_create_by(name: "Plaid Cymru", color: "#000000")
+  "plaid"  => Party.find_or_create_by(name: "Plaid Cymru", color: "#008142")
 }
 #
 
