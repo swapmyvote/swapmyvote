@@ -1,0 +1,633 @@
+1	562	Liverpool Walton	Steve Rotheram	62,612	54.8	5.5	74.3	3.5	8.0	5.0	0.0	3.2	0.5	LAB	LAB
+2	561	Knowsley	George Howarth	79,561	56.1	7.5	73.2	3.3	11.2	3.5	0.0	0.0	1.4	LAB	LAB
+3	560	East Ham	Stephen Timms	90,675	55.6	13.5	77.3	2.6	2.6	3.3	0.0	0.0	0.6	LAB	LAB
+4	559	Bootle	Joe Benton	71,426	57.8	7.7	71.0	3.8	13.0	3.3	0.0	0.0	1.2	LAB	LAB
+5	558	Liverpool West Derby	Stephen Twigg	63,082	56.7	7.8	66.3	3.1	8.1	4.8	0.0	9.3	0.6	LAB	LAB
+6	557	West Ham	Lyn Brown	85,313	55.0	13.1	69.9	2.6	6.9	4.6	0.0	0.0	2.9	LAB	LAB
+7	556	Camberwell and Peckham	Harriet Harman	78,618	59.3	11.4	65.5	6.9	4.9	10.4	0.0	0.0	0.9	LAB	LAB
+8	555	Liverpool Riverside	Louise Ellman	74,539	52.1	9.2	62.6	7.7	10.2	9.7	0.0	0.0	0.6	LAB	LAB
+9	554	Tottenham	David Lammy	69,933	58.2	13.1	65.8	3.9	4.5	11.1	0.0	0.0	1.6	LAB	LAB
+10	553	Rhondda	Chris Bryant	51,554	60.3	5.8	58.2	2.1	6.9	0.4	18.0	8.5	0.0	LAB	LAB
+11	552	Easington	Grahame Morris	63,873	54.7	11.7	63.6	4.2	14.7	3.6	0.0	0.0	2.2	LAB	LAB
+12	551	Birmingham Ladywood	Shabana Mahmood	73,646	48.7	10.6	61.6	13.1	9.5	5.2	0.0	0.0	0.0	LAB	LAB
+13	550	Hackney South and Shoreditch	Meg Hillier	72,816	58.9	11.9	62.2	7.0	4.8	13.1	0.0	0.0	1.2	LAB	LAB
+14	549	Liverpool Wavertree	Luciana Berger	62,518	60.6	6.3	56.3	19.1	10.3	7.6	0.0	0.0	0.4	LAB	LAB
+15	548	Birkenhead	Frank Field	62,773	56.3	15.7	65.6	4.6	9.1	5.0	0.0	0.0	0.0	LAB	LAB
+16	547	Garston and Halewood	Maria Eagle	71,312	60.1	13.4	62.8	5.0	12.6	5.9	0.0	0.0	0.2	LAB	LAB
+17	546	Lewisham Deptford	Joan Ruddock	67,058	61.5	11.9	60.4	8.0	4.5	14.1	0.0	0.0	1.0	LAB	LAB
+18	545	Hackney North and Stoke Newington	Diane Abbott	73,874	62.9	12.8	61.2	8.5	2.8	14.0	0.0	0.0	0.7	LAB	LAB
+19	544	Birmingham Hodge Hill	Liam Byrne	75,040	56.6	10.3	58.7	13.3	11.4	3.8	0.0	0.0	2.4	LAB	LAB
+20	543	Islington North	Jeremy Corbyn	68,120	65.4	12.4	60.1	11.3	4.6	11.6	0.0	0.0	0.0	LAB	LAB
+21	542	Sheffield Brightside and Hillsborough	David Blunkett	68,186	57.1	9.6	57.1	5.5	13.2	6.4	0.0	7.6	0.6	LAB	LAB
+22	541	Manchester Central	Tony Lloyd	90,110	44.3	10.0	57.5	11.7	9.0	10.0	0.0	0.0	1.7	LAB	LAB
+23	540	Cynon Valley	Ann Clwyd	50,656	59.0	8.9	55.9	2.7	11.0	1.2	20.2	0.0	0.0	LAB	LAB
+24	539	Glasgow North East	Willie Bain	59,859	49.1	5.1	51.7	0.3	2.6	3.1	33.0	2.7	1.6	LAB	LAB
+25	538	Blaenau Gwent	Nick Smith	52,438	61.8	5.7	52.2	1.9	13.8	2.0	3.8	19.0	1.6	LAB	LAB
+26	537	Gateshead	Ian Mearns	66,492	57.5	12.7	58.7	6.6	15.3	4.9	0.0	0.0	1.9	LAB	LAB
+27	536	Walthamstow	Stella Creasy	64,625	63.4	12.4	58.2	13.6	7.4	7.8	0.0	0.0	0.6	LAB	LAB
+28	535	Manchester Gorton	Sir Gerald Kaufman	75,933	50.5	9.4	54.6	17.9	6.8	10.2	0.0	0.0	1.2	LAB	LAB
+29	534	Ogmore	Huw Irranca-Davies	55,527	62.4	13.5	58.5	3.0	10.3	1.2	9.7	3.7	0.0	LAB	LAB
+30	533	Halton	Derek Twigg	68,884	60.0	17.3	61.6	3.5	12.4	3.9	0.0	0.0	1.3	LAB	LAB
+31	532	Swansea East	Sian James	59,823	54.6	12.8	56.6	3.6	11.5	3.3	6.7	5.4	0.0	LAB	LAB
+32	531	Aberavon	Hywel Francis	50,789	61.0	12.0	55.8	3.1	13.3	2.9	7.0	4.2	1.6	LAB	LAB
+33	530	Blackley and Broughton	Graham Stringer	69,489	49.2	15.5	59.1	3.6	11.2	7.1	0.0	0.0	3.6	LAB	LAB
+34	529	St Helens South and Whiston	Shaun Woodward	77,975	59.1	15.3	58.6	7.4	13.0	4.3	0.0	0.0	1.5	LAB	LAB
+35	528	Coatbridge, Chryston and Bellshill	Tom Clarke	70,067	59.4	7.8	50.6	0.3	3.8	0.8	36.7	0.0	0.0	LAB	LAB
+36	527	Barking	Margaret Hodge	73,864	61.4	14.9	55.9	1.8	10.9	1.4	0.0	14.5	0.5	LAB	LAB
+37	526	Merthyr Tydfil and Rhymney	Dai Havard	54,715	58.6	6.4	47.2	14.8	16.8	2.7	4.9	5.7	1.4	LAB	LAB
+38	525	Glasgow East	Margaret Curran	61,516	52.3	4.3	45.1	0.2	2.9	2.8	41.4	2.1	1.3	LAB	LAB
+39	524	Kirkcaldy and Cowdenbeath	Gordon Brown	73,665	62.2	9.2	49.9	0.4	3.5	0.2	35.9	0.0	0.8	LAB	LAB
+40	523	Blaydon	David Anderson	67,808	66.2	13.5	54.1	14.6	12.3	3.8	0.0	0.0	1.7	LAB	LAB
+41	522	Glenrothes	Lindsay Roy	67,893	59.7	7.2	47.7	0.3	2.7	0.1	42.0	0.0	0.0	LAB	LAB
+42	521	Tyneside North	Mary Glindon	77,690	59.7	15.8	56.1	8.2	14.2	3.9	0.0	0.0	1.8	LAB	LAB
+43	520	Jarrow	Stephen Hepburn	64,350	60.3	17.2	57.5	4.7	14.5	3.9	0.0	0.0	2.3	LAB	LAB
+44	519	Croydon North	Malcolm Wicks	85,212	60.6	21.9	61.8	3.1	7.4	5.0	0.0	0.0	0.8	LAB	LAB
+45	518	Glasgow South West	Ian Davidson	58,182	54.6	6.3	45.9	0.4	2.7	3.2	36.5	0.0	5.1	LAB	LAB
+46	517	Mitcham and Morden	Siobhain McDonagh	65,939	66.4	23.4	62.9	2.7	5.4	4.3	0.0	0.0	1.3	LAB	LAB
+47	516	Islwyn	Christopher Evans	54,826	63.3	11.6	51.0	2.0	14.2	2.3	12.5	4.2	2.1	LAB	LAB
+48	515	Brent Central	Sarah Teather	74,076	61.2	10.4	49.3	31.4	2.9	5.3	0.0	0.0	0.7	LIB	LAB
+49	514	Wentworth and Dearne	John Healey	72,586	58.0	14.5	53.0	4.5	22.3	3.3	0.0	0.0	2.4	LAB	LAB
+50	513	Neath	Peter Hain	57,186	64.9	11.3	49.3	2.9	11.4	1.8	19.6	3.6	0.0	LAB	LAB
+51	512	Washington and Sunderland West	Sharon Hodgson	68,910	54.2	18.7	56.7	4.4	15.4	3.0	0.0	0.0	1.7	LAB	LAB
+52	511	Leicester East	Keith Vaz	72,986	65.8	22.7	60.6	4.1	6.9	4.1	0.0	0.0	1.6	LAB	LAB
+53	510	St Helens North	Dave Watts	74,985	59.4	19.7	57.5	5.3	13.5	3.6	0.0	0.0	0.4	LAB	LAB
+54	509	Dunbartonshire West	Gemma Doyle	66,085	64.0	7.4	45.2	0.3	4.7	1.7	39.6	0.0	1.1	LAB	LAB
+55	508	Birmingham Perry Barr	Khalid Mahmood	71,304	59.0	19.1	56.6	7.3	12.8	3.4	0.0	0.0	0.9	LAB	LAB
+56	507	Durham, City of	Roberta Blackman-Woods	68,832	67.2	11.4	48.7	23.3	12.0	3.6	0.0	0.0	1.0	LAB	LAB
+57	506	Durham North	Kevan Jones	67,548	60.6	18.1	55.5	6.3	14.6	4.1	0.0	0.0	1.4	LAB	LAB
+58	505	South Shields	David Miliband	63,294	57.7	18.1	55.4	3.6	15.0	3.9	0.0	0.0	4.0	LAB	LAB
+59	504	Sheffield South East	Clive Betts	67,284	61.5	14.4	51.7	8.8	15.8	7.3	0.0	0.0	1.9	LAB	LAB
+60	503	Vauxhall	Kate Hoey	74,811	57.7	19.3	56.4	9.9	3.3	10.4	0.0	0.0	0.7	LAB	LAB
+61	502	Hull East	Karl Turner	67,530	50.6	13.8	50.9	8.3	21.1	4.4	0.0	0.0	1.5	LAB	LAB
+62	501	Bethnal Green and Bow	Rushanara Ali	81,243	62.4	12.3	49.3	4.6	5.8	8.8	0.0	17.7	1.6	LAB	LAB
+63	500	Leeds Central	Hilary Benn	64,698	57.8	17.0	53.8	6.5	13.0	6.6	0.0	0.0	3.2	LAB	LAB
+64	499	Newcastle upon Tyne East	Nick Brown	64,487	58.7	13.8	49.9	18.9	9.7	6.4	0.0	0.0	1.4	LAB	LAB
+65	498	Barnsley East	Michael Dugher	68,435	56.1	13.7	49.9	5.1	17.5	3.6	0.0	8.5	1.7	LAB	LAB
+66	497	Motherwell and Wishaw	Frank Roy	66,918	58.5	9.0	45.1	0.4	3.9	0.9	39.2	0.0	1.4	LAB	LAB
+67	496	Wansbeck	Ian Lavery	63,045	60.7	15.1	51.1	13.0	13.7	5.5	0.0	0.0	1.7	LAB	LAB
+68	495	Makerfield	Yvonne Fovargue	73,641	59.4	15.6	51.4	4.0	13.8	4.2	0.0	7.8	3.3	LAB	LAB
+69	494	Rutherglen and Hamilton West	Tom Greatrex	76,408	61.5	9.4	45.2	0.5	5.1	0.8	39.1	0.0	0.0	LAB	LAB
+70	493	Blyth Valley	Ronnie Campbell	64,263	60.0	14.3	50.0	12.7	16.4	4.2	0.0	0.0	2.5	LAB	LAB
+71	492	Houghton and Sunderland South	Bridget Phillipson	68,729	55.3	18.3	54.0	3.6	13.4	2.4	0.0	6.5	1.7	LAB	LAB
+72	491	Barnsley Central	Eric Illsley	65,543	56.5	14.3	49.9	4.8	17.2	3.4	0.0	8.8	1.5	LAB	LAB
+73	490	Sheffield Central	Paul Blomfield	69,519	59.6	8.5	43.7	26.1	10.8	10.2	0.0	0.0	0.7	LAB	LAB
+74	489	Middlesbrough	Sir Stuart Bell	65,148	51.4	15.7	50.8	5.1	20.3	4.2	0.0	0.0	3.9	LAB	LAB
+75	488	Coventry North East	Bob Ainsworth	73,035	59.4	19.4	54.4	4.2	14.6	4.4	0.0	0.0	3.0	LAB	LAB
+76	487	Manchester Withington	John Leech	74,371	60.5	9.5	44.4	30.1	7.2	8.7	0.0	0.0	0.2	LIB	LAB
+77	486	Leigh	Andrew Burnham	76,350	58.1	17.6	52.4	4.5	18.0	4.5	0.0	0.0	3.1	LAB	LAB
+78	485	Newcastle upon Tyne Central	Chi Onwurah	60,507	56.5	16.6	51.3	9.5	13.4	7.0	0.0	0.0	2.3	LAB	LAB
+79	484	Preston	Mark Hendrick	62,460	52.0	19.0	53.7	9.7	13.3	3.9	0.0	0.0	0.4	LAB	LAB
+80	483	Holborn and St Pancras	Frank Dobson	86,863	62.9	18.1	52.8	12.9	4.8	10.8	0.0	0.0	0.6	LAB	LAB
+81	482	Leeds East	George Mudie	65,067	58.1	20.0	54.4	5.0	11.6	6.1	0.0	0.0	2.9	LAB	LAB
+82	481	Warley	John Spellar	63,106	60.6	22.0	56.4	3.9	16.0	1.8	0.0	0.0	0.0	LAB	LAB
+83	480	Paisley and Renfrewshire South	Douglas Alexander	61,197	65.4	9.6	43.6	0.4	3.6	1.3	38.9	0.0	2.6	LAB	LAB
+83	479	Airdrie and Shotts	Pamela Nash	62,364	57.5	8.4	42.2	0.3	3.8	0.8	43.1	0.0	1.4	LAB	NAT
+83	479	Cumbernauld, Kilsyth and Kirkintilloch East	Gregg McClymont	64,037	64.3	8.0	41.5	0.4	3.3	0.9	44.8	0.0	1.1	LAB	NAT
+84	479	Leicester South	Peter Soulsby	77,175	61.1	19.5	52.5	13.1	8.8	5.0	0.0	0.0	1.1	LAB	LAB
+85	478	Rotherham	Denis MacShane	63,565	59.0	13.8	46.8	4.4	19.9	2.9	0.0	10.2	2.0	LAB	LAB
+86	477	Denton and Reddish	Andrew Gwynne	64,765	58.1	21.6	54.6	4.4	15.4	3.7	0.0	0.0	0.3	LAB	LAB
+87	476	Dulwich and West Norwood	Tessa Jowell	72,817	66.2	19.8	52.6	12.0	4.8	10.7	0.0	0.0	0.0	LAB	LAB
+88	475	Llanelli	Nia Griffith	55,637	67.3	12.5	45.2	2.1	8.9	1.3	30.0	0.0	0.0	LAB	LAB
+89	474	Streatham	Chuka Umunna	74,531	62.8	16.2	48.9	21.1	2.9	10.5	0.0	0.0	0.4	LAB	LAB
+90	473	Greenwich and Woolwich	Nick Raynsford	65,489	62.9	21.8	54.5	4.0	9.9	8.0	0.0	0.0	1.9	LAB	LAB
+91	472	Doncaster North	Ed Miliband	72,381	57.3	17.8	50.4	4.2	16.5	2.5	0.0	6.8	1.9	LAB	LAB
+92	471	Caerphilly	Wayne David	62,134	62.3	14.2	46.8	2.8	13.8	2.3	16.0	4.2	0.0	LAB	LAB
+93	470	Torfaen	Paul Murphy	61,178	61.5	16.8	49.1	3.2	15.9	3.5	5.3	4.4	1.8	LAB	LAB
+94	469	Hayes and Harlington	John McDonnell	70,233	60.7	26.8	58.7	1.9	8.0	2.5	0.0	0.0	2.1	LAB	LAB
+95	468	Bolsover	Dennis Skinner	72,766	60.5	21.3	52.9	4.1	16.8	2.9	0.0	0.0	2.0	LAB	LAB
+96	467	Sheffield Heeley	Meg Munn	65,869	62.0	14.3	45.6	13.8	14.8	9.6	0.0	0.0	1.8	LAB	LAB
+97	466	Hull North	Diana Johnson	64,082	52.0	10.9	42.2	22.6	17.0	5.7	0.0	0.0	1.6	LAB	LAB
+98	465	Nottingham North	Graham Allen	63,240	54.2	22.1	53.2	4.7	12.9	5.2	0.0	0.0	1.9	LAB	LAB
+99	464	Islington South and Finsbury	Emily Thornberry	67,649	64.4	16.9	47.7	19.0	5.6	10.5	0.0	0.0	0.4	LAB	LAB
+100	463	Ilford South	Mike Gapes	86,220	59.4	25.9	56.5	3.9	7.9	5.3	0.0	0.0	0.5	LAB	LAB
+101	462	Wigan	Lisa Nandy	75,564	58.4	21.3	51.9	3.8	17.6	3.4	0.0	0.0	1.9	LAB	LAB
+102	461	Oldham West and Royton	Michael Meacher	72,651	59.1	20.9	51.5	4.8	16.0	3.8	0.0	0.0	2.9	LAB	LAB
+103	460	Ealing Southall	Virendra Sharma	60,379	70.8	28.8	59.2	3.5	2.6	5.2	0.0	0.0	0.8	LAB	LAB
+104	459	Edmonton	Andy Love	63,902	63.2	27.4	57.7	2.3	7.7	4.1	0.0	0.0	0.7	LAB	LAB
+105	458	Blackburn	Jack Straw	72,331	62.9	23.8	54.1	3.9	11.9	3.2	0.0	0.0	3.0	LAB	LAB
+106	457	Newcastle upon Tyne North	Catherine McKinnell	67,110	65.5	15.5	45.8	18.7	13.0	5.6	0.0	0.0	1.5	LAB	LAB
+107	456	Leyton and Wanstead	John Cryer	63,541	63.2	20.1	50.2	12.6	9.4	6.9	0.0	0.0	0.9	LAB	LAB
+108	455	Durham North West	Pat Glass	70,618	62.0	17.0	47.1	10.3	14.2	4.1	0.0	5.8	1.4	LAB	LAB
+109	454	Normanton, Pontefract and Castleford	Yvette Cooper	82,239	56.2	20.5	50.5	4.5	16.9	4.1	0.0	0.0	3.5	LAB	LAB
+110	453	Ashton under Lyne	David Heyes	67,564	56.9	21.5	51.4	3.7	13.2	2.6	0.0	7.7	0.0	LAB	LAB
+111	452	Sedgefield	Phil Wilson	64,727	62.1	20.6	50.4	5.2	16.6	4.6	0.0	0.0	2.6	LAB	LAB
+112	451	Leeds West	Rachel Reeves	67,453	57.5	16.6	46.3	9.8	14.5	10.8	0.0	0.0	2.0	LAB	LAB
+113	450	Pontypridd	Owen Smith	58,219	63.0	13.8	43.5	15.3	15.4	4.0	7.3	0.0	0.8	LAB	LAB
+114	449	Oxford East	Andrew Smith	81,886	63.1	16.0	45.6	20.2	4.9	13.2	0.0	0.0	0.1	LAB	LAB
+115	448	Chesterfield	Toby Perkins	71,878	63.8	13.4	42.7	23.3	15.2	4.4	0.0	0.0	1.0	LAB	LAB
+116	447	Hull West and Hessle	Alan Johnson	57,264	55.0	16.7	46.0	9.7	20.1	4.9	0.0	0.0	2.5	LAB	LAB
+116	446	Inverclyde	David Cairns	59,209	63.4	11.9	41.1	0.6	4.0	0.1	42.4	0.0	0.0	LAB	NAT
+117	446	Bolton South East	Yasmin Qureshi	69,928	56.6	22.4	51.3	3.9	16.0	4.5	0.0	0.0	1.9	LAB	LAB
+117	445	Glasgow Central	Anas Sarwar	60,062	50.9	6.7	35.6	0.7	4.3	6.1	43.3	0.0	3.3	LAB	NAT
+118	445	Nottingham East	Christopher Leslie	58,707	56.4	21.0	49.6	9.9	11.6	7.7	0.0	0.0	0.1	LAB	LAB
+118	444	Glasgow North West	John Robertson	60,968	58.4	9.5	37.6	0.6	3.5	6.0	40.6	0.0	2.2	LAB	NAT
+119	444	Salford and Eccles	Hazel Blears	75,482	55.0	17.3	45.4	11.4	16.6	5.8	0.0	0.0	3.5	LAB	LAB
+120	443	Lewisham East	Heidi Alexander	65,926	63.3	21.4	49.3	13.1	6.8	8.7	0.0	0.0	0.6	LAB	LAB
+121	442	Ealing North	Stephen Pound	67,902	70.2	30.0	57.8	3.1	3.7	4.4	0.0	0.0	1.1	LAB	LAB
+122	441	Hemsworth	Jon Trickett	72,552	60.4	20.4	48.1	3.5	14.1	2.9	0.0	8.7	2.2	LAB	LAB
+123	440	Stretford and Urmston	Kate Green	70,091	64.1	26.4	53.8	4.3	9.0	6.3	0.0	0.0	0.1	LAB	LAB
+124	439	Stoke-on-Trent North	Joan Walley	72,052	55.8	20.5	47.8	4.4	21.2	3.5	0.0	0.0	2.6	LAB	LAB
+125	438	Wythenshawe and Sale East	Paul Goggins	79,923	51.0	22.7	49.4	7.4	11.8	7.2	0.0	0.0	1.5	LAB	LAB
+126	437	Wallasey	Angela Eagle	65,915	63.2	28.0	54.3	3.4	10.1	4.2	0.0	0.0	0.1	LAB	LAB
+127	436	Rochdale	Simon Danczuk	78,952	58.1	15.4	41.6	19.8	16.9	3.9	0.0	0.0	2.3	LAB	LAB
+128	435	Stoke-on-Trent Central	Tristram Hunt	60,995	53.2	17.6	43.2	6.5	23.3	4.8	0.0	0.0	4.6	LAB	LAB
+129	434	Stockport	Ann Coffey	63,525	61.6	22.5	47.7	10.1	12.0	6.7	0.0	0.0	1.0	LAB	LAB
+130	433	Wolverhampton South East	Pat McFadden	60,450	57.4	25.5	50.4	3.8	18.0	2.0	0.0	0.0	0.3	LAB	LAB
+131	432	Redcar	Ian Swales	67,125	62.5	11.6	36.5	30.4	17.2	2.9	0.0	0.0	1.3	LIB	LAB
+132	431	West Bromwich East	Tom Watson	62,824	60.4	26.1	50.7	3.3	14.1	2.8	0.0	0.0	3.0	LAB	LAB
+133	430	Birmingham Hall Green	Roger Godsiff	76,580	63.6	13.3	37.9	10.0	9.3	2.9	0.0	26.3	0.1	LAB	LAB
+134	429	Hornsey and Wood Green	Lynne Featherstone	79,916	68.9	14.6	39.2	32.2	3.0	10.9	0.0	0.0	0.2	LIB	LAB
+134	428	Dunfermline and West Fife	Thomas Docherty	73,769	66.4	6.7	31.2	13.5	4.6	0.9	43.0	0.0	0.0	LAB	NAT
+134	428	Glasgow South	Tom Harris	65,029	61.7	10.9	35.3	0.5	3.0	5.7	42.3	0.0	2.2	LAB	NAT
+135	428	Stockton North	Alex Cunningham	67,363	58.6	22.6	46.9	4.1	18.8	3.8	0.0	0.0	3.7	LAB	LAB
+136	427	Brent North	Barry Gardiner	83,896	62.3	31.2	55.5	4.0	3.4	5.0	0.0	0.0	0.9	LAB	LAB
+136	426	Paisley and Renfrewshire North	James Sheridan	63,704	68.6	14.1	38.0	0.4	3.7	1.3	40.7	0.0	1.7	LAB	NAT
+136	426	Dundee West	James McGovern	63,013	58.9	9.1	32.9	0.5	2.9	1.1	51.7	0.0	1.8	LAB	NAT
+137	426	Luton North	Kelvin Hopkins	65,062	66.1	29.4	52.8	3.2	11.0	2.6	0.0	0.0	1.0	LAB	LAB
+137	425	East Kilbride, Strathaven and Lesmahagow	Michael McCann	76,534	66.6	12.6	35.8	0.4	3.5	2.6	44.5	0.0	0.5	LAB	NAT
+138	425	Lewisham West and Penge	Jim Dowd	69,022	65.2	22.9	46.1	12.8	10.0	7.9	0.0	0.0	0.2	LAB	LAB
+138	424	Kilmarnock and Loudoun	Cathy Jamieson	74,131	62.8	13.7	36.8	0.3	3.4	0.6	45.2	0.0	0.0	LAB	NAT
+139	424	Sunderland Central	Julie Elliott	74,485	57.0	27.0	49.9	4.4	14.3	2.9	0.0	0.0	1.5	LAB	LAB
+140	423	Doncaster Central	Rosie Winterton	75,207	55.5	21.5	44.2	6.7	19.7	4.2	0.0	0.0	3.6	LAB	LAB
+141	422	Warrington North	Helen Jones	71,601	61.7	27.4	50.0	5.8	11.9	3.7	0.0	0.0	1.2	LAB	LAB
+141	421	Linlithgow and East Falkirk	Michael Connarty	80,907	63.6	11.5	33.9	0.5	4.1	1.2	48.7	0.0	0.0	LAB	NAT
+141	421	Livingston	Graeme Morrice	75,924	63.1	10.4	32.6	0.5	4.8	1.0	48.1	0.0	2.6	LAB	NAT
+142	421	Derby South	Margaret Beckett	71,012	58.0	25.8	47.8	5.9	15.8	3.5	0.0	0.0	1.1	LAB	LAB
+143	420	Burnley	Gordon Birtwistle	66,616	62.8	14.1	36.0	21.0	14.7	3.3	0.0	9.1	1.8	LIB	LAB
+144	419	Swansea West	Geraint Davies	61,334	58.0	18.0	39.9	17.6	12.9	4.3	4.1	2.6	0.5	LAB	LAB
+145	418	Newport East	Jessica Morden	54,437	63.3	20.1	41.9	16.4	13.5	2.3	2.1	3.5	0.1	LAB	LAB
+146	417	Bristol South	Dawn Primarolo	78,579	61.6	19.2	40.8	14.7	10.9	12.8	0.0	0.0	1.6	LAB	LAB
+146	416	Glasgow North	Ann McKechin	51,416	57.6	6.7	28.3	9.9	4.1	7.0	42.1	0.0	1.8	LAB	NAT
+147	416	Bassetlaw	John Mann	76,542	64.8	30.1	51.4	3.0	13.6	1.6	0.0	0.0	0.3	LAB	LAB
+148	415	Heywood and Middleton	Jim Dobbin	80,171	57.5	24.4	45.6	7.8	15.6	4.1	0.0	0.0	2.5	LAB	LAB
+149	414	West Bromwich West	Adrian Bailey	65,013	55.6	26.6	47.8	3.0	11.9	1.1	0.0	9.5	0.0	LAB	LAB
+150	413	Birmingham Yardley	John Hemming	72,321	56.5	17.0	38.1	25.7	13.1	4.0	0.0	0.0	2.1	LIB	LAB
+151	412	Hartlepool	Iain Wright	68,923	55.5	24.7	45.8	4.4	20.4	3.0	0.0	0.0	1.7	LAB	LAB
+152	411	Bishop Auckland	Helen Goodman	68,370	60.2	23.4	44.4	7.6	16.2	5.0	0.0	0.0	3.3	LAB	LAB
+153	410	Coventry North West	Geoffrey Robinson	72,871	63.9	26.7	47.6	4.6	13.8	5.2	0.0	0.0	2.1	LAB	LAB
+154	409	Bradford West	Marsha Singh	62,519	64.9	28.7	49.2	3.4	8.8	5.1	0.0	3.5	1.4	LAB	LAB
+155	408	York Central	Hugh Bayley	74,908	62.1	22.5	42.8	10.6	11.0	12.2	0.0	0.0	0.9	LAB	LAB
+155	407	Midlothian	David Hamilton	61,387	63.9	11.6	31.5	0.7	4.3	2.9	48.1	0.0	0.9	LAB	NAT
+156	407	Bradford South	Gerry Sutcliffe	63,580	59.8	26.6	46.4	5.3	14.6	4.4	0.0	0.0	2.6	LAB	LAB
+157	406	Leicester West	Elizabeth Kendall	64,900	55.2	25.7	45.5	8.5	11.7	6.0	0.0	0.0	2.7	LAB	LAB
+157	405	Lanark and Hamilton East	Jimmy Hood	74,773	62.3	14.6	34.3	0.5	4.9	0.8	43.6	0.0	1.3	LAB	NAT
+158	405	Bermondsey and Old Southwark	Simon Hughes	77,623	57.5	15.0	34.6	34.0	5.8	9.4	0.0	0.0	1.3	LIB	LAB
+159	404	Poplar and Limehouse	Jim Fitzpatrick	74,956	62.3	25.1	44.6	2.5	2.5	6.2	0.0	18.4	0.7	LAB	LAB
+159	403	Arfon	Hywel Williams	41,198	63.3	14.9	34.3	2.8	8.4	2.6	36.9	0.0	0.0	NAT	NAT
+160	403	Cardiff West	Kevin Brennan	62,787	65.2	27.7	46.9	3.5	9.5	5.2	7.2	0.0	0.0	LAB	LAB
+161	402	Erith and Thamesmead	Teresa Pearce	69,918	60.8	28.0	47.3	2.6	12.6	3.5	0.0	5.1	1.0	LAB	LAB
+162	401	Rother Valley	Kevin Barron	72,841	64.2	24.6	43.7	4.8	21.0	3.5	0.0	0.0	2.5	LAB	LAB
+163	400	Wrexham	Ian Lucas	50,872	64.8	22.5	41.5	9.8	14.1	2.4	6.1	3.5	0.0	LAB	LAB
+163	399	Falkirk	Eric Joyce	81,869	62.0	10.8	29.7	0.4	6.4	1.2	51.4	0.0	0.0	LAB	NAT
+164	399	Cardiff South and Penarth	Alun Michael	73,704	60.2	25.9	44.6	6.3	12.7	5.4	4.2	0.0	0.9	LAB	LAB
+165	398	Mansfield	Alan Meale	80,069	60.4	22.8	41.1	4.1	19.4	2.4	0.0	8.8	1.4	LAB	LAB
+166	397	Huddersfield	Barry Sheerman	66,316	61.1	24.8	43.0	10.5	11.5	8.6	0.0	0.0	1.6	LAB	LAB
+167	396	Ashfield	Gloria de Piero	77,379	62.3	19.0	37.1	18.5	15.8	2.8	0.0	5.7	1.0	LAB	LAB
+168	395	Slough	Fiona Mactaggart	77,068	61.9	32.8	50.9	4.7	8.8	2.4	0.0	0.0	0.4	LAB	LAB
+169	394	Workington	Tony Cunningham	59,607	65.9	30.3	48.1	3.5	12.6	4.0	0.0	0.0	1.6	LAB	LAB
+170	393	Tynemouth	Alan Campbell	75,680	69.6	31.9	49.5	3.9	10.0	3.6	0.0	0.0	0.9	LAB	LAB
+171	392	Worsley and Eccles South	Barbara Keeley	72,473	57.5	29.5	46.7	4.1	14.6	4.0	0.0	0.0	1.1	LAB	LAB
+172	391	Feltham and Heston	Alan Keen	81,058	59.9	32.8	50.1	3.1	7.6	4.4	0.0	0.0	1.9	LAB	LAB
+172	390	Aberdeen North	Frank Doran	64,808	58.2	12.3	29.2	0.8	3.2	0.7	51.6	0.0	2.3	LAB	NAT
+173	390	Birmingham Erdington	Jack Dromey	66,405	53.5	30.9	47.8	4.2	11.2	3.5	0.0	0.0	2.4	LAB	LAB
+173	389	Edinburgh East	Sheila Gilmore	60,941	65.4	10.4	27.2	0.8	2.5	10.1	48.4	0.0	0.6	LAB	NAT
+174	389	Barrow and Furness	John Woodcock	68,758	64.2	32.0	48.7	2.5	12.1	3.9	0.0	0.0	0.8	LAB	LAB
+175	388	Stoke-on-Trent South	Robert Flello	68,031	58.6	24.8	41.3	3.9	16.9	2.5	0.0	9.3	1.3	LAB	LAB
+175	387	Ayrshire North and Arran	Katy Clark	74,953	61.5	15.2	31.6	0.4	3.8	0.6	47.4	0.0	0.9	LAB	NAT
+176	387	Leeds North East	Fabian Hamilton	67,899	70.0	29.9	46.2	5.5	11.9	5.5	0.0	0.0	0.9	LAB	LAB
+177	386	Newport West	Paul Flynn	62,111	64.0	29.7	45.6	3.2	13.2	2.4	2.8	3.1	0.0	LAB	LAB
+178	385	Ellesmere Port and Neston	Andrew Miller	63,097	70.1	31.8	47.7	3.8	12.5	3.6	0.0	0.0	0.6	LAB	LAB
+179	384	Ynys Mon	Albert Owen	50,075	68.8	19.3	35.1	1.5	10.8	0.8	25.7	6.5	0.2	LAB	LAB
+180	383	Don Valley	Caroline Flint	73,214	59.3	26.4	42.0	4.8	19.4	3.7	0.0	0.0	3.6	LAB	LAB
+181	382	Bolton North East	David Crausby	67,281	64.3	33.3	48.7	3.2	13.0	1.6	0.0	0.0	0.1	LAB	LAB
+182	381	Birmingham Selly Oak	Stephen McCabe	74,805	62.2	29.3	44.5	7.6	11.9	5.2	0.0	0.0	1.5	LAB	LAB
+183	380	Cardiff Central	Jenny Willott	61,162	59.1	19.1	34.3	26.5	10.5	5.7	3.5	0.0	0.4	LIB	LAB
+184	379	Sefton Central	Bill Esterson	67,512	71.8	31.4	46.5	5.0	13.0	4.1	0.0	0.0	0.0	LAB	LAB
+185	378	Darlington	Jenny Chapman	69,352	61.9	28.6	43.7	8.7	14.6	3.4	0.0	0.0	1.0	LAB	LAB
+186	377	Clwyd South	Susan Elan Jones	53,748	64.5	27.5	42.5	3.4	12.8	1.9	8.7	3.2	0.0	LAB	LAB
+187	376	Coventry South	Jim Cunningham	73,652	62.4	30.9	46.0	4.6	13.2	4.8	0.0	0.0	0.5	LAB	LAB
+188	375	Lancashire West	Rosie Cooper	75,975	63.8	32.5	47.3	3.3	12.7	4.0	0.0	0.0	0.2	LAB	LAB
+189	374	Bristol East	Kerry McCarthy	69,448	64.8	24.4	39.1	10.6	11.9	12.2	0.0	0.0	1.8	LAB	LAB
+189	373	Bristol West	Stephen Williams	82,728	66.9	15.1	29.7	33.5	8.0	13.4	0.0	0.0	0.4	LIB	LIB
+190	373	Batley and Spen	Mike Wood	76,732	66.6	30.7	45.2	4.5	8.0	4.3	0.0	7.3	0.0	LAB	LAB
+191	372	Hammersmith	Andy Slaughter	72,348	65.6	35.0	49.5	3.6	5.0	6.5	0.0	0.0	0.4	LAB	LAB
+192	371	Copeland	Jamie Reed	63,291	67.6	33.3	47.7	2.6	12.3	3.0	0.0	0.0	1.1	LAB	LAB
+193	370	Alyn and Deeside	Mark Tami	60,931	65.5	29.1	43.3	3.5	14.5	2.3	3.8	3.5	0.0	LAB	LAB
+194	369	Bury South	Ivan Lewis	73,544	65.6	30.7	44.9	4.6	13.2	5.0	0.0	0.0	1.6	LAB	LAB
+195	368	Birmingham Northfield	Richard Burden	71,338	58.6	32.0	45.9	4.1	11.6	4.3	0.0	0.0	2.2	LAB	LAB
+196	367	Harrow West	Gareth Thomas	71,510	64.5	35.9	49.8	3.7	6.7	4.0	0.0	0.0	0.0	LAB	LAB
+197	366	Gower	Martin Caton	61,696	67.5	29.6	43.4	3.7	11.4	2.7	6.7	2.4	0.0	LAB	LAB
+198	365	Stalybridge and Hyde	Jonathan Reynolds	69,037	59.2	29.5	43.2	4.2	15.5	5.8	0.0	0.0	1.8	LAB	LAB
+199	364	Wolverhampton North East	Emma Reynolds	59,324	58.8	31.3	45.0	3.4	15.1	2.7	0.0	0.0	2.5	LAB	LAB
+200	363	Bradford East	David Ward	65,116	62.1	24.3	37.8	19.9	11.3	4.5	0.0	0.0	2.3	LIB	LAB
+201	362	Penistone and Stocksbridge	Angela Smith	68,501	67.9	27.6	41.1	6.6	16.7	6.2	0.0	0.0	1.9	LAB	LAB
+202	361	Oldham East and Saddleworth	Phil Woolas	72,765	61.2	23.8	37.3	17.1	16.2	3.6	0.0	0.0	2.1	LAB	LAB
+203	360	Bridgend	Madeleine Moon	58,700	65.3	28.1	41.5	6.6	12.8	2.3	6.0	2.8	0.0	LAB	LAB
+204	359	Luton South	Gavin Shuker	59,962	70.4	26.8	40.2	8.4	16.2	5.1	0.0	0.0	3.3	LAB	LAB
+205	358	Vale of Clwyd	Chris Ruane	55,781	63.7	32.3	45.4	2.4	10.0	1.6	5.8	2.4	0.1	LAB	LAB
+206	357	Scunthorpe	Nic Dakin	63,089	58.7	28.6	41.8	5.0	18.6	4.8	0.0	0.0	1.3	LAB	LAB
+207	356	Hyndburn	Graham Jones	67,221	63.5	29.9	42.9	2.9	15.0	3.2	0.0	4.9	1.2	LAB	LAB
+207	355	Na h-Eileanan An Iar (Western Isles)	Angus MacNeil	22,266	66.1	4.2	16.8	0.3	3.8	1.7	63.7	9.4	0.0	NAT	NAT
+208	355	Delyn	David Hanson	53,470	69.2	31.5	44.1	3.0	12.5	1.7	4.9	2.3	0.0	LAB	LAB
+209	354	Norwich South	Simon Wright	73,649	64.6	20.1	32.6	15.1	9.2	22.3	0.0	0.0	0.6	LIB	LAB
+210	353	Westminster North	Karen Buck	66,739	59.3	37.5	49.7	3.2	4.2	4.8	0.0	0.0	0.6	LAB	LAB
+210	352	Ayrshire Central	Brian Donohoe	68,352	64.2	19.8	32.0	0.5	4.0	0.7	42.2	0.0	0.9	LAB	NAT
+211	352	Blackpool South	Gordon Marsden	63,025	55.8	32.1	43.8	3.5	15.9	3.1	0.0	0.0	1.6	LAB	LAB
+212	351	Southampton Test	Alan Whitehead	71,931	61.4	29.9	41.6	8.5	12.7	7.2	0.0	0.0	0.1	LAB	LAB
+213	350	Tooting	Sadiq Khan	73,836	68.6	37.1	48.7	3.3	4.1	6.5	0.0	0.0	0.3	LAB	LAB
+214	349	Exeter	Ben Bradshaw	77,157	67.7	29.5	41.1	6.7	11.9	9.7	0.0	0.0	1.1	LAB	LAB
+215	348	Derbyshire North East	Natascha Engel	71,422	65.9	30.0	41.6	8.7	16.8	3.0	0.0	0.0	0.0	LAB	LAB
+216	347	Chorley	Lindsay Hoyle	70,950	70.2	35.0	46.3	3.5	12.1	2.9	0.0	0.0	0.2	LAB	LAB
+217	346	Nottingham South	Lillian Greenwood	67,441	60.5	30.4	41.7	8.6	11.4	6.8	0.0	0.0	0.9	LAB	LAB
+217	345	Brighton Pavilion	Caroline Lucas	74,004	70.0	21.2	32.2	4.4	5.4	36.7	0.0	0.0	0.2	Green	Green
+218	345	Dagenham and Rainham	Jon Cruddas	69,764	63.4	30.4	41.3	1.8	13.4	1.6	0.0	11.0	0.5	LAB	LAB
+219	344	Halifax	Linda Riordan	70,380	61.9	30.9	41.7	5.4	13.9	5.4	0.0	0.0	2.7	LAB	LAB
+220	343	Eltham	Clive Efford	62,590	67.0	35.1	45.6	2.8	9.6	5.2	0.0	0.0	1.7	LAB	LAB
+221	342	Middlesbrough South and Cleveland East	Tom Blenkinsop	72,664	63.6	32.4	42.8	4.1	16.4	2.6	0.0	0.0	1.7	LAB	LAB
+222	341	Walsall South	Valerie Vaz	64,830	63.1	32.4	42.7	3.6	19.3	1.1	0.0	0.0	0.7	LAB	LAB
+223	340	Newcastle-under-Lyme	Paul Farrelly	69,433	62.2	31.6	41.7	4.9	18.8	3.0	0.0	0.0	0.0	LAB	LAB
+224	339	Wakefield	Mary Creagh	70,834	62.7	31.3	41.3	4.5	15.4	5.3	0.0	0.0	2.2	LAB	LAB
+225	338	Plymouth Moor View	Alison Seabeck	67,261	61.7	30.0	40.0	5.5	18.7	4.5	0.0	0.0	1.3	LAB	LAB
+225	337	East Lothian	Fiona O'Donnell	73,438	66.9	19.4	29.3	0.7	4.2	2.7	43.7	0.0	0.0	LAB	NAT
+225	337	Carmarthen East and Dinefwr	Jonathan Edwards	52,385	72.6	19.6	29.4	2.4	10.9	1.9	35.8	0.0	0.0	NAT	NAT
+226	337	Birmingham Edgbaston	Gisela Stuart	68,573	60.6	36.1	45.9	4.0	8.8	3.9	0.0	0.0	1.2	LAB	LAB
+227	336	Gedling	Vernon Coaker	70,590	68.3	33.1	42.7	4.0	15.3	3.8	0.0	0.0	1.1	LAB	LAB
+228	335	Great Grimsby	Austin Mitchell	61,229	53.8	27.0	36.5	8.0	21.9	4.0	0.0	0.0	2.7	LAB	LAB
+229	334	Walsall North	David Winnick	65,183	55.5	31.3	40.0	3.3	15.3	1.0	0.0	8.2	0.9	LAB	LAB
+230	333	Derby North	Chris Williamson	71,484	63.1	29.1	37.6	13.6	14.0	3.9	0.0	0.0	1.8	LAB	LAB
+231	332	Telford	David Wright	65,061	63.5	32.7	41.3	3.8	18.3	2.6	0.0	0.0	1.2	LAB	LAB
+232	331	Morley and Outwood	Ed Balls	74,200	65.8	31.8	39.9	4.7	12.6	3.9	0.0	7.2	0.0	LAB	LAB
+233	330	Wirral South	Alison McGovern	56,099	71.1	36.0	43.6	4.1	11.6	4.7	0.0	0.0	0.0	LAB	LAB
+234	329	Hampstead and Kilburn	Glenda Jackson	79,713	66.3	31.6	39.2	16.6	4.2	8.0	0.0	0.0	0.4	LAB	LAB
+235	328	Dudley North	Ian Austin	60,838	63.5	33.2	40.5	2.6	19.7	2.3	0.0	0.0	1.7	LAB	LAB
+235	327	Edinburgh North and Leith	Mark Lazarowicz	69,204	68.4	14.3	21.3	11.9	2.8	7.5	40.4	0.0	1.7	LAB	NAT
+236	327	Cardiff North	Jonathan Evans	65,553	72.7	35.9	42.7	3.6	9.7	4.4	3.4	0.0	0.2	CON	LAB
+237	326	Bolton West	Julie Hilling	71,250	66.8	35.1	41.9	4.2	14.8	3.7	0.0	0.0	0.3	LAB	LAB
+238	325	Southampton Itchen	John Denham	74,532	59.6	33.2	39.9	7.0	13.2	6.5	0.0	0.0	0.1	LAB	LAB
+238	324	Ayr Carrick and Cumnock	Sandra Osborne	73,320	62.6	25.0	31.4	0.4	3.7	0.6	39.0	0.0	0.0	LAB	NAT
+239	324	Lancaster and Fleetwood	Eric Ollerenshaw	69,908	61.1	32.1	38.2	4.6	13.9	10.4	0.0	0.0	0.9	CON	LAB
+240	323	Stockton South	James Wharton	74,552	67.4	35.5	41.4	3.9	15.0	2.7	0.0	0.0	1.6	CON	LAB
+241	322	Hendon	Matthew Offord	78,923	58.8	41.5	47.2	2.8	4.4	4.1	0.0	0.0	0.0	CON	LAB
+242	321	Sherwood	Mark Spencer	71,043	68.9	36.0	41.7	4.0	14.3	2.6	0.0	0.0	1.3	CON	LAB
+243	320	Warwickshire North	Dan Byles	70,143	67.4	35.5	41.0	3.0	16.1	2.7	0.0	0.0	1.7	CON	LAB
+244	319	Broxtowe	Anna Soubry	72,042	73.2	35.6	41.0	4.5	13.0	5.0	0.0	0.0	0.9	CON	LAB
+245	318	Cambridge	Julian Huppert	77,081	65.0	23.4	28.8	25.7	5.9	15.9	0.0	0.0	0.4	LIB	LAB
+246	317	Renfrewshire East	Jim Murphy	66,249	77.3	29.6	34.7	0.4	4.0	1.9	29.5	0.0	0.0	LAB	LAB
+247	316	Lincoln	Karl McCartney	73,540	62.2	34.0	38.7	5.8	14.9	5.0	0.0	0.0	1.6	CON	LAB
+248	315	Thurrock	Jackie Doyle-Price	77,758	58.9	31.8	36.4	2.8	19.8	1.5	0.0	7.4	0.2	CON	LAB
+249	314	Weaver Vale	Graham Evans	66,538	66.1	35.7	40.2	4.7	13.5	4.8	0.0	0.0	1.2	CON	LAB
+250	313	Carlisle	John Stevenson	65,263	64.7	36.0	40.5	4.0	13.2	4.9	0.0	0.0	1.4	CON	LAB
+251	312	Amber Valley	Nigel Mills	70,171	65.5	35.2	39.6	3.9	11.7	2.6	0.0	6.9	0.2	CON	LAB
+252	311	Wolverhampton South West	Paul Uppal	59,160	67.9	37.8	42.1	4.0	13.9	2.0	0.0	0.0	0.2	CON	LAB
+253	310	Dewsbury	Simon Reevell	78,901	68.5	32.1	36.2	4.8	11.2	6.0	0.0	7.1	2.4	CON	LAB
+254	309	Morecambe and Lunesdale	David Morris	69,965	62.1	37.8	41.6	3.3	10.1	7.3	0.0	0.0	0.0	CON	LAB
+255	308	Waveney	Peter Aldous	78,532	65.1	36.0	39.8	3.6	15.1	5.4	0.0	0.0	0.1	CON	LAB
+256	307	Brentford and Isleworth	Mary Macleod	83,546	64.4	36.3	40.0	8.4	8.9	5.5	0.0	0.0	0.9	CON	LAB
+257	306	Warrington South	David Mowat	80,506	68.2	33.1	36.8	12.6	13.6	3.9	0.0	0.0	0.0	CON	LAB
+258	305	Bedford	Richard Fuller	68,491	65.9	36.7	40.3	5.6	11.9	4.8	0.0	0.0	0.7	CON	LAB
+259	304	Plymouth Sutton and Devonport	Oliver Colville	71,035	61.8	31.0	34.5	11.1	17.5	5.6	0.0	0.0	0.3	CON	LAB
+260	303	Pudsey	Stuart Andrew	69,257	70.9	35.3	38.7	6.5	12.9	5.6	0.0	0.0	1.0	CON	LAB
+260	302	Dunbartonshire East	Jo Swinson	63,795	75.2	15.2	18.6	16.3	4.7	1.9	43.2	0.0	0.0	LIB	NAT
+260	302	Edinburgh South West	Alistair Darling	66,359	68.5	23.2	26.6	0.7	2.3	7.0	39.4	0.0	0.7	LAB	NAT
+261	302	Stroud	Neil Carmichael	78,305	74.0	36.6	39.7	4.9	8.4	10.3	0.0	0.0	0.1	CON	LAB
+262	301	Brighton Kemptown	Simon Kirby	66,017	64.7	35.3	38.1	5.6	9.8	11.0	0.0	0.0	0.2	CON	LAB
+262	300	Dundee East	Stewart Hosie	65,471	62.0	14.9	17.7	0.4	4.0	2.3	60.1	0.0	0.6	NAT	NAT
+263	300	Corby	Louise Bagshaw	78,305	69.3	38.2	40.7	3.9	13.2	2.5	0.0	0.0	1.5	CON	LAB
+263	299	Stirling	Anne McGuire	66,080	70.9	23.4	26.0	0.6	3.5	4.2	42.3	0.0	0.0	LAB	NAT
+264	299	Hove	Mike Weatherley	71,708	69.5	34.6	37.2	9.0	8.4	10.7	0.0	0.0	0.1	CON	LAB
+265	298	Enfield North	Nick de Bois	66,258	67.1	40.2	42.6	2.7	8.7	4.5	0.0	0.0	1.3	CON	LAB
+265	297	Ochil and South Perthshire	Gordon Banks	75,115	67.2	19.9	22.2	0.5	4.9	2.3	50.3	0.0	0.0	LAB	NAT
+266	297	Ipswich	Ben Gummer	78,371	59.9	36.1	38.2	5.1	13.9	5.6	0.0	0.0	1.1	CON	LAB
+267	296	Northampton North	Michael Ellis	64,230	62.7	30.8	32.9	13.4	16.4	5.1	0.0	0.0	1.5	CON	LAB
+268	295	Bury North	David Nuttall	66,759	67.3	37.4	39.5	4.3	13.5	3.8	0.0	0.0	1.6	CON	LAB
+269	294	Hastings and Rye	Amber Rudd	78,000	63.9	37.0	38.9	4.7	13.2	5.1	0.0	0.0	1.1	CON	LAB
+270	293	Nuneaton	Marcus Jones	67,837	65.8	37.5	39.3	4.0	13.7	3.4	0.0	0.0	2.0	CON	LAB
+271	292	Erewash	Jessica Lee	69,654	68.4	35.9	37.4	4.7	15.7	4.4	0.0	0.0	1.9	CON	LAB
+272	291	Gloucester	Richard Graham	79,322	64.0	36.9	38.2	6.3	14.0	4.2	0.0	0.0	0.4	CON	LAB
+273	290	Halesowen and Rowley Regis	James Morris	63,693	69.0	37.8	39.1	3.7	17.0	2.1	0.0	0.0	0.3	CON	LAB
+273	289	Leeds North West	Greg Mulholland	65,399	66.5	23.4	24.5	33.1	11.5	6.6	0.0	0.0	0.8	LIB	LIB
+274	289	Blackpool North and Cleveleys	Paul Maynard	65,888	61.6	37.8	38.8	3.2	15.8	2.9	0.0	0.0	1.4	CON	LAB
+275	288	Kingswood	Chris Skidmore	66,361	72.2	36.7	37.8	5.4	14.0	4.9	0.0	0.0	1.1	CON	LAB
+276	287	Chester, City of	Stephen Mosley	68,874	67.9	37.6	38.6	4.8	13.1	5.4	0.0	0.0	0.5	CON	LAB
+277	286	Worcester	Robin Walker	72,831	67.2	36.7	37.5	4.9	13.8	6.1	0.0	0.0	1.1	CON	LAB
+277	285	Aberdeen South	Anne Begg	64,031	67.2	20.5	21.2	7.9	3.6	1.8	43.5	0.0	1.5	LAB	NAT
+278	285	Wirral West	Esther McVey	55,050	71.5	39.1	39.5	4.1	11.6	5.1	0.0	0.0	0.7	CON	LAB
+279	284	Croydon Central	Gavin Barwell	78,880	63.1	38.0	38.3	3.0	8.1	4.4	0.0	6.8	1.4	CON	LAB
+280	283	Keighley	Kris Hopkins	65,893	72.4	39.7	39.8	4.3	11.4	3.3	0.0	0.0	1.5	CON	LAB
+281	282	Pendle	Andrew Stephenson	66,417	67.8	37.0	36.7	5.3	14.8	3.9	0.0	0.0	2.3	CON	CON
+282	281	Loughborough	Nicky Morgan	77,502	68.2	38.2	37.7	4.9	13.5	4.4	0.0	0.0	1.3	CON	CON
+282	280	Ceredigion	Mark Williams	59,043	64.8	10.2	9.6	35.1	10.1	6.1	28.8	0.0	0.0	LIB	LIB
+282	280	Sheffield Hallam	Nick Clegg	69,378	73.7	20.0	19.3	38.4	12.7	8.7	0.0	0.0	0.9	LIB	LIB
+283	280	Cannock Chase	Aidan Burley	74,509	61.1	36.4	35.7	4.2	16.8	1.7	0.0	4.7	0.5	CON	CON
+283	279	Dumfries and Galloway	Russell Brown	74,581	70.0	30.9	30.0	0.4	5.4	0.5	32.8	0.0	0.0	LAB	NAT
+284	279	Warwick and Leamington	Chris White	67,800	72.3	40.4	39.4	5.0	9.0	6.0	0.0	0.0	0.1	CON	CON
+285	278	Ealing Central and Acton	Angie Bray	63,489	74.3	37.7	36.7	12.9	6.4	5.9	0.0	0.0	0.4	CON	CON
+286	277	Harrow East	Bob Blackman	68,554	70.0	44.3	43.0	3.3	5.6	3.9	0.0	0.0	0.0	CON	CON
+287	276	Swindon South	Robert Buckland	72,622	64.9	38.6	37.0	5.8	13.7	4.7	0.0	0.0	0.2	CON	CON
+288	275	Stevenage	Stephen McPartland	68,937	64.8	38.4	36.7	4.6	15.2	3.8	0.0	0.0	1.3	CON	CON
+289	274	Watford	Richard Harrington	80,798	68.3	32.8	31.2	18.4	11.4	5.4	0.0	0.0	0.8	CON	CON
+290	273	Elmet and Rothwell	Alec Shelbrooke	77,724	71.8	39.4	37.7	4.6	12.0	5.0	0.0	0.0	1.2	CON	CON
+290	272	Edinburgh South	Ian Murray	59,354	73.8	20.6	18.7	12.1	2.8	7.3	38.5	0.0	0.0	LAB	NAT
+291	272	Rossendale and Darwen	Jake Berry	73,003	64.6	38.8	36.3	4.5	15.1	3.9	0.0	0.0	1.5	CON	CON
+292	271	Vale of Glamorgan	Alun Cairns	70,262	69.3	38.7	36.2	2.9	13.0	3.5	5.4	0.0	0.2	CON	CON
+293	270	Carmarthen West and Pembrokeshire South	Simon Hart	57,519	70.4	38.3	35.7	2.4	10.9	2.1	10.3	0.0	0.3	CON	CON
+294	269	Norwich North	Chloe Smith	65,258	65.2	37.2	34.5	5.0	13.8	8.7	0.0	0.0	0.8	CON	CON
+294	268	Dwyfor Meirionnydd	Elfyn Llwyd	45,354	63.7	19.9	17.0	2.5	7.9	2.4	45.6	4.7	0.0	NAT	NAT
+295	268	High Peak	Andrew Bingham	71,973	69.9	37.7	34.9	7.2	12.7	7.3	0.0	0.0	0.2	CON	CON
+296	267	Milton Keynes South	Iain Stewart	90,487	61.2	39.3	36.3	5.0	13.3	5.0	0.0	0.0	1.1	CON	CON
+297	266	Cleethorpes	Martin Vickers	70,214	64.0	38.3	34.9	5.1	19.2	2.6	0.0	0.0	0.0	CON	CON
+298	265	Somerset North East	Jacob Rees-Mogg	67,412	76.0	37.3	33.8	8.7	10.7	9.5	0.0	0.0	0.0	CON	CON
+299	264	Colne Valley	Jason McCartney	80,062	69.1	34.1	30.5	14.0	13.7	6.2	0.0	0.0	1.6	CON	CON
+299	263	Caithness Sutherland and Easter Ross	John Thurso	47,257	60.9	12.8	9.0	18.6	4.3	1.4	52.3	0.0	1.7	LIB	NAT
+300	263	Great Yarmouth	Brandon Lewis	70,315	61.2	38.1	34.3	3.8	19.4	3.3	0.0	0.0	1.1	CON	CON
+301	262	Dudley South	Chris Kelly	60,572	63.0	39.2	35.0	3.8	19.6	2.3	0.0	0.0	0.0	CON	CON
+302	261	Dover	Charlie Elphicke	71,832	70.1	39.2	34.9	4.7	16.6	3.7	0.0	0.0	1.0	CON	CON
+303	260	Peterborough	Stewart Jackson	70,316	63.9	38.0	33.7	5.5	17.3	4.6	0.0	0.0	0.9	CON	CON
+304	259	Stourbridge	Margot James	69,637	67.8	38.8	34.4	4.0	17.7	3.9	0.0	0.0	1.3	CON	CON
+305	258	Ribble South	Lorraine Fullbrook	75,822	67.9	41.3	36.8	3.4	14.6	3.3	0.0	0.0	0.7	CON	CON
+306	257	Stafford	Jeremy Lefroy	70,587	71.2	40.2	35.7	4.0	15.4	4.0	0.0	0.0	0.7	CON	CON
+307	256	Aberconwy	Guto Bebb	44,593	67.2	33.2	28.6	3.8	13.9	2.7	17.7	0.0	0.2	CON	CON
+308	255	Harlow	Robert Halfon	67,439	65.1	40.2	35.1	3.7	16.9	2.7	0.0	0.0	1.3	CON	CON
+309	254	Calder Valley	Craig Whittaker	76,903	67.3	36.3	30.9	10.9	13.7	6.7	0.0	0.0	1.5	CON	CON
+310	253	Brigg and Goole	Andrew Percy	67,345	65.1	40.6	35.1	4.0	16.2	3.0	0.0	0.0	1.1	CON	CON
+311	252	Preseli Pembrokeshire	Stephen Crabb	57,419	69.0	39.9	34.4	2.8	11.3	2.4	9.1	0.0	0.0	CON	CON
+312	251	Bristol North West	Charlotte Leslie	73,469	68.5	33.8	28.2	17.5	9.3	10.8	0.0	0.0	0.4	CON	CON
+313	250	Ilford North	Lee Scott	72,372	65.0	45.6	39.9	2.9	6.6	3.4	0.0	0.0	1.5	CON	CON
+314	249	Crewe and Nantwich	Edward Timpson	77,460	65.9	42.8	37.0	3.7	11.9	3.8	0.0	0.0	0.8	CON	CON
+315	248	Rugby	Mark Pawsey	68,914	68.9	41.4	35.4	5.4	12.6	4.2	0.0	0.0	1.0	CON	CON
+316	247	Burton	Andrew Griffiths	74,874	66.5	41.1	35.0	3.9	15.8	2.7	0.0	0.0	1.6	CON	CON
+317	246	Reading West	Alok Sharma	72,118	65.9	40.5	34.2	6.3	11.1	7.1	0.0	0.0	0.6	CON	CON
+318	245	Finchley and Golders Green	Mike Freer	77,198	61.1	45.3	39.0	3.8	6.3	5.5	0.0	0.0	0.0	CON	CON
+319	244	Basildon South and East Thurrock	Stephen Metcalfe	71,815	62.3	38.7	32.3	3.5	21.0	2.7	0.0	0.0	1.9	CON	CON
+320	243	Crawley	Henry Smith	72,781	65.3	41.4	34.9	4.4	14.2	3.6	0.0	0.0	1.4	CON	CON
+321	242	Battersea	Jane Ellison	74,300	65.7	46.4	39.9	3.3	3.8	6.4	0.0	0.0	0.2	CON	CON
+322	241	Redditch	Karen Lumley	68,550	64.2	40.3	33.8	4.4	16.8	3.2	0.0	0.0	1.4	CON	CON
+322	240	Inverness Nairn Badenoch and Strathspey	Danny Alexander	72,528	64.9	13.1	6.4	18.0	5.5	3.1	51.7	0.0	2.1	LIB	NAT
+323	240	Tamworth	Christopher Pincher	72,693	63.8	42.7	35.6	4.0	15.5	1.9	0.0	0.0	0.2	CON	CON
+324	239	Leicestershire North West	Andrew Bridgen	71,219	72.9	40.7	33.1	4.4	16.1	3.6	0.0	0.0	2.1	CON	CON
+325	238	Derbyshire South	Heather Wheeler	70,610	71.4	41.7	34.1	4.2	15.4	3.0	0.0	0.0	1.6	CON	CON
+326	237	Filton and Bradley Stoke	Jack Lopresti	69,003	70.0	37.1	29.5	11.6	15.2	5.5	0.0	0.0	1.1	CON	CON
+326	236	Orkney and Shetland	Alistair Carmichael	33,085	58.5	10.0	2.3	34.5	8.9	5.3	39.0	0.0	0.0	LIB	NAT
+327	236	Chatham and Aylesford	Tracey Crouch	71,122	61.6	41.6	33.8	4.0	15.8	3.5	0.0	0.0	1.4	CON	CON
+328	235	Swindon North	Justin Tomlinson	78,391	64.2	41.4	33.5	5.6	13.8	4.7	0.0	0.0	1.0	CON	CON
+329	234	Northampton South	Brian Binley	66,923	58.2	37.5	29.5	5.3	19.4	5.4	0.0	0.0	2.8	CON	CON
+330	233	Dorset South	Richard Drax	73,838	68.1	41.2	32.6	6.1	14.1	5.8	0.0	0.0	0.2	CON	CON
+331	232	Thanet South	Laura Sandys	71,596	64.2	34.6	26.0	3.6	33.2	2.6	0.0	0.0	0.0	CON	CON
+331	231	Ross Skye and Lochaber	Charles Kennedy	51,836	67.2	12.0	3.3	27.9	6.0	3.6	46.5	0.0	0.8	LIB	NAT
+332	231	Scarborough and Whitby	Robert Goodwill	75,443	65.3	38.9	29.5	8.0	16.2	6.2	0.0	0.0	1.2	CON	CON
+333	230	Staffordshire Moorlands	Karen Bradley	62,071	70.6	42.9	33.4	4.3	17.6	1.9	0.0	0.0	0.0	CON	CON
+334	229	Portsmouth North	Penny Mordaunt	70,329	62.7	40.2	30.4	6.2	15.9	6.5	0.0	0.0	0.9	CON	CON
+335	228	Milton Keynes North	Mark Lancaster	85,841	62.8	41.2	31.1	7.8	13.7	5.3	0.0	0.0	1.0	CON	CON
+335	227	Edinburgh West	Michael Crockart	65,161	71.3	22.2	11.8	13.6	2.9	5.3	44.2	0.0	0.0	LIB	NAT
+336	227	Clwyd West	David Jones	57,913	65.8	39.0	28.2	3.0	12.3	2.0	15.3	0.0	0.3	CON	CON
+337	226	Reading East	Rob Wilson	74,922	66.7	40.3	29.2	13.8	8.6	7.9	0.0	0.0	0.1	CON	CON
+338	225	Enfield Southgate	David Burrowes	64,138	69.2	47.6	36.1	3.0	7.7	4.9	0.0	0.0	0.7	CON	CON
+339	224	Gillingham and Rainham	Rehman Chishti	70,865	66.0	41.1	29.5	5.4	19.0	3.8	0.0	0.0	1.3	CON	CON
+340	223	Kettering	Philip Hollobone	68,837	68.8	44.5	32.1	4.3	14.3	3.2	0.0	0.0	1.6	CON	CON
+341	222	Rochester and Strood	Mark Reckless	73,882	64.9	39.4	27.0	4.3	24.1	3.9	0.0	0.0	1.3	CON	CON
+341	221	Portsmouth South	Mike Hancock	70,242	58.7	29.4	16.8	31.2	14.2	7.2	0.0	0.0	1.1	LIB	LIB
+342	221	Gravesham	Adam Holloway	70,195	67.4	43.8	30.3	4.0	17.9	3.1	0.0	0.0	1.0	CON	CON
+342	220	Colchester	Bob Russell	74,062	62.3	29.2	15.6	32.9	14.5	7.0	0.0	0.0	0.8	LIB	LIB
+343	220	Wrekin, The	Mark Pritchard	65,544	70.1	44.1	30.2	4.3	17.3	3.0	0.0	0.0	1.1	CON	CON
+343	219	Gordon	Malcolm Bruce	73,420	66.4	18.3	4.4	14.1	4.7	2.5	54.7	0.0	1.3	LIB	NAT
+344	219	Shipley	Philip Davies	67,689	73.0	46.5	32.5	5.8	8.7	6.5	0.0	0.0	0.0	CON	CON
+345	218	Camborne and Redruth	George Eustice	63,968	66.4	32.9	18.8	22.9	17.3	7.4	0.0	0.0	0.7	CON	CON
+346	217	Bromsgrove	Sajid Javid	73,086	70.6	40.7	26.4	4.9	20.5	4.5	0.0	0.0	3.0	CON	CON
+347	216	Dartford	Gareth Johnson	76,271	65.7	43.9	29.4	4.4	17.6	3.1	0.0	0.0	1.7	CON	CON
+347	215	Hazel Grove	Andrew Stunell	63,074	66.6	31.0	16.3	34.5	13.7	4.4	0.0	0.0	0.0	LIB	LIB
+347	215	Clacton	Douglas Carswell	67,194	64.2	35.1	19.8	2.5	37.8	3.0	0.0	0.0	1.8	CON	UKIP
+348	215	Wellingborough	Peter Bone	76,857	67.2	43.9	28.1	4.6	17.6	4.1	0.0	0.0	1.7	CON	CON
+349	214	Monmouth	David Davies	62,768	74.1	46.3	30.4	3.8	12.5	4.3	2.8	0.0	0.0	CON	CON
+350	213	Wyre Forest	Mark Garnier	76,711	66.4	32.2	16.0	2.8	15.0	2.9	0.0	30.3	0.7	CON	CON
+351	212	Forest of Dean	Mark Harper	68,419	71.3	42.9	26.6	8.3	15.4	6.8	0.0	0.0	0.0	CON	CON
+352	211	Shrewsbury and Atcham	Daniel Kawczynski	75,438	70.3	40.9	24.3	14.0	15.0	5.1	0.0	0.0	0.8	CON	CON
+352	210	Argyll and Bute	Alan Reid	67,165	67.3	24.0	7.1	10.6	4.2	1.9	51.3	0.0	0.9	LIB	NAT
+353	210	Selby and Ainsty	Nigel Adams	72,789	71.1	45.5	28.6	4.9	15.6	4.0	0.0	0.0	1.3	CON	CON
+354	209	Berwick-upon-Tweed	Alan Beith	57,403	67.0	34.3	17.4	29.6	13.9	3.7	0.0	0.0	1.1	LIB	CON
+355	208	Derbyshire Mid	Pauline Latham	66,297	71.4	45.3	28.3	5.9	15.4	3.8	0.0	0.0	1.3	CON	CON
+356	207	Hexham	Guy Opperman	61,375	70.8	41.0	24.0	15.5	12.5	4.4	0.0	0.0	2.7	CON	CON
+357	206	Bexleyheath and Crayford	David Evennett	64,985	66.4	45.9	28.8	2.6	17.4	3.4	0.0	0.0	1.9	CON	CON
+358	205	St Albans	Anne Main	70,058	75.4	38.7	21.4	22.5	10.8	6.6	0.0	0.0	0.0	CON	CON
+358	204	Bath	Don Foster	65,603	71.8	27.5	9.9	42.1	9.5	10.7	0.0	0.0	0.3	LIB	LIB
+359	204	Chipping Barnet	Theresa Villiers	77,798	65.1	48.3	30.6	4.7	9.3	6.8	0.0	0.0	0.3	CON	CON
+360	203	Uxbridge and South Ruislip	John Randall	71,168	63.3	46.0	28.1	4.3	15.4	4.7	0.0	0.0	1.6	CON	CON
+360	202	Fife North East	Sir Menzies Campbell	62,969	63.6	21.7	3.8	21.3	5.9	0.9	46.4	0.0	0.0	LIB	NAT
+361	202	Sittingbourne and Sheppey	Gordon Henderson	75,354	64.5	44.7	26.3	4.8	19.4	3.6	0.0	0.0	1.2	CON	CON
+362	201	York Outer	Julian Sturdy	74,965	71.1	39.1	20.2	21.3	10.3	8.5	0.0	0.0	0.6	CON	CON
+363	200	Kensington	Sir Malcolm Rifkind	65,961	53.3	50.0	31.1	4.4	7.8	6.5	0.0	0.0	0.2	CON	CON
+363	199	Norfolk North	Norman Lamb	67,841	73.2	28.0	8.9	39.8	17.6	5.6	0.0	0.0	0.1	LIB	LIB
+364	199	Rochford and Southend East	James Duddridge	71,080	58.6	42.8	23.7	5.3	20.1	6.2	0.0	0.0	1.9	CON	CON
+365	198	Putney	Justine Greening	63,370	64.4	51.3	32.2	3.8	5.1	7.2	0.0	0.0	0.4	CON	CON
+366	197	Beverley and Holderness	Graham Stuart	79,611	66.8	43.1	23.9	8.2	16.4	4.5	0.0	3.8	0.1	CON	CON
+367	196	Bosworth	David Tredinnick	77,296	70.2	38.9	19.7	18.4	17.4	3.6	0.0	0.0	2.0	CON	CON
+368	195	Brecon and Radnorshire	Roger Williams	53,589	72.5	34.2	14.9	31.0	12.3	4.7	2.6	0.0	0.4	LIB	CON
+369	194	Harwich and North Essex	Bernard Jenkin	70,743	69.3	41.9	22.5	8.7	20.2	5.9	0.0	0.0	0.8	CON	CON
+370	193	Macclesfield	David Rutley	73,417	68.2	43.9	24.4	8.1	15.2	6.8	0.0	0.0	1.7	CON	CON
+371	192	Yorkshire East	Greg Knight	80,342	63.8	43.4	23.8	6.7	18.9	5.4	0.0	0.0	1.8	CON	CON
+371	191	Twickenham	Vincent Cable	79,861	74.8	31.7	11.8	39.8	8.1	8.2	0.0	0.0	0.4	LIB	LIB
+371	191	Southport	John Pugh	67,202	65.1	33.3	13.2	35.4	14.0	4.1	0.0	0.0	0.0	LIB	LIB
+371	191	Yeovil	David Laws	82,314	69.4	28.8	8.4	41.0	15.9	5.3	0.0	0.0	0.7	LIB	LIB
+372	191	Altrincham and Sale West	Graham Brady	71,254	69.3	47.5	27.0	10.8	10.1	4.6	0.0	0.0	0.0	CON	CON
+372	190	Kingston and Surbiton	Edward Davey	81,116	70.4	34.3	13.5	35.1	10.1	6.7	0.0	0.0	0.3	LIB	LIB
+373	190	Bridgwater and West Somerset	Ian Liddell-Grainger	76,560	71.2	40.9	19.9	14.4	17.6	6.2	0.0	0.0	0.9	CON	CON
+374	189	Wimbledon	Stephen Hammond	65,723	72.1	48.7	27.5	9.8	8.0	5.8	0.0	0.0	0.2	CON	CON
+375	188	Ribble Valley	Nigel Evans	78,068	67.0	46.6	25.4	5.4	18.1	4.4	0.0	0.0	0.2	CON	CON
+376	187	Carshalton and Wallington	Tom Brake	66,520	69.0	34.2	12.9	33.2	14.1	4.8	0.0	0.0	0.8	LIB	CON
+377	186	Leicestershire South	Andrew Robathan	76,639	71.2	45.9	24.5	6.3	17.3	4.3	0.0	0.0	1.6	CON	CON
+378	185	Castle Point	Rebecca Harris	67,284	66.9	36.8	15.4	2.4	16.9	2.7	0.0	24.4	1.5	CON	CON
+378	184	Moray	Angus Robertson	65,925	62.2	25.2	3.6	0.6	6.5	1.8	62.3	0.0	0.0	NAT	NAT
+379	184	Canterbury	Julian Brazier	76,808	64.1	40.2	18.6	18.0	14.7	8.3	0.0	0.0	0.1	CON	CON
+380	183	Boston and Skegness	Mark Simmonds	70,529	61.1	44.7	23.1	4.1	24.2	2.2	0.0	0.0	1.8	CON	CON
+381	182	Congleton	Fiona Bruce	73,692	68.9	42.8	20.7	16.9	14.9	4.4	0.0	0.0	0.3	CON	CON
+382	181	Hemel Hempstead	Michael Penning	72,754	68.0	46.4	24.3	8.3	14.1	5.7	0.0	0.0	1.3	CON	CON
+383	180	Norfolk South West	Elizabeth Truss	74,298	66.2	44.1	21.7	6.9	20.8	5.4	0.0	0.0	1.2	CON	CON
+384	179	Charnwood	Stephen Dorrell	74,473	71.9	46.1	23.5	6.9	17.0	4.7	0.0	0.0	1.9	CON	CON
+385	178	Eastleigh	Christopher Huhne	77,435	69.3	35.4	12.6	32.0	15.7	4.1	0.0	0.0	0.3	LIB	CON
+386	177	Basildon and Billericay	John Baron	65,482	63.5	47.3	24.5	4.2	17.4	2.2	0.0	4.4	0.0	CON	CON
+387	176	Bournemouth West	Conor Burns	71,753	58.1	40.4	17.3	17.6	18.5	5.8	0.0	0.0	0.4	CON	CON
+388	175	St Ives	Andrew George	66,930	68.6	34.3	11.0	28.0	17.5	8.7	0.0	0.0	0.5	LIB	CON
+388	174	Devon North	Nick Harvey	74,508	68.9	31.7	8.4	32.7	19.0	7.3	0.0	0.0	0.9	LIB	LIB
+388	174	Thornbury and Yate	Steve Webb	64,092	75.2	33.4	10.0	37.8	14.4	4.1	0.0	0.0	0.1	LIB	LIB
+389	174	Stone	William Cash	66,979	70.5	47.4	24.0	7.4	17.0	4.1	0.0	0.0	0.0	CON	CON
+390	173	Hornchurch and Upminster	Angela Watkinson	78,487	68.0	46.1	22.4	2.8	19.3	2.9	0.0	6.1	0.4	CON	CON
+391	172	Suffolk Coastal	Therese Coffey	76,687	71.6	42.7	19.0	15.1	16.2	7.0	0.0	0.0	0.0	CON	CON
+392	171	Eddisbury	Stephen O'Brien	65,306	69.5	48.7	25.0	7.5	14.6	4.2	0.0	0.0	0.0	CON	CON
+393	170	Spelthorne	Kwasi Kwarteng	70,479	67.1	43.4	19.6	11.9	20.7	3.8	0.0	0.0	0.7	CON	CON
+394	169	Basingstoke	Maria Miller	75,470	67.1	47.4	23.5	10.7	13.5	4.7	0.0	0.0	0.2	CON	CON
+395	168	Thanet North	Roger Gale	69,432	62.4	47.2	23.3	5.7	19.0	4.8	0.0	0.0	0.0	CON	CON
+396	167	Meriden	Caroline Spelman	83,826	62.2	48.2	24.1	4.4	15.6	5.7	0.0	0.0	2.0	CON	CON
+396	166	Lewes	Norman Baker	68,708	72.9	32.1	8.1	36.5	14.9	8.0	0.0	0.0	0.4	LIB	LIB
+397	166	Bury St Edmunds	David Ruffley	84,727	69.3	43.7	19.5	11.8	16.0	8.9	0.0	0.0	0.0	CON	CON
+397	165	Dumfriesshire, Clydesdale and Tweeddale	David Mundell	66,627	68.9	37.3	13.1	0.8	6.4	2.5	39.9	0.0	0.0	CON	NAT
+398	165	Louth and Horncastle	Sir Peter Tapsell	77,650	65.0	44.9	20.7	7.6	21.2	3.5	0.0	0.0	2.1	CON	CON
+399	164	Wyre and Preston North	Ben Wallace	71,201	72.1	48.9	24.6	6.4	16.3	3.8	0.0	0.0	0.0	CON	CON
+400	163	Truro and Falmouth	Sarah Newton	70,598	69.1	36.8	12.4	26.1	16.2	7.7	0.0	0.0	0.7	CON	CON
+401	162	Cities of London and Westminster	Mark Field	66,489	55.5	52.0	27.5	5.1	7.9	7.1	0.0	0.0	0.4	CON	CON
+402	161	Torbay	Adrian Sanders	76,151	64.6	34.1	9.5	32.1	19.4	4.4	0.0	0.0	0.5	LIB	CON
+403	160	Chingford and Woodford Green	Iain Duncan Smith	64,831	66.5	52.3	27.7	3.8	8.3	6.7	0.0	0.0	1.3	CON	CON
+404	159	Rushcliffe	Kenneth Clarke	72,955	73.6	49.3	24.6	7.3	11.8	7.0	0.0	0.0	0.0	CON	CON
+405	158	Grantham and Stamford	Nicholas Boles	78,000	67.7	46.7	21.9	7.8	17.4	4.2	0.0	0.0	2.1	CON	CON
+406	157	Wycombe	Steven Baker	74,502	64.6	45.4	20.5	14.3	14.5	5.0	0.0	0.0	0.3	CON	CON
+407	156	Norfolk Mid	George Freeman	74,260	68.4	45.5	20.6	7.6	18.8	6.7	0.0	0.0	0.8	CON	CON
+408	155	St Austell and Newquay	Stephen Gilbert	76,346	61.9	35.1	10.1	28.0	16.0	6.1	0.0	4.1	0.7	LIB	CON
+409	154	Broadland	Keith Simpson	73,168	72.0	41.9	16.8	17.4	17.0	6.3	0.0	0.0	0.5	CON	CON
+410	153	Cheadle	Mark Hunter	72,458	72.5	38.3	13.2	32.8	11.3	4.4	0.0	0.0	0.0	LIB	CON
+411	152	Oxford West and Abingdon	Nicola Blackwood	86,458	65.3	38.8	13.6	28.3	10.1	9.0	0.0	0.0	0.1	CON	CON
+412	151	Southend West	David Amess	66,527	65.5	42.4	17.2	14.7	17.9	6.0	0.0	0.0	1.9	CON	CON
+413	150	Croydon South	Richard Ottaway	81,301	69.3	50.0	24.7	7.4	12.2	5.6	0.0	0.0	0.0	CON	CON
+414	149	Worthing East and Shoreham	Tim Loughton	74,001	65.4	45.2	19.8	11.7	17.0	6.0	0.0	0.0	0.3	CON	CON
+415	148	Newark	Patrick Mercer	71,785	71.4	51.4	25.9	5.5	14.0	3.2	0.0	0.0	0.0	CON	CON
+416	147	Weston-Super-Mare	John Penrose	78,487	67.2	39.5	13.8	24.7	14.3	6.7	0.0	0.0	0.9	CON	CON
+417	146	Braintree	Brooks Newmark	71,162	69.1	48.5	22.7	5.1	17.7	5.2	0.0	0.0	0.7	CON	CON
+418	145	Cambridgeshire North East	Stephen Barclay	73,224	71.1	46.7	20.8	5.4	22.0	3.6	0.0	0.0	1.5	CON	CON
+419	144	Bedfordshire South West	Andrew Selous	76,559	66.3	48.6	22.7	5.4	17.5	4.6	0.0	0.0	1.1	CON	CON
+420	143	Staffordshire South	Gavin Williamson	73,390	68.7	49.2	23.3	4.1	19.7	2.2	0.0	0.0	1.4	CON	CON
+421	142	Fylde	Mark Menzies	65,917	66.3	49.4	23.4	7.1	15.0	5.1	0.0	0.0	0.0	CON	CON
+422	141	Havant	David Willetts	69,712	63.0	46.5	20.4	9.3	18.4	4.8	0.0	0.0	0.6	CON	CON
+423	140	Solihull	Lorely Burt	77,863	70.8	39.1	12.7	27.6	15.1	4.4	0.0	0.0	1.2	LIB	CON
+424	139	Gainsborough	Edward Leigh	72,144	68.3	45.4	19.0	13.3	17.6	3.7	0.0	0.0	1.0	CON	CON
+425	138	Shropshire North	Owen Paterson	78,926	65.7	48.4	21.9	5.9	16.9	5.8	0.0	0.0	1.1	CON	CON
+426	137	Isle of Wight	Andrew Turner	109,966	63.9	41.0	14.5	16.8	18.6	7.4	0.0	0.0	1.6	CON	CON
+427	136	Suffolk South	Tim Yeo	72,498	70.9	43.7	17.2	16.0	17.1	5.9	0.0	0.0	0.0	CON	CON
+428	135	Derbyshire Dales	Patrick McLoughlin	63,367	73.8	49.5	22.9	7.9	13.1	6.3	0.0	0.0	0.2	CON	CON
+428	134	Perth and North Perthshire	Peter Wishart	72,141	66.9	30.1	3.5	0.5	3.0	0.8	61.0	0.0	1.0	NAT	NAT
+429	134	Witham	Priti Patel	66,750	70.2	48.0	21.1	5.3	18.4	7.1	0.0	0.0	0.0	CON	CON
+430	133	Haltemprice and Howden	David Davis	70,403	69.2	46.2	19.3	11.9	15.1	5.5	0.0	0.0	2.0	CON	CON
+430	132	Angus	Michael Weir	62,863	60.4	30.5	3.7	0.4	4.6	0.5	60.2	0.0	0.0	NAT	NAT
+430	132	Aberdeenshire West and Kincardine	Sir Robert Smith	66,110	68.4	29.9	2.9	16.0	5.4	0.7	44.0	0.0	1.1	LIB	NAT
+431	132	Chippenham	Duncan Hames	72,105	72.7	37.0	10.1	31.6	14.3	6.4	0.0	0.0	0.7	LIB	CON
+432	131	Cambridgeshire North West	Shailesh Vara	88,857	65.6	47.5	20.5	7.4	19.9	3.9	0.0	0.0	0.8	CON	CON
+433	130	Old Bexley and Sidcup	James Brokenshire	65,665	69.3	49.4	22.3	3.2	18.8	4.0	0.0	0.0	2.3	CON	CON
+434	129	Poole	Robert Syms	64,661	73.4	42.7	15.5	17.4	18.4	5.1	0.0	0.0	0.9	CON	CON
+435	128	Sleaford and North Hykeham	Stephen Phillips	85,550	69.6	46.8	19.6	5.0	17.7	3.7	0.0	6.2	1.1	CON	CON
+436	127	Wells	Tessa Munt	79,432	70.3	37.7	10.4	29.2	14.4	7.8	0.0	0.0	0.6	LIB	CON
+436	126	Banff and Buchan	Eilidh Whiteford	64,300	59.8	30.4	3.0	0.5	3.2	0.0	60.4	0.0	2.4	NAT	NAT
+437	126	Gosport	Caroline Dinenage	72,720	64.5	47.9	20.5	7.1	17.5	5.1	0.0	0.0	1.9	CON	CON
+437	125	Westmorland and Lonsdale	Tim Farron	67,881	75.8	33.4	5.9	45.9	9.3	5.6	0.0	0.0	0.0	LIB	LIB
+438	125	Banbury	Tony Baldry	86,986	64.7	49.9	22.4	7.0	14.2	6.1	0.0	0.0	0.3	CON	CON
+439	124	Aldershot	Gerald Howarth	71,469	63.5	43.0	15.3	20.3	16.0	4.7	0.0	0.0	0.7	CON	CON
+440	123	Montgomeryshire	Glyn Davies	48,730	69.4	39.2	11.5	22.4	13.8	4.0	8.4	0.0	0.7	CON	CON
+441	122	Bournemouth East	Tobias Ellwood	71,125	61.9	43.6	15.8	16.8	17.8	6.0	0.0	0.0	0.2	CON	CON
+442	121	Chelmsford	Simon Burns	77,529	70.4	42.1	14.2	21.8	16.1	5.0	0.0	0.0	0.8	CON	CON
+443	120	Suffolk Central and Ipswich North	Daniel Poulter	75,848	70.4	47.4	19.4	10.4	14.9	7.5	0.0	0.0	0.3	CON	CON
+444	119	Suffolk West	Matthew Hancock	74,413	64.6	46.1	18.1	8.7	20.7	4.8	0.0	0.0	1.6	CON	CON
+445	118	Eastbourne	Stephen Lloyd	77,840	67.0	36.1	8.0	32.2	16.3	4.3	0.0	2.4	0.7	LIB	CON
+446	117	Lichfield	Michael Fabricant	72,586	71.0	51.6	23.3	5.1	17.4	2.5	0.0	0.0	0.0	CON	CON
+447	116	Sutton Coldfield	Andrew Mitchell	74,489	67.9	53.3	25.0	4.7	11.4	4.3	0.0	0.0	1.2	CON	CON
+448	115	Sutton and Cheam	Paul Burstow	66,658	72.8	39.8	11.1	30.5	13.2	4.6	0.0	0.0	0.9	LIB	CON
+449	114	Newton Abbot	Anne-Marie Morris	69,343	69.6	38.5	9.8	27.5	16.6	7.4	0.0	0.0	0.1	CON	CON
+450	113	Norfolk South	Richard Bacon	76,165	72.2	45.3	16.4	14.7	15.2	7.9	0.0	0.0	0.6	CON	CON
+451	112	Tewkesbury	Laurence Robertson	76,655	70.4	43.5	14.5	21.8	14.4	5.7	0.0	0.0	0.2	CON	CON
+452	111	Bracknell	Phillip Lee	76,885	67.8	49.1	20.1	8.5	15.8	5.6	0.0	0.0	0.8	CON	CON
+453	110	Rutland and Melton	Alan Duncan	77,185	71.5	46.7	17.6	10.8	17.8	5.7	0.0	0.0	1.4	CON	CON
+454	109	Harborough	Edward Garnier	77,917	70.5	45.8	16.6	16.5	15.0	4.6	0.0	0.0	1.5	CON	CON
+455	108	Cheltenham	Martin Horwood	78,998	66.8	37.5	8.3	36.6	10.9	6.5	0.0	0.0	0.3	LIB	CON
+456	107	Bognor Regis and Littlehampton	Nick Gibb	70,812	66.2	46.3	17.0	9.3	21.4	4.5	0.0	0.0	1.4	CON	CON
+457	106	Romford	Andrew Rosindell	71,193	65.3	50.4	21.1	2.5	17.8	2.6	0.0	5.0	0.6	CON	CON
+458	105	Cornwall North	Dan Rogerson	68,662	68.2	36.8	7.2	33.0	16.8	5.9	0.0	0.0	0.4	LIB	CON
+459	104	Taunton Deane	Jeremy Browne	82,537	70.5	37.6	8.0	34.3	14.0	6.2	0.0	0.0	0.0	LIB	CON
+460	103	Welwyn Hatfield	Grant Shapps	72,058	68.0	53.9	24.2	4.5	12.5	4.7	0.0	0.0	0.1	CON	CON
+461	102	Bromley and Chislehurst	Bob Neill	65,427	67.3	50.4	20.6	6.2	15.5	6.1	0.0	0.0	1.1	CON	CON
+462	101	Folkestone and Hythe	Damian Collins	78,003	67.7	43.8	13.7	15.6	19.6	6.2	0.0	0.0	1.1	CON	CON
+463	100	Cornwall South East	Sheryll Murray	72,237	68.7	40.1	9.9	24.0	18.1	7.5	0.0	0.0	0.4	CON	CON
+464	99	Devon East	Hugo Swire	73,109	72.6	43.5	13.4	17.1	18.1	8.0	0.0	0.0	0.0	CON	CON
+465	98	Tatton	George Osborne	65,689	68.9	51.6	21.4	7.5	12.5	5.1	0.0	0.0	1.9	CON	CON
+466	97	Totnes	Sarah Wollaston	67,937	70.4	40.7	10.4	21.1	17.4	9.5	0.0	0.0	0.8	CON	CON
+467	96	Huntingdon	Jonathan Djanogly	83,557	64.9	44.9	14.6	14.2	19.2	5.8	0.0	0.0	1.3	CON	CON
+468	95	Cambridgeshire South	Andrew Lansley	78,995	74.8	44.6	14.0	19.8	12.0	8.5	0.0	0.0	1.1	CON	CON
+469	94	Ashford	Damien Green	81,269	67.9	49.9	19.3	8.8	16.9	5.0	0.0	0.0	0.0	CON	CON
+469	93	Berwickshire, Roxburgh and Selkirk	Michael Moore	73,826	66.4	32.8	2.2	21.4	5.7	2.1	35.6	0.0	0.3	LIB	NAT
+470	93	Somerset North	Liam Fox	77,304	75.0	44.3	13.7	21.4	14.5	6.2	0.0	0.0	0.0	CON	CON
+471	92	Bedfordshire Mid	Nadine Dorries	76,023	72.2	48.6	17.9	10.3	17.2	5.6	0.0	0.0	0.4	CON	CON
+472	91	Hertfordshire North East	Oliver Heald	72,200	69.8	50.7	19.9	9.0	13.4	6.8	0.0	0.0	0.3	CON	CON
+473	90	Dorset Mid and Poole North	Annette Brooke	64,660	72.4	40.0	8.7	30.6	16.3	4.4	0.0	0.0	0.0	LIB	CON
+474	89	Maidstone and The Weald	Helen Grant	71,041	68.9	44.2	12.9	21.8	16.0	4.5	0.0	0.0	0.5	CON	CON
+475	88	Northamptonshire South	Andrea Leadsom	82,032	73.0	51.9	20.6	6.5	15.7	4.8	0.0	0.0	0.4	CON	CON
+476	87	Hertsmere	James Clappison	73,062	64.7	53.7	22.3	4.9	13.7	4.3	0.0	0.0	1.0	CON	CON
+477	86	Bexhill and Battle	Greg Barker	79,208	68.9	46.3	14.9	13.5	14.6	4.8	0.0	4.7	1.1	CON	CON
+478	85	Hereford and South Herefordshire	Jesse Norman	71,435	67.7	42.4	10.8	25.7	15.3	5.2	0.0	0.0	0.7	CON	CON
+479	84	Wantage	Ed Vaizey	80,456	70.0	48.5	16.9	14.4	13.0	7.3	0.0	0.0	0.0	CON	CON
+480	83	Thirsk and Malton	Anne McIntosh	76,231	50.0	48.8	17.0	8.8	18.3	6.0	0.0	0.0	1.2	CON	CON
+481	82	Epping Forest	Eleanor Laing	72,198	64.5	49.5	17.7	6.8	19.0	5.4	0.0	0.0	1.6	CON	CON
+482	81	Harrogate and Knaresborough	Andrew Jones	75,269	70.6	41.9	9.9	29.0	13.3	5.3	0.0	0.0	0.7	CON	CON
+483	80	Devon West and Torridge	Geoffrey Cox	76,574	72.2	40.5	8.2	25.6	17.7	7.6	0.0	0.0	0.4	CON	CON
+484	79	Faversham and Kent Mid	Hugh Robertson	68,858	67.8	51.7	19.4	5.9	17.1	5.2	0.0	0.0	0.7	CON	CON
+485	78	Somerton and Frome	David Heath	81,548	74.3	39.8	7.4	32.8	13.4	6.5	0.0	0.0	0.1	LIB	CON
+486	77	Ruislip, Northwood and Pinner	Nick Hurd	70,873	70.8	56.3	23.7	3.7	11.4	4.2	0.0	0.0	0.8	CON	CON
+487	76	Worthing West	Peter Bottomley	75,945	64.7	47.2	14.6	13.6	17.8	6.6	0.0	0.0	0.2	CON	CON
+488	75	Hertford and Stortford	Mark Prisk	78,459	70.6	50.1	17.2	11.3	14.8	5.4	0.0	0.0	1.1	CON	CON
+489	74	Bedfordshire North East	Alistair Burt	78,060	71.2	52.5	19.6	7.2	15.7	4.3	0.0	0.0	0.8	CON	CON
+490	73	Aylesbury	David Liddington	77,934	68.2	48.7	15.7	13.9	16.4	5.3	0.0	0.0	0.0	CON	CON
+491	72	Norfolk North West	Henry Bellingham	73,207	65.3	49.5	16.5	8.5	18.8	5.4	0.0	0.0	1.2	CON	CON
+492	71	Skipton and Ripon	Julian Smith	77,381	70.7	46.7	13.6	17.8	14.5	6.3	0.0	0.0	1.1	CON	CON
+493	70	Wiltshire South West	Andrew Murrison	71,645	68.4	47.4	14.3	16.7	15.9	5.4	0.0	0.0	0.3	CON	CON
+494	69	Worcestershire Mid	Peter Luff	72,171	70.6	51.8	18.5	8.4	17.7	3.6	0.0	0.0	0.0	CON	CON
+495	68	Cambridgeshire South East	James Paice	83,068	69.3	44.4	11.1	23.0	13.7	7.3	0.0	0.0	0.6	CON	CON
+496	67	Kenilworth and Southam	Jeremy Wright	64,362	75.2	51.4	18.1	13.3	11.9	5.1	0.0	0.0	0.3	CON	CON
+497	66	Dorset West	Oliver Letwin	76,869	74.6	42.9	9.5	26.4	13.4	7.8	0.0	0.0	0.0	CON	CON
+498	65	Penrith and The Border	Rory Stewart	64,548	69.9	50.1	16.6	13.6	13.3	5.5	0.0	0.0	0.8	CON	CON
+499	64	Aldridge-Brownhills	Richard Shepherd	59,355	65.1	56.6	23.1	4.4	11.8	3.7	0.0	0.0	0.3	CON	CON
+500	63	Broxbourne	Charles Walker	71,391	64.0	53.5	19.9	3.6	18.3	2.8	0.0	0.0	1.9	CON	CON
+501	62	Tiverton and Honiton	Neil Parish	76,810	71.5	45.4	11.6	19.1	15.9	7.9	0.0	0.0	0.0	CON	CON
+502	61	Daventry	Chris Heaton-Harris	71,451	72.5	53.3	19.2	5.4	16.8	4.5	0.0	0.0	0.8	CON	CON
+503	60	Salisbury	John Glen	67,429	71.9	45.0	10.8	22.9	13.9	6.6	0.0	0.0	0.8	CON	CON
+504	59	Fareham	Mark Hoban	75,878	71.6	51.6	17.3	9.9	15.6	5.1	0.0	0.0	0.4	CON	CON
+505	58	Rayleigh and Wickford	Mark Francois	75,905	69.0	51.5	17.0	3.9	20.6	4.4	0.0	0.0	2.6	CON	CON
+506	57	Reigate	Crispin Blunt	71,604	69.8	49.7	14.7	12.3	14.8	7.6	0.0	0.0	0.9	CON	CON
+507	56	Hitchin and Harpenden	Peter Lilley	73,851	74.1	52.5	17.2	12.5	10.9	6.7	0.0	0.0	0.2	CON	CON
+508	55	Stratford-on-Avon	Nadhim Zahawi	69,516	72.7	49.1	13.7	14.7	16.0	4.7	0.0	0.0	1.7	CON	CON
+509	54	Hertfordshire South West	David Gauke	78,248	72.5	50.8	15.2	13.4	14.3	5.1	0.0	0.0	1.2	CON	CON
+510	53	Sevenoaks	Michael Fallon	69,591	71.0	52.1	16.5	7.3	17.7	4.7	0.0	0.0	1.6	CON	CON
+511	52	New Forest East	Julian Lewis	72,858	68.7	48.7	12.7	16.1	16.9	5.6	0.0	0.0	0.0	CON	CON
+512	51	Wokingham	John Redwood	76,219	71.5	50.0	14.1	14.3	13.7	6.2	0.0	0.0	1.7	CON	CON
+513	50	Winchester	Steve Brine	73,806	75.8	44.7	8.7	28.8	11.2	6.3	0.0	0.0	0.3	CON	CON
+514	49	Cotswolds, The	Geoffrey Clifton-Brown	76,728	71.5	50.0	14.0	16.2	12.9	6.7	0.0	0.0	0.3	CON	CON
+515	48	Woking	Jonathan Lord	73,838	71.5	47.6	11.4	23.8	12.2	4.7	0.0	0.0	0.2	CON	CON
+516	47	Romsey and Southampton North	Caroline Nokes	66,901	73.2	45.7	9.4	26.9	13.0	5.1	0.0	0.0	0.0	CON	CON
+517	46	Runnymede and Weybridge	Philip Hammond	72,566	66.4	53.1	16.8	7.8	16.4	5.6	0.0	0.0	0.4	CON	CON
+518	45	Beckenham	Bob Stewart	66,219	72.0	54.8	18.4	4.8	15.2	5.9	0.0	0.0	0.9	CON	CON
+519	44	Devon South West	Gary Streeter	70,059	71.2	51.6	15.1	10.4	15.9	7.0	0.0	0.0	0.0	CON	CON
+520	43	Sussex Mid	Nicholas Soames	77,182	72.4	46.3	9.7	23.0	13.9	6.5	0.0	0.0	0.5	CON	CON
+521	42	Worcestershire West	Harriett Baldwin	73,270	73.8	46.8	10.2	22.6	14.9	5.6	0.0	0.0	0.0	CON	CON
+522	41	South Holland and The Deepings	John Hayes	76,243	65.8	53.1	16.2	4.2	22.1	3.3	0.0	0.0	1.1	CON	CON
+523	40	Devon Central	Mel Stride	71,204	75.7	46.7	9.7	20.2	15.4	8.1	0.0	0.0	0.0	CON	CON
+524	39	Herefordshire North	Bill Wiggin	66,525	71.5	47.8	10.5	15.7	17.3	8.2	0.0	0.0	0.4	CON	CON
+525	38	Epsom and Ewell	Chris Grayling	78,104	70.4	52.6	15.0	12.9	14.6	4.8	0.0	0.0	0.2	CON	CON
+526	37	Devizes	Claire Perry	67,374	68.8	50.7	13.2	13.2	15.2	7.2	0.0	0.0	0.5	CON	CON
+527	36	Chelsea and Fulham	Greg Hands	66,295	60.1	60.7	23.0	3.7	5.6	6.4	0.0	0.0	0.7	CON	CON
+528	35	Wiltshire North	James Gray	66,313	73.4	47.3	9.6	22.2	14.2	6.5	0.0	0.0	0.1	CON	CON
+529	34	Chichester	Andrew Tyrie	81,462	69.7	51.1	13.3	13.3	16.3	6.0	0.0	0.0	0.0	CON	CON
+530	33	Horsham	Francis Maude	76,835	72.7	48.6	10.7	18.0	16.0	6.2	0.0	0.0	0.5	CON	CON
+531	32	Tonbridge and Malling	Sir John Stanley	71,790	71.5	53.7	15.7	8.5	16.3	5.2	0.0	0.0	0.6	CON	CON
+532	31	Dorset North	Robert Walter	73,698	73.5	46.5	8.3	22.8	16.6	5.7	0.0	0.0	0.1	CON	CON
+533	30	Hampshire North West	Sir George Young	76,040	70.1	54.3	16.0	9.5	15.4	4.8	0.0	0.0	0.0	CON	CON
+534	29	Saffron Walden	Sir Alan Haselhurst	76,035	71.5	51.5	13.1	12.7	16.0	6.1	0.0	0.0	0.6	CON	CON
+535	28	Richmond Park	Zac Goldsmith	77,060	76.9	47.8	9.0	27.9	7.8	7.4	0.0	0.0	0.1	CON	CON
+536	27	Tunbridge Wells	Greg Clark	72,042	69.8	53.1	14.2	11.5	14.5	6.1	0.0	0.0	0.6	CON	CON
+537	26	Maldon	John Whittingdale	68,861	69.6	54.8	15.7	5.2	18.8	4.6	0.0	0.0	1.0	CON	CON
+538	25	Ludlow	Philip Dunne	66,631	73.1	49.6	10.5	17.7	16.3	5.0	0.0	0.0	0.8	CON	CON
+539	24	Henley	John Howell	75,005	71.4	53.5	14.4	11.8	12.1	7.5	0.0	0.0	0.6	CON	CON
+540	23	Christchurch	Christopher Chope	68,861	71.8	51.7	12.5	11.4	20.3	4.0	0.0	0.0	0.0	CON	CON
+541	22	Brentwood and Ongar	Eric Pickles	73,224	69.1	52.7	13.5	8.8	18.5	5.0	0.0	0.0	1.5	CON	CON
+542	21	Wealden	Charles Hendry	76,537	71.8	51.9	12.4	11.2	17.9	6.7	0.0	0.0	0.0	CON	CON
+543	20	Witney	David Cameron	78,766	73.3	56.6	16.4	6.5	11.9	8.3	0.0	0.0	0.4	CON	CON
+544	19	Richmond	William Hague	79,478	67.2	58.2	17.9	5.3	12.1	6.5	0.0	0.0	0.0	CON	CON
+545	18	Surrey East	Sam Gyimah	76,855	71.1	53.1	12.3	11.9	17.6	4.5	0.0	0.0	0.5	CON	CON
+546	17	Surrey Heath	Michael Gove	77,690	70.0	54.4	13.4	12.0	16.0	4.2	0.0	0.0	0.0	CON	CON
+547	16	Buckingham	John Bercow	74,996	64.5	43.7	2.4	0.0	23.9	4.2	0.0	21.2	4.6	CON	CON
+548	15	Guildford	Anne Milton	77,082	72.1	49.6	8.3	25.2	11.0	5.8	0.0	0.0	0.2	CON	CON
+549	14	Hampshire East	Damian Hinds	72,250	71.0	52.4	11.1	16.3	13.9	5.8	0.0	0.0	0.6	CON	CON
+550	13	Arundel and South Downs	Nick Herbert	77,564	72.2	53.2	11.5	13.8	16.8	4.8	0.0	0.0	0.0	CON	CON
+551	12	New Forest West	Desmond Swayne	68,332	69.6	54.5	12.7	9.3	17.7	5.8	0.0	0.0	0.0	CON	CON
+552	11	Esher and Walton	Dominic Raab	75,338	72.4	56.4	14.3	11.1	12.2	5.2	0.0	0.0	0.8	CON	CON
+553	10	Meon Valley	George Hollingbery	70,488	72.7	52.0	9.6	18.4	13.3	6.1	0.0	0.0	0.6	CON	CON
+554	9	Beaconsfield	Dominic Grieve	74,982	70.0	57.3	14.9	5.4	16.9	5.1	0.0	0.0	0.4	CON	CON
+555	8	Orpington	Joseph Johnson	67,732	72.2	56.6	13.0	8.8	14.9	5.7	0.0	0.0	1.0	CON	CON
+556	7	Windsor	Adam Afriyie	69,511	71.3	57.7	13.4	8.6	14.2	5.4	0.0	0.0	0.8	CON	CON
+557	6	Mole Valley	Sir Paul Beresford	72,612	74.8	54.7	10.3	15.0	13.6	6.4	0.0	0.0	0.0	CON	CON
+558	5	Hampshire North East	James Arbuthnot	72,196	73.3	57.6	13.0	11.7	13.0	4.7	0.0	0.0	0.0	CON	CON
+559	4	Newbury	Richard Benyon	78,329	74.8	52.5	7.5	21.4	12.9	5.6	0.0	0.0	0.1	CON	CON
+560	3	Surrey South West	Jeremy Hunt	77,980	73.4	54.8	9.2	16.2	12.1	7.2	0.0	0.0	0.4	CON	CON
+561	2	Maidenhead	Theresa May	72,844	73.7	56.4	10.6	14.4	12.5	5.3	0.0	0.0	0.7	CON	CON
+562	1	Chesham and Amersham	Cheryl Gillan	70,333	74.6	56.1	8.8	13.7	15.1	6.3	0.0	0.0	0.0	CON	CON
+

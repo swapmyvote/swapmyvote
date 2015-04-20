@@ -15,19 +15,90 @@ PARTIES = {
   "green"  => Party.find_or_create_by(name: "Green Party", color: "#6AB023"),
   "lab"    => Party.find_or_create_by(name: "Labour", color: "#DC241f"),
   "libdem" => Party.find_or_create_by(name: "Liberal Democrats", color: "#FFB602"),
-  "ukip"   => Party.find_or_create_by(name: "UKIP", color: "#70147A")
+  "ukip"   => Party.find_or_create_by(name: "UKIP", color: "#70147A"),
+  "snp"    => Party.find_or_create_by(name: "SNP", color: "#FFF95D"),
+  "plaid"  => Party.find_or_create_by(name: "Plaid Cymru", color: "#000000")
 }
-#Party.find_or_create_by name: "SNP", color: "#FFF95D"
+#
 
-File.open("db/fixtures/constituencies.json", "r") do |file|
-  data = JSON.parse(file.read())
-  for row in data["results"]["constituencies"]
-    constituency = Constituency.find_or_create_by name: row["name"]
-    for party in PARTIES.keys
-      votes = (row[party].to_f * 100).to_i
-      print "ADDING: #{constituency.name}, #{party}, #{votes}\n"
+COUNTRIES = {}
+
+for county in [
+    "East Ham", "West Ham", "South Shields", "Hull East", "Hull North",
+    "Ashton under Lyne", "Hull West and Hessle", "West Bromwich East", "West Bromwich West",
+    "Middlesbrough South and Cleveland East", "Basildon South and East Thurrock",
+    "Worthing East and Shoreham", "Richmond", "Suffolk Central and Ipswich North",
+    "Dorset Mid and Poole North", "Devon West and Torridge",
+    "Faversham and Kent Mid", "South Holland and The Deepings", "Devon Central"
+  ]
+  COUNTRIES[county] = "England"
+end
+
+for county in [
+    "East Kilbride Strathaven and Lesmahagow", "Ayrshire North and Arran",
+    "Na h-Eileanan An Iar (Western Isles)", "Ayrshire Central", "East Lothian",
+    "Aberdeenshire West and Kincardine"
+  ]
+  COUNTRIES[county] = "Scotland"
+end
+
+for county in [
+    "Ynys Mon", "Carmarthen West and Pembrokeshire South"
+  ]
+  COUNTRIES[county] = "Wales"
+end
+
+File.open("db/fixtures/constituency_locations.csv", "r") do |file|
+  lines = file.read().split("\n")
+  for line in lines
+    data = line.split("\t")
+    name = data[0]
+    country = data[4]
+    
+    if m = name.match(/^((?:(?:North|East|South|West|Mid|The|City of) )+)(.*)/)
+      old_name = name
+      name = "#{m[2]} #{m[1].strip()}"
+    end
+    name = name.gsub(",", "")
+    
+    COUNTRIES[name] = country
+  end
+end
+
+print COUNTRIES
+
+File.open("db/fixtures/constituencies.csv", "r") do |file|
+  lines = file.read().split("\n")
+  for line in lines
+    data = line.split("\t")
+    name = data[2]
+    
+    constituency = Constituency.find_or_create_by name: name
+    votes = {
+      "con" => data[6],
+      "lab" => data[7],
+      "libdem" => data[8],
+      "ukip" => data[9],
+      "green" => data[10]
+    }
+    
+    country = COUNTRIES[name.gsub(",", "")]
+    
+    if country == "Scotland"
+      print "Assigning nationalist vote in '#{name}' to SNP\n"
+      votes["snp"] = data[11]
+    elsif country == "Wales"
+      print "Assigning nationalist vote in '#{name}' to Plaid Cymru\n"
+      votes["plaid"] = data[11]
+    elsif !country
+      print "ERROR! No country found for #{name}\n"
+    end
+    
+    for party in votes.keys
+      vote_count = (votes[party].to_f * 100).to_i
+      print "UPDATING POLL: #{constituency.name}, #{party}, #{vote_count}\n"
       poll = Poll.find_or_initialize_by constituency: constituency, party: PARTIES[party]
-      poll.votes = votes
+      poll.votes = vote_count
       poll.save
     end
   end
