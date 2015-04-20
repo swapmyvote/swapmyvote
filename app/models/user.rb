@@ -27,6 +27,16 @@ class User < ActiveRecord::Base
     end
   end
   
+  def profile_url
+    if self.provider == "facebook"
+      return "https://facebook.com/#{self.uid}"
+    elsif self.provider == "twitter"
+      return "https://twitter.com/intent/user?user_id=#{self.uid}"
+    else
+      return "#"
+    end
+  end
+  
   def is_in_demand?
     my_group_size = User.where(
       preferred_party_id: self.preferred_party_id,
