@@ -43,7 +43,24 @@ p.choose_party {
 .navbar {
   padding: 16px 32px;
   a.brand {
-    color: #555;
+    color: transparent;
+    display: inline-block;
+    background-image: url(/img/logo_nav.png);
+    background-repeat: no-repeat;
+    height: 32px;
+    width: 173px;
+    background-size: 173px 32px;
+  }
+  @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) { 
+      a.brand {
+        background-image: url('/img/logo_nav@2x.png');
+      }
   }
   border-bottom: 1px solid $border-color;
   background-color: white;
