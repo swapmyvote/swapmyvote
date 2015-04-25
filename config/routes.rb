@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'faq', to: "static_pages#faq"
   get 'about', to: "static_pages#about"
   get 'privacy', to: "static_pages#privacy"
+  get 'contact', to: "static_pages#contact"
 
   root 'home#index'
   
