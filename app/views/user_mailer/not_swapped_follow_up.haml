@@ -1,0 +1,24 @@
+%p
+	Hi #{@user.name},
+%p
+	Thanks for taking part in Swap My Vote! Your willingness to vote for the
+	#{@user.willing_party.name} in #{@user.constituency.name} while wanting
+	to cast a vote elsewhere for the #{@user.preferred_party.name} party means
+	that you are in high demand on Swap My Vote! You should have lots of choice
+	to choose from potential swap partners and make sure that your vote is cast
+	where it will count the most. 
+	= link_to "Log in to swapmyvote.uk now to find a swap partner.", user_url(log_in_with: @user.provider)
+%p
+	If you've not been able to find someone that you're willing to swap with,
+	then please reply to this email and let us know why. Hopefully we can improve
+	the system so that we can find as many suitable swaps as possible!
+%p
+	Regards,
+	%br
+	Swap My Vote Team
+%p
+	http://swapmyvote.uk
+	%br
+	http://twitter.com/swapmyvote
+	%br
+	http://facebook.com/swapmyvote
