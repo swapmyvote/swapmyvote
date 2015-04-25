@@ -50,19 +50,23 @@ class User < ActiveRecord::Base
   end
   
   def potential_swap_users(number = 5)
-    count = self.potential_swaps.count
-    if count < number
-      (number - count).times do
-        self.create_potential_swap
-      end
-    end
+    self.create_potential_swaps(number)
     swaps = self.potential_swaps.all.eager_load(
       target_user: {constituency: [{polls: :party}]}
     )
     return swaps.map {|s| s.target_user}
   end
+ 
+  def create_potential_swaps(number = 5)
+    max_attempts = number * 2
+    while (self.potential_swaps(true).count < number)
+      self.try_to_create_potential_swap
+      max_attempts -= 1
+      break if max_attempts <= 0
+    end
+  end
   
-  def create_potential_swap
+  def try_to_create_potential_swap
     swaps = User.where(
       preferred_party_id: self.willing_party_id,
       willing_party_id: self.preferred_party_id
@@ -70,7 +74,10 @@ class User < ActiveRecord::Base
     offset = rand(swaps.count)
     target_user = swaps.offset(offset).limit(1).first
     return nil if !target_user
-    self.potential_swaps.create(target_user: target_user)
+    # Don't include if already swapped
+    return nil if target_user.swap
+    # Success
+    return self.potential_swaps.create(target_user: target_user)
   end
   
   def destroy_all_potential_swaps
