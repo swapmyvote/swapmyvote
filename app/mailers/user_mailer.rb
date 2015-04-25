@@ -17,4 +17,10 @@ class UserMailer < ApplicationMailer
 		@swap_with = swap_with
 		mail(to: @user.email, subject: "Swapping your vote with #{swap_with.name} is confirmed!")
 	end
+	
+	def swap_cancelled(user, swap_with)
+		@user = user
+		@swap_with = swap_with
+		mail(to: @user.email, subject: "Your swapped vote with #{swap_with.name} has been cancelled.")
+	end
 end
