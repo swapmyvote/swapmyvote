@@ -6,11 +6,12 @@ class User < ActiveRecord::Base
   belongs_to :outgoing_swap, class_name: "Swap", foreign_key: "swap_id"
   has_one    :incoming_swap, class_name: "Swap", foreign_key: "chosen_user_id"
   
-  has_many :potential_swaps, foreign_key: "source_user_id"
-  has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id"
+  has_many :potential_swaps, foreign_key: "source_user_id", dependent: :destroy
+  has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
   
   before_save :clear_swap, if: :details_changed?
   before_save :send_welcome_email, if: :ready_to_swap?
+  before_destroy :clear_swap
   
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
