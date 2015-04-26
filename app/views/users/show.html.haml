@@ -9,16 +9,4 @@
     - else
       = render partial: "users/show/searching_for_swap"
 
-.plain-pattern.border-bottom
-  .container
-    %p.text-center
-      Your preferred party is 
-      %strong= @user.preferred_party.try(:name) || "?"
-      but you are willing to vote for&nbsp;
-      %strong> #{@user.willing_party.try(:name) || "?"}
-      \. You are in&nbsp;
-      %strong> #{@user.constituency.try(:name) || "?"}
-      \.
-    %p.small.text-center
-      %a{href: edit_user_path} Not right? Update your info
-      
+= render partial: "users/info_summary"
