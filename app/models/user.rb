@@ -142,6 +142,8 @@ class User < ActiveRecord::Base
     if self.outgoing_swap
       self.outgoing_swap.destroy
     end
+    self.incoming_potential_swaps.destroy_all
+    self.potential_swaps.destroy_all
   end
   
   def details_changed?
