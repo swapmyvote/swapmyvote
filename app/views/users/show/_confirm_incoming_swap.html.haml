@@ -4,7 +4,9 @@
 %p
   .card.profile
     = render partial: "user/swaps/swap_profile", object: @user.swapped_with, as: "other_user"
-    
+
+= render partial: "user/swaps/double_check_constituency", locals: { swap_with: @user.swapped_with }
+
 %p.text-center
   Please confirm that you would like to swap with #{@user.swapped_with.name}.
   

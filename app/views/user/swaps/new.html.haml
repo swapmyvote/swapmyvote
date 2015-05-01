@@ -2,6 +2,7 @@
   .container.container-narrow
     .card.profile
       = render partial: "swap_profile", object: @swap_with, as: "other_user"
+    = render partial: "user/swaps/double_check_constituency", locals: { swap_with: @swap_with }
     %p.text-center
       Are you sure you would like to swap your vote with #{@swap_with.name}?
     %p.text-center
