@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if !logged_in?
+      session[:return_to] = request.original_url
       if params[:log_in_with] == "twitter"
         redirect_to twitter_login_path
       elsif params[:log_in_with] == "facebook"

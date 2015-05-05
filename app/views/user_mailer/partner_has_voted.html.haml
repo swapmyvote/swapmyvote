@@ -1,0 +1,23 @@
+%p
+  Hi #{@user.name},
+%p
+  Good news! #{@user.swapped_with.name} has voted
+  %strong #{@user.preferred_party.name}
+  for you in #{@user.swapped_with.constituency.name}!
+%p
+  If you haven't done so already,
+  = link_to "please let us know", user_vote_url(log_in_with: @user.provider)
+  when you've voted for
+  %strong #{@user.willing_party.name}
+  on behalf of #{@user.swapped_with.name} in #{@user.constituency.name}.
+  = link_to "You can do that by clicking here.", user_vote_url(log_in_with: @user.provider)
+%p
+  Regards,
+  %br
+  Swap My Vote Team
+%p
+  http://swapmyvote.uk
+  %br
+  http://twitter.com/swapmyvote
+  %br
+  http://facebook.com/swapmyvote

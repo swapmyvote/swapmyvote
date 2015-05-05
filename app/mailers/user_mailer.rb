@@ -28,4 +28,9 @@ class UserMailer < ApplicationMailer
 		@user = user
 		mail(to: @user.email, subject: "Your vote swap preference is in demand!")
 	end
+	
+	def partner_has_voted(user)
+		@user = user
+		mail(to: @user.email, subject: "#{@user.swapped_with.name} has voted for you!")
+	end
 end

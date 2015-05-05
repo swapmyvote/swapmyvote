@@ -1,0 +1,23 @@
+.background-pattern.border-bottom
+  .container.container-narrow
+    - if !@user.has_voted
+      %p.text-center
+        Please let us know when you've voted...
+      %p.text-center
+        = link_to "Yes, I've voted! (for #{@user.willing_party.name})", user_vote_path, method: "post", class: "button"
+      %p.text-center.subdued
+        We'll email your swap partner, #{@user.swapped_with.name}
+        %br
+        and let them know that you've voted
+        %strong #{@user.willing_party.name}
+        for them.
+    - else
+      %p.text-center
+        Thanks! We've emailed #{@user.swapped_with.name}
+        to let them know that you've voted
+        %strong #{@user.willing_party.name}
+        for them.
+      %p.text-center
+        %a.button.button-twitter{href: "#", onclick: "shareOnTwitter('http://www.swapmyvote.uk', 'I\\'ve just #voted - I swapped votes through #swapmyvote')"}
+          %i.fa.fa-twitter.fa-fw
+          Share on Twitter
