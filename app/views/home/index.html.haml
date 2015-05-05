@@ -20,7 +20,7 @@
             %option{disabled: true, selected: true} ...
             = options_for_select(@parties.map {|p| [ p.name, p.id ]})
         %p
-          %a.button.button-large{onclick: "submit(); return false", href: "#"} Swap My Vote!
+          %a.button.button-large{onclick: "submit_modal(); return false", href: "#"} Swap My Vote!
         %p.small.subdued
           We will match you with someone who will 
           cast your preferred vote in a different area where it will count for more.
@@ -32,7 +32,7 @@
         %p Two voters who each want to support a minority party in their own constituency are partnered with each other. This way, both can cast a vote for their preferred party where it has the best chance of returning an MP, whilst helping another voter do the same.
 
     :javascript
-      function submit() {
+      function submit_modal() {
         preferred_party_id = $("select[name='user[preferred_party_id]']").val();
         willing_party_id = $("select[name='user[willing_party_id]']").val();
         if (preferred_party_id !== null && willing_party_id !== null) {
@@ -65,11 +65,22 @@
 
 - else
   .background-pattern.border-bottom
-    .container.text-center
+    .container
       %p
-        Swap My Vote is closed now that the election polls are open. Thank you for taking part!
+        Swap My Vote is closed for new swaps, now that the election polls are open. 
       %p
-        If you've haven't had a confirmation via email that you vote has been
-        swapped then we weren't able to find you a swap partner, sorry. Please
-        vote according to your conscience.
+        Thank you for taking part - together we are making democracy better and more representative!
+      %p
+        If you've haven't had a confirmation via email that your vote has been
+        swapped, we're sorry to say we weren't able to pair you with a voting partner on this occasion. All is not lost though - you can still vote tactically, or for the party you most wish to support.
+      %p
+        Till next time,
+        %br
+        All the best from the Swap My Vote team.
+      %hr
+      %p.text-center
+        Stay up to date with our future projects and for future elections.
+        %br
+        = link_to "Follow us on Twitter", "https://twitter.com/swapmyvote", class: "button button-twitter"
+        = link_to "Like us on Facebook", "https://facebook.com/swapmyvote", class: "button button-facebook"
 
