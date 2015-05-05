@@ -25,4 +25,10 @@ class ApplicationController < ActionController::Base
     end
     @user = current_user
   end
+  
+  def require_swapping_open
+    if !swapping_open?
+      redirect_to root_path
+    end
+  end
 end

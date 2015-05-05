@@ -1,4 +1,5 @@
 class User::SwapsController < ApplicationController
+  before_action :require_swapping_open
   before_action :require_login
   before_action :assert_incoming_swap_exists, :only => [:update, :destroy]
 

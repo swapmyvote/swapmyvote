@@ -1,64 +1,75 @@
-= form_for :user, url: user_path do |f|
-  .background-pattern.border-bottom
-    .container.text-center
-      %h1
-        Make your vote count this May!
-      %h2.subdued
-        Swap it with someone in a constituency where it will count for more. You get to vote for who you really want, and to help someone else do the same.
-    
-  .plain-pattern.border-bottom
-    .container.text-center
-      %p.choose_party
-        My preferred party is 
-        = select :user, :preferred_party_id do
-          %option{disabled: true, selected: true} ...
-          = options_for_select(@parties.map {|p| [ p.name, p.id ]})
-      %p.choose_party
-        but I'm willing to vote for
-        = select :user, :willing_party_id do
-          %option{disabled: true, selected: true} ...
-          = options_for_select(@parties.map {|p| [ p.name, p.id ]})
-      %p
-        %a.button.button-large{onclick: "submit(); return false", href: "#"} Swap My Vote!
-      %p.small.subdued
-        We will match you with someone who will 
-        cast your preferred vote in a different area where it will count for more.
-        In return, you will cast their preferred vote in your area.
+- if swapping_open?
+  = form_for :user, url: user_path do |f|
+    .background-pattern.border-bottom
+      .container.text-center
+        %h1
+          Make your vote count this May!
+        %h2.subdued
+          Swap it with someone in a constituency where it will count for more. You get to vote for who you really want, and to help someone else do the same.
+      
+    .plain-pattern.border-bottom
+      .container.text-center
+        %p.choose_party
+          My preferred party is 
+          = select :user, :preferred_party_id do
+            %option{disabled: true, selected: true} ...
+            = options_for_select(@parties.map {|p| [ p.name, p.id ]})
+        %p.choose_party
+          but I'm willing to vote for
+          = select :user, :willing_party_id do
+            %option{disabled: true, selected: true} ...
+            = options_for_select(@parties.map {|p| [ p.name, p.id ]})
+        %p
+          %a.button.button-large{onclick: "submit(); return false", href: "#"} Swap My Vote!
+        %p.small.subdued
+          We will match you with someone who will 
+          cast your preferred vote in a different area where it will count for more.
+          In return, you will cast their preferred vote in your area.
 
-  .background-pattern.border-bottom
-    .container
-      %p Swap My Vote is a website which makes votes count for more, by pairing voters with each other in order to minimise wasted votes. 
-      %p Two voters who each want to support a minority party in their own constituency are partnered with each other. This way, both can cast a vote for their preferred party where it has the best chance of returning an MP, whilst helping another voter do the same.
+    .background-pattern.border-bottom
+      .container
+        %p Swap My Vote is a website which makes votes count for more, by pairing voters with each other in order to minimise wasted votes. 
+        %p Two voters who each want to support a minority party in their own constituency are partnered with each other. This way, both can cast a vote for their preferred party where it has the best chance of returning an MP, whilst helping another voter do the same.
 
-  :javascript
-    function submit() {
-      preferred_party_id = $("select[name='user[preferred_party_id]']").val();
-      willing_party_id = $("select[name='user[willing_party_id]']").val();
-      if (preferred_party_id !== null && willing_party_id !== null) {
-        showModal($('.js-submit-modal'));
-      } else {
-        showModal($('.js-error-modal'));
+    :javascript
+      function submit() {
+        preferred_party_id = $("select[name='user[preferred_party_id]']").val();
+        willing_party_id = $("select[name='user[willing_party_id]']").val();
+        if (preferred_party_id !== null && willing_party_id !== null) {
+          showModal($('.js-submit-modal'));
+        } else {
+          showModal($('.js-error-modal'));
+        }
       }
-    }
 
-  .modal.js-submit-modal{style: "display: none;"}
-    .modal-dialog
-      %i.fa.fa-times.subdued.modal-close
-      %p.text-center
-        %button.button.button-facebook{type: "submit", name: "log_in_with", value: "facebook"}
-          %i.fa.fa-fw.fa-facebook
-          Log in with Facebook
-      %p.text-center.subdued &#8212; or &#8212;
-      %p.text-center
-        %button.button.button-twitter{type: "submit", name: "log_in_with", value: "twitter"}
-          %i.fa.fa-fw.fa-twitter
-          Log in with Twitter
-          
-  .modal.js-error-modal{style: "display: none;"}
-    .modal-dialog
-      %i.fa.fa-times.subdued.modal-close
-      %p.text-center
-        Please choose both your preferred party and your willing party.
-      %p.text-center
-        %a.button.modal-close{href: "#"} OK
+    .modal.js-submit-modal{style: "display: none;"}
+      .modal-dialog
+        %i.fa.fa-times.subdued.modal-close
+        %p.text-center
+          %button.button.button-facebook{type: "submit", name: "log_in_with", value: "facebook"}
+            %i.fa.fa-fw.fa-facebook
+            Log in with Facebook
+        %p.text-center.subdued &#8212; or &#8212;
+        %p.text-center
+          %button.button.button-twitter{type: "submit", name: "log_in_with", value: "twitter"}
+            %i.fa.fa-fw.fa-twitter
+            Log in with Twitter
+            
+    .modal.js-error-modal{style: "display: none;"}
+      .modal-dialog
+        %i.fa.fa-times.subdued.modal-close
+        %p.text-center
+          Please choose both your preferred party and your willing party.
+        %p.text-center
+          %a.button.modal-close{href: "#"} OK
+
+- else
+  .background-pattern.border-bottom
+    .container.text-center
+      %p
+        Swap My Vote is closed now that the election polls are open. Thank you for taking part!
+      %p
+        If you've haven't had a confirmation via email that you vote has been
+        swapped then we weren't able to find you a swap partner, sorry. Please
+        vote according to your conscience.
 

@@ -1,4 +1,5 @@
 class User::ConstituenciesController < ApplicationController
+  before_action :require_swapping_open
   before_action :require_login
   
   def edit

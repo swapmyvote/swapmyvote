@@ -20,4 +20,8 @@ module ApplicationHelper
   def logged_in?
     return !!current_user
   end
+  
+  def swapping_open?
+    return !ENV["SWAPS_CLOSED"]
+  end
 end
