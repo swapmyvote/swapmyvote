@@ -33,4 +33,19 @@ class UserMailer < ApplicationMailer
 		@user = user
 		mail(to: @user.email, subject: "#{@user.swapped_with.name} has voted for you!")
 	end
+	
+	def reminder_to_vote(user)
+		@user = user
+		mail(to: @user.email, subject: "Remember to vote #{@user.willing_party.name} today!")
+	end
+	
+	def no_swap(user)
+		@user = user
+		mail(to: @user.email, subject: "Sorry, we couldn't find you a vote swap")
+	end
+	
+	def swap_not_confirmed(user)
+		@user = user
+		mail(to: @user.email, subject: "Sorry, we couldn't find you a confirmed vote swap")
+	end
 end

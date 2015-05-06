@@ -1,0 +1,21 @@
+%p
+  Hi #{@user.name},
+%p
+  The 2015 General Election Polls are open!
+  %a{:href => @user.swapped_with.profile_url} #{@user.swapped_with.name}
+  is going to vote #{@user.swapped_with.willing_party.name} for you,
+  in the #{@user.swapped_with.constituency.name} constituency.
+%p
+  In return, you've agreed to vote #{@user.swapped_with.preferred_party.name}
+  in your constituency (#{@user.constituency.name}). Once you've done so,
+  = link_to "please let #{@user.swapped_with.willing_party.name} know you've voted!", user_vote_url(log_in_with: @user.provider)
+%p
+  All the best,
+  %br
+  Swap My Vote Team
+%p
+  http://swapmyvote.uk
+  %br
+  http://twitter.com/swapmyvote
+  %br
+  http://facebook.com/swapmyvote
