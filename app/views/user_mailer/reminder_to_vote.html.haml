@@ -8,7 +8,7 @@
 %p
   In return, you've agreed to vote #{@user.willing_party.name}
   in your constituency (#{@user.constituency.name}). Once you've done so,
-  = link_to "please let #{@user.swapped_with.name} know yogu've voted!", user_vote_url(log_in_with: @user.provider)
+  = link_to "please let #{@user.swapped_with.name} know you've voted!", user_vote_url(log_in_with: @user.provider)
 %p
   All the best,
   %br
