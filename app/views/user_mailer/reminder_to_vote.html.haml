@@ -6,7 +6,7 @@
   is going to vote #{@user.swapped_with.willing_party.name} for you,
   in the #{@user.swapped_with.constituency.name} constituency.
 %p
-  In return, you've agreed to vote #{@user.swapped_with.preferred_party.name}
+  In return, you've agreed to vote #{@user.willing_party.name}
   in your constituency (#{@user.constituency.name}). Once you've done so,
   = link_to "please let #{@user.swapped_with.name} know yogu've voted!", user_vote_url(log_in_with: @user.provider)
 %p
