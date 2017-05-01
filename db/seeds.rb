@@ -10,8 +10,6 @@
 require "active_record/fixtures"
 require "csv"
 
-ActiveRecord::Base.logger = nil
-
 PARTIES = {
   "con"    => Party.find_or_create_by(name: "Conservatives", color: "#0087DC"),
   "green"  => Party.find_or_create_by(name: "Green Party", color: "#6AB023"),
