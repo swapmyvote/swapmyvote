@@ -10,6 +10,8 @@
 require "active_record/fixtures"
 require "csv"
 
+ActiveRecord::Base.logger = nil
+
 PARTIES = {
   "con"    => Party.find_or_create_by(name: "Conservatives", color: "#0087DC"),
   "green"  => Party.find_or_create_by(name: "Green Party", color: "#6AB023"),
@@ -53,7 +55,7 @@ File.open("db/fixtures/constituency_locations.csv", "r") do |file|
   for line in lines
     data = line.split("\t")
     name = data[0]
-    country = data[4]
+    country = data[5]
     
     if m = name.match(/^((?:(?:North|East|South|West|Mid|The|City of) )+)(.*)/)
       old_name = name
@@ -65,7 +67,7 @@ File.open("db/fixtures/constituency_locations.csv", "r") do |file|
   end
 end
 
-print COUNTRIES
+# print COUNTRIES
 
 File.open("db/fixtures/constituencies.csv", "r") do |file|
   lines = file.read().split("\n")
@@ -84,22 +86,30 @@ File.open("db/fixtures/constituencies.csv", "r") do |file|
     
     country = COUNTRIES[name.gsub(",", "")]
     
+    print "[#{name}]\n"
+    
+    print "Country:\t#{country} "
+    
     if country == "Scotland"
-      print "Assigning nationalist vote in '#{name}' to SNP\n"
+      print "(Assigning nationalist vote to SNP)"
       votes["snp"] = data[11]
     elsif country == "Wales"
-      print "Assigning nationalist vote in '#{name}' to Plaid Cymru\n"
+      print "(Assigning nationalist vote to Plaid Cymru)"
       votes["plaid"] = data[11]
-    elsif !country
-      print "ERROR! No country found for #{name}\n"
+    elsif not ["Scotland", "England", "Wales", "Northern Ireland"].include?(country) 
+      print "MISSING COUNTRY: #{name}; #{country}\n"
+      throw "ERROR! No country found!"
     end
+    print "\n"
     
+    print "Polls:\t#{votes}\n"
     for party in votes.keys
       vote_count = (votes[party].to_f * 100).to_i
-      print "UPDATING POLL: #{constituency.name}, #{party}, #{vote_count}\n"
       poll = Poll.find_or_initialize_by constituency: constituency, party: PARTIES[party]
       poll.votes = vote_count
       poll.save
     end
+    
+    print "\n"
   end
 end

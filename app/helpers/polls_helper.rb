@@ -4,6 +4,6 @@ module PollsHelper
     for poll in constituency.polls.sort_by {|p| p.votes}.reverse
       data.push [poll.party.name, poll.votes / 100, poll.party.color]
     end
-    return data.to_json
+    return data.to_json.html_safe
   end
 end
