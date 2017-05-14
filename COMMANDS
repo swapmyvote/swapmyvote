@@ -30,3 +30,13 @@ CSV of swapped users
 --------------------
 
 ActiveRecord::Base.logger = nil; Swap.where(confirmed: true).each{|s| print "#{s.choosing_user.name},#{s.choosing_user.email},#{s.choosing_user.constituency.name},#{s.id}\n#{s.chosen_user.name},#{s.chosen_user.email},#{s.chosen_user.constituency.name},#{s.id}\n"}; nil
+
+CSV of users
+------------
+
+ActiveRecord::Base.logger = nil; print User.all.map {|u| [u.name, u.email].join("\t")}.join("\n")
+
+Run command
+-----------
+
+heroku run --app swapmyvote CONFIG=value rails runner 'COMMAND'
