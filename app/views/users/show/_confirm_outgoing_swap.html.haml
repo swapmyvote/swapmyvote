@@ -1,5 +1,5 @@
 %h3.text-center
-  You've swapped your vote with #{@user.swapped_with.name}!
+  You've asked to swap your vote with #{@user.swapped_with.name}!
 
 %p
   .card.profile
@@ -8,3 +8,4 @@
 %p.text-center
   %i.fa.fa-fw.fa-spin.fa-spinner
   We're just waiting for #{@user.swapped_with.name} to confirm the swap!
+  If we don't hear back from them in 2 days, we'll cancel the swap and you can pick someone else.
