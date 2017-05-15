@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy'
   
   get 'admin/stats', to: "admin#stats"
+  
+  get 'uk/swap', to: "api#pre_populate"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

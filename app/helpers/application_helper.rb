@@ -24,4 +24,9 @@ module ApplicationHelper
   def swapping_open?
     return !ENV["SWAPS_CLOSED"]
   end
+  
+  def canonical_name(name)
+    return nil if name.nil?
+    return name.parameterize("_")
+  end
 end

@@ -13,12 +13,12 @@
           My preferred party is 
           = select :user, :preferred_party_id do
             %option{disabled: true, selected: true} ...
-            = options_for_select(@parties.map {|p| [ p.name, p.id ]})
+            = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @preferred_party_id)
         %p.choose_party
           but I'm willing to vote for
           = select :user, :willing_party_id do
             %option{disabled: true, selected: true} ...
-            = options_for_select(@parties.map {|p| [ p.name, p.id ]})
+            = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @willing_party_id)
         %p
           %a.button.button-large{onclick: "submit_modal(); return false", href: "#"} Swap My Vote!
         %p.small.subdued
