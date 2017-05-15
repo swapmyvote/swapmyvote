@@ -17,9 +17,9 @@ Available parameters are:
 The party names should be lowercased and use underscores instead of spaces. We support 7 parties at the moment, with the follow canonical names on Swap my Vote:
 
 * `labour`
-* `green_party`
 * `liberal_democrats`
+* `green_party`
 * `conservatives`
-* `snp`
 * `ukip`
-* `plaid cymru`
+* `snp`
+* `plaid_cymru`
