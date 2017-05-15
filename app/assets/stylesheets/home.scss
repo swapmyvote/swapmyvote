@@ -151,9 +151,7 @@ p.choose_party {
 .searching-for-swap {
   position: relative;
   i {
-    position: absolute;
-    top: -3px;
-    left: 0;
+    margin-right: 6px;
     color: #aaa;
     -webkit-animation: oscillate 2s linear infinite; /* Chrome, Safari 5 */
        -moz-animation: oscillate 2s linear infinite; /* Firefox 5-15 */
@@ -164,7 +162,6 @@ p.choose_party {
   
   span {
     display: inline-block;
-    margin-left: 50px;
   }
 }
 
