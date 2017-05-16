@@ -1,0 +1,10 @@
+%p.text-center
+	Who would you like to swap your vote with?
+%p.text-center.small.subdued
+	Consider their constituency to make your vote count for the most!
+.spacer
+- for swap in @potential_swaps
+	= link_to new_user_swap_path(user_id: swap.id), class: "card profile" do
+		= render partial: "swap_profile", object: swap, as: "other_user"
+%p.text-center
+	%a.small{href:"http://www.electoralcalculus.co.uk/"} Poll results are based on Electoral Calculus predictions

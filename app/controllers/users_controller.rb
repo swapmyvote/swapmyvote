@@ -25,11 +25,7 @@ class UsersController < ApplicationController
     if @user.is_swapped?
       render "show"
     else
-      if @user.is_in_demand?
-        redirect_to user_swap_path
-      else
-        render "show"
-      end
+      redirect_to user_swap_path
     end
   end
   

@@ -38,18 +38,6 @@ class User < ActiveRecord::Base
     end
   end
   
-  def is_in_demand?
-    my_group_size = User.where(
-      preferred_party_id: self.preferred_party_id,
-      willing_party_id: self.willing_party_id
-    ).count
-    swap_group_size = User.where(
-      preferred_party_id: self.willing_party_id,
-      willing_party_id: self.preferred_party_id
-    ).count
-    return my_group_size < swap_group_size
-  end
-  
   def potential_swap_users(number = 5)
     # Clear out swaps each day to keep the list fresh for people checking back
     self.potential_swaps.where(['created_at < ?', DateTime.now - 1.day]).destroy_all
@@ -79,6 +67,10 @@ class User < ActiveRecord::Base
     return nil if !target_user
     # Don't include if already swapped
     return nil if target_user.swap
+    # Ignore if already included
+    return nil if self.potential_swaps.exists?(target_user: target_user)
+    # Ignore if me
+    return nil if target_user.id = self.id
     # Success
     return self.potential_swaps.create(target_user: target_user)
   end
