@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
     # Ignore if already included
     return nil if self.potential_swaps.exists?(target_user: target_user)
     # Ignore if me
-    return nil if target_user.id = self.id
+    return nil if target_user.id == self.id
     # Success
     return self.potential_swaps.create(target_user: target_user)
   end
