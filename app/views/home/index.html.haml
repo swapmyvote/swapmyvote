@@ -28,9 +28,14 @@
 
     .background-pattern.border-bottom
       .container
-        %p Swap My Vote is a website which makes votes count for more, by pairing voters with each other in order to minimise wasted votes. 
-        %p Two voters who each want to support a minority party in their own constituency are partnered with each other. This way, both can cast a vote for their preferred party where it has the best chance of returning an MP, whilst helping another voter do the same.
-
+        %h2 How does Swap my Vote work?
+        
+        %p 1) Choose the party you would ideally vote for, and the party that you are willing to vote tactically for in your local constituency.
+        
+        %p 2) We'll find you a list of people with the opposite preference for you to pick a partner to swap your vote with.
+        
+        %p 3) If your partner agrees to your proposed swap, we'll put you in touch via your Facebook or Twitter profiles, and you can say hello and confirm that you'll swap
+        
     :javascript
       function submit_modal() {
         preferred_party_id = $("select[name='user[preferred_party_id]']").val();
@@ -54,8 +59,8 @@
           %button.button.button-twitter{type: "submit", name: "log_in_with", value: "twitter"}
             %i.fa.fa-fw.fa-twitter
             Log in with Twitter
-        %p.text-center.small
-          (We won't share anything publicly about your voting preferences or post without your permission)
+        %p.text-center.small.subdued
+          (We won't share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
         %p.text-center
           = link_to "Why do I need to log in with Facebook or Twitter?", "/faq#login", class: "small", target: "_blank"
             

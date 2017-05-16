@@ -19,3 +19,8 @@
 %p.text-center.small.text-success
   %i.fa.fa-fw.fa-check
   #{@user.swapped_with.name} has confirmed the swap. You're all set!
+
+%p.text-center
+  You can reach out to 
+  =link_to "#{@user.swapped_with.name} on social media", @user.swapped_with.profile_url
+  to get to know your swap partner.
