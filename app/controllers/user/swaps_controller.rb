@@ -2,6 +2,7 @@ class User::SwapsController < ApplicationController
   before_action :require_swapping_open
   before_action :require_login
   before_action :assert_incoming_swap_exists, :only => [:update, :destroy]
+  before_action :assert_parties_exist, :only => [:show]
 
   def show
     if @user.is_swapped?
@@ -40,6 +41,12 @@ private
     if !@user.incoming_swap
       flash[:errors] = "You don't have a swap!"
       redirect_to user_path
+    end
+  end
+  
+  def assert_parties_exist
+    if !@user.willing_party or !@user.preferred_party
+      redirect_to edit_user_path
     end
   end
 
