@@ -37,7 +37,11 @@ class User < ActiveRecord::Base
       return "#"
     end
   end
-  
+
+  def image_url
+    self.image.gsub(/^http/, "https")
+  end
+
   def potential_swap_users(number = 5)
     # Clear out swaps each day to keep the list fresh for people checking back
     self.potential_swaps.where(['created_at < ?', DateTime.now - 1.day]).destroy_all
