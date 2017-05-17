@@ -29,13 +29,12 @@
     .background-pattern.border-bottom
       .container
         %h2 How does Swap my Vote work?
-        
-        %p 1) Choose the party you would ideally vote for, and the party that you are willing to vote tactically for in your local constituency.
-        
-        %p 2) We'll find you a list of people with the opposite preference for you to pick a partner to swap your vote with.
-        
-        %p 3) If your partner agrees to your proposed swap, we'll put you in touch via your Facebook or Twitter profiles, and you can say hello and confirm that you'll swap
-        
+
+        %p 1) Choose the party you would ideally vote for, and the party that you are willing to vote for tactically in your local constituency.
+
+        %p 2) We’ll find you a list of people with the opposite preference. Pick a partner to swap your vote with (the polls can help you see where it will make most difference).
+
+        %p 3) If your partner agrees to the swap, it is confirmed. We’ll put you in touch with each other’s Facebook or Twitter profiles and, if you like, you can introduce yourselves.
     :javascript
       function submit_modal() {
         preferred_party_id = $("select[name='user[preferred_party_id]']").val();
