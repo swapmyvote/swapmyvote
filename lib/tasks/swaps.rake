@@ -12,6 +12,12 @@ namespace :swaps do
 	task :cancel_old => :environment do
 		swaps = Swap.where({confirmed: false}).where(['created_at < ?', DateTime.now - 2.days])
 		print "Cancelling #{swaps.length} unconfirmed swaps\n"
-		swaps.each {|s| s.destroy}
+		for swap in swaps
+			begin
+				swap.destroy
+			rescue => e
+				print "Failed to cancel swap #{swap.id}"
+			end
+		end
 	end
 end
