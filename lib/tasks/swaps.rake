@@ -8,9 +8,9 @@ namespace :swaps do
 		}
 	end
 	
-	desc "Cancel swaps which are older than 2 days"
+	desc "Cancel swaps which are older than 24 hours"
 	task :cancel_old => :environment do
-		swaps = Swap.where({confirmed: false}).where(['created_at < ?', DateTime.now - 2.days])
+		swaps = Swap.where({confirmed: false}).where(['created_at < ?', DateTime.now - 1.days])
 		print "Cancelling #{swaps.length} unconfirmed swaps\n"
 		for swap in swaps
 			begin
