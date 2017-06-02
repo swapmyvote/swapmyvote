@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   belongs_to :willing_party, class_name: "Party"
   belongs_to :constituency
   
-  belongs_to :outgoing_swap, class_name: "Swap", foreign_key: "swap_id"
-  has_one    :incoming_swap, class_name: "Swap", foreign_key: "chosen_user_id"
+  belongs_to :outgoing_swap, class_name: "Swap", foreign_key: "swap_id", dependent: :destroy
+  has_one    :incoming_swap, class_name: "Swap", foreign_key: "chosen_user_id", dependent: :destroy
   
   has_many :potential_swaps, foreign_key: "source_user_id", dependent: :destroy
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
