@@ -38,6 +38,12 @@ class UsersController < ApplicationController
     @user.update(user_params)
     redirect_to user_path
   end
+
+  def destroy
+    @user.destroy
+    session[:user_id] = nil
+    redirect_to account_deleted_path
+  end
   
 private
   # The home page sends us to user/create, but if we're not logged in

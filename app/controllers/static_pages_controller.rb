@@ -10,4 +10,10 @@ class StaticPagesController < ApplicationController
   
   def contact
   end
+  
+  def confirm_account_deletion
+  end
+  
+  def account_deleted
+  end
 end

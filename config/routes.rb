@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'about', to: "static_pages#about"
   get 'privacy', to: "static_pages#privacy"
   get 'contact', to: "static_pages#contact"
+  get 'account_deleted', to: "static_pages#account_deleted"
+  get 'confirm_account_deletion', to: "static_pages#confirm_account_deletion"
 
   root 'home#index'
   
