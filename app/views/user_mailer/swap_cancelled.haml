@@ -3,7 +3,7 @@
 %p
 	I'm sorry to say that your swap with #{@swap_with.name} has been cancelled.
 	This could have happened if you or #{@swap_with.name} changed preferred parties, moved constituency,
-	declined the swap, or if the swap expired before being confirmed.
+	declined the swap, or (most likely!) if the swap expired before being confirmed.
 %p
 	= link_to "Log in to swapmyvote.uk now to find another swap partner.", user_url(log_in_with: @user.provider)
 	Don't delay!
@@ -12,8 +12,9 @@
 	%br
 	Swap My Vote Team
 %p
-	http://swapmyvote.uk
+	<a href="https://www.swapmyvote.uk/?utm_source=email&utm_medium=swap_cancelled&utm_campaign=site”>Swap my Vote</a>
 	%br
-	http://twitter.com/swapmyvote
+	<a href="https://twitter.com/intent/follow?screen_name=swapmyvote”>Swap my Vote</a>Follow on Twitter</a>
 	%br
-	http://facebook.com/swapmyvote
+	<a href="http://facebook.com/swapmyvote”>Like on Facebook</a>
+
