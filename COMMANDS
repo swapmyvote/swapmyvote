@@ -36,6 +36,11 @@ CSV of users
 
 ActiveRecord::Base.logger = nil; print User.all.map {|u| [u.name, u.email].join("\t")}.join("\n")
 
+CSV of unswapped users
+----------------------
+
+ActiveRecord::Base.logger = nil; print User.all.select {|u| !u.is_swapped?}.map {|u| [u.name, u.email].join("\t")}.join("\n")
+
 Run command
 -----------
 
