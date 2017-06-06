@@ -142,6 +142,10 @@ p.choose_party {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   margin-bottom: 16px;
   background-color: white;
+  
+  & > h1, h2, h3 {
+    margin-top: 0;
+  }
 }
 
 .spacer {

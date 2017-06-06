@@ -73,24 +73,24 @@
 
 - else
   .background-pattern.border-bottom
-    .container
-
-      %h2 General Election 2017 Update
-
-      %p We are updating the Swap My Vote platform for the snap election to be held on 8th June 2017. We will aim to open for vote swapping on Monday the 8th May 2017.
-
-      %p
-        Please enter your email address for a reminder on that day and further updates.
-
-      = render :partial => "mailchimp.html"
-      
-      %hr
-      
-      %p Swap My Vote is a website which makes votes count for more, by pairing voters with each other in order to minimise wasted votes. 
-      %p Two voters who each want to support a minority party in their own constituency are partnered with each other. This way, both can cast a vote for their preferred party where it has the best chance of returning an MP, whilst helping another voter do the same.
-
-      %hr
-      %p.text-center
-        = link_to "Follow us on Twitter", "https://twitter.com/swapmyvote", class: "button button-twitter"
-        = link_to "Like us on Facebook", "https://facebook.com/swapmyvote", class: "button button-facebook"
+    .container.container-narrow
+      .card
+        %h2 It's time to vote!
+        %p
+          Now that the election polls are open, Swap my Vote is closed for new swaps.
+        %p
+          Thank you for taking part - together we are making democracy better and more representative!
+        %p
+          If you've haven't had a confirmation via email that your vote has been
+          swapped, we're sorry to say we weren't able to pair you with a voting partner on this occasion. All is not lost though - you can still vote tactically, or for the party you most wish to support.
+        %p
+          Till next time,
+          %br
+          All the best from the Swap my Vote team.
+        %hr
+        %p.text-center
+          Stay up to date with our future projects and for future elections.
+          %br
+          = link_to "Follow us on Twitter", "https://twitter.com/swapmyvote", class: "button button-twitter"
+          = link_to "Like us on Facebook", "https://facebook.com/swapmyvote", class: "button button-facebook"
 
