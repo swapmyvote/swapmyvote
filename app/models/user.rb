@@ -162,4 +162,11 @@ class User < ActiveRecord::Base
     logger.debug "Sending Welcome email"
     UserMailer.welcome_email(self).deliver_now
   end
+  
+  def send_vote_reminder_email
+    return if self.sent_vote_reminder_email
+    self.sent_vote_reminder_email = true
+    self.save
+    UserMailer.reminder_to_vote(self).deliver_now
+  end
 end
