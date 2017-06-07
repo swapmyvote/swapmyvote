@@ -43,8 +43,8 @@ class User < ActiveRecord::Base
   end
 
   def potential_swap_users(number = 5)
-    # Clear out swaps each day to keep the list fresh for people checking back
-    self.potential_swaps.where(['created_at < ?', DateTime.now - 1.day]).destroy_all
+    # Clear out swaps every few hours to keep the list fresh for people checking back
+    self.potential_swaps.where(['created_at < ?', DateTime.now - 2.hours]).destroy_all
     self.create_potential_swaps(number)
     swaps = self.potential_swaps.all.eager_load(
       target_user: {constituency: [{polls: :party}]}
