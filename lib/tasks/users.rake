@@ -5,12 +5,12 @@ namespace :users do
 			begin
 				swap.chosen_user.send_vote_reminder_email
 			rescue => e
-				print "Failed to send vote reminder to #{swap.chosen_user.id}"
+				print "Failed to send vote reminder"
 			end
 			begin
 				swap.choosing_user.send_vote_reminder_email
 			rescue => e
-				print "Failed to send vote reminder to #{swap.choosing_user.id}"
+				print "Failed to send vote reminder"
 			end
 		end
 	end
