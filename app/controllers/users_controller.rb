@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :require_swapping_open
   before_action :require_login_and_save_user_params, :only => :create
   before_action :require_login, :except => :create
   
