@@ -75,18 +75,14 @@
   .background-pattern.border-bottom
     .container.container-narrow
       .card
-        %h2 It's time to vote!
+        %h2 December 2019 General Election Update
+
+        %p We are updating the Swap My Vote platform for the election to be held on 12th December 2019. We will aim to open for vote swapping soon after 15th November.
+
         %p
-          Now that the election polls are open, Swap my Vote is closed for new swaps.
-        %p
-          Thank you for taking part - together we are making democracy better and more representative!
-        %p
-          If you've haven't had a confirmation via email that your vote has been
-          swapped, we're sorry to say we weren't able to pair you with a voting partner on this occasion. All is not lost though - you can still vote tactically, or for the party you most wish to support.
-        %p
-          Till next time,
-          %br
-          All the best from the Swap my Vote team.
+          Please enter your email address for a reminder when vote swapping is open and further updates.
+
+        = render :partial => "mailchimp.html"
         %hr
         %p.text-center
           Stay up to date with our future projects and for future elections.
