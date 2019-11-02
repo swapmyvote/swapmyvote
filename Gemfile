@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby "2.6.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 5.2.0'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -11,6 +11,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+
+gem 'bootsnap', require: false
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -50,6 +52,7 @@ gem 'airbrake', '~> 9.5.0'
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console'
+  gem 'listen'  # required by config.file_watcher
 end
 
 group :development, :test do
