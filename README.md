@@ -14,7 +14,7 @@ in this open source repository. We are in the process of working out how to make
 sustainable, but providing an open and welcoming community for continued developed will be
 important. So please have a look at any open issues or get in touch at hello@swapmyvote.uk if you'd like to help.
 
-## Setting up Swap my Vote locally.
+## Setting up Swap my Vote locally
 
 You will need Ruby installed.
 
@@ -39,7 +39,9 @@ Set up the database schema and populate it with constituency and poll data, as w
 
 Run the application:
 
-    rails server
+    # Ensure binding to localhost even if $HOST is set, so that
+    # the URL is accepted by the facebook development app
+    rails server -b localhost
 
 Open your browser to http://localhost:3000.
 
