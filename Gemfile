@@ -43,6 +43,7 @@ gem "normalize-rails"
 gem "autoprefixer-rails"
 
 gem "seedbank"
+gem "messagebird-rest", require: "messagebird"
 
 gem "random_data"
 
