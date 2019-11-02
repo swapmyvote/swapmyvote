@@ -18,5 +18,6 @@
 
 config.local
 
-/.env
-/.env.localhost
+# https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
+/.env.*.local
+/.env.local

@@ -26,11 +26,11 @@ Install the necessary gems:
 
     bundle install
 
-Set up some config variables in a `.env` file, and add them to your environment.
+Set up some config variables in a `.env.development.local` file:
 
-    $ cp .env.example .env
-    # Now edit .env to contain the appropriate credentials
-    $ source .env
+    $ cp .env.example .env.development.local
+
+Now edit `.env.development.local` to contain the appropriate credentials.  These will get automatically loaded via the `dotenv-rails` gem.
 
 Set up the database schema and populate it with constituency and poll data, as well as some test users accounts for local development.
 
