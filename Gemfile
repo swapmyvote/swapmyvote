@@ -39,8 +39,6 @@ gem 'haml-rails'
 
 gem 'normalize-rails'
 
-gem "rails_12factor"
-
 gem "seedbank"
 
 gem 'random_data'
