@@ -10,11 +10,11 @@ class User < ApplicationRecord
 
   has_many :potential_swaps, foreign_key: "source_user_id", dependent: :destroy
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
-  
+
   before_save :clear_swap, if: :details_changed?
   before_save :send_welcome_email, if: :ready_to_swap?
   before_destroy :clear_swap
-  
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
       user.name = auth.info.name
@@ -29,7 +29,7 @@ class User < ApplicationRecord
       user.save!
     end
   end
-  
+
   def profile_url
     if self.provider == "facebook"
       return "https://facebook.com/#{self.uid}"
@@ -53,7 +53,7 @@ class User < ApplicationRecord
     )
     return swaps.map {|s| s.target_user}
   end
- 
+
   def create_potential_swaps(number = 5)
     max_attempts = number * 2
     while (self.potential_swaps(true).count < number)
@@ -62,7 +62,7 @@ class User < ApplicationRecord
       break if max_attempts <= 0
     end
   end
-  
+
   def try_to_create_potential_swap
     swaps = User.where(
       preferred_party_id: self.willing_party_id,
@@ -80,12 +80,12 @@ class User < ApplicationRecord
     # Success
     return self.potential_swaps.create(target_user: target_user)
   end
-  
+
   def destroy_all_potential_swaps
     PotentialSwap.destroy(self.potential_swaps.pluck(:id))
     PotentialSwap.destroy(self.incoming_potential_swaps.pluck(:id))
   end
-  
+
   def swap_with_user_id(user_id)
     other_user = User.find(user_id)
     if self.outgoing_swap or self.incoming_swap
@@ -98,13 +98,13 @@ class User < ApplicationRecord
 
     self.destroy_all_potential_swaps
     other_user.destroy_all_potential_swaps
-    
+
     UserMailer.confirm_swap(other_user, self).deliver_now
 
     self.create_outgoing_swap chosen_user: other_user, confirmed: false
     self.save
   end
-  
+
   def swapped_with
     if self.outgoing_swap
       return self.outgoing_swap.chosen_user
@@ -114,25 +114,25 @@ class User < ApplicationRecord
       return nil
     end
   end
-  
+
   def is_swapped?
     return !!self.swapped_with
   end
-  
+
   def swap
     self.incoming_swap || self.outgoing_swap
   end
-  
+
   def swap_confirmed?
     self.swap.try(:confirmed)
   end
-  
+
   def confirm_swap
     self.incoming_swap.update(confirmed: true)
     UserMailer.swap_confirmed(self, self.swapped_with).deliver_now
     UserMailer.swap_confirmed(self.swapped_with, self).deliver_now
   end
-  
+
   def clear_swap
     if self.incoming_swap
       self.incoming_swap.destroy
@@ -143,11 +143,11 @@ class User < ApplicationRecord
     self.incoming_potential_swaps.destroy_all
     self.potential_swaps.destroy_all
   end
-  
+
   def details_changed?
     self.preferred_party_id_changed? or self.willing_party_id_changed? or self.constituency_id_changed?
   end
-  
+
   def ready_to_swap?
     ready =
       !self.preferred_party_id.blank? &&
@@ -159,12 +159,12 @@ class User < ApplicationRecord
       self.constituency_id_was.blank?
     return (ready and first_time)
   end
-  
+
   def send_welcome_email
     logger.debug "Sending Welcome email"
     UserMailer.welcome_email(self).deliver_now
   end
-  
+
   def send_vote_reminder_email
     return if self.sent_vote_reminder_email
     self.sent_vote_reminder_email = true
