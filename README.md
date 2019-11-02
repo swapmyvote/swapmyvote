@@ -16,43 +16,30 @@ important. So please have a look at any open issues or get in touch at hello@swa
 
 ## Setting up Swap my Vote locally.
 
-You will need Ruby installed. 
+You will need Ruby installed.
 
 Clone this repository:
-```
-git clone https://github.com/swapmyvote/swapmyvote.git
-```
+
+    git clone https://github.com/swapmyvote/swapmyvote.git
 
 Install the necessary gems:
-```
-bundle install
-```
 
-Set up some config variables in a `.env` file, and add them to your environment:
-```
-$ cat .env
-# You will need create a Facebook application to allow log-ins via Facebook. Provide the keys here.
-export FACEBOOK_KEY=...
-export FACEBOOK_SECRET=...
-# You will need create a Twitter application to allow log-ins via Twitter. Provide the keys here.
-export TWITTER_KEY=...
-export TWITTER_SECRET=...
-# Set a password to protect the admin area of the site.
-export ADMIN_PASSWORD=...
+    bundle install
 
-$ source .env
-```
+Set up some config variables in a `.env` file, and add them to your environment.
+
+    $ cp .env.example .env
+    # Now edit .env to contain the appropriate credentials
+    $ source .env
 
 Set up the database schema and populate it with constituency and poll data, as well as some test users accounts for local development.
-```
-rake db:migrate
-rake db:seed
-```
+
+    rake db:migrate
+    rake db:seed
 
 Run the application:
-```
-rails server
-```
+
+    rails server
 
 Open your browser to http://localhost:3000.
 
