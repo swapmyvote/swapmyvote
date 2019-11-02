@@ -1,3 +1,3 @@
-class Party < ActiveRecord::Base
+class Party < ApplicationRecord
   has_many :polls
 end

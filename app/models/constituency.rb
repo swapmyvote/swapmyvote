@@ -1,3 +1,3 @@
-class Constituency < ActiveRecord::Base
+class Constituency < ApplicationRecord
   has_many :polls
 end
