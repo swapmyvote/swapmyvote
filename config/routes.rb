@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   get 'confirm_account_deletion', to: "static_pages#confirm_account_deletion"
 
   root 'home#index'
-  
+
   resource :user
-  
+
   namespace :user do
     resource :constituency
     resource :share, :controller => "share"
@@ -19,9 +19,9 @@ Rails.application.routes.draw do
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy'
-  
+
   get 'admin/stats', to: "admin#stats"
-  
+
   get 'uk/swap', to: "api#pre_populate"
 
   # The priority is based upon order of creation: first created -> highest priority.
