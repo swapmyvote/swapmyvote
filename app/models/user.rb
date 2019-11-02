@@ -56,7 +56,7 @@ class User < ApplicationRecord
 
   def create_potential_swaps(number = 5)
     max_attempts = number * 2
-    while (self.potential_swaps(true).count < number)
+    while (self.potential_swaps.reload.count < number)
       self.try_to_create_potential_swap
       max_attempts -= 1
       break if max_attempts <= 0
