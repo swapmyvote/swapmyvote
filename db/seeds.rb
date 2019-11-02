@@ -48,7 +48,7 @@ for county in [
   COUNTRIES[county] = "Wales"
 end
 
-File.open("db/fixtures/constituency_locations.csv", "r") do |file|
+File.open("db/fixtures/constituency_locations.tsv", "r") do |file|
   lines = file.read().split("\n")
   for line in lines
     data = line.split("\t")
@@ -67,7 +67,7 @@ end
 
 # print COUNTRIES
 
-File.open("db/fixtures/constituencies.csv", "r") do |file|
+File.open("db/fixtures/constituencies.tsv", "r") do |file|
   lines = file.read().split("\n")
   for line in lines
     data = line.split("\t")
