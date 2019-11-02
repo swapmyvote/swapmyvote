@@ -53,6 +53,7 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console'
   gem 'listen'  # required by config.file_watcher
+  gem 'bundler-audit'
 end
 
 group :development, :test do
