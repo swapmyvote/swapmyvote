@@ -7,6 +7,3 @@
 # Read the Guide for Upgrading Ruby on Rails for more info on each option.
 
 Rails.application.config.action_controller.raise_on_unfiltered_parameters = true
-
-# Do not halt callback chains when a callback returns false. Previous versions had true.
-ActiveSupport.halt_callback_chains_on_return_false = true
