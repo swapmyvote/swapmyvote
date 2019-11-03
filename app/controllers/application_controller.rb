@@ -11,13 +11,18 @@ class ApplicationController < ActionController::Base
     return url
   end
 
+  def url_except_param(url, param)
+    uri = Addressable::URI.parse(url)
+    uri.query_values = uri.query_values.except(param.to_s)
+    return uri.to_s.chomp("?")
+  end
+
   def require_login
     if !logged_in?
-      session[:return_to] = request.original_url
-      if params[:log_in_with] == "twitter"
-        redirect_to twitter_login_path
-      elsif params[:log_in_with] == "facebook"
-        redirect_to facebook_login_path
+      if params[:log_in_with]
+        session[:return_to] = url_except_param(request.original_url, :log_in_with)
+        logger.debug "After login will return to #{session[:return_to]}"
+        redirect_to root_path(log_in_with: params[:log_in_with])
       else
         redirect_to root_path
       end
