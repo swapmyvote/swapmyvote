@@ -1,7 +1,7 @@
 .plain-pattern.border-bottom
   .container
     %p.text-center
-      Your preferred party is 
+      Your preferred party is
       %strong= @user.preferred_party.try(:name) || "?"
       but you are willing to vote for&nbsp;
       %strong> #{@user.willing_party.try(:name) || "?"}
@@ -10,4 +10,3 @@
       \.
     %p.small.text-center
       %a{href: edit_user_path} Not right? Update your info
-      

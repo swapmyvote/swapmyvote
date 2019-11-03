@@ -6,15 +6,15 @@ _drawCharts = () ->
   for chart in charts
     _drawPollChart(chart...)
   window.drawPollChart = _drawPollChart
-  
+
 google.load("visualization", "1", {packages:["corechart"]})
 google.setOnLoadCallback(_drawCharts)
-  
+
 _drawPollChart = (selector, poll_data) ->
   data = google.visualization.arrayToDataTable([
     ['Party', 'Vote %', { role: "style" }]
   ].concat(poll_data))
-  
+
   max = Math.max(poll_data.map((d) -> d[1]))
 
   options = {

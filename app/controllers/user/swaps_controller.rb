@@ -11,11 +11,11 @@ class User::SwapsController < ApplicationController
     end
     @potential_swaps = @user.potential_swap_users(5)
   end
-  
+
   def new
     @swap_with = User.find(params[:user_id])
   end
-  
+
   def create
     @user.swap_with_user_id(params[:user_id])
     if !@user.errors.empty?
@@ -23,19 +23,19 @@ class User::SwapsController < ApplicationController
     end
     redirect_to user_path
   end
-  
+
   def update
     if (swap_params[:confirmed] == "true")
       @user.confirm_swap
     end
-    redirect_to user_path  
+    redirect_to user_path
   end
-  
+
   def destroy
     @user.clear_swap
     redirect_to user_path
   end
-  
+
 private
   def assert_incoming_swap_exists
     if !@user.incoming_swap
@@ -43,7 +43,7 @@ private
       redirect_to user_path
     end
   end
-  
+
   def assert_parties_exist
     if !@user.willing_party or !@user.preferred_party
       redirect_to edit_user_path

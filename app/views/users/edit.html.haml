@@ -4,10 +4,10 @@
       %p.text-center.text-warning.small
         Warning: Changing your party preferences or constituency will undo any swap that
         you have agreed to.
-    
+
     = form_for @user, url: user_path do |f|
       %p
-        My preferred party is 
+        My preferred party is
         = f.collection_select :preferred_party_id, @parties, :id, :name, prompt: "...", :selected => @user.preferred_party_id
         ,
       %p
@@ -15,7 +15,7 @@
         = f.collection_select :willing_party_id, @parties, :id, :name, prompt: "...", :selected => @user.willing_party_id
         \.
       %p
-        My constituency is 
+        My constituency is
         = f.collection_select :constituency_id, @constituencies, :id, :name, prompt: "...", :selected => @user.constituency_id
         \.
       %p
@@ -24,8 +24,8 @@
         .subdued.small We only need your email to let you know when we've found a swap partner for you. No spam, and your details will stay private with us.
       %p.text-center
         = submit_tag("Save", class: "button")
-    
+
     %hr
       %p.small.subdued
-        If you no longer want to take part in Swap my Vote, you can delete your account 
+        If you no longer want to take part in Swap my Vote, you can delete your account
         =link_to "here", confirm_account_deletion_path

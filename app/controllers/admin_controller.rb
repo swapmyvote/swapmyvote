@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   http_basic_authenticate_with name: "swapmyvote", password: ENV["ADMIN_PASSWORD"]
-  
+
   def stats
     @user_count = User.count
     @swap_count = Swap.count

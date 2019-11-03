@@ -7,7 +7,7 @@ window.shareOnFacebook = (app_id, url) ->
   share_url += "&u=#{encodeURIComponent(url)}"
   share_url += "&sdk=joey&display=popup&ref=plugin"
   window.open(share_url, 'fb_sharer', "toolbar=0,status=0,width=626,height=436")
-  
+
 window.shareOnTwitter = (url, text) ->
   share_url =  "https://twitter.com/share"
   share_url += "?url=#{encodeURIComponent(url)}"

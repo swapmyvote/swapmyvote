@@ -11,6 +11,6 @@ $ () ->
   $(document).keyup (e) ->
     if e.keyCode == 27 # Escape
       $(".modal").hide()
-      
+
 window.showModal = (element) ->
   element.show()

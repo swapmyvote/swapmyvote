@@ -6,11 +6,11 @@
           Make your vote count on 12 Dec 2019!
         %h2.subdued
           Swap it with someone in a constituency where it will count for more. You get to vote for who you really want, and to help someone else do the same.
-      
+
     .plain-pattern.border-bottom
       .container.text-center
         %p.choose_party
-          My preferred party is 
+          My preferred party is
           = select :user, :preferred_party_id do
             %option{disabled: true, selected: true} ...
             = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @preferred_party_id)
@@ -22,7 +22,7 @@
         %p
           %a.button.button-large{onclick: "submit_modal(); return false", href: "#"} Swap My Vote!
         %p.small.subdued
-          We will match you with someone who will 
+          We will match you with someone who will
           cast your preferred vote in a different area where it will count for more.
           In return, you will cast their preferred vote in your area.
 
@@ -63,7 +63,7 @@
           (We won't share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
         %p.text-center
           = link_to "Why do I need to log in with Facebook or Twitter?", "/faq#login", class: "small", target: "_blank"
-            
+
     .modal.js-error-modal{style: "display: none;"}
       .modal-dialog
         %i.fa.fa-times.subdued.modal-close
@@ -90,4 +90,3 @@
           %br
           = link_to "Follow us on Twitter", "https://twitter.com/swapmyvote", class: "button button-twitter"
           = link_to "Like us on Facebook", "https://facebook.com/swapmyvote", class: "button button-facebook"
-

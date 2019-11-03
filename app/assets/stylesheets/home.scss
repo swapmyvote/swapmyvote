@@ -57,14 +57,14 @@ p.choose_party {
     only screen and (     -o-min-device-pixel-ratio: 2/1),
     only screen and (        min-device-pixel-ratio: 2),
     only screen and (                min-resolution: 192dpi),
-    only screen and (                min-resolution: 2dppx) { 
+    only screen and (                min-resolution: 2dppx) {
       a.brand {
         background-image: image-url('logo_nav@2x.png');
       }
   }
   border-bottom: 1px solid $border-color;
   background-color: white;
-  
+
   .user {
     display: inline-block;
     float: right;
@@ -142,7 +142,7 @@ p.choose_party {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   margin-bottom: 16px;
   background-color: white;
-  
+
   & > h1, h2, h3 {
     margin-top: 0;
   }
@@ -162,8 +162,8 @@ p.choose_party {
          -o-animation: oscillate 2s linear infinite; /* Opera 12+ */
             animation: oscillate 2s linear infinite;
   }
-  
-  
+
+
   span {
     display: inline-block;
   }

@@ -7,7 +7,7 @@
           = f.text_field :email, placeholder: "me@example.com", autofocus: true
           .subdued.small We only need your email to let you know when we've found a swap partner for you. No spam, and your details will stay private with us.
       %p
-        My constituency is 
+        My constituency is
         = f.collection_select :constituency_id, @constituencies, :id, :name, :selected => @user.constituency_id
       %p.text-center
         = submit_tag("Save", class: "button")

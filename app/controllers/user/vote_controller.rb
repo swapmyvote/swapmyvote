@@ -1,10 +1,10 @@
 class User::VoteController < ApplicationController
   before_action :require_login
   before_action :require_swap
-  
+
   def show
   end
-  
+
   def create
     @user.has_voted = true
     @user.save

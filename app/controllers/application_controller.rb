@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
-  
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  
+
   def return_to_url
     url = session[:return_to] || root_url
     session.delete(:return_to)
@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
     end
     @user = current_user
   end
-  
+
   def require_swapping_open
     if !swapping_open?
       redirect_to root_path
