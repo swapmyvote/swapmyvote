@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Swapmyvote
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults 5.2
 
     config.action_mailer.default_url_options = {host: "swapmyvote.uk"}
     # Settings in config/environments/* take precedence over those specified here.
