@@ -41,7 +41,14 @@ CSV of unswapped users
 
     ActiveRecord::Base.logger = nil; print User.all.select {|u| !u.is_swapped?}.map {|u| [u.name, u.email].join("\t")}.join("\n")
 
-Run command
------------
+Run command in Heroku environment
+---------------------------------
 
-heroku run --app swapmyvote CONFIG=value rails runner 'COMMAND'
+    heroku run --app swapmyvote CONFIG=value bash
+    heroku run --app swapmyvote CONFIG=value rails runner 'COMMAND'
+
+Open or close swaps in Heroku environment
+-----------------------------------------
+
+    heroku config:unset -a swapmyvotedev SWAPS_CLOSED
+    heroku config:set -a swapmyvotedev SWAPS_CLOSED=true
