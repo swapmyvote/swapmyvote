@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.6.5"
+ruby '2.6.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
@@ -39,11 +39,11 @@ gem 'haml-rails'
 
 gem 'normalize-rails'
 
-gem "seedbank"
+gem 'seedbank'
 
 gem 'random_data'
 
-gem "json"
+gem 'json'
 
 gem 'airbrake', '~> 9.5.0'
 
@@ -71,5 +71,5 @@ group :development, :test do
 end
 
 group :production do
-  gem "pg"
+  gem 'pg'
 end
