@@ -48,66 +48,58 @@ for county in [
   COUNTRIES[county] = "Wales"
 end
 
-File.open("db/fixtures/constituency_locations.tsv", "r") do |file|
-  lines = file.read().split("\n")
-  for line in lines
-    data = line.split("\t")
-    name = data[0]
-    country = data[5]
-    
-    if m = name.match(/^((?:(?:North|East|South|West|Mid|The|City of) )+)(.*)/)
-      old_name = name
-      name = "#{m[2]} #{m[1].strip()}"
-    end
-    name = name.gsub(",", "")
-    
-    COUNTRIES[name] = country
+CSV.foreach("db/fixtures/constituency_locations.tsv", col_sep: "\t") do |data|
+  name = data[0]
+  country = data[5]
+
+  if m = name.match(/^((?:(?:North|East|South|West|Mid|The|City of) )+)(.*)/)
+    old_name = name
+    name = "#{m[2]} #{m[1].strip()}"
   end
+  name = name.gsub(",", "")
+
+  COUNTRIES[name] = country
+  puts "#{name} is in #{country}"
 end
 
-# print COUNTRIES
+puts
 
-File.open("db/fixtures/constituencies.tsv", "r") do |file|
-  lines = file.read().split("\n")
-  for line in lines
-    data = line.split("\t")
-    name = data[2]
-    
-    constituency = Constituency.find_or_create_by name: name
-    votes = {
-      "con" => data[6],
-      "lab" => data[7],
-      "libdem" => data[8],
-      "ukip" => data[9],
-      "green" => data[10]
-    }
-    
-    country = COUNTRIES[name.gsub(",", "")]
-    
-    print "[#{name}]\n"
-    
-    print "Country:\t#{country} "
-    
-    if country == "Scotland"
-      print "(Assigning nationalist vote to SNP)"
-      votes["snp"] = data[11]
-    elsif country == "Wales"
-      print "(Assigning nationalist vote to Plaid Cymru)"
-      votes["plaid"] = data[11]
-    elsif not ["Scotland", "England", "Wales", "Northern Ireland"].include?(country) 
-      print "MISSING COUNTRY: #{name}; #{country}\n"
-      throw "ERROR! No country found!"
-    end
-    print "\n"
-    
-    print "Polls:\t#{votes}\n"
-    for party in votes.keys
-      vote_count = (votes[party].to_f * 100).to_i
-      poll = Poll.find_or_initialize_by constituency: constituency, party: PARTIES[party]
-      poll.votes = vote_count
-      poll.save
-    end
-    
-    print "\n"
+CSV.foreach("db/fixtures/constituencies.tsv", col_sep: "\t") do |data|
+  name = data[2]
+
+  constituency = Constituency.find_or_create_by name: name
+  votes = {
+    "con" => data[6],
+    "lab" => data[7],
+    "libdem" => data[8],
+    "ukip" => data[9],
+    "green" => data[10]
+  }
+
+  country = COUNTRIES[name.gsub(",", "")]
+
+  puts "[#{name}]"
+
+  print "Country:\t#{country} "
+
+  if country == "Scotland"
+    print "(Assigning nationalist vote to SNP)"
+    votes["snp"] = data[11]
+  elsif country == "Wales"
+    print "(Assigning nationalist vote to Plaid Cymru)"
+    votes["plaid"] = data[11]
+  elsif not ["Scotland", "England", "Wales", "Northern Ireland"].include?(country)
+    throw "Invalid country '#{country}' for #{name};"
   end
+  puts
+
+  puts "Polls:\t#{votes}"
+  for party in votes.keys
+    vote_count = (votes[party].to_f * 100).to_i
+    poll = Poll.find_or_initialize_by constituency: constituency, party: PARTIES[party]
+    poll.votes = vote_count
+    poll.save
+  end
+
+  puts
 end
