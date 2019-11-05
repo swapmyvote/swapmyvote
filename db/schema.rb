@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_06_06_172146) do
+ActiveRecord::Schema.define(version: 2019_11_05_204049) do
 
   create_table "constituencies", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ons_constituencies", force: :cascade do |t|
+    t.string "ons_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ons_id"], name: "index_ons_constituencies_on_ons_id", unique: true
   end
 
   create_table "parties", force: :cascade do |t|
