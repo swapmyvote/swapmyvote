@@ -1,0 +1,2 @@
+class OnsConstituency < ApplicationRecord
+end
