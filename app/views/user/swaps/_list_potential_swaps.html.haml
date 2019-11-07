@@ -1,7 +1,7 @@
 %p.text-center
 	Who would you like to swap your vote with?
 %p.text-center.small.subdued
-	Consider their constituency to make your vote count for the most!
+	Consider the polls in their constituency to give your vote the best chance of making a difference!
 .spacer
 - for swap in @potential_swaps
 	= link_to new_user_swap_path(user_id: swap.id), class: "card profile" do
