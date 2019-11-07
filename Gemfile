@@ -69,6 +69,11 @@ group :development, :test do
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+
+  # add rspec
+  gem 'rspec-rails', '~> 3.8'
+  gem 'database_cleaner'
+
 end
 
 group :production do
