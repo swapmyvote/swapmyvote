@@ -1,12 +1,12 @@
-# Swap my Vote
+# Swap My Vote
 
-Swap my Vote is a platform which allows voters to find a partner to swap their vote with.
+Swap My Vote is a platform which allows voters to find a partner to swap their vote with.
 Rather than voting for their preferred minority party in a constituency where a tactical
 vote is necessary or worthwhile, a voter can find someone who will vote for their preferred
 party somewhere where that vote makes sense, even under First Past The Post. In return, they
 will vote for their partners preferred party as a tactical vote in their own constituency.
 
-Swap my Vote ran a successful project in both the 2015 and 2017 UK general elections at
+Swap My Vote ran a successful project in both the 2015 and 2017 UK general elections at
 [www.swapmyvote.uk](https://www.swapmyvote.uk).
 
 In the interests of transparency, all of the code that we have written and used is available
@@ -14,7 +14,7 @@ in this open source repository. We are in the process of working out how to make
 sustainable, but providing an open and welcoming community for continued developed will be
 important. So please have a look at any open issues or get in touch at hello@swapmyvote.uk if you'd like to help.
 
-## Setting up Swap my Vote locally
+## Setting up Swap My Vote locally
 
 You will need Ruby installed.
 
@@ -45,9 +45,9 @@ Run the application:
 
 Open your browser to http://localhost:3000.
 
-## Contributing to Swap my Vote
+## Contributing to Swap My Vote
 
-At the moment, there is only one developer working on Swap my Vote, so any help would be well appreciated. Please take a look at the open issues, and leave a comment if you're looking at one. Or get in contact at hello@swapmyvote.uk.
+At the moment, there is only one developer working on Swap My Vote, so any help would be well appreciated. Please take a look at the open issues, and leave a comment if you're looking at one. Or get in contact at hello@swapmyvote.uk.
 
 Our roadmap can be seen in our [GitHub project](https://github.com/orgs/swapmyvote/projects/1)
 and [list of milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
