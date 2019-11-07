@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,59 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606172146) do
+ActiveRecord::Schema.define(version: 2017_06_06_172146) do
 
   create_table "constituencies", force: :cascade do |t|
-    t.string   "name"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "parties", force: :cascade do |t|
-    t.string   "name"
-    t.string   "color"
+    t.string "name"
+    t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "polls", force: :cascade do |t|
-    t.integer  "constituency_id"
-    t.integer  "party_id"
-    t.integer  "votes"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer "constituency_id"
+    t.integer "party_id"
+    t.integer "votes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "potential_swaps", force: :cascade do |t|
-    t.integer  "source_user_id"
-    t.integer  "target_user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer "source_user_id"
+    t.integer "target_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "swaps", force: :cascade do |t|
-    t.integer  "chosen_user_id"
-    t.boolean  "confirmed"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer "chosen_user_id"
+    t.boolean "confirmed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "email"
-    t.string   "image"
-    t.string   "token"
+    t.string "provider"
+    t.string "uid"
+    t.string "name"
+    t.string "email"
+    t.string "image"
+    t.string "token"
     t.datetime "expires_at"
-    t.integer  "preferred_party_id"
-    t.integer  "willing_party_id"
-    t.integer  "constituency_id"
-    t.integer  "swap_id"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.boolean  "has_voted",                default: false
-    t.boolean  "sent_vote_reminder_email", default: false
+    t.integer "preferred_party_id"
+    t.integer "willing_party_id"
+    t.integer "constituency_id"
+    t.integer "swap_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "has_voted", default: false
+    t.boolean "sent_vote_reminder_email", default: false
   end
 
 end

@@ -1,4 +1,4 @@
-class CreatePotentialSwaps < ActiveRecord::Migration
+class CreatePotentialSwaps < ActiveRecord::Migration[4.2]
   def change
     create_table :potential_swaps do |t|
       t.integer :source_user_id

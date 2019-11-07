@@ -1,4 +1,4 @@
-class CreateUsers < ActiveRecord::Migration
+class CreateUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :users do |t|
       t.string :provider
@@ -13,7 +13,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :willing_party_id
       t.integer :constituency_id
       t.integer :swap_id
-      
+
       t.timestamps null: false
     end
   end
