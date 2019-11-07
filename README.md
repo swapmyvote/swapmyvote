@@ -52,6 +52,9 @@ Run the application:
 
 Open your browser to http://localhost:3000.
 
+Note that in the development environment, emails are not sent but instead written
+as files in the `tmp/mails/` subdirectory.
+
 ## Contributing to Swap my Vote
 
 At the moment, there is only one developer working on Swap my Vote, so any help would be well appreciated. Please take a look at the open issues, and leave a comment if you're looking at one. Or get in contact at hello@swapmyvote.uk.
