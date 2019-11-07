@@ -26,6 +26,14 @@ Install the necessary gems:
 
     bundle install
 
+If this fails with error messages that mention `pg` or PostgreSQL, then
+try instead:
+
+    bundle install --without-production
+
+since the PostgreSQL database is not normally needed for local
+development (sqlite is used instead).
+
 Set up some config variables in a `.env.development.local` file:
 
     $ cp .env.example .env.development.local
