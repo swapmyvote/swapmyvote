@@ -105,12 +105,13 @@ CSV.foreach("db/fixtures/constituencies.tsv", col_sep: "\t") do |data|
   puts
 end
 
-puts "ONS Constituencies"
+puts "\nONS Constituencies"
 
 ons_constituencies_csv = OnsConstituenciesCsv.new("db/fixtures/Westminster_Parliamentary_Constituencies_December_2018_Names_and_Codes_in_the_United_Kingdom.csv")
 
 ons_constituencies_csv.each do |constituency|
   cons = OnsConstituency.new(constituency)
+  puts "#{cons.ons_id} #{cons.name}"
   cons.save!
 end
 
