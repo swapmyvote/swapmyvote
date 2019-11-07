@@ -34,8 +34,7 @@ Now edit `.env.development.local` to contain the appropriate credentials.  These
 
 Set up the database schema and populate it with constituency and poll data, as well as some test users accounts for local development.
 
-    rake db:migrate
-    rake db:seed
+    rake db:setup
 
 Run the application:
 
