@@ -57,7 +57,7 @@ as files in the `tmp/mails/` subdirectory.
 
 ## Contributing to Swap my Vote
 
-At the moment, there is only one developer working on Swap my Vote, so any help would be well appreciated. Please take a look at the open issues, and leave a comment if you're looking at one. Or get in contact at hello@swapmyvote.uk.
+Any help would be well appreciated. Please take a look at the open issues, and leave a comment if you're looking at one. Or get in contact at hello@swapmyvote.uk.
 
 Our roadmap can be seen in our [GitHub project](https://github.com/orgs/swapmyvote/projects/1)
 and [list of milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
