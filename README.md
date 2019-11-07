@@ -34,13 +34,13 @@ Now edit `.env.development.local` to contain the appropriate credentials.  These
 
 Set up the database schema and populate it with constituency and poll data, as well as some test users accounts for local development.
 
-    rake db:setup
+    bundle exec rake db:setup
 
 Run the application:
 
     # Ensure binding to localhost even if $HOST is set, so that
     # the URL is accepted by the facebook development app
-    rails server -b localhost
+    bundle exec rails server -b localhost
 
 Open your browser to http://localhost:3000.
 
