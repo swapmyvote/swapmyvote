@@ -7,10 +7,10 @@ class UsersController < ApplicationController
   def new
     @user_params = session[:user_params] || {}
     session.delete(:user_params)
-    if !@user_params.key?("preferred_party_id") || !@user_params.key?("willing_party_id")
-      redirect_to root_path
-      return
-    end
+
+    return if @user_params.key?("preferred_party_id") || @user_params.key?("willing_party_id")
+
+    redirect_to root_path
   end
 
   def create
@@ -54,11 +54,11 @@ class UsersController < ApplicationController
   # it into the session here.
   def require_login_and_save_user_params
     logged_in = require_login
-    unless logged_in
-      # Set params to resume user creation after login
-      session[:user_params] = user_params
-      session[:return_to] = new_user_path
-    end
+    return if logged_in
+
+    # Set params to resume user creation after login
+    session[:user_params] = user_params
+    session[:return_to] = new_user_path
   end
 
   def user_params
