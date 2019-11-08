@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AdminController < ApplicationController
-  http_basic_authenticate_with name: 'swapmyvote', password: ENV['ADMIN_PASSWORD']
+  http_basic_authenticate_with name: "swapmyvote", password: ENV["ADMIN_PASSWORD"]
 
   def stats
     @user_count = User.count

@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  belongs_to :preferred_party, class_name: 'Party', optional: true
-  belongs_to :willing_party, class_name: 'Party', optional: true
+  belongs_to :preferred_party, class_name: "Party", optional: true
+  belongs_to :willing_party, class_name: "Party", optional: true
   belongs_to :constituency, optional: true
 
-  belongs_to :outgoing_swap, class_name: 'Swap', foreign_key: 'swap_id',
+  belongs_to :outgoing_swap, class_name: "Swap", foreign_key: "swap_id",
                              dependent: :destroy, optional: true
-  has_one    :incoming_swap, class_name: 'Swap', foreign_key: 'chosen_user_id',
+  has_one    :incoming_swap, class_name: "Swap", foreign_key: "chosen_user_id",
                              dependent: :destroy
 
-  has_many :potential_swaps, foreign_key: 'source_user_id', dependent: :destroy
-  has_many :incoming_potential_swaps, class_name: 'PotentialSwap', foreign_key: 'target_user_id', dependent: :destroy
+  has_many :potential_swaps, foreign_key: "source_user_id", dependent: :destroy
+  has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
 
   before_save :clear_swap, if: :details_changed?
   before_save :send_welcome_email, if: :ready_to_swap?
@@ -23,30 +23,28 @@ class User < ApplicationRecord
       user.image = auth.info.image
       user.email = auth.info.email unless auth.info.email.blank?
       user.token = auth.credentials.token
-      if auth.credentials.expires_at
-        user.expires_at = Time.at(auth.credentials.expires_at)
-      end
+      user.expires_at = Time.at(auth.credentials.expires_at) if auth.credentials.expires_at
       user.save!
     end
   end
 
   def profile_url
-    if provider == 'facebook'
+    if provider == "facebook"
       "https://facebook.com/#{uid}"
-    elsif provider == 'twitter'
+    elsif provider == "twitter"
       "https://twitter.com/intent/user?user_id=#{uid}"
     else
-      '#'
+      "#"
     end
   end
 
   def image_url
-    image.gsub(/^http/, 'https')
+    image.gsub(/^http/, "https")
   end
 
   def potential_swap_users(number = 5)
     # Clear out swaps every few hours to keep the list fresh for people checking back
-    potential_swaps.where(['created_at < ?', DateTime.now - 2.hours]).destroy_all
+    potential_swaps.where(["created_at < ?", DateTime.now - 2.hours]).destroy_all
     create_potential_swaps(number)
     swaps = potential_swaps.all.eager_load(
       target_user: { constituency: [{ polls: :party }] }
@@ -90,10 +88,10 @@ class User < ApplicationRecord
   def swap_with_user_id(user_id)
     other_user = User.find(user_id)
     if outgoing_swap || incoming_swap
-      errors.add :base, 'Choosing user is already swapped'
+      errors.add :base, "Choosing user is already swapped"
       return
     elsif other_user.outgoing_swap || other_user.incoming_swap
-      errors.add :base, 'Chosen user is already swapped'
+      errors.add :base, "Chosen user is already swapped"
       return
     end
 
@@ -156,7 +154,7 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    logger.debug 'Sending Welcome email'
+    logger.debug "Sending Welcome email"
     UserMailer.welcome_email(self).deliver_now
   end
 

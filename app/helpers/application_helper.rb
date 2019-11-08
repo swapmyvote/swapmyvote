@@ -2,11 +2,11 @@
 
 module ApplicationHelper
   def facebook_login_path
-    '/auth/facebook'
+    "/auth/facebook"
   end
 
   def twitter_login_path
-    '/auth/twitter'
+    "/auth/twitter"
   end
 
   def current_user
@@ -23,12 +23,12 @@ module ApplicationHelper
   end
 
   def swapping_open?
-    !ENV['SWAPS_CLOSED']
+    !ENV["SWAPS_CLOSED"]
   end
 
   def canonical_name(name)
     return nil if name.nil?
 
-    name.parameterize('_')
+    name.parameterize("_")
   end
 end

@@ -25,7 +25,7 @@ class User::SwapsController < ApplicationController
   end
 
   def update
-    @user.confirm_swap if swap_params[:confirmed] == 'true'
+    @user.confirm_swap if swap_params[:confirmed] == "true"
     redirect_to user_path
   end
 

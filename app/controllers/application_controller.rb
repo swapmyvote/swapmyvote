@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def url_except_param(url, param)
     uri = Addressable::URI.parse(url)
     uri.query_values = uri.query_values.except(param.to_s)
-    uri.to_s.chomp('?')
+    uri.to_s.chomp("?")
   end
 
   def require_login

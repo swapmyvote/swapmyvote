@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def new
     @user_params = session[:user_params] || {}
     session.delete(:user_params)
-    if !@user_params.key?('preferred_party_id') || !@user_params.key?('willing_party_id')
+    if !@user_params.key?("preferred_party_id") || !@user_params.key?("willing_party_id")
       redirect_to root_path
       return
     end
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
       return
     end
     if @user.is_swapped?
-      render 'show'
+      render "show"
     else
       redirect_to user_swap_path
     end
