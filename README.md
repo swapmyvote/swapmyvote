@@ -18,39 +18,46 @@ important. So please have a look at any open issues or get in touch at hello@swa
 
 You will need Ruby installed.
 
-Clone this repository:
+-   Clone this repository:
 
-    git clone https://github.com/swapmyvote/swapmyvote.git
+        git clone https://github.com/swapmyvote/swapmyvote.git
 
-Install the necessary gems:
+-   Install the necessary gems:
 
-    bundle install
+        bundle install
 
-If this fails with error messages that mention `pg` or PostgreSQL, then
-try instead:
+    If this fails with error messages that mention `pg` or PostgreSQL, then
+    try instead:
 
-    bundle install --without-production
+        bundle install --without-production
 
-since the PostgreSQL database is not normally needed for local
-development (sqlite is used instead).
+    since the PostgreSQL database is not normally needed for local
+    development (sqlite is used instead).
 
-Set up some config variables in a `.env.development.local` file:
+-   Set up some credentials and other config variables in a
+    `.env.development.local` file.  You can ask @aspiers for a copy of
+    this file, or if you are using your own Facebook and Twitter apps
+    for login then you can make it yourself
 
-    $ cp .env.example .env.development.local
+        $ cp .env.example .env.development.local
 
-Now edit `.env.development.local` to contain the appropriate credentials.  These will get automatically loaded via the `dotenv-rails` gem.
+    Now edit `.env.development.local` to contain the appropriate
+    credentials.  These will get automatically loaded via the
+    `dotenv-rails` gem.
 
-Set up the database schema and populate it with constituency and poll data, as well as some test users accounts for local development.
+-   Set up the database schema and populate it with constituency and
+    poll data, as well as some test users accounts for local
+    development.
 
-    bundle exec rake db:setup
+        bundle exec rake db:setup
 
-Run the application:
+-   Run the application:
 
-    # Ensure binding to localhost even if $HOST is set, so that
-    # the URL is accepted by the facebook development app
-    bundle exec rails server -b localhost
+        # Ensure binding to localhost even if $HOST is set, so that
+        # the URL is accepted by the facebook development app
+        bundle exec rails server -b localhost
 
-Open your browser to http://localhost:3000.
+-   Open your browser to http://localhost:3000.
 
 Note that in the development environment, emails are not sent but instead written
 as files in the `tmp/mails/` subdirectory.
