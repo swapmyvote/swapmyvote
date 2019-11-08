@@ -9,6 +9,7 @@
 
 require "active_record/fixtures"
 require "csv"
+require_relative 'fixtures/ons_constituencies_csv'
 
 PARTIES = {
   "con"    => Party.find_or_create_by(name: "Conservatives", color: "#0087DC"),
@@ -103,3 +104,16 @@ CSV.foreach("db/fixtures/constituencies.tsv", col_sep: "\t") do |data|
 
   puts
 end
+
+puts "\nONS Constituencies"
+
+ons_constituencies_csv = OnsConstituenciesCsv.new("db/fixtures/Westminster_Parliamentary_Constituencies_December_2018_Names_and_Codes_in_the_United_Kingdom.csv")
+
+ons_constituencies_csv.each do |constituency|
+  cons = OnsConstituency.new(constituency)
+  puts "#{cons.ons_id} #{cons.name}"
+  cons.save!
+end
+
+puts "#{OnsConstituency.count} ONS Constituencies loaded"
+

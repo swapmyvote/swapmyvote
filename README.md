@@ -26,6 +26,14 @@ Install the necessary gems:
 
     bundle install
 
+If this fails with error messages that mention `pg` or PostgreSQL, then
+try instead:
+
+    bundle install --without-production
+
+since the PostgreSQL database is not normally needed for local
+development (sqlite is used instead).
+
 Set up some config variables in a `.env.development.local` file:
 
     $ cp .env.example .env.development.local
@@ -34,20 +42,22 @@ Now edit `.env.development.local` to contain the appropriate credentials.  These
 
 Set up the database schema and populate it with constituency and poll data, as well as some test users accounts for local development.
 
-    rake db:migrate
-    rake db:seed
+    bundle exec rake db:setup
 
 Run the application:
 
     # Ensure binding to localhost even if $HOST is set, so that
     # the URL is accepted by the facebook development app
-    rails server -b localhost
+    bundle exec rails server -b localhost
 
 Open your browser to http://localhost:3000.
 
-## Contributing to Swap My Vote
+Note that in the development environment, emails are not sent but instead written
+as files in the `tmp/mails/` subdirectory.
 
-At the moment, there is only one developer working on Swap My Vote, so any help would be well appreciated. Please take a look at the open issues, and leave a comment if you're looking at one. Or get in contact at hello@swapmyvote.uk.
+## Contributing to Swap my Vote
+
+Any help would be well appreciated. Please take a look at the open issues, and leave a comment if you're looking at one. Or get in contact at hello@swapmyvote.uk.
 
 Our roadmap can be seen in our [GitHub project](https://github.com/orgs/swapmyvote/projects/1)
 and [list of milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
