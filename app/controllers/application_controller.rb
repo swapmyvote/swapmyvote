@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include ApplicationHelper
 
@@ -8,32 +10,33 @@ class ApplicationController < ActionController::Base
   def return_to_url
     url = session[:return_to] || root_url
     session.delete(:return_to)
-    return url
+    url
   end
 
   def url_except_param(url, param)
     uri = Addressable::URI.parse(url)
     uri.query_values = uri.query_values.except(param.to_s)
-    return uri.to_s.chomp("?")
+    uri.to_s.chomp("?")
   end
 
   def require_login
-    if !logged_in?
+    unless logged_in?
       if params[:log_in_with]
-        session[:return_to] = url_except_param(request.original_url, :log_in_with)
-        logger.debug "After login will return to #{session[:return_to]}"
-        redirect_to root_path(log_in_with: params[:log_in_with])
+        login
       else
         redirect_to root_path
       end
-      return
     end
     @user = current_user
   end
 
+  def login
+    session[:return_to] = url_except_param(request.original_url, :log_in_with)
+    logger.debug "After login will return to #{session[:return_to]}"
+    redirect_to root_path(log_in_with: params[:log_in_with])
+  end
+
   def require_swapping_open
-    if !swapping_open?
-      redirect_to root_path
-    end
+    redirect_to root_path unless swapping_open?
   end
 end
