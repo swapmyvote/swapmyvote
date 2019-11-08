@@ -10,7 +10,7 @@ Swap my Vote ran a successful project in both the 2015 and 2017 UK general elect
 [www.swapmyvote.uk](https://www.swapmyvote.uk).
 
 In the interests of transparency, all of the code that we have written and used is available
-in this open source repository. We are in the process of working out how to make this project
+in this repository. We are in the process of working out how to make this project
 sustainable, but providing an open and welcoming community for continued developed will be
 important. So please have a look at any open issues or get in touch at hello@swapmyvote.uk if you'd like to help.
 
