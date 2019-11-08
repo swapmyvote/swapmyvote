@@ -39,6 +39,7 @@ gem 'omniauth-rails_csrf_protection', '~> 0.1'
 gem 'haml-rails'
 gem 'addressable'
 gem 'normalize-rails'
+gem "autoprefixer-rails"
 
 gem 'seedbank'
 
