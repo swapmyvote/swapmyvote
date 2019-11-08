@@ -1,18 +1,22 @@
 # Swap My Vote
 
-Swap My Vote is a platform which allows voters to find a partner to swap their vote with.
-Rather than voting for their preferred minority party in a constituency where a tactical
-vote is necessary or worthwhile, a voter can find someone who will vote for their preferred
-party somewhere where that vote makes sense, even under First Past The Post. In return, they
-will vote for their partners preferred party as a tactical vote in their own constituency.
+Swap My Vote is a platform which allows voters to find a partner to
+swap their vote with.  Rather than voting for their preferred minority
+party in a constituency where a tactical vote is necessary or
+worthwhile, a voter can find someone who will vote for their preferred
+party somewhere where that vote makes sense, even under First Past The
+Post. In return, they will vote for their partners preferred party as
+a tactical vote in their own constituency.
 
-Swap My Vote ran a successful project in both the 2015 and 2017 UK general elections at
-[www.swapmyvote.uk](https://www.swapmyvote.uk).
+Swap My Vote ran a successful project in both the 2015 and 2017 UK
+general elections at [www.swapmyvote.uk](https://www.swapmyvote.uk).
 
-In the interests of transparency, all of the code that we have written and used is available
-in this repository. We are in the process of working out how to make this project
-sustainable, but providing an open and welcoming community for continued developed will be
-important. So please have a look at any open issues or get in touch at hello@swapmyvote.uk if you'd like to help.
+In the interests of transparency, all of the code that we have written
+and used is available in this repository. We are in the process of
+working out how to make this project sustainable, but providing an
+open and welcoming community for continued developed will be
+important. So please have a look at any open issues or get in touch at
+hello@swapmyvote.uk if you'd like to help.
 
 ## Setting up Swap My Vote locally
 
