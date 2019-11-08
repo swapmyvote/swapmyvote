@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::ConstituenciesController < ApplicationController
   before_action :require_swapping_open
   before_action :require_login
@@ -11,7 +13,8 @@ class User::ConstituenciesController < ApplicationController
     redirect_to user_share_path
   end
 
-private
+  private
+
   def user_params
     params.require(:user).permit(:constituency_id, :email)
   end

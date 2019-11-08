@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  before_action :require_login_and_save_user_params, :only => :create
-  before_action :require_login, :except => :create
+  before_action :require_login_and_save_user_params, only: :create
+  before_action :require_login, except: :create
 
   def new
     @user_params = session[:user_params] || {}
     session.delete(:user_params)
-    if !@user_params.has_key?("preferred_party_id") or !@user_params.has_key?("willing_party_id")
+    if !@user_params.key?('preferred_party_id') || !@user_params.key?('willing_party_id')
       redirect_to root_path
       return
     end
@@ -17,12 +19,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    if !@user.constituency or !@user.email
+    if !@user.constituency || !@user.email
       redirect_to edit_user_constituency_path
       return
     end
     if @user.is_swapped?
-      render "show"
+      render 'show'
     else
       redirect_to user_swap_path
     end
@@ -44,14 +46,15 @@ class UsersController < ApplicationController
     redirect_to account_deleted_path
   end
 
-private
+  private
+
   # The home page sends us to user/create, but if we're not logged in
   # we need to first divert and do that, then come back to the user/new page
   # with the constituency still populated. To keep that data around, we save
   # it into the session here.
   def require_login_and_save_user_params
-    logged_in = require_login()
-    if !logged_in
+    logged_in = require_login
+    unless logged_in
       # Set params to resume user creation after login
       session[:user_params] = user_params
       session[:return_to] = new_user_path

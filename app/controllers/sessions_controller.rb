@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(request.env['omniauth.auth'])
@@ -6,7 +8,7 @@ class SessionsController < ApplicationController
   end
 
   def retry
-    flash[:errors] = ["Login failed! Please try again, or try logging in a different way."]
+    flash[:errors] = ['Login failed! Please try again, or try logging in a different way.']
     destroy
   end
 

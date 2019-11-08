@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  get 'faq', to: "static_pages#faq"
-  get 'about', to: "static_pages#about"
-  get 'privacy', to: "static_pages#privacy"
-  get 'contact', to: "static_pages#contact"
-  get 'account_deleted', to: "static_pages#account_deleted"
-  get 'confirm_account_deletion', to: "static_pages#confirm_account_deletion"
+  get 'faq', to: 'static_pages#faq'
+  get 'about', to: 'static_pages#about'
+  get 'privacy', to: 'static_pages#privacy'
+  get 'contact', to: 'static_pages#contact'
+  get 'account_deleted', to: 'static_pages#account_deleted'
+  get 'confirm_account_deletion', to: 'static_pages#confirm_account_deletion'
 
   root 'home#index'
 
@@ -12,9 +14,9 @@ Rails.application.routes.draw do
 
   namespace :user do
     resource :constituency
-    resource :share, :controller => "share"
+    resource :share, controller: 'share'
     resource :swap
-    resource :vote, :controller => "vote"
+    resource :vote, controller: 'vote'
   end
 
   get 'auth/:provider/callback', to: 'sessions#create'
@@ -22,9 +24,9 @@ Rails.application.routes.draw do
   get 'auth/failure', to: 'sessions#retry'
   get 'logout', to: 'sessions#destroy'
 
-  get 'admin/stats', to: "admin#stats"
+  get 'admin/stats', to: 'admin#stats'
 
-  get 'uk/swap', to: "api#pre_populate"
+  get 'uk/swap', to: 'api#pre_populate'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def create_random_user(i, preferred_party_id, willing_party_id)
   gender = rand > 0.5 ? 'female' : 'male'
   firstname = gender == 'male' ? Random.firstname_male : Random.firstname_female
@@ -5,11 +7,10 @@ def create_random_user(i, preferred_party_id, willing_party_id)
   User.create(
     name: "#{firstname} #{Random.lastname}",
     email: "#{firstname.downcase}@example.com",
-    constituency_id: rand(1 + Constituency.count()),
+    constituency_id: rand(1 + Constituency.count),
     preferred_party_id: preferred_party_id,
     willing_party_id: willing_party_id,
-    image: "http://api.randomuser.me/portraits/med/%s/#{i}.jpg" %
-           (gender == 'male' ? 'men' : 'women')
+    image: format("http://api.randomuser.me/portraits/med/%s/#{i}.jpg", (gender == 'male' ? 'men' : 'women'))
   )
 end
 

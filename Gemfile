@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 ruby '2.6.5'
 
@@ -33,11 +35,11 @@ gem 'jquery-rails'
 # gem 'capistrano-rails', group: :development
 
 gem 'omniauth-facebook'
-gem 'omniauth-twitter'
 gem 'omniauth-rails_csrf_protection', '~> 0.1'
+gem 'omniauth-twitter'
 
-gem 'haml-rails'
 gem 'addressable'
+gem 'haml-rails'
 gem 'normalize-rails'
 
 gem 'seedbank'
@@ -50,9 +52,9 @@ gem 'airbrake', '~> 9.5.0'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console'
-  gem 'listen'  # required by config.file_watcher
   gem 'bundler-audit'
+  gem 'listen' # required by config.file_watcher
+  gem 'web-console'
 end
 
 group :development, :test do
@@ -69,6 +71,9 @@ group :development, :test do
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+
+  # Use rubocop for static code checking
+  gem 'rubocop'
 end
 
 group :production do
