@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       redirect_to edit_user_constituency_path
       return
     end
-    if @user.is_swapped?
+    if @user.swapped?
       render "show"
     else
       redirect_to user_swap_path

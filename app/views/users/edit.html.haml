@@ -1,6 +1,6 @@
 .background-pattern.border-bottom
   .container.container-narrow
-    - if @user.is_swapped?
+    - if @user.swapped?
       %p.text-center.text-warning.small
         Warning: Changing your party preferences or constituency will undo any swap that
         you have agreed to.

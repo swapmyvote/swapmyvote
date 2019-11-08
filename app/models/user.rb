@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class User < ApplicationRecord
   belongs_to :preferred_party, class_name: "Party", optional: true
   belongs_to :willing_party, class_name: "Party", optional: true
@@ -18,14 +19,22 @@ class User < ApplicationRecord
   before_destroy :clear_swap
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
-      user.name = auth.info.name
-      user.image = auth.info.image
-      user.email = auth.info.email unless auth.info.email.blank?
+    omniauth_users do |user|
+      update_auth_info(auth.info)
       user.token = auth.credentials.token
       user.expires_at = Time.at(auth.credentials.expires_at) if auth.credentials.expires_at
       user.save!
     end
+  end
+
+  def omniauth_users
+    where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap
+  end
+
+  def update_auth(auth_info)
+    user.name = auth_info.name
+    user.image = auth_info.image
+    user.email = auth_info.email unless auth.info.email.blank?
   end
 
   def profile_url
@@ -62,10 +71,6 @@ class User < ApplicationRecord
   end
 
   def try_to_create_potential_swap
-    swaps = User.where(
-      preferred_party_id: willing_party_id,
-      willing_party_id: preferred_party_id
-    ).where.not(constituency_id: nil)
     offset = rand(swaps.count)
     target_user = swaps.offset(offset).limit(1).first
     return nil unless target_user
@@ -80,6 +85,13 @@ class User < ApplicationRecord
     potential_swaps.create(target_user: target_user)
   end
 
+  def swaps
+    User.where(
+      preferred_party_id: willing_party_id,
+      willing_party_id: preferred_party_id
+    ).where.not(constituency_id: nil)
+  end
+
   def destroy_all_potential_swaps
     PotentialSwap.destroy(potential_swaps.pluck(:id))
     PotentialSwap.destroy(incoming_potential_swaps.pluck(:id))
@@ -88,11 +100,9 @@ class User < ApplicationRecord
   def swap_with_user_id(user_id)
     other_user = User.find(user_id)
     if outgoing_swap || incoming_swap
-      errors.add :base, "Choosing user is already swapped"
-      return
+      base_error_msg "Choosing user is already swapped"
     elsif other_user.outgoing_swap || other_user.incoming_swap
-      errors.add :base, "Chosen user is already swapped"
-      return
+      base_error_msg "Chosen user is already swapped"
     end
 
     destroy_all_potential_swaps
@@ -104,6 +114,10 @@ class User < ApplicationRecord
     save
   end
 
+  def base_error_msg(message_text)
+    errors.add :base, message_text
+  end
+
   def swapped_with
     if outgoing_swap
       outgoing_swap.chosen_user
@@ -112,8 +126,8 @@ class User < ApplicationRecord
     end
   end
 
-  def is_swapped?
-    !!swapped_with
+  def swapped?
+    swapped_with
   end
 
   def swap
@@ -142,15 +156,19 @@ class User < ApplicationRecord
   end
 
   def ready_to_swap?
-    ready =
-      !preferred_party_id.blank? &&
+    (ready? && first_time?)
+  end
+
+  def ready?
+    !preferred_party_id.blank? &&
       !willing_party_id.blank? &&
       !constituency_id.blank?
-    first_time =
-      preferred_party_id_was.blank? ||
+  end
+
+  def first_time?
+    preferred_party_id_was.blank? ||
       willing_party_id_was.blank? ||
       constituency_id_was.blank?
-    (ready && first_time)
   end
 
   def send_welcome_email
@@ -166,3 +184,4 @@ class User < ApplicationRecord
     UserMailer.reminder_to_vote(self).deliver_now
   end
 end
+# rubocop:enable Metrics/ClassLength
