@@ -29,13 +29,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_swapping_open
+    redirect_to root_path unless swapping_open?
+  end
+
+  private
+
   def login_with
     session[:return_to] = url_except_param(request.original_url, :log_in_with)
     logger.debug "After login will return to #{session[:return_to]}"
     redirect_to root_path(log_in_with: params[:log_in_with])
-  end
-
-  def require_swapping_open
-    redirect_to root_path unless swapping_open?
   end
 end
