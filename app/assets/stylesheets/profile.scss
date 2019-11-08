@@ -54,3 +54,9 @@ a.profile {
     text-decoration: none;
   }
 }
+
+// Work around a flicker when hovering on the poll bars
+// (https://stackoverflow.com/questions/37902708/google-charts-tooltip-flickering)
+.google-visualization-tooltip {
+  pointer-events:none;
+}
