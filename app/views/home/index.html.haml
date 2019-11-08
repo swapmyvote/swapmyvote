@@ -5,7 +5,7 @@
         %h1
           Make your vote count on 12 Dec 2019!
         %h2.subdued
-          Swap it with someone in a constituency where it will count for more. You get to vote for who you really want, and to help someone else do the same.
+          Swap it with someone in a constituency where it could count for more. You get to vote for who you really want, and to help someone else do the same.
 
     .plain-pattern.border-bottom
       .container.text-center
@@ -23,17 +23,17 @@
           %a.button.button-large{onclick: "submit_modal(); return false", href: "#"} Swap My Vote!
         %p.small.subdued
           We will match you with someone who will
-          cast your preferred vote in a different area where it will count for more.
+          cast your preferred vote in a different area where it could count for more.
           In return, you will cast their preferred vote in your area.
 
     .background-pattern.border-bottom
       .container
-        %h2 How does Swap my Vote work?
+        %h2 How does Swap My Vote work?
 
         %ol
           %li Choose the party you would ideally vote for, and the party that you are willing to vote for tactically in your local constituency.
 
-          %li We’ll find you a list of people with the opposite preference. Pick a partner to swap your vote with (the polls can help you see where it will make most difference).
+          %li We’ll find you a list of people with the complementary preferences. Pick one partner to swap your vote with. The recent polls by their name can help you see where your vote might make most difference.
 
           %li If your partner agrees to the swap, it is confirmed. We’ll put you in touch with each other’s Facebook or Twitter profiles and, if you like, you can introduce yourselves.
     :javascript
@@ -62,7 +62,7 @@
             %i.fa.fa-fw.fa-twitter
             Log in with Twitter
         %p.text-center.small.subdued
-          (We won't share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
+          (We will never share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
         %p.text-center
           = link_to "Why do I need to log in with Facebook or Twitter?", "/faq#login", class: "small", target: "_blank"
 
@@ -83,7 +83,7 @@
         %p We are updating the Swap My Vote platform for the election to be held on 12th December 2019. We will aim to open for vote swapping soon after 15th November.
 
         %p
-          Please enter your email address for a reminder when vote swapping is open and further updates.
+          Please enter your email address for a reminder when vote swapping is open, and for further updates.
 
         = render :partial => "mailchimp.html"
         %hr
@@ -92,3 +92,6 @@
           %br
           = link_to "Follow us on Twitter", "https://twitter.com/swapmyvote", class: "button button-twitter"
           = link_to "Like us on Facebook", "https://facebook.com/swapmyvote", class: "button button-facebook"
+        %p.text-center
+          Make sure you don't miss out -
+          = link_to "register to vote now", "https://gov.uk/register-to-vote", class: "small"
