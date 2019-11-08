@@ -24,3 +24,6 @@ Style/Documentation:
   Enabled: false
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+Style/SymbolArray:
+  # Turned off because the associated auto-correct makes a real mess
+  Enabled: false
