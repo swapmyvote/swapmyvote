@@ -72,12 +72,15 @@ as files in the `tmp/mails/` subdirectory.
 Any help would be well appreciated. Please take a look at the [GitHub
 project](https://github.com/orgs/swapmyvote/projects/1).  The items in
 each column are roughly sorted by priority descending, so a good place
-to start would be near the top of the `Next Up` column.
+to start would be near the top of the `Next Up` column.  In addition,
+look out for issues labelled `help wanted` or `easy`.
 
-If an issue is already assigned, then probably someone is already intending
-to do that.  Likewise if it's unassigned then probably it's up for grabs.
-However it's safer to ask on Slack before starting on anything, to avoid
-accidentally duplicating effort.
+If an issue is already assigned, then probably someone is already
+working on it or at least intending to.  If it's unassigned then
+probably it's up for grabs.  However it's safer to ask in the issue
+and/or in the Slack `#general` channel before starting on anything, to
+avoid accidentally duplicating effort.  Please use the contact details
+below to request access to Slack.
 
 Our roadmap can be seen in our [list of
  milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
@@ -88,4 +91,4 @@ You can contact us at hello@swapmyvote.uk.
 
 ## License
 
-TBD.
+TBD; see issue #33.
