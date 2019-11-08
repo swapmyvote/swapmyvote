@@ -17,5 +17,7 @@ Style/StringLiterals:
   Enabled: true
 Metrics/LineLength:
   Max: 120
+Metrics/MethodLength:
+  Max: 12
 Style/Documentation:
   Enabled: false
