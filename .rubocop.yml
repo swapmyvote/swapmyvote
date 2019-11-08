@@ -10,7 +10,7 @@ AllCops:
   - spec/**/*
   - bin/**/*
   - lib/tasks/*
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.6
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
