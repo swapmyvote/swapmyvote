@@ -9,13 +9,17 @@ class AdminController < ApplicationController
     @confirmed_swap_count = Swap.where(confirmed: true).count
     @parties = Party.all
     @swaps_matrix = []
-    @parties.each do |preferred_party|
-      row = []
-      @swaps_matrix.push row
-      @parties.each do |willing_party|
-        count = User.where(willing_party: willing_party, preferred_party: preferred_party).count
-        row.push count
-      end
+    @parties.each do |party|
+      preferred_party(party)
+    end
+  end
+
+  def preferred_party(party)
+    row = []
+    @swaps_matrix.push row
+    @parties.each do |willing_party|
+      count = User.where(willing_party: willing_party, preferred_party: party).count
+      row.push count
     end
   end
 end

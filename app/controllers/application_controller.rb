@@ -20,17 +20,19 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    unless logged_in?
-      if params[:log_in_with]
-        session[:return_to] = url_except_param(request.original_url, :log_in_with)
-        logger.debug "After login will return to #{session[:return_to]}"
-        redirect_to root_path(log_in_with: params[:log_in_with])
-      else
-        redirect_to root_path
-      end
-      return
+    if logged_in?
+      @user = current_user
+    elsif params[:log_in_with]
+      login_with
+    else
+      redirect_to root_path
     end
-    @user = current_user
+  end
+
+  def login_with
+    session[:return_to] = url_except_param(request.original_url, :log_in_with)
+    logger.debug "After login will return to #{session[:return_to]}"
+    redirect_to root_path(log_in_with: params[:log_in_with])
   end
 
   def require_swapping_open
