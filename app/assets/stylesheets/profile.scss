@@ -1,4 +1,5 @@
 @import "_variables";
+@import "_mixins";
 
 .profile {
   color: inherit;
@@ -16,7 +17,7 @@
     padding-right: 6px;
     padding-left: 76px;
     box-sizing: border-box;
-    @media screen and (min-width: $smallscreen-width) {
+    @include largescreen {
       width: 60%;
       float: left;
     }
@@ -27,13 +28,13 @@
   .profile-poll {
     height: 100%;
     box-sizing: border-box;
-    @media screen and (min-width: $smallscreen-width) {
+    @include largescreen {
       width: 40%;
       float: right;
       border-left: 1px solid $border-color;
       padding-left: 6px
     }
-    @media screen and (max-width: $smallscreen-width) {
+    @include smallscreen {
       border-top: 1px solid $border-color;
       padding-top: 12px;
       margin-top: 12px;

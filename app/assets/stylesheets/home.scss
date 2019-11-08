@@ -1,6 +1,7 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans");
 
 @import "_variables";
+@import "_mixins";
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -51,13 +52,7 @@ p.choose_party {
     width: 173px;
     background-size: 173px 32px;
   }
-  @media
-    only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (   min--moz-device-pixel-ratio: 2),
-    only screen and (     -o-min-device-pixel-ratio: 2/1),
-    only screen and (        min-device-pixel-ratio: 2),
-    only screen and (                min-resolution: 192dpi),
-    only screen and (                min-resolution: 2dppx) {
+  @include highdpi {
       a.brand {
         background-image: image-url('logo_nav@2x.png');
       }
