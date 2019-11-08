@@ -1,21 +1,21 @@
-source 'https://rubygems.org'
-ruby '2.6.5'
+source "https://rubygems.org"
+ruby "2.6.5"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
+gem "rails", "~> 5.2.0"
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem "sass-rails"
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem "uglifier", ">= 1.3.0"
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails'
+gem "coffee-rails"
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'bootsnap', require: false
+gem "bootsnap", require: false
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem "jquery-rails"
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -32,55 +32,54 @@ gem 'jquery-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'omniauth-facebook'
-gem 'omniauth-twitter'
-gem 'omniauth-rails_csrf_protection', '~> 0.1'
+gem "omniauth-facebook"
+gem "omniauth-twitter"
+gem "omniauth-rails_csrf_protection", "~> 0.1"
 
-gem 'haml-rails'
-gem 'addressable'
-gem 'normalize-rails'
+gem "haml-rails"
+gem "addressable"
+gem "normalize-rails"
 
-gem 'seedbank'
+gem "seedbank"
 
-gem 'random_data'
+gem "random_data"
 
-gem 'json'
+gem "json"
 
-gem 'airbrake', '~> 9.5.0'
+gem "airbrake", "~> 9.5.0"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console'
-  gem 'listen'  # required by config.file_watcher
-  gem 'bundler-audit'
+  gem "web-console"
+  gem "listen"  # required by config.file_watcher
+  gem "bundler-audit"
 end
 
 group :development, :test do
-  gem 'jazz_fingers'
-  gem 'pry-byebug'
+  gem "jazz_fingers"
+  gem "pry-byebug"
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem "byebug"
 
-  gem 'dotenv-rails'
+  gem "dotenv-rails"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem "spring"
 
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+  gem "sqlite3"
 
   # add rspec
-  gem 'rspec-rails', '~> 3.8'
-  gem 'database_cleaner'
+  gem "rspec-rails", "~> 3.8"
+  gem "database_cleaner"
 
   # Make rubocop available for developers
   # Have not fixed all the issues, because many of the fixes are high risk: suggest
   # we tidy up each file as and when working on it
-  gem 'rubocop'
-
+  gem "rubocop"
 end
 
 group :production do
-  gem 'pg'
+  gem "pg"
 end
