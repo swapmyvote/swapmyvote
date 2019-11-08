@@ -46,20 +46,21 @@
         %span.user
           = link_to "Already been here? Log in", "#", class: "small subdued logout", onclick: "showModal($('.js-login-modal')); return false"
         .modal.js-login-modal{style: "display: %s;" % (params[:log_in_with] ? 'inherit' : 'none')}
-          .modal-dialog
+          = form_with url: "#", id: "login-form", class: "modal-dialog",
+                      local: true do
             %i.fa.fa-times.subdued.modal-close
             - if !params[:log_in_with] or params[:log_in_with] == 'facebook'
               %p.text-center
-                = link_to facebook_login_path, class: "button button-facebook",
-                          method: :post do
+                %button{formaction: facebook_login_path, formmethod: :post,
+                        class: "button button-facebook"}
                   %i.fa.fa-fw.fa-facebook
                   Log in with Facebook
             - if !params[:log_in_with]
               %p.text-center.subdued &#8212; or &#8212;
             - if !params[:log_in_with] or params[:log_in_with] == 'twitter'
               %p.text-center
-                = link_to twitter_login_path, class: "button button-twitter",
-                          method: :post do
+                %button{formaction: twitter_login_path, formmethod: :post,
+                        class: "button button-twitter"}
                   %i.fa.fa-fw.fa-twitter
                   Log in with Twitter
             %p.text-center.small.subdued

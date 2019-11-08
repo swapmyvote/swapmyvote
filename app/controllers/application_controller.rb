@@ -5,12 +5,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  def return_to_url
-    url = session[:return_to] || root_url
-    session.delete(:return_to)
-    return url
-  end
-
   def url_except_param(url, param)
     uri = Addressable::URI.parse(url)
     uri.query_values = uri.query_values.except(param.to_s)

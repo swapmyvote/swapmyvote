@@ -2,7 +2,11 @@ class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(request.env["omniauth.auth"])
     session[:user_id] = user.id
-    redirect_to return_to_url
+    user_params = session.delete(:user_params)
+    user.update(user_params) if user_params
+    origin = request.env["omniauth.origin"]
+    logger.debug "Login request origin #{origin}"
+    redirect_to origin || user_path
   end
 
   def retry
