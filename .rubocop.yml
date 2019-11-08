@@ -1,0 +1,25 @@
+AllCops:
+  Include:
+  - app/**/*.rb
+  - Rakefile
+  - '**/Gemfile'
+  - config.ru
+  Exclude:
+  - config/**/*
+  - db/**/*
+  - spec/**/*
+  - bin/**/*
+  - lib/tasks/*
+  TargetRubyVersion: 2.3
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  Enabled: true
+Metrics/LineLength:
+  Max: 120
+Metrics/MethodLength:
+  Max: 12
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact

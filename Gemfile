@@ -69,6 +69,12 @@ group :development, :test do
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+
+  # Make rubocop available for developers
+  # Have not fixed all the issues, because many of the fixes are high risk: suggest
+  # we tidy up each file as and when working on it
+  gem 'rubocop'
+
 end
 
 group :production do
