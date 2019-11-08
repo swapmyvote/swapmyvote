@@ -74,6 +74,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'database_cleaner'
 
+  # Make rubocop available for developers
+  # Have not fixed all the issues, because many of the fixes are high risk: suggest
+  # we tidy up each file as and when working on it
+  gem 'rubocop'
+
 end
 
 group :production do
