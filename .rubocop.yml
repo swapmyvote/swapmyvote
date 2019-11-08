@@ -21,3 +21,5 @@ Metrics/MethodLength:
   Max: 12
 Style/Documentation:
   Enabled: false
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
