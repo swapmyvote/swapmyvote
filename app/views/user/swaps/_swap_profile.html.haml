@@ -13,6 +13,6 @@
   .profile-poll
     .text-center.small
       Polls in #{other_user.constituency.try(:name) or "Unknown"}
-    %div{id: "poll_#{other_user.id}"}
+    %div{class: "poll-chart", id: "poll_#{other_user.id}"}
   :javascript
     drawPollChart("poll_#{other_user.id}", #{poll_data_for(other_user.constituency)});
