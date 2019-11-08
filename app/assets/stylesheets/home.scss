@@ -3,6 +3,8 @@
 @import "_variables";
 @import "_mixins";
 
+@import 'normalize-rails/normalize';
+
 body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
@@ -21,6 +23,10 @@ a {
 
 p {
   margin: 12px 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 select {
@@ -79,7 +85,7 @@ p.choose_party {
       height: 32px;
       width: 173px;
       background-size: 173px 32px;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
   }
 
@@ -103,6 +109,10 @@ p.choose_party {
   max-width: 960px;
   padding: 16px;
   margin: auto;
+
+  @include smallscreen {
+    padding: 16px;
+  }
 }
 
 .container-narrow {
