@@ -21,3 +21,9 @@ config.local
 # https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
 /.env.*.local
 /.env.local
+
+# Intellij files
+.idea/
+
+# Ruby version
+.ruby-version
