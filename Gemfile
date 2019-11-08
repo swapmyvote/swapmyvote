@@ -78,6 +78,14 @@ group :development, :test do
   # Have not fixed all the issues, because many of the fixes are high risk: suggest
   # we tidy up each file as and when working on it
   gem "rubocop"
+
+  # Guard checks everything when you save a file
+  gem "guard"
+  gem "guard-rspec"
+  gem "guard-rails"
+  gem "guard-bundler"
+  gem "guard-rubocop"
+  # gem "terminal-notifier-guard"
 end
 
 group :production do
