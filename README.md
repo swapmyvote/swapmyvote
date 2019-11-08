@@ -15,8 +15,9 @@ In the interests of transparency, all of the code that we have written
 and used is available in this repository. We are in the process of
 working out how to make this project sustainable, but providing an
 open and welcoming community for continued developed will be
-important. So please have a look at any open issues or get in touch at
-hello@swapmyvote.uk if you'd like to help.
+important. So please have a look at the
+[Contributing](#contributing-to-swap-my-vote) and [Contact](#contact)
+sections below if you'd like to help.
 
 ## Setting up Swap My Vote locally
 
