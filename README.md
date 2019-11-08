@@ -85,6 +85,10 @@ below to request access to Slack.
 Our roadmap can be seen in our [list of
  milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
 
+When submitting new issues or PRs, please remember to link them to the
+[project](https://github.com/orgs/swapmyvote/projects/1) and apply any
+relevant labels.  Thanks!
+
 ## Contact
 
 You can contact us at hello@swapmyvote.uk.
