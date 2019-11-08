@@ -41,30 +41,11 @@
         preferred_party_id = $("select[name='user[preferred_party_id]']").val();
         willing_party_id = $("select[name='user[willing_party_id]']").val();
         if (preferred_party_id !== null && willing_party_id !== null) {
-          showModal($('.js-submit-modal'));
+          showModal($('.js-login-modal'));
         } else {
           showModal($('.js-error-modal'));
         }
       }
-
-    .modal.js-submit-modal{style: "display: none;"}
-      .modal-dialog
-        %i.fa.fa-times.subdued.modal-close
-        %p.text-center
-          = link_to facebook_login_path, class: "button button-facebook",
-                    method: :post do
-            %i.fa.fa-fw.fa-facebook
-            Log in with Facebook
-        %p.text-center.subdued &#8212; or &#8212;
-        %p.text-center
-          = link_to twitter_login_path, class: "button button-twitter",
-                    method: :post do
-            %i.fa.fa-fw.fa-twitter
-            Log in with Twitter
-        %p.text-center.small.subdued
-          (We will never share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
-        %p.text-center
-          = link_to "Why do I need to log in with Facebook or Twitter?", "/faq#login", class: "small", target: "_blank"
 
     .modal.js-error-modal{style: "display: none;"}
       .modal-dialog
