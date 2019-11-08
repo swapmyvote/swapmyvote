@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
-  default from: 'Swap My Vote <hello@swapmyvote.uk>'
+  default from: "Swap My Vote <hello@swapmyvote.uk>"
 
   def welcome_email(user)
     @user = user
-    mail(to: @user.email, subject: 'Welcome to Swap My Vote')
+    mail(to: @user.email, subject: "Welcome to Swap My Vote")
   end
 
   def confirm_swap(user, swap_with)

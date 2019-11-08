@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class User::VoteController < ApplicationController
   before_action :require_login
   before_action :require_swap
 
-  def show
-  end
+  def show; end
 
   def create
     @user.has_voted = true
@@ -12,10 +13,9 @@ class User::VoteController < ApplicationController
     redirect_to user_vote_path
   end
 
-private
+  private
+
   def require_swap
-    if !@user.is_swapped?
-      redirect_to user_path
-    end
+    redirect_to user_path unless @user.is_swapped?
   end
 end

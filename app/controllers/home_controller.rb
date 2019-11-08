@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class HomeController < ApplicationController
   def index
-    if logged_in? and swapping_open?
+    if logged_in? && swapping_open?
       redirect_to user_path
       return
     end
     @parties = Party.all
-    if not session["pre_populate"].nil?
-      for party in @parties
+    unless session["pre_populate"].nil?
+      @parties.each do |party|
         if canonical_name(party.name) == canonical_name(session["pre_populate"]["preferred_party_name"])
           @preferred_party_id = party.id
         end
