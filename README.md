@@ -57,10 +57,22 @@ as files in the `tmp/mails/` subdirectory.
 
 ## Contributing to Swap my Vote
 
-Any help would be well appreciated. Please take a look at the open issues, and leave a comment if you're looking at one. Or get in contact at hello@swapmyvote.uk.
+Any help would be well appreciated. Please take a look at the [GitHub
+project](https://github.com/orgs/swapmyvote/projects/1).  The items in
+each column are roughly sorted by priority descending, so a good place
+to start would be near the top of the `Next Up` column.
 
-Our roadmap can be seen in our [GitHub project](https://github.com/orgs/swapmyvote/projects/1)
-and [list of milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
+If an issue is already assigned, then probably someone is already intending
+to do that.  Likewise if it's unassigned then probably it's up for grabs.
+However it's safer to ask on Slack before starting on anything, to avoid
+accidentally duplicating effort.
+
+Our roadmap can be seen in our [list of
+ milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
+
+## Contact
+
+You can contact us at hello@swapmyvote.uk.
 
 ## License
 
