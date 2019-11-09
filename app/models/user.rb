@@ -88,10 +88,10 @@ class User < ApplicationRecord
 
   def swap_with_user_id(user_id)
     other_user = User.find(user_id)
-    if outgoing_swap or incoming_swap
+    if outgoing_swap || incoming_swap
       errors.add :base, "Choosing user is already swapped"
       return
-    elsif other_user.outgoing_swap or other_user.incoming_swap
+    elsif other_user.outgoing_swap || other_user.incoming_swap
       errors.add :base, "Chosen user is already swapped"
       return
     end
@@ -145,7 +145,7 @@ class User < ApplicationRecord
   end
 
   def details_changed?
-    preferred_party_id_changed? or willing_party_id_changed? or constituency_id_changed?
+    preferred_party_id_changed? || willing_party_id_changed? || constituency_id_changed?
   end
 
   def ready_to_swap?
@@ -157,7 +157,7 @@ class User < ApplicationRecord
       preferred_party_id_was.blank? ||
       willing_party_id_was.blank? ||
       constituency_id_was.blank?
-    return (ready and first_time)
+    return (ready && first_time)
   end
 
   def send_welcome_email

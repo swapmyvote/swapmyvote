@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def new
     @user_params = session[:user_params] || {}
     session.delete(:user_params)
-    if !@user_params.has_key?("preferred_party_id") or !@user_params.has_key?("willing_party_id")
+    if !@user_params.has_key?("preferred_party_id") || !@user_params.has_key?("willing_party_id")
       redirect_to root_path
       return
     end
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if !@user.constituency or !@user.email
+    if !@user.constituency || !@user.email
       redirect_to edit_user_constituency_path
       return
     end

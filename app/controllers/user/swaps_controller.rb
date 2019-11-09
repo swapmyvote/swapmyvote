@@ -45,7 +45,7 @@ private
   end
 
   def assert_parties_exist
-    if !@user.willing_party or !@user.preferred_party
+    if !@user.willing_party || !@user.preferred_party
       redirect_to edit_user_path
     end
   end
