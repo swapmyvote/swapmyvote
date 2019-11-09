@@ -70,10 +70,14 @@ as files in the `tmp/mails/` subdirectory.
 ## Contributing to Swap my Vote
 
 Any help would be well appreciated. Please take a look at the [GitHub
-project](https://github.com/orgs/swapmyvote/projects/1).  The items in
+project](https://github.com/orgs/swapmyvote/projects/1).  Issues are
+sorted into milestones, and the items in
 each column are roughly sorted by priority descending, so a good place
-to start would be near the top of the `Next Up` column.  In addition,
-look out for issues labelled [`help
+to start would be near the top of the `M0` column.  If you can, please
+avoid tackling stuff in future milestones until the current milestone
+is complete.
+
+In addition, look out for issues labelled [`help
 wanted`](https://github.com/swapmyvote/swapmyvote/labels/help%20wanted)
 or [`easy`](https://github.com/swapmyvote/swapmyvote/labels/easy).
 
