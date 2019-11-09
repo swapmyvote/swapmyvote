@@ -111,7 +111,7 @@ class User < ApplicationRecord
     return nil
   end
 
-  def is_swapped?
+  def swapped?
     return !swapped_with.nil?
   end
 

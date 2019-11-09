@@ -39,7 +39,7 @@ CSV of users
 CSV of unswapped users
 ----------------------
 
-    ActiveRecord::Base.logger = nil; print User.all.select {|u| !u.is_swapped?}.map {|u| [u.name, u.email].join("\t")}.join("\n")
+    ActiveRecord::Base.logger = nil; print User.all.select {|u| !u.swapped?}.map {|u| [u.name, u.email].join("\t")}.join("\n")
 
 Run command in Heroku environment
 ---------------------------------

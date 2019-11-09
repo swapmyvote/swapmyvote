@@ -5,7 +5,7 @@ class User::SwapsController < ApplicationController
   before_action :assert_parties_exist, only: [:show]
 
   def show
-    if @user.is_swapped?
+    if @user.swapped?
       redirect_to user_path
       return
     end
