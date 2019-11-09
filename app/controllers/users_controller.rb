@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     redirect_to account_deleted_path
   end
 
-private
+  private
   # The home page sends us to user/create, but if we're not logged in
   # we need to first divert and do that, then come back to the user/new page
   # with the constituency still populated. To keep that data around, we save

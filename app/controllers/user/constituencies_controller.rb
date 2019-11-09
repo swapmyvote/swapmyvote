@@ -11,7 +11,7 @@ class User::ConstituenciesController < ApplicationController
     redirect_to user_share_path
   end
 
-private
+  private
   def user_params
     params.require(:user).permit(:constituency_id, :email)
   end

@@ -36,7 +36,7 @@ class User::SwapsController < ApplicationController
     redirect_to user_path
   end
 
-private
+  private
   def assert_incoming_swap_exists
     return if @user.incoming_swap
     flash[:errors] = ["You don't have a swap!"]
