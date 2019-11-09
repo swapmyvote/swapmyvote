@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def logged_in?
-    return !!current_user
+    return !current_user.nil?
   end
 
   def swapping_open?
