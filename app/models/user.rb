@@ -49,7 +49,7 @@ class User < ApplicationRecord
     potential_swaps.where(["created_at < ?", DateTime.now - 2.hours]).destroy_all
     create_potential_swaps(number)
     swaps = potential_swaps.all.eager_load(
-      target_user: {constituency: [{polls: :party}]}
+      target_user: { constituency: [{ polls: :party }] }
     )
     return swaps.map {|s| s.target_user}
   end
@@ -67,7 +67,7 @@ class User < ApplicationRecord
     swaps = User.where(
       preferred_party_id: willing_party_id,
       willing_party_id: preferred_party_id
-    ).where.not({constituency_id: nil})
+    ).where.not({ constituency_id: nil })
     offset = rand(swaps.count)
     target_user = swaps.offset(offset).limit(1).first
     return nil if !target_user
