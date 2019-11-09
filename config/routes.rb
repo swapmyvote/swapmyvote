@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   end
 
   get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: 'sessions#retry'
   get 'logout', to: 'sessions#destroy'
 
