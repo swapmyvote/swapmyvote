@@ -45,7 +45,7 @@ class User::SwapsController < ApplicationController
   end
 
   def assert_parties_exist
-    return if @user.willing_party and @user.preferred_party
+    return if @user.willing_party && @user.preferred_party
     redirect_to edit_user_path
   end
 
