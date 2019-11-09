@@ -5,8 +5,8 @@ class UsersController < ApplicationController
   def new
     @user_params = session[:user_params] || {}
     session.delete(:user_params)
-    return if (@user_params.has_key?("preferred_party_id") &&
-               @user_params.has_key?("willing_party_id"))
+    return if @user_params.has_key?("preferred_party_id") &&
+              @user_params.has_key?("willing_party_id")
     redirect_to root_path
   end
 
