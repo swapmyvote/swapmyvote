@@ -19,7 +19,7 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
       user.name = auth.info.name
       user.image = auth.info.image
-      if !auth.info.email.blank?
+      unless auth.info.email.blank?
         user.email = auth.info.email
       end
       user.token = auth.credentials.token
@@ -70,7 +70,7 @@ class User < ApplicationRecord
     ).where.not({ constituency_id: nil })
     offset = rand(swaps.count)
     target_user = swaps.offset(offset).limit(1).first
-    return nil if !target_user
+    return nil unless target_user
     # Don't include if already swapped
     return nil if target_user.swap
     # Ignore if already included
