@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_login_and_save_user_params, :only => :create
-  before_action :require_login, :except => :create
+  before_action :require_login_and_save_user_params, only: :create
+  before_action :require_login, except: :create
 
   def new
     @user_params = session[:user_params] || {}
