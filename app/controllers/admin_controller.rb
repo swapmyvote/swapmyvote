@@ -7,10 +7,10 @@ class AdminController < ApplicationController
     @confirmed_swap_count = Swap.where(confirmed: true).count
     @parties = Party.all
     @swaps_matrix = []
-    for preferred_party in @parties
+    @parties.each do |preferred_party|
       row = []
       @swaps_matrix.push row
-      for willing_party in @parties
+      @parties.each do |willing_party|
         count = User.where(willing_party: willing_party, preferred_party: preferred_party).count
         row.push count
       end
