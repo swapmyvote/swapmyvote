@@ -1,0 +1,46 @@
+@import "_mixins";
+@import "_variables";
+
+#mc_embed_signup {
+    margin: 32px 0;
+
+    div.mce_inline_error {
+        position: absolute;
+        right: 0;
+        top: -20px;
+        font-size: 14px;
+    }
+}
+
+#mce-error-response {
+    color: $error-color;
+}
+
+.mc-field-group {
+    position: relative;
+
+    @include largescreen {
+        display: flex;
+    }
+}
+
+.mc-field-group .email {
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+
+    @include largescreen {
+        flex: 1;
+        margin-left: 16px;
+    }
+
+    @include smallscreen {
+        width: 100%;
+    }
+}
+
+.mc-subscribe-button {
+    margin-top: 32px;
+}
