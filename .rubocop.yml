@@ -13,19 +13,19 @@ AllCops:
   TargetRubyVersion: 2.6
   StyleGuideCopsOnly: true
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-  Enabled: true
 Metrics/LineLength:
   Max: 120
 Metrics/MethodLength:
   Max: 12
-Style/Documentation:
-  Enabled: false
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+Style/Documentation:
+  Enabled: false
 Style/RedundantReturn:
   Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  Enabled: true
 Style/SymbolArray:
   # Turned off because the associated auto-correct makes a real mess
   Enabled: false
