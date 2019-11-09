@@ -21,6 +21,8 @@ Style/ClassAndModuleChildren:
   EnforcedStyle: compact
 Style/Documentation:
   Enabled: false
+Style/EmptyMethod:
+  Enabled: false
 Style/IfUnlessModifier:
   Enabled: false
 Style/RedundantReturn:
