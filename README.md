@@ -73,7 +73,9 @@ Any help would be well appreciated. Please take a look at the [GitHub
 project](https://github.com/orgs/swapmyvote/projects/1).  The items in
 each column are roughly sorted by priority descending, so a good place
 to start would be near the top of the `Next Up` column.  In addition,
-look out for issues labelled `help wanted` or `easy`.
+look out for issues labelled [`help
+wanted`](https://github.com/swapmyvote/swapmyvote/labels/help%20wanted)
+or [`easy`](https://github.com/swapmyvote/swapmyvote/labels/easy).
 
 If an issue is already assigned, then probably someone is already
 working on it or at least intending to.  If it's unassigned then
