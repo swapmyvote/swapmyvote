@@ -9,7 +9,7 @@ module ApplicationHelper
   def current_user
     return @current_user unless @current_user.nil?
 
-    return nil unless session.has_key?(:user_id)
+    return nil unless session.key?(:user_id)
 
     @current_user = User.find_by_id(session[:user_id])
     return @current_user
