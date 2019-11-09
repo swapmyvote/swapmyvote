@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_swapping_open
-    return unless swapping_open?
+    return if swapping_open?
     redirect_to root_path
   end
 end
