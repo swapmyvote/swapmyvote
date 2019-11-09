@@ -4,7 +4,7 @@ class Swap < ApplicationRecord
 
   before_destroy :notify_users_of_cancelled_swap
   def notify_users_of_cancelled_swap
-    UserMailer.swap_cancelled(self.choosing_user, self.chosen_user).deliver_now
-    UserMailer.swap_cancelled(self.chosen_user, self.choosing_user).deliver_now
+    UserMailer.swap_cancelled(choosing_user, chosen_user).deliver_now
+    UserMailer.swap_cancelled(chosen_user, choosing_user).deliver_now
   end
 end
