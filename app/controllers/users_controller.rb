@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   # with the constituency still populated. To keep that data around, we save
   # it into the session here.
   def require_login_and_save_user_params
-    logged_in = require_login()
+    logged_in = require_login
     return if logged_in
 
     # Set params to resume user creation after login

@@ -19,7 +19,7 @@ class User::SwapsController < ApplicationController
   def create
     @user.swap_with_user_id(params[:user_id])
     unless @user.errors.empty?
-      flash[:errors] = @user.errors.full_messages()
+      flash[:errors] = @user.errors.full_messages
     end
     redirect_to user_path
   end
