@@ -1,6 +1,9 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans");
 
 @import "_variables";
+@import "_mixins";
+
+@import 'normalize-rails/normalize';
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -22,6 +25,12 @@ p {
   margin: 12px 0;
 }
 
+h1, h2, h3, h4, h5, h6, p {
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
 select {
   border-radius: 5px;
   font-size: 0.9em;
@@ -41,49 +50,59 @@ p.choose_party {
 }
 
 .navbar {
-  padding: 16px 32px;
-  a.brand {
-    color: transparent;
-    display: inline-block;
-    background-image: image-url('logo_nav.png');
-    background-repeat: no-repeat;
-    height: 32px;
-    width: 173px;
-    background-size: 173px 32px;
-  }
-  @media
-    only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (   min--moz-device-pixel-ratio: 2),
-    only screen and (     -o-min-device-pixel-ratio: 2/1),
-    only screen and (        min-device-pixel-ratio: 2),
-    only screen and (                min-resolution: 192dpi),
-    only screen and (                min-resolution: 2dppx) {
-      a.brand {
-        background-image: image-url('logo_nav@2x.png');
-      }
-  }
   border-bottom: 1px solid $border-color;
   background-color: white;
+  display: flex;
+
+  @include largescreen {
+    padding: 16px 32px;
+    height: 32px;
+  }
+
+  @include smallscreen {
+    padding: 8px 16px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  a.brand {
+    display: block;
+
+    color: transparent;
+    background-image: image-url('logo_nav.png');
+    background-repeat: no-repeat;
+
+    @include highdpi {
+      background-image: image-url('logo_nav@2x.png');
+    }
+
+    @include largescreen {
+      flex-grow: 1;
+      height: 32px;
+      width: 173px;
+      background-size: 173px 32px;
+    }
+
+    @include smallscreen {
+      height: 32px;
+      width: 173px;
+      background-size: 173px 32px;
+      margin-bottom: 16px;
+    }
+  }
 
   .user {
-    display: inline-block;
-    float: right;
-    position: relative;
-    padding-left: 42px;
+    display: flex;
+    align-items: center;
+
     img {
       height: 32px;
       width: 32px;
-      border: 1px solid $border-color;
       border-radius: 3px;
-      position: absolute;
-      left: 0;
-      top: -4px;;
+      margin-right: 8px;
     }
     a.logout {
-      padding-left: 12px;
-      display: inline-block;
-      vertical-align: middle;
-      margin-top: -3px;
+      margin-left: 8px;
     }
   }
 }
@@ -92,6 +111,10 @@ p.choose_party {
   max-width: 960px;
   padding: 16px;
   margin: auto;
+
+  @include smallscreen {
+    padding: 16px;
+  }
 }
 
 .container-narrow {

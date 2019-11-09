@@ -1,6 +1,5 @@
 @import "_variables";
-
-$profile-small-size: 650px;
+@import "_mixins";
 
 .profile {
   color: inherit;
@@ -18,7 +17,7 @@ $profile-small-size: 650px;
     padding-right: 6px;
     padding-left: 76px;
     box-sizing: border-box;
-    @media screen and (min-width: $profile-small-size) {
+    @include largescreen {
       width: 60%;
       float: left;
     }
@@ -29,13 +28,13 @@ $profile-small-size: 650px;
   .profile-poll {
     height: 100%;
     box-sizing: border-box;
-    @media screen and (min-width: $profile-small-size) {
+    @include largescreen {
       width: 40%;
       float: right;
       border-left: 1px solid $border-color;
       padding-left: 6px
     }
-    @media screen and (max-width: $profile-small-size) {
+    @include smallscreen {
       border-top: 1px solid $border-color;
       padding-top: 12px;
       margin-top: 12px;
@@ -46,6 +45,11 @@ $profile-small-size: 650px;
     clear: both;
     display: block;
   }
+}
+
+.poll-chart {
+  margin-top: 12px;
+  height: 120px;
 }
 
 a.profile {

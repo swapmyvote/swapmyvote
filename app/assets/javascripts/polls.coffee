@@ -40,10 +40,9 @@ _drawPollChart = (selector, poll_data) ->
     legend: { position: "none" },
     bar: { groupWidth: '90%' },
     chartArea: {
-      width: '90%',
-      height: '90%'
+      width: '100%',
+      height: '100%'
     },
-    height: 120,
     tooltip: {
       textStyle: {
         fontSize: 12,

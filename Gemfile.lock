@@ -50,6 +50,8 @@ GEM
       rbtree3 (~> 0.5)
     arel (9.0.0)
     ast (2.4.0)
+    autoprefixer-rails (9.7.1)
+      execjs
     awesome_print (1.8.0)
     bindex (0.8.1)
     bootsnap (1.4.5)
@@ -317,6 +319,7 @@ PLATFORMS
 DEPENDENCIES
   addressable
   airbrake (~> 9.5.0)
+  autoprefixer-rails
   bootsnap
   bundler-audit
   byebug
