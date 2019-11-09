@@ -31,13 +31,13 @@ class User < ApplicationRecord
   end
 
   def profile_url
-    if provider == "facebook"
-      return "https://facebook.com/#{uid}"
-    elsif provider == "twitter"
-      return "https://twitter.com/intent/user?user_id=#{uid}"
-    else
-      return "#"
-    end
+    return "https://facebook.com/#{uid}" \
+      if provider == "facebook"
+
+    return "https://twitter.com/intent/user?user_id=#{uid}" \
+      if provider == "twitter"
+
+    return "#"
   end
 
   def image_url
@@ -106,13 +106,9 @@ class User < ApplicationRecord
   end
 
   def swapped_with
-    if outgoing_swap
-      return outgoing_swap.chosen_user
-    elsif incoming_swap
-      return incoming_swap.choosing_user
-    else
-      return nil
-    end
+    return outgoing_swap.chosen_user if outgoing_swap
+    return incoming_swap.choosing_user if incoming_swap
+    return nil
   end
 
   def is_swapped?

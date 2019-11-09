@@ -14,8 +14,7 @@ class User::VoteController < ApplicationController
 
 private
   def require_swap
-    if !@user.is_swapped?
-      redirect_to user_path
-    end
+    return if @user.is_swapped?
+    redirect_to user_path
   end
 end

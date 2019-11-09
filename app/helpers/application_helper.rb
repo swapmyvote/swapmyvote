@@ -7,14 +7,12 @@ module ApplicationHelper
   end
 
   def current_user
-    if !@current_user.nil?
-      return @current_user
-    elsif session.has_key?(:user_id)
-      @current_user = User.find_by_id(session[:user_id])
-      return @current_user
-    else
-      return nil
-    end
+    return @current_user if !@current_user.nil?
+
+    return nil unless session.has_key?(:user_id)
+
+    @current_user = User.find_by_id(session[:user_id])
+    return @current_user
   end
 
   def logged_in?

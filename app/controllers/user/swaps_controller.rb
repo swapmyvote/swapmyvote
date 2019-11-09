@@ -38,16 +38,14 @@ class User::SwapsController < ApplicationController
 
 private
   def assert_incoming_swap_exists
-    if !@user.incoming_swap
-      flash[:errors] = ["You don't have a swap!"]
-      redirect_to user_path
-    end
+    return if @user.incoming_swap
+    flash[:errors] = ["You don't have a swap!"]
+    redirect_to user_path
   end
 
   def assert_parties_exist
-    if !@user.willing_party || !@user.preferred_party
-      redirect_to edit_user_path
-    end
+    return if @user.willing_party and @user.preferred_party
+    redirect_to edit_user_path
   end
 
   def swap_params
