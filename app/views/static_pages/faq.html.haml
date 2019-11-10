@@ -67,8 +67,24 @@
 
     %a{name: "deactivate"}
     %h2 I have changed my mind and no longer wish to find someone to swap with. What should I do?
-    %p You can deactivate your account by changing both of your party preferences to the same party <a href="http://swapmyvote.uk/">here</a>, so that a swap becomes meaningless and no-one is likely to suggest one.
-    %p You can permanently remove your account at the page here: https://www.swapmyvote.uk/user/edit. Please note that you will no longer get emails from us with news on electoral reform or reminders for future elections.
+    %p
+
+      You can deactivate your account by changing both of your party
+      preferences to the same party
+
+      = link_to("here", edit_user_path) + ","
+
+      so that a swap becomes meaningless and no-one is likely to
+      suggest one.
+
+    %p
+      You can
+
+      = link_to("permanently remove your account",
+                confirm_account_deletion_path) + "."
+
+      Please note that you will no longer get emails from us with news
+      on electoral reform or reminders for future elections.
 
     %a{name: "who"}
     %h2 Who made this site?
