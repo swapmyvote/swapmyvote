@@ -9,15 +9,15 @@
       %p
         My preferred party is
         = f.collection_select :preferred_party_id, @parties, :id, :name, prompt: "...", :selected => @user.preferred_party_id
-        ,
+
       %p
         but I'm willing to vote for
         = f.collection_select :willing_party_id, @parties, :id, :name, prompt: "...", :selected => @user.willing_party_id
-        \.
+
       %p
         My constituency is
         = f.collection_select :constituency_id, @constituencies, :id, :name, prompt: "...", :selected => @user.constituency_id
-        \.
+
       %p
         My email address is
         = f.text_field :email, placeholder: "me@example.com", autofocus: true
