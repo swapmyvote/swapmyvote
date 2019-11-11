@@ -22,6 +22,18 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
+    %script{:src => "https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js", :data-cfasync=> "false"}
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+    %script{type: "text/javascript"}
+      (window.addEventListener("load", function(){
+      window.cookieconsent.initialise({ palette: { popup: { background: "#000"}, button: {background: "#f1d600" } },
+      content: { message: "This website uses cookies to ensure you get the best experience on our website",
+      dismiss: "Don't show this again" },
+      cookie: { domain: "swapmyvote.uk", domain: "swapmyvote.herokuapp.com", domain: "localhost"}})}));
+
     - if ENV['GOOGLE_ANALYTICS_ID']
       %script{:type => "text/javascript"}
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
