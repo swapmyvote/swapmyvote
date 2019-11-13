@@ -102,6 +102,11 @@ You can contact us at hello@swapmyvote.uk.
 
 ## License
 
-In order to help ensure that potential voter partners aren't split across different otherwise identical vote swapping platforms in the same country, we have decided to license the code for the time being as follows: All Rights Reserved © Forward Democracy Limited. Issue #33 includes previous discussion of this.
+In order to help ensure that potential voter partners aren't split across different otherwise identical vote swapping platforms in the same country, we have decided to license the code for the time being as follows:
+
+> All Rights Reserved © Forward Democracy Limited.
+
+[Issue #33](https://github.com/swapmyvote/swapmyvote/issues/33)
+includes previous discussion of this.
 
 If you would like to contribute to the code please get involved, and [email to confirm](mailto:tom@forwarddemocracy.com?subject=IP%20rights%20in%20SwapMyVote&amp;body=Dear%20Tom%2C%20%0A%0AThis%20is%20to%20confirm%20that%20I%20am%20happy%20for%20any%20rights%20in%20my%20contributions%20to%20the%20SwapMyVote%20code%20to%20be%20assigned%20to%20Forward%20Democracy%20for%20the%20purposes%20of%20defending%20and%20promoting%20democracy.%0A%0ABest%20regards%2C%20%0A%0A) you're happy with that arrangement.
