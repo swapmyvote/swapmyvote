@@ -85,8 +85,9 @@ If an issue is already assigned, then probably someone is already
 working on it or at least intending to.  If it's unassigned then
 probably it's up for grabs.  However it's safer to ask in the issue
 and/or in the Slack `#general` channel before starting on anything, to
-avoid accidentally duplicating effort.  Please use the contact details
-below to request access to Slack.
+avoid accidentally duplicating effort.  
+Please use the link below to request access to Slack:
+https://join.slack.com/t/forwarddemocracy/signup.
 
 Our roadmap can be seen in our [list of
  milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
@@ -101,4 +102,6 @@ You can contact us at hello@swapmyvote.uk.
 
 ## License
 
-TBD; see issue #33.
+In order to help ensure that potential voter partners aren't split across different otherwise identical vote swapping platforms in the same country, we have decided to license the code for the time being as follows: All Rights Reserved © Forward Democracy Limited. Issue #33 includes previous discussion of this.
+
+If you would like to contribute to the code please get involved, and [email to confirm](mailto:tom@forwarddemocracy.com?subject=IP%20rights%20in%20SwapMyVote&amp;body=Dear%20Tom%2C%20%0A%0AThis%20is%20to%20confirm%20that%20I%20am%20happy%20for%20any%20rights%20in%20my%20contributions%20to%20the%20SwapMyVote%20code%20to%20be%20assigned%20to%20Forward%20Democracy%20for%20the%20purposes%20of%20defending%20and%20promoting%20democracy.%0A%0ABest%20regards%2C%20%0A%0A) you're happy with that arrangement.
