@@ -87,6 +87,8 @@ group :development, :test do
   gem "guard-bundler"
   gem "guard-rubocop"
   # gem "terminal-notifier-guard"
+
+  gem "rails-controller-testing"
 end
 
 group :production do
