@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def image_url
-    image.gsub(/^http/, "https")
+    image.gsub(/^http:/, "https:")
   end
 
   def potential_swap_users(number = 5)
