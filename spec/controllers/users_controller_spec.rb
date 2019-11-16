@@ -2,32 +2,44 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
 
-  describe "GET #show" do
-    it "returns http success" do
-      get :show
-      expect(response).to have_http_status(:success)
+  context 'when user is logged in' do
+
+    let(:logged_in_user) { instance_double(User, constituency: :some_constituency, email: :some_email) }
+
+    before do
+      session[:user_id] = :some_user_id
+      allow(User).to receive(:find_by_id).with(:some_user_id).and_return(logged_in_user)
+    end
+
+    describe "GET #show" do
+      it "returns http success" do
+        expect(logged_in_user).to receive(:swapped?).and_return(true)
+        get :show, session: { user_id: :some_user_id}
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    describe "GET #edit" do
+      it "returns http success" do
+        get :edit
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    describe "GET #update" do
+      it "redirects to #show" do
+        expect(logged_in_user).to receive(:update)
+        get :update, params: { :user => { :constituency_id => 2, :email => "a@b.c" }   }
+        expect(response).to redirect_to(:user)
+      end
+    end
+
+    describe "GET #destroy" do
+      it "redirects to account_deleted" do
+        expect(logged_in_user).to receive(:destroy)
+        get :destroy
+        expect(response).to redirect_to(:account_deleted)
+      end
     end
   end
-
-  describe "GET #edit" do
-    it "returns http success" do
-      get :edit
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET #update" do
-    it "returns http success" do
-      get :update
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET #destroy" do
-    it "returns http success" do
-      get :destroy
-      expect(response).to have_http_status(:success)
-    end
-  end
-
 end
