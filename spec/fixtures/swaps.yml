@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  chosen_user_id: 1
-  confirmed: false
-
-two:
-  chosen_user_id: 1
-  confirmed: false
