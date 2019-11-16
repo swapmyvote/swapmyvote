@@ -11,6 +11,10 @@
  * file per style scope.
  *
  *= require_normalize
+ *= require jquery-ui/core
+ *= require jquery-ui/autocomplete
+ *= require jquery-ui/button
+ *= require jquery-ui/menu
  *= require_tree .
  *= require_self
  */
