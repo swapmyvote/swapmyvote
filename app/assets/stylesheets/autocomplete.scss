@@ -1,0 +1,23 @@
+.constituency-autocomplete {
+    position: relative;
+    display: inline-block;
+}
+
+.constituency-autocomplete-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+}
+
+.constituency-autocomplete-input {
+    margin: 0;
+    padding: 5px 10px;
+    width: 20em;
+}
+
+.constituency-autocomplete-select {
+    max-height: 50vh;
+    overflow: scroll;
+}
