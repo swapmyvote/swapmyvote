@@ -73,4 +73,38 @@ RSpec.describe User, type: :model do
       expect(subject.redacted_name).to eq("Ada L")
     end
   end
+
+  context "-> MobilePhone:" do
+    let(:number1) { "07771 111 111" }
+
+    describe "#mobile_phone" do
+      it "returns nil after MobilePhone is destroyed" do
+        subject.save!
+        subject.create_mobile_phone(number: number1)
+        subject.mobile_phone.destroy
+        expect(subject.mobile_phone.number).to eq(number1)
+        subject.reload
+        expect(subject.mobile_phone).to be_nil
+      end
+
+      it "returns nil after User is destroyed" do
+        subject.save!
+        subject.create_mobile_phone(number: number1)
+        mobile = subject.mobile_phone
+        expect(mobile).to be_a(MobilePhone)
+        subject.destroy
+        expect(MobilePhone.find_by_id(mobile.id)).to be_nil
+      end
+
+      it "prevents two users having the same number" do
+        subject.save!
+        subject.create_mobile_phone(number: number1)
+        user2 = User.create!
+        expect {
+          user2.create_mobile_phone!(number: number1)
+        }.to raise_error(ActiveRecord::RecordInvalid,
+                         /Number has already been taken/)
+      end
+    end
+  end
 end

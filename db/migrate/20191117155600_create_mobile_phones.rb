@@ -8,6 +8,9 @@ class CreateMobilePhones < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
     add_index :mobile_phones, :number, unique: true
+    add_reference :users, :mobile_phone,
+                  foreign_key: true, index: { unique: true }
   end
 end

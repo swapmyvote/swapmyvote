@@ -2,6 +2,7 @@ class User < ApplicationRecord
   belongs_to :preferred_party, class_name: "Party", optional: true
   belongs_to :willing_party, class_name: "Party", optional: true
   belongs_to :constituency, optional: true
+  has_one    :mobile_phone, dependent: :destroy
 
   belongs_to :outgoing_swap, class_name: "Swap", foreign_key: "swap_id",
              dependent: :destroy, optional: true
