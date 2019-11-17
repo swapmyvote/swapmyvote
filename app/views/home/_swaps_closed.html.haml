@@ -1,0 +1,20 @@
+.background-pattern.border-bottom
+  .container.container-narrow
+    .card
+      %h2 December 2019 General Election Update
+
+      %p We are updating the Swap My Vote platform for the election to be held on 12th December 2019. We will aim to open for vote swapping soon after 15th November.
+
+      %p
+        Please enter your email address for a reminder when vote swapping is open, and for further updates.
+
+      = render partial: "mailchimp.html"
+      %hr
+      %p.text-center
+        Stay up to date with our future projects and for future elections.
+        %br
+        = link_to "Follow us on Twitter", "https://twitter.com/swapmyvote", class: "button button-twitter"
+        = link_to "Like us on Facebook", "https://facebook.com/swapmyvote", class: "button button-facebook"
+      %p.text-center
+        Make sure you don't miss out -
+        = link_to "register to vote now", "https://gov.uk/register-to-vote", class: "small"
