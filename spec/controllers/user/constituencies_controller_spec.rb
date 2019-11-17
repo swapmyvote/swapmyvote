@@ -8,9 +8,12 @@ RSpec.describe User::ConstituenciesController, type: :controller do
     end
 
     context 'and user is logged in' do
+
+      let(:logged_in_user) { instance_double(User, constituency: :some_constituency, email: :some_email) }
+
       before do
-        expect(subject).to receive(:logged_in?).and_return(true)
         session[:user_id] = :some_user_id
+        allow(User).to receive(:find_by_id).with(:some_user_id).and_return(logged_in_user)
       end
 
       describe "GET #edit" do
@@ -21,18 +24,21 @@ RSpec.describe User::ConstituenciesController, type: :controller do
       end
 
       describe "PATCH #update" do
-        before(:each) do
-          allow(User).to receive(:find_by_id).with(:some_user_id).and_return(User.new)
+        before { allow(logged_in_user).to receive(:update) }
+
+        it "finds user based on session user_id" do
+          expect(User).to receive(:find_by_id).with(:some_user_id).and_return(logged_in_user)
+          patch :update, params: { :user => { :constituency_id => 2, :email => "a@b.c" }   }
+        end
+
+        it "updates the user" do
+          expect(logged_in_user).to receive(:update)
+          patch :update, params: { :user => { :constituency_id => 2, :email => "a@b.c" }   }
         end
 
         it "redirects to user share" do
-          patch :update, params: { user: { constituency_id: 2, email: "a@b.c" } }
+          patch :update, params: { :user => { :constituency_id => 2, :email => "a@b.c" }   }
           expect(response).to redirect_to(:user_share)
-        end
-
-        it "finds user based on session user_id" do
-          expect(User).to receive(:find_by_id).with(:some_user_id).and_return(User.new)
-          patch :update, params: { user: { constituency_id: 2, email: "a@b.c" } }
         end
       end
     end
