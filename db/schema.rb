@@ -10,11 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_05_204049) do
+ActiveRecord::Schema.define(version: 2019_11_17_155600) do
+
   create_table "constituencies", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "mobile_phones", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "number"
+    t.string "verify_id"
+    t.boolean "verified"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["number"], name: "index_mobile_phones_on_number", unique: true
+    t.index ["user_id"], name: "index_mobile_phones_on_user_id"
   end
 
   create_table "ons_constituencies", force: :cascade do |t|
@@ -71,4 +83,5 @@ ActiveRecord::Schema.define(version: 2019_11_05_204049) do
     t.boolean "has_voted", default: false
     t.boolean "sent_vote_reminder_email", default: false
   end
+
 end
