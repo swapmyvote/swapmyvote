@@ -15,12 +15,22 @@ class UsersController < ApplicationController
 
   # Users can get here from the "Not right? Update your info" link
   def edit
+    @mobile_number = @user.mobile_number
     @parties = Party.all
     @constituencies = Constituency.all.order(:name)
   end
 
   def update
     @user.update(user_params)
+    if phone_param && @user.mobile_number != phone_param
+      begin
+        @user.mobile_number = phone_param
+      rescue ActiveRecord::RecordInvalid
+        flash[:errors] = @user.mobile_phone.errors.full_messages
+        redirect_to edit_user_path
+        return
+      end
+    end
     redirect_to user_path
   end
 
@@ -33,6 +43,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:preferred_party_id, :willing_party_id, :constituency_id, :email)
+    params.require(:user).permit(:preferred_party_id, :willing_party_id,
+                                 :constituency_id, :email)
+  end
+
+  def phone_param
+    (params[:mobile_phone] || {})[:number]
   end
 end
