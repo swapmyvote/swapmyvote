@@ -96,4 +96,14 @@ ActiveRecord::Schema.define(version: 2019_11_26_222547) do
     t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
   end
 
+  create_table "users_social_profiles", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "profile_url"
+    t.integer "provider"
+    t.string "short_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_users_social_profiles_on_user_id"
+  end
+
 end

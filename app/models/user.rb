@@ -12,6 +12,7 @@ class User < ApplicationRecord
              dependent: :destroy, optional: true
   has_one    :incoming_swap, class_name: "Swap", foreign_key: "chosen_user_id",
              dependent: :destroy
+  has_many   :users_social_profiles
 
   has_many :potential_swaps, foreign_key: "source_user_id", dependent: :destroy
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
