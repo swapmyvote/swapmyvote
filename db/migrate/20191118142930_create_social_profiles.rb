@@ -4,6 +4,7 @@ class CreateSocialProfiles < ActiveRecord::Migration[5.2]
       t.references :user, foreign_key: true
       t.integer :provider
       t.string :nickname
+      t.string :uid
 
       t.timestamps null: false
     end

@@ -8,6 +8,7 @@ class MigrateProfileData < ActiveRecord::Migration[5.2]
 
       usp = UsersSocialProfile.new
       usp.user_id = user.id
+      usp.uid = user.uid
       usp.provider = user.provider
       usp.save!
     end

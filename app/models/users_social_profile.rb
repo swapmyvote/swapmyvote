@@ -11,6 +11,7 @@ class UsersSocialProfile < ApplicationRecord
   def self.from_omniauth(auth, user)
     where(provider: auth.provider, uid: auth.uid, user_id: user.id).first_or_initialize.tap do |usp|
       usp.nickname = auth.info.nickname
+      usp.save!
     end
   end
 
