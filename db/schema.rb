@@ -98,9 +98,8 @@ ActiveRecord::Schema.define(version: 2019_11_26_222547) do
 
   create_table "users_social_profiles", force: :cascade do |t|
     t.integer "user_id"
-    t.string "profile_url"
     t.integer "provider"
-    t.string "short_name"
+    t.string "nickname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_users_social_profiles_on_user_id"

@@ -12,11 +12,13 @@ class User < ApplicationRecord
              dependent: :destroy, optional: true
   has_one    :incoming_swap, class_name: "Swap", foreign_key: "chosen_user_id",
              dependent: :destroy
-  has_many   :users_social_profiles
+  has_one   :users_social_profiles
 
   has_many :potential_swaps, foreign_key: "source_user_id", dependent: :destroy
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
   has_many :sent_emails, dependent: :destroy
+
+  delegate :profile_url, to: :users_social_profile, prefix: false
 
   before_save :clear_swap, if: :details_changed?
   after_save :send_welcome_email, if: :needs_welcome_email?
@@ -35,16 +37,6 @@ class User < ApplicationRecord
       end
       user.save!
     end
-  end
-
-  def profile_url
-    return "https://facebook.com/#{uid}" \
-      if provider == "facebook"
-
-    return "https://twitter.com/intent/user?user_id=#{uid}" \
-      if provider == "twitter"
-
-    return "#"
   end
 
   def image_url
