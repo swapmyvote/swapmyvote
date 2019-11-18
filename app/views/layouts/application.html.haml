@@ -27,9 +27,14 @@
     :javascript
       window.addEventListener("load", function() {
         window.cookieconsent.initialise({
-          palette: { popup: { background: "#5cbdd3"}, button: {background: "#f1d600" } },
-          content: { message: "This website uses cookies to make sure you get the best experience on our website",
-          dismiss: "Don't show this again" },
+          palette: {
+            popup:  {background: "#5cbdd3"},
+            button: {background: "#f1d600"}
+          },
+          content: {
+            message: "This website uses cookies to make sure you get the best experience on our website",
+            dismiss: "Don't show this again"
+          },
           cookie: {
             name: "_swapmyvote_cookie_consent",
             domain: ".swapmyvote.uk",
