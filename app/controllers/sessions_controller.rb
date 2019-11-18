@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(request.env["omniauth.auth"])
+    UsersSocialProfile.from_omniauth(request.env["omniauth.auth"], user)
     session[:user_id] = user.id
     user_params = session.delete(:user_params)
     user.update(user_params) if user_params

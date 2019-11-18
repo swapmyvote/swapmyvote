@@ -16,9 +16,9 @@ class UsersSocialProfile < ApplicationRecord
 
   def profile_url
     case provider
-    when :twitter
+    when "twitter"
       "https://twitter.com/intent/user?user_id=#{uid}"
-    when :facebook
+    when "facebook"
       "https://facebook.com/#{nickname}"
     else
       "#"
