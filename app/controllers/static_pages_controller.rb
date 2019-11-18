@@ -5,6 +5,12 @@ class StaticPagesController < ApplicationController
   def privacy
   end
 
+  def cookies
+  end
+
+  def terms
+  end
+
   def about
   end
 
