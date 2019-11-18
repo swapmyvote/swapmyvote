@@ -32,7 +32,7 @@
       window.cookieconsent.initialise({ palette: { popup: { background: "#5cbdd3"}, button: {background: "#f1d600" } },
       content: { message: "This website uses cookies to make sure you get the best experience on our website",
       dismiss: "Don't show this again" },
-      cookie: { domain: ".swapmyvote.uk", domain: ".swapmyvote.herokuapp.com", domain: "localhost"}})}));
+      cookie: { name: "_swapmyvote_cookie_consent", domain: ".swapmyvote.uk", domain: ".swapmyvote.herokuapp.com", domain: "localhost"}})}));
 
     - if ENV['GOOGLE_ANALYTICS_ID']
       %script{:type => "text/javascript"}
