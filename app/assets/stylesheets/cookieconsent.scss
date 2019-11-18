@@ -1,0 +1,21 @@
+.cc-message {
+  display: block;
+  text-align: center
+}
+
+.cc-compliance {
+  padding-bottom: 5px;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.cc-dismiss {
+  margin: 0 auto;
+  border-radius: 2px;
+  padding: 5px;
+  display: block;
+  width: 172px;
+  cursor: pointer;
+}
