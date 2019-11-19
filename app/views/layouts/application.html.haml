@@ -24,27 +24,7 @@
 
     %script{:src => "https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js", :data-cfasync=> "false"}
 
-    :javascript
-      window.addEventListener("load", function() {
-        window.cookieconsent.initialise({
-          palette: {
-            popup:  {background: "#5cbdd3"},
-            button: {background: "#f1d600"}
-          },
-          content: {
-            message: "This website uses cookies to make sure you get the best experience on our website.",
-            href: "#{cookies_path}",
-            dismiss: "Don't show this again"
-          },
-          cookie: {
-            name: "_swapmyvote_cookie_consent",
-            domain: ".swapmyvote.uk",
-            domain: ".swapmyvote.herokuapp.com",
-            domain: ".swapmyvotedev.herokuapp.com",
-            domain: "localhost"
-          }
-        });
-      });
+    = render partial: 'layouts/cookie_consent'
 
     - if ENV['GOOGLE_ANALYTICS_ID']
       :javascript
