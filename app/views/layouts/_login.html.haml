@@ -1,0 +1,24 @@
+%span.user
+  = link_to "Already been here? Log in", "#", class: "small subdued logout", onclick: "showModal($('.js-login-modal')); return false"
+.modal.js-login-modal{style: "display: %s;" % (params[:log_in_with] ? 'inherit' : 'none')}
+  = form_with url: "#", id: "login-form", class: "modal-dialog",
+              local: true do
+    %i.fa.fa-times.subdued.modal-close
+    - if !params[:log_in_with] or params[:log_in_with] == 'facebook'
+      %p.text-center
+        %button{formaction: facebook_login_path, formmethod: :post,
+                class: "button button-facebook"}
+          %i.fa.fa-fw.fa-facebook
+          Log in with Facebook
+    - if !params[:log_in_with]
+      %p.text-center.subdued &#8212; or &#8212;
+    - if !params[:log_in_with] or params[:log_in_with] == 'twitter'
+      %p.text-center
+        %button{formaction: twitter_login_path, formmethod: :post,
+                class: "button button-twitter"}
+          %i.fa.fa-fw.fa-twitter
+          Log in with Twitter
+    %p.text-center.small.subdued
+      (We will never share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
+    %p.text-center
+      = link_to "Why do I need to log in with Facebook or Twitter?", "/faq#login", class: "small", target: "_blank"
