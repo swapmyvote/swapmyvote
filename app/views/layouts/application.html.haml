@@ -99,37 +99,4 @@
 
     = yield
 
-    %footer
-      .container
-        %ul
-          %li
-            %h3 Swap My Vote
-          %li
-            = link_to "About", about_path, class: "small"
-          %li
-            = link_to "Contact Us", contact_path, class: "small"
-          %li
-            = link_to "Privacy Policy", privacy_path, class: "small"
-          %li
-            = link_to "Terms of Use", terms_path, class: "small"
-          %li
-            = link_to "Cookie Policy", cookies_path, class: "small"
-        %ul
-          %li
-            %h3 Social
-          %li
-            = link_to "Twitter", "https://twitter.com/swapmyvote", class: "small"
-          %li
-            = link_to "Facebook", "https://facebook.com/swapmyvote", class: "small"
-          %li
-            = link_to "Blog", "http://blog.swapmyvote.uk", class: "small"
-        %ul
-          %li
-            %h3
-              = link_to "FAQ", faq_path, class: "stealth-link"
-          %li
-            = link_to "Is this legal?", faq_path(anchor: "legal"), class: "small"
-          %li
-            = link_to "How do I know my partner will vote (for who I want)?", faq_path(anchor: "trust"), class: "small"
-          %li
-            = link_to "More ...", faq_path, class: "small"
+    = render partial: 'layouts/footer'
