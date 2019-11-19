@@ -125,7 +125,8 @@
             = link_to "Blog", "http://blog.swapmyvote.uk", class: "small"
         %ul
           %li
-            %h3 FAQ
+            %h3
+              = link_to "FAQ", faq_path, class: "stealth-link"
           %li
             = link_to "Is this legal?", faq_path(anchor: "legal"), class: "small"
           %li
