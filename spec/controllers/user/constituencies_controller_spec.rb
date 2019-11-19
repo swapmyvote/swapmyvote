@@ -17,9 +17,25 @@ RSpec.describe User::ConstituenciesController, type: :controller do
       end
 
       describe "GET #edit" do
+        let(:constituencies_list) { double(:constituencies_list) }
+        before do
+          allow(Constituency).to receive(:all).and_return(constituencies_list)
+          allow(constituencies_list).to receive(:order).with(:name).and_return(double.as_null_object)
+        end
+
         it "returns http success" do
           get :edit
           expect(response).to have_http_status(:success)
+        end
+
+        it "loads all constituencies" do
+          expect(Constituency).to receive(:all).and_return(constituencies_list)
+          get :edit
+        end
+
+        it "sorts constituencies by name" do
+          expect(constituencies_list).to receive(:order).with(:name).and_return(double.as_null_object)
+          get :edit
         end
       end
 
