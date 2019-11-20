@@ -12,7 +12,7 @@ RSpec.describe UsersController, type: :controller do
     describe "GET #show" do
       it "returns http success" do
         expect(logged_in_user).to receive(:swapped?).and_return(true)
-        get :show, session: { user_id: :some_user_id }
+        get :show
         expect(response).to have_http_status(:success)
       end
     end
