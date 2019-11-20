@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "user/constituencies/edit.html.haml", type: :view do
   fixtures :constituencies

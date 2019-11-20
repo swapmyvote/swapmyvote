@@ -9,7 +9,7 @@
 
 require "active_record/fixtures"
 require "csv"
-require_relative 'fixtures/ons_constituencies_csv'
+require_relative "fixtures/ons_constituencies_csv"
 
 PARTIES = {
   "con"    => Party.find_or_create_by(name: "Conservatives", color: "#0087DC"),

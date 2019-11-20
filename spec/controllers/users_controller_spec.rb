@@ -1,8 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe UsersController, type: :controller do
 
-  context 'when user is logged in' do
+  context "when user is logged in" do
 
     let(:logged_in_user) { instance_double(User, constituency: :some_constituency, email: :some_email) }
 

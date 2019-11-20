@@ -1,12 +1,12 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'],
-           origin_param: 'return_to',
+  provider :facebook, ENV["FACEBOOK_KEY"], ENV["FACEBOOK_SECRET"],
+           origin_param: "return_to",
            client_options: {
-             site: 'https://graph.facebook.com/v3.0',
+             site: "https://graph.facebook.com/v3.0",
              authorize_url: "https://www.facebook.com/v3.0/dialog/oauth"
            }
-  provider :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET'],
-           origin_param: 'return_to'
+  provider :twitter, ENV["TWITTER_KEY"], ENV["TWITTER_SECRET"],
+           origin_param: "return_to"
 
   before_request_phase do |env|
     # Prior to login, save user parameters to session so that we can

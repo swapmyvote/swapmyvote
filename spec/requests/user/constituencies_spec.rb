@@ -1,8 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "User::Constituencies", type: :request do
 
-  context 'when configured for swaps' do
+  context "when configured for swaps" do
     before(:each) do
       allow(ENV).to receive(:[]).with("SWAPS_CLOSED").and_return(nil)
     end

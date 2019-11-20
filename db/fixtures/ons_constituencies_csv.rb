@@ -10,7 +10,7 @@ class OnsConstituenciesCsv
 
   def initialize(file_name)
     @file_name = file_name
-    raise ArgumentError, 'single argument file_name required' unless file_name && file_name != ''
+    raise ArgumentError, "single argument file_name required" unless file_name && file_name != ""
   end
 
   def each
