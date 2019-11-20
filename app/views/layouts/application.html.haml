@@ -32,11 +32,7 @@
       = link_to "SwapMyVote", root_path, class: "brand"
 
       - if logged_in?
-        %span.user
-          %img{:src => current_user.image_url}/
-          %span.name
-            = current_user.name
-          = link_to "Log out", logout_url, class: "small subdued logout"
+        = render partial: "layouts/current_user"
       - else
         = render partial: "layouts/login"
 
