@@ -172,4 +172,17 @@ class User < ApplicationRecord
   def redacted_name
     NameRedactor.redact(name)
   end
+
+  def mobile_number
+    mobile_phone.try(:number)
+  end
+
+  def mobile_number=(new_number)
+    User.transaction do
+      unless mobile_phone.nil?
+        mobile_phone.destroy
+      end
+      create_mobile_phone!(number: new_number)
+    end
+  end
 end
