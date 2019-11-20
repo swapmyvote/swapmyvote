@@ -20,12 +20,14 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 15
 Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
+  Enabled: false
 Style/Documentation:
   Enabled: false
 Style/EmptyMethod:
   Enabled: false
 Style/IfUnlessModifier:
+  Enabled: false
+Style/NumericLiterals:
   Enabled: false
 Style/RedundantReturn:
   Enabled: false

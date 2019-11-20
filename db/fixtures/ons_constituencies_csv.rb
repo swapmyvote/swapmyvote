@@ -1,4 +1,4 @@
-# encoding: UTF-8
+
 class OnsConstituenciesCsv
   attr_reader :file_name
 
@@ -18,7 +18,7 @@ class OnsConstituenciesCsv
         raise ArgumentError, "Input fields #{data.to_h.keys} do not match #{REQUIRED_INPUT_KEYS}"
       end
 
-      data_transformed = { 
+      data_transformed = {
         ons_id: data.to_h.values[0], # don't ask ... data[ID_KEY] should have worked
         name: data[NAME_KEY],
       }

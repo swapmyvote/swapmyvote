@@ -52,9 +52,9 @@ CSV.foreach("db/fixtures/constituency_locations.tsv", col_sep: "\t") do |data|
   name = data[0]
   country = data[5]
 
-  if m = name.match(/^((?:(?:North|East|South|West|Mid|The|City of) )+)(.*)/)
-    old_name = name
-    name = "#{m[2]} #{m[1].strip()}"
+  m = name.match(/^((?:(?:North|East|South|West|Mid|The|City of) )+)(.*)/)
+  if m
+    name = "#{m[2]} #{m[1].strip}"
   end
   name = name.gsub(",", "")
 
@@ -88,7 +88,7 @@ CSV.foreach("db/fixtures/constituencies.tsv", col_sep: "\t") do |data|
   elsif country == "Wales"
     print "(Assigning nationalist vote to Plaid Cymru)"
     votes["plaid"] = data[11]
-  elsif not ["Scotland", "England", "Wales", "Northern Ireland"].include?(country)
+  elsif !["Scotland", "England", "Wales", "Northern Ireland"].include?(country)
     throw "Invalid country '#{country}' for #{name};"
   end
   puts
@@ -106,7 +106,9 @@ end
 
 puts "\nONS Constituencies"
 
-ons_constituencies_csv = OnsConstituenciesCsv.new("db/fixtures/Westminster_Parliamentary_Constituencies_December_2018_Names_and_Codes_in_the_United_Kingdom.csv")
+ons_constituencies_csv = OnsConstituenciesCsv.new(
+  "db/fixtures/Westminster_Parliamentary_Constituencies_December_2018" \
+  "_Names_and_Codes_in_the_United_Kingdom.csv")
 
 ons_constituencies_csv.each do |constituency|
   cons = OnsConstituency.new(constituency)
