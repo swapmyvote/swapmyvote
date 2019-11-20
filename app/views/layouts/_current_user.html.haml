@@ -1,5 +1,6 @@
 %span.user
-  %img{src: current_user.image_url}/
+  = link_to image_tag(current_user.image_url), edit_user_path
   %span.name
-    = current_user.name
+    = link_to current_user.name, edit_user_path
+
   = link_to "Log out", logout_url, class: "small subdued logout"
