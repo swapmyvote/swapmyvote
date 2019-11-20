@@ -40,18 +40,18 @@ RSpec.describe UsersController, type: :controller do
       end
     end
 
-    describe "GET #update" do
+    describe "POST #update" do
       it "redirects to #show" do
         expect(logged_in_user).to receive(:update)
-        get :update, params: { user: { constituency_id: 2, email: "a@b.c" }   }
+        post :update, params: { user: { constituency_id: 2, email: "a@b.c" }   }
         expect(response).to redirect_to(:user)
       end
     end
 
-    describe "GET #destroy" do
+    describe "DELETE #destroy" do
       it "redirects to account_deleted" do
         expect(logged_in_user).to receive(:destroy)
-        get :destroy
+        delete :destroy
         expect(response).to redirect_to(:account_deleted)
       end
     end
