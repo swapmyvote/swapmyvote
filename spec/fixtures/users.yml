@@ -1,17 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  provider: MyString
-  uid: MyString
-  name: MyString
-  image: MyString
-  token: MyString
-  expires_at: 2014-12-23 11:26:51
-
-two:
-  provider: MyString
-  uid: MyString
-  name: MyString
-  image: MyString
-  token: MyString
-  expires_at: 2014-12-23 11:26:51
+john_doe:
+  provider: facebook
+  uid: 22222222222222222
+  name: John Doe
+  image: http://graph.facebook.com/v3.0/22222222222222222/picture
