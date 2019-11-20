@@ -44,7 +44,7 @@ RSpec.describe UsersController, type: :controller do
     describe "GET #update" do
       it "redirects to #show" do
         expect(logged_in_user).to receive(:update)
-        get :update, params: { :user => { :constituency_id => 2, :email => "a@b.c" }   }
+        get :update, params: { user: { constituency_id: 2, email: "a@b.c" }   }
         expect(response).to redirect_to(:user)
       end
     end
