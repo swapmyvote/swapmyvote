@@ -1,15 +1,17 @@
 AllCops:
   Include:
   - app/**/*.rb
-  - Rakefile
-  - '**/Gemfile'
   - config.ru
+  - config/**/*.rb
+  - db/**/*.rb
+  - lib/tasks/**/*.rb
+  - Rakefile
+  - spec/**/*.rb
+  - test/**/*.rb
+  - '**/Gemfile'
   Exclude:
-  - config/**/*
-  - db/**/*
-  - spec/**/*
   - bin/**/*
-  - lib/tasks/*
+  - tmp/**/*
   TargetRubyVersion: 2.6
   StyleGuideCopsOnly: true
 
