@@ -37,3 +37,5 @@ Style/StringLiterals:
 Style/SymbolArray:
   # Turned off because the associated auto-correct makes a real mess
   Enabled: false
+Style/TrailingCommaInArguments:
+  Enabled: false
