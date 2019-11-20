@@ -34,8 +34,14 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#potential_swap_users' do
+    let(:user) { User.new(name: 'fred', id: 1) }
+
+    specify { expect{user.potential_swap_users(5)}.not_to raise_error }
+  end
+
   context 'when user has no preferred party, willing party or constituency' do
-    let(:no_swap_user) { User.new(name: 'fred') }
+    let(:no_swap_user) { User.new(name: 'fred', id: 1) }
 
     specify { expect(no_swap_user).not_to be_ready_to_swap}
 
