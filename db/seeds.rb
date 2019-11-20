@@ -23,28 +23,28 @@ PARTIES = {
 
 COUNTRIES = {}
 
-for county in [
+[
     "East Ham", "West Ham", "South Shields", "Hull East", "Hull North",
     "Ashton under Lyne", "Hull West and Hessle", "West Bromwich East", "West Bromwich West",
     "Middlesbrough South and Cleveland East", "Basildon South and East Thurrock",
     "Worthing East and Shoreham", "Richmond", "Suffolk Central and Ipswich North",
     "Dorset Mid and Poole North", "Devon West and Torridge",
     "Faversham and Kent Mid", "South Holland and The Deepings", "Devon Central"
-  ]
+  ].each do |county|
   COUNTRIES[county] = "England"
 end
 
-for county in [
+[
     "East Kilbride Strathaven and Lesmahagow", "Ayrshire North and Arran",
     "Na h-Eileanan An Iar (Western Isles)", "Ayrshire Central", "East Lothian",
     "Aberdeenshire West and Kincardine"
-  ]
+  ].each do |county|
   COUNTRIES[county] = "Scotland"
 end
 
-for county in [
+[
     "Ynys Mon", "Carmarthen West and Pembrokeshire South"
-  ]
+  ].each do |county|
   COUNTRIES[county] = "Wales"
 end
 
@@ -94,7 +94,7 @@ CSV.foreach("db/fixtures/constituencies.tsv", col_sep: "\t") do |data|
   puts
 
   puts "Polls:\t#{votes}"
-  for party in votes.keys
+  votes.keys.each do |party|
     vote_count = (votes[party].to_f * 100).to_i
     poll = Poll.find_or_initialize_by constituency: constituency, party: PARTIES[party]
     poll.votes = vote_count
