@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Poll, type: :model do
-
   describe "#constituency" do
     context "with poll with no constituency id" do
       let(:no_constituency_poll) { Poll.new(votes: 987) }
@@ -20,5 +19,4 @@ RSpec.describe Poll, type: :model do
       end
     end
   end
-
 end

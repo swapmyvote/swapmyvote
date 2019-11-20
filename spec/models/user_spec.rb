@@ -66,5 +66,4 @@ RSpec.describe User, type: :model do
       specify { expect(&the_change).not_to change(no_swap_user, :ready_to_swap?).from(false) }
     end
   end
-
 end

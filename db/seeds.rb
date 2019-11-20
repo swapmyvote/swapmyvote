@@ -6,7 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
 require "active_record/fixtures"
 require "csv"
 require_relative "fixtures/ons_constituencies_csv"
@@ -116,4 +115,3 @@ ons_constituencies_csv.each do |constituency|
 end
 
 puts "#{OnsConstituency.count} ONS Constituencies loaded"
-

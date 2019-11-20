@@ -1,6 +1,5 @@
 # encoding: UTF-8
 class OnsConstituenciesCsv
-
   attr_reader :file_name
 
   ID_KEY = "PCON18CD"
@@ -15,7 +14,6 @@ class OnsConstituenciesCsv
 
   def each
     CSV.foreach(file_name, headers: true, col_sep: ",") do |data|
-
       unless data.to_h.keys[0][1..-1] == ID_KEY && data.to_h.keys[1] == NAME_KEY
         raise ArgumentError, "Input fields #{data.to_h.keys} do not match #{REQUIRED_INPUT_KEYS}"
       end

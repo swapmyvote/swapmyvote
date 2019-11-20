@@ -1,14 +1,12 @@
 require "rails_helper"
 
 RSpec.describe User::ConstituenciesController, type: :controller do
-
   context "when configured for swaps" do
     before(:each) do
       allow(ENV).to receive(:[]).with("SWAPS_CLOSED").and_return(nil)
     end
 
     context "and user is logged in" do
-
       let(:logged_in_user) { instance_double(User, constituency: :some_constituency, email: :some_email) }
 
       before do

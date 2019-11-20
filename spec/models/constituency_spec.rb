@@ -6,5 +6,4 @@ RSpec.describe Constituency, type: :model do
   describe "#polls" do
     specify { expect {subject.polls}.not_to raise_error }
   end
-
 end
