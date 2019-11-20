@@ -53,64 +53,6 @@ p.choose_party {
   font-size: 34px;
 }
 
-.navbar {
-  border-bottom: 1px solid $border-color;
-  background-color: white;
-  display: flex;
-
-  @include largescreen {
-    padding: 16px 32px;
-    height: 32px;
-  }
-
-  @include smallscreen {
-    padding: 8px 16px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  a.brand {
-    display: block;
-
-    color: transparent;
-    background-image: image-url('logo_nav.png');
-    background-repeat: no-repeat;
-
-    @include highdpi {
-      background-image: image-url('logo_nav@2x.png');
-    }
-
-    @include largescreen {
-      flex-grow: 1;
-      height: 32px;
-      width: 173px;
-      background-size: 173px 32px;
-    }
-
-    @include smallscreen {
-      height: 32px;
-      width: 173px;
-      background-size: 173px 32px;
-      margin-bottom: 16px;
-    }
-  }
-
-  .user {
-    display: flex;
-    align-items: center;
-
-    img {
-      height: 32px;
-      width: 32px;
-      border-radius: 3px;
-      margin-right: 8px;
-    }
-    a.logout {
-      margin-left: 8px;
-    }
-  }
-}
-
 .container {
   max-width: 960px;
   padding: 16px;
