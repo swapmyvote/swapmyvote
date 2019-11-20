@@ -2,11 +2,16 @@ require "rails_helper"
 
 RSpec.describe UsersController, type: :controller do
   context "when user is logged in" do
-    let(:logged_in_user) { instance_double(User, constituency: :some_constituency, email: :some_email) }
+    let(:logged_in_user) do
+      build(:user, id: 1,
+            constituency: build(:constituency),
+            email: "foo@bar.com")
+    end
 
     before do
-      session[:user_id] = :some_user_id
-      allow(User).to receive(:find_by_id).with(:some_user_id).and_return(logged_in_user)
+      session[:user_id] = logged_in_user.id
+      allow(User).to receive(:find_by_id).with(logged_in_user.id)
+                       .and_return(logged_in_user)
     end
 
     describe "GET #show" do
