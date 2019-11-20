@@ -14,9 +14,9 @@ Rails.application.routes.draw do
 
   namespace :user do
     resource :constituency
-    resource :share, :controller => "share"
+    resource :share, controller: "share"
     resource :swap
-    resource :vote, :controller => "vote"
+    resource :vote, controller: "vote"
   end
 
   get 'auth/:provider/callback', to: 'sessions#create'

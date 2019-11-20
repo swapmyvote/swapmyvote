@@ -19,20 +19,20 @@ RSpec.describe User::ConstituenciesController, type: :controller do
           expect(response).to have_http_status(:success)
         end
       end
-  
+
       describe "PATCH #update" do
         before(:each) do
           allow(User).to receive(:find_by_id).with(:some_user_id).and_return(User.new)
         end
 
         it "redirects to user share" do
-          patch :update, params: { :user => { :constituency_id => 2, :email => "a@b.c" }   }
+          patch :update, params: { user: { constituency_id: 2, email: "a@b.c" } }
           expect(response).to redirect_to(:user_share)
         end
 
         it "finds user based on session user_id" do
           expect(User).to receive(:find_by_id).with(:some_user_id).and_return(User.new)
-          patch :update, params: { :user => { :constituency_id => 2, :email => "a@b.c" }   }
+          patch :update, params: { user: { constituency_id: 2, email: "a@b.c" } }
         end
       end
     end
