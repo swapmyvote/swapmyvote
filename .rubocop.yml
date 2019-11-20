@@ -19,6 +19,8 @@ Metrics/LineLength:
   Max: 120
 Metrics/MethodLength:
   Max: 15
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/Documentation:
