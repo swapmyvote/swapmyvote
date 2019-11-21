@@ -35,6 +35,16 @@ class SwapMyVote::MessageBird
       return nil
     end
 
+    def verify_token(verify_id, token)
+      begin
+        SwapMyVote::MessageBird.client.verify_token(verify_id, token)
+      rescue MessageBird::ErrorException => ex
+        return errors_from_exception(ex)
+      end
+
+      return nil
+    end
+
     private
 
     def errors_from_exception(ex)

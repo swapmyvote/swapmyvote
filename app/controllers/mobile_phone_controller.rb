@@ -7,11 +7,7 @@ class MobilePhoneController < ApplicationController
     otp, errors = SwapMyVote::MessageBird.verify_create(number, verify_template)
 
     if errors
-      error = "Failed to send verification code to #{number}: " +
-              errors.join("\n")
-      logger.error error
-      flash.alert = error
-      redirect_back fallback_location: edit_user_path
+      handle_errors(errors, "Failed to send verification code to #{number}")
       return
     end
 
@@ -31,10 +27,36 @@ class MobilePhoneController < ApplicationController
     phone.save!
   end
 
+  def verify_token
+    @new_verification = false
+    return if mobile_verified?
+
+    errors = SwapMyVote::MessageBird.verify_token(phone.verify_id,
+                                                  params[:token])
+
+    if errors
+      handle_errors(errors, "Failed to verify code to #{number}")
+      return
+    end
+
+    @new_verification = true
+    phone.verified = true
+    phone.verify_id = nil
+    phone.save!
+  end
+
   private
 
   def verify_template
-    "Your verification code is %token."
+    "Your verification code is %token. Please enter this code at " +
+      verify_token_url(log_in_with: current_user.provider)
+  end
+
+  def handle_errors(errors, msg)
+    error = msg + ": " + errors.join("\n")
+    logger.error error
+    flash[:errors] = [error]
+    redirect_back fallback_location: edit_user_path
   end
 
   def phone

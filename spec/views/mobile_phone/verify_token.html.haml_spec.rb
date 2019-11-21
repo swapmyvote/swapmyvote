@@ -1,5 +1,14 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "mobile_phone/verify_token.html.haml", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "asks for verification token" do
+    user = build(:user)
+    session[:user_id] = user.id
+    @new_verification = true
+
+    render
+
+    expect(rendered).to include \
+      "Thank you for verifying your mobile phone number."
+  end
 end

@@ -1,2 +1,18 @@
-%h1 MobilePhone#verify_token
-%p Find me in app/views/mobile_phone/verify_token.html.haml
+.background-pattern.border-bottom
+  .container.container-narrow
+    - if @new_verification
+
+      %h1 Verification successful!
+
+      %p
+        Thank you for verifying your mobile phone number.
+
+    - else
+
+      %h1 Already verified
+
+      %p
+        Your mobile phone number was already verified.
+
+    = link_to user_path do
+      = button_tag "Continue"
