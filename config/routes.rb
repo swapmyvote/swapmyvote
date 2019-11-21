@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get "logout", to: "sessions#destroy"
 
   get "mobile_phone/verify_create", as: "verify_mobile"
+  get "mobile_phone/verify_token", as: "verify_token"
 
   get "admin/stats", to: "admin#stats"
 
