@@ -2,13 +2,13 @@
 	Hi #{@user.name},
 %p
 	You're all set to swap your vote with
-	%a{href: @swap_with.profile_url} #{@swap_with.name}!
-	#{@swap_with.name} is going to vote for the #{@swap_with.willing_party.name} party for you, in the #{@swap_with.constituency.name} constituency.
+	%a{href: @swap_with.profile_url} #{@swap_with.redacted_name}!
+	#{@swap_with.redacted_name} is going to vote for the #{@swap_with.willing_party.name} party for you, in the #{@swap_with.constituency.name} constituency.
 	In return, you will vote for the #{@swap_with.preferred_party.name} party in your constituency (#{@user.constituency.name}).
 %p
-	We'll send some reminders to #{@swap_with.name} to remind them to vote for your chosen party on December 12th, and we'll ask them for confirmation once they have.
+	We'll send some reminders to #{@swap_with.redacted_name} to remind them to vote for your chosen party on December 12th, and we'll ask them for confirmation once they have.
 	In the meantime, why not
-	%a{href: @swap_with.profile_url} reach out to #{@swap_with.name} directly?
+	%a{href: @swap_with.profile_url} reach out to #{@swap_with.redacted_name} directly?
 
 %p
 	Lastly, why not share Swap My Vote with your social networks so that more people can make their vote count?

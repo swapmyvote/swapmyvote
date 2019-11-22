@@ -1,8 +1,8 @@
 %p
 	Hi #{@user.name},
 %p
-	Good news! #{@swap_with.name} would like to swap their vote with you.
-	#{@swap_with.name} is voting in the #{@swap_with.constituency.name} constituency,
+	Good news! #{@swap_with.redacted_name} would like to swap their vote with you.
+	#{@swap_with.redacted_name} is voting in the #{@swap_with.constituency.name} constituency,
 	and will vote for the #{@swap_with.willing_party.name} party if you vote for the #{@swap_with.preferred_party.name} party in
 	your constituency!
 %p
@@ -11,9 +11,9 @@
 	Please confirm this swap as soon as possible. Votes for the #{@swap_with.willing_party.name}
 	party are in demand, so if you don't confirm this swap, we may not be able to find you someone else to swap with.
 	If we don't get a confirmation in the next 6 hours, we'll have to look for someone else to swap
-	#{@swap_with.name}'s vote with.
+	#{@swap_with.redacted_name}'s vote with.
 %p
-	If for any reason you don't wish to swap with #{@swap_with.name}, you can find new potential voting partners by simply updating your info using the link that says "Not right? Update your info". This will reset the swap, letting your partner know it has been cancelled. You are then free to select another voting partner from the list.
+	If for any reason you don't wish to swap with #{@swap_with.redacted_name}, you can find new potential voting partners by simply updating your info using the link that says "Not right? Update your info". This will reset the swap, letting your partner know it has been cancelled. You are then free to select another voting partner from the list.
 %p
 	Lastly, why not share Swap My Vote with your social networks so that more people can make their vote count?
 

@@ -1,6 +1,6 @@
 %img.profile-img{src: other_user.image_url}
 .profile-content
-  .profile-name= other_user.name
+  .profile-name= other_user.redacted_name
   .profile-constituency.subdued
     in #{other_user.constituency.try(:name) or "Unknown?"}
   .profile-votes

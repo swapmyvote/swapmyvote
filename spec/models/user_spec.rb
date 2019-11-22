@@ -66,4 +66,11 @@ RSpec.describe User, type: :model do
       specify { expect(&the_change).not_to change(no_swap_user, :ready_to_swap?).from(false) }
     end
   end
+
+  describe "#redacted_name" do
+    it "redacts the user's surname" do
+      subject.name = "Ada Lovelace"
+      expect(subject.redacted_name).to eq("Ada L")
+    end
+  end
 end
