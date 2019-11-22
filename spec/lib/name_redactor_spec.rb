@@ -92,6 +92,27 @@ RSpec.describe NameRedactor do
     end
   end
 
+  context "when the name has flags" do
+    let(:name) { "Joe Bloggs 🇪🇺" }
+    it "returns the first name and first letter of second name" do
+      expect(subject).to eq("Joe B")
+    end
+  end
+
+  context "when the name has a #hashtag" do
+    let(:name) { "Joe Bloggs #FBPE" }
+    it "returns the first name and first letter of second name" do
+      expect(subject).to eq("Joe B")
+    end
+  end
+
+  context "when the name has flags and a #hashtag" do
+    let(:name) { "Joe Bloggs 🇪🇺 #FBPE" }
+    it "returns the first name and first letter of second name" do
+      expect(subject).to eq("Joe B")
+    end
+  end
+
   context "when the name is nil" do
     let(:name) { nil }
     it "returns nil" do
