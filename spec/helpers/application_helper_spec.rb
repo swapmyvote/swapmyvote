@@ -25,4 +25,22 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(helper.current_user).to eq(user)
     end
   end
+
+  describe "#logged_in?" do
+    let(:user) { create(:user) }
+
+    it "returns false with empty session" do
+      expect(helper.logged_in?).to be false
+    end
+
+    it "returns false from invalid session[:user_id]" do
+      session[:user_id] = 999999
+      expect(helper.logged_in?).to be false
+    end
+
+    it "returns true for valid session[:user_id]" do
+      session[:user_id] = user.id
+      expect(helper.logged_in?).to be true
+    end
+  end
 end
