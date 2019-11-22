@@ -33,10 +33,12 @@
         = telephone_field_tag "mobile_phone[number]", @mobile_number,
                               placeholder: "07123 456 789"
 
-        - if @mobile_phone.try(:verified)
-          Verified!
-        - else
-          Not verified
+        - if @mobile_number.present?
+          - if mobile_verified?
+            Verified!
+          - else
+            = button_tag "Verify", formaction: verify_mobile_path,
+                         formmethod: :get
 
       %p.subdued.small
 

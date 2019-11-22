@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get "auth/failure", to: "sessions#retry"
   get "logout", to: "sessions#destroy"
 
-  get "mobile_phone/verify_create"
+  get "mobile_phone/verify_create", as: "verify_mobile"
 
   get "admin/stats", to: "admin#stats"
 
