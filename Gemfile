@@ -50,6 +50,8 @@ gem "json"
 
 gem "airbrake", "~> 9.5.0"
 
+gem "rubocop"
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem "web-console"
@@ -75,11 +77,6 @@ group :development, :test do
   # add rspec
   gem "rspec-rails", "~> 3.8"
   gem "database_cleaner"
-
-  # Make rubocop available for developers
-  # Have not fixed all the issues, because many of the fixes are high risk: suggest
-  # we tidy up each file as and when working on it
-  gem "rubocop"
 
   # Guard checks everything when you save a file
   gem "guard"
