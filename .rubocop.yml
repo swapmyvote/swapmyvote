@@ -13,6 +13,7 @@ AllCops:
   - bin/**/*
   - tmp/**/*
   - vendor/**/*
+  - db/schema.rb
   TargetRubyVersion: 2.6
   StyleGuideCopsOnly: true
 
