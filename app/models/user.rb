@@ -167,4 +167,8 @@ class User < ApplicationRecord
     save
     UserMailer.reminder_to_vote(self).deliver_now
   end
+
+  def redacted_name
+    NameRedactor.redact(name)
+  end
 end
