@@ -31,7 +31,9 @@ class UsersController < ApplicationController
         return
       end
     end
-    redirect_to user_path
+
+    # Need to give user chance to verify mobile number if required
+    redirect_to mobile_needs_verification? ? edit_user_path : user_path
   end
 
   def destroy
