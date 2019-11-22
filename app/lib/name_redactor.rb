@@ -1,11 +1,5 @@
-require "singleton"
-require "forwardable"
-
-class NameRedactor
-  include Singleton
-  extend SingleForwardable
-
-  def_delegator :instance, :redact
+module NameRedactor
+  extend self
 
   def redact(name)
     return nil unless name
