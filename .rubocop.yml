@@ -12,6 +12,7 @@ AllCops:
   Exclude:
   - bin/**/*
   - tmp/**/*
+  - vendor/**/*
   TargetRubyVersion: 2.6
   StyleGuideCopsOnly: true
 
