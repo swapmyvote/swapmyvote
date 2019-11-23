@@ -3,11 +3,11 @@ Swap My Vote API
 
 We currently have a single end point to pre-populate some of the fields that a user can choose:
 
-http://www.swapmyvote.org/uk/swap
+https://www.swapmyvote.uk/swap
 
 Parameters should be passed in the query string, e.g.
 
-http://www.swapmyvote.uk/uk/swap?preferred_party_name=labour
+https://www.swapmyvote.uk/swap?preferred_party_name=labour
 
 Available parameters are:
 
