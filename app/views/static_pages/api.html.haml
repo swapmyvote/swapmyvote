@@ -1,0 +1,70 @@
+.plain-pattern.border-bottom
+  .container.api
+    %h1 Swap My Vote API
+
+    %p
+
+      Swap My Vote does not have a conventional REST API, but we do
+      have a single end point to pre-populate some of the fields that
+      a user can choose.
+
+    %p
+
+      This should be ideal for tactical voting campaigns which want to
+      encourage voters to follow their recommendations, and indeed we
+      would be very happy to see tactical voting sites integrate with
+      Swap My Vote.  The below documentation is probably sufficient,
+      but if you need assistance then please
+
+      = link_to("get in touch", contact_path) + "."
+
+    %p
+
+      Available parameters are:
+
+    %dl
+
+      %dt
+        %code
+          willing_party_name
+      %dd
+        The party that the user is willing to vote for, say
+        tactically.
+
+      %dt
+        %code
+          preferred_party_name
+      %dd
+        The party that the user would ideally like to vote for, say if
+        all votes counted equally nationally.
+
+    %p
+
+      For example if a tactical voting site wishes to recommend a user
+      to vote for the Liberal Democrat candidate in their
+      consitituency, they could use this outbound link:
+
+      %pre
+        %code= swap_url(willing_party_name: "liberal_democrats")
+
+    %p
+
+      The party names should be lowercased and use underscores instead
+      of spaces. We support 7 parties at the moment, with the follow
+      canonical names on Swap My Vote:
+
+    %ul
+      %li
+        %code labour
+      %li
+        %code liberal_democrats
+      %li
+        %code green_party
+      %li
+        %code conservatives
+      %li
+        %code ukip
+      %li
+        %code snp
+      %li
+        %code plaid_cymru

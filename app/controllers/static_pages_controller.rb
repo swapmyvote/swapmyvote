@@ -17,6 +17,9 @@ class StaticPagesController < ApplicationController
   def contact
   end
 
+  def api
+  end
+
   def confirm_account_deletion
   end
 

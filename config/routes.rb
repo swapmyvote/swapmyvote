@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "cookies", to: "static_pages#cookies"
   get "terms", to: "static_pages#terms"
   get "contact", to: "static_pages#contact"
+  get "api", to: "static_pages#api"
   get "account_deleted", to: "static_pages#account_deleted"
   get "confirm_account_deletion", to: "static_pages#confirm_account_deletion"
 
