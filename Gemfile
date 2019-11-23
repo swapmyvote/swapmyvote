@@ -51,6 +51,7 @@ gem "json"
 gem "airbrake", "~> 9.5.0"
 
 gem "rubocop"
+gem "scss_lint"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -89,7 +90,6 @@ group :development, :test do
   gem "rails-controller-testing"
   gem "factory_bot_rails"
 
-  gem "scss_lint"
   gem "guard-scss_lint"
 end
 
