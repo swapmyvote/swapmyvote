@@ -33,7 +33,7 @@
 
       - if logged_in?
         = render partial: "layouts/current_user"
-      - else
+      - elsif swapping_open? || params[:opensesame]
         = render partial: "layouts/login"
 
     - if flash[:errors]
