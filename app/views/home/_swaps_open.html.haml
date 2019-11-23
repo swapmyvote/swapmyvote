@@ -7,12 +7,12 @@
 
 .plain-pattern.border-bottom
   .container.text-center
-    %p.choose_party
+    %p.choose-party
       My preferred party is
       = select :user, :preferred_party_id, nil, {}, {form: 'login-form'} do
         %option(disabled=true selected=true) ...
         = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @preferred_party_id)
-    %p.choose_party
+    %p.choose-party
       but I'm willing to vote for
       = select :user, :willing_party_id, nil, {}, {form: 'login-form'} do
         %option(disabled=true selected=true) ...

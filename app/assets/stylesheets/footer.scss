@@ -1,44 +1,51 @@
-@import "_mixins";
+@import "mixins";
 
 footer {
-  background-color: #fafafa;
+    background-color: $bg-color;
 
-  @include largescreen {
-    padding: 24px 0;
-  }
-
-  @include smallscreen {
-    padding: 8px;
-  }
-
-  .container {
     @include largescreen {
-      padding: 0 100px;
-      display: flex;
-    }
-  }
-  ul {
-    @include largescreen {
-      flex: 1;
+        padding: 24px 0;
     }
 
-    box-sizing: border-box;
-    vertical-align: top;
-    list-style: none;
-    padding: 0;
-    margin-top: 0;
-
-    li {
-      padding: 3px 0;
-      line-height: 1.2;
-      h3 {
-        margin: 0;
-        color: #888;
-        font-size: 16px;
-      }
-      a {
-        opacity: 0.8;
-      }
+    @include smallscreen {
+        padding: 8px;
     }
-  }
+
+    .container {
+        @include largescreen {
+            padding: 0 100px;
+            display: flex;
+        }
+    }
+
+    ul {
+        box-sizing: border-box;
+        vertical-align: top;
+        list-style: none;
+        padding: 0;
+        margin-top: 0;
+
+        @include largescreen {
+            flex: 1;
+        }
+
+        li {
+            // FIXME
+            // scss-lint:disable SelectorDepth
+            padding: 3px 0;
+            line-height: 1.2;
+
+            h3 {
+                margin: 0;
+                // FIXME
+                // scss-lint:disable ColorVariable
+                color: #888;
+                font-size: 16px;
+            }
+
+            a {
+                opacity: 0.8;
+            }
+        }
+    }
 }

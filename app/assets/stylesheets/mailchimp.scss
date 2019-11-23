@@ -1,5 +1,10 @@
-@import "_mixins";
-@import "_variables";
+@import "mixins";
+@import "variables";
+
+// mailchimp HTML being styled here was a cut-and-paste
+// from mailchimp, so don't require changes to classes or ids:
+//
+// scss-lint:disable SelectorFormat
 
 #mc_embed_signup {
     margin: 32px 0;
@@ -22,22 +27,24 @@
     @include largescreen {
         display: flex;
     }
-}
 
-.mc-field-group .email {
-    padding: 4px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    box-sizing: border-box;
+    .email {
+        padding: 4px;
+        border-radius: 4px;
+        // FIXME
+        // scss-lint:disable ColorVariable
+        border: 1px solid #ccc;
+        font-size: 16px;
+        box-sizing: border-box;
 
-    @include largescreen {
-        flex: 1;
-        margin-left: 16px;
-    }
+        @include largescreen {
+            flex: 1;
+            margin-left: 16px;
+        }
 
-    @include smallscreen {
-        width: 100%;
+        @include smallscreen {
+            width: 100%;
+        }
     }
 }
 

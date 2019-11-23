@@ -1,66 +1,76 @@
-@import "_variables";
-@import "_mixins";
+@import "variables";
+@import "mixins";
 
 .profile {
-  color: inherit;
-  display: block;
-  position: relative;
-  min-height: 64px;
-  .profile-img {
-    border-radius: 50%;
-    width: 64px;
-    height: 64px;
-    position: absolute;
-    top: 14px;
-  }
-  .profile-content {
-    padding-right: 6px;
-    padding-left: 76px;
-    box-sizing: border-box;
-    @include largescreen {
-      width: 60%;
-      float: left;
-    }
-  }
-  .profile-votes {
-    margin-top: 12px;
-  }
-  .profile-poll {
-    height: 100%;
-    box-sizing: border-box;
-    @include largescreen {
-      width: 40%;
-      float: right;
-      border-left: 1px solid $border-color;
-      padding-left: 6px
-    }
-    @include smallscreen {
-      border-top: 1px solid $border-color;
-      padding-top: 12px;
-      margin-top: 12px;
-    }
-  }
-  &:after {
-    content: "";
-    clear: both;
+    color: inherit;
     display: block;
-  }
+    position: relative;
+    min-height: 64px;
+
+    .profile-img {
+        border-radius: 50%;
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        top: 14px;
+    }
+
+    .profile-content {
+        padding-right: 6px;
+        padding-left: 76px;
+        box-sizing: border-box;
+
+        @include largescreen {
+            width: 60%;
+            float: left;
+        }
+    }
+
+    .profile-votes {
+        margin-top: 12px;
+    }
+
+    .profile-poll {
+        height: 100%;
+        box-sizing: border-box;
+
+        @include largescreen {
+            width: 40%;
+            float: right;
+            border-left: 1px solid $border-color;
+            padding-left: 6px;
+        }
+
+        @include smallscreen {
+            border-top: 1px solid $border-color;
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+    }
+
+    ::after {
+        content: "";
+        clear: both;
+        display: block;
+    }
 }
 
 .poll-chart {
-  margin-top: 12px;
-  height: 120px;
+    margin-top: 12px;
+    height: 120px;
 }
 
 a.profile {
-  &:hover {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-  }
+    &:hover {
+        // FIXME
+        // scss-lint:disable ColorVariable
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        text-decoration: none;
+    }
 }
 
 // Work around a flicker when hovering on the poll bars
 // (https://stackoverflow.com/questions/37902708/google-charts-tooltip-flickering)
 .google-visualization-tooltip {
-  pointer-events:none;
+    pointer-events: none;
 }

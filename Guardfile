@@ -104,7 +104,7 @@ group :all_plugins, halt_on_fail: true do
 
   end
 
-  guard :scss_lint, config: '.scss-lint.yml' do
+  guard :scss_lint do
     watch(%r{app/assets/stylesheets/\w.*\.scss})
     watch(%r{^.scss-lint.yml}) { Dir.glob "app/assets/stylesheets/*.scss" }
   end
