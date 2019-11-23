@@ -27,3 +27,5 @@ config.local
 
 # Ruby version
 .ruby-version
+
+/vendor/
