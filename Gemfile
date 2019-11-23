@@ -85,7 +85,7 @@ group :development, :test do
   gem "guard-rails"
   gem "guard-bundler"
   gem "guard-rubocop"
-  # gem "terminal-notifier-guard"
+  gem "terminal-notifier-guard"
 
   gem "rails-controller-testing"
   gem "factory_bot_rails"
