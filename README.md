@@ -64,6 +64,11 @@ You will need Ruby installed.
 
 -   Open your browser to http://localhost:3000.
 
+-   Run Guard during development to automatically run tests and do
+    style linting:
+
+        bundle exec guard
+
 Note that in the development environment, emails are not sent but instead written
 as files in the `tmp/mails/` subdirectory.
 
