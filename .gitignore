@@ -19,13 +19,17 @@
 config.local
 
 # https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
-/.env.*.local
+/.env.*.local*
 /.env.local
 
 # Intellij files
 .idea/
 
-# Ruby version
+# vscode files
+.vscode/
+
+# Ruby settings
 .ruby-version
+.ruby-gemset
 
 /vendor/
