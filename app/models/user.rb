@@ -2,6 +2,7 @@ class User < ApplicationRecord
   belongs_to :preferred_party, class_name: "Party", optional: true
   belongs_to :willing_party, class_name: "Party", optional: true
   belongs_to :constituency, optional: true
+  has_one    :mobile_phone, dependent: :destroy
 
   belongs_to :outgoing_swap, class_name: "Swap", foreign_key: "swap_id",
              dependent: :destroy, optional: true
@@ -170,5 +171,18 @@ class User < ApplicationRecord
 
   def redacted_name
     NameRedactor.redact(name)
+  end
+
+  def mobile_number
+    mobile_phone.try(:number)
+  end
+
+  def mobile_number=(new_number)
+    User.transaction do
+      unless mobile_phone.nil?
+        mobile_phone.destroy
+      end
+      create_mobile_phone!(number: new_number)
+    end
   end
 end

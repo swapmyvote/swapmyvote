@@ -1,0 +1,31 @@
+.background-pattern.border-bottom
+  .container.container-narrow
+    - if mobile_verified?
+      %h1 Already verified!
+
+      %p
+
+        Your mobile phone number has already been verified.
+
+        = button_to "Continue", user_path
+
+    - else
+      %h1 Verifying phone number
+
+      %p
+        A verification code was sent to #{current_user.mobile_number}.
+
+      %p
+        Please enter the 6 digit code you received here:
+
+      = form_tag verify_token_path, class: "verify-token" do
+
+        = text_field_tag 'token', nil, class: "mobile-token",
+            pattern: "[0-9]{6}", maxlength: 6, required: true,
+            oninvalid: "setCustomValidity('Please enter 6 digits')",
+            oninput: "setCustomValidity('')"
+        = button_tag "Verify"
+
+      %p
+        If you do not receive it within 5 minutes, you can try
+        = link_to("re-sending", verify_mobile_path) + "."

@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   get "auth/failure", to: "sessions#retry"
   get "logout", to: "sessions#destroy"
 
+  get "mobile_phone/verify_create", as: "verify_mobile"
+  match "mobile_phone/verify_token", as: "verify_token", via: [:get, :post]
+
   get "admin/stats", to: "admin#stats"
 
   get "swap", to: "api#pre_populate"

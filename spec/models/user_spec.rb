@@ -73,4 +73,89 @@ RSpec.describe User, type: :model do
       expect(subject.redacted_name).to eq("Ada L")
     end
   end
+
+  context "-> MobilePhone:" do
+    let(:number1) { "07771 111 111" }
+    let(:number2) { "07772 222 222" }
+
+    describe "#mobile_phone" do
+      it "returns nil after MobilePhone is destroyed" do
+        subject.save!
+        subject.create_mobile_phone(number: number1)
+        subject.mobile_phone.destroy
+        expect(subject.mobile_phone.number).to eq(number1)
+        subject.reload
+        expect(subject.mobile_phone).to be_nil
+      end
+
+      it "returns nil after User is destroyed" do
+        subject.save!
+        subject.create_mobile_phone(number: number1)
+        mobile = subject.mobile_phone
+        expect(mobile).to be_a(MobilePhone)
+        subject.destroy
+        expect(MobilePhone.find_by_id(mobile.id)).to be_nil
+      end
+
+      it "prevents two users having the same number" do
+        subject.save!
+        subject.create_mobile_phone(number: number1)
+        user2 = User.create!
+        expect {
+          user2.create_mobile_phone!(number: number1)
+        }.to raise_error(ActiveRecord::RecordInvalid,
+                         /Number has already been taken/)
+      end
+    end
+
+    describe "#mobile_number" do
+      it "returns nil" do
+        expect(subject.mobile_number).to be_nil
+      end
+
+      it "returns a mobile phone number" do
+        subject.mobile_phone = MobilePhone.new(number: number1)
+        expect(subject.mobile_number).to eq(number1)
+      end
+    end
+
+    describe "#mobile_number=" do
+      before do
+        # Required in order to avoid
+        #
+        #   ActiveRecord::RecordNotSaved:
+        #   You cannot call create unless the parent is saved
+        #
+        # while creating the association from user to mobile_phone
+        subject.save!
+      end
+
+      it "sets a mobile number for the first time" do
+        subject.mobile_number = number1
+        subject.reload
+        expect(subject.mobile_number).to eq(number1)
+        expect(subject.mobile_phone).to be_a(MobilePhone)
+        expect(subject.mobile_phone.number).to eq(number1)
+      end
+
+      it "sets a new mobile number and deletes the first" do
+        subject.mobile_number = number1
+        mobile = subject.mobile_phone
+        subject.mobile_number = number2
+        subject.reload
+        expect(subject.mobile_phone.number).to eq(number2)
+        expect(subject.mobile_phone.id).not_to eq(mobile.id)
+        expect(MobilePhone.find_by_id(mobile.id)).to be_nil
+      end
+
+      it "prevents two users having the same number" do
+        subject.mobile_number = number1
+        user2 = User.create!
+        expect {
+          user2.mobile_number = number1
+        }.to raise_error(ActiveRecord::RecordInvalid,
+                         /Number has already been taken/)
+      end
+    end
+  end
 end
