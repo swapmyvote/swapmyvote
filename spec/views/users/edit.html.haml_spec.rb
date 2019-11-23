@@ -8,7 +8,7 @@ RSpec.describe "users/edit", type: :view do
     assign(:mobile_number, user.mobile_number)
     assign(:user, user)
     assign(:parties, Party.all)
-    assign(:constituencies, Constituency.all.order(:name))
+    assign(:constituencies, OnsConstituency.all.order(:name))
 
     expect { render }.not_to raise_error
   end

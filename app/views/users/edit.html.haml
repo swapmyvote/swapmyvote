@@ -20,9 +20,9 @@
 
       %p
         My constituency is
-        = f.collection_select :constituency_id, @constituencies,
+        = f.collection_select :constituency_ons_id, @constituencies,
                               :id, :name, prompt: "...",
-                              selected: @user.constituency_id
+                              selected: @user.constituency_ons_id
 
       %p
         My email address is

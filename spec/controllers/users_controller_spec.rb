@@ -4,7 +4,7 @@ RSpec.describe UsersController, type: :controller do
   context "when user is logged in" do
     let(:logged_in_user) do
       build(:user, id: 1,
-            constituency: build(:constituency),
+            constituency: build(:ons_constituency),
             email: "foo@bar.com")
     end
 
