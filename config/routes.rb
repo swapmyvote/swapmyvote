@@ -25,5 +25,5 @@ Rails.application.routes.draw do
 
   get "admin/stats", to: "admin#stats"
 
-  get "uk/swap", to: "api#pre_populate"
+  get "swap", to: "api#pre_populate"
 end
