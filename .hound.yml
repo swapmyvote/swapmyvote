@@ -2,3 +2,6 @@ ruby:
   enabled: true
   config_file: .rubocop.yml
   version: 0.75.0
+
+scss:
+  config_file: .scss-lint.yml
