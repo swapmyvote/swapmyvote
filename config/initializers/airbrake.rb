@@ -68,3 +68,10 @@ end
 # integration with the Logger class from stdlib.
 # https://github.com/airbrake/airbrake#logger
 # Rails.logger = Airbrake::AirbrakeLogger.new(Rails.logger)
+
+noisy_errors = [SignalException]
+
+Airbrake.add_filter do |notice|
+  next unless noisy_errors.include?(notice.stash[:exception])
+  notice.ignore!
+end
