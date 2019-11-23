@@ -28,4 +28,8 @@ module ApplicationHelper
     return nil if name.nil?
     return name.parameterize(separator: "_")
   end
+
+  def mobile_verified?
+    return current_user.try(:mobile_phone).try(:verified)
+  end
 end
