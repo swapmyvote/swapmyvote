@@ -26,6 +26,6 @@ module ApplicationHelper
 
   def canonical_name(name)
     return nil if name.nil?
-    return name.parameterize("_")
+    return name.parameterize(separator: "_")
   end
 end
