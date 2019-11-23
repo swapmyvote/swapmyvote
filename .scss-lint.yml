@@ -1,6 +1,7 @@
 # Default application configuration that all configurations inherit from.
 
 scss_files: "**/*.scss"
+exclude: "vendor/**/*.scss"
 plugin_directories: ['.scss-linters']
 
 # List of gem names to load custom linters from (make sure they are already
@@ -28,7 +29,7 @@ linters:
     enabled: false
 
   ColorKeyword:
-    enabled: true
+    enabled: false
 
   ColorVariable:
     enabled: true
@@ -93,7 +94,7 @@ linters:
     enabled: true
     allow_non_nested_indentation: false
     character: space # or 'tab'
-    width: 2
+    width: 4
 
   LeadingZero:
     enabled: true
@@ -126,7 +127,7 @@ linters:
     max_properties: 10
 
   PropertySortOrder:
-    enabled: true
+    enabled: false
     ignore_unspecified: false
     min_properties: 2
     separate_groups: false
@@ -160,7 +161,7 @@ linters:
 
   SelectorDepth:
     enabled: true
-    max_depth: 2
+    max_depth: 3
 
   SelectorFormat:
     enabled: true
@@ -175,7 +176,7 @@ linters:
     allow_single_line_rule_sets: true
 
   SingleLinePerSelector:
-    enabled: true
+    enabled: false
 
   SpaceAfterComma:
     enabled: true
@@ -183,7 +184,7 @@ linters:
 
   SpaceAfterPropertyColon:
     enabled: true
-    style: one_space # or 'no_space', or 'at_least_one_space', or 'aligned'
+    style: at_least_one_space # or 'no_space', or 'at_least_one_space', or 'aligned'
 
   SpaceAfterPropertyName:
     enabled: true

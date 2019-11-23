@@ -1,38 +1,41 @@
-@import "_variables";
+@import "variables";
 
 .button {
-  display: inline-block;
-  padding: 16px 32px;
-  border-radius: 3px;
-  background-color: $button-color;
-  color: white;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  margin: 6px;
-  &:hover {
-    background-color: darken($button-color, 10%);
-    text-decoration: none;
-  }
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 3px;
+    background-color: $button-color;
+    color: $white;
+    border: 0;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 6px;
+
+    &:hover {
+        background-color: darken($button-color, 10%);
+        text-decoration: none;
+    }
 }
 
 .button-large {
-  font-size: 1.4rem;
-  padding: 18px 36px;
+    font-size: 1.4rem;
+    padding: 18px 36px;
 }
 
 .button-facebook {
-  background-color: $facebook-color;
-  color: white;
-  &:hover {
-    background-color: darken($facebook-color, 10%);
-  }
+    background-color: $facebook-color;
+    color: $white;
+
+    &:hover {
+        background-color: darken($facebook-color, 10%);
+    }
 }
 
 .button-twitter {
-  background-color: $twitter-color;
-  color: white;
-  &:hover {
-    background-color: darken($twitter-color, 10%);
-  }
+    background-color: $twitter-color;
+    color: $white;
+
+    &:hover {
+        background-color: darken($twitter-color, 10%);
+    }
 }
