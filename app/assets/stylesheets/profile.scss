@@ -48,7 +48,7 @@
         }
     }
 
-    ::after {
+    &::after {
         content: "";
         clear: both;
         display: block;
