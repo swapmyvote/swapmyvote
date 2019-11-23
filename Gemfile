@@ -90,6 +90,7 @@ group :development, :test do
   gem "factory_bot_rails"
 
   gem "scss_lint"
+  gem "guard-scss_lint"
 end
 
 group :production do
