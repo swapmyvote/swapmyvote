@@ -29,6 +29,10 @@ module ApplicationHelper
     return name.parameterize(separator: "_")
   end
 
+  def github_url
+    return "https://github.com/swapmyvote/swapmyvote/"
+  end
+
   def mobile_verified?
     return current_user.try(:mobile_phone).try(:verified)
   end
