@@ -43,4 +43,15 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(helper.logged_in?).to be true
     end
   end
+
+  describe "#canonical_name" do
+    it "returns nil if name is nil" do
+      expect(helper.canonical_name(nil)).to be_nil
+    end
+
+    it "returns parametrized name" do
+      expect(helper.canonical_name("Liberal Democrats"))
+        .to eq("liberal_democrats")
+    end
+  end
 end
