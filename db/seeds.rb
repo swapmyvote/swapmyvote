@@ -48,6 +48,24 @@ end
   COUNTRIES[county] = "Wales"
 end
 
+# ---------------------------------------------------------------------------------
+
+puts "\nONS Constituencies"
+
+ons_constituencies_csv = OnsConstituenciesCsv.new(
+  "db/fixtures/Westminster_Parliamentary_Constituencies_December_2018" \
+  "_Names_and_Codes_in_the_United_Kingdom.csv")
+
+ons_constituencies_csv.each do |constituency|
+  cons = OnsConstituency.find_or_initialize_by ons_id: constituency[:ons_id]
+  puts "#{cons.ons_id} #{cons.name}"
+  cons.update!(constituency)
+end
+
+puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
+
+# ---------------------------------------------------------------------------------
+
 CSV.foreach("db/fixtures/constituency_locations.tsv", col_sep: "\t") do |data|
   name = data[0]
   country = data[5]
@@ -64,10 +82,24 @@ end
 
 puts
 
+# ---------------------------------------------------------------------------------
+
+original_constituencies_with_ons_csv = OriginalConstituenciesWithOnsCsv
+  .new("db/fixtures/constituency_original_names_with_ons_ids.csv")
+
+ons_ids_by_constituency_name = original_constituencies_with_ons_csv.each_with_object({}) do |c, hash|
+  hash[c[:name]] = c[:ons_id]
+end
+
+# ---------------------------------------------------------------------------------
+
 CSV.foreach("db/fixtures/constituencies.tsv", col_sep: "\t") do |data|
   name = data[2]
 
   constituency = Constituency.find_or_create_by name: name
+
+  ons_id = ons_ids_by_constituency_name[constituency.name]
+
   votes = {
     "con" => data[6],
     "lab" => data[7],
@@ -96,24 +128,10 @@ CSV.foreach("db/fixtures/constituencies.tsv", col_sep: "\t") do |data|
   puts "Polls:\t#{votes}"
   votes.keys.each do |party|
     vote_count = (votes[party].to_f * 100).to_i
-    poll = Poll.find_or_initialize_by constituency: constituency, party: PARTIES[party]
+    poll = Poll.find_or_initialize_by constituency_ons_id: ons_id, party: PARTIES[party]
     poll.votes = vote_count
     poll.save
   end
 
   puts
 end
-
-puts "\nONS Constituencies"
-
-ons_constituencies_csv = OnsConstituenciesCsv.new(
-  "db/fixtures/Westminster_Parliamentary_Constituencies_December_2018" \
-  "_Names_and_Codes_in_the_United_Kingdom.csv")
-
-ons_constituencies_csv.each do |constituency|
-  cons = OnsConstituency.new(constituency)
-  puts "#{cons.ons_id} #{cons.name}"
-  cons.save!
-end
-
-puts "#{OnsConstituency.count} ONS Constituencies loaded"

@@ -1,11 +1,17 @@
+
+
 def create_random_user(i, preferred_party_id, willing_party_id)
   gender = rand > 0.5 ? "female" : "male"
   firstname = gender == "male" ? Random.firstname_male : Random.firstname_female
 
+  ons_constituency_id = rand(1 + OnsConstituency.count)
+
+  ons_id = OnsConstituency.find_by_id(ons_constituency_id).ons_id
+
   User.create(
     name: "#{firstname} #{Random.lastname}",
     email: "#{firstname.downcase}@example.com",
-    constituency_id: rand(1 + Constituency.count),
+    constituency_ons_id: ons_id,
     preferred_party_id: preferred_party_id,
     willing_party_id: willing_party_id,
     image: format("http://api.randomuser.me/portraits/med/%s/#{i}.jpg",
