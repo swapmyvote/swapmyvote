@@ -10,20 +10,32 @@ namespace :constituencies_original do
     ons_ids_by_constituency_name = original_constituencies_with_ons_csv.each_with_object({}) { |c, hash| hash[c[:name]] = c[:ons_id] }
     # puts ons_ids_by_constituency_name.take(3).to_h.inspect
 
-    ons_ids_by_constituency_id = Constituency.all.each_with_object({misses: []}) do |c, hash|
+    valid_ons_ids = OnsConstituency.all.each_with_object(Set.new) { |c, set| set << c.ons_id }
+    # puts valid_ons_ids.to_a.take(3).inspect
+
+    ons_ids_by_constituency_id = Constituency.all.each_with_object({missed_name: [], missed_ons_id: []}) do |c, hash|
       if ons_ids_by_constituency_name.key?(c.name)
-        hash[c.id] = ons_ids_by_constituency_name[c.name]
+        hash[c.id] = ons_id = ons_ids_by_constituency_name[c.name]
+        if !valid_ons_ids.include?(ons_id)
+          hash[:missed_ons_id] << ons_id
+        end
       else
-        hash[:misses] << c.name
+        hash[:missed_name] << c.name
       end
     end
 
-    misses = ons_ids_by_constituency_id[:misses]
+    missed_name = ons_ids_by_constituency_id[:missed_name]
+    missed_ons_id = ons_ids_by_constituency_id[:missed_ons_id]
 
-    unless misses.count.zero?
-      raise "#{misses.count} rows in #{Constituency.table_name} table do not have matching ONS ids: #{misses}"
+    unless missed_name.count.zero?
+      raise "#{missed_name.count} rows in #{Constituency.table_name} table do not have matching name in mapping CSV #{missed_name}"
+    end
+    unless missed_ons_id.count.zero?
+      raise "#{missed_ons_id.count} rows in #{Constituency.table_name} table do not have matching ONS ids in ONS table #{OnsConstituency.table_name}: #{missed_ons_id}"
     end
 
+
+    puts "Sample result:"
     puts ons_ids_by_constituency_id.take(3).to_h.inspect
     # puts ons_ids_by_constituency_id.inspect
 
