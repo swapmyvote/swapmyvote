@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_23_112854) do
+ActiveRecord::Schema.define(version: 2019_11_23_122646) do
 
   create_table "constituencies", force: :cascade do |t|
     t.string "name"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_11_23_112854) do
     t.integer "votes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "constituency_ons_id"
   end
 
   create_table "potential_swaps", force: :cascade do |t|
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(version: 2019_11_23_112854) do
     t.boolean "sent_vote_reminder_email", default: false
     t.integer "mobile_phone_id"
     t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
+    t.string "constituency_ons_id"
   end
 
 end
