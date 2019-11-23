@@ -88,6 +88,8 @@ group :development, :test do
 
   gem "rails-controller-testing"
   gem "factory_bot_rails"
+
+  gem "scss_lint"
 end
 
 group :production do
