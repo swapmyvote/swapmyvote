@@ -45,8 +45,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:preferred_party_id, :willing_party_id,
-                                 :constituency_id, :email)
+    params.require(:user).permit(:preferred_party_id, :willing_party_id, :constituency_ons_id, :email)
   end
 
   def phone_param

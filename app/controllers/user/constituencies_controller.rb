@@ -14,6 +14,6 @@ class User::ConstituenciesController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:constituency_id, :email)
+    params.require(:user).permit(:constituency_ons_id, :email)
   end
 end
