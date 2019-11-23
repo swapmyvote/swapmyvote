@@ -8,7 +8,7 @@
       %p.text-center
         %button{formaction: facebook_login_path, formmethod: :post,
                 class: "button button-facebook"}
-          %i.fa.fa-fw.fa-facebook
+          = image_tag('facebook_icon.png')
           Log in with Facebook
     - if !params[:log_in_with]
       %p.text-center.subdued &#8212; or &#8212;
