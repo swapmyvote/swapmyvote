@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "users/edit", type: :view do
-  it "does not blow up" do
+
+  before do
     user = build(:user)
-    # session[:user_id] = user.id
 
     assign(:mobile_number, user.mobile_number)
     assign(:user, user)
@@ -11,5 +11,14 @@ RSpec.describe "users/edit", type: :view do
     assign(:constituencies, OnsConstituency.all.order(:name))
 
     expect { render }.not_to raise_error
+  end
+
+  it "displays constituency" do
+    render
+
+    ["My constituency is", "Liverpool", "Knowsley", "E14000775"].each do |s|
+      expect(rendered).to include s
+    end
+
   end
 end

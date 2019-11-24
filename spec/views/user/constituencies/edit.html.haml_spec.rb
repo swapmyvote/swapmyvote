@@ -8,7 +8,9 @@ RSpec.describe "user/constituencies/edit.html.haml", type: :view do
 
     render
 
-    ["My constituency is", "Liverpool", "Knowsley"].each do |s|
+    # puts rendered
+
+    ["My constituency is", "Liverpool", "Knowsley", "E14000775"].each do |s|
       expect(rendered).to include s
     end
   end
