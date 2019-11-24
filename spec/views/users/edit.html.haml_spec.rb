@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "users/edit", type: :view do
-
   before do
     user = build(:user)
 
@@ -19,6 +18,5 @@ RSpec.describe "users/edit", type: :view do
     ["My constituency is", "Liverpool", "Knowsley", "E14000775"].each do |s|
       expect(rendered).to include s
     end
-
   end
 end
