@@ -4,15 +4,15 @@
   = form_with url: "#", id: "login-form", class: "modal-dialog",
               local: true do
     %i.fa.fa-times.subdued.modal-close
-    - if !params[:log_in_with] or params[:log_in_with] == 'facebook'
+    - if log_in_with_facebook?
       %p.text-center
         %button{formaction: facebook_login_path, formmethod: :post,
                 class: "button button-facebook"}
           = image_tag('facebook_icon.png')
           Log in with Facebook
-    - if !params[:log_in_with]
+    - if log_in_method_restricted?
       %p.text-center.subdued &#8212; or &#8212;
-    - if !params[:log_in_with] or params[:log_in_with] == 'twitter'
+    - if log_in_with_twitter?
       %p.text-center
         %button{formaction: twitter_login_path, formmethod: :post,
                 class: "button button-twitter"}
@@ -21,4 +21,6 @@
     %p.text-center.small.subdued
       (We will never share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
     %p.text-center
-      = link_to "Why do I need to log in with Facebook or Twitter?", "/faq#login", class: "small", target: "_blank"
+      = link_to "/faq#login", class: "small", target: "_blank" do
+        Why do I need to log in with
+        = log_in_methods + "?"

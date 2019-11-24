@@ -41,4 +41,39 @@ module ApplicationHelper
     return current_user.try(:mobile_phone) &&
            !current_user.mobile_phone.verified
   end
+
+  # Helpers for deciding which login methods to display in the login
+  # modal dialog.  It's useful to restrict this to a particular
+  # authentication type when leading an existing user back to login
+  # from an email or SMS, to ensure they log in with the same identity
+  # provider they used previously.  If params[:log_in_with] is
+  # specified then the login modal dialog will be shown automatically.
+  # Valid values are:
+  #
+  #   - "any" - all login methods are shown
+  #   - "facebook" or "twitter - only that login method is shown
+  #
+  # If params[:log_in_with] is not specified then all login methods
+  # will be shown but the dialog is not shown automatically.
+
+  def log_in_with_facebook?
+    return true unless params[:log_in_with]
+    return %w[any facebook].include? params[:log_in_with]
+  end
+
+  def log_in_with_twitter?
+    return true unless params[:log_in_with]
+    return %w[any twitter].include? params[:log_in_with]
+  end
+
+  def log_in_method_restricted?
+    return !params[:log_in_with] || params[:log_in_with] == "any"
+  end
+
+  def log_in_methods
+    methods = []
+    methods << "Facebook" if log_in_with_facebook?
+    methods << "Twitter" if log_in_with_twitter?
+    methods.join(" or ")
+  end
 end
