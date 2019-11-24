@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def edit
     @mobile_number = @user.mobile_number
     @parties = Party.all
-    @constituencies = Constituency.all.order(:name)
+    @constituencies = OnsConstituency.all.order(:name)
   end
 
   def update
