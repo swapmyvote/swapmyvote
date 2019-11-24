@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "users/edit", type: :view do
+  fixtures :ons_constituencies
+
   before do
     user = build(:user)
 
@@ -15,7 +17,7 @@ RSpec.describe "users/edit", type: :view do
   it "displays constituency" do
     render
 
-    ["My constituency is", "Liverpool", "Knowsley", "E14000775"].each do |s|
+    ["My constituency is", "Liverpool", "Knowsley", "E2096666"].each do |s|
       expect(rendered).to include s
     end
   end
