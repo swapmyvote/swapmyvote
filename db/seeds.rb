@@ -9,6 +9,7 @@
 require "active_record/fixtures"
 require "csv"
 require_relative "fixtures/ons_constituencies_csv"
+require_relative "fixtures/livefrombrexit_recommendations_json"
 
 PARTIES = {
   "con"    => Party.find_or_create_by(name: "Conservatives", color: "#0087DC"),
@@ -134,4 +135,15 @@ CSV.foreach("db/fixtures/constituencies.tsv", col_sep: "\t") do |data|
   end
 
   puts
+end
+
+# ---------------------------------------------------------------------------------
+
+recommendations_json = LivefrombrexitRecommendationsJson.new
+
+recommendations_json.each do |rec_as_hash|
+  rec = Recommendation.find_or_initialize_by(rec_as_hash.slice("site", "constituency_ons_id"))
+  rec.text = rec_as_hash["recommendation"]
+  rec.link = rec_as_hash["link"]
+  rec.save!
 end
