@@ -42,7 +42,8 @@ You will need Ruby installed.
 -   Set up some credentials and other config variables in a
     `.env.development.local` file.  You can ask @aspiers for a copy of
     this file, or if you are using your own Facebook and Twitter apps
-    for login then you can make it yourself
+    for login then you can make it yourself by starting from a
+    template:
 
         $ cp .env.example .env.development.local
 
@@ -74,17 +75,33 @@ as files in the `tmp/mails/` subdirectory.
 
 ## Contributing to Swap my Vote
 
-Any help would be well appreciated. Please take a look at the [GitHub
+Any help would be well appreciated!
+
+### Onboarding
+
+Before we can accept contributions from you, please make sure you read
+[the License section](#license) below and follow the required step.
+
+You should also [log in to Travis
+CI](http://travis-ci.org/swapmyvote/swapmyvote) to make sure that
+their system is aware of your GitHub user account, since for some
+strange reason they sometimes assume unknown users are malign and
+ignore any pull requests submitted by them!
+
+### Deciding what to work on
+
+Please take a look at the [GitHub
 project](https://github.com/orgs/swapmyvote/projects/1).  Issues are
-sorted into milestones, and the items in
-each column are roughly sorted by priority descending, so a good place
-to start would be near the top of the `M0` column.  If you can, please
-avoid tackling stuff in future milestones until the current milestone
-is complete.
+sorted into milestones, and the items in each column are roughly
+sorted by priority descending, so a good place to start would be near
+the top of the `M0` column.  If you can, please avoid tackling stuff
+in future milestones until the current milestone is complete.
 
 In addition, look out for issues labelled [`help
 wanted`](https://github.com/swapmyvote/swapmyvote/labels/help%20wanted)
 or [`easy`](https://github.com/swapmyvote/swapmyvote/labels/easy).
+
+### Coordinating with the team
 
 If an issue is already assigned, then probably someone is already
 working on it or at least intending to.  If it's unassigned then
@@ -96,8 +113,7 @@ at the below address to request an invite to our Slack chat server.
 Our roadmap can be seen in our [list of
  milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
 
-Please make sure you read [the License section](#license) below, as it
-contains an essential step before contributions can be accepted.
+### Submitting issues and pull requests
 
 When submitting new issues or PRs, please remember to apply any
 relevant labels.  Thanks!
