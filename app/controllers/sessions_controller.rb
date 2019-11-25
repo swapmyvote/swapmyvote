@@ -14,7 +14,8 @@ class SessionsController < ApplicationController
     user = user_for_identity(auth)
     return create_user_and_identity(auth) if user.blank?
 
-    user_from_omniauth(user, auth)
+
+    user.omniauth_tokens(auth)
   end
 
   def user_for_identity(auth)
@@ -26,19 +27,10 @@ class SessionsController < ApplicationController
   end
 
   def create_user_and_identity(auth)
-    user = User.create(name: auth.info.name)
-    user_from_omniauth(user, auth)
+    user = User.create(name: auth.info.name, email: auth.info.email)
+
+    user.omniauth_tokens(auth)
     Identity.from_omniauth(auth, user.id)
-
-    return user
-  end
-
-  def user_from_omniauth(user, auth)
-    user.token = auth.credentials.token
-    if auth.credentials.expires_at
-      user.expires_at = Time.at(auth.credentials.expires_at)
-    end
-    user.save!
 
     return user
   end

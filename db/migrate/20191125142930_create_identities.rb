@@ -6,7 +6,7 @@ class CreateIdentities < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :nickname
       t.string :uid
-      t.string :image_url
+      t.string :image
       t.string :email
 
       t.timestamps null: false

@@ -24,6 +24,14 @@ class User < ApplicationRecord
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
 
+  def omniauth_tokens(auth)
+    token = auth.credentials.token
+    if auth.credentials.expires_at
+      expires_at = Time.at(auth.credentials.expires_at)
+    end
+    save!
+  end
+
   def potential_swap_users(number = 5)
     # Clear out swaps every few hours to keep the list fresh for people checking back
     potential_swaps.where(["created_at < ?", DateTime.now - 2.hours]).destroy_all

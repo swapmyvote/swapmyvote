@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_222547) do
     t.string "name"
     t.string "nickname"
     t.string "uid"
-    t.string "image_url"
+    t.string "image"
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
