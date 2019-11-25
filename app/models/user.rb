@@ -183,6 +183,6 @@ class User < ApplicationRecord
   end
 
   def email
-    return identity&.email
+    identity&.email
   end
 end
