@@ -18,19 +18,6 @@ ActiveRecord::Schema.define(version: 2019_11_26_222547) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "identities", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "provider"
-    t.string "name"
-    t.string "nickname"
-    t.string "uid"
-    t.string "image"
-    t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_identities_on_user_id"
-  end
-
   create_table "mobile_phones", force: :cascade do |t|
     t.integer "user_id"
     t.string "number"
@@ -105,8 +92,8 @@ ActiveRecord::Schema.define(version: 2019_11_26_222547) do
     t.boolean "has_voted", default: false
     t.boolean "sent_vote_reminder_email", default: false
     t.integer "mobile_phone_id"
-    t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
     t.string "constituency_ons_id"
+    t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
   end
 
 end
