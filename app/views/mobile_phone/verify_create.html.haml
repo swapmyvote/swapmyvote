@@ -4,19 +4,29 @@
       %h1 Already verified!
 
       %p
-
         Your mobile phone number has already been verified.
 
         = button_to "Continue", user_path
 
     - else
+
       %h1 Verifying phone number
 
-      %p
-        A verification code was sent to #{current_user.mobile_number}.
+      - if flash[:messagebird_error]
 
-      %p
-        Please enter the 6 digit code you received here:
+        %p.text-error
+          = flash[:messagebird_error]
+
+        %p
+          We have requested a new 6 digit code for you. When it
+          arrives, please enter the new code carefully here:
+
+      - else
+        %p
+          A verification code was sent to #{current_user.mobile_number}.
+
+        %p
+          Please enter the 6 digit code you received here:
 
       = form_tag verify_token_path, class: "verify-token" do
 
