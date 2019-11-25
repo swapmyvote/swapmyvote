@@ -4,9 +4,11 @@ Swap My Vote is a platform which allows voters to find a partner to
 swap their vote with.  Rather than voting for their preferred minority
 party in a constituency where a tactical vote is necessary or
 worthwhile, a voter can find someone who will vote for their preferred
-party somewhere where that vote makes sense, even under First Past The
-Post. In return, they will vote for their partners preferred party as
-a tactical vote in their own constituency.
+party somewhere where that vote makes sense, even under the [First
+Past The Post voting
+system](https://en.wikipedia.org/wiki/First-past-the-post_voting).  In
+return, they will vote for their partners preferred party as a
+tactical vote in their own constituency.
 
 Swap My Vote ran a successful project in both the 2015 and 2017 UK
 general elections at [www.swapmyvote.uk](https://www.swapmyvote.uk).
