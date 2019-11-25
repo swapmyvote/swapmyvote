@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
   has_many :sent_emails, dependent: :destroy
 
-  delegate :profile_url, :image_url, :provider, :uid, to: :identity, prefix: false
+  delegate :profile_url, to: :identity, prefix: false
 
   before_save :clear_swap, if: :details_changed?
   after_save :send_welcome_email, if: :needs_welcome_email?
@@ -157,5 +157,17 @@ class User < ApplicationRecord
       end
       create_mobile_phone!(number: new_number)
     end
+  end
+
+  def image_url
+    identity&.image_url
+  end
+
+  def provider
+    identity&.provider
+  end
+
+  def uid
+    identity&.uid
   end
 end

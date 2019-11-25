@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_222547) do
   create_table "identities", force: :cascade do |t|
     t.integer "user_id"
     t.integer "provider"
+    t.string "name"
     t.string "nickname"
     t.string "uid"
     t.string "image_url"
