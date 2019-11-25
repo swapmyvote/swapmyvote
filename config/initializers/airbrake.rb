@@ -69,9 +69,6 @@ end
 # https://github.com/airbrake/airbrake#logger
 # Rails.logger = Airbrake::AirbrakeLogger.new(Rails.logger)
 
-noisy_errors = [SignalException]
-
 Airbrake.add_filter do |notice|
-  next unless noisy_errors.include?(notice.stash[:exception])
-  notice.ignore!
+  notice.ignore! if notice.stash[:exception].is_a? SignalException
 end
