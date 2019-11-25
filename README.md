@@ -112,4 +112,6 @@ In order to help ensure that potential voter partners aren't split across differ
 [Issue #33](https://github.com/swapmyvote/swapmyvote/issues/33)
 includes previous discussion of this.
 
-If you would like to contribute to the code please get involved, and [email to confirm](mailto:tom@forwarddemocracy.com?subject=IP%20rights%20in%20SwapMyVote&amp;body=Dear%20Tom%2C%20%0A%0AThis%20is%20to%20confirm%20that%20I%20am%20happy%20for%20any%20rights%20in%20my%20contributions%20to%20the%20SwapMyVote%20code%20to%20be%20assigned%20to%20Forward%20Democracy%20for%20the%20purposes%20of%20defending%20and%20promoting%20democracy.%0A%0ABest%20regards%2C%20%0A%0A) you're happy with that arrangement.
+If you would like to contribute to the code, please first [submit
+a pull request which adds your GitHub username to the `.clabot`
+file](https://github.com/swapmyvote/swapmyvote/edit/master/.clabot?message=Add+%3CMY+GITHUB+USERNAME%3E+to+CLA&description=This+is+to+confirm+that+I+am+happy+for+any+rights+in+my%0Dcontributions+to+the+SwapMyVote+code+to+be+assigned+to+Forward%0DDemocracy+for+the+purposes+of+defending+and+promoting+democracy.).
