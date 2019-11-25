@@ -96,6 +96,9 @@ at the below address to request an invite to our Slack chat server.
 Our roadmap can be seen in our [list of
  milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
 
+Please make sure you read [the License section](#license) below, as it
+contains an essential step before contributions can be accepted.
+
 When submitting new issues or PRs, please remember to apply any
 relevant labels.  Thanks!
 
