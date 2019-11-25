@@ -12,36 +12,17 @@ class User < ApplicationRecord
              dependent: :destroy, optional: true
   has_one    :incoming_swap, class_name: "Swap", foreign_key: "chosen_user_id",
              dependent: :destroy
-  has_one   :users_social_profile, dependent: :destroy
+  has_one   :identity, dependent: :destroy
 
   has_many :potential_swaps, foreign_key: "source_user_id", dependent: :destroy
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
   has_many :sent_emails, dependent: :destroy
 
-  delegate :profile_url, to: :users_social_profile, prefix: false
+  delegate :profile_url, :image_url, :provider, :uid, to: :identity, prefix: false
 
   before_save :clear_swap, if: :details_changed?
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
-
-  def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
-      user.name = auth.info.name
-      user.image = auth.info.image
-      unless auth.info.email.blank?
-        user.email = auth.info.email
-      end
-      user.token = auth.credentials.token
-      if auth.credentials.expires_at
-        user.expires_at = Time.at(auth.credentials.expires_at)
-      end
-      user.save!
-    end
-  end
-
-  def image_url
-    image.gsub(/^http:/, "https:")
-  end
 
   def potential_swap_users(number = 5)
     # Clear out swaps every few hours to keep the list fresh for people checking back
