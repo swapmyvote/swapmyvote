@@ -25,9 +25,9 @@ class User < ApplicationRecord
   before_destroy :clear_swap
 
   def omniauth_tokens(auth)
-    token = auth.credentials.token
+    self.token = auth.credentials.token
     if auth.credentials.expires_at
-      expires_at = Time.at(auth.credentials.expires_at)
+      self.expires_at = Time.at(auth.credentials.expires_at)
     end
     save!
   end
