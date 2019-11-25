@@ -20,6 +20,7 @@ RSpec.describe "Sessions", type: :request do
       user = User.find_by(uid: "123545")
       expect(user.name).to eq "Jane Doe"
       expect(user.email).to eq "j@doe.com"
+      expect(user.identity.email).to eq "j@doe.com"
       expect(user.image_url).to eq "https://image.com/123456"
       expect(user.provider).to eq "twitter"
       expect(user.profile_url).to eq "https://twitter.com/intent/user?user_id=123545"
@@ -28,9 +29,9 @@ RSpec.describe "Sessions", type: :request do
     end
 
     it "updates existing user on subsequent login" do
-      user = User.create(name: "John Moe", uid: "123545",)
+      user = User.create(name: "John Moe", uid: "123545", email: "j@moe.com")
       Identity.create(user_id: user.id, provider: "twitter", uid: "123545",
-                      image: "http://image.com/654321", name: "John Moe", email: "j@moe.com")
+                      image: "http://image.com/654321", name: "John Moe", email: "j@foo.com")
 
       expect(user.token).to be_nil
       expect(user.expires_at).to be_nil
@@ -40,6 +41,7 @@ RSpec.describe "Sessions", type: :request do
       user = User.find_by(uid: "123545")
       expect(user.name).to eq "John Moe"
       expect(user.email).to eq "j@moe.com"
+      expect(user.identity.email).to eq "j@foo.com"
       expect(user.image_url).to eq "https://image.com/654321"
       expect(user.provider).to eq "twitter"
       expect(user.profile_url).to eq "https://twitter.com/intent/user?user_id=123545"
