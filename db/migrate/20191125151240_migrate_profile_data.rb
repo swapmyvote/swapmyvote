@@ -1,15 +1,17 @@
 class MigrateProfileData < ActiveRecord::Migration[5.2]
   def up
     User.all.each do |user|
-      next if user.users_social_profile.present?
+      next if user.identity.present?
       next if user.provider.blank?
 
       puts "Migrating user #{user.name} for #{user.provider}"
 
-      usp = UsersSocialProfile.new
+      usp = Identity.new
       usp.user_id = user.id
       usp.uid = user.uid
       usp.provider = user.provider
+      usp.email = user.email
+      usp.image_url = user.image
       usp.save!
     end
   end
