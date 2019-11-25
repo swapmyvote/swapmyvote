@@ -8,7 +8,7 @@ class Identity < ApplicationRecord
 
   def self.from_omniauth(auth, user_id)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |identity|
-      identity.image = auth.info.image.gsub(/^http:/, "https:")
+      identity.image = auth.info.image.gsub(/^http:/, "https:") if auth.info.image
       identity.name = auth.info.name
       identity.nickname = auth.info.nickname
       identity.email = auth.info.email unless auth.info.email.blank?
@@ -31,6 +31,7 @@ class Identity < ApplicationRecord
   end
 
   def image_url
+    return "" unless image
     image.gsub(/^http:/, "https:")
   end
 end
