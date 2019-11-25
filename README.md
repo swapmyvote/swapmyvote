@@ -89,10 +89,9 @@ or [`easy`](https://github.com/swapmyvote/swapmyvote/labels/easy).
 If an issue is already assigned, then probably someone is already
 working on it or at least intending to.  If it's unassigned then
 probably it's up for grabs.  However it's safer to ask in the issue
-and/or in the Slack `#general` channel before starting on anything, to
-avoid accidentally duplicating effort.  
-Please use the link below to request access to Slack:
-https://join.slack.com/t/forwarddemocracy/signup.
+and/or in the Slack `#general` chat channel before starting on
+anything, to avoid accidentally duplicating effort.  Please email us
+at the below address to request an invite to our Slack chat server.
 
 Our roadmap can be seen in our [list of
  milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
