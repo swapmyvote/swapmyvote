@@ -10,9 +10,19 @@
     %strong= other_user.preferred_party.name
 
 -unless other_user.constituency.nil?
-  .profile-poll
-    .text-center.small
-      Polls in #{other_user.constituency.try(:name) or "Unknown"}
-    %div{class: "poll-chart", id: "poll_#{other_user.id}"}
-  :javascript
-    drawPollChart("poll_#{other_user.id}", #{poll_data_for(other_user.constituency)});
+
+  .profile-advice
+
+    .profile-recommendations
+      .text-center.small
+        Recommendations: #{other_user.constituency.recommendations.count}
+      %ul.small
+        -other_user.constituency.recommendations.each do |rec|
+          %li= link_to "#{rec.site}: #{rec.text}", rec.link
+
+    .profile-poll
+      .text-center.small
+        Polls in #{other_user.constituency.try(:name) or "Unknown"}
+      %div{class: "poll-chart", id: "poll_#{other_user.id}"}
+    :javascript
+      drawPollChart("poll_#{other_user.id}", #{poll_data_for(other_user.constituency)});
