@@ -138,13 +138,13 @@ as follows:
 includes previous discussion which may clarify the motivation for
 this decision.
 
-If you would like to contribute to the code, they will be very
-gratefully received!  Please first use
-[this link](https://github.com/swapmyvote/swapmyvote/edit/master/.clabot?message=Add+%3CMY+GITHUB+USERNAME%3E+to+CLA&description=This+is+to+confirm+that+I+am+happy+for+any+rights+in+my%0Dcontributions+to+the+SwapMyVote+code+to+be+assigned+to+Forward%0DDemocracy+for+the+purposes+of+defending+and+promoting+democracy.),
-to submit a pull request which adds your GitHub username to the `.clabot`
-file.  It will auto-populate the commit message with a statement
-that you agree to assign rights for your contributions to Forward
-Democracy.
+Contributions to the code will be very gratefully received!  Please
+first use [this
+link](https://github.com/swapmyvote/swapmyvote/edit/master/.clabot?message=Add+%3CMY+GITHUB+USERNAME%3E+to+CLA&description=This+is+to+confirm+that+I+am+happy+for+any+rights+in+my%0Dcontributions+to+the+SwapMyVote+code+to+be+assigned+to+Forward%0DDemocracy+for+the+purposes+of+defending+and+promoting+democracy.)
+to submit a pull request which adds your GitHub username to the
+`.clabot` file.  It will auto-populate the commit message with a
+statement that you agree to assign rights for your contributions to
+Forward Democracy.
 
 Once we merge this pull request, your GitHub username will be added to
 our list of approved contributors, and any other pull requests from
