@@ -167,8 +167,8 @@ class User < ApplicationRecord
     end
   end
 
-  # For legacy reasons, the User database table includes fields for image, provider, and uid
-  # These should not be used directly, and may be blank for some users
+  # For legacy reasons, the User database table includes fields for image, provider, email, and uid
+  # These should not be used directly, and may be blank for some users, instead use the identity information
 
   def image_url
     identity&.image_url
@@ -180,5 +180,9 @@ class User < ApplicationRecord
 
   def uid
     identity&.uid
+  end
+
+  def email
+    return identity&.email
   end
 end
