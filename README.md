@@ -11,7 +11,8 @@ return, they will vote for their partners preferred party as a
 tactical vote in their own constituency.
 
 Swap My Vote ran a successful project in both the 2015 and 2017 UK
-general elections at [www.swapmyvote.uk](https://www.swapmyvote.uk).
+general elections at [www.swapmyvote.uk](https://www.swapmyvote.uk),
+and is preparing to do the same for the 2019 general election too.
 
 In the interests of transparency, all of the code that we have written
 and used is available in this repository. We are in the process of
