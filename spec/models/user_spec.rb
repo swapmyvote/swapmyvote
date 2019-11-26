@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
+  specify { expect(subject).to respond_to(:sent_emails)}
+
   describe "#image_url" do
     it "preserves https URLs" do
       allow(subject).to receive(:image)
