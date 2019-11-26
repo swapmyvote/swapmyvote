@@ -1,8 +1,12 @@
 class User < ApplicationRecord
   belongs_to :preferred_party, class_name: "Party", optional: true
   belongs_to :willing_party, class_name: "Party", optional: true
-  belongs_to :constituency, optional: true
   has_one    :mobile_phone, dependent: :destroy
+  belongs_to :constituency,
+             class_name: "OnsConstituency",
+             foreign_key: "constituency_ons_id",
+             primary_key: "ons_id",
+             optional: true
 
   belongs_to :outgoing_swap, class_name: "Swap", foreign_key: "swap_id",
              dependent: :destroy, optional: true
@@ -68,7 +72,7 @@ class User < ApplicationRecord
     swaps = User.where(
       preferred_party_id: willing_party_id,
       willing_party_id: preferred_party_id
-    ).where.not({ constituency_id: nil })
+    ).where.not({ constituency_ons_id: nil })
     offset = rand(swaps.count)
     target_user = swaps.offset(offset).limit(1).first
     return nil unless target_user
@@ -142,18 +146,18 @@ class User < ApplicationRecord
   end
 
   def details_changed?
-    preferred_party_id_changed? || willing_party_id_changed? || constituency_id_changed?
+    preferred_party_id_changed? || willing_party_id_changed? || constituency_ons_id_changed?
   end
 
   def ready_to_swap?
     ready =
       !preferred_party_id.blank? &&
       !willing_party_id.blank? &&
-      !constituency_id.blank?
+      !constituency_ons_id.blank?
     first_time =
       preferred_party_id_was.blank? ||
       willing_party_id_was.blank? ||
-      constituency_id_was.blank?
+      constituency_ons_id_was.blank?
     return (ready && first_time)
   end
 

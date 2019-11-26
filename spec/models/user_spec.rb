@@ -25,8 +25,8 @@ RSpec.describe User, type: :model do
     end
 
     context "with user with constituency id" do
-      let(:constituency) { Constituency.create!(name: "test con 1") }
-      let(:user) { User.new(name: "test user", constituency_id: constituency.id) }
+      let(:constituency) { OnsConstituency.create!(name: "test con 1", ons_id: "another-fake-ons-id") }
+      let(:user) { User.new(name: "test user", constituency_ons_id: constituency.ons_id) }
 
       it "is expected constituency" do
         expect(user.constituency).to eq(constituency)
@@ -46,7 +46,7 @@ RSpec.describe User, type: :model do
     specify { expect(no_swap_user).not_to be_ready_to_swap}
 
     context "setting constituency" do
-      let(:the_change) { ->{ no_swap_user.constituency_id = 3 } }
+      let(:the_change) { ->{ no_swap_user.constituency_ons_id = "some-fake-ons-id" } }
 
       specify { expect(&the_change).to change(no_swap_user, :details_changed?).from(false).to(true) }
       specify { expect(&the_change).not_to change(no_swap_user, :ready_to_swap?).from(false) }

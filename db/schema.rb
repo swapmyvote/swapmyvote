@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_23_122646) do
+ActiveRecord::Schema.define(version: 2019_11_23_145905) do
 
   create_table "constituencies", force: :cascade do |t|
     t.string "name"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2019_11_23_122646) do
   end
 
   create_table "polls", force: :cascade do |t|
-    t.integer "constituency_id"
+    t.integer "old_constituency_id"
     t.integer "party_id"
     t.integer "votes"
     t.datetime "created_at", null: false
@@ -77,15 +77,15 @@ ActiveRecord::Schema.define(version: 2019_11_23_122646) do
     t.datetime "expires_at"
     t.integer "preferred_party_id"
     t.integer "willing_party_id"
-    t.integer "constituency_id"
+    t.integer "old_constituency_id"
     t.integer "swap_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "has_voted", default: false
     t.boolean "sent_vote_reminder_email", default: false
     t.integer "mobile_phone_id"
-    t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
     t.string "constituency_ons_id"
+    t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
   end
 
 end

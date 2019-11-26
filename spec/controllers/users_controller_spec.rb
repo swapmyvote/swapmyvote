@@ -4,7 +4,7 @@ RSpec.describe UsersController, type: :controller do
   context "when user is logged in" do
     let(:logged_in_user) do
       build(:user, id: 1,
-            constituency: build(:constituency),
+            constituency: build(:ons_constituency),
             email: "foo@bar.com")
     end
 
@@ -25,7 +25,7 @@ RSpec.describe UsersController, type: :controller do
     describe "GET #edit" do
       let(:constituencies_list) { double(:constituencies_list) }
       before do
-        allow(Constituency).to receive(:all).and_return(constituencies_list)
+        allow(OnsConstituency).to receive(:all).and_return(constituencies_list)
         allow(constituencies_list).to receive(:order).with(:name).and_return(double.as_null_object)
       end
 
@@ -35,7 +35,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it "loads all constituencies" do
-        expect(Constituency).to receive(:all).and_return(constituencies_list)
+        expect(OnsConstituency).to receive(:all).and_return(constituencies_list)
         get :edit
       end
 
@@ -48,7 +48,7 @@ RSpec.describe UsersController, type: :controller do
     describe "POST #update" do
       it "redirects to #show" do
         expect(logged_in_user).to receive(:update)
-        post :update, params: { user: { constituency_id: 2, email: "a@b.c" } }
+        post :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" } }
         expect(response).to redirect_to(:user)
       end
     end

@@ -17,7 +17,7 @@ RSpec.describe User::ConstituenciesController, type: :controller do
       describe "GET #edit" do
         let(:constituencies_list) { double(:constituencies_list) }
         before do
-          allow(Constituency).to receive(:all).and_return(constituencies_list)
+          allow(OnsConstituency).to receive(:all).and_return(constituencies_list)
           allow(constituencies_list).to receive(:order).with(:name).and_return(double.as_null_object)
         end
 
@@ -27,7 +27,7 @@ RSpec.describe User::ConstituenciesController, type: :controller do
         end
 
         it "loads all constituencies" do
-          expect(Constituency).to receive(:all).and_return(constituencies_list)
+          expect(OnsConstituency).to receive(:all).and_return(constituencies_list)
           get :edit
         end
 
@@ -42,16 +42,16 @@ RSpec.describe User::ConstituenciesController, type: :controller do
 
         it "finds user based on session user_id" do
           expect(User).to receive(:find_by_id).with(:some_user_id).and_return(logged_in_user)
-          patch :update, params: { user: { constituency_id: 2, email: "a@b.c" }   }
+          patch :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" }   }
         end
 
         it "updates the user" do
           expect(logged_in_user).to receive(:update)
-          patch :update, params: { user: { constituency_id: 2, email: "a@b.c" }   }
+          patch :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" }   }
         end
 
         it "redirects to user share" do
-          patch :update, params: { user: { constituency_id: 2, email: "a@b.c" }   }
+          patch :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" }   }
           expect(response).to redirect_to(:user_share)
         end
       end

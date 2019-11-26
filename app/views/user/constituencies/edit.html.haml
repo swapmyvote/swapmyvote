@@ -8,9 +8,9 @@
           .subdued.small We only need your email to let you know when we've found a swap partner for you. No spam, and your details will stay private with us.
       %p.ui-widget
         My constituency is
-        = f.collection_select :constituency_id, @constituencies,
-                              :id, :name,
-                              selected: @user.constituency_id,
+        = f.collection_select :constituency_ons_id, @constituencies,
+                              :ons_id, :name,
+                              selected: @user.constituency_ons_id,
                               prompt: true
       %p.text-center
         = submit_tag("Save", class: "button")

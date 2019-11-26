@@ -11,8 +11,8 @@ RSpec.describe Poll, type: :model do
     end
 
     context "with poll with constituency id" do
-      let(:constituency) { Constituency.create!(name: "test con 2 for polls") }
-      let(:poll) { Poll.new(votes: 654, constituency_id: constituency.id) }
+      let(:constituency) { OnsConstituency.create!(name: "test con 2 for polls", ons_id: "a-fake-ons-id") }
+      let(:poll) { Poll.new(votes: 654, constituency_ons_id: constituency.ons_id) }
 
       it "is expected constituency" do
         expect(poll.constituency).to eq(constituency)

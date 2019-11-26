@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+lw:
+  name: Liverpool Walton
+  ons_id: E2092098
+
+knowsley:
+  name: Knowsley
+  ons_id: E2096666
+
+lwd:
+  name: Liverpool West Derby
+  ons_id: E2093333

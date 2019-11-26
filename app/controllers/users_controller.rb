@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def edit
     @mobile_number = @user.mobile_number
     @parties = Party.all
-    @constituencies = Constituency.all.order(:name)
+    @constituencies = OnsConstituency.all.order(:name)
   end
 
   def update
@@ -45,8 +45,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:preferred_party_id, :willing_party_id,
-                                 :constituency_id, :email)
+    params.require(:user).permit(:preferred_party_id, :willing_party_id, :constituency_ons_id, :email)
   end
 
   def phone_param

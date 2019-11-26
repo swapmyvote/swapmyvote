@@ -3,7 +3,7 @@ class User::ConstituenciesController < ApplicationController
   before_action :require_login
 
   def edit
-    @constituencies = Constituency.all.order(:name)
+    @constituencies = OnsConstituency.all.order(:name)
   end
 
   def update
@@ -14,6 +14,6 @@ class User::ConstituenciesController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:constituency_id, :email)
+    params.require(:user).permit(:constituency_ons_id, :email)
   end
 end
