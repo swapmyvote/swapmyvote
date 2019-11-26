@@ -54,7 +54,7 @@ gem "airbrake", "~> 9.5.0"
 gem "rubocop"
 gem "scss_lint"
 
-gem 'webpacker', '~> 4.x'
+gem "webpacker", "~> 4.x"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
