@@ -24,7 +24,7 @@ sections below if you'd like to help.
 
 ## Setting up Swap My Vote locally
 
-You will need Ruby installed.
+You will need Ruby and [Yarn](https://yarnpkg.com/lang/en/docs/install/) installed. 
 
 -   Clone this repository:
 
@@ -37,10 +37,17 @@ You will need Ruby installed.
     If this fails with error messages that mention `pg` or PostgreSQL, then
     try instead:
 
-        bundle install --without-production
+        bundle install --without=production
 
     since the PostgreSQL database is not normally needed for local
     development (sqlite is used instead).
+
+-   Install npm packages with Yarn:
+
+        yarn install
+
+    If you get an error similar to "The engine "node" is incompatible with this module" then
+    you may need to update to a more recent version of [node.js](https://nodejs.org/en/download/).
 
 -   Set up some credentials and other config variables in a
     `.env.development.local` file.  You can ask @aspiers for a copy of

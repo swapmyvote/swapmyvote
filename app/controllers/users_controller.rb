@@ -49,6 +49,6 @@ class UsersController < ApplicationController
   end
 
   def phone_param
-    (params[:mobile_phone] || {})[:number]
+    (params[:mobile_phone] || {})[:full]
   end
 end
