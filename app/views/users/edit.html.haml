@@ -1,3 +1,5 @@
+= javascript_pack_tag "intlTelInput"
+
 .background-pattern.border-bottom
   .container.container-narrow
     - if @user.swapped?
@@ -30,8 +32,7 @@
 
       %p
         My phone number is
-        = telephone_field_tag "mobile_phone[number]", @mobile_number,
-                              placeholder: "07123 456 789"
+        = telephone_field_tag "mobile_phone[number]", @mobile_number
 
         - if @mobile_number.present?
           - if mobile_verified?

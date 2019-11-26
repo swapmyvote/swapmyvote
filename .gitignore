@@ -32,4 +32,11 @@ config.local
 .ruby-version
 .ruby-gemset
 
+# Webpacker and npm
 /vendor/
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

@@ -24,7 +24,7 @@ sections below if you'd like to help.
 
 ## Setting up Swap My Vote locally
 
-You will need Ruby installed.
+You will need Ruby and [Yarn](https://yarnpkg.com/lang/en/docs/install/) installed.
 
 -   Clone this repository:
 
@@ -37,7 +37,7 @@ You will need Ruby installed.
     If this fails with error messages that mention `pg` or PostgreSQL, then
     try instead:
 
-        bundle install --without-production
+        bundle install --without=production
 
     since the PostgreSQL database is not normally needed for local
     development (sqlite is used instead).

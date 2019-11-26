@@ -1,12 +1,21 @@
 {
   "name": "swapmyvote",
   "version": "0.0.0",
-  "description": "",
-  "author": "James Allen <jamesallen0108@gmail.com>",
+  "description": "Swap My Vote is a platform which allows voters to find a partner to swap their vote with.  Rather than voting for their preferred minority party in a constituency where a tactical vote is necessary or worthwhile, a voter can find someone who will vote for their preferred party somewhere where that vote makes sense, even under First Past The Post. In return, they will vote for their partners preferred party as a tactical vote in their own constituency.",
   "dependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-jade": "^0.13.0",
-    "grunt-contrib-less": "^0.12.0",
-    "grunt-contrib-watch": "^0.6.1"
+    "@rails/webpacker": "^4.2.0",
+    "intl-tel-input": "16.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swapmyvote/swapmyvote.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swapmyvote/swapmyvote/issues"
+  },
+  "homepage": "https://github.com/swapmyvote/swapmyvote#readme",
+  "devDependencies": {
+    "webpack-dev-server": "^3.9.0"
   }
 }
