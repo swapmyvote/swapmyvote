@@ -32,8 +32,9 @@ config.local
 .ruby-version
 .ruby-gemset
 
-# Webpacker and npm
 /vendor/
+
+# Webpacker and npm
 /public/packs
 /public/packs-test
 /node_modules
