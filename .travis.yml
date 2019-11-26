@@ -3,3 +3,20 @@ cache: bundler
 
 rvm:
   - 2.6.5
+
+cache:
+  bundler: true
+  directories:
+    - node_modules
+  yarn: true
+
+install:
+  - bundle install
+  - nvm install node
+  - node -v
+  - npm i -g yarn
+  - yarn
+
+script:
+  - bundle exec rails webpacker:compile
+  - bundle exec rails spec
