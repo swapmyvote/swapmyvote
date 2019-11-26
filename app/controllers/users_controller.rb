@@ -50,6 +50,8 @@ class UsersController < ApplicationController
   end
 
   def phone_param
+    # We get the value from mobile_phone[full] on the form, intl-tel-input
+    # will put a normalised version of the number (with IDD code) there for us.
     (params[:mobile_phone] || {})[:full]
   end
 end
