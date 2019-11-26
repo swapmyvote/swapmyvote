@@ -72,3 +72,16 @@ end
 Airbrake.add_filter do |notice|
   notice.ignore! if notice.stash[:exception].is_a? SignalException
 end
+
+if ENV["AIRBRAKE_PROJECT_ID"]
+  puts <<~WARNING if Rails.env != "production"
+
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !! WARNING !! WARNING !! WARNING !! WARNING !! WARNING !! WARNING !!
+    !!                                                                !!
+    !! Airbrake has been initialized for error reporting, even though !!
+    !! this is not a live environment.  Are you sure you want this?   !!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  WARNING
+end

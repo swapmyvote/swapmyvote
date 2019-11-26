@@ -8,4 +8,15 @@ if ENV["MAILGUN_API_KEY"]
     authentication: :plain
   }
   ActionMailer::Base.delivery_method = :smtp
+
+  puts <<~WARNING if Rails.env != "production"
+
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !! WARNING !! WARNING !! WARNING !! WARNING !! WARNING !! WARNING !!
+    !!                                                                !!
+    !! Mailgun has been initialized for email delivery, even though   !!
+    !! this is not a live environment.  Are you sure you want this?   !!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  WARNING
 end
