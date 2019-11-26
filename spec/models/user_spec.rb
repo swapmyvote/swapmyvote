@@ -160,4 +160,19 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#send_welcome_email" do
+    let(:an_email) { double(:an_email)}
+    before do
+      allow(an_email).to receive(:deliver_now)
+      allow(UserMailer).to receive(:welcome_email).and_return(an_email)
+      subject.save!
+    end
+
+    it "sends an email" do
+      expect(an_email).to receive(:deliver_now)
+      expect(UserMailer).to receive(:welcome_email).with(subject).and_return(an_email)
+      subject.send_welcome_email
+    end
+  end
 end
