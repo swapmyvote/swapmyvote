@@ -4,6 +4,23 @@ cache: bundler
 rvm:
   - 2.6.5
 
+cache:
+  bundler: true
+  directories:
+    - node_modules
+  yarn: true
+
+install:
+  - bundle install
+  - nvm install node
+  - node -v
+  - npm i -g yarn
+  - yarn
+
+script:
+  - bundle exec rails webpacker:compile
+  - bundle exec rails spec
+
 notifications:
   slack:
     secure: lZCSMyinjI6jvf9D8+Rhc1OScdlwA0wM2khH8t9tw6Mwv8zE8MEvwAex2mDUpXgojtt5tu67wSdZZvtYZADPR1soalqyga25630FPiFZTLjbQEUeH8uCRv4qxEZfvw3IlIhWjoe/GWx2qL1GdOGkVHlmzbm3bX8vrvaiOssiRuEmRGN4AN7ZKrVmcckFcs9AMfUDwe/ZB23JfyU1QK+IyF4HHuwoderWVCPMQcLGag1mfmcPR+gRS1YVOjzlsBd/fHQLKW5Ue1IHye81ODqLowoo4JGKPaK95MUrjPrMwzsYJ0hm3X3zusmBzS9BYncd2cGCEUxnCTRUnZ4NPs64B16MI6gUZJ+DoD0bkhKwI9SPd2wyHWLQGaw9159s1MHBriTBoOTsBgJJfZnNjgu6sHRaho2mKPNMTQw8HrL4S114TYjwref+NFHPzYNWXyFyRQYpDbqsvBQOTFbSld1MauC0A1P23i70MkDZruFgUH3FCrh2CDGQINCPkr9X3P26wk4aTDR18bxnWgH0QyuBWhTB7HJzOs5frTtlw7uFNJUQgG9ClW1YyU8nFbTwralDA9WWnogggWFTA/wEIdE9sOk2gdYB1xjtgOI/QRSH2Sm65jguo9UkXryAQ5Q9zURPpY2crj/R5GK4fZLBNh881cAId/KmNPa6k5qOQqnxOMU=
