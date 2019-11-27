@@ -4,7 +4,7 @@ class MigrateProfileData < ActiveRecord::Migration[5.2]
       next if user.identity.present?
       next if user[:provider].blank?
 
-      puts "Migrating user #{user.name} for #{user[:provider]}"
+      puts "Migrating user #{user.name} for #{user[:provider]} to identity table."
 
       identity = Identity.new
       identity.user_id = user.id
@@ -17,7 +17,20 @@ class MigrateProfileData < ActiveRecord::Migration[5.2]
   end
 
   def down
-    # No reverse of the data migration, up copies data from one table to another, and deleting the copy
-    # would be unsafe in case it has changed
+    # We remove the uid, provider, and image_url columns from the database in the next migration,
+    # reversing it should reinstate the columns with empty contents, so we can re-populate them now
+
+    # We should not repopulate the email column, because the contents might be different from the provider email
+
+    User.all.each do |user|
+      next unless user.identity.present?
+
+      puts "Reversing migration, copying data from user #{user.name} for #{user.identity.provider}"
+
+      user.uid = user.identity.uid
+      user.provider = user.identity.provider
+      user.image = user.identity.image_url
+      user.save!
+    end
   end
 end
