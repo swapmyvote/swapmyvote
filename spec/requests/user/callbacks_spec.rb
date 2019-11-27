@@ -7,7 +7,7 @@ RSpec.describe "Sessions", type: :request do
       OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
         provider: "twitter",
         uid: "123545",
-        info: { name: "Jane Doe", email: "j@doe.com", image: "http://image.com/123456" },
+        info: { name: "Jane Doe", email: "j@doe.com", image: "https://image.com/123456" },
         credentials: { token: "ABC123", expires_at: Time.zone.now.midnight }
       })
     end
@@ -31,7 +31,7 @@ RSpec.describe "Sessions", type: :request do
     it "updates existing user on subsequent login" do
       user = User.create(name: "John Moe", uid: "123545", email: "j@moe.com")
       Identity.create(user_id: user.id, provider: "twitter", uid: "123545",
-                      image: "http://image.com/654321", name: "John Moe", email: "j@foo.com")
+                      image_url: "https://image.com/654321", name: "John Moe", email: "j@foo.com")
 
       expect(user.token).to be_nil
       expect(user.expires_at).to be_nil
