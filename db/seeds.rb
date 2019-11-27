@@ -79,6 +79,6 @@ recommendations_json.each do |rec_as_hash|
   rec.text = rec_as_hash["recommendation"]
   rec.link = rec_as_hash["link"]
   rec.save!
-  print '.'
+  print "."
 end
 puts "\n\n"
