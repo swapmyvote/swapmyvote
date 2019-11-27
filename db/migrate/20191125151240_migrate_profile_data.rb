@@ -6,13 +6,13 @@ class MigrateProfileData < ActiveRecord::Migration[5.2]
 
       puts "Migrating user #{user.name} for #{user.provider}"
 
-      usp = Identity.new
-      usp.user_id = user.id
-      usp.uid = user.uid
-      usp.provider = user.provider
-      usp.email = user.email
-      usp.image_url = user.image
-      usp.save!
+      identity = Identity.new
+      identity.user_id = user.id
+      identity.uid = user.uid
+      identity.provider = user.provider
+      identity.email = user.email
+      identity.image_url = user.image
+      identity.save!
     end
   end
 
