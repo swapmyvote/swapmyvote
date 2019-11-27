@@ -150,18 +150,6 @@ class User < ApplicationRecord
     preferred_party_id_changed? || willing_party_id_changed? || constituency_ons_id_changed?
   end
 
-  def ready_to_swap?
-    ready =
-      !preferred_party_id.blank? &&
-      !willing_party_id.blank? &&
-      !constituency_ons_id.blank?
-    first_time =
-      preferred_party_id_was.blank? ||
-      willing_party_id_was.blank? ||
-      constituency_ons_id_was.blank?
-    return (ready && first_time)
-  end
-
   def send_welcome_email
     return unless email
     logger.debug "Sending Welcome email"

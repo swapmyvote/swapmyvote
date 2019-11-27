@@ -45,27 +45,22 @@ RSpec.describe User, type: :model do
   context "when user has no preferred party, willing party or constituency" do
     let(:no_swap_user) { User.new(name: "fred", id: 1) }
 
-    specify { expect(no_swap_user).not_to be_ready_to_swap}
-
     context "setting constituency" do
       let(:the_change) { ->{ no_swap_user.constituency_ons_id = "some-fake-ons-id" } }
 
       specify { expect(&the_change).to change(no_swap_user, :details_changed?).from(false).to(true) }
-      specify { expect(&the_change).not_to change(no_swap_user, :ready_to_swap?).from(false) }
     end
 
     context "setting preferred_party" do
       let(:the_change) { ->{no_swap_user.preferred_party_id = 3} }
 
       specify { expect(&the_change).to change(no_swap_user, :details_changed?).from(false).to(true) }
-      specify { expect(&the_change).not_to change(no_swap_user, :ready_to_swap?).from(false) }
     end
 
     context "setting willing_party" do
       let(:the_change) { ->{ no_swap_user.willing_party_id = 3 } }
 
       specify { expect(&the_change).to change(no_swap_user, :details_changed?).from(false).to(true) }
-      specify { expect(&the_change).not_to change(no_swap_user, :ready_to_swap?).from(false) }
     end
   end
 
