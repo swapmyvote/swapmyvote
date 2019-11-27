@@ -120,6 +120,8 @@ GEM
     guard-scss_lint (0.1.6)
       guard-compat (~> 1.1)
       scss_lint (~> 0.50)
+    guard-yarn (1.0.0)
+      guard-compat (~> 1.1)
     haml (5.1.2)
       temple (>= 0.8.0)
       tilt
@@ -364,6 +366,7 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   guard-scss_lint
+  guard-yarn
   haml-rails
   jazz_fingers
   jquery-rails
