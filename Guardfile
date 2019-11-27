@@ -31,6 +31,10 @@ group :all_plugins, halt_on_fail: true do
     files.each { |file| watch(helper.real_path(file)) }
   end
 
+  guard :yarn do
+    watch("package.json")
+  end
+
   # Guard-Rails supports a lot options with default values:
   # daemon: false                        # runs the server as a daemon.
   # debugger: false                      # enable ruby-debug gem.
@@ -117,3 +121,4 @@ group :all_plugins, halt_on_fail: true do
   end
 
 end # halt_on_fail
+

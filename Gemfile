@@ -94,6 +94,8 @@ group :development, :test do
   gem "factory_bot_rails"
 
   gem "guard-scss_lint"
+
+  gem "guard-yarn"
 end
 
 group :production do
