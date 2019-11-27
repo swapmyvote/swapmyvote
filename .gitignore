@@ -11,6 +11,9 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# Ignore SQLite database backups, copies etc.
+/db/*.sqlite3.*
+
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
@@ -41,3 +44,6 @@ config.local
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+/backups/
+/screenshots/
