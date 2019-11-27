@@ -3,20 +3,6 @@ require "rails_helper"
 RSpec.describe User, type: :model do
   specify { expect(subject).to respond_to(:sent_emails) }
 
-  describe "#image_url" do
-    it "preserves https URLs" do
-      allow(subject).to receive(:image)
-        .and_return("https://facebook.com/image/1234.jpg")
-      expect(subject.image_url).to eq("https://facebook.com/image/1234.jpg")
-    end
-
-    it "converts an http URL into https" do
-      allow(subject).to receive(:image)
-        .and_return("http://facebook.com/image/1234.jpg")
-      expect(subject.image_url).to eq("https://facebook.com/image/1234.jpg")
-    end
-  end
-
   describe "#constituency" do
     context "with user with no constituency id" do
       let(:no_constituency_user) { User.new(name: "fred") }

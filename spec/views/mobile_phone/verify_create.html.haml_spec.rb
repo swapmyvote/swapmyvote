@@ -1,10 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "mobile_phone/verify_create.html.haml", type: :view do
-  fixtures :users
-
   it "asks for verification token" do
-    session[:user_id] = users(:john_doe).id
+    session[:user_id] = create(:user).id
 
     render
 

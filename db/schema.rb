@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_222547) do
+ActiveRecord::Schema.define(version: 2019_11_27_125417) do
 
   create_table "constituencies", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "identities", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "provider"
+    t.string "name"
+    t.string "uid"
+    t.string "image_url"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
   create_table "mobile_phones", force: :cascade do |t|
@@ -76,11 +88,8 @@ ActiveRecord::Schema.define(version: 2019_11_26_222547) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "provider"
-    t.string "uid"
     t.string "name"
     t.string "email"
-    t.string "image"
     t.string "token"
     t.datetime "expires_at"
     t.integer "preferred_party_id"
@@ -91,8 +100,8 @@ ActiveRecord::Schema.define(version: 2019_11_26_222547) do
     t.datetime "updated_at", null: false
     t.boolean "has_voted", default: false
     t.boolean "sent_vote_reminder_email", default: false
-    t.string "constituency_ons_id"
     t.integer "mobile_phone_id"
+    t.string "constituency_ons_id"
     t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
   end
 

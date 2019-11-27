@@ -12,42 +12,24 @@ class User < ApplicationRecord
              dependent: :destroy, optional: true
   has_one    :incoming_swap, class_name: "Swap", foreign_key: "chosen_user_id",
              dependent: :destroy
+  has_one   :identity, dependent: :destroy
 
   has_many :potential_swaps, foreign_key: "source_user_id", dependent: :destroy
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
   has_many :sent_emails, dependent: :destroy
 
+  delegate :profile_url, to: :identity, prefix: false
+
   before_save :clear_swap, if: :details_changed?
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
 
-  def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
-      user.name = auth.info.name
-      user.image = auth.info.image
-      unless auth.info.email.blank?
-        user.email = auth.info.email
-      end
-      user.token = auth.credentials.token
-      if auth.credentials.expires_at
-        user.expires_at = Time.at(auth.credentials.expires_at)
-      end
-      user.save!
+  def omniauth_tokens(auth)
+    self.token = auth.credentials.token
+    if auth.credentials.expires_at
+      self.expires_at = Time.at(auth.credentials.expires_at)
     end
-  end
-
-  def profile_url
-    return "https://facebook.com/#{uid}" \
-      if provider == "facebook"
-
-    return "https://twitter.com/intent/user?user_id=#{uid}" \
-      if provider == "twitter"
-
-    return "#"
-  end
-
-  def image_url
-    image.gsub(/^http:/, "https:")
+    save!
   end
 
   def potential_swap_users(number = 5)
@@ -183,5 +165,17 @@ class User < ApplicationRecord
       end
       create_mobile_phone!(number: new_number)
     end
+  end
+
+  def image_url
+    identity&.image_url
+  end
+
+  def provider
+    identity&.provider
+  end
+
+  def uid
+    identity&.uid
   end
 end

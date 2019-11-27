@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe UsersController, type: :controller do
   context "when user is logged in" do
     let(:logged_in_user) do
-      build(:user, id: 1,
+      build(:user, id: 111,
             constituency: build(:ons_constituency),
             email: "foo@bar.com")
     end
@@ -17,6 +17,8 @@ RSpec.describe UsersController, type: :controller do
     describe "GET #show" do
       it "returns http success" do
         expect(logged_in_user).to receive(:swapped?).and_return(true)
+        allow(logged_in_user).to receive(:email).and_return("foo@bar.com")
+
         get :show
         expect(response).to have_http_status(:success)
       end
