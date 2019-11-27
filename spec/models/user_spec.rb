@@ -170,6 +170,19 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context "when the user has an EMPTY email address"  do
+      before do
+        subject.update(email: "")
+        subject.save!
+      end
+
+      specify "#save does NOT call #send_welcome_email" do
+        is_expected.not_to receive(:send_welcome_email)
+        subject.sent_emails.clear
+        subject.save!
+      end
+    end
+
     context "when the user DOES have an email address"  do
       before { subject.update(email: "some@email.address") }
 
