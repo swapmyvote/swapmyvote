@@ -9,7 +9,7 @@ class UserMailer < ApplicationMailer
   def confirm_swap(user, swap_with)
     @user = user
     @swap_with = swap_with
-    mail(to: @user.email, subject: "#{swap_with.name} would like to swap their vote with you!")
+    mail(to: @user.email, subject: "#{swap_with.redacted_name} would like to swap their vote with you!")
   end
 
   def swap_confirmed(user, swap_with)
