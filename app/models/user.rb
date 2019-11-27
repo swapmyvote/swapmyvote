@@ -15,9 +15,10 @@ class User < ApplicationRecord
 
   has_many :potential_swaps, foreign_key: "source_user_id", dependent: :destroy
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
+  has_many :sent_emails, dependent: :destroy
 
   before_save :clear_swap, if: :details_changed?
-  before_save :send_welcome_email, if: :ready_to_swap?
+  after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
 
   def self.from_omniauth(auth)
@@ -149,21 +150,15 @@ class User < ApplicationRecord
     preferred_party_id_changed? || willing_party_id_changed? || constituency_ons_id_changed?
   end
 
-  def ready_to_swap?
-    ready =
-      !preferred_party_id.blank? &&
-      !willing_party_id.blank? &&
-      !constituency_ons_id.blank?
-    first_time =
-      preferred_party_id_was.blank? ||
-      willing_party_id_was.blank? ||
-      constituency_ons_id_was.blank?
-    return (ready && first_time)
-  end
-
   def send_welcome_email
+    return if email.blank?
     logger.debug "Sending Welcome email"
     UserMailer.welcome_email(self).deliver_now
+    sent_emails.create!(template: SentEmail::WELCOME)
+  end
+
+  def needs_welcome_email?
+    !email.blank? && sent_emails.where(template: SentEmail::WELCOME).none?
   end
 
   def send_vote_reminder_email
