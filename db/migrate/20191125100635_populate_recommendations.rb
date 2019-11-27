@@ -9,7 +9,9 @@ class PopulateRecommendations < ActiveRecord::Migration[5.2]
       rec.text = rec_as_hash["recommendation"]
       rec.link = rec_as_hash["link"]
       rec.save!
+      print "."
     end
+    puts
   end
 
   def down
