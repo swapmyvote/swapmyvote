@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
-  specify { expect(subject).to respond_to(:sent_emails)}
+  specify { expect(subject).to respond_to(:sent_emails) }
 
   describe "#image_url" do
     it "preserves https URLs" do
@@ -39,26 +39,26 @@ RSpec.describe User, type: :model do
   describe "#potential_swap_users" do
     let(:user) { User.new(name: "fred", id: 1) }
 
-    specify { expect{user.potential_swap_users(5)}.not_to raise_error }
+    specify { expect { user.potential_swap_users(5) }.not_to raise_error }
   end
 
   context "when user has no preferred party, willing party or constituency" do
     let(:no_swap_user) { User.new(name: "fred", id: 1) }
 
     context "setting constituency" do
-      let(:the_change) { ->{ no_swap_user.constituency_ons_id = "some-fake-ons-id" } }
+      let(:the_change) { -> { no_swap_user.constituency_ons_id = "some-fake-ons-id" } }
 
       specify { expect(&the_change).to change(no_swap_user, :details_changed?).from(false).to(true) }
     end
 
     context "setting preferred_party" do
-      let(:the_change) { ->{no_swap_user.preferred_party_id = 3} }
+      let(:the_change) { -> { no_swap_user.preferred_party_id = 3 } }
 
       specify { expect(&the_change).to change(no_swap_user, :details_changed?).from(false).to(true) }
     end
 
     context "setting willing_party" do
-      let(:the_change) { ->{ no_swap_user.willing_party_id = 3 } }
+      let(:the_change) { -> { no_swap_user.willing_party_id = 3 } }
 
       specify { expect(&the_change).to change(no_swap_user, :details_changed?).from(false).to(true) }
     end
@@ -157,7 +157,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "#send_welcome_email (after_save callback)" do
-    context "when the user does NOT have an email address"  do
+    context "when the user does NOT have an email address" do
       before do
         subject.update(email: nil)
         subject.save!
@@ -170,7 +170,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context "when the user has an EMPTY email address"  do
+    context "when the user has an EMPTY email address" do
       before do
         subject.update(email: "")
         subject.save!
@@ -183,7 +183,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context "when the user DOES have an email address"  do
+    context "when the user DOES have an email address" do
       before { subject.update(email: "some@email.address") }
 
       specify "#save DOES call #send_welcome_email" do
@@ -193,7 +193,7 @@ RSpec.describe User, type: :model do
       end
 
       describe "#send_welcome_email" do
-        let(:an_email) { double(:an_email)}
+        let(:an_email) { double(:an_email) }
         before do
           allow(an_email).to receive(:deliver_now)
           allow(UserMailer).to receive(:welcome_email).and_return(an_email)
