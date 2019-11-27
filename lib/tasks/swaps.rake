@@ -2,8 +2,6 @@
 namespace :swaps do
   desc "Print a CSV of confirmed swaps"
   task csv: :environment do
-    include ApplicationHelper
-
     ActiveRecord::Base.logger = nil
     print "Name,Email,Constituency,Will Vote For,Swap ID\n"
     Swap.where(confirmed: true).each {|s|
@@ -14,7 +12,9 @@ namespace :swaps do
 
   desc "Cancel swaps which are older than 24 hours"
   task cancel_old: :environment do
-    swaps = Swap.where({confirmed: false}).where(['created_at < ?', DateTime.now - 6.hours])
+    include ApplicationHelper
+
+    swaps = Swap.where({confirmed: false}).where(['created_at < ?', DateTime.now - swap_validity_period])
     print "Cancelling #{swaps.length} unconfirmed swaps\n"
     for swap in swaps
       begin
