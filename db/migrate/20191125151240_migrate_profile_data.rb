@@ -2,9 +2,9 @@ class MigrateProfileData < ActiveRecord::Migration[5.2]
   def up
     User.all.each do |user|
       next if user.identity.present?
-      next if user.provider.blank?
+      next if user[:provider].blank?
 
-      puts "Migrating user #{user.name} for #{user.provider}"
+      puts "Migrating user #{user.name} for #{user[:provider]}"
 
       identity = Identity.new
       identity.user_id = user.id
