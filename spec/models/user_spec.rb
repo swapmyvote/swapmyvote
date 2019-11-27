@@ -161,33 +161,59 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#send_welcome_email" do
-    let(:an_email) { double(:an_email)}
-    before do
-      allow(an_email).to receive(:deliver_now)
-      allow(UserMailer).to receive(:welcome_email).and_return(an_email)
-      subject.save!
-    end
-
+  describe "#send_welcome_email (after_save callback)" do
     context "when the user does NOT have an email address"  do
-      it "does not send an email" do
-        expect(UserMailer).not_to receive(:welcome_email)
-        subject.send_welcome_email
+      before do
+        subject.update(email: nil)
+        subject.save!
       end
 
-      specify { expect { subject.send_welcome_email }.not_to change(subject, :needs_welcome_email?).from(false) }
+      specify "#save does NOT call #send_welcome_email" do
+        is_expected.not_to receive(:send_welcome_email)
+        subject.sent_emails.clear
+        subject.save!
+      end
     end
 
     context "when the user DOES have an email address"  do
       before { subject.update(email: "some@email.address") }
 
-      it "sends an email" do
-        expect(an_email).to receive(:deliver_now)
-        expect(UserMailer).to receive(:welcome_email).with(subject).and_return(an_email)
-        subject.send_welcome_email
+      specify "#save DOES call #send_welcome_email" do
+        is_expected.to receive(:send_welcome_email)
+        subject.sent_emails.clear
+        subject.save!
       end
 
-      specify { expect { subject.send_welcome_email }.to change(subject, :needs_welcome_email?).from(true).to(false) }
+      describe "#send_welcome_email" do
+        let(:an_email) { double(:an_email)}
+        before do
+          allow(an_email).to receive(:deliver_now)
+          allow(UserMailer).to receive(:welcome_email).and_return(an_email)
+        end
+
+        context "when NO previous welcome emails have been sent" do
+          before { subject.sent_emails.clear }
+
+          it "sends an email" do
+            expect(an_email).to receive(:deliver_now)
+            expect(UserMailer).to receive(:welcome_email).with(subject).and_return(an_email)
+            subject.save!
+          end
+
+          specify { expect { subject.save! }.to change(subject, :needs_welcome_email?).from(true).to(false) }
+        end
+
+        context "when previous welcome emails HAVE been sent" do
+          before { subject.save! }
+
+          it "does not send another email" do
+            is_expected.not_to receive(:send_welcome_email)
+            subject.save!
+          end
+
+          specify { expect { subject.save! }.not_to change(subject, :needs_welcome_email?).from(false) }
+        end
+      end
     end
   end
 end

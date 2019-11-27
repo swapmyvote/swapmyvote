@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_many :sent_emails, dependent: :destroy
 
   before_save :clear_swap, if: :details_changed?
-  before_save :send_welcome_email, if: :ready_to_swap?
+  after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
 
   def self.from_omniauth(auth)
