@@ -7,7 +7,8 @@ RSpec.describe "Sessions", type: :request do
       OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
         provider: "twitter",
         uid: "123545",
-        info: { name: "Jane Doe", email: "j@doe.com", image: "https://image.com/123456" },
+        info: { name: "Jane Doe", email: "j@doe.com",
+                image: "https://image.com/123456" },
         credentials: { token: "ABC123", expires_at: Time.zone.now.midnight }
       })
     end
@@ -17,7 +18,7 @@ RSpec.describe "Sessions", type: :request do
 
       expect(response.status).to eq 302
 
-      user = User.find_by(uid: "123545")
+      user = User.joins(:identity).find_by(identities: { uid: "123545" })
       expect(user.name).to eq "Jane Doe"
       expect(user.email).to eq "j@doe.com"
       expect(user.identity.email).to eq "j@doe.com"
@@ -29,16 +30,17 @@ RSpec.describe "Sessions", type: :request do
     end
 
     it "updates existing user on subsequent login" do
-      user = User.create(name: "John Moe", uid: "123545", email: "j@moe.com")
-      Identity.create(user_id: user.id, provider: "twitter", uid: "123545",
-                      image_url: "https://image.com/654321", name: "John Moe", email: "j@foo.com")
+      user = create(:user, name: "John Moe", email: "j@moe.com")
+      create(:identity, user: user, provider: "twitter", uid: "123545",
+             image_url: "https://image.com/654321", name: "John Moe",
+             email: "j@foo.com")
 
       expect(user.token).to be_nil
       expect(user.expires_at).to be_nil
 
       get "/auth/twitter/callback", params: {}, headers: {}
 
-      user = User.find_by(uid: "123545")
+      user = User.joins(:identity).find_by(identities: { uid: "123545" })
       expect(user.name).to eq "John Moe"
       expect(user.email).to eq "j@moe.com"
       expect(user.identity.email).to eq "j@foo.com"

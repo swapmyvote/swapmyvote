@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
   end
 
   def create_user_and_identity(auth)
-    user = User.create(name: auth.info.name, email: auth.info.email, uid: auth.uid)
+    user = User.create(name: auth.info.name, email: auth.info.email)
 
     user.omniauth_tokens(auth)
     Identity.from_omniauth(auth, user.id)
