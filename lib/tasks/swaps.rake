@@ -1,6 +1,9 @@
+
 namespace :swaps do
   desc "Print a CSV of confirmed swaps"
   task csv: :environment do
+    include ApplicationHelper
+
     ActiveRecord::Base.logger = nil
     print "Name,Email,Constituency,Will Vote For,Swap ID\n"
     Swap.where(confirmed: true).each {|s|

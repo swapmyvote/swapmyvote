@@ -76,4 +76,10 @@ module ApplicationHelper
     methods << "Twitter" if log_in_with_twitter?
     methods.join(" or ")
   end
+
+  def swap_validity_period
+    env_expiry_hours = ENV["SWAP_EXPIRY_HOURS"]
+    expiry_hours = env_expiry_hours.blank? ? 48 : env_expiry_hours.to_f
+    return expiry_hours.hours
+  end
 end
