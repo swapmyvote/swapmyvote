@@ -22,7 +22,8 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 15
 Style/BlockDelimiters:
-  EnforcedStyle: braces_for_chaining
+  Exclude:
+    - 'spec/**/*'
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/Documentation:

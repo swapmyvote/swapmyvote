@@ -72,6 +72,16 @@ ActiveRecord::Schema.define(version: 2019_11_27_125417) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "recommendations", force: :cascade do |t|
+    t.string "text"
+    t.string "link"
+    t.string "site", null: false
+    t.string "constituency_ons_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site", "constituency_ons_id"], name: "index_recommendations_on_site_and_constituency_ons_id", unique: true
+  end
+
   create_table "sent_emails", force: :cascade do |t|
     t.integer "user_id"
     t.string "template"
