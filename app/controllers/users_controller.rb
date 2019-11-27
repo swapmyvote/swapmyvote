@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def update
     @user.update(user_params)
-    if phone_param && @user.mobile_number != phone_param
+    if !phone_param.blank? && @user.mobile_number != phone_param
       begin
         @user.mobile_number = phone_param
       rescue ActiveRecord::RecordInvalid
