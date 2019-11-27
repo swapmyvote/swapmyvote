@@ -163,8 +163,14 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
+    return unless email
     logger.debug "Sending Welcome email"
     UserMailer.welcome_email(self).deliver_now
+    sent_emails.create!(template: SentEmail::WELCOME)
+  end
+
+  def needs_welcome_email?
+    !email.nil? && sent_emails.where(template: SentEmail::WELCOME).none?
   end
 
   def send_vote_reminder_email

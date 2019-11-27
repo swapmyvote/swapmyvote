@@ -169,10 +169,25 @@ RSpec.describe User, type: :model do
       subject.save!
     end
 
-    it "sends an email" do
-      expect(an_email).to receive(:deliver_now)
-      expect(UserMailer).to receive(:welcome_email).with(subject).and_return(an_email)
-      subject.send_welcome_email
+    context "when the user does NOT have an email address"  do
+      it "does not send an email" do
+        expect(UserMailer).not_to receive(:welcome_email)
+        subject.send_welcome_email
+      end
+
+      specify { expect { subject.send_welcome_email }.not_to change(subject, :needs_welcome_email?).from(false) }
+    end
+
+    context "when the user DOES have an email address"  do
+      before { subject.update(email: "some@email.address") }
+
+      it "sends an email" do
+        expect(an_email).to receive(:deliver_now)
+        expect(UserMailer).to receive(:welcome_email).with(subject).and_return(an_email)
+        subject.send_welcome_email
+      end
+
+      specify { expect { subject.send_welcome_email }.to change(subject, :needs_welcome_email?).from(true).to(false) }
     end
   end
 end
