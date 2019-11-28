@@ -14,8 +14,9 @@ class Identity < ApplicationRecord
       identity.user_id = user_id
 
       if auth.provider == "facebook"
-        identity.profile_url = auth.info.urls["Facebook"]
-        # It looks like auth.extra.raw_info.link would also work here.
+        url = auth.info.dig(:urls, :Facebook)
+        # It looks like auth.dig(:extra, :raw_info, :link) would also work here.
+        identity.profile_url = url unless url.blank?
       end
 
       identity.save!
