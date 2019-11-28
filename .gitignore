@@ -47,3 +47,5 @@ yarn-debug.log*
 
 /backups/
 /screenshots/
+
+.byebug_history
