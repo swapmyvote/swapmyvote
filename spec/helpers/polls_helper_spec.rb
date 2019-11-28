@@ -18,6 +18,14 @@ RSpec.describe PollsHelper, type: :helper do
       it "returns the party data" do
         expect(helper.poll_data_for(constituency)).to match('"Pink"')
       end
+
+      context "and when votes count is zero" do
+        before { poll_1.update!(votes: 0)}
+
+        it "does not return the party data" do
+          expect(helper.poll_data_for(constituency)).not_to match('"Pink"')
+        end
+      end
     end
   end
 end
