@@ -1,4 +1,4 @@
-require_relative '../helpers/swaps_helper'
+require_relative "../helpers/swaps_helper"
 
 class Swap < ApplicationRecord
   belongs_to :chosen_user, class_name: "User"
