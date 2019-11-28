@@ -30,4 +30,8 @@ class ApplicationController < ActionController::Base
     return if swapping_open?
     redirect_to root_path
   end
+
+  def prepops
+    return session["pre_populate"]
+  end
 end

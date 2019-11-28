@@ -13,8 +13,7 @@ class HomeController < ApplicationController
   private
 
   def prepopulate_fields_from_session
-    prepop = session["pre_populate"]
-    return if prepop.nil?
+    return if prepops.nil?
 
     @parties.each do |party|
       if canonical_name(party.name) == prepopulated_party("preferred_party_name")
@@ -27,6 +26,6 @@ class HomeController < ApplicationController
   end
 
   def prepopulated_party(param)
-    canonical_name(session["pre_populate"][param])
+    canonical_name(prepops[param])
   end
 end
