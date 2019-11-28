@@ -28,8 +28,6 @@ class UsersController < ApplicationController
         @user.mobile_number = phone_param
       rescue ActiveRecord::RecordInvalid
         flash[:errors] = @user.mobile_phone.errors.full_messages
-        redirect_to redirect_path
-        return
       end
     end
 
@@ -56,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def phone_param
-    return params[:mobile_phone][:number] if params[:mobile_phone][:number]
+    return params[:mobile_phone][:number] if params[:mobile_phone] && params[:mobile_phone][:number]
 
     (params[:mobile_phone] || {})[:full]
   end

@@ -53,7 +53,9 @@ RSpec.describe UsersController, type: :controller do
     end
 
     describe "POST #update" do
-      it "redirects to #show" do
+      it "redirects to #show if user has verified phone number" do
+        build(:mobile_phone, number: "07400 123456", verified: true, user_id: logged_in_user.id)
+
         expect(logged_in_user).to receive(:update)
         post :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" } }
         expect(response).to redirect_to(:user)
