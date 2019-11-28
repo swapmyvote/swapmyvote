@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe User::SwapsController, type: :controller do
-  context "when users are logged in" do
+  context "when users are logged in and verified" do
     let(:new_user) do
       build(:user, id: 121,
             constituency: build(:ons_constituency, ons_id: "E121"),
@@ -30,6 +30,7 @@ RSpec.describe User::SwapsController, type: :controller do
       allow(an_email).to receive(:deliver_now)
       allow(UserMailer).to receive(:confirm_swap).and_return(an_email)
       allow(UserMailer).to receive(:swap_cancelled).and_return(an_email)
+      allow(UserMailer).to receive(:swap_confirmed).and_return(an_email)
     end
 
     describe "POST #create" do
@@ -40,7 +41,23 @@ RSpec.describe User::SwapsController, type: :controller do
 
         expect(response).to redirect_to :user
         expect(new_user.swap.chosen_user_id).to eq swap_user.id
+        expect(new_user.swap.confirmed).to be false
+      end
+    end
 
+    describe "PUT #update" do
+      it "confirms the swap if all ducks are lined up" do
+        swap = Swap.create(chosen_user_id: swap_user.id)
+        new_user.incoming_swap = swap
+        swap_user.outgoing_swap = swap
+
+        expect(swap_user.swap.confirmed).to be nil
+
+        put :update, params: { swap: { confirmed: true } }
+
+        expect(response).to redirect_to :user
+        expect(swap_user.swap.chosen_user_id).to eq new_user.id
+        expect(swap_user.swap.confirmed).to be true
       end
     end
   end
