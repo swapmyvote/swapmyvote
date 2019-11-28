@@ -22,6 +22,17 @@
                               selected: @user.willing_party_id
 
       %p
+        My Postcode is
+        %input#txtPostcode{:placeholder => "Postcode", :type => "text"}/
+        %input#btnPostcode{:type => "button", :value => "Search"}/
+
+        #text.text-error
+
+      %p.small.subdued
+        Enter your postcode only to find your constituency, we do not retain this info.
+
+
+      %p
         My constituency is
         = f.collection_select :constituency_ons_id, @constituencies,
                               :ons_id, :name, prompt: "...",
@@ -56,3 +67,52 @@
       %p.small.subdued
         If you no longer want to take part in Swap My Vote, you can delete your account
         =link_to "here", confirm_account_deletion_path
+
+:javascript
+  $(document).on('click','#btnPostcode',function(){
+      console.log('button clicked');
+      var input = $('#txtPostcode').val();
+      var url  = "https://api.postcodes.io/postcodes/"+input;
+
+      post(url).done(function(postcode){
+        displayData(postcode);
+      });
+  });
+
+  //enter event - search
+  $("#txtPostcode").keypress(function(e) {
+    if (e.which === 13) {
+      $('#btnPostcode').click();
+    }
+  });
+
+  //display results on page
+  function displayData(postcode){
+    var html = "";
+    var onsId = postcode['result']['codes']['parliamentary_constituency'];
+    var name = postcode['result']['parliamentary_constituency'];
+
+    $('select#user_constituency_ons_id').val(onsId).change(); // this SHOULD change the dropdown
+    $('.constituency-autocomplete-input').val(name);
+
+    // $('#text').hide();
+    // html += `Your constituency name is ${name} and the code is ${onsId}`;
+    // $('#text').html(html).fadeIn(300);
+  }
+
+  //ajax call
+  function post(url){
+      return $.ajax({
+          url: url,
+          success: function(){
+            //woop
+          },
+          error: function(desc, status, err) {
+              if (desc.status == 404 || desc.status == 400) {
+                $('#text').html(JSON.parse(desc.responseText).error );
+              } else {
+                $('#text').html("Postcode Service Error Details: " + desc.responseText);
+              }
+          }
+      });
+  }
