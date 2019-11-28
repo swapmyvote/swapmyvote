@@ -68,6 +68,11 @@ module ApplicationHelper
     return %w[any twitter].include? params[:log_in_with]
   end
 
+  def log_in_with_email?
+    return true unless params[:log_in_with]
+    return %w[any email].include? params[:log_in_with]
+  end
+
   def log_in_method_restricted?
     return !params[:log_in_with] || params[:log_in_with] == "any"
   end

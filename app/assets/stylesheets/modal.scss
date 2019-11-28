@@ -1,12 +1,12 @@
 @import "variables";
 
-$modal-width: 650px;
+$modal-width: 450px;
 $modal-margin: 12px;
 
 // FIXME
 // scss-lint:disable ColorVariable
 
-.modal {
+.smv-modal {
     font-size: $base-font-size;
 
     i.modal-close {
@@ -26,8 +26,7 @@ $modal-margin: 12px;
         z-index: 10;
     }
 
-    .modal-dialog {
-        padding: 6px 24px;
+    .smv-modal-dialog {
         box-sizing: border-box;
         border-radius: 5px;
         background-color: white;
@@ -38,10 +37,9 @@ $modal-margin: 12px;
         @media screen and (min-width: $modal-width + 2 * $modal-margin) {
             width: $modal-width;
             position: fixed;
-            top: 50%;
+            top: 48px;
             left: 50%;
-            margin-left: -325px;
-            margin-top: -160px;
+            margin-left: -$modal-width / 2;
         }
 
         @media screen and (max-width: $modal-width + 2 * $modal-margin) {

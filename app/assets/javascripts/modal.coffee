@@ -1,16 +1,16 @@
 $ () ->
-  for modal in $(".modal")
+  for modal in $(".smv-modal")
     backdrop = $("<div class='modal-backdrop'></div>")
     $(modal).prepend(backdrop)
     $(modal).find(".modal-close").on "click", (e) ->
-      $(".modal").hide()
+      $(".smv-modal").hide()
       e.preventDefault()
     backdrop.on "click", () ->
-      $(".modal").hide()
+      $(".smv-modal").hide()
 
   $(document).keyup (e) ->
     if e.keyCode == 27 # Escape
-      $(".modal").hide()
+      $(".smv-modal").hide()
 
 window.showModal = (element) ->
   element.show()

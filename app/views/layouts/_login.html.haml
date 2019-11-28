@@ -1,26 +1,38 @@
 %span.user
   = link_to "Already been here? Log in", "#", class: "small subdued logout", onclick: "showModal($('.js-login-modal')); return false"
-.modal.js-login-modal{style: "display: %s;" % (params[:log_in_with] ? 'inherit' : 'none')}
-  = form_with url: "#", id: "login-form", class: "modal-dialog",
-              local: true do
+.smv-modal.js-login-modal{style: "display: %s;" % (params[:log_in_with] ? 'inherit' : 'none')}
+  .smv-modal-dialog
     %i.fa.fa-times.subdued.modal-close
-    - if log_in_with_facebook?
-      %p.text-center
-        %button{formaction: facebook_login_path, formmethod: :post,
-                class: "button button-facebook"}
-          = image_tag('facebook_icon.png')
-          Log in with Facebook
-    - if log_in_method_restricted?
-      %p.text-center.subdued &#8212; or &#8212;
-    - if log_in_with_twitter?
-      %p.text-center
-        %button{formaction: twitter_login_path, formmethod: :post,
-                class: "button button-twitter"}
-          %i.fa.fa-fw.fa-twitter
-          Log in with Twitter
-    %p.text-center.small.subdued
-      (We will never share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
-    %p.text-center
-      = link_to "/faq#login", class: "small", target: "_blank" do
-        Why do I need to log in with
-        = log_in_methods + "?"
+    .modal-header
+      %h2(class="h4 mb-0") Log in
+
+    .modal-body
+
+      = form_with scope: 'user', url: session_path('user'), local: true do |f|
+        .form-group
+          = f.label :email, class: "mb-0"
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control'
+
+        .form-group
+          = f.label :password, class: "mb-0"
+          = f.password_field :password, autocomplete: "current-password", class: 'form-control'
+
+        .form-group
+          = f.submit "Log in", class: 'btn btn-primary btn-block'
+
+      %hr
+
+      - if log_in_with_facebook?
+        %p.text-center
+          = link_to facebook_login_path, method: :post,
+                  class: "btn btn-facebook btn-block" do
+            = image_tag('facebook_icon.png')
+            Log in with Facebook
+      - if log_in_with_twitter?
+        %p.text-center
+          = link_to twitter_login_path, method: :post,
+                  class: "btn btn-twitter btn-block" do
+            %i.fa.fa-fw.fa-twitter
+            Log in with Twitter
+      %p.text-center.small.subdued
+        We will never share anything with anyone about your voting preferences or post to your feed without your permission
