@@ -7,6 +7,11 @@
       - else
         = render partial: "user/swaps/searching_for_swap"
     - else
-      = render partial: "user/swaps/summary"
+      %p.text-center
+        You have
+        %strong= @potential_swaps.length
+        potential swaps. You must verify your phone number before you can swap.
+      = form_for @user, url: user_path do
+        = render partial: 'mobile_phone/form'
 
 = render partial: "users/info_summary"

@@ -8,6 +8,7 @@ class User::SwapsController < ApplicationController
   include UsersHelper
 
   def show
+    @mobile_number = @user.mobile_number
     if @user.swapped?
       redirect_to user_path
       return
@@ -28,9 +29,11 @@ class User::SwapsController < ApplicationController
   end
 
   def update
+    update_phone
     if swap_params[:confirmed] == "true"
       @user.confirm_swap
     end
+
     redirect_to user_path
   end
 
@@ -57,6 +60,19 @@ class User::SwapsController < ApplicationController
   def assert_parties_exist
     return if @user.willing_party && @user.preferred_party
     redirect_to edit_user_path
+  end
+
+  def update_phone
+    return if phone_param.blank?
+    return if @user.mobile_number == phone_param
+
+    begin
+      @user.mobile_number = phone_param
+    rescue ActiveRecord::RecordInvalid
+      flash[:errors] = @user.mobile_phone.errors.full_messages
+      redirect_to edit_user_path
+      return
+    end
   end
 
   def swap_params

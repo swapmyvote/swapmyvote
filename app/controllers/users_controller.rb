@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :require_login
 
   def show
+    @mobile_number = @user.mobile_number
     if !@user.constituency || !@user.email
       redirect_to edit_user_constituency_path
       return
@@ -21,19 +22,25 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
+    @user.update(user_params) if params[:user]
     if !phone_param.blank? && @user.mobile_number != phone_param
       begin
         @user.mobile_number = phone_param
       rescue ActiveRecord::RecordInvalid
         flash[:errors] = @user.mobile_phone.errors.full_messages
-        redirect_to edit_user_path
+        redirect_to redirect_path
         return
       end
     end
 
-    # Need to give user chance to verify mobile number if required
-    redirect_to mobile_needs_verification? ? edit_user_path : user_path
+    redirect_to redirect_path
+  end
+
+  def redirect_path
+    # If the user came from the edit path, and the mobile still needs verification, return there
+    return edit_user_path if params[:user] && mobile_needs_verification?
+    # Otherwise, return to the user path - user will see a verification prompt if needed
+    user_path
   end
 
   def destroy
@@ -49,8 +56,8 @@ class UsersController < ApplicationController
   end
 
   def phone_param
-    # We get the value from mobile_phone[full] on the form, intl-tel-input
-    # will put a normalised version of the number (with IDD code) there for us.
+    return params[:mobile_phone][:number] if params[:mobile_phone][:number]
+
     (params[:mobile_phone] || {})[:full]
   end
 end

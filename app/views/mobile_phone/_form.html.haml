@@ -1,0 +1,12 @@
+%p
+  My phone number is
+  = telephone_field_tag "mobile_phone[number]", @mobile_number
+
+  - if @mobile_number.present?
+    - if mobile_verified?
+      Verified!
+    - else
+      = button_tag "Verify", formaction: verify_mobile_path,
+        formmethod: :get
+  - else
+    = submit_tag("Save")
