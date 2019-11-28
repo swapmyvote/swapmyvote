@@ -1,5 +1,5 @@
 constituencies.tsv should contain a copy-paste of the list of all
-constituences at http://www.electoralcalculus.co.uk/orderedseats.html
+constituences at https://www.electoralcalculus.co.uk/orderedseats.html
 
 constituency_locations.tsv should contain a copy-paste of the table on
 Wikipedia of all constituencies, and their counties/countries.
