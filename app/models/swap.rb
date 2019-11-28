@@ -17,14 +17,14 @@ class Swap < ApplicationRecord
 
       swaps = Swap.where({ confirmed: false }).where(["created_at < ?", DateTime.now - swap_validity_hours.hours])
       if swaps.count.zero?
-        puts "No unconfirmed swaps meet deletion criteria - before #{DateTime.now - swap_validity_hours.hours}"
+        logger.info "No unconfirmed swaps meet deletion criteria - before #{DateTime.now - swap_validity_hours.hours}"
       else
-        puts "Cancelling #{swaps.length} unconfirmed swaps\n"
+        logger.debug "Cancelling #{swaps.length} unconfirmed swaps\n"
         swaps.each do |swap|
           swap.destroy
           destroyed_ids << swap.id
         rescue => e
-          puts "Failed to cancel swap #{swap.id} because #{e}"
+          logger.error "Failed to cancel swap #{swap.id} because #{e}"
         end
       end
       return destroyed_ids
