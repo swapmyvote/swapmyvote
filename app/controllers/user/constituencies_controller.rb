@@ -4,6 +4,8 @@ class User::ConstituenciesController < ApplicationController
 
   def edit
     @constituencies = OnsConstituency.all.order(:name)
+    @default_constituency_ons_id = @user.constituency_ons_id ||
+                                   default_ons_constituency&.ons_id
   end
 
   def update
