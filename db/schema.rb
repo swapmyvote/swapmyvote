@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_28_110440) do
+ActiveRecord::Schema.define(version: 2019_11_28_142039) do
 
   create_table "constituencies", force: :cascade do |t|
     t.string "name"
@@ -114,7 +114,12 @@ ActiveRecord::Schema.define(version: 2019_11_28_110440) do
     t.boolean "sent_vote_reminder_email", default: false
     t.integer "mobile_phone_id"
     t.string "constituency_ons_id"
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

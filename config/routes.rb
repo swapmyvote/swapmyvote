@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+
   get "faq", to: "static_pages#faq"
   get "about", to: "static_pages#about"
   get "privacy", to: "static_pages#privacy"
@@ -19,11 +21,6 @@ Rails.application.routes.draw do
     resource :swap
     resource :vote, controller: "vote"
   end
-
-  get "auth/:provider/callback", to: "sessions#create"
-  post "auth/:provider/callback", to: "sessions#create"
-  get "auth/failure", to: "sessions#retry"
-  get "logout", to: "sessions#destroy"
 
   get "mobile_phone/verify_create", as: "verify_mobile"
   match "mobile_phone/verify_token", as: "verify_token", via: [:get, :post]

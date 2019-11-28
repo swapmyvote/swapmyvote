@@ -1,4 +1,4 @@
-class Identity < OmniAuth::Identity::Models::ActiveRecord
+class Identity < ApplicationRecord
   belongs_to :user
 
   enum provider: %i[

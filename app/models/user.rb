@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable, :omniauthable,
+         :omniauth_providers => [:twitter, :facebook]
   belongs_to :preferred_party, class_name: "Party", optional: true
   belongs_to :willing_party, class_name: "Party", optional: true
   has_one    :mobile_phone, dependent: :destroy
@@ -23,6 +28,8 @@ class User < ApplicationRecord
   before_save :clear_swap, if: :details_changed?
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
+
+  validates :email, uniqueness: { case_sensitive: false }, allow_nil: true
 
   def omniauth_tokens(auth)
     self.token = auth.credentials.token
@@ -168,7 +175,7 @@ class User < ApplicationRecord
   end
 
   def image_url
-    identity&.image_url
+    identity&.image_url || 'https://api.adorable.io/avatars/400/abott@adorable.io.png'
   end
 
   def provider
@@ -177,5 +184,11 @@ class User < ApplicationRecord
 
   def uid
     identity&.uid
+  end
+
+protected
+
+  def password_required?
+    false
   end
 end
