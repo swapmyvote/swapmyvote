@@ -1,9 +1,10 @@
-class Identity < ApplicationRecord
+class Identity < OmniAuth::Identity::Models::ActiveRecord
   belongs_to :user
 
   enum provider: %i[
     twitter
     facebook
+    identity
   ]
 
   def self.from_omniauth(auth, user_id)

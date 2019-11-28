@@ -9,6 +9,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
            }
   provider :twitter, ENV["TWITTER_KEY"], ENV["TWITTER_SECRET"],
            origin_param: "return_to"
+  provider :identity, fields: [:email, :name], on_failed_registration: lamba {|env| UsersController.action(:new).call(env)
+  }
 
   before_request_phase do |env|
     # Prior to login, save user parameters to session so that we can
