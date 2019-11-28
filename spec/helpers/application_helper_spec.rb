@@ -133,21 +133,4 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
-
-  describe "#swap_validity_period" do
-    context "when ENV variable not set" do
-      before { allow(ENV).to receive(:[]).with("SWAP_EXPIRY_HOURS").and_return(nil)}
-      specify { expect(helper.swap_validity_period).to eq(48.hours)  }
-    end
-
-    context "when ENV variable set but empty" do
-      before { allow(ENV).to receive(:[]).with("SWAP_EXPIRY_HOURS").and_return("")}
-      specify { expect(helper.swap_validity_period).to eq(48.hours)  }
-    end
-
-    context "when ENV variable set but not empty" do
-      before { allow(ENV).to receive(:[]).with("SWAP_EXPIRY_HOURS").and_return("6")}
-      specify { expect(helper.swap_validity_period).to eq(6.0.hours)  }
-    end
-  end
 end
