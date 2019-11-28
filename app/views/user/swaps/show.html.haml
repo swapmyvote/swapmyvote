@@ -1,18 +1,10 @@
 .background-pattern.border-bottom
   .container.container-narrow
 
-    - if @user.phone_verified?
-      - if @potential_swaps.length > 0
-        = render partial: "user/swaps/list_potential_swaps"
-      - else
-        = render partial: "user/swaps/searching_for_swap"
+    - if @potential_swaps.length > 0
+      = render partial: "user/swaps/list_potential_swaps"
     - else
-      %p.text-center
-        You have
-        %strong= @potential_swaps.length
-        potential swaps. You must verify your phone number before you can swap.
-      = form_for @user, url: user_path do
-        = render partial: 'mobile_phone/form', locals: {mobile_number: @mobile_number}
+      = render partial: "user/swaps/searching_for_swap"
 
 = render partial: "users/info_summary"
 
