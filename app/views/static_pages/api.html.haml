@@ -38,15 +38,59 @@
         The party that the user would ideally like to vote for, say if
         all votes counted equally nationally.
 
+      %dt
+        %code
+          constituency_name
+      %dd
+        The name of the default constituency for the user post-login.
+        This is useful if you want to refer a user for tactical voting
+        and you know in which constituency they are registered to vote,
+        as it will save them manually selecting that constituency
+        The name must match one of the constituencies in the
+        %code PCON18NM
+        field of
+        = link_to("this data set", constituency_ons_id_dataset_url,
+                  target: "_blank") + "."
+
+      %dt
+        %code
+          constituency_ons_id
+      %dd
+        The same as for
+
+        %code constituency_name
+
+        above, except that rather than the name, it's the ONS id of
+        the constituency listed in the
+
+        %code PCON18CD
+
+        field of
+
+        = link_to("the data set", constituency_ons_id_dataset_url,
+                  target: "_blank") + "."
+
     %p
 
       For example if a tactical voting site wishes to recommend a user
-      to vote for the Liberal Democrat candidate in their
+      to vote for the Liberal Democrat candidate in the Somerton and Frome
       consitituency, they could use this outbound link:
+
+      - url1 = swap_url(willing_party_name: "liberal_democrats",
+                        constituency_name: "Somerton and Frome")
 
       %pre
         %code
-          = link_to(swap_url(willing_party_name: "liberal_democrats"))
+          = link_to url1, url1
+
+      This one would also work:
+
+      - url2 = swap_url(willing_party_name: "liberal_democrats",
+                        constituency_name: "E14000932")
+
+      %pre
+        %code
+          = link_to url2, url2
 
     %p
 

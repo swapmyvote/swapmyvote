@@ -10,7 +10,7 @@
         My constituency is
         = f.collection_select :constituency_ons_id, @constituencies,
                               :ons_id, :name,
-                              selected: @user.constituency_ons_id,
+                              selected: @default_constituency_ons_id,
                               prompt: true
       %p.text-center
         = submit_tag("Save", class: "button")
