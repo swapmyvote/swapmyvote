@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :sent_emails, dependent: :destroy
 
   delegate :profile_url, to: :identity, prefix: false
+  delegate :verified, to: :mobile_phone, prefix: false
 
   before_save :clear_swap, if: :details_changed?
   after_save :send_welcome_email, if: :needs_welcome_email?

@@ -1,5 +1,6 @@
 .background-pattern.border-bottom
   .container.container-narrow
+
     - if @potential_swaps.length > 0
       = render partial: "user/swaps/list_potential_swaps"
     - else
