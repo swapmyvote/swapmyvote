@@ -12,6 +12,6 @@
         %strong= @potential_swaps.length
         potential swaps. You must verify your phone number before you can swap.
       = form_for @user, url: user_path do
-        = render partial: 'mobile_phone/form'
+        = render partial: 'mobile_phone/form', locals: {mobile_number: @mobile_number}
 
 = render partial: "users/info_summary"
