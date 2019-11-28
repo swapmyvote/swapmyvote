@@ -24,8 +24,6 @@ class User < ApplicationRecord
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
 
-  include ApplicationHelper
-
   def omniauth_tokens(auth)
     self.token = auth.credentials.token
     if auth.credentials.expires_at
