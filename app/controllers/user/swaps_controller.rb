@@ -4,6 +4,8 @@ class User::SwapsController < ApplicationController
   before_action :assert_incoming_swap_exists, only: [:update, :destroy]
   before_action :assert_parties_exist, only: [:show]
 
+  include UsersHelper
+
   def show
     if @user.swapped?
       redirect_to user_path
