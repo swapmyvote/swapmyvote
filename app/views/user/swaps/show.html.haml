@@ -1,9 +1,12 @@
 .background-pattern.border-bottom
   .container.container-narrow
 
-    - if @potential_swaps.length > 0
-      = render partial: "user/swaps/list_potential_swaps"
+    - if @user.verified
+      - if @potential_swaps.length > 0
+        = render partial: "user/swaps/list_potential_swaps"
+      - else
+        = render partial: "user/swaps/searching_for_swap"
     - else
-      = render partial: "user/swaps/searching_for_swap"
+      = render partial: "user/swaps/summary"
 
 = render partial: "users/info_summary"
