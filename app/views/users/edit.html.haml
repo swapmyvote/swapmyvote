@@ -29,7 +29,8 @@
 
       %p
         My email address is
-        = f.email_field :email, placeholder: "me@example.com", autofocus: true
+        = f.email_field :email, placeholder: "me@example.com",
+                        autofocus: true, size: 30
 
       = render partial: 'mobile_phone/form',
         locals: {mobile_number: @mobile_number}
