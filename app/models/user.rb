@@ -19,7 +19,6 @@ class User < ApplicationRecord
   has_many :sent_emails, dependent: :destroy
 
   delegate :profile_url, to: :identity, prefix: false
-  delegate :verified, to: :mobile_phone, prefix: false
 
   before_save :clear_swap, if: :details_changed?
   after_save :send_welcome_email, if: :needs_welcome_email?
@@ -73,6 +72,11 @@ class User < ApplicationRecord
   def destroy_all_potential_swaps
     PotentialSwap.destroy(potential_swaps.pluck(:id))
     PotentialSwap.destroy(incoming_potential_swaps.pluck(:id))
+  end
+
+  def phone_verified?
+    return false unless mobile_phone
+    mobile_phone.verified
   end
 
   def swap_with_user_id(user_id)

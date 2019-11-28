@@ -7,13 +7,18 @@
 
 = render partial: "user/swaps/double_check_constituency", locals: { swap_with: @user.swapped_with }
 
-%p.text-center
-  Please confirm that you would like to swap with #{@user.swapped_with.redacted_name}.
 
 %p.text-center
-  = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"), method: "put", class: "button"
-  &nbsp;
+  - if @user.phone_verified?
+    %p.text-center
+    Please confirm that you would like to swap with #{@user.swapped_with.redacted_name}.
+    = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"), method: "put", class: "button"
+  - else
+    %a{href: edit_user_path} You must verify your mobile phone number before you swap
+
+%p.text-center
   = link_to "No thanks", "#", class: "small subdued", onclick: "showModal($('.js-reject-modal')); return false"
+
 
 .modal.js-reject-modal{style: "display: none"}
   .modal-dialog

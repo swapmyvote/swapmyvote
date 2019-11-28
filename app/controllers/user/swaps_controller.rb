@@ -3,7 +3,7 @@ class User::SwapsController < ApplicationController
   before_action :require_login
   before_action :assert_incoming_swap_exists, only: [:update, :destroy]
   before_action :assert_parties_exist, only: [:show]
-  before_action :assert_mobile_phone_verified, only: [:new, :create]
+  before_action :assert_mobile_phone_verified, only: [:new, :create, :update]
 
   include UsersHelper
 
@@ -42,7 +42,7 @@ class User::SwapsController < ApplicationController
   private
 
   def assert_mobile_phone_verified
-    return if @user.verified
+    return if @user.phone_verified?
 
     flash[:errors] = ["Please verify your mobile phone number before you swap!"]
     redirect_to edit_user_path
