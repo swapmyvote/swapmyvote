@@ -3,9 +3,9 @@ require "support/user_sessions.rb"
 require "support/swaps_closed.rb"
 
 RSpec.describe HomeController, type: :controller do
-  def test_renders_home_page
+  def test_renders_home_page(params = {})
     @party = create(:party, name: "Liberal Democrats")
-    get :index
+    get :index, params: params
     expect(subject).to render_template(:index)
     expect(assigns(:parties)).to all(be_a(Party))
     expect(assigns(:parties).count).to be >= 1
@@ -14,6 +14,16 @@ RSpec.describe HomeController, type: :controller do
   context "when not logged" do
     it "renders home page when not logged in" do
       test_renders_home_page
+    end
+
+    it "parameter opensesame sets sesame open" do
+      expect { test_renders_home_page(opensesame: nil) }.to change {session[:sesame] }.to(:open)
+      # expect().to eq(:open)
+    end
+
+    it "parameter closesesame sets session[:sesame] closed" do
+      expect { test_renders_home_page(closesesame: nil) }.to change {session[:sesame] }.to(:closed)
+      # expect().to eq(:open)
     end
 
     it "prepopulates preferred party from session" do

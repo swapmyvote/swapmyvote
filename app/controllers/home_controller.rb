@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_action :whats_the_magic_word
+
   def index
     if logged_in? && swapping_open?
       redirect_to user_path
@@ -28,5 +30,13 @@ class HomeController < ApplicationController
 
   def prepopulated_party(param)
     canonical_name(session["pre_populate"][param])
+  end
+
+  def whats_the_magic_word
+    if params.key?(:opensesame)
+      session[:sesame] = :open
+    elsif params.key?(:closesesame)
+      session[:sesame] = :closed
+    end
   end
 end
