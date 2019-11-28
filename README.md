@@ -24,7 +24,8 @@ sections below if you'd like to help.
 
 ## Setting up Swap My Vote locally
 
-You will need Ruby and [Yarn](https://yarnpkg.com/lang/en/docs/install/) installed. 
+You will need Ruby and [Yarn](https://yarnpkg.com/lang/en/docs/install/)
+installed.
 
 -   Clone this repository:
 
