@@ -16,14 +16,12 @@ RSpec.describe HomeController, type: :controller do
       test_renders_home_page
     end
 
-    it "parameter opensesame sets sesame open" do
+    it "parameter opensesame sets session[:sesame] open" do
       expect { test_renders_home_page(opensesame: nil) }.to change {session[:sesame] }.to(:open)
-      # expect().to eq(:open)
     end
 
     it "parameter closesesame sets session[:sesame] closed" do
       expect { test_renders_home_page(closesesame: nil) }.to change {session[:sesame] }.to(:closed)
-      # expect().to eq(:open)
     end
 
     it "prepopulates preferred party from session" do
@@ -61,6 +59,12 @@ RSpec.describe HomeController, type: :controller do
     end
 
     it "redirects to user page when swapping is open" do
+      get :index
+      expect(subject).to redirect_to(:user)
+    end
+
+    it "redirects to user page when swapping is closed, but opensesame has been done", logged_in: true, swapping: :closed do
+      session[:sesame] = :open
       get :index
       expect(subject).to redirect_to(:user)
     end
