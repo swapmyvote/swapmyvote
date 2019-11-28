@@ -12,17 +12,6 @@ namespace :swaps do
 
   desc "Cancel swaps which are older than the validity period in ENV['SWAP_EXPIRY_HOURS']"
   task cancel_old: :environment do
-    include SwapHelper
-
-    # TODO: untested code ... move somewhere we can put unit tests around it
-    swaps = Swap.where({confirmed: false}).where(['created_at < ?', DateTime.now - swap_validity_hours])
-    print "Cancelling #{swaps.length} unconfirmed swaps\n"
-    for swap in swaps
-      begin
-        swap.destroy
-      rescue => e
-        print "Failed to cancel swap #{swap.id}"
-      end
-    end
+    Swap.cancel_old
   end
 end
