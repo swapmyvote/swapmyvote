@@ -22,7 +22,7 @@ def build_identity(user_id, i, gender)
   Identity.create(
     user_id: user_id,
     provider: provider_array.sample,
-    image_url: format("http://api.randomuser.me/portraits/med/%s/#{i}.jpg",
+    image_url: format("https://api.randomuser.me/portraits/med/%s/#{i}.jpg",
                       (gender == "male" ? "men" : "women"))
   )
 end
