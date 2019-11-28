@@ -17,18 +17,18 @@
       with #{user.swapped_with.redacted_name}.
       = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"),
         method: "put", class: "button"
+
   - else
-    %p.text-center
-      You must verify your phone number before you swap
-    = form_for user, url: user_path do
-      = render partial: 'mobile_phone/form',
-        locals: {mobile_number: mobile_number}
+    .mobile-phone.text-center
+      %p
+        You must verify your phone number before you swap.
+      = form_for user, url: user_path, class: "text-center" do
+        = render partial: 'mobile_phone/form',
+                 locals: {mobile_number: mobile_number}
 
-
-%p.text-center
-  = link_to "No thanks", "#", class: "small subdued",
-    onclick: "showModal($('.js-reject-modal')); return false"
-
+  %p.text-center
+    = link_to "I'd prefer to swap with someone else", "#", class: "small subdued",
+      onclick: "showModal($('.js-reject-modal')); return false"
 
 .modal.js-reject-modal{style: "display: none"}
   .modal-dialog
