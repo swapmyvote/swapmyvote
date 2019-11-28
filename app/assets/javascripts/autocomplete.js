@@ -135,6 +135,6 @@ $( function() {
       }
     });
 
-    $( "#user_constituency_id" ).combobox();
+    $( "#user_constituency_ons_id" ).combobox();
   }
 );
