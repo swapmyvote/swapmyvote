@@ -111,8 +111,8 @@ ActiveRecord::Schema.define(version: 2019_11_27_224254) do
     t.datetime "updated_at", null: false
     t.boolean "has_voted", default: false
     t.boolean "sent_vote_reminder_email", default: false
-    t.integer "mobile_phone_id"
     t.string "constituency_ons_id"
+    t.integer "mobile_phone_id"
     t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
   end
 
