@@ -1,3 +1,5 @@
+// Help with finding constituencies from postcodes
+
 $(document).on("click", "#btnPostcode", function() {
   console.log("button clicked");
   var input = $("#txtPostcode").val();
@@ -17,7 +19,7 @@ $("#txtPostcode").keypress(function(e) {
 
 //display results on page
 function displayData(postcode) {
-  var html = "";
+  // var html = "";
   var onsId = postcode["result"]["codes"]["parliamentary_constituency"];
   var name = postcode["result"]["parliamentary_constituency"];
 
@@ -26,9 +28,9 @@ function displayData(postcode) {
     .change(); // this SHOULD change the dropdown
   $(".constituency-autocomplete-input").val(name);
 
-  // $('#text').hide();
+  // $('#errorPostcode').hide();
   // html += `Your constituency name is ${name} and the code is ${onsId}`;
-  // $('#text').html(html).fadeIn(300);
+  // $('#errorPostcode').html(html).fadeIn(300);
 }
 
 //ajax call
@@ -38,11 +40,13 @@ function post(url) {
     success: function() {
       //woop
     },
-    error: function(desc, status, err) {
+    error: function(desc, _status, _err) {
       if (desc.status == 404 || desc.status == 400) {
-        $("#text").html(JSON.parse(desc.responseText).error);
+        $("#errorPostcode").html(JSON.parse(desc.responseText).error);
       } else {
-        $("#text").html("Postcode Service Error Details: " + desc.responseText);
+        $("#errorPostcode").html(
+          "Postcode Service Error Details: " + desc.responseText
+        );
       }
     }
   });
