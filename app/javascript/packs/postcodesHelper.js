@@ -18,12 +18,6 @@ const postcodeButton = () => {
   post(url).done(displayData);
 };
 
-const postcodeEnter = e => {
-  if (e.which === 13) {
-    $("#btn-postcode").click();
-  }
-};
-
 const ajaxError = (desc, _status, _err) => {
   if (desc.status == 404 || desc.status == 400) {
     $("#error-postcode").html(JSON.parse(desc.responseText).error);
@@ -49,6 +43,3 @@ const post = url => {
 
 // button event
 $(document).on("click", "#btn-postcode", postcodeButton);
-
-// enter event - search
-$("#txt-postcode").keypress(postcodeEnter);
