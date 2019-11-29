@@ -19,7 +19,6 @@ $("#txt-postcode").keypress(function(e) {
 
 //display results on page
 function displayData(postcode) {
-  // var html = "";
   var onsId = postcode.result.codes.parliamentary_constituency;
   var name = postcode.result.parliamentary_constituency;
 
@@ -27,10 +26,6 @@ function displayData(postcode) {
     .val(onsId)
     .change(); // this SHOULD change the dropdown
   $(".constituency-autocomplete-input").val(name);
-
-  // $('#errorPostcode').hide();
-  // html += `Your constituency name is ${name} and the code is ${onsId}`;
-  // $('#errorPostcode').html(html).fadeIn(300);
 }
 
 //ajax call
