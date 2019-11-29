@@ -17,11 +17,13 @@ RSpec.describe HomeController, type: :controller do
     end
 
     it "parameter opensesame sets session[:sesame] open" do
-      expect { test_renders_home_page(opensesame: nil) }.to change {session[:sesame] }.to(:open)
+      expect { test_renders_home_page(opensesame: nil) }
+        .to change {session[:sesame] }.to("open")
     end
 
     it "parameter closesesame sets session[:sesame] closed" do
-      expect { test_renders_home_page(closesesame: nil) }.to change {session[:sesame] }.to(:closed)
+      expect { test_renders_home_page(closesesame: nil) }
+        .to change {session[:sesame] }.to("closed")
     end
 
     it "prepopulates preferred party from session" do
