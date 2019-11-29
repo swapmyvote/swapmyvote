@@ -30,9 +30,15 @@
           </div>
 
           <div class="actions">
-            <%= f.submit "Sign up", class: "btn btn-primary" %>
+            <%= f.submit "Sign up", class: "btn btn-primary btn-block" %>
           </div>
         <% end %>
+
+        <hr>
+
+        <div class="text-center small">
+          Or <%= link_to "log in", new_user_session_path %>
+        </div>
       </div>
     </div>
   </div>

@@ -24,9 +24,16 @@
           </div>
 
           <div class="actions">
-            <%= f.submit "Log in", class: "btn btn-primary" %>
+            <%= f.submit "Log in", class: "btn btn-primary btn-block" %>
           </div>
         <% end %>
+        <hr>
+
+        <div class="text-center small">
+          <%= link_to "Forgotten password?", new_user_password_path %>
+          <br/>
+          Or need to <%= link_to "sign up", new_user_registration_path %>?
+        </div>
       </div>
     </div>
   </div>

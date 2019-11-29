@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def twitter_omniauth_authorize
-    throw 'blah'
+  def twitter
+    callback(:twitter)
   end
 
   def facebook
@@ -17,6 +17,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     origin = request.env["omniauth.origin"]
     logger.debug "Login request origin #{origin}"
     redirect_to origin || user_path
+  rescue ActiveRecord::RecordInvalid
+    # Could make this check it is actually the email...
+    flash[:alert] = "An account already exists with the email #{request.env["omniauth.auth"].info.email}. Please log in to that account."
+    redirect_to new_user_session_path
   end
 
   def new_or_existing(auth)
