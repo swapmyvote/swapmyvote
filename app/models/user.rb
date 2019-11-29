@@ -176,7 +176,12 @@ class User < ApplicationRecord
   end
 
   def image_url
-    identity&.image_url || 'https://api.adorable.io/avatars/400/abott@adorable.io.png'
+    identity&.image_url || gravatar_image_url
+  end
+
+  def gravatar_image_url
+    hash = Digest::MD5.hexdigest(email.downcase)
+    return "https://secure.gravatar.com/avatar/#{hash}?d=identicon&s=80"
   end
 
   def provider
