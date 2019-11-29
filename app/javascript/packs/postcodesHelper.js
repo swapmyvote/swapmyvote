@@ -13,7 +13,6 @@ $(document).ready(() => {
   };
 
   const postcodeButton = () => {
-    console.log("postcode search button clicked");
     var input = $("#txt-postcode").val();
     var url = "https://api.postcodes.io/postcodes/" + input;
     post(url).done(displayData);
