@@ -66,7 +66,7 @@ RSpec.describe HomeController, type: :controller do
     it "redirects to user page when swapping is closed, but opensesame has been done",
        logged_in: true,
        swapping: :closed do
-      session[:sesame] = :open
+      session[:sesame] = "open"
       get :index
       expect(subject).to redirect_to(:user)
     end
