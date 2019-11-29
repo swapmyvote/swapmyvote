@@ -23,8 +23,6 @@ class User < ApplicationRecord
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
   has_many :sent_emails, dependent: :destroy
 
-  delegate :profile_url, to: :identity, prefix: false
-
   before_save :clear_swap, if: :details_changed?
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
@@ -182,6 +180,14 @@ class User < ApplicationRecord
   def gravatar_image_url
     hash = Digest::MD5.hexdigest(email.downcase)
     return "https://secure.gravatar.com/avatar/#{hash}?d=identicon&s=80"
+  end
+
+  def has_social_profile?
+    identity.present?
+  end
+
+  def profile_url
+    identity&.profile_url || "mailto://#{email}"
   end
 
   def provider

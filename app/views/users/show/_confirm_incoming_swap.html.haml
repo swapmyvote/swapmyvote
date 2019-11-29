@@ -11,9 +11,9 @@
   Please confirm that you would like to swap with #{@user.swapped_with.redacted_name}.
 
 %p.text-center
-  = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"), method: "put", class: "button"
+  = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"), method: "put", class: "btn btn-primary"
   &nbsp;
-  = link_to "No thanks", "#", class: "small subdued", onclick: "showModal($('.js-reject-modal')); return false"
+  = link_to "No thanks", "#", class: "btn btn-light", onclick: "showModal($('.js-reject-modal')); return false"
 
 .modal.js-reject-modal{style: "display: none"}
   .modal-dialog
