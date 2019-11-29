@@ -1,6 +1,7 @@
 !!!
 %html(lang="en-gb")
   %head
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
     %title Swap My Vote
     %meta{property: "fb:app_id", content: "#{ENV['FACEBOOK_KEY']}"}
     %meta{property: "og:type", content: "website"}
@@ -9,9 +10,9 @@
     %meta{property: "og:image:width", content: "1500"}
     %meta{property: "og:image:height", content: "786"}
     %meta{property: "og:site_name", content: "Swap My Vote"}
-    %meta{property: "og:description", content: "Make votes matter! Swap yours with someone in a constituency where both could count for more. You get to vote for who you really want, and help someone else do the same."}
+    %meta{property: "description", content: "Make votes matter! Swap yours with someone in a constituency where both could count for more. You get to vote for who you really want, and help someone else do the same. Turn tactical voting into a win-win!"}
+    %meta{property: "og:description", content: "Make votes matter! Swap yours with someone in a constituency where both could count for more. You get to vote for who you really want, and help someone else do the same. Turn tactical voting into a win-win!"}
     %meta{property: "og:url", content: "https://www.swapmyvote.uk"}
-    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
 
     = favicon_link_tag(source="favicon_16.png", {sizes: "16x16"})
     = favicon_link_tag(source="favicon_32.png", {sizes: "32x32"})
