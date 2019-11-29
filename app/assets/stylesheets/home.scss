@@ -49,14 +49,6 @@ select {
     background-color: white;
 }
 
-input[type=text] {
-    padding: 5px 8px;
-    border: 1px solid darken($border-color, 20%);
-    border-radius: 3px;
-    font-size: 1em;
-    width: 300px;
-}
-
 .container {
     max-width: 960px;
     padding: 16px;
@@ -69,6 +61,10 @@ input[type=text] {
 
 .container-narrow {
     max-width: 600px;
+}
+
+.container-extra-narrow {
+    max-width: 450px;
 }
 
 .background-pattern {
@@ -108,21 +104,21 @@ input[type=text] {
     color: #999;
 }
 
-.card {
-    border-radius: 6px;
-    border: 1px solid darken($border-color, 10%);
-    padding: 12px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    margin-bottom: 16px;
-    background-color: white;
-
-    > h1, h2, h3 {
-        margin-top: 0;
-    }
-}
-
 .spacer {
     height: 12px;
+}
+
+.smv-card {
+  border-radius: 6px;
+  border: 1px solid darken($border-color, 10%);
+  padding: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 16px;
+  background-color: white;
+
+  > h1, h2, h3 {
+      margin-top: 0;
+  }
 }
 
 .searching-for-swap {

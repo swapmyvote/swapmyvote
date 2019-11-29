@@ -4,7 +4,7 @@
 	Consider the polls in their constituency to give your vote the best chance of making a difference!
 .spacer
 - for swap in @potential_swaps
-	= link_to new_user_swap_path(user_id: swap.id), class: "card profile" do
+	= link_to new_user_swap_path(user_id: swap.id), class: "smv-card profile" do
 		= render partial: "swap_profile", object: swap, as: "other_user"
 %p.text-center
 	%a.small{href:"http://www.electoralcalculus.co.uk/orderedseats.html"} Poll results are based on Electoral Calculus predictions

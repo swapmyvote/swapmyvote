@@ -8,20 +8,6 @@
 
     .modal-body
 
-      = form_with scope: 'user', url: session_path('user'), local: true do |f|
-        .form-group
-          = f.label :email, class: "mb-0"
-          = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control'
-
-        .form-group
-          = f.label :password, class: "mb-0"
-          = f.password_field :password, autocomplete: "current-password", class: 'form-control'
-
-        .form-group
-          = f.submit "Log in", class: 'btn btn-primary btn-block'
-
-      %hr
-
       - if log_in_with_facebook?
         %p.text-center
           = link_to facebook_login_path, method: :post,
@@ -34,5 +20,10 @@
                   class: "btn btn-twitter btn-block" do
             %i.fa.fa-fw.fa-twitter
             Log in with Twitter
+      - if log_in_with_email?
+        %p.text-center
+          = link_to new_user_session_path, class: "btn btn-dark btn-block" do
+            Log in with email
+
       %p.text-center.small.subdued
         We will never share anything with anyone about your voting preferences or post to your feed without your permission

@@ -30,6 +30,7 @@ class User < ApplicationRecord
   before_destroy :clear_swap
 
   validates :email, uniqueness: { case_sensitive: false }, allow_nil: true
+  validates :name, presence: true
 
   def omniauth_tokens(auth)
     self.token = auth.credentials.token
