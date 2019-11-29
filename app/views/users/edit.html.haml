@@ -1,5 +1,6 @@
 = javascript_pack_tag "intlTelInput"
 = stylesheet_pack_tag "intlTelInput"
+= javascript_pack_tag "postcodesHelper"
 
 .background-pattern.border-bottom
   .container.container-narrow
@@ -20,6 +21,8 @@
         = f.collection_select :willing_party_id, @parties,
                               :id, :name, prompt: "...",
                               selected: @user.willing_party_id
+
+      = render partial: "postcode_field"
 
       %p
         My constituency is
