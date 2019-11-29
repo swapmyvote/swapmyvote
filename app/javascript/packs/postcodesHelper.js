@@ -1,24 +1,7 @@
 // Help with finding constituencies from postcodes
 
-$(document).on("click", "#btn-postcode", function() {
-  console.log("button clicked");
-  var input = $("#txt-postcode").val();
-  var url = "https://api.postcodes.io/postcodes/" + input;
-
-  post(url).done(function(postcode) {
-    displayData(postcode);
-  });
-});
-
-//enter event - search
-$("#txt-postcode").keypress(function(e) {
-  if (e.which === 13) {
-    $("#btn-postcode").click();
-  }
-});
-
 //display results on page
-function displayData(postcode) {
+const displayData = postcode => {
   var onsId = postcode.result.codes.parliamentary_constituency;
   var name = postcode.result.parliamentary_constituency;
 
@@ -26,23 +9,46 @@ function displayData(postcode) {
     .val(onsId)
     .change(); // this SHOULD change the dropdown
   $(".constituency-autocomplete-input").val(name);
-}
+};
+
+const postcodeButton = () => {
+  console.log("postcode search button clicked");
+  var input = $("#txt-postcode").val();
+  var url = "https://api.postcodes.io/postcodes/" + input;
+  post(url).done(displayData);
+};
+
+const postcodeEnter = e => {
+  if (e.which === 13) {
+    $("#btn-postcode").click();
+  }
+};
+
+const ajaxError = (desc, _status, _err) => {
+  if (desc.status == 404 || desc.status == 400) {
+    $("#error-postcode").html(JSON.parse(desc.responseText).error);
+  } else {
+    $("#error-postcode").html(
+      "Postcode Service Error Details: " + desc.responseText
+    );
+  }
+};
+
+const ajaxSuccess = () => {
+  $("#error-postcode").html("");
+};
 
 //ajax call
-function post(url) {
+const post = url => {
   return $.ajax({
     url: url,
-    success: function() {
-      //woop
-    },
-    error: function(desc, _status, _err) {
-      if (desc.status == 404 || desc.status == 400) {
-        $("#error-postcode").html(JSON.parse(desc.responseText).error);
-      } else {
-        $("#error-postcode").html(
-          "Postcode Service Error Details: " + desc.responseText
-        );
-      }
-    }
+    success: ajaxSuccess,
+    error: ajaxError
   });
-}
+};
+
+// button event
+$(document).on("click", "#btn-postcode", postcodeButton);
+
+// enter event - search
+$("#txt-postcode").keypress(postcodeEnter);
