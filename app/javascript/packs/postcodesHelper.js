@@ -44,4 +44,26 @@ $(document).ready(() => {
 
   // button event
   $(document).on("click", "#btn-postcode", postcodeButton);
+
+  // Make Enter key in postcode field simulate clicking the "Search"
+  // button rather than submitting the form, since the user may not have
+  // finished with other fields in the form.
+
+  // Disable the default behaviour for Enter key
+  const postcodeDisableEnter = e => {
+    if (e.which == 13) {
+      e.preventDefault();
+      return false;
+    }
+  };
+  $("#txt-postcode").keydown(postcodeDisableEnter);
+
+  const postcodeEnter = e => {
+    if (e.which === 13) {
+      $("#btn-postcode").click();
+      e.preventDefault();
+      return false;
+    }
+  };
+  $("#txt-postcode").keyup(postcodeEnter);
 });
