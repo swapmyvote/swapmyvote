@@ -1,8 +1,8 @@
 // Help with finding constituencies from postcodes
 
-$(document).on("click", "#btnPostcode", function() {
+$(document).on("click", "#btn-postcode", function() {
   console.log("button clicked");
-  var input = $("#txtPostcode").val();
+  var input = $("#txt-postcode").val();
   var url = "https://api.postcodes.io/postcodes/" + input;
 
   post(url).done(function(postcode) {
@@ -11,9 +11,9 @@ $(document).on("click", "#btnPostcode", function() {
 });
 
 //enter event - search
-$("#txtPostcode").keypress(function(e) {
+$("#txt-postcode").keypress(function(e) {
   if (e.which === 13) {
-    $("#btnPostcode").click();
+    $("#btn-postcode").click();
   }
 });
 
@@ -42,9 +42,9 @@ function post(url) {
     },
     error: function(desc, _status, _err) {
       if (desc.status == 404 || desc.status == 400) {
-        $("#errorPostcode").html(JSON.parse(desc.responseText).error);
+        $("#error-postcode").html(JSON.parse(desc.responseText).error);
       } else {
-        $("#errorPostcode").html(
+        $("#error-postcode").html(
           "Postcode Service Error Details: " + desc.responseText
         );
       }
