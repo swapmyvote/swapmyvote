@@ -20,6 +20,11 @@ RSpec.describe UsersController, type: :controller do
         get :show
         expect(response).to have_http_status(:success)
       end
+
+      it "redirects to user_swap" do
+        get :show
+        expect(response).to redirect_to(:user_swap)
+      end
     end
 
     describe "GET #edit" do
@@ -58,6 +63,23 @@ RSpec.describe UsersController, type: :controller do
         expect(logged_in_user).to receive(:destroy)
         delete :destroy
         expect(response).to redirect_to(:account_deleted)
+      end
+    end
+  end
+
+  context "when user is not valid" do
+    let(:invalid_user) { build(:user, id: 2) }
+
+    before do
+      session[:user_id] = invalid_user.id
+      allow(User).to receive(:find_by_id).with(invalid_user.id)
+                       .and_return(invalid_user)
+    end
+
+    describe "GET #show" do
+      it "redirects to edit_user_constituency" do
+        get :show
+        expect(response).to redirect_to(:edit_user_constituency)
       end
     end
   end
