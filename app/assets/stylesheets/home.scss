@@ -132,10 +132,6 @@ input[type=text] {
         // scss-lint:disable VendorPrefix
         margin-right: 6px;
         color: #aaa;
-        -webkit-animation: oscillate 2s linear infinite; // Chrome, Safari 5
-        -moz-animation:    oscillate 2s linear infinite; // Firefox 5-15
-        -o-animation:      oscillate 2s linear infinite; // Opera 12+
-        animation:         oscillate 2s linear infinite;
     }
 
     span {
