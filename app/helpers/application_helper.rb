@@ -58,16 +58,19 @@ module ApplicationHelper
   # will be shown but the dialog is not shown automatically.
 
   def log_in_with_facebook?
+    return false if %w[all facebook].include? ENV["DISABLE_LOG_INS"]
     return true unless params[:log_in_with]
     return %w[any facebook].include? params[:log_in_with]
   end
 
   def log_in_with_twitter?
+    return false if %w[all twitter].include? ENV["DISABLE_LOG_INS"]
     return true unless params[:log_in_with]
     return %w[any twitter].include? params[:log_in_with]
   end
 
-  def log_in_method_restricted?
+  def log_in_method_unrestricted?
+    return false if ENV["DISABLE_LOG_INS"]
     return !params[:log_in_with] || params[:log_in_with] == "any"
   end
 

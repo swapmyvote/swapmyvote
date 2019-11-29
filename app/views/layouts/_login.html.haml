@@ -10,7 +10,7 @@
                 class: "button button-facebook"}
           = image_tag('facebook_icon.png')
           Log in with Facebook
-    - if log_in_method_restricted?
+    - if log_in_method_unrestricted?
       %p.text-center.subdued &#8212; or &#8212;
     - if log_in_with_twitter?
       %p.text-center
@@ -18,6 +18,11 @@
                 class: "button button-twitter"}
           %i.fa.fa-fw.fa-twitter
           Log in with Twitter
+    - if ENV["DISABLE_LOG_INS"] == 'facebook'
+      %p.text-center
+        We're still waiting for our Facebook app to be approved, and we're
+        working on adding support for signing up with an email address. In
+        the meantime, you can log in with Twitter.
     %p.text-center.small.subdued
       (We will never share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
     %p.text-center
