@@ -20,8 +20,8 @@ $("#txt-postcode").keypress(function(e) {
 //display results on page
 function displayData(postcode) {
   // var html = "";
-  var onsId = postcode["result"]["codes"]["parliamentary_constituency"];
-  var name = postcode["result"]["parliamentary_constituency"];
+  var onsId = postcode.result.codes.parliamentary_constituency;
+  var name = postcode.result.parliamentary_constituency;
 
   $("select#user_constituency_ons_id")
     .val(onsId)
