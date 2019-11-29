@@ -2,6 +2,10 @@ class HomeController < ApplicationController
   before_action :whats_the_magic_word
 
   def index
+    if params.key?(:clear) && prepops
+      session.delete("pre_populate")
+    end
+
     if logged_in? && swapping_open?
       redirect_to user_path
       return
