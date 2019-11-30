@@ -10,7 +10,7 @@
     locals: { swap_with: user.swapped_with }
 
 %p.text-center
-  - if mobile_verification_missing?
+  - if current_user.mobile_verification_missing?
 
     .mobile-phone.text-center
       %p
