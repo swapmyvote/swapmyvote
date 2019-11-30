@@ -10,9 +10,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    user_params = session.delete(:user_params) || {}
+    params[:user].merge!(user_params)
+    super
+  end
 
   # GET /resource/edit
   # def edit
@@ -42,7 +44,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :preferred_party_id, :willing_party_id])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
