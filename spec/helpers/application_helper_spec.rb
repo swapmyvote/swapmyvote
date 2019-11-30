@@ -2,30 +2,7 @@ require "rails_helper"
 require "support/user_sessions.rb"
 
 RSpec.describe ApplicationHelper, type: :helper do
-  describe "#current_user" do
-    let(:user) { create(:user) }
-
-    it "returns nil with empty session" do
-      expect(helper.current_user).to be_nil
-    end
-
-    it "returns nil from invalid session[:user_id]" do
-      session[:user_id] = 999999
-      expect(helper.current_user).to be_nil
-    end
-
-    it "returns user from session[:user_id]" do
-      session[:user_id] = user.id
-      expect(helper.current_user).to eq(user)
-    end
-
-    it "caches user" do
-      session[:user_id] = user.id
-      expect(helper.current_user).to eq(user)
-      session[:user_id] = user.id + 1
-      expect(helper.current_user).to eq(user)
-    end
-  end
+  include Devise::Test::ControllerHelpers
 
   describe "#logged_in?" do
     let(:user) { create(:user) }
@@ -34,13 +11,8 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(helper.logged_in?).to be false
     end
 
-    it "returns false from invalid session[:user_id]" do
-      session[:user_id] = 999999
-      expect(helper.logged_in?).to be false
-    end
-
-    it "returns true for valid session[:user_id]" do
-      session[:user_id] = user.id
+    it "returns true for valid session" do
+      sign_in user
       expect(helper.logged_in?).to be true
     end
   end
@@ -74,6 +46,7 @@ RSpec.describe ApplicationHelper, type: :helper do
         before do
           phone = create(:mobile_phone, user: user)
           user.mobile_phone = phone
+          user.save
         end
 
         it "returns false when not verified" do
@@ -87,7 +60,8 @@ RSpec.describe ApplicationHelper, type: :helper do
           # instance representing the same user, so setting verified =
           # true on that would not get picked up by the helper which
           # reads it from current_user.
-          current_user.mobile_phone.verified = true
+          user.mobile_phone.verified = true
+          user.mobile_phone.save
 
           expect(helper.mobile_verified?).to be_truthy
         end
@@ -113,6 +87,7 @@ RSpec.describe ApplicationHelper, type: :helper do
         before do
           phone = create(:mobile_phone, user: user)
           user.mobile_phone = phone
+          user.save
         end
 
         it "returns false when not verified" do
@@ -126,7 +101,8 @@ RSpec.describe ApplicationHelper, type: :helper do
           # instance representing the same user, so setting verified =
           # true on that would not get picked up by the helper which
           # reads it from current_user.
-          current_user.mobile_phone.verified = true
+          user.mobile_phone.verified = true
+          user.mobile_phone.save
 
           expect(helper.mobile_verified?).to be_truthy
         end

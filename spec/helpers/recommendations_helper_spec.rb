@@ -12,6 +12,8 @@ require "rails_helper"
 # end
 
 RSpec.describe RecommendationsHelper, type: :helper do
+  include Devise::Test::ControllerHelpers
+
   describe "#recommendations_data_for" do
     let(:constituency) { OnsConstituency.new(id: 1) }
 

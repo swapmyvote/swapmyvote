@@ -2,7 +2,7 @@ RSpec.shared_context "user logged in" do
   let(:user) { create(:user) }
 
   before do
-    session[:user_id] = user.id
+    sign_in user
   end
 end
 

@@ -1,23 +1,23 @@
 require "rails_helper"
 
 RSpec.describe UsersController, type: :controller do
+  include Devise::Test::ControllerHelpers
+
   context "when user is logged in" do
     let(:logged_in_user) do
-      build(:user, id: 111,
+      create(:user, id: 111,
             constituency: build(:ons_constituency),
             email: "foo@bar.com")
     end
 
     before do
-      session[:user_id] = logged_in_user.id
-      allow(User).to receive(:find_by_id).with(logged_in_user.id)
-                       .and_return(logged_in_user)
+      sign_in logged_in_user
     end
 
     describe "GET #show" do
       it "returns http success" do
-        expect(logged_in_user).to receive(:swapped?).and_return(true)
-        allow(logged_in_user).to receive(:email).and_return("foo@bar.com")
+        swap_with_user = create(:user)
+        logged_in_user.swap_with_user_id(swap_with_user.id)
 
         get :show
         expect(response).to have_http_status(:success)
@@ -49,15 +49,15 @@ RSpec.describe UsersController, type: :controller do
 
     describe "POST #update" do
       it "redirects to #show" do
-        expect(logged_in_user).to receive(:update)
         post :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" } }
+        logged_in_user.reload
+        expect(logged_in_user.constituency_ons_id).to eq("2")
         expect(response).to redirect_to(:user)
       end
     end
 
     describe "DELETE #destroy" do
       it "redirects to account_deleted" do
-        expect(logged_in_user).to receive(:destroy)
         delete :destroy
         expect(response).to redirect_to(:account_deleted)
       end

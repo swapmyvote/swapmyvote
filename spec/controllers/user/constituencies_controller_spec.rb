@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe User::ConstituenciesController, type: :controller do
+  include Devise::Test::ControllerHelpers
+
   context "when configured for swaps" do
     before(:each) do
       allow(ENV).to receive(:[]).with("SWAPS_CLOSED").and_return(nil)

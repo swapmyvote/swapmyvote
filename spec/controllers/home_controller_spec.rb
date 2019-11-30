@@ -3,6 +3,8 @@ require "support/user_sessions.rb"
 require "support/swaps_closed.rb"
 
 RSpec.describe HomeController, type: :controller do
+  include Devise::Test::ControllerHelpers
+
   def test_renders_home_page
     @party = create(:party, name: "Liberal Democrats")
     get :index
