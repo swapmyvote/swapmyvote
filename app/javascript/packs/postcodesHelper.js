@@ -15,7 +15,11 @@ $(document).ready(() => {
   const postcodeButton = () => {
     var input = $("#txt-postcode").val();
     var url = "https://api.postcodes.io/postcodes/" + input;
-    post(url).done(displayData);
+    if (input == "") {
+      $("#error-postcode").html("Please enter a postcode!");
+    } else {
+      post(url).done(displayData);
+    }
   };
 
   const ajaxError = (desc, _status, _err) => {

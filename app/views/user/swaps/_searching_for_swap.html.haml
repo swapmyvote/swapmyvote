@@ -6,7 +6,8 @@
 %p
 
   At the moment we have more voters who want to vote the same way as
-  you, but fewer with complementary preferences.
+  you, but fewer with complementary preferences.  Please revisit this
+  page soon and hopefully you'll see some matches appear!
 
 %h2 While you're waiting ...
 
@@ -29,12 +30,4 @@
   You can also help us find more potential voting partners by sharing
   Swap My Vote with your friends!
 
-%p.text-center
-
-  %a.button.button-facebook{href: "#", onclick: "shareOnFacebook('#{ENV['FACEBOOK_KEY']}', 'http://www.swapmyvote.uk', 'Join me in making our votes count for more: #swapmyvote'); return false"}
-    %i.fa.fa-facebook.fa-fw
-    Share on Facebook
-
-  %a.button.button-twitter{href: "#", onclick: "shareOnTwitter('http://www.swapmyvote.uk', 'Join me in making our votes count for more: #swapmyvote'); return false"}
-    %i.fa.fa-twitter.fa-fw
-    Share on Twitter
+= render partial: 'user/share/social'
