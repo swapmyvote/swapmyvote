@@ -1,6 +1,11 @@
 source "https://rubygems.org"
 ruby "2.6.5"
 
+
+# patch:  fileutils 1.2.0
+gem "fileutils", ">= 1.2.0"
+
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 5.2.0"
 # Use SCSS for stylesheets
@@ -93,9 +98,8 @@ group :development, :test do
   gem "rails-controller-testing"
   gem "factory_bot_rails"
 
-  gem "guard-scss_lint"
-
   gem "guard-yarn"
+  gem "guard-scss_lint"
 end
 
 group :production do
