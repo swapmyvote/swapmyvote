@@ -4,7 +4,7 @@
       %p.text-center
         Please let us know when you've voted...
       %p.text-center
-        = link_to "Yes, I've voted! (for #{@user.willing_party.name})", user_vote_path, method: "post", class: "button"
+        = link_to "Yes, I've voted! (for #{@user.willing_party.name})", user_vote_path, method: "post", class: "btn btn-primary"
       %p.text-center.subdued
         We'll email your swap partner, #{@user.swapped_with.name}
         %br

@@ -16,6 +16,7 @@
     %p.text-center
       Please confirm that you would like to swap
       with #{user.swapped_with.redacted_name}.
+    %p.text-center
       = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"),
         method: "put", class: "btn btn-primary"
 
@@ -28,7 +29,7 @@
                  locals: {mobile_number: mobile_number}
 
   %p.text-center
-    = link_to "I'd prefer to swap with someone else", "#", class: "btn btn-light",
+    = link_to "I'd prefer to swap with someone else", "#", class: "small subdued",
       onclick: "showModal($('.js-reject-modal')); return false"
 
 .modal.js-reject-modal{style: "display: none"}
@@ -41,4 +42,4 @@
       find anyone else to swap with if you turn
       down #{user.swapped_with.redacted_name}
     %p.text-center
-      = link_to "Reject", user_swap_path, method: "delete", class: "btn btn-light"
+      = link_to "Reject", user_swap_path, method: "delete", class: "btn btn-primary"
