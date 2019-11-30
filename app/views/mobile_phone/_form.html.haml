@@ -7,6 +7,6 @@
       Verified!
     - else
       = button_tag "Verify", formaction: verify_mobile_path,
-        formmethod: :get
+        formmethod: :get, class: "btn btn-secondary"
   - else
-    = submit_tag("Save")
+    = submit_tag("Save", class: "btn btn-secondary")

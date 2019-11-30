@@ -14,8 +14,6 @@
                     class: "btn btn-facebook btn-block"}
               = image_tag('facebook_icon.png')
               Log in with Facebook
-        - if log_in_method_unrestricted?
-          %p.text-center.subdued &#8212; or &#8212;
         - if log_in_with_twitter?
           %p.text-center
             %button{formaction: twitter_login_path, formmethod: :post,

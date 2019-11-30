@@ -44,7 +44,7 @@
           .form-group
             %label.mb-0 My email address is
             = f.email_field :email, placeholder: "me@example.com",
-                            autofocus: true, size: 30, { class: "form-control" }
+                            autofocus: true, size: 30, class: "form-control"
 
           = render partial: 'mobile_phone/form',
             locals: {mobile_number: @mobile_number}
