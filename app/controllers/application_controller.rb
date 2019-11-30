@@ -30,4 +30,17 @@ class ApplicationController < ActionController::Base
     return if swapping_open?
     redirect_to root_path
   end
+
+  def prepops
+    return session["pre_populate"]
+  end
+
+  def default_ons_constituency
+    return nil unless prepops
+
+    return (prepops["constituency_ons_id"] &&
+            OnsConstituency.find_by_ons_id(prepops["constituency_ons_id"])) ||
+           (prepops["constituency_name"] &&
+            OnsConstituency.find_by_name(prepops["constituency_name"]))
+  end
 end

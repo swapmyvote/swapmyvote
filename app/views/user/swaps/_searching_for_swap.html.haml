@@ -2,13 +2,32 @@
   %span
     %i.fa.fa-2x.fa-search
     We’re looking for a voting partner for you.
-%p At the moment we have more voters who want to vote the same way as you, but fewer with complementary preferences.
+
 %p
-  Help us find more potential voting partners by sharing Swap My Vote with your friends!
-%p.text-center
-  %a.btn.btn-facebook{href: "#", onclick: "shareOnFacebook('#{ENV['FACEBOOK_KEY']}', 'http://www.swapmyvote.uk', 'Join me in making our votes count for more: #swapmyvote'); return false"}
-    %i.fa.fa-facebook.fa-fw
-    Share on Facebook
-  %a.btn.btn-twitter{href: "#", onclick: "shareOnTwitter('http://www.swapmyvote.uk', 'Join me in making our votes count for more: #swapmyvote'); return false"}
-    %i.fa.fa-twitter.fa-fw
-    Share on Twitter
+
+  At the moment we have more voters who want to vote the same way as
+  you, but fewer with complementary preferences.  Please revisit this
+  page soon and hopefully you'll see some matches appear!
+
+%h2 While you're waiting ...
+
+- if !@user.phone_verified?
+
+  %h3 Why not verify your phone number?
+
+  %p
+
+    This is required before confirming a swap in order to prove you're
+    a genuine account.
+
+  = form_for @user, url: user_path do
+    = render partial: 'mobile_phone/form', locals: {mobile_number: @mobile_number}
+
+%h3 Spread the word!
+
+%p
+
+  You can also help us find more potential voting partners by sharing
+  Swap My Vote with your friends!
+
+= render partial: 'user/share/social'

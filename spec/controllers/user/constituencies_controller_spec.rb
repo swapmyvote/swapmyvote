@@ -21,6 +21,7 @@ RSpec.describe User::ConstituenciesController, type: :controller do
         before do
           allow(OnsConstituency).to receive(:all).and_return(constituencies_list)
           allow(constituencies_list).to receive(:order).with(:name).and_return(double.as_null_object)
+          expect(logged_in_user).to receive(:constituency_ons_id)
         end
 
         it "returns http success" do
