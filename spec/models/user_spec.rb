@@ -50,10 +50,24 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#name" do
+    it "adds (test user)" do
+      subject.name = "Ada Lovelace"
+      subject.email = "ada@example.com"
+      expect(subject.name).to eq("Ada Lovelace (test user)")
+    end
+  end
+
   describe "#redacted_name" do
     it "redacts the user's surname" do
       subject.name = "Ada Lovelace"
       expect(subject.redacted_name).to eq("Ada L")
+    end
+
+    it "redacts the user's surname and adds (test user)" do
+      subject.name = "Ada Lovelace"
+      subject.email = "ada@example.com"
+      expect(subject.redacted_name).to eq("Ada L (test user)")
     end
   end
 
@@ -208,6 +222,27 @@ RSpec.describe User, type: :model do
           specify { expect { subject.save! }.not_to change(subject, :needs_welcome_email?).from(false) }
         end
       end
+    end
+  end
+
+  describe "#test_user?" do
+    it "with no email returns false" do
+      expect(subject.test_user?).to be_falsey
+    end
+
+    it "with normal email returns false" do
+      subject.email = "foo@bar.com"
+      expect(subject.test_user?).to be_falsey
+    end
+
+    it "with tfbnw.net email returns true" do
+      subject.email = "uypqkdhvcs_1575041689@tfbnw.net"
+      expect(subject.test_user?).to be_truthy
+    end
+
+    it "with example.com email returns true" do
+      subject.email = "foo@example.com"
+      expect(subject.test_user?).to be_truthy
     end
   end
 end
