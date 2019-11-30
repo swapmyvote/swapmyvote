@@ -1,0 +1,12 @@
+-# fkorning
+-# titler: floating right-aligned title menu using fa icons (only has "donate" for now) 
+-# I've only done the style and layout for this as I'm not sure how to proceed further.
+-# using header class ad I'm unsure of mechanism to include .scss or compiled css files.
+-# todo: replace "twitter_login_path" with call to the real donations payment system ?
+
+%header
+  .list-group
+    %button{formaction: twitter_login_path, formmethod: :post, class: "list-group-item"}
+      -# %i.fa.fa-fw.fa-paypal
+      %i.fa.fa-fw.fa-gbp 
+      donate
