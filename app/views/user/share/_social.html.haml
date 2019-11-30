@@ -1,11 +1,13 @@
 %p.text-center
 
-  %a.button.button-facebook{href: "#", onclick: "shareOnFacebook('#{ENV['FACEBOOK_KEY']}', 'https://swapmyvote.uk', 'Join me in making our votes count for more!', '#SwapMyVote'); return false"}
+  - tagline = app_tagline
+
+  %a.button.button-facebook{href: "#", onclick: "shareOnFacebook('#{ENV['FACEBOOK_KEY']}', 'https://swapmyvote.uk', '#{tagline}', '#SwapMyVote'); return false"}
 
     = image_tag('facebook_icon.png')
     Share on Facebook
 
-  %a.button.button-twitter{href: "#", onclick: "shareOnTwitter('https://swapmyvote.uk', 'Join me in making our votes count for more! @SwapMyVote'); return false"}
+  %a.button.button-twitter{href: "#", onclick: "shareOnTwitter('https://swapmyvote.uk', '#{tagline} @SwapMyVote'); return false"}
 
     %i.fa.fa-twitter.fa-fw
     Share on Twitter

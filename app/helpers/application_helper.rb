@@ -80,4 +80,11 @@ module ApplicationHelper
     methods << "Twitter" if log_in_with_twitter?
     methods.join(" or ")
   end
+
+  def app_tagline
+    [
+      "Join me in making our votes count for more!",
+      "Turn tactical voting into a win-win!",
+    ].sample
+  end
 end
