@@ -9,22 +9,23 @@
 = render partial: "user/swaps/double_check_constituency",
     locals: { swap_with: user.swapped_with }
 
-
 %p.text-center
-  - if user.phone_verified?
-    %p.text-center
-      Please confirm that you would like to swap
-      with #{user.swapped_with.redacted_name}.
-      = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"),
-        method: "put", class: "button"
+  - if mobile_verification_missing?
 
-  - else
     .mobile-phone.text-center
       %p
         You must verify your phone number before you swap.
       = form_for user, url: user_path, class: "text-center" do
         = render partial: 'mobile_phone/form',
                  locals: {mobile_number: mobile_number}
+
+  - else
+
+    %p.text-center
+      Please confirm that you would like to swap
+      with #{user.swapped_with.redacted_name}.
+      = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"),
+        method: "put", class: "button"
 
   %p.text-center
     = link_to "I'd prefer to swap with someone else", "#", class: "small subdued",

@@ -26,7 +26,7 @@ RSpec.describe User::SwapsController, type: :controller do
                        .and_return(new_user)
       allow(User).to receive(:find).with(swap_user.id.to_s)
                        .and_return(swap_user)
-      allow(new_user).to receive(:phone_verified?).and_return(true)
+      allow(new_user).to receive(:mobile_phone_verified?).and_return(true)
       allow(an_email).to receive(:deliver_now)
       allow(UserMailer).to receive(:confirm_swap).and_return(an_email)
       allow(UserMailer).to receive(:swap_cancelled).and_return(an_email)
@@ -87,7 +87,7 @@ RSpec.describe User::SwapsController, type: :controller do
                        .and_return(new_user)
       allow(User).to receive(:find).with(swap_user.id.to_s)
                        .and_return(swap_user)
-      allow(new_user).to receive(:phone_verified?).and_return(false)
+      allow(new_user).to receive(:mobile_phone_verified?).and_return(false)
     end
 
     describe "POST #create" do

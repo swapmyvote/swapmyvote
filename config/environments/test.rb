@@ -45,4 +45,10 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 end
 
-ENV.delete "SWAPS_CLOSED"
+%w[
+  SWAPS_CLOSED
+  SWAP_EXPIRY_HOURS
+  TEST_USERS_SKIP_MOBILE_VERIFICATION
+].each do |var|
+  ENV.delete var
+end

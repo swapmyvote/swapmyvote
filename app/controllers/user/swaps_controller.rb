@@ -44,7 +44,7 @@ class User::SwapsController < ApplicationController
   private
 
   def assert_mobile_phone_verified
-    return if @user.phone_verified?
+    return unless @user.mobile_verification_missing?
 
     flash[:errors] = ["Please verify your mobile phone number before you swap!"]
     redirect_to edit_user_path

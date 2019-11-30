@@ -50,10 +50,24 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#name" do
+    it "adds (test user)" do
+      subject.name = "Ada Lovelace"
+      subject.email = "ada@example.com"
+      expect(subject.name).to eq("Ada Lovelace (test user)")
+    end
+  end
+
   describe "#redacted_name" do
     it "redacts the user's surname" do
       subject.name = "Ada Lovelace"
       expect(subject.redacted_name).to eq("Ada L")
+    end
+
+    it "redacts the user's surname and adds (test user)" do
+      subject.name = "Ada Lovelace"
+      subject.email = "ada@example.com"
+      expect(subject.redacted_name).to eq("Ada L (test user)")
     end
   end
 
@@ -206,6 +220,90 @@ RSpec.describe User, type: :model do
           end
 
           specify { expect { subject.save! }.not_to change(subject, :needs_welcome_email?).from(false) }
+        end
+      end
+    end
+  end
+
+  describe "#test_user?" do
+    it "with no email returns false" do
+      expect(subject.test_user?).to be_falsey
+    end
+
+    it "with normal email returns false" do
+      subject.email = "foo@bar.com"
+      expect(subject.test_user?).to be_falsey
+    end
+
+    it "with tfbnw.net email returns true" do
+      subject.email = "uypqkdhvcs_1575041689@tfbnw.net"
+      expect(subject.test_user?).to be_truthy
+    end
+
+    it "with example.com email returns true" do
+      subject.email = "foo@example.com"
+      expect(subject.test_user?).to be_truthy
+    end
+  end
+
+  describe "#mobile_verification_missing?" do
+    context "with no mobile phone" do
+      it "returns false" do
+        expect(subject.mobile_verification_missing?).to be_truthy
+      end
+    end
+
+    context "with mobile phone" do
+      before do
+        subject.save
+        subject.build_mobile_phone(user: subject)
+      end
+
+      it "no email returns true" do
+        expect(subject.mobile_verification_missing?).to be_truthy
+      end
+
+      it "normal email returns true" do
+        subject.email = "foo@bar.com"
+        expect(subject.mobile_verification_missing?).to be_truthy
+      end
+
+      it "tfbnw.net email returns true" do
+        subject.email = "uypqkdhvcs_1575041689@tfbnw.net"
+        expect(subject.mobile_verification_missing?).to be_truthy
+      end
+
+      it "example.com email returns true" do
+        subject.email = "foo@example.com"
+        expect(subject.mobile_verification_missing?).to be_truthy
+      end
+
+      context "when skipping test user verification," do
+        before do
+          ENV["TEST_USERS_SKIP_MOBILE_VERIFICATION"] = "1"
+        end
+
+        after do
+          ENV.delete("TEST_USERS_SKIP_MOBILE_VERIFICATION")
+        end
+
+        it "no email returns true" do
+          expect(subject.mobile_verification_missing?).to be_truthy
+        end
+
+        it "normal email returns true" do
+          subject.email = "foo@bar.com"
+          expect(subject.mobile_verification_missing?).to be_truthy
+        end
+
+        it "tfbnw.net email returns false" do
+          subject.email = "uypqkdhvcs_1575041689@tfbnw.net"
+          expect(subject.mobile_verification_missing?).to be_falsey
+        end
+
+        it "example.com email returns false" do
+          subject.email = "foo@example.com"
+          expect(subject.mobile_verification_missing?).to be_falsey
         end
       end
     end
