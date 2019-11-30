@@ -6,6 +6,29 @@
     = render partial: "user/swaps/swap_profile", object: @user.swapped_with, as: "other_user"
 
 %p.text-center
-  %i.fa.fa-fw.fa-spin.fa-spinner
-  We're just waiting for #{@user.swapped_with.redacted_name} to confirm the swap!
-  If we don't hear back from them in 6 hours, we'll cancel the swap and you can pick someone else.
+  %i.fa.fa-fw.fa-hourglass-half
+  We're just waiting for #{@user.swapped_with.redacted_name} to confirm the
+  swap!
+
+  - if @user.email.blank?
+
+    Keep checking back here, or
+    = link_to("set an email address", edit_user_path)
+    so that we can keep you posted.
+
+  - else
+
+    When they do we'll send you an email.
+
+%p.text-center
+
+  If we don't hear back from them in #{swap_validity_hours} hours,
+  we'll cancel the swap and you can pick someone else.
+
+%h3.text-center
+  In the meantime ...
+
+%p.text-center
+  Why not spread the word to encourage more people to join?
+
+= render partial: 'user/share/social'

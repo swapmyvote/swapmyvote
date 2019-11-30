@@ -1,3 +1,4 @@
+
 namespace :swaps do
   desc "Print a CSV of confirmed swaps"
   task csv: :environment do
@@ -9,16 +10,9 @@ namespace :swaps do
     }
   end
 
-  desc "Cancel swaps which are older than 24 hours"
+  desc "Cancel swaps which are older than the validity period in ENV['SWAP_EXPIRY_HOURS']"
   task cancel_old: :environment do
-    swaps = Swap.where({confirmed: false}).where(['created_at < ?', DateTime.now - 6.hours])
-    print "Cancelling #{swaps.length} unconfirmed swaps\n"
-    for swap in swaps
-      begin
-        swap.destroy
-      rescue => e
-        print "Failed to cancel swap #{swap.id}"
-      end
-    end
+    ActiveRecord::Base.logger = Logger.new STDOUT
+    Swap.cancel_old
   end
 end

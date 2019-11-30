@@ -1,5 +1,8 @@
 class UserMailer < ApplicationMailer
+  helper :swaps
   default from: "Swap My Vote <hello@swapmyvote.uk>"
+
+  helper :users
 
   def welcome_email(user)
     @user = user

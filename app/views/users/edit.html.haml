@@ -1,5 +1,6 @@
 = javascript_pack_tag "intlTelInput"
 = stylesheet_pack_tag "intlTelInput"
+= javascript_pack_tag "postcodesHelper"
 
 .background-pattern.border-bottom
   .container.container-narrow
@@ -30,9 +31,10 @@
                                     selected: @user.willing_party_id },
                                   { class: "form-control" }
 
+          = render partial: "postcode_field"
+
           .form-group
             %label.mb-0 My constituency is
-            %br
             = f.collection_select :constituency_ons_id, @constituencies,
                                   :ons_id, :name,
                                   { prompt: "...",
@@ -41,19 +43,11 @@
 
           .form-group
             %label.mb-0 My email address is
-            = f.text_field :email, placeholder: "me@example.com", autofocus: true, class: "form-control"
+            = f.email_field :email, placeholder: "me@example.com",
+                            autofocus: true, size: 30, { class: "form-control" }
 
-          .form-group
-            %label.mb-0 My phone number is
-            %br
-            = telephone_field_tag "mobile_phone[number]", @mobile_number, class: "form-control"
-
-            - if @mobile_number.present?
-              - if mobile_verified?
-                Verified!
-              - else
-                = button_tag "Verify", formaction: verify_mobile_path,
-                            formmethod: :get, class: "btn btn-primary"
+          = render partial: 'mobile_phone/form',
+            locals: {mobile_number: @mobile_number}
 
           %p.subdued.small
 
@@ -63,9 +57,10 @@
             will stay private with us.
 
           %p.text-center
-            = submit_tag("Save", class: "btn btn-primary btn-block")
+            = submit_tag("Save", class: "btn btn-primary")
 
         %hr
           %p.small.subdued
             If you no longer want to take part in Swap My Vote, you can delete your account
             =link_to "here", confirm_account_deletion_path
+

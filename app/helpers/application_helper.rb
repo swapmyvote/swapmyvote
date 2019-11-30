@@ -23,6 +23,7 @@ module ApplicationHelper
   end
 
   def swapping_open?
+    return true if session[:sesame] == "open" # someone said the magic word
     return !ENV["SWAPS_CLOSED"]
   end
 
@@ -59,11 +60,13 @@ module ApplicationHelper
   # will be shown but the dialog is not shown automatically.
 
   def log_in_with_facebook?
+    return false if %w[all facebook].include? ENV["DISABLE_LOG_INS"]
     return true unless params[:log_in_with]
     return %w[any facebook].include? params[:log_in_with]
   end
 
   def log_in_with_twitter?
+    return false if %w[all twitter].include? ENV["DISABLE_LOG_INS"]
     return true unless params[:log_in_with]
     return %w[any twitter].include? params[:log_in_with]
   end
@@ -73,7 +76,8 @@ module ApplicationHelper
     return %w[any email].include? params[:log_in_with]
   end
 
-  def log_in_method_restricted?
+  def log_in_method_unrestricted?
+    return false if ENV["DISABLE_LOG_INS"]
     return !params[:log_in_with] || params[:log_in_with] == "any"
   end
 
@@ -82,5 +86,12 @@ module ApplicationHelper
     methods << "Facebook" if log_in_with_facebook?
     methods << "Twitter" if log_in_with_twitter?
     methods.join(" or ")
+  end
+
+  def app_tagline
+    [
+      "Join me in making our votes count for more!",
+      "Turn tactical voting into a win-win!",
+    ].sample
   end
 end

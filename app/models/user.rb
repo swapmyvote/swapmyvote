@@ -80,6 +80,11 @@ class User < ApplicationRecord
     PotentialSwap.destroy(incoming_potential_swaps.pluck(:id))
   end
 
+  def phone_verified?
+    return false unless mobile_phone
+    mobile_phone.verified
+  end
+
   def swap_with_user_id(user_id)
     other_user = User.find(user_id)
     if outgoing_swap || incoming_swap

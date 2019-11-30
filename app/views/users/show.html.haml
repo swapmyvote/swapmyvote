@@ -1,3 +1,6 @@
+= javascript_pack_tag "intlTelInput"
+= stylesheet_pack_tag "intlTelInput"
+
 .background-pattern.border-bottom
   .container.container-narrow
     - if @user.swap_confirmed?
@@ -5,6 +8,7 @@
     - elsif @user.outgoing_swap
       = render partial: "users/show/confirm_outgoing_swap"
     - elsif @user.incoming_swap
-      = render partial: "users/show/confirm_incoming_swap"
+      = render partial: "users/show/confirm_incoming_swap",
+        locals: {user: @user, mobile_number: @mobile_number}
 
 = render partial: "users/info_summary"
