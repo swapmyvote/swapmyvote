@@ -74,9 +74,9 @@ class User < ApplicationRecord
     PotentialSwap.destroy(incoming_potential_swaps.pluck(:id))
   end
 
-  def phone_verified?
-    return false unless mobile_phone
-    mobile_phone.verified
+  # This allows mocking in tests
+  def mobile_phone_verified?
+    mobile_phone&.verified
   end
 
   def swap_with_user_id(user_id)
@@ -174,6 +174,13 @@ class User < ApplicationRecord
       end
       create_mobile_phone!(number: new_number)
     end
+  end
+
+  # This is used to determine whether to enforce the requirement for
+  # mobile verification.
+  def mobile_verification_missing?
+    return false if test_user? && ENV["TEST_USERS_SKIP_MOBILE_VERIFICATION"]
+    return !mobile_phone_verified?
   end
 
   def image_url
