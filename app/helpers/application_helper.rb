@@ -38,7 +38,7 @@ module ApplicationHelper
     return current_user.try(:mobile_phone).try(:verified)
   end
 
-  def mobile_needs_verification?
+  def mobile_set_but_not_verified?
     return current_user.try(:mobile_phone) &&
            !current_user.mobile_phone.verified
   end

@@ -95,19 +95,19 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
-  describe "#mobile_needs_verification?" do
+  describe "#mobile_set_but_not_verified?" do
     context "when logged out" do
       # This should never happen, but let's be safe
 
       it "returns false" do
-        expect(helper.mobile_needs_verification?).to be_falsey
+        expect(helper.mobile_set_but_not_verified?).to be_falsey
       end
     end
 
     context "when logged in", logged_in: true do
       context "with no mobile phone" do
         it "returns false" do
-          expect(helper.mobile_needs_verification?).to be_falsey
+          expect(helper.mobile_set_but_not_verified?).to be_falsey
         end
       end
 
@@ -118,7 +118,7 @@ RSpec.describe ApplicationHelper, type: :helper do
         end
 
         it "returns true when not verified" do
-          expect(helper.mobile_needs_verification?).to be_truthy
+          expect(helper.mobile_set_but_not_verified?).to be_truthy
         end
 
         it "returns false when verified" do
@@ -130,7 +130,7 @@ RSpec.describe ApplicationHelper, type: :helper do
           # reads it from current_user.
           current_user.mobile_phone.verified = true
 
-          expect(helper.mobile_needs_verification?).to be_falsey
+          expect(helper.mobile_set_but_not_verified?).to be_falsey
         end
       end
     end
