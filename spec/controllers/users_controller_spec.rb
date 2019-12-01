@@ -5,9 +5,7 @@ RSpec.describe UsersController, type: :controller do
 
   context "when user is logged in" do
     let(:logged_in_user) do
-      create(:user, id: 111,
-            constituency: build(:ons_constituency),
-            email: "foo@bar.com")
+      create(:user, id: 111, constituency: build(:ons_constituency))
     end
 
     before do
@@ -16,7 +14,7 @@ RSpec.describe UsersController, type: :controller do
 
     describe "GET #show" do
       it "returns http success" do
-        swap_with_user = create(:user)
+        swap_with_user = create(:user, name: "Jane")
         logged_in_user.swap_with_user_id(swap_with_user.id)
 
         get :show
