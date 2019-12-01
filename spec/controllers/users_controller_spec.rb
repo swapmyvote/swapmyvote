@@ -77,9 +77,9 @@ RSpec.describe UsersController, type: :controller do
     let(:invalid_user) { build(:user, id: 2) }
 
     before do
-      session[:user_id] = invalid_user.id
-      allow(User).to receive(:find_by_id).with(invalid_user.id)
-                       .and_return(invalid_user)
+      # Stub out authentication
+      allow(request.env['warden']).to receive(:authenticate!).and_return(invalid_user)
+      allow(controller).to receive(:current_user).and_return(invalid_user)
     end
 
     describe "GET #show" do
