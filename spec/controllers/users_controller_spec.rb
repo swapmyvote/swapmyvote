@@ -16,12 +16,12 @@ RSpec.describe UsersController, type: :controller do
 
     describe "GET #show" do
       it "returns http success" do
-          swap_with_user = create(:ready_to_swap_user2, name: "Jane")
+        swap_with_user = create(:ready_to_swap_user2, name: "Jane")
 
-          logged_in_user.swap_with_user_id(swap_with_user.id)
+        logged_in_user.swap_with_user_id(swap_with_user.id)
 
-          get :show
-          expect(response).to have_http_status(:success)
+        get :show
+        expect(response).to have_http_status(:success)
       end
 
       it "redirects to user_swap" do
