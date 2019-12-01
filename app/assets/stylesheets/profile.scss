@@ -55,6 +55,50 @@
     }
 }
 
+.profile-recommendations {
+    margin-top: 12px;
+    width: 93%;
+
+    .recommendation {
+        display: inline-block;
+
+        @include smallscreen {
+            width: 90%;
+        }
+
+        @include largescreen {
+            width: 13%;
+        }
+
+    }
+
+    .recommendation-source {
+
+        @include largescreen {
+            font-size: $base-font-size * 0.7;
+        }
+
+        @include smallscreen {
+            display: inline-block;
+            width: 45%;
+            text-align: right;
+        }
+
+    }
+
+    .recommendation-text {
+
+        @include smallscreen {
+            display: inline-block;
+            width: 45%;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+    }
+
+}
+
 .poll-chart {
     margin-top: 12px;
     height: 120px;
