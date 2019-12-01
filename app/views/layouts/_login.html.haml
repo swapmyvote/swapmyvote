@@ -1,6 +1,5 @@
 %span.user
-  -# fkorning
-  -# todo: this should probably be a button with a fa-sign-in icon
+  -# fkorning: this should probably be a button with a fa-sign-in icon
   %i.fa.fa-fw.fa-sign-in
   = link_to "log-in", "#", class: "small subdued logout", onclick: "showModal($('.js-login-modal')); return false"
 .modal.js-login-modal{style: "display: %s;" % (params[:log_in_with] ? 'inherit' : 'none')}

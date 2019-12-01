@@ -90,6 +90,7 @@ GEM
     faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.2)
+    fileutils (1.4.1)
     formatador (0.2.5)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -360,6 +361,7 @@ DEPENDENCIES
   database_cleaner
   dotenv-rails
   factory_bot_rails
+  fileutils (>= 1.2.0)
   guard
   guard-bundler
   guard-rails
