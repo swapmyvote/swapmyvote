@@ -1,2 +1,5 @@
 %div{ class: "recommendation #{recommendation.site}" }
-  =link_to "\'#{recommendation.site}\' said: #{recommendation.text}", recommendation.link
+  .recommendation-source.small
+    =recommendation.site
+  .recommendation-text
+    =link_to recommendation.text, recommendation.link

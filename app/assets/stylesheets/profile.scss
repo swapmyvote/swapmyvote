@@ -57,7 +57,16 @@
 
 .profile-recommendations {
   margin-top: 12px;
-  width: 90%;
+  width: 95%;
+
+  .recommendation {
+    width: 13%;
+    display: inline-block;
+  }
+
+  .recommendation-source {
+    font-size: $base-font-size * 0.7;
+  }
 }
 
 

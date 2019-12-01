@@ -16,9 +16,11 @@
         Polls in #{other_user.constituency.try(:name) or "Unknown"}
       %div{class: "poll-chart", id: "poll_#{other_user.id}"}
 -unless other_user.constituency.nil?
-  .profile-recommendations
-    .text-center.small
-      Recommendations: #{other_user.constituency.recommendations.count}
+  .text-center.small
+    Does this help your vote count ?
+  .profile-recommendations.text-center.card
+    .recommendations-header
+      Tactical Recommendations
     =render :partial => 'recommendations/recommendation', :collection => other_user.constituency.recommendations
   :javascript
     drawPollChart("poll_#{other_user.id}", #{poll_data_for(other_user.constituency)});
