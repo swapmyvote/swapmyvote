@@ -16,14 +16,12 @@ RSpec.describe UsersController, type: :controller do
 
     describe "GET #show" do
       it "returns http success" do
-        ClimateControl.modify SERVER_HOST_PORT: "localhost:3000" do
           swap_with_user = create(:ready_to_swap_user2, name: "Jane")
 
           logged_in_user.swap_with_user_id(swap_with_user.id)
 
           get :show
           expect(response).to have_http_status(:success)
-        end
       end
 
       it "redirects to user_swap" do
