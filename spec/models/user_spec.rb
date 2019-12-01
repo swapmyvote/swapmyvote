@@ -1,11 +1,13 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
+  subject { create(:user, name:"Fred") }
+
   specify { expect(subject).to respond_to(:sent_emails) }
 
   describe "#constituency" do
     context "with user with no constituency id" do
-      let(:no_constituency_user) { User.new(email: "fred@example.com", name: "fred") }
+      let(:no_constituency_user) { create(:user, name:"Fred") }
 
       it "is nil" do
         expect(no_constituency_user.constituency).to be_nil
@@ -14,7 +16,7 @@ RSpec.describe User, type: :model do
 
     context "with user with constituency id" do
       let(:constituency) { OnsConstituency.create!(name: "test con 1", ons_id: "another-fake-ons-id") }
-      let(:user) { User.new(email: "test@example.com", name: "test user", constituency_ons_id: constituency.ons_id) }
+      let(:user) { create(:user, name: "Test", constituency_ons_id: constituency.ons_id) }
 
       it "is expected constituency" do
         expect(user.constituency).to eq(constituency)
@@ -23,13 +25,13 @@ RSpec.describe User, type: :model do
   end
 
   describe "#potential_swap_users" do
-    let(:user) { User.new(email: "fred@example.com", name: "fred", id: 1) }
+    let(:user) { create(:user, name:"Fred", id: 1) }
 
     specify { expect { user.potential_swap_users(5) }.not_to raise_error }
   end
 
   context "when user has no preferred party, willing party or constituency" do
-    let(:no_swap_user) { User.new(email: "fred@example.com", name: "fred", id: 1) }
+    let(:no_swap_user) { create(:user, name:"Fred", id: 1) }
 
     context "setting constituency" do
       let(:the_change) { -> { no_swap_user.constituency_ons_id = "some-fake-ons-id" } }
@@ -83,7 +85,7 @@ RSpec.describe User, type: :model do
       it "prevents two users having the same number" do
         subject.save!
         subject.create_mobile_phone(number: number1)
-        user2 = User.create!
+        user2 = create(:user)
         expect {
           user2.create_mobile_phone!(number: number1)
         }.to raise_error(ActiveRecord::RecordInvalid,
@@ -133,7 +135,7 @@ RSpec.describe User, type: :model do
 
       it "prevents two users having the same number" do
         subject.mobile_number = number1
-        user2 = User.create!(email: "fred@example.com", name: "fred")
+        user2 = create(:user)
         expect {
           user2.mobile_number = number1
         }.to raise_error(ActiveRecord::RecordInvalid,
@@ -143,32 +145,6 @@ RSpec.describe User, type: :model do
   end
 
   describe "#send_welcome_email (after_save callback)" do
-    context "when the user does NOT have an email address" do
-      before do
-        subject.update(email: nil)
-        subject.save!
-      end
-
-      specify "#save does NOT call #send_welcome_email" do
-        is_expected.not_to receive(:send_welcome_email)
-        subject.sent_emails.clear
-        subject.save!
-      end
-    end
-
-    context "when the user has an EMPTY email address" do
-      before do
-        subject.update(email: "")
-        subject.save!
-      end
-
-      specify "#save does NOT call #send_welcome_email" do
-        is_expected.not_to receive(:send_welcome_email)
-        subject.sent_emails.clear
-        subject.save!
-      end
-    end
-
     context "when the user DOES have an email address" do
       before { subject.update(email: "some@email.address") }
 
