@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source "http://rubygems.org"
 ruby "2.6.5"
 
 
@@ -103,6 +103,6 @@ group :development, :test do
 end
 
 group :production do
-  gem "pg"
-  gem "puma"
+#  gem "pg"
+#  gem "puma"
 end

@@ -6,7 +6,8 @@
 
 %header
   .list-group
-    %button{formaction: twitter_login_path, formmethod: :post, class: "list-group-item"}
-      -# %i.fa.fa-fw.fa-paypal
-      %i.fa.fa-fw.fa-gbp 
-      donate
+    .list-group-item
+      %a.button{:href => "https://www.crowdfunder.co.uk/swapmyvote", class: "button donate"}
+        -# %i.fa.fa-fw.fa-paypal
+        %i.fa.fa-fw.fa-gbp 
+        donate
