@@ -56,20 +56,43 @@
 }
 
 .profile-recommendations {
-  margin-top: 12px;
-  width: 95%;
+    margin-top: 12px;
+    width: 95%;
 
-  .recommendation {
-    width: 13%;
-    display: inline-block;
-  }
+    .recommendation {
+        display: inline-block;
 
-  .recommendation-source {
-    font-size: $base-font-size * 0.7;
-  }
+        @include smallscreen {
+            width: 90%;
+        }
+
+        @include largescreen {
+            width: 13%;
+        }
+
+    }
+
+    .recommendation-source {
+
+        font-size: $base-font-size * 0.7;
+
+        @include smallscreen {
+            display: inline-block;
+            width: 70%;
+        }
+
+    }
+
+    .recommendation-text {
+
+        @include smallscreen {
+            display: inline-block;
+            width: 25%;
+        }
+
+    }
+
 }
-
-
 
 .poll-chart {
     margin-top: 12px;
