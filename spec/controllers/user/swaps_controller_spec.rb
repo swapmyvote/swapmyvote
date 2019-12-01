@@ -24,7 +24,7 @@ RSpec.describe User::SwapsController, type: :controller do
 
     before do
       # Stub out authentication
-      allow(request.env['warden']).to receive(:authenticate!).and_return(new_user)
+      allow(request.env["warden"]).to receive(:authenticate!).and_return(new_user)
       allow(controller).to receive(:current_user).and_return(new_user)
 
       allow(User).to receive(:find).with(swap_user.id.to_s)
@@ -86,7 +86,7 @@ RSpec.describe User::SwapsController, type: :controller do
 
     before do
       # Stub out authentication
-      allow(request.env['warden']).to receive(:authenticate!).and_return(new_user)
+      allow(request.env["warden"]).to receive(:authenticate!).and_return(new_user)
       allow(controller).to receive(:current_user).and_return(new_user)
 
       allow(User).to receive(:find).with(swap_user.id.to_s)

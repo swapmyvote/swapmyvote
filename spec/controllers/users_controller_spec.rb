@@ -10,7 +10,7 @@ RSpec.describe UsersController, type: :controller do
 
     before do
       # Stub out authentication
-      allow(request.env['warden']).to receive(:authenticate!).and_return(logged_in_user)
+      allow(request.env["warden"]).to receive(:authenticate!).and_return(logged_in_user)
       allow(controller).to receive(:current_user).and_return(logged_in_user)
     end
 
@@ -80,7 +80,7 @@ RSpec.describe UsersController, type: :controller do
 
     before do
       # Stub out authentication
-      allow(request.env['warden']).to receive(:authenticate!).and_return(invalid_user)
+      allow(request.env["warden"]).to receive(:authenticate!).and_return(invalid_user)
       allow(controller).to receive(:current_user).and_return(invalid_user)
     end
 
