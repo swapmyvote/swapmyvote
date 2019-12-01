@@ -98,11 +98,12 @@ group :development, :test do
   gem "rails-controller-testing"
   gem "factory_bot_rails"
 
+
   gem "guard-yarn"
   gem "guard-scss_lint"
 end
 
 group :production do
-#  gem "pg"
-#  gem "puma"
+  gem "pg"
+  gem "puma"
 end
