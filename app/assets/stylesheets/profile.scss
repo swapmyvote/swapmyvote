@@ -48,18 +48,19 @@
         }
     }
 
-    .profile-recommendations {
-        margin-top: 12px;
-        width: 90%;
-    }
-
-
     &::after {
         content: "";
         clear: both;
         display: block;
     }
 }
+
+.profile-recommendations {
+  margin-top: 12px;
+  width: 90%;
+}
+
+
 
 .poll-chart {
     margin-top: 12px;
