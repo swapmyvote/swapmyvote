@@ -1,13 +1,13 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
-  subject { create(:user, name:"Fred") }
+  subject { create(:user, name: "Fred") }
 
   specify { expect(subject).to respond_to(:sent_emails) }
 
   describe "#constituency" do
     context "with user with no constituency id" do
-      let(:no_constituency_user) { create(:user, name:"Fred") }
+      let(:no_constituency_user) { create(:user, name: "Fred") }
 
       it "is nil" do
         expect(no_constituency_user.constituency).to be_nil
@@ -25,13 +25,13 @@ RSpec.describe User, type: :model do
   end
 
   describe "#potential_swap_users" do
-    let(:user) { create(:user, name:"Fred", id: 1) }
+    let(:user) { create(:user, name: "Fred", id: 1) }
 
     specify { expect { user.potential_swap_users(5) }.not_to raise_error }
   end
 
   context "when user has no preferred party, willing party or constituency" do
-    let(:no_swap_user) { create(:user, name:"Fred", id: 1) }
+    let(:no_swap_user) { create(:user, name: "Fred", id: 1) }
 
     context "setting constituency" do
       let(:the_change) { -> { no_swap_user.constituency_ons_id = "some-fake-ons-id" } }

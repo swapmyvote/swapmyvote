@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     name { "John" }
-    email { "#{name.gsub(/\s/,".").downcase}@example.com" }
+    email { "#{name.gsub(/\s/, ".").downcase}@example.com" }
 
     factory :ready_to_swap_user1 do
       association :constituency, factory: :ons_constituency, name: "Constituency1"
