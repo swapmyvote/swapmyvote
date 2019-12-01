@@ -103,6 +103,7 @@ group :all_plugins, halt_on_fail: true do
     watch(rails.spec_helper)     { rspec.spec_dir }
     watch(rails.routes)          { "#{rspec.spec_dir}/routing" }
     watch(rails.app_controller)  { "#{rspec.spec_dir}/controllers" }
+    watch(rails.views)           { "#{rspec.spec_dir}/views" }
 
     # # Capybara features specs
     # watch(rails.view_dirs)     { |m| rspec.spec.call("features/#{m[1]}") }
