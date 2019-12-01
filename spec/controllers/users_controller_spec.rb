@@ -53,14 +53,16 @@ RSpec.describe UsersController, type: :controller do
     end
 
     describe "POST #update" do
-
       it "redirects to #show if user has verified phone number" do
         build(:mobile_phone, number: "07400 123456", verified: true, user_id: logged_in_user.id)
+        new_constituency = build(:ons_constituency, name: "Wimbledon")
 
-        expect(logged_in_user).to receive(:update)
-        post :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" } }
+        expect(logged_in_user).to receive(:update).and_call_original
+        post :update, params: { user: { constituency_ons_id: new_constituency.ons_id, email: "a@b.c" } }
         logged_in_user.reload
-        expect(logged_in_user.constituency_ons_id).to eq("2")
+
+        expect(logged_in_user.constituency_ons_id).to eq(new_constituency.ons_id)
+        expect(logged_in_user.email).to eq("a@b.c")
         expect(response).to redirect_to(:user)
       end
     end
