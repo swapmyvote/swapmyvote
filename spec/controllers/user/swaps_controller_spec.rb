@@ -23,7 +23,9 @@ RSpec.describe User::SwapsController, type: :controller do
     let(:an_email) { double(:an_email) }
 
     before do
-      sign_in new_user
+      # Stub out authentication
+      allow(request.env['warden']).to receive(:authenticate!).and_return(new_user)
+      allow(controller).to receive(:current_user).and_return(new_user)
 
       allow(User).to receive(:find_by_id).with(new_user.id)
                        .and_return(new_user)
@@ -85,7 +87,9 @@ RSpec.describe User::SwapsController, type: :controller do
     let(:an_email) { double(:an_email) }
 
     before do
-      sign_in new_user
+      # Stub out authentication
+      allow(request.env['warden']).to receive(:authenticate!).and_return(new_user)
+      allow(controller).to receive(:current_user).and_return(new_user)
 
       allow(User).to receive(:find_by_id).with(new_user.id)
                        .and_return(new_user)
