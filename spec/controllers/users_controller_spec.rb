@@ -5,16 +5,18 @@ RSpec.describe UsersController, type: :controller do
 
   context "when user is logged in" do
     let(:logged_in_user) do
-      create(:user, id: 111, constituency: build(:ons_constituency))
+      create(:ready_to_swap_user1, id: 111, constituency: build(:ons_constituency))
     end
 
     before do
-      sign_in logged_in_user
+      # Stub out authentication
+      allow(request.env['warden']).to receive(:authenticate!).and_return(logged_in_user)
+      allow(controller).to receive(:current_user).and_return(logged_in_user)
     end
 
     describe "GET #show" do
       it "returns http success" do
-        swap_with_user = create(:user, name: "Jane")
+        swap_with_user = create(:ready_to_swap_user2, name: "Jane")
         logged_in_user.swap_with_user_id(swap_with_user.id)
 
         get :show

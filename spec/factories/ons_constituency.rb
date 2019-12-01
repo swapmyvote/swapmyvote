@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :ons_constituency do
-    name { "Brighton, Pavilion" }
-    ons_id { "factory-faked-ons-id"}
+    name { "Woking" }
+    ons_id { "factory-faked-ons-id-#{name.downcase}"}
   end
 end
