@@ -5,52 +5,24 @@ class SwapMyVote::MessageBird
     end
 
     def verify_create(mobile_number, template)
-      begin
-        otp = SwapMyVote::MessageBird.client.verify_create(
-          mobile_number,
-          originator: "SwapMyVote",
-          timeout: 10 * 60,
-          template: template
-        )
-
-      # Is it better to expose MessageBird errors directly to
-      # the user?
-      #
-      # rescue MessageBird::ErrorException => ex
-      #   return nil, errors_from_exception(ex)
-      end
-
-      return otp, nil
+      otp = SwapMyVote::MessageBird.client.verify_create(
+        mobile_number,
+        originator: "SwapMyVote",
+        timeout: 10 * 60,
+        template: template
+      )
+      return otp
     end
 
     def verify_delete(verify_id)
-      begin
-        SwapMyVote::MessageBird.client.verify_delete(verify_id)
-      rescue MessageBird::ErrorException => ex
-        return errors_from_exception(ex)
-      rescue StandardError => ex
-        return [ex.inspect + "\n" + ex.backtrace.join("\n")]
-      end
-
-      return nil
+      SwapMyVote::MessageBird.client.verify_delete(verify_id)
+    rescue NoMethodError => ex
+      Rails.logger.warn "Bug in messagebird-rest gem:\n#{ex}\n" +
+                        (ex.backtrace.join "\n")
     end
 
     def verify_token(verify_id, token)
-      begin
-        SwapMyVote::MessageBird.client.verify_token(verify_id, token)
-      rescue MessageBird::ErrorException => ex
-        return errors_from_exception(ex)
-      end
-
-      return nil
-    end
-
-    private
-
-    def errors_from_exception(ex)
-      ex.errors.map do |error|
-        "Error code #{error.code}: #{error.description}"
-      end
+      SwapMyVote::MessageBird.client.verify_token(verify_id, token)
     end
   end
 end
