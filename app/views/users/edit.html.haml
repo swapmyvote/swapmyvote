@@ -35,6 +35,7 @@
 
           .form-group
             %label.mb-0 My constituency is
+            %br
             = f.collection_select :constituency_ons_id, @constituencies,
                                   :ons_id, :name,
                                   { prompt: "...",

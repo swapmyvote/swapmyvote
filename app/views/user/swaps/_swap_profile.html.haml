@@ -16,9 +16,9 @@
         Polls in #{other_user.constituency.try(:name) or "Unknown"}
       %div{class: "poll-chart", id: "poll_#{other_user.id}"}
 - unless other_user.constituency.nil?
-  .text-center.small
+  %h6.text-center.mt-2
     Does this help your vote count ?
-  .profile-recommendations.text-center.card
+  .profile-recommendations.text-center.smv-card
     .recommendations-header
       Tactical Recommendations
     = render :partial => 'recommendations/recommendation', :collection => other_user.constituency.recommendations
