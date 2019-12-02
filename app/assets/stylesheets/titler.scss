@@ -1,0 +1,23 @@
+@import "mixins";
+
+titler {
+  background-color: $bg-color;
+
+  .titler {
+  	padding: 0px 10px 0px 0px;
+  	margin:  2px;
+  }
+
+  .list-group {
+  }
+  
+  .list-group-item:first-child {
+  }
+  
+  a.list-group-item {
+  }
+  
+  .list-group-item {
+  }
+
+}

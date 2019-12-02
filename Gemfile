@@ -1,17 +1,24 @@
 source "https://rubygems.org"
 ruby "2.6.5"
 
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 5.2.0"
+
+
 # Use SCSS for stylesheets
 gem "sass-rails"
+
 # Use Uglifier as compressor for JavaScript assets
 gem "uglifier", ">= 1.3.0"
+
 # Use CoffeeScript for .coffee assets and views
 gem "coffee-rails"
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+gem "rb-readline"
 gem "bootsnap", require: false
 
 # Use jquery as the JavaScript library
@@ -94,7 +101,6 @@ group :development, :test do
   gem "factory_bot_rails"
 
   gem "guard-scss_lint"
-
   gem "guard-yarn"
 end
 
