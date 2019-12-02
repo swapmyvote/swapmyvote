@@ -1,4 +1,4 @@
-%img.profile-img{src: other_user.image_url}
+%img.profile-img{ src: other_user.image_url }
 .profile-content
   .profile-name= other_user.redacted_name
   .profile-constituency.subdued
@@ -13,4 +13,4 @@
   .profile-poll
     .text-center.small
       Polls in #{other_user.constituency.try(:name) or "Unknown"}
-    %div{class: "poll-chart", id: "poll_#{other_user.id}"}
+    %div.poll-chart{ id: "poll_#{other_user.id}" }
