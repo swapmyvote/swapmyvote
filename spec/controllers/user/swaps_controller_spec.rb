@@ -119,7 +119,6 @@ RSpec.describe User::SwapsController, type: :controller do
     end
   end
 
-
   context "when users don't have an email" do
     let(:new_user) do
       build(:user, id: 122,
