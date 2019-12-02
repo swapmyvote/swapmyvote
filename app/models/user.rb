@@ -89,6 +89,9 @@ class User < ApplicationRecord
     elsif other_user.outgoing_swap || other_user.incoming_swap
       errors.add :base, "Chosen user is already swapped"
       return
+    elsif other_user.email.blank?
+      errors.add :base, "Chosen user has no email address, please choose another user"
+      return
     end
 
     destroy_all_potential_swaps
