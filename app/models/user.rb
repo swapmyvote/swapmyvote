@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable,
-         :omniauth_providers => [:twitter, :facebook]
+         omniauth_providers: [:twitter, :facebook]
   belongs_to :preferred_party, class_name: "Party", optional: true
   belongs_to :willing_party, class_name: "Party", optional: true
   has_one    :mobile_phone, dependent: :destroy
@@ -198,7 +198,7 @@ class User < ApplicationRecord
     return "https://secure.gravatar.com/avatar/#{hash}?d=identicon&s=80"
   end
 
-  def has_social_profile?
+  def social_profile?
     identity.present?
   end
 
@@ -214,17 +214,17 @@ class User < ApplicationRecord
     identity&.uid
   end
 
-protected
-
-  def password_required?
-    false
-  end
-
   def test_user?
     email.present? && email =~ /@(example\.com|tfbnw\.net)$/
   end
 
   def test_user_suffix
     test_user? ? " (test user)" : ""
+  end
+
+  protected
+
+  def password_required?
+    false
   end
 end

@@ -63,7 +63,7 @@ RSpec.describe User, type: :model do
   describe "#redacted_name" do
     it "redacts the user's surname" do
       subject.name = "Ada Lovelace"
-      expect(subject.redacted_name).to eq("Ada L")
+      expect(subject.redacted_name).to eq("Ada L (test user)")
     end
 
     it "redacts the user's surname and adds (test user)" do
@@ -203,6 +203,7 @@ RSpec.describe User, type: :model do
 
   describe "#test_user?" do
     it "with no email returns false" do
+      subject.email = nil
       expect(subject.test_user?).to be_falsey
     end
 
@@ -225,6 +226,7 @@ RSpec.describe User, type: :model do
   describe "#mobile_verification_missing?" do
     context "with no mobile phone" do
       it "returns false" do
+        subject.email = nil
         expect(subject.mobile_verification_missing?).to be_truthy
       end
     end
@@ -264,6 +266,7 @@ RSpec.describe User, type: :model do
         end
 
         it "no email returns true" do
+          subject.email = nil
           expect(subject.mobile_verification_missing?).to be_truthy
         end
 
