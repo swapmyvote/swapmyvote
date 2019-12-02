@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def show
     @mobile_number = @user.mobile_number
-    if !@user.constituency || !@user.email
+    if !@user.constituency || @user.email.blank?
       redirect_to edit_user_constituency_path
       return
     end

@@ -59,6 +59,8 @@ class User < ApplicationRecord
     offset = rand(swaps.count)
     target_user = swaps.offset(offset).limit(1).first
     return nil unless target_user
+    # We need emails to send confirmation emails
+    return nil if target_user.email.blank?
     # Don't include if already swapped
     return nil if target_user.swap
     # Ignore if already included
