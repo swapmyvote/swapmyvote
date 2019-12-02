@@ -1,0 +1,16 @@
+%img.profile-img{src: other_user.image_url}
+.profile-content
+  .profile-name= other_user.redacted_name
+  .profile-constituency.subdued
+    in #{other_user.constituency.try(:name) or "Unknown?"}
+  .profile-votes
+    Will vote
+    %strong= other_user.willing_party.name
+    if you vote
+    %strong= other_user.preferred_party.name
+
+- unless other_user.constituency.nil?
+  .profile-poll
+    .text-center.small
+      Polls in #{other_user.constituency.try(:name) or "Unknown"}
+    %div{class: "poll-chart", id: "poll_#{other_user.id}"}
