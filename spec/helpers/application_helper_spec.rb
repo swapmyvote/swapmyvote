@@ -69,18 +69,20 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
-  describe "#mobile_needs_verification?" do
+  describe "#mobile_set_but_not_verified?" do
     context "when logged out" do
       # This should never happen, but let's be safe
 
       it "returns false" do
-        expect(helper.mobile_needs_verification?).to be_falsey
+        expect(helper.mobile_set_but_not_verified?).to be_falsey
       end
     end
 
     context "when logged in", logged_in: true do
-      it "with no mobile phone returns false" do
-        expect(helper.mobile_needs_verification?).to be_falsey
+      context "with no mobile phone" do
+        it "returns false" do
+          expect(helper.mobile_set_but_not_verified?).to be_falsey
+        end
       end
 
       context "with mobile phone" do
@@ -90,11 +92,11 @@ RSpec.describe ApplicationHelper, type: :helper do
           user.save
         end
 
-        it "returns false when not verified" do
-          expect(helper.mobile_verified?).to be_falsey
+        it "returns true when not verified" do
+          expect(helper.mobile_set_but_not_verified?).to be_truthy
         end
 
-        it "returns true when verified" do
+        it "returns false when verified" do
           # Note that here we have to set verified = true on the
           # MobilePhone instance returned from current_user, since the
           # user local variable from let() is a different User
@@ -104,7 +106,7 @@ RSpec.describe ApplicationHelper, type: :helper do
           user.mobile_phone.verified = true
           user.mobile_phone.save
 
-          expect(helper.mobile_verified?).to be_truthy
+          expect(helper.mobile_set_but_not_verified?).to be_falsey
         end
       end
     end

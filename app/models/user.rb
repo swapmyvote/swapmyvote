@@ -80,9 +80,9 @@ class User < ApplicationRecord
     PotentialSwap.destroy(incoming_potential_swaps.pluck(:id))
   end
 
-  def phone_verified?
-    return false unless mobile_phone
-    mobile_phone.verified
+  # This allows mocking in tests
+  def mobile_phone_verified?
+    mobile_phone&.verified
   end
 
   def swap_with_user_id(user_id)
@@ -161,8 +161,12 @@ class User < ApplicationRecord
     UserMailer.reminder_to_vote(self).deliver_now
   end
 
+  def name
+    self[:name].try { |n| n + test_user_suffix }
+  end
+
   def redacted_name
-    NameRedactor.redact(name)
+    NameRedactor.redact(self[:name]) + test_user_suffix
   end
 
   def mobile_number
@@ -176,6 +180,13 @@ class User < ApplicationRecord
       end
       create_mobile_phone!(number: new_number)
     end
+  end
+
+  # This is used to determine whether to enforce the requirement for
+  # mobile verification.
+  def mobile_verification_missing?
+    return false if test_user? && ENV["TEST_USERS_SKIP_MOBILE_VERIFICATION"]
+    return !mobile_phone_verified?
   end
 
   def image_url
@@ -207,5 +218,13 @@ protected
 
   def password_required?
     false
+  end
+
+  def test_user?
+    email.present? && email =~ /@(example\.com|tfbnw\.net)$/
+  end
+
+  def test_user_suffix
+    test_user? ? " (test user)" : ""
   end
 end

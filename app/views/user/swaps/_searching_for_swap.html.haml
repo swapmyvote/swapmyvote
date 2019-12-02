@@ -11,14 +11,14 @@
 
 %h2 While you're waiting ...
 
-- if !@user.phone_verified?
+- if !@user.mobile_phone_verified?
 
-  %h3 Why not verify your phone number?
+  %h3 Why not verify your mobile phone number?
 
   %p
 
-    This is required before confirming a swap in order to prove you're
-    a genuine account.
+    This is required before confirming a swap in order to prove your
+    account is genuine.
 
   = form_for @user, url: user_path do
     = render partial: 'mobile_phone/form', locals: {mobile_number: @mobile_number}
