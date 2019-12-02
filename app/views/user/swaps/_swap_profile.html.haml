@@ -1,9 +1,9 @@
 - if defined? link_to_swap and link_to_swap
   = link_to new_user_swap_path(user_id: other_user.id), class: "profile" do
-    = render partial: "swap_profile_inner", locals: { other_user: other_user }
+    = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
 - else
   .profile
-    = render partial: "swap_profile_inner", locals: { other_user: other_user }
+    = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
 
 - unless other_user.constituency.nil?
   .text-center.small
