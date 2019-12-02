@@ -3,12 +3,12 @@ require "rails_helper"
 RSpec.describe MobilePhone, type: :model do
   it "prevents two users having the same number" do
     phone1 = subject
-    phone1.user = create(:user)
+    phone1.user = create(:user, name: "John")
     number1 = "07771 111 111"
     number2 = "07772 222 222"
     phone1.number = number1
     phone1.save!
-    user2 = create(:user)
+    user2 = create(:user, name: "Jane")
     phone2 = create(:mobile_phone, number: number2, user: user2)
     user2.mobile_phone = phone2
     user2.save!
