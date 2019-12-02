@@ -3,7 +3,7 @@
 .background-pattern.border-bottom
   .container.container-narrow
     = form_for @user, url: user_constituency_path do |f|
-      - if !@user.email
+      - if @user.email.blank?
         %p
           My email address is
           = f.text_field :email, placeholder: "me@example.com", autofocus: true
