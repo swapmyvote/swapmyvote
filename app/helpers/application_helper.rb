@@ -7,17 +7,6 @@ module ApplicationHelper
     "/auth/twitter"
   end
 
-  # def current_user
-  #   return @current_user unless @current_user.nil?
-
-  #   throw session
-
-  #   return nil unless session.key?(:user_id)
-
-  #   @current_user = User.find_by_id(session[:user_id])
-  #   return @current_user
-  # end
-
   def logged_in?
     return !current_user.nil?
   end

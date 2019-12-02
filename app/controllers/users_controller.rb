@@ -3,7 +3,6 @@ class UsersController < ApplicationController
 
   def new
     @identity = request.env['omniauth.identity']
-    logger.info @identity
   end
 
   def show
