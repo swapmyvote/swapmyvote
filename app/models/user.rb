@@ -83,16 +83,7 @@ class User < ApplicationRecord
 
   def swap_with_user_id(user_id)
     other_user = User.find(user_id)
-    if outgoing_swap || incoming_swap
-      errors.add :base, "Choosing user is already swapped"
-      return
-    elsif other_user.outgoing_swap || other_user.incoming_swap
-      errors.add :base, "Chosen user is already swapped"
-      return
-    elsif other_user.email.blank?
-      errors.add :base, "Chosen user has no email address, please choose another user"
-      return
-    end
+    return unless can_swap_with?(other_user)
 
     destroy_all_potential_swaps
     other_user.destroy_all_potential_swaps
@@ -101,6 +92,22 @@ class User < ApplicationRecord
 
     create_outgoing_swap chosen_user: other_user, confirmed: false
     save
+  end
+
+  def can_swap_with?(other_user)
+    if outgoing_swap || incoming_swap
+      errors.add :base, "Choosing user is already swapped"
+      return false
+    elsif other_user.outgoing_swap || other_user.incoming_swap
+      errors.add :base, "Chosen user is already swapped"
+      return false
+    elsif other_user.email.blank?
+      errors.add :base,
+                 "Chosen user has no email address; please choose another user."
+      return false
+    end
+
+    return true
   end
 
   def swapped_with
