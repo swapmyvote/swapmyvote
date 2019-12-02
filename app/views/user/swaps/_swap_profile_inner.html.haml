@@ -13,4 +13,4 @@
   .profile-poll
     .text-center.small
       Polls in #{other_user.constituency.try(:name) or "Unknown"}
-    %div.poll-chart{ id: "poll_#{other_user.id}" }
+    .poll-chart{ id: "poll_#{other_user.id}" }
