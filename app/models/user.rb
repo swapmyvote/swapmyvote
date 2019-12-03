@@ -196,7 +196,7 @@ class User < ApplicationRecord
   end
 
   def image_url
-    identity&.image_url
+    identity&.image_url&.gsub('http://', '//')
   end
 
   def provider
