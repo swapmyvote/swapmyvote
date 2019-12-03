@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_161508) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "constituency_ons_id"
+    t.integer "marginal_score"
   end
 
   create_table "potential_swaps", force: :cascade do |t|
