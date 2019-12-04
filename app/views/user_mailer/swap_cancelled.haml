@@ -1,8 +1,13 @@
 %p
   Hi #{@user.name},
 %p
-  I'm sorry to say that your swap with #{@swap_with.name} has been cancelled.
-  This could have happened if you or #{@swap_with.name} changed preferred parties, moved constituency,
+  I'm sorry to say that your vote swap
+
+  - if @swap_with
+    with #{@swap_with.name}
+
+  has been cancelled.
+  This could have happened if either of you changed preferred parties, moved constituency,
   declined the swap, or (most likely!) if the swap expired before being confirmed.
 %p
   = link_to "Find another vote swapping partner - log in to swapmyvote.uk now.", user_url(log_in_with: @user.provider)
