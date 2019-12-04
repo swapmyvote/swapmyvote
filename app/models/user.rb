@@ -45,6 +45,8 @@ class User < ApplicationRecord
   def create_potential_swaps(number = 5)
     max_attempts = number * 2
     while potential_swaps.reload.count < number
+      try_to_create_marginal_swap
+      max_attempts -= 1
       try_to_create_potential_swap
       max_attempts -= 1
       break if max_attempts <= 0
@@ -52,12 +54,25 @@ class User < ApplicationRecord
   end
 
   def try_to_create_potential_swap
-    swaps = User.where(
+    swaps = complementary_voters.where("constituency_ons_id like '_%'")
+    return one_swap_from_possible_users(swaps)
+  end
+
+  def try_to_create_marginal_swap
+    swaps = complementary_voters.where({ constituency_ons_id: marginal_polls.map(&:constituency_ons_id) })
+    return one_swap_from_possible_users(swaps)
+  end
+
+  private def complementary_voters
+    User.where(
       preferred_party_id: willing_party_id,
       willing_party_id: preferred_party_id
-    ).where("constituency_ons_id like '_%'")
-    offset = rand(swaps.count)
-    target_user = swaps.offset(offset).limit(1).first
+    )
+  end
+
+  private def one_swap_from_possible_users(user_query)
+    offset = rand(user_query.count)
+    target_user = user_query.offset(offset).limit(1).first
     return nil unless target_user
     # We need emails to send confirmation emails
     return nil if target_user.email.blank?
@@ -69,6 +84,14 @@ class User < ApplicationRecord
     return nil if target_user.id == id
     # Success
     return potential_swaps.create(target_user: target_user)
+  end
+
+  def marginal_polls
+    Poll.where(["marginal_score < ?", 1000]).where(party: preferred_party).order(:marginal_score)
+  end
+
+  def marginal_constituencies
+    OnsConstituency.where({ ons_id: marginal_polls.map(&:constituency_ons_id) })
   end
 
   def destroy_all_potential_swaps
