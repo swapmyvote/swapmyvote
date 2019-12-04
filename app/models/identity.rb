@@ -30,7 +30,7 @@ class Identity < ApplicationRecord
     when "twitter"
       "https://twitter.com/intent/user?user_id=#{uid}"
     else
-      "#"
+      nil
     end
   end
 end

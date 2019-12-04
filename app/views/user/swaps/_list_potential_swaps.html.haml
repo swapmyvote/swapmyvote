@@ -1,12 +1,13 @@
 %p.text-center
-	Who would you like to swap your vote with?
+  Who would you like to swap your vote with?
 %p.text-center.small.subdued
-	Consider the polls in their constituency to give your vote the best chance of making a difference!
+  Consider the polls in their constituency to give your vote the best chance of making a difference!
 .spacer
 - for swap in @potential_swaps
-	= link_to new_user_swap_path(user_id: swap.id), class: "card profile" do
-		= render partial: "swap_profile", object: swap, as: "other_user"
+  .card
+    = render partial: "swap_profile", object: swap, as: "other_user", locals: { link_to_swap: true }
 %p.text-center
-	%a.small{href:"http://www.electoralcalculus.co.uk/orderedseats.html"} Poll results are based on Electoral Calculus predictions
+  %a.small{href:"https://www.electoralcalculus.co.uk/orderedseats.html"}
+    Poll results are based on Electoral Calculus predictions
 %p.text-center.small.subdued
-	This list will refresh in 2 hours if none of these are a good match for you.
+  This list will refresh in 2 hours if none of these are a good match for you.

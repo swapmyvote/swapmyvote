@@ -44,3 +44,5 @@ Style/SymbolArray:
   Enabled: false
 Style/TrailingCommaInArguments:
   Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false

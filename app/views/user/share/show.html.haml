@@ -3,15 +3,12 @@
     %p.searching-for-swap.text-center
       %i.fa.fa-2x.fa-search
       Thanks! We're looking for someone for you to swap with.
+
     %p.text-center
-      Would you like to share SwapmyVote before we continue?
+      Would you like to share Swap My Vote before we continue?
       This will help us to find more people that you could swap your vote with.
-    %p.text-center
-      %a.button.button-facebook{href: user_path, onclick: "shareOnFacebook('#{ENV['FACEBOOK_KEY']}', 'http://www.swapmyvote.uk')"}
-        %i.fa.fa-facebook.fa-fw
-        Share on Facebook
-      %a.button.button-twitter{href: user_path, onclick: "shareOnTwitter('http://www.swapmyvote.uk', 'Make your vote count by swapping it into a different constituency')"}
-        %i.fa.fa-twitter.fa-fw
-        Share on Twitter
+
+    = render partial: 'social'
+
     %p.text-center.small
       %a{href: user_path} No Thanks, Skip &#187;

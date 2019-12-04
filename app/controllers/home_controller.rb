@@ -1,5 +1,11 @@
 class HomeController < ApplicationController
+  before_action :whats_the_magic_word
+
   def index
+    if params.key?(:clear) && prepops
+      session.delete("pre_populate")
+    end
+
     if logged_in? && swapping_open?
       redirect_to user_path
       return
@@ -13,8 +19,7 @@ class HomeController < ApplicationController
   private
 
   def prepopulate_fields_from_session
-    prepop = session["pre_populate"]
-    return if prepop.nil?
+    return if prepops.nil?
 
     @parties.each do |party|
       if canonical_name(party.name) == prepopulated_party("preferred_party_name")
@@ -27,6 +32,14 @@ class HomeController < ApplicationController
   end
 
   def prepopulated_party(param)
-    canonical_name(session["pre_populate"][param])
+    canonical_name(prepops[param])
+  end
+
+  def whats_the_magic_word
+    if params.key?(:opensesame)
+      session[:sesame] = "open"
+    elsif params.key?(:closesesame)
+      session[:sesame] = "closed"
+    end
   end
 end

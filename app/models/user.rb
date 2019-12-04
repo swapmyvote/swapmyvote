@@ -59,6 +59,8 @@ class User < ApplicationRecord
     offset = rand(swaps.count)
     target_user = swaps.offset(offset).limit(1).first
     return nil unless target_user
+    # We need emails to send confirmation emails
+    return nil if target_user.email.blank?
     # Don't include if already swapped
     return nil if target_user.swap
     # Ignore if already included
@@ -74,15 +76,14 @@ class User < ApplicationRecord
     PotentialSwap.destroy(incoming_potential_swaps.pluck(:id))
   end
 
+  # This allows mocking in tests
+  def mobile_phone_verified?
+    mobile_phone&.verified
+  end
+
   def swap_with_user_id(user_id)
     other_user = User.find(user_id)
-    if outgoing_swap || incoming_swap
-      errors.add :base, "Choosing user is already swapped"
-      return
-    elsif other_user.outgoing_swap || other_user.incoming_swap
-      errors.add :base, "Chosen user is already swapped"
-      return
-    end
+    return unless can_swap_with?(other_user)
 
     destroy_all_potential_swaps
     other_user.destroy_all_potential_swaps
@@ -91,6 +92,22 @@ class User < ApplicationRecord
 
     create_outgoing_swap chosen_user: other_user, confirmed: false
     save
+  end
+
+  def can_swap_with?(other_user)
+    if outgoing_swap || incoming_swap
+      errors.add :base, "Choosing user is already swapped"
+      return false
+    elsif other_user.outgoing_swap || other_user.incoming_swap
+      errors.add :base, "Chosen user is already swapped"
+      return false
+    elsif other_user.email.blank?
+      errors.add :base,
+                 "Chosen user has no email address; please choose another user."
+      return false
+    end
+
+    return true
   end
 
   def swapped_with
@@ -150,8 +167,12 @@ class User < ApplicationRecord
     UserMailer.reminder_to_vote(self).deliver_now
   end
 
+  def name
+    self[:name].try { |n| n + test_user_suffix }
+  end
+
   def redacted_name
-    NameRedactor.redact(name)
+    NameRedactor.redact(self[:name]) + test_user_suffix
   end
 
   def mobile_number
@@ -167,8 +188,15 @@ class User < ApplicationRecord
     end
   end
 
+  # This is used to determine whether to enforce the requirement for
+  # mobile verification.
+  def mobile_verification_missing?
+    return false if test_user? && ENV["TEST_USERS_SKIP_MOBILE_VERIFICATION"]
+    return !mobile_phone_verified?
+  end
+
   def image_url
-    identity&.image_url
+    identity&.image_url&.gsub('http://', '//')
   end
 
   def provider
@@ -177,5 +205,13 @@ class User < ApplicationRecord
 
   def uid
     identity&.uid
+  end
+
+  def test_user?
+    email.present? && email =~ /@(example\.com|tfbnw\.net)$/
+  end
+
+  def test_user_suffix
+    test_user? ? " (test user)" : ""
   end
 end
