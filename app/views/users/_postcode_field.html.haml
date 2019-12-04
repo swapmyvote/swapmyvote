@@ -1,6 +1,7 @@
 %p
   My postcode is
-  %input#txt-postcode{type: "text", size: 10}/
+  %input#txt-postcode(type="text" size=10 minlength=5 maxlength=9
+                      spellcheck="false")/
   %input#btn-postcode{type: "button", value: "Search", class: "btn btn-secondary"}/
 
   .text-error#error-postcode

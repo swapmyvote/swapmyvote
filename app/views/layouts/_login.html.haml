@@ -25,15 +25,24 @@
             %button{formaction: new_user_session_path, formmethod: :post,
                     class: "btn btn-dark btn-block"}
               Log in with email
-      - if ENV["DISABLE_LOG_INS"] == 'facebook'
         %p.text-center
-          We're still waiting for our Facebook app to be approved, and we're
-          working on adding support for signing up with an email address. In
-          the meantime, you can log in with Twitter.
-      %p.text-center.small.subdued
-        (We will never share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
-      %p.text-center
-        = link_to "/faq#login", class: "small", target: "_blank" do
-          Why do I need to log in with
-          = log_in_methods + "?"
-
+          %input{ type: "checkbox", id: "data-consent",
+                  name: "data-consent", required: true }
+          %label{ for: "data-consent" }
+            I consent to SwapMyVote processing my personal data
+        %p.text-center.small.subdued
+          We will share your voting preferences and the public link to your
+          Facebook or Twitter account with your swaps, once confirmed, so they know
+          who you are. We may send this information by email or text message.
+        %p.text-center.small.subdued
+          We will never share anything with anyone else or post to your feed
+          without your permission.
+        - if ENV["DISABLE_LOG_INS"] == 'facebook'
+          %p.text-center
+            We're still waiting for our Facebook app to be approved, and we're
+            working on adding support for signing up with an email address. In
+            the meantime, you can log in with Twitter.
+        %p.text-center
+          = link_to "/faq#login", class: "small", target: "_blank" do
+            Why do I need to log in with
+            = log_in_methods + "?"

@@ -122,4 +122,61 @@ RSpec.describe User::SwapsController, type: :controller do
       end
     end
   end
+
+  context "when users don't have an email" do
+    let(:new_user) do
+      build(:user, id: 122,
+            constituency: build(:ons_constituency, ons_id: "E121"),
+            email: "")
+    end
+
+    let(:mobile_phone) do
+      build(:mobile_phone, user_id: 122, number: "07400 123456", verified: true)
+    end
+
+    let(:swap_user) do
+      build(:user, id: 132,
+            constituency: build(:ons_constituency, name: "Fareham", ons_id: "E131"),
+            email: "match@foo.com")
+    end
+
+    let(:an_email) { double(:an_email) }
+
+    before do
+      session[:user_id] = new_user.id
+      allow(User).to receive(:find_by_id).with(new_user.id)
+                       .and_return(new_user)
+      allow(User).to receive(:find).with(swap_user.id.to_s)
+                       .and_return(swap_user)
+      allow(new_user).to receive(:mobile_phone_verified?).and_return(true)
+    end
+
+    describe "POST #create" do
+      it "redirects to user page" do
+        expect(new_user.swap).to be_nil
+
+        post :create, params: { user_id: swap_user.id }
+
+        expect(response).to redirect_to :edit_user
+        expect(flash[:errors].first).to eq "Please enter your email address before you swap!"
+        expect(new_user.swap).to be_nil
+      end
+    end
+
+    describe "PUT #update" do
+      it "confirms the swap if all ducks are lined up" do
+        swap = Swap.create(chosen_user_id: swap_user.id)
+        new_user.incoming_swap = swap
+        swap_user.outgoing_swap = swap
+
+        expect(swap_user.swap.confirmed).to be nil
+
+        put :update, params: { swap: { confirmed: true } }
+
+        expect(response).to redirect_to :edit_user
+        expect(flash[:errors].first).to eq "Please enter your email address before you swap!"
+        expect(swap_user.swap.confirmed).to be nil
+      end
+    end
+  end
 end

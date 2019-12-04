@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_28_142039) do
+ActiveRecord::Schema.define(version: 2019_12_02_081913) do
 
   create_table "constituencies", force: :cascade do |t|
     t.string "name"
