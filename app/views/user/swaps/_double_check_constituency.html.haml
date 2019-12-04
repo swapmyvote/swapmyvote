@@ -1,10 +1,11 @@
 %p.text-center.small
   Poll results are based on
-  %a{href: "http://www.electoralcalculus.co.uk/orderedseats.html", target: "blank"}
+  %a { href: "http://www.electoralcalculus.co.uk/orderedseats.html",
+    target: "blank" }
     Electoral Calculus calculations of national swing since the last election.
   %br
   Please double check whether
-  %a{href: "http://www.bbc.co.uk/news/politics/constituencies",
-    target: "blank"} #{swap_with&.willing_party&.name} are running in
+  %a { href: "http://www.bbc.co.uk/news/politics/constituencies",
+    target: "blank" } #{swap_with&.willing_party&.name} are running in
     #{swap_with&.constituency&.name}
   \.
