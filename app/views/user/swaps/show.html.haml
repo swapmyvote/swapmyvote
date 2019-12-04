@@ -1,8 +1,13 @@
+= javascript_pack_tag "intlTelInput"
+= stylesheet_pack_tag "intlTelInput"
+
 .background-pattern.border-bottom
   .container.container-narrow
+
     - if @potential_swaps.length > 0
       = render partial: "user/swaps/list_potential_swaps"
     - else
       = render partial: "user/swaps/searching_for_swap"
 
 = render partial: "users/info_summary"
+

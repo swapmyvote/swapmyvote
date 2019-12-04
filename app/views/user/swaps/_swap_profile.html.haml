@@ -1,18 +1,16 @@
-%img.profile-img{src: other_user.image_url}
-.profile-content
-  .profile-name= other_user.redacted_name
-  .profile-constituency.subdued
-    in #{other_user.constituency.try(:name) or "Unknown?"}
-  .profile-votes
-    Will vote
-    %strong= other_user.willing_party.name
-    if you vote
-    %strong= other_user.preferred_party.name
+- if defined? link_to_swap and link_to_swap
+  = link_to new_user_swap_path(user_id: other_user.id), class: "profile" do
+    = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
+- else
+  .profile
+    = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
 
--unless other_user.constituency.nil?
-  .profile-poll
-    .text-center.small
-      Polls in #{other_user.constituency.try(:name) or "Unknown"}
-    %div{class: "poll-chart", id: "poll_#{other_user.id}"}
+- unless other_user.constituency.nil?
+  .text-center.small
+    Does this help your vote count ?
+  .profile-recommendations.text-center.card
+    .recommendations-header
+      Tactical Recommendations
+    = render :partial => 'recommendations/recommendation', :collection => other_user.constituency.recommendations
   :javascript
     drawPollChart("poll_#{other_user.id}", #{poll_data_for(other_user.constituency)});
