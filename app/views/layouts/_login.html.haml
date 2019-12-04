@@ -3,7 +3,7 @@
     .list-group
       .list-group-item
         %a.button{ onclick: "showModal($('.js-login-modal')); return false", class: "button titler login logout" }
-          / %i.fa.fa-sign-in
+          // %i.fa.fa-sign-in
           Log-in
         .modal.js-login-modal{style: "display: %s;" % (params[:log_in_with] ? 'inherit' : 'none')}
           = form_with url: "#", id: "login-form", class: "modal-dialog",

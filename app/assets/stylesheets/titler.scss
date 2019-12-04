@@ -2,13 +2,13 @@
 
 titler {
     background-color: $bg-color;
-   
+
     .fa.fa-icon {
         font-family: Helvetica, Arial, sans-serif;
         font-weight: normal;
         font-size: 16px;
     }
-   
+
     .titler {
         margin:  2px;
     }
@@ -22,17 +22,17 @@ titler {
 
     .list-group-item {
     }
-   
+
     .button {
         background-color: $faded-color;
-        color: $white;  
+        color: $white;
         font-weight: normal;
         padding: 0px 4px 0 4px;
     }
 
     .login {
-        color: $white;  
-        font-weight: normal;    	
+        color: $white;
+        font-weight: normal;
         padding: 0 4px 0 4px;
     }
 
