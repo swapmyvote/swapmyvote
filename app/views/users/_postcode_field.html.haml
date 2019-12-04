@@ -1,10 +1,10 @@
 .form-group.form-group-short
   %label.mb-0 My postcode is
   .input-group
-    %input#txt-postcode{type: "text", size: 10, minlength: 5, maxlength: 9,
-                      spellcheck: "false", class: "form-control"}
+    %input#txt-postcode.form-control{ type: "text", size: 10, minlength: 5,
+                                      maxlength: 9, spellcheck: "false" }
     .input-group-append
-      %input#btn-postcode{type: "button", value: "Search", class: "btn btn-secondary"}
+      %input#btn-postcode.btn.btn-secondary{ type: "button", value: "Search" }
 
   .form-text.small.text-error#error-postcode
 
