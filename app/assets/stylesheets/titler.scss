@@ -2,22 +2,38 @@
 
 titler {
     background-color: $bg-color;
-
+   
+    .fa.fa-icon {
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: normal;
+        font-size: 16px;
+    }
+   
     .titler {
-          padding: 0 10 0 0;
-          margin:  2px;
+        margin:  2px;
     }
 
     .list-group {
-    }
-
-    .list-group-item:first-child {
+        margin-top:  2px;
     }
 
     a.list-group-item {
     }
 
     .list-group-item {
+    }
+   
+    .button {
+        background-color: $faded-color;
+        color: $white;  
+        font-weight: normal;
+        padding: 0px 4px 0 4px;
+    }
+
+    .login {
+        color: $white;  
+        font-weight: normal;    	
+        padding: 0 4px 0 4px;
     }
 
 }
