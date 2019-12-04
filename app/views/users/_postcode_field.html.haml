@@ -1,10 +1,12 @@
-%p
-  My postcode is
-  %input#txt-postcode(type="text" size=10 minlength=5 maxlength=9
-                      spellcheck="false")/
-  %input#btn-postcode{type: "button", value: "Search", class: "btn btn-secondary"}/
+.form-group.form-group-short
+  %label.mb-0 My postcode is
+  .input-group
+    %input#txt-postcode{type: "text", size: 10, minlength: 5, maxlength: 9,
+                      spellcheck: "false", class: "form-control"}
+    .input-group-append
+      %input#btn-postcode{type: "button", value: "Search", class: "btn btn-secondary"}
 
-  .text-error#error-postcode
+  .form-text.small.text-error#error-postcode
 
 %p.small.subdued
   Enter your postcode only to find your constituency; we do not retain this info.

@@ -1,6 +1,12 @@
 .constituency-autocomplete {
     position: relative;
     display: inline-block;
+
+    // Fill the width to match the BS style
+    width: 100%;
+
+    // Make enough room for the button on the end
+    padding-right: 2em;
 }
 
 .constituency-autocomplete-toggle {
@@ -14,7 +20,7 @@
 .constituency-autocomplete-input {
     margin: 0;
     padding: 5px 10px;
-    width: 20em;
+    width: 100%;
 }
 
 .constituency-autocomplete-select {
