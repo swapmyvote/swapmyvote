@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   belongs_to :preferred_party, class_name: "Party", optional: true
   belongs_to :willing_party, class_name: "Party", optional: true
+
+  validates_with DistinctPartiesValidator
+
   has_one    :mobile_phone, dependent: :destroy
   belongs_to :constituency,
              class_name: "OnsConstituency",

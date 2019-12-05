@@ -23,6 +23,7 @@ class UsersController < ApplicationController
 
   def update
     @user.update(user_params) if params[:user]
+    
     if !phone_param.blank? && @user.mobile_number != phone_param
       begin
         @user.mobile_number = phone_param
@@ -31,12 +32,14 @@ class UsersController < ApplicationController
       end
     end
 
+    flash[:errors] = @user.errors.full_messages unless @user.valid?
+    
     redirect_to redirect_path
   end
 
   def redirect_path
     # If the user came from the edit path, and the mobile still needs verification, return there
-    return edit_user_path if params[:user] && mobile_set_but_not_verified?
+    return edit_user_path if params[:user] && mobile_set_but_not_verified? || !@user.valid?
     # Otherwise, return to the user path - user will see a verification prompt if needed
     user_path
   end
