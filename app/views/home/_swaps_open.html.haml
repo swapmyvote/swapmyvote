@@ -38,17 +38,27 @@
   function submit_modal() {
     preferred_party_id = $("select[name='user[preferred_party_id]']").val();
     willing_party_id = $("select[name='user[willing_party_id]']").val();
-    if (preferred_party_id !== null && willing_party_id !== null) {
-      showModal($('.js-login-modal'));
+    if (preferred_party_id == null || willing_party_id == null) {
+      showModal($('.js-blank-error-modal'));
+    } else if (preferred_party_id == willing_party_id) {
+      showModal($('.js-equal-party-error-modal'));
     } else {
-      showModal($('.js-error-modal'));
+      showModal($('.js-login-modal'));
     }
   }
 
-.modal.js-error-modal{style: "display: none;"}
+.modal.js-blank-error-modal{style: "display: none;"}
   .modal-dialog
     %i.fa.fa-times.subdued.modal-close
     %p.text-center
       Please choose both your preferred party and your willing party.
+    %p.text-center
+      %a.button.modal-close{href: "#"} OK
+
+.modal.js-equal-party-error-modal{style: "display: none;"}
+  .modal-dialog
+    %i.fa.fa-times.subdued.modal-close
+    %p.text-center
+      Your preferred party and your willing party cannot be the same.
     %p.text-center
       %a.button.modal-close{href: "#"} OK
