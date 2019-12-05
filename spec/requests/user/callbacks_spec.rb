@@ -78,7 +78,7 @@ RSpec.describe "OmniAuth", type: :request do
       expect(user.email).to eq "joe@bloggs.com"
       expect(user.identity.email).to eq "joe@bloggs.com"
       expect(user.image_url) \
-        .to eq "http://graph.facebook.com/v3.0/98723948/picture"
+        .to eq "//graph.facebook.com/v3.0/98723948/picture"
       expect(user.provider).to eq "facebook"
       expect(user.profile_url) \
         .to eq "https://facebook.com/joe.bloggs"

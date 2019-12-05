@@ -44,8 +44,6 @@ $modal-margin: 12px;
 
         @media screen and (max-width: $modal-width + 2 * $modal-margin) {
             position: fixed;
-            margin-top: -160px;
-            top: 50%;
             left: $modal-margin;
             right: $modal-margin;
         }
