@@ -264,23 +264,23 @@
       swap with. What should I do?
 
     %p
-
-      You can deactivate your account by changing both of your party
-      preferences to the same party
-
-      = link_to("here", edit_user_path) + ","
-
-      so that a swap becomes meaningless and no-one is likely to
-      suggest one.
-
-    %p
       You can
 
       = link_to("permanently remove your account",
                 confirm_account_deletion_path) + "."
 
-      Please note that you will no longer get emails from us with news
+      Please note that you may no longer get emails from us with news
       on electoral reform or reminders for future elections.
+
+    %p
+
+      However, we
+
+      = link_to("plan to add a feature to allow pausing of swaps",
+                "https://github.com/swapmyvote/swapmyvote/issues/466")
+
+      later on, so that this can be done temporarily without the need
+      to delete your account.
 
     %a(name="who")
     %h2 Who made this site?
