@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def update
     @user.update(user_params) if params[:user]
-    
+
     if !phone_param.blank? && @user.mobile_number != phone_param
       begin
         @user.mobile_number = phone_param
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     end
 
     flash[:errors] = @user.errors.full_messages unless @user.valid?
-    
+
     redirect_to redirect_path
   end
 
