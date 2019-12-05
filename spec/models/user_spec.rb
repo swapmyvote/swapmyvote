@@ -2,6 +2,14 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   specify { expect(subject).to respond_to(:sent_emails) }
+  
+  context "when user have equal preferred_party_id and willing_party_id" do
+    let(:user) { User.new(name: "fred", id: 1, preferred_party_id: 3, willing_party_id: 3) }
+
+    it "is not expected to be valid" do
+      expect(user).not_to be_valid
+    end
+  end
 
   describe "#constituency" do
     context "with user with no constituency id" do
