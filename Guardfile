@@ -105,6 +105,9 @@ group :all_plugins, halt_on_fail: true do
     watch(rails.app_controller)  { "#{rspec.spec_dir}/controllers" }
     watch(rails.views)           { "#{rspec.spec_dir}/views" }
 
+    watch(%r{^app/views/(.*_mailer)/.*\.haml$}) {
+                                   |m| "#{rspec.spec_dir}/mailers/#{m[1]}_spec.rb" }
+
     # # Capybara features specs
     # watch(rails.view_dirs)     { |m| rspec.spec.call("features/#{m[1]}") }
     # watch(rails.layouts)       { |m| rspec.spec.call("features/#{m[1]}") }
