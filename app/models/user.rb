@@ -59,7 +59,9 @@ class User < ApplicationRecord
   end
 
   def try_to_create_marginal_swap
-    swaps = complementary_voters.where({ constituency_ons_id: marginal_polls.map(&:constituency_ons_id) })
+    swaps = complementary_voters.where(
+      { constituency_ons_id: marginal_polls.map(&:constituency_ons_id) }
+    )
     return one_swap_from_possible_users(swaps)
   end
 
