@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_161508) do
     t.datetime "updated_at", null: false
     t.string "constituency_ons_id"
     t.integer "marginal_score"
+    t.index ["party_id", "marginal_score"], name: "index_polls_on_party_id_and_marginal_score"
   end
 
   create_table "potential_swaps", force: :cascade do |t|
@@ -115,6 +116,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_161508) do
     t.string "constituency_ons_id"
     t.integer "mobile_phone_id"
     t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
+    t.index ["preferred_party_id", "willing_party_id", "constituency_ons_id"], name: "index_users_on_complementary_users"
   end
 
 end
