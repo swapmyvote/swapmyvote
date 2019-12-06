@@ -14,7 +14,7 @@ class MobilePhoneController < ApplicationController
     delete_previous_verify_id if phone.verify_id
     phone.verify_id = otp.id
     logger.debug "Created verification for user #{current_user.id} / " \
-                 "/ phone #{phone.id} (#{phone.number}); " \
+                 "phone #{phone.id} (#{phone.number}); " \
                  "verify_id: #{otp.id}"
     phone.save!
   end
