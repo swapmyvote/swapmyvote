@@ -9,7 +9,7 @@ scale 600 height
 left to right direction
 
 package "Incoming swap to chosen user" {
-  class "User3" as User3 {
+  class "User" as User3 {
     id \t\t INTEGER
     ..
     swap_id \t INTEGER
@@ -43,13 +43,13 @@ package "Incoming swap to chosen user" {
 }
 
 package "Outgoing swap by choosing user" {
-  class "User1" as User1 {
+  class "User" as User1 {
     id \t\t INTEGER
     ..
     swap_id \t INTEGER
   }
 
-  class "User2" as User2 {
+  class "User" as User2 {
     id \t\t INTEGER
     ..
     swap_id \t INTEGER
