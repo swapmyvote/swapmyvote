@@ -27,6 +27,29 @@ RSpec.describe User::SwapsController, type: :controller do
       allow(UserMailer).to receive(:swap_confirmed).and_return(an_email)
     end
 
+    context "and no constituency" do
+      describe "GET #new" do
+        it "redirects to user page" do
+          expect(new_user.swap).to be_nil
+
+          get :create, params: { user_id: swap_user.id }
+
+          expect(response).to redirect_to :edit_user
+        end
+      end
+
+      describe "POST #create" do
+        it "redirects to user page" do
+          expect(new_user.swap).to be_nil
+
+          post :create, params: { user_id: swap_user.id }
+
+          expect(response).to redirect_to :edit_user
+          expect(new_user.swap).to be_nil
+        end
+      end
+    end
+
     context "and constituency" do
       before do
         new_user.constituency = build(:ons_constituency, ons_id: "E121")
