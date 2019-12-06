@@ -1,5 +1,5 @@
 require "rails_helper"
-require './db/fixtures/livefrombrexit_recommendations_json'
+require "./db/fixtures/livefrombrexit_recommendations_json"
 
 # Specs in this file have access to a helper object that includes
 # the RecommendationsHelper. For example:
@@ -13,14 +13,40 @@ require './db/fixtures/livefrombrexit_recommendations_json'
 # end
 
 RSpec.describe RecommendationsHelper, type: :helper do
-  describe "#recommendations_data_for" do
-    let(:constituency) { OnsConstituency.new(id: 1) }
+  describe "#recommendations_for" do
+    let(:constituency) { instance_double(OnsConstituency) }
+    let(:real_recs) do
+      rec_models = LivefrombrexitRecommendationsJson.new.constituencies.first["recs"].map do |recs_hash|
+        rec = Recommendation.new(recs_hash.slice("site"))
+        rec.text = recs_hash["recommendation"]
+        rec.link = recs_hash["link"]
+        rec
+      end
+      # Now jumble them up so we have a real test
+      rec_models.sort do |a, b|
+        a.site <=> b.site
+      end
+    end
+    before { allow(constituency).to receive(:recommendations).and_return(real_recs) }
 
-    specify { expect { helper.recommendations_data_for(constituency) }.not_to raise_error }
+    specify "returns sites in required order" do
+      expected_order = [
+        "get-voting",
+        "peoples-vote",
+        "remain-united",
+        "tacticalvote-co-uk",
+        "tactical-vote",
+        "avaaz-votesmart",
+        "one-uk",
+        "unite-2-leave"
+      ]
+
+      expect(helper.recommendations_for(constituency).map{ |s|  s.site }).to eq(expected_order)
+    end
   end
 
   describe "#recommendations_sites" do
-    it 'has keys matching the recommendations json' do
+    it "has keys matching the recommendations json" do
       LivefrombrexitRecommendationsJson.new.unique_sites.each do |site|
         expect(helper.recommendations_sites).to have_key(site)
       end
