@@ -63,6 +63,34 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#try_to_create_potential_swap" do
+    before do
+      subject.willing_party_id = 2
+      subject.preferred_party_id = 3
+      subject.save!
+    end
+
+    context "when there is a valid candidate" do
+      let(:candidate) {
+        create(:user, name: "candidate", email: "c@candidate.com",
+               willing_party_id: 3, preferred_party_id: 2)
+      }
+
+      it "creates no potential swap without constituency" do
+        ps = subject.try_to_create_potential_swap
+        expect(ps).to be_nil
+      end
+
+      it "creates a potential swap" do
+        candidate.constituency_ons_id = create(:ons_constituency).id
+        candidate.save!
+        ps = subject.try_to_create_potential_swap
+        expect(ps.source_user).to eq(subject)
+        expect(ps.target_user).to eq(candidate)
+      end
+    end
+  end
+
   describe "#name" do
     it "adds (test user)" do
       subject.name = "Ada Lovelace"
