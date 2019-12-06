@@ -1,15 +1,9 @@
 require "rails_helper"
 
 RSpec.describe User::SwapsController, type: :controller do
-  context "when users are logged in and verified" do
+  context "when user has a potential swap" do
     let(:new_user) do
-      build(:user, id: 121,
-            constituency: build(:ons_constituency, ons_id: "E121"),
-            email: "foo@bar.com")
-    end
-
-    let(:mobile_phone) do
-      build(:mobile_phone, user_id: 121, number: "07400 123456", verified: true)
+      build(:user, id: 121, email: "foo@bar.com")
     end
 
     let(:swap_user) do
@@ -33,31 +27,60 @@ RSpec.describe User::SwapsController, type: :controller do
       allow(UserMailer).to receive(:swap_confirmed).and_return(an_email)
     end
 
-    describe "POST #create" do
-      it "redirects to user page" do
-        expect(new_user.swap).to be_nil
+    context "and no constituency" do
+      describe "GET #new" do
+        it "redirects to user page" do
+          expect(new_user.swap).to be_nil
 
-        post :create, params: { user_id: swap_user.id }
+          get :create, params: { user_id: swap_user.id }
 
-        expect(response).to redirect_to :user
-        expect(new_user.swap.chosen_user_id).to eq swap_user.id
-        expect(new_user.swap.confirmed).to be false
+          expect(response).to redirect_to :edit_user
+        end
+      end
+
+      describe "POST #create" do
+        it "redirects to user page" do
+          expect(new_user.swap).to be_nil
+
+          post :create, params: { user_id: swap_user.id }
+
+          expect(response).to redirect_to :edit_user
+          expect(new_user.swap).to be_nil
+        end
       end
     end
 
-    describe "PUT #update" do
-      it "confirms the swap if all ducks are lined up" do
-        swap = Swap.create(chosen_user_id: swap_user.id)
-        new_user.incoming_swap = swap
-        swap_user.outgoing_swap = swap
+    context "and constituency" do
+      before do
+        new_user.constituency = build(:ons_constituency, ons_id: "E121")
+      end
 
-        expect(swap_user.swap.confirmed).to be nil
+      describe "POST #create" do
+        it "redirects to user page" do
+          expect(new_user.swap).to be_nil
 
-        put :update, params: { swap: { confirmed: true } }
+          post :create, params: { user_id: swap_user.id }
 
-        expect(response).to redirect_to :user
-        expect(swap_user.swap.chosen_user_id).to eq new_user.id
-        expect(swap_user.swap.confirmed).to be true
+          expect(response).to redirect_to :user
+          expect(new_user.swap.chosen_user_id).to eq swap_user.id
+          expect(new_user.swap.confirmed).to be false
+        end
+      end
+
+      describe "PUT #update" do
+        it "confirms the swap if all ducks are lined up" do
+          swap = Swap.create(chosen_user_id: swap_user.id)
+          new_user.incoming_swap = swap
+          swap_user.outgoing_swap = swap
+
+          expect(swap_user.swap.confirmed).to be nil
+
+          put :update, params: { swap: { confirmed: true } }
+
+          expect(response).to redirect_to :user
+          expect(swap_user.swap.chosen_user_id).to eq new_user.id
+          expect(swap_user.swap.confirmed).to be true
+        end
       end
     end
   end
