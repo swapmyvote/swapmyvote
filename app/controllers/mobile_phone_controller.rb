@@ -57,6 +57,11 @@ class MobilePhoneController < ApplicationController
     begin
       SwapMyVote::MessageBird.verify_delete(phone.verify_id)
     rescue MessageBird::ErrorException => ex
+      if ex.errors.length == 1
+        error = ex.errors.first
+        return if error.code == 20 &&
+                  error.description =~ /Verify object could not be found/
+      end
       notify_error_exception(ex, "verify_delete(#{phone.verify_id}) failed")
     end
   end
