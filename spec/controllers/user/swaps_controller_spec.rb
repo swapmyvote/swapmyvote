@@ -8,10 +8,6 @@ RSpec.describe User::SwapsController, type: :controller do
             email: "foo@bar.com")
     end
 
-    let(:mobile_phone) do
-      build(:mobile_phone, user_id: 121, number: "07400 123456", verified: true)
-    end
-
     let(:swap_user) do
       build(:user, id: 131,
             constituency: build(:ons_constituency, name: "Fareham", ons_id: "E131"),
