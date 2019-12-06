@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  def handle_unverified_request
+    flash[:errors] = ["Something went wrong - please try that again."]
+    redirect_back fallback_location: root_path
+  end
+
   def url_except_param(url, param)
     uri = Addressable::URI.parse(url)
     uri.query_values = uri.query_values.except(param.to_s)
