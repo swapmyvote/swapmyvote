@@ -81,6 +81,13 @@ RSpec.describe User, type: :model do
         expect(ps).to be_nil
       end
 
+      it "creates no potential swap blank constituency" do
+        candidate.constituency_ons_id = ""
+        candidate.save!
+        ps = subject.try_to_create_potential_swap
+        expect(ps).to be_nil
+      end
+
       it "creates a potential swap" do
         candidate.constituency_ons_id = create(:ons_constituency).id
         candidate.save!

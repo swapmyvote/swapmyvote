@@ -55,7 +55,7 @@ class User < ApplicationRecord
     swaps = User.where(
       preferred_party_id: willing_party_id,
       willing_party_id: preferred_party_id
-    ).where.not({ constituency_ons_id: nil })
+    ).where("constituency_ons_id like '_%'")
     offset = rand(swaps.count)
     target_user = swaps.offset(offset).limit(1).first
     return nil unless target_user
