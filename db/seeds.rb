@@ -9,7 +9,6 @@
 require "active_record/fixtures"
 require "csv"
 require_relative "fixtures/ons_constituencies_csv"
-require_relative "fixtures/livefrombrexit_recommendations_json"
 require_relative "fixtures/electoral_calculus_constituencies_tsv"
 
 Party.find_or_create_by(name: "Conservatives", color: "#0087DC")
@@ -70,38 +69,6 @@ puts "\n\n"
 
 puts "\n\nRecommendations aggregated by LiveFromBrexit\n\n"
 
-json = LivefrombrexitRecommendationsJson.new
-
-timestamp = DateTime.now
-
-before_count = Recommendation.count
-
-puts "#{before_count} records before update"
-
-json.each do |rec_as_hash|
-  rec = Recommendation.find_or_initialize_by(rec_as_hash.slice("site", "constituency_ons_id"))
-  rec.text = rec_as_hash["recommendation"]
-  rec.link = rec_as_hash["link"]
-  rec.updated_at = timestamp
-  rec.save!
-  print "."
-end
-puts
-
-puts "#{Recommendation.count} records after update"
-
-select_untouched = Recommendation.where(["updated_at <> ?", timestamp])
-
-untouched_count = select_untouched.count
-
-puts "#{untouched_count} records untouched"
-
-if untouched_count > before_count / 3
-  raise "something went very wrong here, more than a third of records not included in this update?"
-end
-
-select_untouched.delete_all
-
-puts "#{Recommendation.count} records after deleting untouched"
+Recommendation.refresh_from_json(progress: true)
 
 puts "\n\n"
