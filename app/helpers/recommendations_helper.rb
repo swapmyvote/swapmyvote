@@ -6,4 +6,18 @@ module RecommendationsHelper
     end
     return data.to_json.html_safe
   end
+
+  def recommendations_sites
+    {
+      "avaaz-votesmart" => {},
+      "get-voting" => {} ,
+      "one-uk" => {},
+      "peoples-vote" => {},
+      "remain-united" => {},
+      "tactical-vote" => {},
+      "tacticalvote-co-uk" => {},
+      "unite-2-leave" => {}
+    }
+  end
+
 end
