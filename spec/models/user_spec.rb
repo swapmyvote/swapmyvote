@@ -28,25 +28,38 @@ RSpec.describe User, type: :model do
     specify { expect { user.potential_swap_users(5) }.not_to raise_error }
   end
 
-  context "when user has no preferred party, willing party or constituency" do
+  context "when user has no preferred party, willing party or constituency," do
     let(:no_swap_user) { User.new(name: "fred", id: 1) }
 
-    context "setting constituency" do
-      let(:the_change) { -> { no_swap_user.constituency_ons_id = "some-fake-ons-id" } }
+    describe "#details_changed?" do
+      context "setting constituency" do
+        let(:the_change) {
+          -> { no_swap_user.constituency_ons_id = "some-fake-ons-id" }
+        }
 
-      specify { expect(&the_change).to change(no_swap_user, :details_changed?).from(false).to(true) }
-    end
+        specify {
+          expect(&the_change).to change(no_swap_user, :details_changed?)
+                                   .from(false).to(true)
+        }
+      end
 
-    context "setting preferred_party" do
-      let(:the_change) { -> { no_swap_user.preferred_party_id = 3 } }
+      context "setting preferred_party" do
+        let(:the_change) { -> { no_swap_user.preferred_party_id = 3 } }
 
-      specify { expect(&the_change).to change(no_swap_user, :details_changed?).from(false).to(true) }
-    end
+        specify {
+          expect(&the_change).to change(no_swap_user, :details_changed?)
+                                           .from(false).to(true)
+        }
+      end
 
-    context "setting willing_party" do
-      let(:the_change) { -> { no_swap_user.willing_party_id = 3 } }
+      context "setting willing_party" do
+        let(:the_change) { -> { no_swap_user.willing_party_id = 3 } }
 
-      specify { expect(&the_change).to change(no_swap_user, :details_changed?).from(false).to(true) }
+        specify {
+          expect(&the_change).to change(no_swap_user, :details_changed?)
+                                           .from(false).to(true)
+        }
+      end
     end
   end
 
