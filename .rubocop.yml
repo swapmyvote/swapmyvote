@@ -32,6 +32,8 @@ Style/EmptyMethod:
   Enabled: false
 Style/IfUnlessModifier:
   Enabled: false
+Style/MultilineTernaryOperator:
+  Enabled: false
 Style/NumericLiterals:
   Enabled: false
 Style/RedundantReturn:

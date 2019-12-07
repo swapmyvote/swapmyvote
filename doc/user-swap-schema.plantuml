@@ -1,0 +1,82 @@
+@startuml
+
+title User / Swap relationship - class diagram / db schema
+
+!pragma horizontalLineBetweenDifferentPackageAllowed
+
+scale 600 height
+' skinparam nodesep 600
+left to right direction
+
+package "Incoming swap to chosen user" {
+  class "User" as User3 {
+    id \t\t INTEGER
+    ..
+    swap_id \t INTEGER
+  }
+
+  class "User" as User4 {
+    id \t\t INTEGER
+    ..
+    swap_id \t INTEGER
+  }
+
+  class "Swap" as Swap3 {
+    id \t\t\t INTEGER
+    ..
+    chosen_user_id \t INTEGER
+    confirmed \t\t BOOLEAN
+  }
+
+  class "Swap" as Swap4 {
+    id \t\t\t INTEGER
+    ..
+    chosen_user_id \t INTEGER
+    confirmed \t\t BOOLEAN
+  }
+
+  User3 "0..1" <-- Swap3::chosen_user_id : < belongs_to\n:chosen_user,\nclass_name: "User"
+  User4 -- "1" Swap4::chosen_user_id : has_one\n:incoming_swap,\nclass_name: "Swap",\nforeign_key: "chosen_user_id" >
+
+  User3 -[hidden]left-> User4
+  Swap3 -[hidden]left-> Swap4
+}
+
+package "Outgoing swap by choosing user" {
+  class "User" as User1 {
+    id \t\t INTEGER
+    ..
+    swap_id \t INTEGER
+  }
+
+  class "User" as User2 {
+    id \t\t INTEGER
+    ..
+    swap_id \t INTEGER
+  }
+
+  class "Swap" as Swap1 {
+    id \t\t\t INTEGER
+    ..
+    chosen_user_id \t INTEGER
+    confirmed \t\t BOOLEAN
+  }
+
+  class "Swap" as Swap2 {
+    id \t\t\t INTEGER
+    ..
+    chosen_user_id \t INTEGER
+    confirmed \t\t BOOLEAN
+  }
+
+  User1::swap_id --> "0..1" Swap1 : belongs_to\n:outgoing_swap,\nclass_name: "Swap",\nforeign_key: "swap_id" >
+  User2::swap_id "1" *-- Swap2 : < has_one :choosing_user,\nclass_name: "User"
+
+  User1 -[hidden]left-> User2
+  Swap1 -[hidden]left-> Swap2
+}
+
+User2 -[hidden]right-> User3
+Swap2 -[hidden]right-> Swap3
+
+@enduml

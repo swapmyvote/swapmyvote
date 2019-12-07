@@ -25,10 +25,13 @@ class UserMailer < ApplicationMailer
   end
 
   def swap_cancelled(user, swap_with)
-    return nil if user.email.blank?
+    return nil if user&.email.blank?
     @user = user
     @swap_with = swap_with
-    mail(to: @user.email, subject: "Your swapped vote with #{swap_with.name} has been cancelled.")
+    mail(to: @user.email,
+         subject: swap_with ?
+           "Your swapped vote with #{swap_with.name} has been cancelled."
+         : "Your swapped vote has been cancelled.")
   end
 
   def not_swapped_follow_up(user)
