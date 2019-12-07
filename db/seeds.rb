@@ -71,4 +71,10 @@ puts "\n\nRecommendations aggregated by LiveFromBrexit\n\n"
 
 Recommendation.refresh_from_json(progress: true)
 
+# ---------------------------------------------------------------------------------
+
+puts "\n\nCalculate Marginal Score\n\n"
+
+Poll.calculate_marginal_score(progress: true)
+
 puts "\n\n"
