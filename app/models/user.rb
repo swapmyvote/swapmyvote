@@ -39,7 +39,9 @@ class User < ApplicationRecord
     swaps = potential_swaps.all.eager_load(
       target_user: { constituency: [{ polls: :party }] }
     )
-    return swaps.map {|s| s.target_user}
+    return swaps
+      .order({ "polls.marginal_score" => :asc })
+      .map {|s| s.target_user}
   end
 
   class ChooseSwapType
