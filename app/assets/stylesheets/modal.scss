@@ -27,7 +27,6 @@ $modal-margin: 12px;
     }
 
     .modal-dialog {
-        padding: 6px 24px;
         box-sizing: border-box;
         border-radius: 5px;
         background-color: white;
@@ -36,6 +35,7 @@ $modal-margin: 12px;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
 
         @media screen and (min-width: $modal-width + 2 * $modal-margin) {
+            padding: 6px 24px;
             width: $modal-width;
             position: fixed;
             top: 50%;
@@ -45,6 +45,8 @@ $modal-margin: 12px;
         }
 
         @media screen and (max-width: $modal-width + 2 * $modal-margin) {
+            padding: 6px 10px;
+            font-size: $base-font-size * 0.7;
             position: fixed;
             margin-top: -160px;
             top: 50%;
