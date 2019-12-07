@@ -14,7 +14,7 @@ class MobilePhoneController < ApplicationController
     delete_previous_verify_id if phone.verify_id
     phone.verify_id = otp.id
     logger.debug "Created verification for user #{current_user.id} / " \
-                 "/ phone #{phone.id} (#{phone.number}); " \
+                 "phone #{phone.id} (#{phone.number}); " \
                  "verify_id: #{otp.id}"
     phone.save!
   end
@@ -57,6 +57,11 @@ class MobilePhoneController < ApplicationController
     begin
       SwapMyVote::MessageBird.verify_delete(phone.verify_id)
     rescue MessageBird::ErrorException => ex
+      if ex.errors.length == 1
+        error = ex.errors.first
+        return if error.code == 20 &&
+                  error.description =~ /Verify object could not be found/
+      end
       notify_error_exception(ex, "verify_delete(#{phone.verify_id}) failed")
     end
   end

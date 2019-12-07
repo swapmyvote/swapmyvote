@@ -4,6 +4,7 @@ class User::SwapsController < ApplicationController
   before_action :assert_incoming_swap_exists, only: [:update, :destroy]
   before_action :assert_parties_exist, only: [:show]
   before_action :assert_has_email, only: [:new, :create, :update]
+  before_action :assert_has_constituency, only: [:new, :create, :update]
   before_action :assert_mobile_phone_verified, only: [:new, :create, :update]
 
   include UsersHelper
@@ -55,6 +56,13 @@ class User::SwapsController < ApplicationController
     return unless @user.email.blank?
 
     flash[:errors] = ["Please enter your email address before you swap!"]
+    redirect_to edit_user_path
+  end
+
+  def assert_has_constituency
+    return unless @user.constituency_ons_id.blank?
+
+    flash[:errors] = ["Please enter your postcode or constituency before you swap!"]
     redirect_to edit_user_path
   end
 
