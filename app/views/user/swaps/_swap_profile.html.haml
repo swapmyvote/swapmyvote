@@ -11,6 +11,7 @@
   .profile-recommendations.text-center.card
     .recommendations-header
       Tactical Recommendations
-    = render :partial => 'recommendations/recommendation', :collection => other_user.constituency.recommendations
+    - recommendations = recommendations_for(other_user.constituency)
+    = render :partial => 'recommendations/recommendation', :collection => recommendations
   :javascript
     drawPollChart("poll_#{other_user.id}", #{poll_data_for(other_user.constituency)});
