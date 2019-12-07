@@ -37,7 +37,7 @@ class User < ApplicationRecord
     potential_swaps.where(["created_at < ?", DateTime.now - 2.hours]).destroy_all
     create_potential_swaps(number)
     swaps = potential_swaps.all.eager_load(
-      target_user: { constituency: [{ polls: :party }] }
+      target_user: [ :identity, { constituency: [{ polls: :party }] } ]
     )
     return swaps
       .order({ "polls.marginal_score" => :asc })
