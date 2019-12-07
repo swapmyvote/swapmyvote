@@ -53,24 +53,35 @@ class User < ApplicationRecord
     end
   end
 
+  class SwapTrier
+    def initialize(method, max_attempts)
+      @method = method
+      @count = max_attempts
+    end
+
+    def try
+      return if finished?
+      @count -= 1
+      return @method.call
+    end
+
+    def finished?
+      @count <= 0
+    end
+  end
+
   def create_potential_swaps(number = 5)
     chooser = ChooseSwapType.new
-    max_marginal_attempts = number * 2
-    max_random_attempts = number * 2
+    marginal_trier = SwapTrier.new(method(:try_to_create_marginal_swap), number * 2)
+    random_trier = SwapTrier.new(method(:try_to_create_potential_swap), number * 2)
 
     while potential_swaps.reload.count < number
       if chooser.swap == :marginal
-        unless max_marginal_attempts <= 0
-          try_to_create_marginal_swap
-          max_marginal_attempts -= 1
-        end
+        marginal_trier.try unless marginal_trier.finished?
       else
-        unless max_random_attempts <= 0
-          try_to_create_potential_swap
-          max_random_attempts -= 1
-        end
+        random_trier.try unless random_trier.finished?
       end
-      break if max_random_attempts <= 0 && max_marginal_attempts <= 0
+      break if random_trier.finished? && marginal_trier.finished?
     end
   end
 
