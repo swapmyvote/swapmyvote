@@ -42,22 +42,71 @@ class User < ApplicationRecord
     return swaps.map {|s| s.target_user}
   end
 
+  class ChooseSwapType
+    def initialize
+      @even_odd = 0
+    end
+
+    def swap
+      @even_odd += 1
+      return @even_odd.odd? ? :marginal : :random
+    end
+  end
+
+  class SwapTrier
+    def initialize(method, max_attempts)
+      @method = method
+      @count = max_attempts
+    end
+
+    def try
+      return if finished?
+      @count -= 1
+      return @method.call
+    end
+
+    def finished?
+      @count <= 0
+    end
+  end
+
   def create_potential_swaps(number = 5)
-    max_attempts = number * 2
+    chooser = ChooseSwapType.new
+    marginal_trier = SwapTrier.new(method(:try_to_create_marginal_swap), number * 2)
+    random_trier = SwapTrier.new(method(:try_to_create_potential_swap), number * 2)
+
     while potential_swaps.reload.count < number
-      try_to_create_potential_swap
-      max_attempts -= 1
-      break if max_attempts <= 0
+      if chooser.swap == :marginal
+        marginal_trier.try unless marginal_trier.finished?
+      else
+        random_trier.try unless random_trier.finished?
+      end
+      break if random_trier.finished? && marginal_trier.finished?
     end
   end
 
   def try_to_create_potential_swap
-    swaps = User.where(
+    swaps = complementary_voters.where("constituency_ons_id like '_%'")
+    return one_swap_from_possible_users(swaps)
+  end
+
+  def try_to_create_marginal_swap
+    swaps = complementary_voters.where(
+      { constituency_ons_id: marginal_polls.map(&:constituency_ons_id) }
+    )
+    return one_swap_from_possible_users(swaps)
+  end
+
+  private def complementary_voters
+    User.where(
       preferred_party_id: willing_party_id,
       willing_party_id: preferred_party_id
-    ).where("constituency_ons_id like '_%'")
-    offset = rand(swaps.count)
-    target_user = swaps.offset(offset).limit(1).first
+    )
+  end
+
+  private def one_swap_from_possible_users(user_query)
+    offset = rand(user_query.count)
+    target_user = user_query.offset(offset).take
     return nil unless target_user
     # We need emails to send confirmation emails
     return nil if target_user.email.blank?
@@ -69,6 +118,14 @@ class User < ApplicationRecord
     return nil if target_user.id == id
     # Success
     return potential_swaps.create(target_user: target_user)
+  end
+
+  def marginal_polls
+    Poll.where(["marginal_score < ?", 1000]).where(party: preferred_party)
+  end
+
+  def marginal_constituencies
+    OnsConstituency.where({ ons_id: marginal_polls.map(&:constituency_ons_id) })
   end
 
   def destroy_all_potential_swaps
