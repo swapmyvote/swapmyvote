@@ -42,14 +42,35 @@ class User < ApplicationRecord
     return swaps.map {|s| s.target_user}
   end
 
+  class ChooseSwapType
+    def initialize
+      @even_odd = 0
+    end
+
+    def swap
+      @even_odd += 1
+      return @even_odd.odd? ? :marginal : :random
+    end
+  end
+
   def create_potential_swaps(number = 5)
-    max_attempts = number * 2
+    chooser = ChooseSwapType.new
+    max_marginal_attempts = number * 2
+    max_random_attempts = number * 2
+
     while potential_swaps.reload.count < number
-      try_to_create_marginal_swap
-      max_attempts -= 1
-      try_to_create_potential_swap
-      max_attempts -= 1
-      break if max_attempts <= 0
+      if chooser.swap == :marginal
+        unless max_marginal_attempts <= 0
+          try_to_create_marginal_swap
+          max_marginal_attempts -= 1
+        end
+      else
+        unless max_random_attempts <= 0
+          try_to_create_potential_swap
+          max_random_attempts -= 1
+        end
+      end
+      break if max_random_attempts <= 0 && max_marginal_attempts <= 0
     end
   end
 
