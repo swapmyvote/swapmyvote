@@ -106,7 +106,7 @@ class User < ApplicationRecord
 
   private def one_swap_from_possible_users(user_query)
     offset = rand(user_query.count)
-    target_user = user_query.offset(offset).limit(1).first
+    target_user = user_query.offset(offset).take
     return nil unless target_user
     # We need emails to send confirmation emails
     return nil if target_user.email.blank?
