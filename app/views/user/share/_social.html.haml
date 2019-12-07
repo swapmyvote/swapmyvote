@@ -2,12 +2,12 @@
 
   - tagline = app_tagline
 
-  %a.btn.btn-facebook.btn-block{href: "#", onclick: "shareOnFacebook('#{ENV['FACEBOOK_KEY']}', 'https://swapmyvote.uk', '#{tagline}', '#SwapMyVote'); return false"}
+  %a.btn.btn-facebook.btn-block{ href: "#", onclick: "shareOnFacebook('#{ENV['FACEBOOK_KEY']}', 'https://swapmyvote.uk', '#{tagline}', '#SwapMyVote'); return false" }
 
     = image_tag('facebook_icon.png')
     Share on Facebook
 
-  %a.btn.btn-twitter.btn-block{href: "#", onclick: "shareOnTwitter('https://swapmyvote.uk', '#{tagline} @SwapMyVote'); return false"}
+  %a.btn.btn-twitter.btn-block{ href: "#", onclick: "shareOnTwitter('https://swapmyvote.uk', '#{tagline} @SwapMyVote'); return false" }
 
     %i.fa.fa-twitter.fa-fw
     Share on Twitter

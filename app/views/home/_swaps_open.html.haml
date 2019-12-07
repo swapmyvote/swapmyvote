@@ -18,7 +18,7 @@
         %option(disabled=true selected=true) ...
         = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @willing_party_id)
     %p
-      %a.btn.btn-lg.btn-primary{onclick: "submit_modal(); return false", href: "#"} Swap My Vote!
+      %a.btn.btn-lg.btn-primary{ onclick: "submit_modal(); return false", href: "#" } Swap My Vote!
     %p.small.subdued
       We will match you with someone who will
       cast your preferred vote in a different area where it could count for more.
@@ -45,10 +45,10 @@
     }
   }
 
-.smv-modal.js-error-modal{style: "display: none;"}
+.smv-modal.js-error-modal{ style: "display: none;" }
   .smv-modal-dialog
     %i.fa.fa-times.subdued.modal-close
     %p.text-center
       Please choose both your preferred party and your willing party.
     %p.text-center
-      %a.btn.btn-primary.modal-close{href: "#"} OK
+      %a.btn.btn-primary.modal-close{ href: "#" } OK
