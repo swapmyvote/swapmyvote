@@ -121,7 +121,7 @@ class User < ApplicationRecord
   end
 
   def marginal_polls
-    Poll.where(["marginal_score < ?", 1000]).where(party: preferred_party).order(:marginal_score)
+    Poll.where(["marginal_score < ?", 1000]).where(party: preferred_party)
   end
 
   def marginal_constituencies
