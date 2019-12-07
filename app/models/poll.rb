@@ -30,7 +30,7 @@ class Poll < ApplicationRecord
 
         polls.each do |poll|
           party_votes = poll.votes
-          max_votes = polls.select { |p| p.id != poll.id }.map{ |p| p.votes }.max
+          max_votes = polls.select { |p| p.id != poll.id }.map(&:votes).max
           poll.update(marginal_score: (max_votes - party_votes).abs)
           print "." if progress
         end
