@@ -202,7 +202,7 @@ class User < ApplicationRecord
   end
 
   def image_url
-    identity&.image_url&.gsub('http://', '//') || gravatar_image_url
+    identity&.image_url&.gsub("http://", "//") || gravatar_image_url
   end
 
   def gravatar_image_url

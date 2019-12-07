@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:new]
 
   def new
-    @identity = request.env['omniauth.identity']
+    @identity = request.env["omniauth.identity"]
   end
 
   def show

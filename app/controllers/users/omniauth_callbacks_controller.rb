@@ -7,7 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     callback(:facebook)
   end
 
-  def callback(provider)
+  def callback(_provider)
     user = new_or_existing(request.env["omniauth.auth"])
 
     # session[:user_id] = user.id
@@ -19,7 +19,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     redirect_to origin || user_path
   rescue ActiveRecord::RecordInvalid
     # Could make this check it is actually the email...
-    flash[:alert] = "An account already exists with the email #{request.env["omniauth.auth"].info.email}. Please log in to that account."
+    flash[:alert] = "An account already exists with the email #{request.env["omniauth.auth"].info.email}." \
+                    "Please log in to that account."
     redirect_to new_user_session_path
   end
 
