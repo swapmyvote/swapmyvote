@@ -10,7 +10,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def callback(_provider)
     user = new_or_existing(request.env["omniauth.auth"])
 
-    # session[:user_id] = user.id
     sign_in(user)
     user_params = session.delete(:user_params)
     user.update(user_params) if user_params
