@@ -1,16 +1,16 @@
 class Party < ApplicationRecord
   has_many :polls
 
-  RAW_MASTER_LIST = [
-    { name: "Labour", color: "#DC241f", short_code: :lab },
-    { name: "Liberal Democrats", color: "#FFB602", short_code: :libdem },
-    { name: "Green Party", color: "#6AB023", short_code: :green },
-    { name: "Conservatives", color: "#0087DC", short_code: :con },
-    { name: "UKIP", color: "#70147A", short_code: :ukip },
-    { name: "SNP", color: "#FFF95D", short_code: :snp },
-    { name: "Plaid Cymru", color: "#008142", short_code: :plaid },
-    { name: "Brexit Party", color: "#5bc0de", short_code: :brexit }
-  ]
+  REFERENCE_DATA = {
+    lab: { name: "Labour", color: "#DC241f" },
+    libdem: { name: "Liberal Democrats", color: "#FFB602" },
+    green: { name: "Green Party", color: "#6AB023" },
+    con: { name: "Conservatives", color: "#0087DC" },
+    ukip: { name: "UKIP", color: "#70147A" },
+    snp: { name: "SNP", color: "#FFF95D" },
+    plaid: { name: "Plaid Cymru", color: "#008142" },
+    brexit: { name: "Brexit Party", color: "#5bc0de" }
+  }
 
   class << self
     def canonical_names
@@ -26,8 +26,11 @@ class Party < ApplicationRecord
     end
 
     def master_list
-      RAW_MASTER_LIST.map do |p|
-        p.merge(canonical_name: p[:name].parameterize(separator: "_").to_sym)
+      REFERENCE_DATA.map do |(short_code, attributes)|
+        attributes.merge(
+          canonical_name: attributes[:name].parameterize(separator: "_").to_sym,
+          short_code: short_code
+      )
       end
     end
   end
