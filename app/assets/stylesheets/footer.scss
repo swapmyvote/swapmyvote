@@ -48,4 +48,70 @@ footer {
             }
         }
     }
+
+    .fa.fa-icon {
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: normal;
+        font-size: 16px;
+    }
+
+    .footer {
+        margin:    2px;
+        font-size: 14px;
+    }
+
+    .list-group {
+    }
+
+    .list-group-item {
+    }
+
+    .left-group {
+        position: absolute;
+        width: 25%;
+        left: 0;
+        margin-left: 2px;
+        margin-bottom: 2px;
+        text-align: left;
+    }
+
+    .center-group {
+        position: absolute;
+        width: 35%;
+        left: 25%;
+        margin-left: 2px;
+        margin-bottom: 2px;
+        text-align: left;
+    }
+
+    .right-group {
+        position: absolute;
+        width: 40%;
+        left: 60%;
+        margin-right: 2px;
+        margin-bottom: 2px;
+        text-align: right;
+    }
+
+    .impressum {
+    	font-weight: normal;
+    	font-style: italic;
+    	font-size: 14px;
+    	color: $faded-color;
+        padding: 0 2px 0 2px;
+        margin-bottom: 2px;
+    }
+
+    .button {
+    	background-color: $faded-color;
+        font-weight: normal;
+        padding: 0 2px 0 0;
+    }
+
+    .logo {
+    	background-color: #ffffff;
+        font-weight: normal;
+        padding: 0 2px 0 0;
+    }
+
 }
