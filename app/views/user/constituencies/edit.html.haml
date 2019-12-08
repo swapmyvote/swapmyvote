@@ -3,14 +3,13 @@
 .background-pattern.border-bottom
   .container.container-narrow
     = form_for @user, url: user_constituency_path do |f|
-      - if @user.email.blank?
-        %p
-          My email address is
-          = f.text_field :email, placeholder: "me@example.com", autofocus: true
 
+      - if @user.email.blank?
+        -# FIXME: this probably can't be true any more
+        %p
+          = render partial: "users/email_field", locals: { f: f }
           .subdued.small
             = render partial: "users/why_need_email"
-
             = link_to "Your details will stay private with us.", privacy_path
 
       = render partial: "users/postcode_field"
