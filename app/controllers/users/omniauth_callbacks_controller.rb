@@ -16,11 +16,31 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     origin = request.env["omniauth.origin"]
     logger.debug "Login request origin #{origin}"
     redirect_to origin || user_path
-  rescue ActiveRecord::RecordInvalid
-    # Could make this check it is actually the email...
-    flash[:alert] = "An account already exists with the email #{request.env["omniauth.auth"].info.email}." \
-                    "Please log in to that account."
-    redirect_to new_user_session_path
+  rescue ActiveRecord::RecordInvalid => ex
+    auth = request.env["omniauth.auth"]
+
+    case ex.message
+    when /Email can't be blank/
+      alert = "Sorry, we need your email in order to continue."
+      if auth&.provider == "facebook"
+        url = "https://www.facebook.com/settings?tab=applications"
+        alert <<
+          " Try <a href=\"#{url}\" target=\"_blank\">" +
+          "removing this app from your Facebook settings</a> " +
+          "then trying again.".html_safe
+      end
+      flash[:alert] = alert
+    when /Email has already been taken/
+      flash[:alert] = "An account already exists with the email " \
+                      "#{auth.info.email}. " \
+                      "Please log in to that account."
+    else
+      flash[:alert] = ex.message
+    end
+
+    redirect_to auth&.provider == "devise_email" ?
+                  new_user_session_path
+                : root_path + "?log_in_with=any"
   end
 
   def new_or_existing(auth)
