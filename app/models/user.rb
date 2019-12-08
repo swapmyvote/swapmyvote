@@ -32,6 +32,10 @@ class User < ApplicationRecord
     save!
   end
 
+  def willing_party_poll
+    constituency.polls.where(party_id: willing_party_id).take
+  end
+
   def potential_swap_users(number = 5)
     # Clear out swaps every few hours to keep the list fresh for people checking back
     potential_swaps.where(["created_at < ?", DateTime.now - 2.hours]).destroy_all
@@ -40,7 +44,7 @@ class User < ApplicationRecord
       target_user: [ :identity, { constituency: [{ polls: :party }] } ]
     )
     return swaps
-      .order({ "polls.marginal_score" => :asc })
+      .sort_by { |s| s.target_user.willing_party_poll&.marginal_score || 999_999 }
       .map {|s| s.target_user}
   end
 
