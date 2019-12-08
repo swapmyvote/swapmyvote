@@ -9,21 +9,24 @@ RSpec.describe "user/swaps/show", type: :view do
     end
   end
 
-  context "with potential swaps" do
+  context "with recommendations and potential swaps" do
     specify do
+      rec1 = build(:recommendation, site: "peoples-vote")
+      rec2 = build(:recommendation, site: "get-voting")
       willing_party = build(:party)
       preferred_party = build(:party)
-      constituency = build(:ons_constituency)
+      constituency1 = build(:ons_constituency, ons_id: "one", id: 1)
+      constituency2 = build(:ons_constituency, ons_id: "two", id: 2, recommendations: [rec1, rec2])
 
       target_user = build(:user,
                           willing_party:  preferred_party,
                           preferred_party: willing_party,
-                          constituency: constituency
+                          constituency: constituency2
       )
       user = build(:user,
                    willing_party: willing_party,
                    preferred_party: preferred_party,
-                   constituency: constituency
+                   constituency: constituency1
       )
 
       assign(:user, user)
