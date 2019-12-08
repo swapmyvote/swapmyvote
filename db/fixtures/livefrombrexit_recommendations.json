@@ -1,5 +1,5 @@
 {
-  "updated": "2019-12-06T14:01:01.938Z",
+  "updated": "2019-12-08T11:27:52.142Z",
   "tacticalSites": [
     {
       "siteName": "GetVoting",
@@ -1210,7 +1210,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/arundel-and-south-downs",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -1233,7 +1233,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Ashfield",
@@ -3179,7 +3179,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/bermondsey-and-old-southwark/",
-          "recommendation": "Lib Lab"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -3217,7 +3217,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "98c72"
+      "recsHash": "3c5bc"
     },
     {
       "constituency": "Berwick-upon-Tweed",
@@ -3243,7 +3243,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/berwick-upon-tweed/",
-          "recommendation": "Lab"
+          "recommendation": "LD"
         },
         {
           "site": "peoples-vote",
@@ -3281,7 +3281,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "d0291"
+      "recsHash": "0cfda"
     },
     {
       "constituency": "Berwickshire, Roxburgh and Selkirk",
@@ -5242,7 +5242,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/bosworth",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -5265,7 +5265,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Bournemouth East",
@@ -5675,7 +5675,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/braintree/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -5713,7 +5713,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "24d1d"
+      "recsHash": "1cb46"
     },
     {
       "constituency": "Brecon and Radnorshire",
@@ -5995,7 +5995,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/brentwood-and-ongar/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -6033,7 +6033,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "73bfe"
+      "recsHash": "efa16"
     },
     {
       "constituency": "Bridgend",
@@ -6123,7 +6123,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/bridgwater-and-west-somerset/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -6148,7 +6148,7 @@
         {
           "site": "avaaz-votesmart",
           "link": "https://secure.avaaz.org/campaign/en/votesmart2019/?constituency=E14000595",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "one-uk",
@@ -6161,7 +6161,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "60160"
+      "recsHash": "196e7"
     },
     {
       "constituency": "Brigg and Goole",
@@ -7403,7 +7403,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/caithness-sutherland-and-easter-ross/",
-          "recommendation": "Green\nLab\nLib Dem\nSNP"
+          "recommendation": "LD"
         },
         {
           "site": "peoples-vote",
@@ -7441,7 +7441,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "af91e"
+      "recsHash": "a2be3"
     },
     {
       "constituency": "Calder Valley",
@@ -7659,7 +7659,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/cambridge/",
-          "recommendation": "Lib Lab"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -7697,7 +7697,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "e6014"
+      "recsHash": "ca86c"
     },
     {
       "constituency": "North East Cambridgeshire",
@@ -7930,7 +7930,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/south-east-cambridgeshire",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -7953,7 +7953,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Cannock Chase",
@@ -9018,7 +9018,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/chelsea-and-fulham",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -9041,7 +9041,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "79e5b"
+      "recsHash": "8546e"
     },
     {
       "constituency": "Cheltenham",
@@ -9338,7 +9338,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/chichester",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -9361,7 +9361,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Chingford and Woodford Green",
@@ -10475,7 +10475,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/south-east-cornwall/",
-          "recommendation": "Lab"
+          "recommendation": "LD"
         },
         {
           "site": "peoples-vote",
@@ -10513,7 +10513,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "83b56"
+      "recsHash": "3c864"
     },
     {
       "constituency": "The Cotswolds",
@@ -12075,7 +12075,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/central-devon/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -12113,7 +12113,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "d2420"
+      "recsHash": "65e33"
     },
     {
       "constituency": "East Devon",
@@ -12164,7 +12164,7 @@
         {
           "site": "avaaz-votesmart",
           "link": "https://secure.avaaz.org/campaign/en/votesmart2019/?constituency=E14000678",
-          "recommendation": "Lab"
+          "recommendation": "Ind"
         },
         {
           "site": "one-uk",
@@ -12177,7 +12177,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "1c19d"
+      "recsHash": "683a3"
     },
     {
       "constituency": "North Devon",
@@ -12346,7 +12346,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/torridge-and-west-devon",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -12369,7 +12369,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Dewsbury",
@@ -14530,7 +14530,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/eddisbury",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -14553,7 +14553,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "fe16b"
+      "recsHash": "bb788"
     },
     {
       "constituency": "Edinburgh East",
@@ -15362,7 +15362,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/epsom-and-ewell",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -15385,7 +15385,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Erewash",
@@ -18316,7 +18316,7 @@
         {
           "site": "avaaz-votesmart",
           "link": "https://secure.avaaz.org/campaign/en/votesmart2019/?constituency=E14000726",
-          "recommendation": "Any"
+          "recommendation": "Lab"
         },
         {
           "site": "one-uk",
@@ -18329,7 +18329,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "2765b"
+      "recsHash": "13845"
     },
     {
       "constituency": "East Hampshire",
@@ -18483,7 +18483,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/north-west-hampshire/",
-          "recommendation": "Lab"
+          "recommendation": "LD"
         },
         {
           "site": "peoples-vote",
@@ -18521,7 +18521,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "83b56"
+      "recsHash": "3c864"
     },
     {
       "constituency": "Hampstead and Kilburn",
@@ -19522,7 +19522,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/henley",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -19545,7 +19545,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Hereford and South Herefordshire",
@@ -20418,7 +20418,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/horsham",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -20441,7 +20441,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Houghton and Sunderland South",
@@ -21698,7 +21698,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/kenilworth-and-southam",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -21721,7 +21721,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Kensington",
@@ -22643,7 +22643,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/leeds-north-west/",
-          "recommendation": "Lib Lab"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -22681,7 +22681,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "17184"
+      "recsHash": "6d9d5"
     },
     {
       "constituency": "Leeds West",
@@ -24194,7 +24194,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/ludlow",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -24217,7 +24217,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Luton North",
@@ -24514,7 +24514,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/maidstone-and-the-weald",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -24537,7 +24537,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Makerfield",
@@ -26227,7 +26227,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/new-forest-west/",
-          "recommendation": "Lab"
+          "recommendation": "LD"
         },
         {
           "site": "peoples-vote",
@@ -26265,7 +26265,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "efa16"
+      "recsHash": "73bfe"
     },
     {
       "constituency": "Newark",
@@ -26886,7 +26886,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/newton-abbot",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -26909,7 +26909,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Mid Norfolk",
@@ -26940,7 +26940,7 @@
         {
           "site": "peoples-vote",
           "link": "https://www.tactical-vote.uk/mid-norfolk",
-          "recommendation": "Lab"
+          "recommendation": "LD"
         },
         {
           "site": "remain-united",
@@ -26973,7 +26973,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "45ceb"
+      "recsHash": "16126"
     },
     {
       "constituency": "North Norfolk",
@@ -28343,7 +28343,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/orpington/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -28381,7 +28381,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "83b56"
     },
     {
       "constituency": "Oxford East",
@@ -28791,7 +28791,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/penrith-and-the-border/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -28829,7 +28829,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "45ceb"
+      "recsHash": "196e7"
     },
     {
       "constituency": "Perth and North Perthshire",
@@ -28855,7 +28855,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/perth-and-north-perthshire/",
-          "recommendation": "Green\nLab\nLib Dem\nSNP"
+          "recommendation": "SNP"
         },
         {
           "site": "peoples-vote",
@@ -28893,7 +28893,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "1dd06"
+      "recsHash": "252ce"
     },
     {
       "constituency": "Peterborough",
@@ -30011,7 +30011,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/reigate/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -30049,7 +30049,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "0cfda"
+      "recsHash": "d0291"
     },
     {
       "constituency": "East Renfrewshire",
@@ -32778,7 +32778,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/solihull",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -32801,7 +32801,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "North Somerset",
@@ -33659,7 +33659,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/st-austell-and-newquay/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -33697,7 +33697,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "83b56"
     },
     {
       "constituency": "St Helens North",
@@ -35195,7 +35195,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/suffolk-coastal/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -35233,7 +35233,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "45ceb"
+      "recsHash": "196e7"
     },
     {
       "constituency": "South Suffolk",
@@ -36159,7 +36159,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/tatton/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -36197,7 +36197,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "83b56"
     },
     {
       "constituency": "Taunton Deane",
@@ -36366,7 +36366,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/tewkesbury",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -36389,7 +36389,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "North Thanet",
@@ -38222,7 +38222,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/wantage",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -38245,7 +38245,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "29cce"
+      "recsHash": "29068"
     },
     {
       "constituency": "Warley",
@@ -38798,7 +38798,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/wealden",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -38821,7 +38821,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "3c864"
+      "recsHash": "32450"
     },
     {
       "constituency": "Weaver Vale",
@@ -40703,7 +40703,7 @@
         {
           "site": "get-voting",
           "link": "https://tacticalvote.getvoting.org/west-worcestershire/",
-          "recommendation": "LD"
+          "recommendation": "Lab"
         },
         {
           "site": "peoples-vote",
@@ -40718,7 +40718,7 @@
         {
           "site": "tactical-vote",
           "link": "https://tactical.vote/west-worcestershire",
-          "recommendation": "Lab"
+          "recommendation": "Not sure"
         },
         {
           "site": "tacticalvote-co-uk",
@@ -40728,7 +40728,7 @@
         {
           "site": "avaaz-votesmart",
           "link": "https://secure.avaaz.org/campaign/en/votesmart2019/?constituency=E14001035",
-          "recommendation": "Lab"
+          "recommendation": "TBC"
         },
         {
           "site": "one-uk",
@@ -40741,7 +40741,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "16126"
+      "recsHash": "bc972"
     },
     {
       "constituency": "Workington",
@@ -41476,7 +41476,7 @@
         {
           "site": "peoples-vote",
           "link": "https://www.tactical-vote.uk/ynys-mon",
-          "recommendation": "PC"
+          "recommendation": "Lab"
         },
         {
           "site": "remain-united",
@@ -41509,7 +41509,7 @@
           "recommendation": "CON"
         }
       ],
-      "recsHash": "84f71"
+      "recsHash": "13845"
     },
     {
       "constituency": "York Central",
