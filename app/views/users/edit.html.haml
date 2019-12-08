@@ -51,11 +51,12 @@
             locals: {mobile_number: @mobile_number}
 
           %p.subdued.small
+            = render partial: "why_need_email"
 
-            We only need your email to let you know when we've found a
-            swap partner for you, and your phone number to prevent
-            people creating fake accounts. No spam, and your details
-            will stay private with us.
+            We need your phone number to prevent people creating fake
+            accounts.
+
+            = link_to "Your details will stay private with us.", privacy_path
 
           %p.text-center
             = submit_tag("Save", class: "btn btn-primary")
