@@ -31,16 +31,19 @@
 
   %p.text-center
     = link_to "I'd prefer to swap with someone else", "#", class: "small subdued",
-      onclick: "showModal($('.js-reject-modal')); return false"
+      onclick: "$('#js-reject-modal').modal(); return false"
 
-.modal.js-reject-modal{style: "display: none"}
+.modal#js-reject-modal{ tabindex: "-1", role: "dialog" }
   .modal-dialog
-    %i.fa.fa-times.subdued.modal-close
-    %p.text-center
-      Are you sure you want to reject #{user.swapped_with.redacted_name}?
-    %p.subdued.small.text-center
-      Some voting preferences are in high demand, and we can't be sure that we'll
-      find anyone else to swap with if you turn
-      down #{user.swapped_with.redacted_name}
-    %p.text-center
-      = link_to "Reject", user_swap_path, method: "delete", class: "btn btn-primary"
+    .modal-content
+      .modal-body
+        %p
+          Are you sure you want to reject #{user.swapped_with.redacted_name}?
+        %p.subdued.small
+          Some voting preferences are in high demand, and we can't be sure that we'll
+          find anyone else to swap with if you turn
+          down #{user.swapped_with.redacted_name}.
+      .modal-footer
+        %button.btn.btn-secondary{ :data => { dismiss: "modal" }, :aria => { label: "Close" } }
+          Cancel
+        = link_to "Reject", user_swap_path, method: "delete", class: "btn btn-primary"
