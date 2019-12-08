@@ -6,25 +6,30 @@ class Recommendation < ApplicationRecord
              primary_key: "ons_id",
              foreign_key: "constituency_ons_id"
 
-  # rubocop:disable Metrics/MethodLength
   class << self
     def refresh_from_json(progress: false)
       json = LivefrombrexitRecommendationsJson.new
 
+      with_sanity_checks(progress: progress) do |timestamp|
+        json.each do |rec_as_hash|
+          rec = Recommendation.find_or_initialize_by(rec_as_hash.slice("site", "constituency_ons_id"))
+          rec.text = rec_as_hash["recommendation"]
+          rec.link = rec_as_hash["link"]
+          rec.updated_at = timestamp
+          rec.save!
+          print "."  if progress
+        end
+      end
+    end
+
+    def with_sanity_checks(progress: false, &block)
       timestamp = DateTime.now
       before_count = Recommendation.count
       puts "#{before_count} records before update" if progress
 
-      json.each do |rec_as_hash|
-        rec = Recommendation.find_or_initialize_by(rec_as_hash.slice("site", "constituency_ons_id"))
-        rec.text = rec_as_hash["recommendation"]
-        rec.link = rec_as_hash["link"]
-        rec.updated_at = timestamp
-        rec.save!
-        print "."  if progress
-      end
-      puts if progress
+      block.call(timestamp)
 
+      puts if progress
       puts "#{Recommendation.count} records after update"  if progress
       select_untouched = Recommendation.where(["updated_at <> ?", timestamp])
       untouched_count = select_untouched.count
