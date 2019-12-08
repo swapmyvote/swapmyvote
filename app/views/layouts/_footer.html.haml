@@ -1,3 +1,5 @@
+/ see https://www.w3schools.com/icons/fontawesome_icons_brand.asp
+
 %footer
   .container
     %ul
@@ -17,13 +19,11 @@
       %li
         %h3 Connect
       %li
-        = link_to "Donate", "https://crowdfunder.co.uk/swapmyvote", class: "small"
-      %li
         = link_to "Twitter", "https://twitter.com/swapmyvote", class: "small"
       %li
         = link_to "Facebook", "https://www.facebook.com/swapmyvote", class: "small"
       %li
-        = link_to "News", "https://blog.swapmyvote.uk", class: "small"
+        = link_to "Blog", "https://blog.swapmyvote.uk", class: "small"
       %li
         = link_to "API", api_path, class: "small"
     %ul
@@ -36,3 +36,36 @@
         = link_to "How do I know my partner will vote (for who I want)?", faq_path(anchor: "trust"), class: "small"
       %li
         = link_to "More ...", faq_path, class: "small"
+  .list-group
+    .left-group
+      =image_tag('fwd_democracy_banner.png', size: "256x32", class: "footer" )
+    .center-group   
+      .impressum
+        Powered by Forward-Democracy (https://forwarddemocracy.com/)
+    .right-group
+      %a.button{ :href => "https://facebook.com/", class: "button footer facebook fb-like" }
+        %i.fa.fa-fw.fa-facebook-official 
+        facebook
+      %a.button{ :href => "https:/twitter.com", class: "button footer twitter" }
+        %i.fa.fa-fw.fa-twitter
+        twitter
+      %a.button{ :href => "https://tumblr.com", class: "button footer tumblr" }
+        %i.fa.fa-fw.fa-tumblr
+        tumblr
+      %a.button{ :href => "https://linkedin", class: "button footer linkedin" }
+        %i.fa.fa-fw.fa-linkedin
+        linkedin
+      %a.button{ :href => "https://whatsapp.com", class: "button footer whatsapp" }
+        %i.fa.fa-fw.fa-whatsapp
+        whatsapp
+      %a.button{ :href => "https://telegram.com", class: "button footer telegram" }
+        %i.fa.fa-fw.fa-telegram
+        telegram
+      %a.button{ :href => "mailto:", class: "button footer envelope" }
+        %i.fa.fa-fw.fa-envelope
+        email                        
+      %a.button{ :href => "share:", class: "button footer share" }
+        %i.fa.fa-fw.fa-share-alt-square
+        share
+      // .list-group-item
+      //  =image_tag('fwd_democracy_logo.png', size: "32x32", alt: "Forward Democracy")    
