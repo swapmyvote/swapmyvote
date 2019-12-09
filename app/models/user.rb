@@ -150,7 +150,7 @@ class User < ApplicationRecord
     mobile_phone&.verified
   end
 
-  def swap_with_user_id(user_id)
+  def swap_with_user_id(user_id, consent_share_email)
     other_user = User.find(user_id)
     return unless can_swap_with?(other_user)
 
@@ -159,7 +159,11 @@ class User < ApplicationRecord
 
     UserMailer.confirm_swap(other_user, self).deliver_now
 
-    create_outgoing_swap chosen_user: other_user, confirmed: false
+    create_outgoing_swap(
+      chosen_user: other_user,
+      confirmed: false,
+      consent_share_email_chooser: (consent_share_email || false)
+    )
     save
   end
 
