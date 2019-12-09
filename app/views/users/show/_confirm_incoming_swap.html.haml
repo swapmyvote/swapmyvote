@@ -2,9 +2,10 @@
   #{user.swapped_with.redacted_name} would like to swap their vote with you!
 
 %p
-  .card.profile
+  .smv-card.profile
     = render partial: "user/swaps/swap_profile",
       object: user.swapped_with, as: "other_user"
+
 
 = render partial: "user/swaps/double_check_constituency",
     locals: { swap_with: user.swapped_with }
@@ -24,8 +25,9 @@
     %p.text-center
       Please confirm that you would like to swap
       with #{user.swapped_with.redacted_name}.
+    %p.text-center
       = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"),
-        method: "put", class: "button"
+        method: "put", class: "btn btn-primary"
 
   %p.text-center
     = link_to "I'd prefer to swap with someone else", "#", class: "small subdued",
@@ -41,4 +43,4 @@
       find anyone else to swap with if you turn
       down #{user.swapped_with.redacted_name}
     %p.text-center
-      = link_to "Reject", user_swap_path, method: "delete", class: "button"
+      = link_to "Reject", user_swap_path, method: "delete", class: "btn btn-primary"

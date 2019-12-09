@@ -1,11 +1,13 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
+  subject { create(:user, name: "Fred") }
+
   specify { expect(subject).to respond_to(:sent_emails) }
 
   describe "#constituency" do
     context "with user with no constituency id" do
-      let(:no_constituency_user) { User.new(name: "fred") }
+      let(:no_constituency_user) { create(:user, name: "Fred") }
 
       it "is nil" do
         expect(no_constituency_user.constituency).to be_nil
@@ -14,7 +16,7 @@ RSpec.describe User, type: :model do
 
     context "with user with constituency id" do
       let(:constituency) { OnsConstituency.create!(name: "test con 1", ons_id: "another-fake-ons-id") }
-      let(:user) { User.new(name: "test user", constituency_ons_id: constituency.ons_id) }
+      let(:user) { create(:user, name: "Test", constituency_ons_id: constituency.ons_id) }
 
       it "is expected constituency" do
         expect(user.constituency).to eq(constituency)
@@ -23,13 +25,13 @@ RSpec.describe User, type: :model do
   end
 
   describe "#potential_swap_users" do
-    let(:user) { User.new(name: "fred", id: 1) }
+    let(:user) { create(:user, name: "Fred", id: 1) }
 
     specify { expect { user.potential_swap_users(5) }.not_to raise_error }
   end
 
   context "when user has no preferred party, willing party or constituency," do
-    let(:no_swap_user) { User.new(name: "fred", id: 1) }
+    let(:no_swap_user) { create(:user, name: "Fred", id: 1) }
 
     describe "#details_changed?" do
       context "setting constituency" do
@@ -109,7 +111,7 @@ RSpec.describe User, type: :model do
   describe "#redacted_name" do
     it "redacts the user's surname" do
       subject.name = "Ada Lovelace"
-      expect(subject.redacted_name).to eq("Ada L")
+      expect(subject.redacted_name).to eq("Ada L (test user)")
     end
 
     it "redacts the user's surname and adds (test user)" do
@@ -145,7 +147,7 @@ RSpec.describe User, type: :model do
       it "prevents two users having the same number" do
         subject.save!
         subject.create_mobile_phone(number: number1)
-        user2 = User.create!
+        user2 = create(:user)
         expect {
           user2.create_mobile_phone!(number: number1)
         }.to raise_error(ActiveRecord::RecordInvalid,
@@ -195,7 +197,7 @@ RSpec.describe User, type: :model do
 
       it "prevents two users having the same number" do
         subject.mobile_number = number1
-        user2 = User.create!
+        user2 = create(:user)
         expect {
           user2.mobile_number = number1
         }.to raise_error(ActiveRecord::RecordInvalid,
@@ -205,32 +207,6 @@ RSpec.describe User, type: :model do
   end
 
   describe "#send_welcome_email (after_save callback)" do
-    context "when the user does NOT have an email address" do
-      before do
-        subject.update(email: nil)
-        subject.save!
-      end
-
-      specify "#save does NOT call #send_welcome_email" do
-        is_expected.not_to receive(:send_welcome_email)
-        subject.sent_emails.clear
-        subject.save!
-      end
-    end
-
-    context "when the user has an EMPTY email address" do
-      before do
-        subject.update(email: "")
-        subject.save!
-      end
-
-      specify "#save does NOT call #send_welcome_email" do
-        is_expected.not_to receive(:send_welcome_email)
-        subject.sent_emails.clear
-        subject.save!
-      end
-    end
-
     context "when the user DOES have an email address" do
       before { subject.update(email: "some@email.address") }
 
@@ -275,6 +251,7 @@ RSpec.describe User, type: :model do
 
   describe "#test_user?" do
     it "with no email returns false" do
+      subject.email = nil
       expect(subject.test_user?).to be_falsey
     end
 
@@ -297,6 +274,7 @@ RSpec.describe User, type: :model do
   describe "#mobile_verification_missing?" do
     context "with no mobile phone" do
       it "returns false" do
+        subject.email = nil
         expect(subject.mobile_verification_missing?).to be_truthy
       end
     end
@@ -336,6 +314,7 @@ RSpec.describe User, type: :model do
         end
 
         it "no email returns true" do
+          subject.email = nil
           expect(subject.mobile_verification_missing?).to be_truthy
         end
 
@@ -353,6 +332,23 @@ RSpec.describe User, type: :model do
           subject.email = "foo@example.com"
           expect(subject.mobile_verification_missing?).to be_falsey
         end
+      end
+    end
+  end
+
+  describe "#profile_url" do
+    context "when user has email login" do
+      it "makes a mailto: link" do
+        subject.email = "foo@example.com"
+        expect(subject.profile_url).to eq "mailto:foo%40example.com"
+      end
+
+      it "defends against XSS attacks" do
+        subject.email =
+          'foo@example.com"></a><a href="javascript:evil">email'
+        expect(subject.profile_url)
+          .to eq "mailto:foo%40example.com%22%3E%3C%2Fa%3E%3Ca+" +
+                 "href%3D%22javascript%3Aevil%22%3Eemail"
       end
     end
   end

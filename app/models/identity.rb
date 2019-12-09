@@ -4,6 +4,7 @@ class Identity < ApplicationRecord
   enum provider: %i[
     twitter
     facebook
+    devise_email
   ]
 
   def self.from_omniauth(auth, user_id)

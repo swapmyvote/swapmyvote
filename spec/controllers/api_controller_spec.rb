@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe ApiController, type: :controller do
+  include Devise::Test::ControllerHelpers
+
   def test_redirect
     get :pre_populate
     expect(response).to redirect_to(:root)

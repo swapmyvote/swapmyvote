@@ -7,15 +7,6 @@ module ApplicationHelper
     "/auth/twitter"
   end
 
-  def current_user
-    return @current_user unless @current_user.nil?
-
-    return nil unless session.key?(:user_id)
-
-    @current_user = User.find_by_id(session[:user_id])
-    return @current_user
-  end
-
   def logged_in?
     return !current_user.nil?
   end
@@ -67,6 +58,11 @@ module ApplicationHelper
     return false if %w[all twitter].include? ENV["DISABLE_LOG_INS"]
     return true unless params[:log_in_with]
     return %w[any twitter].include? params[:log_in_with]
+  end
+
+  def log_in_with_email?
+    return true unless params[:log_in_with]
+    return %w[any email].include? params[:log_in_with]
   end
 
   def log_in_method_unrestricted?

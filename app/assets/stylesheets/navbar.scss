@@ -1,14 +1,14 @@
 @import "variables";
 @import "mixins";
 
-.navbar {
+.smv-navbar {
     border-bottom: 1px solid $border-color;
     background-color: $bg-color;
     display: flex;
 
     @include largescreen {
         padding: 16px 32px;
-        height: 32px;
+        height: 64px;
     }
 
     @include smallscreen {
@@ -17,7 +17,7 @@
         align-items: center;
     }
 
-    a.brand {
+    a.smv-brand {
         display: block;
 
         color: transparent;
@@ -30,7 +30,7 @@
 
         @include largescreen {
             flex-grow: 1;
-            height: 32px;
+            height: 64px;
             width: 173px;
             background-size: 173px 32px;
         }

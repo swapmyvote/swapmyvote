@@ -2,7 +2,7 @@
   You've swapped your vote with #{@user.swapped_with.name}!
 
 %p
-  .card.profile
+  .smv-card.profile
     = render partial: "user/swaps/swap_profile", object: @user.swapped_with, as: "other_user"
 
 %p.text-center
@@ -20,9 +20,12 @@
   %i.fa.fa-fw.fa-check
   #{@user.swapped_with.name} has confirmed the swap. You're all set!
 
-- if @user.swapped_with.profile_url.present?
-  %p.text-center
+%p.text-center
+  - if @user.swapped_with.social_profile?
     You can reach out to
-    = link_to "#{@user.swapped_with.name} on social media",
-              @user.swapped_with.profile_url
+    = link_to "#{@user.swapped_with.name} on social media", @user.swapped_with.profile_url
+    to get to know your swap partner.
+  - else
+    You can reach out to #{@user.swapped_with.name} by email at
+    = link_to @user.swapped_with.email, @user.swapped_with.profile_url
     to get to know your swap partner.

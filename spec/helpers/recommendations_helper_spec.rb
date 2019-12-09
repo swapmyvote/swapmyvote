@@ -13,6 +13,8 @@ require "./db/fixtures/livefrombrexit_recommendations_json"
 # end
 
 RSpec.describe RecommendationsHelper, type: :helper do
+  include Devise::Test::ControllerHelpers
+
   describe "#recommendations_for" do
     let(:constituency) { instance_double(OnsConstituency) }
     let(:real_recs) do

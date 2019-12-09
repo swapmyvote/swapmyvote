@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable, :omniauthable,
+         omniauth_providers: [:twitter, :facebook]
   belongs_to :preferred_party, class_name: "Party", optional: true
   belongs_to :willing_party, class_name: "Party", optional: true
   has_one    :mobile_phone, dependent: :destroy
@@ -18,11 +23,12 @@ class User < ApplicationRecord
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
   has_many :sent_emails, dependent: :destroy
 
-  delegate :profile_url, to: :identity, prefix: false
-
   before_save :clear_swap, if: :details_changed?
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
+
+  validates :email, uniqueness: { case_sensitive: false }, allow_nil: true
+  validates :name, presence: true
 
   def omniauth_tokens(auth)
     self.token = auth.credentials.token
@@ -259,7 +265,20 @@ class User < ApplicationRecord
   end
 
   def image_url
-    identity&.image_url&.gsub("http://", "//")
+    identity&.image_url&.gsub("http://", "//") || gravatar_image_url
+  end
+
+  def gravatar_image_url
+    hash = Digest::MD5.hexdigest(email.downcase)
+    return "https://secure.gravatar.com/avatar/#{hash}?d=identicon&s=80"
+  end
+
+  def social_profile?
+    identity.present?
+  end
+
+  def profile_url
+    identity&.profile_url || "mailto:#{CGI.escape email}"
   end
 
   def provider
@@ -276,5 +295,11 @@ class User < ApplicationRecord
 
   def test_user_suffix
     test_user? ? " (test user)" : ""
+  end
+
+  protected
+
+  def password_required?
+    false
   end
 end

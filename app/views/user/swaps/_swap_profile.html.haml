@@ -6,9 +6,9 @@
     = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
 
 - unless other_user.constituency.nil?
-  .text-center.small
+  %h6.text-center.mt-2
     Does this help your vote count ?
-  .profile-recommendations.text-center.card
+  .profile-recommendations.text-center.smv-card
     .recommendations-header
       Tactical Recommendations
     - recommendations = recommendations_for(other_user.constituency)
