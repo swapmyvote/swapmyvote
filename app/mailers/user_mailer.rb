@@ -21,6 +21,7 @@ class UserMailer < ApplicationMailer
     return nil if user.email.blank?
     @user = user
     @swap_with = swap_with
+    @swap_with_email_consent = swap_with_email_consent
     mail(to: @user.email, subject: "Swapping your vote with #{swap_with.name} is confirmed!")
   end
 
