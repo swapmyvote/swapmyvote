@@ -5,8 +5,20 @@
     = render partial: "user/swaps/double_check_constituency", locals: { swap_with: @swap_with }
     %p.text-center
       Are you sure you would like to swap your vote with #{@swap_with.redacted_name}?
+
     %p.text-center
-      = link_to "Yes", user_swap_path(user_id: @swap_with.id), method: :post, class: "btn btn-primary"
+      = form_tag user_swap_path, class: "form-inline" do
+
+        = hidden_field_tag 'user_id', @swap_with.id
+        %p.text-center.small
+          Please check the box if you are willing to share your
+          email address with #{@swap_with.redacted_name}
+          when the swap is confirmed
+          = check_box_tag 'consent_share_email_chooser', true
+
+        %p.text-center{style: "width: 100%"}
+          = button_tag "Yes", class: 'btn btn-primary'
+
     %p.text-center.small.subdued
       We'll send #{@swap_with.redacted_name} a confirmation email, and if they agree,
       you're all good to go! Democracy here we come.
