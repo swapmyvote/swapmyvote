@@ -85,13 +85,10 @@ class MobilePhoneController < ApplicationController
     SwapMyVote::MessageBird.verify_token(phone.verify_id, params[:token])
     return true
   rescue MessageBird::ErrorException => ex
-    # We know the saved mobile phone number, but it may not be the same as the
-    # one the user tried to verify, so don't use it in this message in case
-    # it's misleading
     reason = verify_failure_reason(ex)
     if reason == :unknown
-      notify_error_exception(ex, "Verifying mobile number failed")
-      reason = "Something went wrong when verifying your mobile number."
+      notify_error_exception(ex, "Verifying number #{phone.number} failed")
+      reason = "Something went wrong when verifying number #{phone.number}."
     else
       reason += " Please use the code sent most recently."
     end
