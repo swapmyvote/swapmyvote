@@ -340,6 +340,7 @@ RSpec.describe User, type: :model do
     context "when user has email login" do
       it "makes a mailto: link" do
         subject.email = "foo@example.com"
+        expect(subject.email_login?).to be_truthy
         expect(subject.profile_url).to eq "mailto:foo%40example.com"
       end
 
@@ -350,6 +351,50 @@ RSpec.describe User, type: :model do
           .to eq "mailto:foo%40example.com%22%3E%3C%2Fa%3E%3Ca+" +
                  "href%3D%22javascript%3Aevil%22%3Eemail"
       end
+    end
+  end
+
+  context "when user has email login" do
+    before do
+      subject.email = "foo@example.com"
+    end
+
+    specify "#social_profile? is false" do
+      expect(subject.social_profile?).to be_falsey
+    end
+
+    specify "#email_login? is true" do
+      expect(subject.email_login?).to be_truthy
+    end
+  end
+
+  context "when user has Facebook login" do
+    before do
+      subject.email = "foo@example.com"
+      subject.identity = build(:identity, provider: "facebook", user: subject)
+    end
+
+    specify "#social_profile? is true" do
+      expect(subject.social_profile?).to be_truthy
+    end
+
+    specify "#email_login? is false" do
+      expect(subject.email_login?).to be_falsey
+    end
+  end
+
+  context "when user has Twitter login" do
+    before do
+      subject.email = "foo@example.com"
+      subject.identity = build(:identity, provider: "twitter", user: subject)
+    end
+
+    specify "#social_profile? is true" do
+      expect(subject.social_profile?).to be_truthy
+    end
+
+    specify "#email_login? is false" do
+      expect(subject.email_login?).to be_falsey
     end
   end
 end

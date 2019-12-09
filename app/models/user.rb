@@ -277,6 +277,10 @@ class User < ApplicationRecord
     identity.present?
   end
 
+  def email_login?
+    !social_profile?
+  end
+
   def profile_url
     identity&.profile_url || "mailto:#{CGI.escape email}"
   end
