@@ -4,19 +4,7 @@ class MobilePhoneController < ApplicationController
   def verify_create
     return if mobile_verified?
 
-    puts "=========="
-    puts phone.number
-    puts "----------"
-    phone.number = params[:mobile_phone][:full]
-    # If the number has been updated in the UI, use the newest value:
-    # this is used in the partial as well
-    @mobile_number = phone.number
-
-    puts "----------"
-    puts params[:mobile_phone][:full]
-    puts @mobile_number
-    puts current_user.mobile_number
-    puts "=========="
+    phone.number = params[:mobile_phone][:full] if params[:mobile_phone]
 
     otp = api_get_otp
     rescue_error("") if otp.nil?
@@ -24,7 +12,7 @@ class MobilePhoneController < ApplicationController
     delete_previous_verify_id if phone.verify_id
     phone.verify_id = otp.id
     logger.debug "Created verification for user #{current_user.id} / " \
-                 "phone #{phone.id} (#{@mobile_number}); " \
+                 "phone #{phone.id} (#{phone.number}); " \
                  "verify_id: #{otp.id}"
 
     phone.save!
@@ -71,9 +59,9 @@ class MobilePhoneController < ApplicationController
   end
 
   def api_get_otp
-    return SwapMyVote::MessageBird.verify_create(@mobile_number, sms_template)
+    return SwapMyVote::MessageBird.verify_create(phone.number, sms_template)
   rescue MessageBird::ErrorException => ex
-    msg = "Failed to send verification code to #{@mobile_number}"
+    msg = "Failed to send verification code to #{phone.number}"
     flash_error msg
     notify_error_exception(ex, msg)
     return nil
