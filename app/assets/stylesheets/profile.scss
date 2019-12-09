@@ -55,6 +55,20 @@
     }
 }
 
+.profile-icons {
+    i {
+        color: $grey;
+    }
+
+    .fa-twitter {
+        color: $twitter-color;
+    }
+
+    .fa-facebook {
+        color: $facebook-color;
+    }
+}
+
 .profile-recommendations {
     margin-top: 12px;
     width: 93%;
