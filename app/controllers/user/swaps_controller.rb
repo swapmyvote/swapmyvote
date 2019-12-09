@@ -10,11 +10,6 @@ class User::SwapsController < ApplicationController
   include UsersHelper
 
   def show
-    puts "========"
-    puts @user.provider
-    puts @user.provider == "twitter"
-    puts "========"
-
     @mobile_number = @user.mobile_number
     if @user.swapped?
       redirect_to user_path
