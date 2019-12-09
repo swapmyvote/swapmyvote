@@ -32,16 +32,28 @@
             %label.form-check-label{ for: "data-consent" }
               I consent to SwapMyVote processing my personal data
           %p.text-center.small.subdued
-            We will share your voting preferences and either your email address or the
-            public link to your
-            Facebook or Twitter account with your swaps, once confirmed, so they know
-            who you are. We may send this information by email or text message.
+
+            Once you confirm a swap, we will share with your partner
+            your voting preferences and a link to your Facebook / Twitter
+            profile or email,
+            = link_to("so they know who you are", faq_path + "#trust",
+                      target: "_blank") + "."
+            We may send this information by email or text message.
+
           %p.text-center.small.subdued
+
             We will never share anything with anyone else or post to your feed
             without your permission.
+
           %p.text-center.small.subdued
+
             Find out more in our
-            = link_to "Privacy Policy", privacy_path, class: "small"
+            = link_to("Privacy Policy", privacy_path, class: "small",
+                      target: "_blank")
+            and
+            = link_to("FAQ", faq_path + "#login",
+                    target: "_blank") + "."
+
           - if ENV["DISABLE_LOG_INS"] == 'facebook'
             %p.text-center
               We're still waiting for our Facebook app to be approved, and we're

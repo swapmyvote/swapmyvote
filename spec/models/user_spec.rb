@@ -335,4 +335,21 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#profile_url" do
+    context "when user has email login" do
+      it "makes a mailto: link" do
+        subject.email = "foo@example.com"
+        expect(subject.profile_url).to eq "mailto:foo%40example.com"
+      end
+
+      it "defends against XSS attacks" do
+        subject.email =
+          'foo@example.com"></a><a href="javascript:evil">email'
+        expect(subject.profile_url)
+          .to eq "mailto:foo%40example.com%22%3E%3C%2Fa%3E%3Ca+" +
+                 "href%3D%22javascript%3Aevil%22%3Eemail"
+      end
+    end
+  end
 end
