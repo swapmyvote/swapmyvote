@@ -30,6 +30,9 @@ class MobilePhoneController < ApplicationController
     phone.save!
 
   rescue ActiveRecord::RecordInvalid
+    # We can get here if a the number is already in the DB. This can happen
+    # legitimately if a user has two accounts (eg twitter + email) and verifies
+    # the same number for both: to be improved when we enable multiple profiles
     rescue_error(phone.errors.full_messages)
   end
 
@@ -47,7 +50,7 @@ class MobilePhoneController < ApplicationController
     phone.verified = true
     phone.verify_id = nil
 
-    # Number will be saved if verification is outstanding
+    # Number will be saved even though we are still waiting for verification
     phone.save!
   end
 
