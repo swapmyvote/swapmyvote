@@ -10,7 +10,7 @@
     - if other_user.provider == "facebook"
       %i.fa.fa-facebook{ title: "Facebook account verified" }
     - if other_user.provider == "devise_email"
-      %i.fa.fa-envelope{ title: "Email verified" }
+      %i.fa.fa-envelope{ title: "Email address available" }
 
   .profile-constituency.subdued
     in #{other_user.constituency.try(:name) or "Unknown?"}
