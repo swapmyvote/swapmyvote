@@ -4,6 +4,9 @@ class MobilePhoneController < ApplicationController
   def verify_create
     return if mobile_verified?
 
+    # The number has not yet been saved to the user profile: it will be later if verification passes
+    @mobile_number = params[:mobile_phone][:full]
+
     otp = api_get_otp
     if otp.nil?
       # Something went wrong
@@ -14,8 +17,9 @@ class MobilePhoneController < ApplicationController
     delete_previous_verify_id if phone.verify_id
     phone.verify_id = otp.id
     logger.debug "Created verification for user #{current_user.id} / " \
-                 "phone #{phone.id} (#{phone.number}); " \
+                 "phone #{phone.id} (#{@mobile_number}); " \
                  "verify_id: #{otp.id}"
+
     phone.save!
   end
 
@@ -43,9 +47,9 @@ class MobilePhoneController < ApplicationController
   end
 
   def api_get_otp
-    return SwapMyVote::MessageBird.verify_create(number, sms_template)
+    return SwapMyVote::MessageBird.verify_create(@mobile_number, sms_template)
   rescue MessageBird::ErrorException => ex
-    msg = "Failed to send verification code to #{number}"
+    msg = "Failed to send verification code to #{@mobile_number}"
     flash_error msg
     notify_error_exception(ex, msg)
     return nil
@@ -73,8 +77,8 @@ class MobilePhoneController < ApplicationController
     # Your number could not be verified"
     reason = verify_failure_reason(ex)
     if reason == :unknown
-      notify_error_exception(ex, "Verifying number #{number} failed")
-      reason = "Something went wrong when verifying number #{number}."
+      notify_error_exception(ex, "Verifying mobile number failed")
+      reason = "Something went wrong when verifying your mobile number."
     else
       reason += " Please use the code sent most recently."
     end
@@ -156,9 +160,5 @@ class MobilePhoneController < ApplicationController
 
   def phone
     current_user.mobile_phone
-  end
-
-  def number
-    current_user.mobile_number
   end
 end
