@@ -27,5 +27,5 @@
     to get to know your swap partner.
   - else
     You can reach out to #{@user.swapped_with.name} by email at
-    = link_to "#{@user.swapped_with.email}", @user.swapped_with.profile_url
+    = link_to @user.swapped_with.email, @user.swapped_with.profile_url
     to get to know your swap partner.

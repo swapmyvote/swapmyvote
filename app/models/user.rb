@@ -278,7 +278,7 @@ class User < ApplicationRecord
   end
 
   def profile_url
-    identity&.profile_url || "mailto://#{email}"
+    identity&.profile_url || "mailto:#{CGI.escape email}"
   end
 
   def provider
