@@ -16,7 +16,6 @@ class MobilePhoneController < ApplicationController
                  "verify_id: #{otp.id}"
 
     phone.save!
-
   rescue ActiveRecord::RecordInvalid
     # We can get here if a the number is already in the DB. This can happen
     # legitimately if a user has two accounts (eg twitter + email) and verifies
