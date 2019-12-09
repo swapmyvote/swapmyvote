@@ -8,6 +8,9 @@
         %button.close{ type: "button", :data => { dismiss: "modal" }, :aria => { label: "Close" } }
           %i.fa.fa-times.subdued
       .modal-body
+        - if flash[:alert]
+          .alert.alert-danger
+            != flash[:alert]
         = form_with url: "#", id: "login-form", local: true do
           - if log_in_with_facebook?
             %p.text-center
