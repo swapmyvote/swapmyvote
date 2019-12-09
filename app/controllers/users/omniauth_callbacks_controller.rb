@@ -18,13 +18,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     redirect_to origin || user_path
   rescue ActiveRecord::RecordInvalid => ex
     auth = request.env["omniauth.auth"]
-    flash[:alert] = alert_for_invalid_record(ex)
+    flash[:alert] = alert_for_invalid_record(ex, auth)
     redirect_to auth&.provider == "devise_email" ?
                   new_user_session_path
                 : root_path + "?log_in_with=any"
   end
 
-  def alert_for_invalid_record(ex)
+  def alert_for_invalid_record(ex, auth)
     case ex.message
     when /Email can't be blank/
       alert = "Sorry, we need your email in order to continue."
