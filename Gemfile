@@ -82,6 +82,7 @@ group :development, :test do
 
   # add rspec
   gem "rspec-rails", "~> 3.8"
+  gem "capybara"
   gem "database_cleaner"
 
   # Guard checks everything when you save a file
