@@ -9,8 +9,8 @@
       %i.fa.fa-twitter{ title: "Twitter account verified" }
     - if other_user.provider == "facebook"
       %i.fa.fa-facebook{ title: "Facebook account verified" }
-    - if other_user.email_login?
-      %i.fa.fa-envelope{ title: "Email address available" }
+    - if other_user.email.present?
+      %i.fa.fa-envelope{ title: "Email address potentially available" }
 
   .profile-constituency.subdued
     in #{other_user.constituency.try(:name) or "Unknown?"}
