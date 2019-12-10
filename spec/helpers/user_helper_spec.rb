@@ -6,11 +6,9 @@ RSpec.describe UsersHelper, type: :helper do
     let(:name) { "Alice Bloggs" }
     let(:user) { create(:user, name: name) }
 
-    it "returns email link when there is no profile URL" do
+    it "returns name when there is no profile URL" do
       user.create_identity(provider: :facebook)
-      expect(helper.user_profile_link(user)) \
-        .to eq "<a href=\"mailto:alice.bloggs%40example.com\">" +
-               "Alice Bloggs (test user)</a>"
+      expect(helper.user_profile_link(user)) .to eq "Alice Bloggs (test user)"
     end
 
     it "returns a link when there is a profile URL" do

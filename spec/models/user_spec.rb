@@ -336,21 +336,57 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#profile_url" do
-    context "when user has email login" do
-      it "makes a mailto: link" do
-        subject.email = "foo@example.com"
-        expect(subject.email_login?).to be_truthy
-        expect(subject.profile_url).to eq "mailto:foo%40example.com"
-      end
+  describe "#email_url" do
+    it "makes a mailto: link" do
+      subject.email = "foo@example.com"
+      expect(subject.email_login?).to be_truthy
+      expect(subject.email_url).to eq "mailto:foo%40example.com"
+    end
 
-      it "defends against XSS attacks" do
-        subject.email =
-          'foo@example.com"></a><a href="javascript:evil">email'
-        expect(subject.profile_url)
-          .to eq "mailto:foo%40example.com%22%3E%3C%2Fa%3E%3Ca+" +
-                 "href%3D%22javascript%3Aevil%22%3Eemail"
-      end
+    it "defends against XSS attacks" do
+      subject.email =
+        'foo@example.com"></a><a href="javascript:evil">email'
+      expect(subject.email_url)
+        .to eq "mailto:foo%40example.com%22%3E%3C%2Fa%3E%3Ca+" +
+                "href%3D%22javascript%3Aevil%22%3Eemail"
+    end
+  end
+
+  describe "email sharing consent" do
+    it "is false by default" do
+      expect(subject.swap_email_consent?).to be_falsey
+    end
+
+    it "swapper is chooser and partner has consented to share email" do
+      confirmed_swap = build(:swap, confirmed: true)
+      confirmed_swap.consent_share_email_chosen = true
+      subject.outgoing_swap = confirmed_swap
+
+      expect(subject.swap_email_consent?).to be_truthy
+    end
+
+    it "swapper is chooser and partner has not consented to share email" do
+      confirmed_swap = build(:swap, confirmed: true)
+      confirmed_swap.consent_share_email_chosen = false
+      subject.outgoing_swap = confirmed_swap
+
+      expect(subject.swap_email_consent?).to be_falsey
+    end
+
+    it "swapper is chosen and partner has consented to share email" do
+      confirmed_swap = build(:swap, confirmed: true)
+      confirmed_swap.consent_share_email_chooser = true
+      subject.incoming_swap = confirmed_swap
+
+      expect(subject.swap_email_consent?).to be_truthy
+    end
+
+    it "swapper is chosen and partner has not consented to share email" do
+      confirmed_swap = build(:swap, confirmed: true)
+      confirmed_swap.consent_share_email_chooser = false
+      subject.incoming_swap = confirmed_swap
+
+      expect(subject.swap_email_consent?).to be_falsey
     end
   end
 

@@ -207,6 +207,13 @@ class User < ApplicationRecord
     UserMailer.swap_confirmed(swapped_with, self, incoming_swap.consent_share_email_chosen).deliver_now
   end
 
+  def swap_email_consent?
+    # Check if our swapper has given permission for us to see their email
+    return outgoing_swap.consent_share_email_chosen if outgoing_swap
+    return incoming_swap.consent_share_email_chooser if incoming_swap
+    return false
+  end
+
   def clear_swap
     if incoming_swap
       incoming_swap.destroy
@@ -286,7 +293,11 @@ class User < ApplicationRecord
   end
 
   def profile_url
-    identity&.profile_url || "mailto:#{CGI.escape email}"
+    identity&.profile_url
+  end
+
+  def email_url
+    "mailto:#{CGI.escape email}"
   end
 
   def provider
