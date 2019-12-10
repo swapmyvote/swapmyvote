@@ -352,41 +352,43 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#swap_email_consent?" do
+  describe "#email_consent?" do
     it "is false by default" do
-      expect(subject.swap_email_consent?).to be_falsey
+      expect(subject.email_consent?).to be_falsey
     end
 
-    it "swapper is chooser and partner has consented to share email" do
-      confirmed_swap = build(:swap, confirmed: true)
-      confirmed_swap.consent_share_email_chosen = true
-      subject.outgoing_swap = confirmed_swap
+    let(:swap) { build(:swap) }
 
-      expect(subject.swap_email_consent?).to be_truthy
+    context "swapper is chooser and" do
+      before do
+        subject.outgoing_swap = swap
+      end
+
+      it "has consented to share email" do
+        swap.consent_share_email_chooser = true
+        expect(subject.email_consent?).to be_truthy
+      end
+
+      it "has not consented to share email" do
+        swap.consent_share_email_chooser = false
+        expect(subject.email_consent?).to be_falsey
+      end
     end
 
-    it "swapper is chooser and partner has not consented to share email" do
-      confirmed_swap = build(:swap, confirmed: true)
-      confirmed_swap.consent_share_email_chosen = false
-      subject.outgoing_swap = confirmed_swap
+    context "swapper is chosen and" do
+      before do
+        subject.incoming_swap = swap
+      end
 
-      expect(subject.swap_email_consent?).to be_falsey
-    end
+      it "has consented to share email" do
+        swap.consent_share_email_chosen = true
+        expect(subject.email_consent?).to be_truthy
+      end
 
-    it "swapper is chosen and partner has consented to share email" do
-      confirmed_swap = build(:swap, confirmed: true)
-      confirmed_swap.consent_share_email_chooser = true
-      subject.incoming_swap = confirmed_swap
-
-      expect(subject.swap_email_consent?).to be_truthy
-    end
-
-    it "swapper is chosen and partner has not consented to share email" do
-      confirmed_swap = build(:swap, confirmed: true)
-      confirmed_swap.consent_share_email_chooser = false
-      subject.incoming_swap = confirmed_swap
-
-      expect(subject.swap_email_consent?).to be_falsey
+      it "has not consented to share email" do
+        swap.consent_share_email_chosen = false
+        expect(subject.email_consent?).to be_falsey
+      end
     end
   end
 

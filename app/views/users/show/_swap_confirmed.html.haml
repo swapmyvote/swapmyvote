@@ -21,19 +21,14 @@
   #{@user.swapped_with.name} has confirmed the swap. You're all set!
 
 %p.text-center
-  - if @user.swapped_with.social_profile? && @user.swap_email_consent?
+  - methods = contact_methods(@user.swapped_with)
+  - if methods.present?
     You can reach out to
-    = link_to "#{@user.swapped_with.name} on social media", @user.swapped_with.profile_url
-    or by email at
-    = link_to @user.swapped_with.email, @user.swapped_with.email_url
-    to get to know your swap partner.
-  - elsif @user.swapped_with.social_profile?
-    You can reach out to
-    = link_to "#{@user.swapped_with.name} on social media", @user.swapped_with.profile_url
-    to get to know your swap partner.
-  - elsif @user.swap_email_consent?
-    You can reach out to #{@user.swapped_with.name} by email at
-    = link_to @user.swapped_with.email, @user.swapped_with.email_url
+
+    = @user.swapped_with.name
+
+    != methods.join " or "
+
     to get to know your swap partner.
   - else
     Unfortunately #{@user.swapped_with.name} has not shared their email address or
