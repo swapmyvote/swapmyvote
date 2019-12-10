@@ -11,6 +11,10 @@ module ApplicationHelper
     return !current_user.nil?
   end
 
+  def display_login_modal
+    return params[:log_in_with] ? "inherit" : "none"
+  end
+
   def swapping_open?
     return true if session[:sesame] == "open" # someone said the magic word
     return !ENV["SWAPS_CLOSED"]
