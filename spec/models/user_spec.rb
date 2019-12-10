@@ -352,7 +352,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "email sharing consent" do
+  describe "#swap_email_consent?" do
     it "is false by default" do
       expect(subject.swap_email_consent?).to be_falsey
     end
