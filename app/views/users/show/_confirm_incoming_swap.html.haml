@@ -26,8 +26,16 @@
       Please confirm that you would like to swap
       with #{user.swapped_with.redacted_name}.
     %p.text-center
-      = link_to "Yes please!", user_swap_path("swap[confirmed]" => "true"),
-        method: "put", class: "btn btn-primary"
+      = form_tag user_swap_path, class: "form-inline", method: "put" do
+
+        = hidden_field_tag 'swap[confirmed]', true
+        %p.text-center.small
+          Please check the box if you are willing to share your
+          email address with #{user.swapped_with.redacted_name}
+          = check_box_tag 'swap[consent_share_email_chosen]', true
+
+        %p.text-center{style: "width: 100%"}
+          = button_tag "Yes please!", class: 'btn btn-primary'
 
   %p.text-center
     = link_to "I'd prefer to swap with someone else", "#", class: "small subdued",
