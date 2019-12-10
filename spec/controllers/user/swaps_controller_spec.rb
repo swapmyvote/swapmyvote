@@ -95,6 +95,21 @@ RSpec.describe User::SwapsController, type: :controller do
               expect(flash[:errors]).to be_blank
               expect(swap_user.swap.confirmed).to be true
             end
+
+            context "AND with consent_share_email_chosen: true" do
+              it "changes the swap to consent_share_email_chosen: true" do
+                expect { put :update, params: { swap: { confirmed: true, consent_share_email_chosen: true } } }
+                  .to change(swap_user.swap, :consent_share_email_chosen).from(false).to(true)
+              end
+            end
+          end
+
+          context "with consent_share_email_chosen: true" do
+            it "changes the swap to consent_share_email_chosen: true" do
+              pending
+              expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
+                .to change(swap_user.swap, :consent_share_email_chosen).from(false).to(true)
+            end
           end
         end
       end
