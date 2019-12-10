@@ -71,7 +71,7 @@ RSpec.describe User::SwapsController, type: :controller do
       end
 
       describe "PUT #update" do
-        context "when all the ducks are lined up" do
+        context "when the user has an INcoming swap" do
           before do
             new_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
             new_user.incoming_swap = swap
@@ -151,10 +151,107 @@ RSpec.describe User::SwapsController, type: :controller do
             end
           end
         end
+        context "when the user has an OUTgoing swap" do
+          before do
+            swap_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
+            swap_user.incoming_swap = swap
+            swap_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
+
+            new_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
+            new_user.outgoing_swap = swap
+            new_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
+          end
+
+          context "but swap is NOT yet confirmed" do
+            let(:swap)  { Swap.create(chosen_user_id: swap_user.id) }
+
+            context "with confirmed: true" do
+              it "DOES NOT change the swap to confirmed" do
+                expect(swap_user.swap.confirmed).to be nil
+
+                put :update, params: { swap: { confirmed: true } }
+
+                expect(swap_user.swap.confirmed).to be nil
+                expect(response).to redirect_to :user
+                expect(swap_user.swap.chosen_user_id).to eq swap_user.id
+                # expect(flash[:errors]).to be_blank
+              end
+
+              it "DOES NOT email both voters with swap confirmation" do
+                expect(UserMailer).not_to receive(:swap_confirmed)
+                put :update, params: { swap: { confirmed: true } }
+              end
+            end
+
+            context "with consent_share_email_chooser: true" do
+              it "changes the swap to consent_share_email_chooser: true" do
+                pending
+                expect { put :update, params: { swap: { consent_share_email_chooser: true } } }
+                  .to change(swap_user.swap, :consent_share_email_chooser).from(false).to(true)
+              end
+
+              it "does not email both voters with swap confirmation" do
+                expect(swap_user.swap.confirmed).to be nil
+                expect { put :update, params: { swap: { consent_share_email_chooser: true } } }
+                put :update, params: { swap: { confirmed: true } }
+              end
+
+              it "does NOT email the other voter with new consent" do
+                expect(UserMailer).not_to receive(:email_address_shared)
+                put :update, params: { swap: { consent_share_email_chooser: true } }
+              end
+            end
+
+            context "with consent_share_email_chosen: true" do
+              it "DOES NOT change the swap to consent_share_email_chosen: true" do
+                expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
+                  .not_to change(swap_user.swap, :consent_share_email_chosen).from(false)
+              end
+
+              it "does not email both voters with swap confirmation" do
+                expect(swap_user.swap.confirmed).to be nil
+                expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
+                put :update, params: { swap: { confirmed: true } }
+              end
+
+              it "does NOT email the other voter with new consent" do
+                expect(UserMailer).not_to receive(:email_address_shared)
+                put :update, params: { swap: { consent_share_email_chosen: true } }
+              end
+            end
+          end
+
+          context "but swap IS confirmed" do
+            let(:swap)  { Swap.create(chosen_user_id: swap_user.id, confirmed: true) }
+
+            context "with consent_share_email_chooser: true" do
+              it "changes the swap to consent_share_email_chooser: true" do
+                pending
+                expect { put :update, params: { swap: { consent_share_email_chooser: true } } }
+                  .to change(swap_user.swap, :consent_share_email_chooser).from(false).to(true)
+              end
+
+              it "does email the other voter with new consent" do
+                pending
+                expect(UserMailer).to receive(:email_address_shared).with(swap_user)
+                put :update, params: { swap: { consent_share_email_chooser: true } }
+              end
+            end
+
+            context "with consent_share_email_chosen: true" do
+              it "DOES NOT change the swap to consent_share_email_chosen: true" do
+                expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
+                  .to_not change(swap_user.swap, :consent_share_email_chosen).from(false)
+              end
+
+              it "does NOT email the other voter with new consent" do
+                expect(UserMailer).not_to receive(:email_address_shared)
+                put :update, params: { swap: { consent_share_email_chosen: true } }
+              end
+            end
+          end
+        end
       end
-
-
-
     end
   end
 
