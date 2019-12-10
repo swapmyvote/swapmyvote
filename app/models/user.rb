@@ -218,6 +218,9 @@ class User < ApplicationRecord
     if incoming_swap
       incoming_swap.update(swap_params.slice(:consent_share_email_chosen))
     end
+
+    # TODO: we need to deal with the outgoing swap case - tests first
+
   end
 
   def swap_email_consent?
