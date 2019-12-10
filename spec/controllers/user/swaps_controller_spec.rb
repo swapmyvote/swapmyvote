@@ -185,7 +185,6 @@ RSpec.describe User::SwapsController, type: :controller do
 
             context "with consent_share_email_chooser: true" do
               it "changes the swap to consent_share_email_chooser: true" do
-                pending
                 expect { put :update, params: { swap: { consent_share_email_chooser: true } } }
                   .to change(swap_user.swap, :consent_share_email_chooser).from(false).to(true)
               end
@@ -226,14 +225,13 @@ RSpec.describe User::SwapsController, type: :controller do
 
             context "with consent_share_email_chooser: true" do
               it "changes the swap to consent_share_email_chooser: true" do
-                pending
+                allow(UserMailer).to receive(:email_address_shared).with(swap_user).and_return(double.as_null_object)
                 expect { put :update, params: { swap: { consent_share_email_chooser: true } } }
                   .to change(swap_user.swap, :consent_share_email_chooser).from(false).to(true)
               end
 
               it "does email the other voter with new consent" do
-                pending
-                expect(UserMailer).to receive(:email_address_shared).with(swap_user)
+                expect(UserMailer).to receive(:email_address_shared).with(swap_user).and_return(double.as_null_object)
                 put :update, params: { swap: { consent_share_email_chooser: true } }
               end
             end

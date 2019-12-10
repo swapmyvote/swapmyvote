@@ -202,6 +202,7 @@ class User < ApplicationRecord
   end
 
   def confirm_swap(swap_params)
+    return unless incoming_swap
     incoming_swap.update(swap_params)
     UserMailer.swap_confirmed(self, swapped_with, incoming_swap.consent_share_email_chooser).deliver_now
     UserMailer.swap_confirmed(swapped_with, self, incoming_swap.consent_share_email_chosen).deliver_now
@@ -215,13 +216,14 @@ class User < ApplicationRecord
   end
 
   def update_swap(swap_params)
-    if incoming_swap
+    if incoming_swap && swap_params[:consent_share_email_chosen]
       incoming_swap.update(swap_params.slice(:consent_share_email_chosen))
       UserMailer.email_address_shared(swapped_with).deliver_now if swap_confirmed?
     end
-
-    # TODO: we need to deal with the outgoing swap case - tests first
-
+    if outgoing_swap && swap_params[:consent_share_email_chooser]
+      outgoing_swap.update(swap_params.slice(:consent_share_email_chooser))
+      UserMailer.email_address_shared(swapped_with).deliver_now if swap_confirmed?
+    end
   end
 
   def swap_email_consent?
