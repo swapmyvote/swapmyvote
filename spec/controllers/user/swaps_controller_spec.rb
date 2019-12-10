@@ -106,7 +106,6 @@ RSpec.describe User::SwapsController, type: :controller do
 
           context "with consent_share_email_chosen: true" do
             it "changes the swap to consent_share_email_chosen: true" do
-              pending
               expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
                 .to change(swap_user.swap, :consent_share_email_chosen).from(false).to(true)
             end

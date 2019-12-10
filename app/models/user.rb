@@ -214,6 +214,19 @@ class User < ApplicationRecord
     return false
   end
 
+  def update_swap(swap_params)
+    if incoming_swap
+      incoming_swap.update(swap_params.slice(:consent_share_email_chosen))
+    end
+  end
+
+  def swap_email_consent?
+    # Check if our swapper has given permission for us to see their email
+    return outgoing_swap.consent_share_email_chosen if outgoing_swap
+    return incoming_swap.consent_share_email_chooser if incoming_swap
+    return false
+  end
+
   def clear_swap
     if incoming_swap
       incoming_swap.destroy
