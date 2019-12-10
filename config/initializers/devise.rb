@@ -309,4 +309,17 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+  # Errors from authentication may crash because no Devise mapping is defined
+  # for the callback path. To work around this we manually set the failure
+  # callback to Users::OmniauthCallbacksController.failure().
+  #
+  # See https://github.com/plataformatec/devise/issues/2004#issuecomment-7466322
+  # for more information.
+  OmniAuth.config.on_failure = Proc.new do |env|
+    env['devise.mapping'] = Devise.mappings[:user]
+    controller_name  = ActiveSupport::Inflector.camelize(env['devise.mapping'].controllers[:omniauth_callbacks])
+    controller_klass = ActiveSupport::Inflector.constantize("#{controller_name}Controller")
+    controller_klass.action(:failure).call(env)
+  end
 end

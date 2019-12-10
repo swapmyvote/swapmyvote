@@ -72,7 +72,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     return user
   end
 
-  def retry
+  def failure
     flash[:errors] = ["Login failed! Please try again, or try logging in a different way."]
     destroy
   end
