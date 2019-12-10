@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe PollsHelper, type: :helper do
+  include Devise::Test::ControllerHelpers
+
   # fixtures :ons_constituencies, :polls
 
   describe "#poll_data_for" do

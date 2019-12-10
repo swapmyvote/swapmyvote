@@ -1,5 +1,5 @@
 %div{ class: "recommendation #{recommendation.site}" }
   .recommendation-source.small
     = recommendation.site
-  .recommendation-text
+  .recommendation-text{ style: "#{recommendation.party_style_from_text}"}
     = link_to recommendation.text, recommendation.link

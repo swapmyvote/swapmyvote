@@ -55,9 +55,22 @@
     }
 }
 
+.profile-icons {
+    i {
+        color: $grey;
+    }
+
+    .fa-twitter {
+        color: $twitter-color;
+    }
+
+    .fa-facebook {
+        color: $facebook-color;
+    }
+}
+
 .profile-recommendations {
     margin-top: 12px;
-    width: 93%;
 
     .recommendation {
         display: inline-block;
@@ -68,6 +81,7 @@
 
         @include largescreen {
             width: 11.5%;
+            vertical-align: top;
         }
 
     }
@@ -76,6 +90,7 @@
 
         @include largescreen {
             font-size: $base-font-size * 0.7;
+            min-height: 3.5em;
         }
 
         @include smallscreen {

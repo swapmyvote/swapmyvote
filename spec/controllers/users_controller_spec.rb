@@ -1,23 +1,25 @@
 require "rails_helper"
 
 RSpec.describe UsersController, type: :controller do
+  include Devise::Test::ControllerHelpers
+
   context "when user is logged in" do
     let(:logged_in_user) do
-      build(:user, id: 111,
-            constituency: build(:ons_constituency),
-            email: "foo@bar.com")
+      create(:ready_to_swap_user1, id: 111, constituency: build(:ons_constituency))
     end
 
     before do
-      session[:user_id] = logged_in_user.id
-      allow(User).to receive(:find_by_id).with(logged_in_user.id)
-                       .and_return(logged_in_user)
+      # Stub out authentication
+      allow(request.env["warden"]).to receive(:authenticate!).and_return(logged_in_user)
+      allow(controller).to receive(:current_user).and_return(logged_in_user)
     end
 
     describe "GET #show" do
       it "returns http success" do
-        expect(logged_in_user).to receive(:swapped?).and_return(true)
-        allow(logged_in_user).to receive(:email).and_return("foo@bar.com")
+        swap_with_user = create(:ready_to_swap_user2, name: "Jane")
+        consent_share_email = true
+
+        logged_in_user.swap_with_user_id(swap_with_user.id, consent_share_email)
 
         get :show
         expect(response).to have_http_status(:success)
@@ -55,16 +57,20 @@ RSpec.describe UsersController, type: :controller do
     describe "POST #update" do
       it "redirects to #show if user has verified phone number" do
         build(:mobile_phone, number: "07400 123456", verified: true, user_id: logged_in_user.id)
+        new_constituency = build(:ons_constituency, name: "Wimbledon")
 
-        expect(logged_in_user).to receive(:update)
-        post :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" } }
+        expect(logged_in_user).to receive(:update).and_call_original
+        post :update, params: { user: { constituency_ons_id: new_constituency.ons_id, email: "a@b.c" } }
+        logged_in_user.reload
+
+        expect(logged_in_user.constituency_ons_id).to eq(new_constituency.ons_id)
+        expect(logged_in_user.email).to eq("a@b.c")
         expect(response).to redirect_to(:user)
       end
     end
 
     describe "DELETE #destroy" do
       it "redirects to account_deleted" do
-        expect(logged_in_user).to receive(:destroy)
         delete :destroy
         expect(response).to redirect_to(:account_deleted)
       end
@@ -75,9 +81,9 @@ RSpec.describe UsersController, type: :controller do
     let(:invalid_user) { build(:user, id: 2) }
 
     before do
-      session[:user_id] = invalid_user.id
-      allow(User).to receive(:find_by_id).with(invalid_user.id)
-                       .and_return(invalid_user)
+      # Stub out authentication
+      allow(request.env["warden"]).to receive(:authenticate!).and_return(invalid_user)
+      allow(controller).to receive(:current_user).and_return(invalid_user)
     end
 
     describe "GET #show" do

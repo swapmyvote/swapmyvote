@@ -40,4 +40,13 @@ end
 
   create_random_user(i, 3, 1)
   create_random_user(i, 3, 2)
+
+  create_random_user(i, 4, 1)
+  create_random_user(i, 1, 4)
+
+  create_random_user(i, 4, 2)
+  create_random_user(i, 2, 4)
+
+  create_random_user(i, 4, 3)
+  create_random_user(i, 3, 4)
 end

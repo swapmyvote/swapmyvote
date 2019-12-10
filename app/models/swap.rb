@@ -12,10 +12,25 @@ class Swap < ApplicationRecord
 
   class << self
     include SwapsHelper
+
+    def old_swaps
+      Swap
+        .where({ confirmed: false })
+        .where(["created_at < ?", DateTime.now - swap_validity_hours.hours])
+    end
+
+    def show_old
+      old = old_swaps
+      old.each do |swap|
+        p swap
+      end
+      puts "Total swaps to expire: #{old.count}"
+    end
+
     def cancel_old
       destroyed_ids = []
 
-      swaps = Swap.where({ confirmed: false }).where(["created_at < ?", DateTime.now - swap_validity_hours.hours])
+      swaps = old_swaps
       if swaps.count.zero?
         logger.info "No unconfirmed swaps meet deletion criteria - before #{DateTime.now - swap_validity_hours.hours}"
       else

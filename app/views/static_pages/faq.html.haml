@@ -29,23 +29,38 @@
     %p
 
       We have integrated the Swap My Vote platform with two of the
-      biggest public social networks used in the UK so that you see
-      that there is a real person at the other end of the swap, and
-      potentially make contact with your partner. We have also made verification
-      of a mobile phone number mandatory.The kinds of thoughts and articles
-      you share may help trust arise naturally.
+      biggest public social networks used in the UK (Twitter and
+      Facebook) so that you see that there is a real person at the
+      other end of the swap, and potentially make contact with your
+      partner.  However we appreciate that not everyone wants to use
+      those services, so we now also support log-in via email, with
+      the requirement that anyone logging in via email can be reached
+      by the swap partner they have agreed to.  The kinds of thoughts
+      and articles you share may help trust arise naturally.
+
     %p
-      If you do make contact with your vote partner, perhaps let each other know
-      what the most important policies to you, what you would like your vote to
-      achieve, why you have decided to swap your vote.
+
+      To help prevent fake accounts, we have also made verification of a
+      mobile phone number mandatory.
+
     %p
-      Some people even let each other know when they're heading down to the
-      polling station and, on the day, we'll send you a link you can click to
-      automatically let each other know you've voted.
+
+      If you do make contact with your vote partner, perhaps let each
+      other know what the most important policies to you, what you
+      would like your vote to achieve, why you have decided to swap
+      your vote.
+
     %p
+
+      Some people even let each other know when they're heading down
+      to the polling station and, on the day, we'll send you a link
+      you can click to automatically let each other know you've voted.
+
+    %p
+
       We’re hoping that this site may contribute to a greater sense of
       community amongst voters, all hoping to make the country run as
-      well as possible for a better future for everone.
+      well as possible for a better future for everyone.
 
     %a(name="privacy")
     %h2 Do my voting intentions stay private?
@@ -76,19 +91,58 @@
       who have the complementary preferences.
 
     %a(name="login")
-    %h2 Why do I need to log in with Facebook or Twitter and not email or (X)?
+    %h2 Why do I need to log in with Facebook / Twitter / email, and not X?
 
     %p
 
       We are trying to bring an element of trust to vote swapping (see
-      above) - in order that your voting partner can have a sense of
-      who you are, and vice versa, we currently ask that you log in
-      with one of the two biggest public social networks used in the
-      UK, Twitter and Facebook. This way you can see who each other
-      are, and what kinds of issues are important to one another, and
-      even get in contact, forming a mini-alliance. We are actively
-      looking at further options for the 2019 UK General Election and
-      future elections.
+      = link_to("the section on trust above", "#trust") + ") -"
+      in order that your voting partner can have a sense of
+      who you are, and vice versa, we currently ask that you either
+      log in with one of the two biggest public social networks used
+      in the UK (Twitter and Facebook), or via email.  This way you
+      both have a chance to find out a bit about each other, and what
+      kinds of issues matter to you both, effectively forming a
+      mini-alliance.  We are open to other options for the future as
+      platform use develops.
+
+    %a(name="facebook-profile")
+    %h2 Why can't I reach my swap partner's Facebook profile?
+
+    %p
+
+      This could be for one of a few reasons:
+
+    %ul
+      %li
+        You're not in your swap partner's network of friends on Facebook.
+        Unfortunately we recently discovered that Facebook have locked down
+        the links to user profiles which they provide to apps, so that
+
+        = link_to "https://developers.facebook.com/docs/facebook-login/permissions/#reference-user_link",
+                  target: "_blank" do
+          they only work for users who are already friends.
+      %li
+        Your swap partner chose not to allow the Swap My Vote app access to a
+        link to their Facebook profile when they logged in to the app via
+        Facebook.
+      %li
+        Your swap partner logged into the app through some other mechanism,
+        e.g. Twitter or email.
+
+    %p
+
+      To help fix this problem, we are also asking everyone for
+      consent to share their email address with their swap partner.
+
+    %p
+      However as a last resort, you can always consider
+
+      = link_to "cancelling your swap", "#reset"
+
+      and looking for another swap partner.  The little icons next to
+      someone's name can help you find someone who is easier to reach
+      out to.
 
     %a(name="trouble")
     %h2 I'm having trouble logging in - help!
@@ -138,7 +192,7 @@
     %p
 
       If your partner hasn't confirmed the swap, it will now
-      automatically cancel after #{swap_validity_hours} hours and we
+      automatically expire after #{swap_validity_hours} hours and we
       will email both parties to let them know to log in to find a new
       partner.
 
@@ -221,21 +275,38 @@
 
       %li
 
-        <a href="http://adamspiers.org/">Adam Spiers</a> is our
+        <a target=_blank href="http://adamspiers.org/">Adam Spiers</a> is our
         project CTO; an expert in Free and Open Source Software he
         builds tech products that help democratic engagement in his
         spare time.
 
       %li
 
-        <a href="http://jpallen.net/">James Allen</a> is the a
-        co-founder and led development of the project. He also
-        co-founded <a
-        href="https://www.sharelatex.com/">ShareLaTeX</a>, a
-        collaborative platform for scientists (now part of
-        Overleaf). He is interested in how technology can make people
-        more efficient and enable new ways of communication and
-        collaboration, like Swap My Vote.
+        <a target=_blank href="http://jpallen.net/">James Allen</a> is the a
+        co-founder and led development of the project. He also co-founded
+        <a target=_blank href="https://www.sharelatex.com/">ShareLaTeX</a>, a
+        collaborative platform for scientists (now part of Overleaf). He is
+        interested in how technology can make people more efficient and enable
+        new ways of communication and collaboration, like Swap My Vote.
+
+      %li
+
+        <a target=_blank
+        href="https://www.linkedin.com/in/sarah-eggleston-34bb924/">Sarah
+        Eggleston</a> is an enthusiastic convert to Ruby on Rails after a long
+        career in Java. She is passionate about building software that is
+        intuitive to use and easy to configure, and is taking time out from
+        her startup <a target=_blank href="https://fflow.io">fflow</a> to
+        support Swap My Vote.
+
+      %li
+
+        <a target=_blank href="http://kuamka.com/">Steve Baxter</a> is a
+        software engineer who has been involved in a wide range of products
+        and technologies, from life sciences to events management. He is
+        interested in the intersection between politics and technology and
+        wanted to do something positive instead of just shouting at the
+        television.
 
     %p
 

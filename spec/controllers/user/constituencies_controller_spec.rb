@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe User::ConstituenciesController, type: :controller do
+  include Devise::Test::ControllerHelpers
+
   context "when configured for swaps" do
     before(:each) do
       allow(ENV).to receive(:[]).with("SWAPS_CLOSED").and_return(nil)
@@ -10,7 +12,10 @@ RSpec.describe User::ConstituenciesController, type: :controller do
       let(:logged_in_user) { instance_double(User, constituency: :some_constituency, email: :some_email) }
 
       before do
-        session[:user_id] = :some_user_id
+        # Stub out authentication
+        allow(request.env["warden"]).to receive(:authenticate!).and_return(logged_in_user)
+        allow(controller).to receive(:current_user).and_return(logged_in_user)
+
         allow(User).to receive(:find_by_id).with(:some_user_id).and_return(logged_in_user)
       end
 
@@ -40,11 +45,6 @@ RSpec.describe User::ConstituenciesController, type: :controller do
 
       describe "PATCH #update" do
         before { allow(logged_in_user).to receive(:update) }
-
-        it "finds user based on session user_id" do
-          expect(User).to receive(:find_by_id).with(:some_user_id).and_return(logged_in_user)
-          patch :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" }   }
-        end
 
         it "updates the user" do
           expect(logged_in_user).to receive(:update)

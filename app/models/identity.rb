@@ -1,9 +1,13 @@
 class Identity < ApplicationRecord
   belongs_to :user
 
+  # FIXME: The devise_email is not actually used yet; if the user logs in
+  # via email, their identity association is nil.  Ideally we should move
+  # that into this model.
   enum provider: %i[
     twitter
     facebook
+    devise_email
   ]
 
   def self.from_omniauth(auth, user_id)

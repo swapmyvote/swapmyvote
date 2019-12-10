@@ -1,0 +1,31 @@
+<div class="background-pattern border-bottom">
+  <div class="container container-extra-narrow">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="h4 mb-0">Change your password</h2>
+      </div>
+
+      <div class="card-body">
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.hidden_field :reset_password_token %>
+
+          <div class="form-group">
+            <%= f.label :password, "New password", class: "mb-0" %>
+            <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password_confirmation, "Confirm new password", class: "mb-0" %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Change my password", class: "btn btn-primary btn-block" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

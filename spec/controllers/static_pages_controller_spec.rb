@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe StaticPagesController, type: :controller do
+  include Devise::Test::ControllerHelpers
+
   describe "GET #faq" do
     it "returns http success" do
       get :faq

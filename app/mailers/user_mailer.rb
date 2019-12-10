@@ -17,10 +17,11 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "#{swap_with.redacted_name} would like to swap their vote with you!")
   end
 
-  def swap_confirmed(user, swap_with)
+  def swap_confirmed(user, swap_with, swap_with_email_consent)
     return nil if user.email.blank?
     @user = user
     @swap_with = swap_with
+    @swap_with_email_consent = swap_with_email_consent
     mail(to: @user.email, subject: "Swapping your vote with #{swap_with.name} is confirmed!")
   end
 

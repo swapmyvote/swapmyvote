@@ -18,7 +18,7 @@
         %option(disabled=true selected=true) ...
         = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @willing_party_id)
     %p
-      %a.button.button-large{onclick: "submit_modal(); return false", href: "#"} Swap My Vote!
+      %a.btn.btn-lg.btn-primary{ onclick: "submit_modal(); return false", href: "#" } Swap My Vote!
     %p.small.subdued
       We will match you with someone who will
       cast your preferred vote in a different area where it could count for more.
@@ -39,16 +39,17 @@
     preferred_party_id = $("select[name='user[preferred_party_id]']").val();
     willing_party_id = $("select[name='user[willing_party_id]']").val();
     if (preferred_party_id !== null && willing_party_id !== null) {
-      showModal($('.js-login-modal'));
+      $("#js-login-modal").modal();
     } else {
-      showModal($('.js-error-modal'));
+      $("#js-error-modal").modal();
     }
   }
 
-.modal.js-error-modal{style: "display: none;"}
+.modal#js-error-modal{ tabindex: "-1", role: "dialog" }
   .modal-dialog
-    %i.fa.fa-times.subdued.modal-close
-    %p.text-center
-      Please choose both your preferred party and your willing party.
-    %p.text-center
-      %a.button.modal-close{href: "#"} OK
+    .modal-content
+      .modal-body
+        Please choose both your preferred party and your willing party.
+      .modal-footer
+        %button.btn.btn-primary{ :data => { dismiss: "modal" }, :aria => { label: "Close" } }
+          Close

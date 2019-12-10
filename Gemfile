@@ -33,6 +33,8 @@ gem "jquery-ui-rails"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem "devise"
+
 gem "omniauth-facebook"
 gem "omniauth-twitter"
 gem "omniauth-rails_csrf_protection", "~> 0.1"
@@ -80,6 +82,7 @@ group :development, :test do
 
   # add rspec
   gem "rspec-rails", "~> 3.8"
+  gem "capybara"
   gem "database_cleaner"
 
   # Guard checks everything when you save a file
