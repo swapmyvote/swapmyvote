@@ -70,19 +70,32 @@ RSpec.describe User::SwapsController, type: :controller do
         end
       end
 
-      describe "PUT #update" do
-        it "confirms the swap if all ducks are lined up" do
-          swap = Swap.create(chosen_user_id: swap_user.id)
+      context "when all the ducks are lined up but swap is not yet confirmed" do
+        let(:swap)  { Swap.create(chosen_user_id: swap_user.id) }
+
+        before do
+          new_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
           new_user.incoming_swap = swap
+          new_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
+
+          swap_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
           swap_user.outgoing_swap = swap
+          swap_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
+        end
 
-          expect(swap_user.swap.confirmed).to be nil
+        describe "PUT #update" do
+          context "with confirmed: true" do
+            it "changes the swap to confirmed" do
+              expect(swap_user.swap.confirmed).to be nil
 
-          put :update, params: { swap: { confirmed: true } }
+              put :update, params: { swap: { confirmed: true } }
 
-          expect(response).to redirect_to :user
-          expect(swap_user.swap.chosen_user_id).to eq new_user.id
-          expect(swap_user.swap.confirmed).to be true
+              expect(response).to redirect_to :user
+              expect(swap_user.swap.chosen_user_id).to eq new_user.id
+              expect(flash[:errors]).to be_blank
+              expect(swap_user.swap.confirmed).to be true
+            end
+          end
         end
       end
     end
@@ -90,7 +103,7 @@ RSpec.describe User::SwapsController, type: :controller do
 
   context "when users are not verified" do
     let(:new_user) do
-      build(:user, id: 122,
+      build(:user, id: 122, name: "the new user",
             constituency: build(:ons_constituency, ons_id: "E121"),
             email: "foo@bar.com")
     end
@@ -100,7 +113,7 @@ RSpec.describe User::SwapsController, type: :controller do
     end
 
     let(:swap_user) do
-      build(:user, id: 132,
+      build(:user, id: 132, name: "the swap user",
             constituency: build(:ons_constituency, name: "Fareham", ons_id: "E131"),
             email: "match@foo.com")
     end
