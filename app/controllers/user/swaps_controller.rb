@@ -32,7 +32,7 @@ class User::SwapsController < ApplicationController
 
   def update
     if swap_params[:confirmed] == "true"
-      @user.confirm_swap
+      @user.confirm_swap(swap_params)
     end
 
     redirect_to user_path
@@ -78,6 +78,6 @@ class User::SwapsController < ApplicationController
   end
 
   def swap_params
-    params.require(:swap).permit(:confirmed)
+    params.require(:swap).permit(:confirmed, :consent_share_email_chosen)
   end
 end

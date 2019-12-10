@@ -201,8 +201,8 @@ class User < ApplicationRecord
     swap.try(:confirmed)
   end
 
-  def confirm_swap
-    incoming_swap.update(confirmed: true)
+  def confirm_swap(swap_params)
+    incoming_swap.update(swap_params)
     UserMailer.swap_confirmed(self, swapped_with, incoming_swap.consent_share_email_chooser).deliver_now
     UserMailer.swap_confirmed(swapped_with, self, incoming_swap.consent_share_email_chosen).deliver_now
   end
