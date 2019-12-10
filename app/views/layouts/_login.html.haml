@@ -7,7 +7,8 @@
     .modal-content
       .modal-header
         %h2{ class: "h4 mb-0" } Log in
-        %button.close{ type: "button", :data => { dismiss: "modal" }, :aria => { label: "Close" } }
+        %button.close{ type: "button", data: { dismiss: "modal" },
+                       aria: { label: "Close" } }
           %i.fa.fa-times.subdued
       .modal-body
         - if flash[:alert]
