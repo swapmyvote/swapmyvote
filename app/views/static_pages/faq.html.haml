@@ -106,6 +106,33 @@
       mini-alliance.  We are open to other options for the future as
       platform use develops.
 
+    %a(name="facebook-profile")
+    %h2 Why can't I reach my swap partner's Facebook profile?
+
+    %p
+
+      This could be for one of a few reasons:
+
+    %ul
+      %li
+        You're not in your swap partner's network of friends on Facebook.
+        Unfortunately we recently discovered that Facebook have locked down
+        the links to user profiles which they provide to apps, so that
+
+        = link_to "https://developers.facebook.com/docs/facebook-login/permissions/#reference-user_link",
+                  target: "_blank" do
+          they only work for users who are already friends.
+      %li
+        Your swap partner choose to prevent the Swap My Vote app from accessing
+        their profile URL when they logged in to the app via Facebook.
+      %li
+        Your swap partner logged into the app through some other mechanism,
+        e.g. Twitter or email.
+
+    %p
+      To mitigate this, we are also asking everyone for consent to share their
+      email address with their swap partner.
+
     %a(name="trouble")
     %h2 I'm having trouble logging in - help!
 
