@@ -97,14 +97,20 @@ RSpec.describe User::SwapsController, type: :controller do
                 expect(swap_user.swap.confirmed).to be true
               end
 
-              it "emails both voters" do
-                skip
+              it "emails both voters with swap confirmation" do
+                expect(UserMailer).to receive(:swap_confirmed).twice
+                put :update, params: { swap: { confirmed: true } }
               end
 
               context "AND with consent_share_email_chosen: true" do
                 it "changes the swap to consent_share_email_chosen: true" do
                   expect { put :update, params: { swap: { confirmed: true, consent_share_email_chosen: true } } }
                     .to change(swap_user.swap, :consent_share_email_chosen).from(false).to(true)
+                end
+
+                it "emails both voters with swap confirmation" do
+                  expect(UserMailer).to receive(:swap_confirmed).twice
+                  put :update, params: { swap: { confirmed: true } }
                 end
               end
             end
@@ -115,7 +121,13 @@ RSpec.describe User::SwapsController, type: :controller do
                   .to change(swap_user.swap, :consent_share_email_chosen).from(false).to(true)
               end
 
-              it "does not email the other voter" do
+              it "does not email both voters with swap confirmation" do
+                expect(swap_user.swap.confirmed).to be nil
+                expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
+                put :update, params: { swap: { confirmed: true } }
+              end
+
+              it "does NOT email the other voter with new consent" do
                 skip
               end
             end
