@@ -316,9 +316,9 @@ Devise.setup do |config|
   #
   # See https://github.com/plataformatec/devise/issues/2004#issuecomment-7466322
   # for more information.
-  OmniAuth.config.on_failure = Proc.new do |env|
-    env['devise.mapping'] = Devise.mappings[:user]
-    controller_name  = ActiveSupport::Inflector.camelize(env['devise.mapping'].controllers[:omniauth_callbacks])
+  OmniAuth.config.on_failure = proc do |env|
+    env["devise.mapping"] = Devise.mappings[:user]
+    controller_name = ActiveSupport::Inflector.camelize(env["devise.mapping"].controllers[:omniauth_callbacks])
     controller_klass = ActiveSupport::Inflector.constantize("#{controller_name}Controller")
     controller_klass.action(:failure).call(env)
   end
