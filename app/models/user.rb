@@ -150,7 +150,7 @@ class User < ApplicationRecord
     mobile_phone&.verified
   end
 
-  def swap_with_user_id(user_id)
+  def swap_with_user_id(user_id, consent_share_email)
     other_user = User.find(user_id)
     return unless can_swap_with?(other_user)
 
@@ -159,7 +159,11 @@ class User < ApplicationRecord
 
     UserMailer.confirm_swap(other_user, self).deliver_now
 
-    create_outgoing_swap chosen_user: other_user, confirmed: false
+    create_outgoing_swap(
+      chosen_user: other_user,
+      confirmed: false,
+      consent_share_email_chooser: (consent_share_email || false)
+    )
     save
   end
 
@@ -197,10 +201,17 @@ class User < ApplicationRecord
     swap.try(:confirmed)
   end
 
-  def confirm_swap
-    incoming_swap.update(confirmed: true)
-    UserMailer.swap_confirmed(self, swapped_with).deliver_now
-    UserMailer.swap_confirmed(swapped_with, self).deliver_now
+  def confirm_swap(swap_params)
+    incoming_swap.update(swap_params)
+    UserMailer.swap_confirmed(self, swapped_with, incoming_swap.consent_share_email_chooser).deliver_now
+    UserMailer.swap_confirmed(swapped_with, self, incoming_swap.consent_share_email_chosen).deliver_now
+  end
+
+  def swap_email_consent?
+    # Check if our swapper has given permission for us to see their email
+    return outgoing_swap.consent_share_email_chosen if outgoing_swap
+    return incoming_swap.consent_share_email_chooser if incoming_swap
+    return false
   end
 
   def clear_swap
@@ -282,7 +293,11 @@ class User < ApplicationRecord
   end
 
   def profile_url
-    identity&.profile_url || "mailto:#{CGI.escape email}"
+    identity&.profile_url
+  end
+
+  def email_url
+    "mailto:#{CGI.escape email}"
   end
 
   def provider
