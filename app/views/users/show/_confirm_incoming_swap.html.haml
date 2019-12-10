@@ -27,17 +27,17 @@
       with #{user.swapped_with.redacted_name}.
     %p.text-center
       = form_tag user_swap_path, class: "form-inline", method: "put" do
-
         = hidden_field_tag 'swap[confirmed]', true
-        %p.text-center.small
-          Please check the box if you are willing to share your
-          email address with #{user.swapped_with.redacted_name}
-          = check_box_tag 'swap[consent_share_email_chosen]', true
+        .form-check.mx-auto
+          %input.form-check-input{ type: "checkbox", id: "consent-check",
+                                   name: "swap[consent_share_email_chosen]" }
+          %label.form-check-label{ for: "consent-check" }
+            Share my email address with #{user.swapped_with.redacted_name}
 
         %p.text-center{style: "width: 100%"}
-          = button_tag "Yes please!", class: 'btn btn-primary'
+          = button_tag "Swap with #{user.swapped_with.redacted_name}", class: 'btn btn-primary'
 
-  %p.text-center
+  .text-center
     = link_to "I'd prefer to swap with someone else", "#", class: "small subdued",
       onclick: "$('#js-reject-modal').modal(); return false"
 
