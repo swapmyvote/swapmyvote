@@ -217,6 +217,7 @@ class User < ApplicationRecord
   def update_swap(swap_params)
     if incoming_swap
       incoming_swap.update(swap_params.slice(:consent_share_email_chosen))
+      UserMailer.email_address_shared(swapped_with).deliver_now if swap_confirmed?
     end
 
     # TODO: we need to deal with the outgoing swap case - tests first
