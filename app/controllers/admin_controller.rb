@@ -1,5 +1,10 @@
 class AdminController < ApplicationController
-  http_basic_authenticate_with name: "swapmyvote", password: ENV["ADMIN_PASSWORD"]
+  if ENV["ADMIN_PASSWORD"].blank?
+    raise "You didn't set ADMIN_PASSWORD!"
+  end
+
+  http_basic_authenticate_with name: "swapmyvote",
+                               password: ENV["ADMIN_PASSWORD"] || "secret"
 
   def stats
     @user_count = User.count
