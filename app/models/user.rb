@@ -215,6 +215,13 @@ class User < ApplicationRecord
     return false
   end
 
+  def my_email_consent?
+    # Check if I have given permission for swapper to see my email
+    return outgoing_swap.consent_share_email_chooser if outgoing_swap
+    return incoming_swap.consent_share_email_chosen if incoming_swap
+    return false
+  end
+
   def update_swap(swap_params)
     if incoming_swap
       consent_given = swap_params[:consent_share_email_chosen] || swap_params[:consent_share_email]
@@ -231,20 +238,6 @@ class User < ApplicationRecord
         UserMailer.email_address_shared(swapped_with, self).deliver_now if swap_confirmed?
       end
     end
-  end
-
-  def swap_email_consent?
-    # Check if our swapper has given permission for us to see their email
-    return outgoing_swap.consent_share_email_chosen if outgoing_swap
-    return incoming_swap.consent_share_email_chooser if incoming_swap
-    return false
-  end
-
-  def my_email_consent?
-    # Check if I have given permission for swapper to see my email
-    return outgoing_swap.consent_share_email_chooser if outgoing_swap
-    return incoming_swap.consent_share_email_chosen if incoming_swap
-    return false
   end
 
   def clear_swap
