@@ -330,9 +330,9 @@ class User < ApplicationRecord
 
     if id
       # Ignore self in the uniqueness check
-      existing_user = User.where("lower(#{:email}) = ? and id <> ?", email.downcase, id).first
+      existing_user = User.find_by("lower(#{:email}) = ? and id <> ?", email.downcase, id)
     else
-      existing_user = User.where("lower(#{:email}) = ?", email.downcase).first
+      existing_user = User.find_by("lower(#{:email}) = ?", email.downcase)
     end
 
     return unless existing_user
