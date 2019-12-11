@@ -25,12 +25,17 @@ module UsersHelper
 
     case user.identity&.provider
     when "twitter"
-      return [link_to("on Twitter", user.profile_url)]
+      return [link_to("on Twitter", user.profile_url, target: "_blank")]
     when "facebook"
-      return [link_to("on Facebook", user.profile_url) +
-              " (although " +
-              link_to("unfortunately this may not work",
-                      faq_path + "#facebook-profile") + ")"]
+      return [
+        link_to("on Facebook", user.profile_url, target: "_blank") +
+        " (although " +
+        link_to("unfortunately this may not work",
+                # has to be _url not _path to work from ActionMailer
+                faq_url + "#facebook-profile",
+                target: "_blank") +
+        ")"
+      ]
     else
       return []
     end

@@ -65,8 +65,8 @@ RSpec.describe UsersHelper, type: :helper do
         end
 
         def assert_first_facebook
-          expect(methods[0]).to \
-            include %(<a href="https://facebook.com/bob.jones">on Facebook</a>)
+          expect(methods[0]).to include \
+            %(<a target="_blank" href="https://facebook.com/bob.jones">on Facebook</a>)
         end
 
         it "returns Facebook link" do
@@ -92,7 +92,7 @@ RSpec.describe UsersHelper, type: :helper do
 
         def assert_first_twitter
           expect(methods[0]).to eq \
-            %(<a href="https://twitter.com/intent/user?user_id=12345">on Twitter</a>)
+            %(<a target="_blank" href="https://twitter.com/intent/user?user_id=12345">on Twitter</a>)
         end
 
         it "returns Twitter link" do

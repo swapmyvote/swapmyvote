@@ -8,12 +8,9 @@
 %p
   We'll send some reminders to #{@swap_with.name} to remind them to vote for your chosen party on December 12th, and we'll ask them for confirmation once they have.
 
-  - if @swap_with.profile_url.present?
-    In the meantime, why not
-    %a{href: @swap_with.profile_url} reach out to #{@swap_with.name} directly?
-  - if @swap_with_email_consent
-    #{@swap_with.name} has also allowed us to share their email address with you
-    You can mail them directly: #{@swap_with.email}
+%p
+  = render partial: "users/show/reach_out_to_swap",
+           locals: { swap_user: @swap_with }
 
 %p
   Lastly, why not share Swap My Vote with your social networks so that more people can make their vote count?

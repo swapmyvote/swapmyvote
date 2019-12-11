@@ -43,23 +43,5 @@
 
 
 %p.text-center
-  - methods = contact_methods(@user.swapped_with)
-  - if methods.present?
-    You can reach out to
-
-    = @user.swapped_with.name
-
-    != methods.join " or "
-
-    to get to know your swap partner.
-
-  - else
-
-    Unfortunately #{@user.swapped_with.name} has not shared their
-    email address or social media profile.
-
-  - if methods.blank? or (methods.length == 1 && @user.swapped_with.facebook_login?)
-
-    If this makes you uncomfortable you can
-
-    = link_to("cancel your swap", faq_path + "#reset") + "."
+  = render partial: "users/show/reach_out_to_swap",
+           locals: { swap_user: @user.swapped_with }
