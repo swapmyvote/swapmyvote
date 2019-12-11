@@ -392,6 +392,22 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "email validation" do
+    it "prevents duplicate emails from being created" do
+      expect{create(:user, name: subject.name, email: subject.email)}.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "prevents email from being changed to a duplicate" do
+      bob = create(:user, name: "bob")
+      bob.email = subject.email
+      expect{bob.save!}.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "allows different emails to be being created" do
+      expect{create(:user, name: "Bob")}.to_not raise_error
+    end
+  end
+
   describe "#my_email_consent?" do
     it "is false by default" do
       expect(subject.my_email_consent?).to be_falsey
