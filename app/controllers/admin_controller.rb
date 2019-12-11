@@ -4,6 +4,7 @@ class AdminController < ApplicationController
   def stats
     @user_count = User.count
     @swap_count = Swap.count
+    @unconfirmed_swap_count = Swap.where(confirmed: false).count
     @confirmed_swap_count = Swap.where(confirmed: true).count
     @parties = Party.all
     @swaps_matrix = []
