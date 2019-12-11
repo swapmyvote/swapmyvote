@@ -20,6 +20,28 @@
 
     When they do we'll send you an email.
 
+- if @user.my_email_consent?
+  %p.text-center
+    You have opted to share your email address
+    with #{@user.swapped_with.redacted_name}.
+    When they confirm the swap, they will be notified of your email address.
+- else
+  %p.text-center
+    We encourage you to share your email address
+    with #{@user.swapped_with.redacted_name}.
+    When they confirm the swap, they will be notified of your email address.
+  %p.text-center
+    = form_tag user_swap_path, class: "form-inline", method: "put" do
+      .form-check.mx-auto
+        %input.form-check-input{ type: "checkbox", id: "consent-check",
+                                name: "swap[consent_share_email_chooser]", value: "true"}
+        %label.form-check-label{ for: "consent-check" }
+          Share my email address with #{@user.swapped_with.redacted_name}
+
+      %p.text-center{style: "width: 100%"}
+        = button_tag "Share with #{@user.swapped_with.redacted_name}", class: 'btn btn-primary'
+
+
 %p.text-center
 
   If we don't hear back from them in #{swap_validity_hours} hours,
