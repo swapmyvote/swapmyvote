@@ -3,11 +3,12 @@
     %h1 Swap My Vote Stats
     .card
       %p
-        Users: #{@user_count}
+        Total user accounts: #{@user_count}
       %p
-        Swaps: #{@swap_count}
-      %p
-        Confirmed: #{@confirmed_swap_count}
+        Swaps: #{@swap_count} ==
+        #{@unconfirmed_swap_count} unconfirmed +
+        #{@confirmed_swap_count} confirmed
+
       %h3 Swap Preferences
       %p
         %table

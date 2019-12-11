@@ -53,7 +53,7 @@ RSpec.describe User::ConstituenciesController, type: :controller do
 
         it "redirects to user share" do
           patch :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" }   }
-          expect(response).to redirect_to(:user_share)
+          expect(response).to redirect_to(:user_swap)
         end
       end
     end

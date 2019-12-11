@@ -23,4 +23,10 @@ RSpec.describe UserMailer do
       expect(response.to_json).to eq "null"
     end
   end
+
+  describe "email_address_shared" do
+    specify do
+      expect { UserMailer.email_address_shared(:something) }.not_to raise_error
+    end
+  end
 end
