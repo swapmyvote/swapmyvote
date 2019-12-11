@@ -103,10 +103,12 @@ footer {
     }
 
     .button {
+        color: $white;
         background-color: $faded-color;
         font-size: 12px;
         font-weight: normal;
         padding: 0 2px 0 0;
+        margin-right: 2px;
     }
 
     .logo {
@@ -117,6 +119,11 @@ footer {
 
 
     // social media buttons
+
+    .envelope {
+        padding: 2px 2px 4px 2px;
+        margin-right: 6px;
+    }
 
     .fb-like {
         margin-bottom: 2px;
@@ -131,7 +138,8 @@ footer {
     }
 
     .btn {
-        margin-bottom: -6px;
+        margin-bottom: 0;
+        padding: 0;
     }
 
 
