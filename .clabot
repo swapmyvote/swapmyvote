@@ -9,7 +9,8 @@
     "coliff",
     "emersonmanabuaraki",
     "fkorning",
-    "DouglasLutz"
+    "DouglasLutz",
+    "alanjc7"
   ],
   "message": "Thanks a lot for your pull request, and welcome to our community! We require contributors to sign our Contributor License Agreement, and we don't seem to have the user(s) {{usersWithoutCLA}} on file. In order for us to review and merge your code, please follow the steps at the bottom of https://github.com/swapmyvote/swapmyvote/blob/master/README.md#license.  Thanks again!"
 }
