@@ -36,6 +36,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
+  def not_while_voting_open
+    return unless voting_open?
+    redirect_to root_path
+  end
+
   def prepops
     return session["pre_populate"]
   end
