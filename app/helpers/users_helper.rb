@@ -27,17 +27,19 @@ module UsersHelper
     when "twitter"
       return [link_to("on Twitter", user.profile_url, target: "_blank")]
     when "facebook"
-      return [
-        link_to("on Facebook", user.profile_url, target: "_blank") +
-        " (although " +
-        link_to("unfortunately this may not work",
-                # has to be _url not _path to work from ActionMailer
-                faq_url + "#facebook-profile",
-                target: "_blank") +
-        ")"
-      ]
+      return [facebook_contact_method(user)]
     else
       return []
     end
+  end
+
+  def facebook_contact_method(user)
+    link_to("on Facebook", user.profile_url, target: "_blank") +
+      " (although " +
+      link_to("unfortunately this may not work",
+              # has to be _url not _path to work from ActionMailer
+              faq_url + "#facebook-profile",
+              target: "_blank") +
+      ")"
   end
 end
