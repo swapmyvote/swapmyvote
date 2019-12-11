@@ -33,6 +33,8 @@
   %p.text-center
     = form_tag user_swap_path, class: "form-inline", method: "put" do
       .form-check.mx-auto
+        %input{ type: "hidden", id: "swap_dummy",
+          name: "swap[dummy]", value: "dummy"}
         %input.form-check-input{ type: "checkbox", id: "swap_consent_share_email_chooser",
           name: "swap[consent_share_email_chooser]", value: "true"}
         %label.form-check-label{ for: "swap_consent_share_email_chooser" }
