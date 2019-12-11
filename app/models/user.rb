@@ -363,14 +363,7 @@ class User < ApplicationRecord
     # Ignore nil email addresses
     return unless email
 
-    existing_user =
-      if id
-      # Ignore self in the uniqueness check
-        User.find_by("lower(#{:email}) = ? and id <> ?", email.downcase, id)
-      else
-        User.find_by("lower(#{:email}) = ?", email.downcase)
-      end
-
+    existing_user = find_existing_email(email)
     return unless existing_user
 
     # Delete the default message that gets added
@@ -382,6 +375,15 @@ class User < ApplicationRecord
     else
       errors.add(:base, "A user with this email address has already signed up using \
                          #{existing_user.provider.capitalize}")
+    end
+  end
+
+  def find_existing_email(email)
+    if id
+      # Ignore self in the uniqueness check
+      User.find_by("lower(#{:email}) = ? and id <> ?", email.downcase, id)
+    else
+      User.find_by("lower(#{:email}) = ?", email.downcase)
     end
   end
 end
