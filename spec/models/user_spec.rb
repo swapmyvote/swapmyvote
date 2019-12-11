@@ -398,7 +398,7 @@ RSpec.describe User, type: :model do
     end
 
     it "allows different emails to be being created" do
-      expect{create(:user, name: "Bob")}.to_not raise_error(ActiveRecord::RecordInvalid)
+      expect{create(:user, name: "Bob")}.to_not raise_error
     end
   end
 
