@@ -1,15 +1,9 @@
-/ see https://www.w3schools.com/icons/fontawesome_icons_brand.asp
+/ footer: credits, impressarium, links, about
 
+/ see https://www.w3schools.com/icons/fontawesome_icons_brand.asp
 / fkorning: facebook like/share
-/ not sure what to do here - tried online fb buton generators in vain
-/ <div id="fb-root"></div>
-/ <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0&appId=377810399053422"></script>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0"></script>
-
-/ fkorning: twitter follow
-/ not sure what to do here: the ref_src url doesn't point to #swapmyvote
-/ <a href="https://twitter.com/swapmyvote?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-screen-name="false" data-dnt="true" data-show-count="false">Follow @swapmyvote</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 %footer
   .container
@@ -49,7 +43,7 @@
         = link_to "More ...", faq_path, class: "small"
   .list-group
     .left-group
-      =image_tag('fwd_democracy_banner.png', size: "256x32", class: "footer" )
+      = image_tag('fwd_democracy_banner.png', size: "256x32", class: "footer" )
     .center-group   
       .impressum
         Powered by Forward-Democracy (https://forwarddemocracy.com/)
