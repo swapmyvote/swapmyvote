@@ -392,6 +392,16 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "email validation" do
+    it "prevents duplicate emails from being created" do
+        expect{create(:user, name: subject.name, email: subject.email)}.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "allows different emails to be being created" do
+      expect{create(:user, name: "Bob")}.to_not raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+
   context "when user has email login" do
     before do
       subject.email = "foo@example.com"

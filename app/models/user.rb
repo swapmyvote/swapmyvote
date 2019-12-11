@@ -27,7 +27,9 @@ class User < ApplicationRecord
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
 
+  # Additional validation for emails, :validatable has already added basic validation
   validate :email_uniqueness, on: :create
+
   validates :name, presence: true
 
   def omniauth_tokens(auth)
