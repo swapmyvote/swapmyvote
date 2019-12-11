@@ -17,6 +17,7 @@ module ApplicationHelper
 
   def swapping_open?
     return true if session[:sesame] == "open" # someone said the magic word
+    return false if voting_open?
     return !ENV["SWAPS_CLOSED"]
   end
 
