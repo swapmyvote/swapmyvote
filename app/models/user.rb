@@ -363,12 +363,13 @@ class User < ApplicationRecord
     # Ignore nil email addresses
     return unless email
 
-    if id
+    existing_user =
+      if id
       # Ignore self in the uniqueness check
-      existing_user = User.find_by("lower(#{:email}) = ? and id <> ?", email.downcase, id)
-    else
-      existing_user = User.find_by("lower(#{:email}) = ?", email.downcase)
-    end
+        User.find_by("lower(#{:email}) = ? and id <> ?", email.downcase, id)
+      else
+        User.find_by("lower(#{:email}) = ?", email.downcase)
+      end
 
     return unless existing_user
 
