@@ -216,14 +216,20 @@ class User < ApplicationRecord
   end
 
   def update_swap(swap_params)
-    if incoming_swap && swap_params[:consent_share_email_chosen]
-      incoming_swap.update!(swap_params.slice(:consent_share_email_chosen))
-      UserMailer.email_address_shared(swapped_with, self).deliver_now if swap_confirmed?
+    if incoming_swap
+      consent_given = swap_params[:consent_share_email_chosen] || swap_params[:consent_share_email]
+      if consent_given
+        incoming_swap.update!(consent_share_email_chosen: true)
+        UserMailer.email_address_shared(swapped_with, self).deliver_now if swap_confirmed?
+      end
     end
     # rubocop:disable Style/GuardClause
-    if outgoing_swap && swap_params[:consent_share_email_chooser]
-      outgoing_swap.update!(swap_params.slice(:consent_share_email_chooser))
-      UserMailer.email_address_shared(swapped_with, self).deliver_now if swap_confirmed?
+    if outgoing_swap
+      consent_given = swap_params[:consent_share_email_chooser] || swap_params[:consent_share_email]
+      if consent_given
+        outgoing_swap.update!(consent_share_email_chooser: true)
+        UserMailer.email_address_shared(swapped_with, self).deliver_now if swap_confirmed?
+      end
     end
   end
 

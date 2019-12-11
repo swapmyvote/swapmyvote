@@ -32,7 +32,7 @@
     = form_tag user_swap_path, class: "form-inline", method: "put" do
       .form-check.mx-auto
         %input.form-check-input{ type: "checkbox", id: "consent-check",
-                                name: "swap[consent_share_email_chosen]", value: "true"}
+                                name: "swap[consent_share_email]", value: "true"}
         %label.form-check-label{ for: "consent-check" }
           Share my email address with #{@user.swapped_with.name}
 

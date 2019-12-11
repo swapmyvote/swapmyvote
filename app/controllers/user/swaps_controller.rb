@@ -87,6 +87,11 @@ class User::SwapsController < ApplicationController
   end
 
   def swap_params
-    params.require(:swap).permit(:confirmed, :consent_share_email_chooser, :consent_share_email_chosen)
+    params.require(:swap).permit(
+      :confirmed,
+      :consent_share_email_chooser,
+      :consent_share_email_chosen,
+      :consent_share_email
+    )
   end
 end

@@ -137,16 +137,16 @@ RSpec.describe User::SwapsController, type: :controller do
           context "but swap IS confirmed" do
             let(:swap)  { Swap.create(chosen_user_id: swap_user.id, confirmed: true) }
 
-            context "with consent_share_email_chosen: true" do
-              it "changes the swap to consent_share_email_chosen: true" do
+            context "with consent_share_email: true" do
+              it "changes the swap to consent_share_email: true" do
                 allow(UserMailer).to receive(:email_address_shared).with(swap_user, new_user).and_return(double.as_null_object)
-                expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
+                expect { put :update, params: { swap: { consent_share_email: true } } }
                   .to change(swap_user.swap, :consent_share_email_chosen).from(false).to(true)
               end
 
               it "does email the other voter with new consent" do
                 expect(UserMailer).to receive(:email_address_shared).with(swap_user, new_user).and_return(double.as_null_object)
-                put :update, params: { swap: { consent_share_email_chosen: true } }
+                put :update, params: { swap: { consent_share_email: true } }
               end
             end
           end
@@ -223,16 +223,16 @@ RSpec.describe User::SwapsController, type: :controller do
           context "but swap IS confirmed" do
             let(:swap)  { Swap.create(chosen_user_id: swap_user.id, confirmed: true) }
 
-            context "with consent_share_email_chooser: true" do
-              it "changes the swap to consent_share_email_chooser: true" do
+            fcontext "with consent_share_email: true" do
+              it "changes the swap to consent_share_email: true" do
                 allow(UserMailer).to receive(:email_address_shared).with(swap_user, new_user).and_return(double.as_null_object)
-                expect { put :update, params: { swap: { consent_share_email_chooser: true } } }
+                expect { put :update, params: { swap: { consent_share_email: true } } }
                   .to change(swap_user.swap, :consent_share_email_chooser).from(false).to(true)
               end
 
               it "does email the other voter with new consent" do
                 expect(UserMailer).to receive(:email_address_shared).with(swap_user, new_user).and_return(double.as_null_object)
-                put :update, params: { swap: { consent_share_email_chooser: true } }
+                put :update, params: { swap: { consent_share_email: true } }
               end
             end
 
