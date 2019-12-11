@@ -223,7 +223,7 @@ RSpec.describe User::SwapsController, type: :controller do
           context "but swap IS confirmed" do
             let(:swap)  { Swap.create(chosen_user_id: swap_user.id, confirmed: true) }
 
-            fcontext "with consent_share_email: true" do
+            context "with consent_share_email: true" do
               it "changes the swap to consent_share_email: true" do
                 allow(UserMailer).to receive(:email_address_shared).with(swap_user, new_user).and_return(double.as_null_object)
                 expect { put :update, params: { swap: { consent_share_email: true } } }
@@ -233,18 +233,6 @@ RSpec.describe User::SwapsController, type: :controller do
               it "does email the other voter with new consent" do
                 expect(UserMailer).to receive(:email_address_shared).with(swap_user, new_user).and_return(double.as_null_object)
                 put :update, params: { swap: { consent_share_email: true } }
-              end
-            end
-
-            context "with consent_share_email_chosen: true" do
-              it "DOES NOT change the swap to consent_share_email_chosen: true" do
-                expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
-                  .to_not change(swap_user.swap, :consent_share_email_chosen).from(false)
-              end
-
-              it "does NOT email the other voter with new consent" do
-                expect(UserMailer).not_to receive(:email_address_shared)
-                put :update, params: { swap: { consent_share_email_chosen: true } }
               end
             end
           end
