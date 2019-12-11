@@ -1,6 +1,8 @@
 @import "variables";
 @import "mixins";
 
+$avatar-height: 32px;
+
 .smv-navbar {
     border-bottom: 1px solid $border-color;
     background-color: $bg-color;
@@ -48,7 +50,7 @@
         align-items: center;
 
         img {
-            height: 32px;
+            height: $avatar-height;
             width: 32px;
             border-radius: 3px;
             margin-right: 8px;
@@ -60,6 +62,16 @@
 
         a.logout {
             margin-left: 8px;
+        }
+    }
+
+    .donate-button {
+        margin-right: 20px;
+        height: $avatar-height;
+
+        .btn {
+            line-height: 1;
+            vertical-align: middle;
         }
     }
 }
