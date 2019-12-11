@@ -6,7 +6,7 @@ module UsersHelper
   def contact_methods(user)
     methods = social_contact_methods(user)
 
-    if user.email.present? && user.email_consent?
+    if user.email.present? && (user.email_consent? || user.email_login?)
       methods << "by email at " + link_to(user.email, user.email_url)
     end
 

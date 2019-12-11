@@ -27,8 +27,16 @@ RSpec.describe UsersHelper, type: :helper do
     shared_examples "contact methods" do
       let(:methods) { helper.contact_methods(user.swapped_with) }
 
-      it "returns no contact methods" do
-        expect(methods).to eq []
+      context "who has email login" do
+        it "has valid context" do
+          expect(other_user.email_login?).to be_truthy
+        end
+
+        it "returns email" do
+          expect(methods).to eq [
+            %(by email at <a href="mailto:bob%40example.com">bob@example.com</a>)
+          ]
+        end
       end
 
       def other_gives_consent
