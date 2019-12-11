@@ -325,6 +325,10 @@ class User < ApplicationRecord
     !social_profile?
   end
 
+  def facebook_login?
+    identity&.provider == "facebook"
+  end
+
   def profile_url
     identity&.profile_url
   end
