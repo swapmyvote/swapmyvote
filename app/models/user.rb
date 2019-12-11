@@ -27,7 +27,7 @@ class User < ApplicationRecord
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
 
-  validates :email, uniqueness: { case_sensitive: false }, allow_nil: true
+  validate :email_uniqueness
   validates :name, presence: true
 
   def omniauth_tokens(auth)
@@ -320,5 +320,30 @@ class User < ApplicationRecord
 
   def password_required?
     false
+  end
+
+  def email_uniqueness
+    # Ignore nil email addresses
+    return unless email
+
+    if id
+      # Ignore self in the uniqueness check
+      existing_user = User.where("lower(#{:email}) = ? and id <> ?", email.downcase, id).first
+    else
+      existing_user = User.where("lower(#{:email}) = ?", email.downcase).first
+    end
+
+    return unless existing_user
+
+    # Delete the default message that gets added
+    errors.delete(:email)
+
+    # Add our custom one
+    if existing_user.email_login?
+      errors.add(:base, "A user with this email address already exists")
+    else
+      errors.add(:base, "A user with this email address has already signed up using \
+                         #{existing_user.provider.capitalize}")
+    end
   end
 end
