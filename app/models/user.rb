@@ -33,6 +33,7 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   include UsersHelper
+  include ::UserErrorsConcern
 
   def omniauth_tokens(auth)
     self.token = auth.credentials.token
@@ -366,16 +367,7 @@ class User < ApplicationRecord
     existing_user = find_existing_email(email)
     return unless existing_user
 
-    # Delete the default message that gets added
-    errors.delete(:email)
-
-    # Add our custom one
-    if existing_user.email_login?
-      errors.add(:base, "A user with this email address already exists")
-    else
-      errors.add(:base, "A user with this email address has already signed up using \
-                         #{existing_user.provider.capitalize}")
-    end
+    email_uniqueness_errors(existing_user)
   end
 
   def find_existing_email(email)
