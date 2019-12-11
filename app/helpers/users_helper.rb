@@ -1,4 +1,9 @@
 module UsersHelper
+  def potential_swap_expiry_mins
+    env_expiry_mins = ENV["POTENTIAL_SWAP_EXPIRY_MINS"]
+    return env_expiry_mins.blank? ? 120 : env_expiry_mins.to_i
+  end
+
   def user_profile_link(user)
     user.profile_url.blank? ? user.name : link_to(user.name, user.profile_url)
   end

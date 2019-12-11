@@ -32,6 +32,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
+  include UsersHelper
+
   def omniauth_tokens(auth)
     self.token = auth.credentials.token
     if auth.credentials.expires_at
@@ -45,8 +47,11 @@ class User < ApplicationRecord
   end
 
   def potential_swap_users(number = 5)
-    # Clear out swaps every few hours to keep the list fresh for people checking back
-    potential_swaps.where(["created_at < ?", DateTime.now - 2.hours]).destroy_all
+    # Clear out swaps every while to keep the list fresh for people checking back
+    potential_swaps
+      .where(["created_at < ?",
+              DateTime.now - potential_swap_expiry_mins.minutes])
+      .destroy_all
     create_potential_swaps(number)
     swaps = potential_swaps.all.eager_load(
       target_user: [ :identity, { constituency: [{ polls: :party }] } ]
