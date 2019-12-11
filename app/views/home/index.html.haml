@@ -2,7 +2,6 @@
   = render partial: "voting_open"
 
 - else
-  - $stderr.puts "voting_open? ------ #{voting_open?}"
   - if swapping_open?
     = render partial: "swaps_open"
 
