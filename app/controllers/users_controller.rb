@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
-  before_action :require_login
+  before_action :require_login, except: [:new]
+
+  def new
+    @identity = request.env["omniauth.identity"]
+  end
 
   def show
     @mobile_number = @user.mobile_number

@@ -10,7 +10,15 @@ namespace :swaps do
     }
   end
 
-  desc "Cancel swaps which are older than the validity period in ENV['SWAP_EXPIRY_HOURS']"
+  desc "Show swaps which are older than the validity period " \
+       "in ENV['SWAP_EXPIRY_HOURS']"
+  task show_old: :environment do
+    ActiveRecord::Base.logger = Logger.new STDOUT
+    Swap.show_old
+  end
+
+  desc "Cancel swaps which are older than the validity period " \
+       "in ENV['SWAP_EXPIRY_HOURS']"
   task cancel_old: :environment do
     ActiveRecord::Base.logger = Logger.new STDOUT
     Swap.cancel_old

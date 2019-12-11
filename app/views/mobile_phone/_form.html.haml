@@ -1,12 +1,12 @@
-%p
-  My phone number is
-  = telephone_field_tag "mobile_phone[full]", mobile_number, size: 14
+.form-group
+  %label.mb-0 My phone number is
+  = telephone_field_tag "mobile_phone[full]", mobile_number, size: 14, class: "form-control"
 
   - if mobile_number.present?
     - if mobile_verified?
       Verified!
     - else
       = button_tag "Verify", formaction: verify_mobile_path,
-        formmethod: :get
+        formmethod: :get, class: "btn btn-secondary"
   - else
-    = submit_tag("Save")
+    = submit_tag("Save", class: "btn btn-secondary")

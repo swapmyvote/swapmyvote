@@ -1,0 +1,40 @@
+<div class="background-pattern border-bottom">
+  <div class="container container-extra-narrow">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="h4 mb-0">Log in with email</h2>
+      </div>
+
+      <div class="card-body">
+        <% if flash[:alert] %>
+          <div class="alert alert-danger">
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-group">
+            <%= f.label :email, class: "mb-0" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password, class: "mb-0" %>
+            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Log in", class: "btn btn-primary btn-block" %>
+          </div>
+        <% end %>
+        <hr>
+
+        <div class="text-center small">
+          <%= link_to "Forgotten password?", new_user_password_path %>
+          <br/>
+          Or need to <%= link_to "sign up", new_user_registration_path %>?
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

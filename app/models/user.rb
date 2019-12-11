@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable, :omniauthable,
+         omniauth_providers: [:twitter, :facebook]
   belongs_to :preferred_party, class_name: "Party", optional: true
   belongs_to :willing_party, class_name: "Party", optional: true
   has_one    :mobile_phone, dependent: :destroy
@@ -18,11 +23,12 @@ class User < ApplicationRecord
   has_many :incoming_potential_swaps, class_name: "PotentialSwap", foreign_key: "target_user_id", dependent: :destroy
   has_many :sent_emails, dependent: :destroy
 
-  delegate :profile_url, to: :identity, prefix: false
-
   before_save :clear_swap, if: :details_changed?
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
+
+  validates :email, uniqueness: { case_sensitive: false }, allow_nil: true
+  validates :name, presence: true
 
   def omniauth_tokens(auth)
     self.token = auth.credentials.token
@@ -32,32 +38,87 @@ class User < ApplicationRecord
     save!
   end
 
+  def willing_party_poll
+    constituency.polls.where(party_id: willing_party_id).take
+  end
+
   def potential_swap_users(number = 5)
     # Clear out swaps every few hours to keep the list fresh for people checking back
     potential_swaps.where(["created_at < ?", DateTime.now - 2.hours]).destroy_all
     create_potential_swaps(number)
     swaps = potential_swaps.all.eager_load(
-      target_user: { constituency: [{ polls: :party }] }
+      target_user: [ :identity, { constituency: [{ polls: :party }] } ]
     )
-    return swaps.map {|s| s.target_user}
+    return swaps
+      .sort_by { |s| s.target_user.willing_party_poll&.marginal_score || 999_999 }
+      .map {|s| s.target_user}
+  end
+
+  class ChooseSwapType
+    def initialize
+      @even_odd = 0
+    end
+
+    def swap
+      @even_odd += 1
+      return @even_odd.odd? ? :marginal : :random
+    end
+  end
+
+  class SwapTrier
+    def initialize(method, max_attempts)
+      @method = method
+      @count = max_attempts
+    end
+
+    def try
+      return if finished?
+      @count -= 1
+      return @method.call
+    end
+
+    def finished?
+      @count <= 0
+    end
   end
 
   def create_potential_swaps(number = 5)
-    max_attempts = number * 2
+    chooser = ChooseSwapType.new
+    marginal_trier = SwapTrier.new(method(:try_to_create_marginal_swap), number * 2)
+    random_trier = SwapTrier.new(method(:try_to_create_potential_swap), number * 2)
+
     while potential_swaps.reload.count < number
-      try_to_create_potential_swap
-      max_attempts -= 1
-      break if max_attempts <= 0
+      if chooser.swap == :marginal
+        marginal_trier.try unless marginal_trier.finished?
+      else
+        random_trier.try unless random_trier.finished?
+      end
+      break if random_trier.finished? && marginal_trier.finished?
     end
   end
 
   def try_to_create_potential_swap
-    swaps = User.where(
+    swaps = complementary_voters.where("constituency_ons_id like '_%'")
+    return one_swap_from_possible_users(swaps)
+  end
+
+  def try_to_create_marginal_swap
+    swaps = complementary_voters.where(
+      { constituency_ons_id: marginal_polls.map(&:constituency_ons_id) }
+    )
+    return one_swap_from_possible_users(swaps)
+  end
+
+  private def complementary_voters
+    User.where(
       preferred_party_id: willing_party_id,
       willing_party_id: preferred_party_id
-    ).where("constituency_ons_id like '_%'")
-    offset = rand(swaps.count)
-    target_user = swaps.offset(offset).limit(1).first
+    )
+  end
+
+  private def one_swap_from_possible_users(user_query)
+    offset = rand(user_query.count)
+    target_user = user_query.offset(offset).take
     return nil unless target_user
     # We need emails to send confirmation emails
     return nil if target_user.email.blank?
@@ -71,6 +132,14 @@ class User < ApplicationRecord
     return potential_swaps.create(target_user: target_user)
   end
 
+  def marginal_polls
+    Poll.where(["marginal_score < ?", 1000]).where(party: preferred_party)
+  end
+
+  def marginal_constituencies
+    OnsConstituency.where({ ons_id: marginal_polls.map(&:constituency_ons_id) })
+  end
+
   def destroy_all_potential_swaps
     PotentialSwap.destroy(potential_swaps.pluck(:id))
     PotentialSwap.destroy(incoming_potential_swaps.pluck(:id))
@@ -81,7 +150,7 @@ class User < ApplicationRecord
     mobile_phone&.verified
   end
 
-  def swap_with_user_id(user_id)
+  def swap_with_user_id(user_id, consent_share_email)
     other_user = User.find(user_id)
     return unless can_swap_with?(other_user)
 
@@ -90,7 +159,11 @@ class User < ApplicationRecord
 
     UserMailer.confirm_swap(other_user, self).deliver_now
 
-    create_outgoing_swap chosen_user: other_user, confirmed: false
+    create_outgoing_swap(
+      chosen_user: other_user,
+      confirmed: false,
+      consent_share_email_chooser: (consent_share_email || false)
+    )
     save
   end
 
@@ -128,10 +201,17 @@ class User < ApplicationRecord
     swap.try(:confirmed)
   end
 
-  def confirm_swap
-    incoming_swap.update(confirmed: true)
-    UserMailer.swap_confirmed(self, swapped_with).deliver_now
-    UserMailer.swap_confirmed(swapped_with, self).deliver_now
+  def confirm_swap(swap_params)
+    incoming_swap.update(swap_params)
+    UserMailer.swap_confirmed(self, swapped_with, incoming_swap.consent_share_email_chooser).deliver_now
+    UserMailer.swap_confirmed(swapped_with, self, incoming_swap.consent_share_email_chosen).deliver_now
+  end
+
+  def email_consent?
+    # Check if user has given permission for swap partner to see their email
+    return outgoing_swap.consent_share_email_chooser if outgoing_swap
+    return incoming_swap.consent_share_email_chosen if incoming_swap
+    return false
   end
 
   def clear_swap
@@ -196,7 +276,28 @@ class User < ApplicationRecord
   end
 
   def image_url
-    identity&.image_url&.gsub("http://", "//")
+    identity&.image_url&.gsub("http://", "//") || gravatar_image_url
+  end
+
+  def gravatar_image_url
+    hash = Digest::MD5.hexdigest(email.downcase)
+    return "https://secure.gravatar.com/avatar/#{hash}?d=identicon&s=80"
+  end
+
+  def social_profile?
+    identity.present?
+  end
+
+  def email_login?
+    !social_profile?
+  end
+
+  def profile_url
+    identity&.profile_url
+  end
+
+  def email_url
+    "mailto:#{CGI.escape email}"
   end
 
   def provider
@@ -213,5 +314,11 @@ class User < ApplicationRecord
 
   def test_user_suffix
     test_user? ? " (test user)" : ""
+  end
+
+  protected
+
+  def password_required?
+    false
   end
 end

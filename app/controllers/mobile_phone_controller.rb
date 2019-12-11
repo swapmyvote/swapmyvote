@@ -4,19 +4,23 @@ class MobilePhoneController < ApplicationController
   def verify_create
     return if mobile_verified?
 
+    phone.number = params[:mobile_phone][:full] if params[:mobile_phone]
+
     otp = api_get_otp
-    if otp.nil?
-      # Something went wrong
-      redirect_back fallback_location: edit_user_path
-      return
-    end
+    rescue_error("") if otp.nil?
 
     delete_previous_verify_id if phone.verify_id
     phone.verify_id = otp.id
     logger.debug "Created verification for user #{current_user.id} / " \
                  "phone #{phone.id} (#{phone.number}); " \
                  "verify_id: #{otp.id}"
+
     phone.save!
+  rescue ActiveRecord::RecordInvalid
+    # We can get here if a the number is already in the DB. This can happen
+    # legitimately if a user has two accounts (eg twitter + email) and verifies
+    # the same number for both: to be improved when we enable multiple profiles
+    rescue_error(phone.errors.full_messages)
   end
 
   def verify_token
@@ -32,10 +36,21 @@ class MobilePhoneController < ApplicationController
     @new_verification = true
     phone.verified = true
     phone.verify_id = nil
+
+    # Number will be saved even though we are still waiting for verification
     phone.save!
   end
 
   private
+
+  def rescue_error(message_text)
+    # Make sure the number is removed if we could not send verification
+    # or if it is a duplicate
+    phone.update_attributes(number: nil)
+    flash[:errors] = message_text
+    redirect_back fallback_location: edit_user_path
+    return
+  end
 
   def sms_template
     "Your verification code is %token. Please enter this code at " +
@@ -43,9 +58,9 @@ class MobilePhoneController < ApplicationController
   end
 
   def api_get_otp
-    return SwapMyVote::MessageBird.verify_create(number, sms_template)
+    return SwapMyVote::MessageBird.verify_create(phone.number, sms_template)
   rescue MessageBird::ErrorException => ex
-    msg = "Failed to send verification code to #{number}"
+    msg = "Failed to send verification code to #{phone.number}"
     flash_error msg
     notify_error_exception(ex, msg)
     return nil
@@ -70,11 +85,10 @@ class MobilePhoneController < ApplicationController
     SwapMyVote::MessageBird.verify_token(phone.verify_id, params[:token])
     return true
   rescue MessageBird::ErrorException => ex
-    # Your number could not be verified"
     reason = verify_failure_reason(ex)
     if reason == :unknown
-      notify_error_exception(ex, "Verifying number #{number} failed")
-      reason = "Something went wrong when verifying number #{number}."
+      notify_error_exception(ex, "Verifying number #{phone.number} failed")
+      reason = "Something went wrong when verifying number #{phone.number}."
     else
       reason += " Please use the code sent most recently."
     end
@@ -156,9 +170,5 @@ class MobilePhoneController < ApplicationController
 
   def phone
     current_user.mobile_phone
-  end
-
-  def number
-    current_user.mobile_number
   end
 end

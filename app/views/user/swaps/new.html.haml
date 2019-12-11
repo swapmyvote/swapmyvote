@@ -1,12 +1,25 @@
 .background-pattern.border-bottom
   .container.container-narrow
-    .card.profile
+    .smv-card.profile
       = render partial: "swap_profile", object: @swap_with, as: "other_user"
     = render partial: "user/swaps/double_check_constituency", locals: { swap_with: @swap_with }
     %p.text-center
       Are you sure you would like to swap your vote with #{@swap_with.redacted_name}?
-    %p.text-center
-      = link_to "Yes", user_swap_path(user_id: @swap_with.id), method: :post, class: "button"
+
+    %p
+      = form_tag user_swap_path, class: "form-inline" do
+        = hidden_field_tag 'user_id', @swap_with.id
+
+        .form-check.row.mx-auto
+          %input.form-check-input{ type: "checkbox", id: "consent-check",
+                                  name: "consent_share_email_chooser" }
+          %label.form-check-label{ for: "consent-check" }
+            Share my email address with #{@swap_with.redacted_name}
+            when the swap is confirmed
+
+        .form-group.row.mx-auto
+          = button_tag "Swap with #{@swap_with.redacted_name}", class: 'btn btn-primary', type: "submit"
+
     %p.text-center.small.subdued
       We'll send #{@swap_with.redacted_name} a confirmation email, and if they agree,
       you're all good to go! Democracy here we come.

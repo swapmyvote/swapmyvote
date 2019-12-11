@@ -6,4 +6,8 @@ class OnsConstituency < ApplicationRecord
   has_many :recommendations,
            primary_key: "ons_id",
            foreign_key: "constituency_ons_id"
+
+  def parties_by_marginal_score
+    polls.order(:marginal_score).map(&:party)
+  end
 end

@@ -39,6 +39,14 @@ class LivefrombrexitRecommendationsJson
     end
   end
 
+  def updated
+    data["updated"]
+  end
+
+  def sites
+    data["tacticalSites"]
+  end
+
   def constituencies
     data["constituencies"]
   end

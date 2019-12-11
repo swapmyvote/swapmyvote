@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe MobilePhoneController, type: :controller do
   include ApplicationHelper
+  include Devise::Test::ControllerHelpers
 
   def otp
     OpenStruct.new({
@@ -36,9 +37,8 @@ RSpec.describe MobilePhoneController, type: :controller do
 
   context "when logged in" do
     before do
-      @user = User.create
-      @request.session[:user_id] = @user.id
-      expect(current_user).to eq(@user)
+      @user = create(:user)
+      sign_in @user
     end
 
     describe "GET #verify_create" do

@@ -1,37 +1,68 @@
 %span.user
-  %titler
-    .list-group
-      .list-group-item
-        %a.button{ onclick: "showModal($('.js-login-modal')); return false", class: "button titler login logout" }
-          // %i.fa.fa-sign-in
-          Log-in
-        .modal.js-login-modal{style: "display: %s;" % (params[:log_in_with] ? 'inherit' : 'none')}
-          = form_with url: "#", id: "login-form", class: "modal-dialog",
-                      local: true do
-            %i.fa.fa-times.subdued.modal-close
-            - if log_in_with_facebook?
-              %p.text-center
-                %button{formaction: facebook_login_path, formmethod: :post,
-                        class: "button button-facebook"}
-                  = image_tag('facebook_icon.png')
-                  Log in with Facebook
-            - if log_in_method_unrestricted?
-              %p.text-center.subdued &#8212; or &#8212;
-            - if log_in_with_twitter?
-              %p.text-center
-                %button{formaction: twitter_login_path, formmethod: :post,
-                        class: "button button-twitter"}
-                  %i.fa.fa-fw.fa-twitter
-                  Log in with Twitter
-            - if ENV["DISABLE_LOG_INS"] == 'facebook'
-              %p.text-center
-                We're still waiting for our Facebook app to be approved, and we're
-                working on adding support for signing up with an email address. In
-                the meantime, you can log in with Twitter.
-            %p.text-center.small.subdued
-              (We will never share anything with anyone about your voting preferences <br/> or post to your feed without your permission)
+
+  = link_to "Already been here? Log in", "#", class: "small subdued logout",
+            onclick: "$('#js-login-modal').modal(); return false"
+.modal#js-login-modal{ tabindex: "-1", role: "dialog",
+                       style: "display: %s;" % display_login_modal }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h2{ class: "h4 mb-0" } Log in
+        %button.close{ type: "button", data: { dismiss: "modal" },
+                       aria: { label: "Close" } }
+          %i.fa.fa-times.subdued
+      .modal-body
+        - if flash[:alert]
+          .alert.alert-danger
+            != flash[:alert]
+        = form_with url: "#", id: "login-form", local: true do
+          - if log_in_with_facebook?
             %p.text-center
-              = link_to "/faq#login", class: "small", target: "_blank" do
-                Why do I need to log in with
-                = log_in_methods + "?"
- 
+              %button{ formaction: facebook_login_path, formmethod: :post,
+                      class: "btn btn-facebook btn-block" }
+                = image_tag('facebook_icon.png')
+                Log in with Facebook
+          - if log_in_with_twitter?
+            %p.text-center
+              %button{ formaction: twitter_login_path, formmethod: :post,
+                      class: "btn btn-twitter btn-block" }
+                %i.fa.fa-fw.fa-twitter
+                Log in with Twitter
+          - if log_in_with_email?
+            %p.text-center
+              %button{ formaction: new_user_session_path, formmethod: :post,
+                      class: "btn btn-dark btn-block" }
+                Log in with email
+          .form-check
+            %input.form-check-input{ type: "checkbox", id: "data-consent",
+                    name: "data-consent", required: true }
+            %label.form-check-label{ for: "data-consent" }
+              I consent to SwapMyVote processing my personal data
+          %p.text-center.small.subdued
+
+            Once you confirm a swap, we will share with your partner
+            your voting preferences and a link to your Facebook / Twitter
+            profile or email address,
+            = link_to("so they know who you are", faq_path + "#trust",
+                      target: "_blank") + "."
+            We may send this information by email or text message.
+
+          %p.text-center.small.subdued
+
+            We will never share anything with anyone else or post to your feed
+            without your permission.
+
+          %p.text-center.small.subdued
+
+            Find out more in our
+            = link_to("Privacy Policy", privacy_path, class: "small",
+                      target: "_blank")
+            and
+            = link_to("FAQ", faq_path + "#login",
+                    target: "_blank") + "."
+
+          - if ENV["DISABLE_LOG_INS"] == 'facebook'
+            %p.text-center
+              We're still waiting for our Facebook app to be approved, and we're
+              working on adding support for signing up with an email address. In
+              the meantime, you can log in with Twitter.

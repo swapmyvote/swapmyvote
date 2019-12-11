@@ -1,0 +1,10 @@
+// Use this for narrow form controls, e.g. postcode
+.form-group-short {
+    min-width: 200px;
+    width: 50%;
+}
+
+// Use same font size for checkboxes as we do for buttons
+.form-check {
+    font-size: 1rem;
+}
