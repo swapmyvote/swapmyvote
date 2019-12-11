@@ -111,4 +111,27 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
+
+  describe ".voting_open?" do
+    before { allow(ENV).to receive(:[]).with("VOTING_OPEN").and_return(env_variable) }
+
+    context "when VOTING_OPEN is missing" do
+      let(:env_variable) { nil }
+      specify { expect(helper.voting_open?).to be_falsey }
+    end
+
+    %w[ n no false f 0 ].each do |value|
+      context "when VOTING_OPEN is #{value.inspect}" do
+        let(:env_variable) { value }
+        specify { expect(helper.voting_open?).to be_falsey }
+      end
+    end
+
+    %w[ y yes true t 1 ].each do |value|
+      context "when VOTING_OPEN is #{value.inspect}" do
+        let(:env_variable) { value }
+        specify { expect(helper.voting_open?).to be_truthy }
+      end
+    end
+  end
 end

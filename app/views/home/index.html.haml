@@ -1,5 +1,10 @@
-- if swapping_open?
-  = render partial: "swaps_open"
+- if voting_open?
+  = render partial: "voting_open"
 
 - else
-  = render partial: "swaps_closed"
+  - $stderr.puts "voting_open? ------ #{voting_open?}"
+  - if swapping_open?
+    = render partial: "swaps_open"
+
+  - else
+    = render partial: "swaps_closed"

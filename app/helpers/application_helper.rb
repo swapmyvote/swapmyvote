@@ -17,7 +17,14 @@ module ApplicationHelper
 
   def swapping_open?
     return true if session[:sesame] == "open" # someone said the magic word
+    return false if voting_open?
     return !ENV["SWAPS_CLOSED"]
+  end
+
+  def voting_open?
+    env = ENV["VOTING_OPEN"]
+    return false unless env
+    return !%w[ n no false f 0 ].include?(env)
   end
 
   def canonical_name(name)
