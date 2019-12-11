@@ -3,11 +3,13 @@
 / fkorning: facebook like/share
 / not sure what to do here - tried online fb buton generators in vain
 / <div id="fb-root"></div>
-/ <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0&appId=377810399053422"></script>```
+/ <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0&appId=377810399053422"></script>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0"></script>
 
 / fkorning: twitter follow
 / not sure what to do here: the ref_src url doesn't point to #swapmyvote
-/ <a href="https://twitter.com/TwitterDev?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-screen-name="false" data-dnt="true" data-show-count="false">Follow @TwitterDev</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>```
+/ <a href="https://twitter.com/swapmyvote?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-screen-name="false" data-dnt="true" data-show-count="false">Follow @swapmyvote</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 %footer
   .container
@@ -52,29 +54,32 @@
       .impressum
         Powered by Forward-Democracy (https://forwarddemocracy.com/)
     .right-group
-      %a.button{ :href => "https://facebook.com/", class: "button footer facebook fb-like" }
-        %i.fa.fa-fw.fa-facebook-official 
-        facebook
-      %a.button{ :href => "https:/twitter.com", class: "button footer twitter" }
-        %i.fa.fa-fw.fa-twitter
-        twitter
-      %a.button{ :href => "https://tumblr.com", class: "button footer tumblr" }
-        %i.fa.fa-fw.fa-tumblr
-        tumblr
-      %a.button{ :href => "https://linkedin", class: "button footer linkedin" }
-        %i.fa.fa-fw.fa-linkedin
-        linkedin
-      %a.button{ :href => "https://whatsapp.com", class: "button footer whatsapp" }
-        %i.fa.fa-fw.fa-whatsapp
-        whatsapp
-      %a.button{ :href => "https://telegram.com", class: "button footer telegram" }
-        %i.fa.fa-fw.fa-telegram
-        telegram
-      %a.button{ :href => "mailto:", class: "button footer envelope" }
+      <div class="fb-like footer facebook" data-href="https://www.swapmyvote.uk" data-width="" data-layout="button" data-action="like" data-size="small" data-share="true"></div>
+      / %a.button{ :href => "https://facebook.com/", class: "button footer facebook fb-like" }
+      /   %i.fa.fa-fw.fa-facebook-official 
+      /   facebook
+      <a href="https://twitter.com/swapmyvote?ref_src=twsrc%5Etfw" class="twitter-follow-button footer twitter" data-show-screen-name="false" data-dnt="true" data-show-count="false">Follow @swapmyvote</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      / %a.button{ :href => "https:/twitter.com", class: "button footer twitter" }
+      /   %i.fa.fa-fw.fa-twitter
+      /  twitter
+      / <div class="tumblr-follow footer tumblr">
+      <iframe class="btn footer tumblr" frameborder="0" border="0" scrolling="no" height="20" width="65" src="https://platform.tumblr.com/v2/follow_button.html?type=follow&amp;tumblelog=swapmyvote&amp;color=blue"></iframe>
+      / </div>
+      / %a.button{ :href => "https://tumblr.com", class: "button footer tumblr" }
+      /   %i.fa.fa-fw.fa-tumblr
+      /   tumblr
+      / %a.button{ :href => "https://linkedin", class: "button footer linkedin" }
+      /  %i.fa.fa-fw.fa-linkedin
+      /  linkedin
+      / %a.button{ :href => "https://whatsapp.com", class: "button footer whatsapp" }
+      /   %i.fa.fa-fw.fa-whatsapp
+      /   whatsapp
+      / %a.button{ :href => "https://telegram.com", class: "button footer telegram" }
+      /   %i.fa.fa-fw.fa-telegram
+      /   telegram
+      %a.button{ :href => "mailto:?subject=#SwapMyVote&body=Vote Tactical at #SwapMyVote https://swapmyvote.uk", class: "button footer envelope" }
         %i.fa.fa-fw.fa-envelope
         email                        
-      %a.button{ :href => "share:", class: "button footer share" }
-        %i.fa.fa-fw.fa-share-alt-square
-        share
-      // .list-group-item
-      //  =image_tag('fwd_democracy_logo.png', size: "32x32", alt: "Forward Democracy")    
+      / %a.button{ :href => "share:", class: "button footer share" }
+      /  %i.fa.fa-fw.fa-share-alt-square
+      /  share

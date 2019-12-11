@@ -80,7 +80,7 @@ footer {
         width: 35%;
         left: 25%;
         margin-left: 2px;
-        margin-bottom: 2px;
+        margin-bottom: 12px;
         text-align: left;
     }
 
@@ -89,7 +89,7 @@ footer {
         width: 40%;
         left: 60%;
         margin-right: 2px;
-        margin-bottom: 2px;
+        margin-bottom: 12px;
         text-align: right;
     }
 
@@ -104,6 +104,7 @@ footer {
 
     .button {
     	background-color: $faded-color;
+	font-size: 12px;
         font-weight: normal;
         padding: 0 2px 0 0;
     }
@@ -113,5 +114,26 @@ footer {
         font-weight: normal;
         padding: 0 2px 0 0;
     }
+
+
+    // social media buttons
+
+    .fb-like {
+        margin-bottom: 2px;
+    }
+
+    .fb-share {
+        margin-bottom: 2px;
+    }
+
+    .twitter-follow-button {
+        margin-bottom: -6px;
+    }
+
+    .btn {
+        text-color: #ffffff;
+        margin-bottom: -6px;
+    }
+
 
 }
