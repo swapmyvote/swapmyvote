@@ -1,5 +1,6 @@
 class MobilePhoneController < ApplicationController
   before_action :require_login
+  before_action :require_swapping_open
 
   def verify_create
     return if mobile_verified?
