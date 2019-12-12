@@ -37,7 +37,7 @@
 
       - if logged_in?
         = render partial: "layouts/current_user"
-      - elsif swapping_open?
+      - else
         = render partial: "layouts/login"
 
     - if flash[:errors]
