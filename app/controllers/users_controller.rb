@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login, except: [:new]
-  before_action :disable_edits_on_swaps_closed, only: [:edit, :update]
+  before_action :restricted_when_voting_open, only: [:edit, :update, :destroy]
 
   def new
     @identity = request.env["omniauth.identity"]
@@ -54,8 +54,8 @@ class UsersController < ApplicationController
 
   private
 
-  def disable_edits_on_swaps_closed
-    redirect_to user_path unless swapping_open?
+  def restricted_when_voting_open
+    redirect_to user_path if voting_open? && @user.swap_confirmed?
   end
 
   def user_params
