@@ -4,4 +4,7 @@
   - if voting_open?
     = render partial: "voting_open"
   - else
-    = render partial: "swaps_closed"
+    - if app_mode == "closed-warm-up"
+      = render partial: "closed_warm_up"
+    - else
+      = render partial: "closed_wind_down"
