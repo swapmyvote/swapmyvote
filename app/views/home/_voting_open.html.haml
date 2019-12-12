@@ -9,29 +9,45 @@
         reopen in a bit, but that requires some frantic coding on
         little sleep, so we're not making any promises.
 
-      %p
+      - if current_user&.swap_confirmed?
+        %p
 
-        Either way, thank you so much for taking part - together we
-        are making democracy better and more representative!
+          But that doesn't affect you since you managed to confirm a
+          swap - congratulations!
 
-      %p
+      - else
 
-        If you've haven't had a confirmation via email that your vote
-        has been swapped, we're sorry to say we weren't able to pair
-        you with a voting partner on this occasion.  Even if we don't
-        reopen today though, all is not lost - you can still vote
-        tactically, or for the party you most wish to support.
+        %p
+          Either way, thank you so much for taking part - together we
+          are making democracy better and more representative!
+
+        %p
+          If you've haven't had a confirmation via email that your vote
+          has been swapped, we're sorry to say we weren't able to pair
+          you with a voting partner on this occasion.  Even if we don't
+          reopen today though, all is not lost - you can still vote
+          tactically, or for the party you most wish to support.
 
       %p
         Here's how to get to your
-        = link_to("local polling station", "https://wheredoivote.co.uk/") + "."
+        = link_to("local polling station",
+                  "https://wheredoivote.co.uk/", target: "_blank") + "."
         Get out there and vote!
+
+      - if current_user&.swap_confirmed?
+        %p
+          And please don't forget to come back here when you've voted
+          and
+          = link_to("let your swap partner know you've voted!",
+                    user_vote_path)
 
       %p
         Till next time,
         %br
         All the best from the Swap My Vote team.
+
       %hr
+
       %p.text-center
         Stay up to date with our future projects and for future elections.
         %br
