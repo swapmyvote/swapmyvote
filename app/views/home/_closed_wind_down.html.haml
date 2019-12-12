@@ -1,0 +1,54 @@
+.background-pattern.border-bottom
+  .container.container-narrow
+    .card
+      %h2 December 2019 General Election is a wrap!
+
+      %p
+
+        We closed swaps shortly before the polls closed, and are now
+        very much looking forward to catching up on some sleep.
+        We will run again for the
+        next General Election, whenever that turns out to be.
+
+      %p
+        %strong Thank you so much
+
+        for taking part!  But the work doesn’t stop here. The team
+        behind Swap My Vote -
+
+        = link_to("Forward Democracy", "https://forwarddemocracy.com",
+                  target: "_blank")
+
+        \- will continue to develop ways to defend and develop our
+        democracy, that most precious, powerful, and fragile of
+        things.
+
+      %p
+
+        Please enter your email address for reminders when we open
+        again for swaps, updates, news, and campaigns that could help
+        to defend and develop democracy, electoral reform and digital
+        democratic tools. You can unsubscribe at any time from the
+        link in the footer of any of these emails.
+
+      = render partial: "mailchimp.html"
+
+      %p
+        And in the mean time, any contributions to
+
+        = link_to "our crowdfunder",
+                  "https://www.crowdfunder.co.uk/swapmyvote",
+                  target: "_blank"
+
+        would be most welcome!
+
+      %hr
+
+      %p.text-center
+        %br
+        = link_to "Follow us on Twitter", "https://twitter.com/swapmyvote", class: "button button-twitter"
+        = link_to "Like us on Facebook", "https://www.facebook.com/swapmyvote", class: "button button-facebook"
+      -# Keep this here for the next General Election!
+        %p.text-center
+          Make sure you don't miss out -
+          = link_to "register to vote now!", "https://gov.uk/register-to-vote"
