@@ -17,10 +17,10 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "#{swap_with.redacted_name} would like to swap their vote with you!")
   end
 
-  def email_address_shared(swap_with, user)
+  def email_address_shared(user, swapped_with)
     @user = user
     @swap_with = swap_with
-    mail(to: @swap_with.email, subject: "#{user.redacted_name} has shared their email address with you!")
+    mail(to: @user.email, subject: "#{swap_with.redacted_name} has shared their email address with you!")
   end
 
   def swap_confirmed(user, swap_with, swap_with_email_consent)
