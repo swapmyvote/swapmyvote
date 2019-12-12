@@ -52,7 +52,7 @@ Rails.application.configure do
 end
 
 %w[
-  SWAPS_CLOSED
+  SWAPMYVOTE_MODE
   SWAP_EXPIRY_HOURS
   TEST_USERS_SKIP_MOBILE_VERIFICATION
 ].each do |var|

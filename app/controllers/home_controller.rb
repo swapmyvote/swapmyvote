@@ -37,9 +37,9 @@ class HomeController < ApplicationController
 
   def whats_the_magic_word
     if params.key?(:opensesame)
-      session[:sesame] = "open"
+      session[:sesame] = params[:opensesame]
     elsif params.key?(:closesesame)
-      session[:sesame] = "closed"
+      session.delete :sesame
     end
   end
 end

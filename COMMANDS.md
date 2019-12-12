@@ -50,5 +50,5 @@ Run command in Heroku environment
 Open or close swaps in Heroku environment
 -----------------------------------------
 
-    heroku config:unset -a swapmyvotedev SWAPS_CLOSED
-    heroku config:set -a swapmyvotedev SWAPS_CLOSED=true
+    # Set app mode to one of AppModeConcern::VALID_MODES
+    heroku config:set -a swapmyvotedev SWAPMYVOTE_MODE=open

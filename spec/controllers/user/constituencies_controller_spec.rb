@@ -5,8 +5,7 @@ RSpec.describe User::ConstituenciesController, type: :controller do
 
   context "when configured for swaps and voting is not yet open" do
     before(:each) do
-      allow(ENV).to receive(:[]).with("SWAPS_CLOSED").and_return(nil)
-      allow(ENV).to receive(:[]).with("VOTING_OPEN").and_return(nil)
+      allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return("open")
     end
 
     context "and user is logged in" do
