@@ -8,5 +8,6 @@
       \. You are in&nbsp;
       %strong> #{@user.constituency.try(:name) || "?"}
       \.
-    %p.small.text-center
-      %a{href: edit_user_path} Not right? Update your info
+    - unless voting_info_locked?
+      %p.small.text-center
+        %a{href: edit_user_path} Not right? Update your info
