@@ -16,8 +16,11 @@
       - if current_user&.swap_confirmed?
         %p
 
-          But that doesn't affect you since you managed to confirm a
-          swap - congratulations!
+          But that doesn't affect you since you managed to
+
+          = link_to("confirm a swap", user_path)
+
+          \- congratulations!
 
       - else
 
