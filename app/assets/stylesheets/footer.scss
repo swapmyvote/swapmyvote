@@ -60,12 +60,6 @@ footer {
         font-size: 14px;
     }
 
-    .list-group {
-    }
-
-    .list-group-item {
-    }
-
     .left-group {
         position: absolute;
         width: 25%;
@@ -112,7 +106,7 @@ footer {
     }
 
     .logo {
-        background-color: #ffffff;
+        background-color: $white;
         font-weight: normal;
         padding: 0 2px 0 0;
     }
