@@ -20,16 +20,28 @@
   %i.fa.fa-fw.fa-check
   #{@user.swapped_with.name} has confirmed the swap. You're all set!
 
+- if @user.my_email_consent?
+  %p.text-center
+    You have shared your email address
+    with #{@user.swapped_with.name}.
+- else
+  %p.text-center
+    We encourage you to share your email address
+    with #{@user.swapped_with.name}.
+  %p.text-center
+    = form_tag user_swap_path, class: "form-inline", method: "put" do
+      .form-check.mx-auto
+        %input{ type: "hidden", id: "swap_dummy",
+          name: "swap[dummy]", value: "dummy"}
+        %input.form-check-input{ type: "checkbox", id: "consent-check",
+                                name: "swap[consent_share_email]", value: "true"}
+        %label.form-check-label{ for: "consent-check" }
+          Share my email address with #{@user.swapped_with.name}
+
+      %p.text-center{style: "width: 100%"}
+        = button_tag "Share with #{@user.swapped_with.name}", class: 'btn btn-primary'
+
+
 %p.text-center
-  - methods = contact_methods(@user.swapped_with)
-  - if methods.present?
-    You can reach out to
-
-    = @user.swapped_with.name
-
-    != methods.join " or "
-
-    to get to know your swap partner.
-  - else
-    Unfortunately #{@user.swapped_with.name} has not shared their email address or
-    social media profile.
+  = render partial: "shared/reach_out_to_swap",
+           locals: { user: @user, swap_user: @user.swapped_with }

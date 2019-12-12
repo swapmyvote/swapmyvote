@@ -27,8 +27,13 @@ class User < ApplicationRecord
   after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
 
-  validates :email, uniqueness: { case_sensitive: false }, allow_nil: true
+  # Additional validation for emails, :validatable has already added basic validation
+  validate :email_uniqueness, on: :create
+
   validates :name, presence: true
+
+  include UsersHelper
+  include ::UserErrorsConcern
 
   def omniauth_tokens(auth)
     self.token = auth.credentials.token
@@ -43,8 +48,11 @@ class User < ApplicationRecord
   end
 
   def potential_swap_users(number = 5)
-    # Clear out swaps every few hours to keep the list fresh for people checking back
-    potential_swaps.where(["created_at < ?", DateTime.now - 2.hours]).destroy_all
+    # Clear out swaps every while to keep the list fresh for people checking back
+    potential_swaps
+      .where(["created_at < ?",
+              DateTime.now - potential_swap_expiry_mins.minutes])
+      .destroy_all
     create_potential_swaps(number)
     swaps = potential_swaps.all.eager_load(
       target_user: [ :identity, { constituency: [{ polls: :party }] } ]
@@ -202,6 +210,7 @@ class User < ApplicationRecord
   end
 
   def confirm_swap(swap_params)
+    return unless incoming_swap
     incoming_swap.update(swap_params)
     UserMailer.swap_confirmed(self, swapped_with, incoming_swap.consent_share_email_chooser).deliver_now
     UserMailer.swap_confirmed(swapped_with, self, incoming_swap.consent_share_email_chosen).deliver_now
@@ -212,6 +221,31 @@ class User < ApplicationRecord
     return outgoing_swap.consent_share_email_chooser if outgoing_swap
     return incoming_swap.consent_share_email_chosen if incoming_swap
     return false
+  end
+
+  def my_email_consent?
+    # Check if I have given permission for swapper to see my email
+    return outgoing_swap.consent_share_email_chooser if outgoing_swap
+    return incoming_swap.consent_share_email_chosen if incoming_swap
+    return false
+  end
+
+  def update_swap(swap_params)
+    if incoming_swap
+      consent_given = swap_params[:consent_share_email_chosen] || swap_params[:consent_share_email]
+      if consent_given
+        incoming_swap.update!(consent_share_email_chosen: true)
+        UserMailer.email_address_shared(swapped_with, self).deliver_now if swap_confirmed?
+      end
+    end
+    # rubocop:disable Style/GuardClause
+    if outgoing_swap
+      consent_given = swap_params[:consent_share_email_chooser] || swap_params[:consent_share_email]
+      if consent_given
+        outgoing_swap.update!(consent_share_email_chooser: true)
+        UserMailer.email_address_shared(swapped_with, self).deliver_now if swap_confirmed?
+      end
+    end
   end
 
   def clear_swap
@@ -292,6 +326,10 @@ class User < ApplicationRecord
     !social_profile?
   end
 
+  def facebook_login?
+    identity&.provider == "facebook"
+  end
+
   def profile_url
     identity&.profile_url
   end
@@ -320,5 +358,24 @@ class User < ApplicationRecord
 
   def password_required?
     false
+  end
+
+  def email_uniqueness
+    # Ignore nil email addresses
+    return unless email
+
+    existing_user = find_existing_email(email)
+    return unless existing_user
+
+    email_uniqueness_errors(existing_user)
+  end
+
+  def find_existing_email(email)
+    if id
+      # Ignore self in the uniqueness check
+      User.find_by("lower(#{:email}) = ? and id <> ?", email.downcase, id)
+    else
+      User.find_by("lower(#{:email}) = ?", email.downcase)
+    end
   end
 end

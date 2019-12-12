@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include ::AppModeConcern
+
   def facebook_login_path
     "/auth/facebook"
   end
@@ -13,11 +15,6 @@ module ApplicationHelper
 
   def display_login_modal
     return params[:log_in_with] ? "inherit" : "none"
-  end
-
-  def swapping_open?
-    return true if session[:sesame] == "open" # someone said the magic word
-    return !ENV["SWAPS_CLOSED"]
   end
 
   def canonical_name(name)

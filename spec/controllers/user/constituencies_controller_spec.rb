@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe User::ConstituenciesController, type: :controller do
   include Devise::Test::ControllerHelpers
 
-  context "when configured for swaps" do
+  context "when configured for swaps and voting is not yet open" do
     before(:each) do
-      allow(ENV).to receive(:[]).with("SWAPS_CLOSED").and_return(nil)
+      allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return("open")
     end
 
     context "and user is logged in" do
@@ -53,7 +53,7 @@ RSpec.describe User::ConstituenciesController, type: :controller do
 
         it "redirects to user share" do
           patch :update, params: { user: { constituency_ons_id: 2, email: "a@b.c" }   }
-          expect(response).to redirect_to(:user_share)
+          expect(response).to redirect_to(:user_swap)
         end
       end
     end

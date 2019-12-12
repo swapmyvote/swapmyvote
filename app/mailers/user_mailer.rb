@@ -1,8 +1,15 @@
 class UserMailer < ApplicationMailer
+  # include ::AppModeConcern
+
+  helper :application  # ugh
   helper :swaps
   default from: "Swap My Vote <hello@swapmyvote.uk>"
 
   helper :users
+
+  def session
+    {}
+  end
 
   def welcome_email(user)
     return nil if user.email.blank?
@@ -15,6 +22,12 @@ class UserMailer < ApplicationMailer
     @user = user
     @swap_with = swap_with
     mail(to: @user.email, subject: "#{swap_with.redacted_name} would like to swap their vote with you!")
+  end
+
+  def email_address_shared(user, swap_with)
+    @user = user
+    @swap_with = swap_with
+    mail(to: @user.email, subject: "#{swap_with.redacted_name} has shared their email address with you!")
   end
 
   def swap_confirmed(user, swap_with, swap_with_email_consent)

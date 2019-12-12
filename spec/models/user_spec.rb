@@ -392,6 +392,60 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "email validation" do
+    it "prevents duplicate emails from being created" do
+      expect{create(:user, name: subject.name, email: subject.email)}.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "prevents email from being changed to a duplicate" do
+      bob = create(:user, name: "bob")
+      bob.email = subject.email
+      expect{bob.save!}.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "allows different emails to be being created" do
+      expect{create(:user, name: "Bob")}.to_not raise_error
+    end
+  end
+
+  describe "#my_email_consent?" do
+    it "is false by default" do
+      expect(subject.my_email_consent?).to be_falsey
+    end
+
+    it "swapper is chooser and has consented to share email" do
+      confirmed_swap = build(:swap, confirmed: true)
+      confirmed_swap.consent_share_email_chooser = true
+      subject.outgoing_swap = confirmed_swap
+
+      expect(subject.my_email_consent?).to be_truthy
+    end
+
+    it "swapper is chooser and has not consented to share email" do
+      confirmed_swap = build(:swap, confirmed: true)
+      confirmed_swap.consent_share_email_chooser = false
+      subject.outgoing_swap = confirmed_swap
+
+      expect(subject.my_email_consent?).to be_falsey
+    end
+
+    it "swapper is chosen and has consented to share email" do
+      confirmed_swap = build(:swap, confirmed: true)
+      confirmed_swap.consent_share_email_chosen = true
+      subject.incoming_swap = confirmed_swap
+
+      expect(subject.my_email_consent?).to be_truthy
+    end
+
+    it "swapper is chosen and has not consented to share email" do
+      confirmed_swap = build(:swap, confirmed: true)
+      confirmed_swap.consent_share_email_chosen = false
+      subject.incoming_swap = confirmed_swap
+
+      expect(subject.my_email_consent?).to be_falsey
+    end
+  end
+
   context "when user has email login" do
     before do
       subject.email = "foo@example.com"

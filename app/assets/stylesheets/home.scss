@@ -67,6 +67,10 @@ select {
 
 .container-narrow {
     max-width: 600px;
+
+    .card {
+        padding: 16px;
+    }
 }
 
 .container-extra-narrow {

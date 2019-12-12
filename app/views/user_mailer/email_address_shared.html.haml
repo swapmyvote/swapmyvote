@@ -1,0 +1,30 @@
+%p
+  Hi #{@user.name},
+%p
+  Good news! #{@swap_with.name} is going swap their vote with you.
+  They've now shared their email address with with you:
+
+%p
+  = mail_to @swap_with.email
+
+%p
+  Why not reach out and say hi?
+
+%p
+  And don't forget to share Swap My Vote with your social networks so
+  that more people can make their vote count:
+
+  <a href="https://twitter.com/intent/tweet?text=Join%20me%20in%20making%20our%20votes%20count%20more%20at%20https://swapmyvote.uk%20&#35;SwapmyVote">Tweet</a>
+  <a href="https://www.facebook.com/sharer/sharer.php?app_id=377810399053422&u=https%3A%2F%2Fwww.swapmyvote.uk&sdk=joey&display=popup&ref=plugin">Share on Facebook</a>
+%p
+  To a better democracy!
+  %br
+  Swap My Vote Team
+%p
+  <a href="https://www.swapmyvote.uk/?utm_source=email&utm_medium=confirm_swap&utm_campaign=site">Swap My Vote</a>
+  %br
+  <a href="https://twitter.com/intent/follow?screen_name=swapmyvote">Follow us on Twitter</a>
+  %br
+  <a href="https://facebook.com/swapmyvote">Like us on Facebook</a>
+  %br
+  <a href="https://crowdfunder.co.uk/swapmyvote">Support us on Crowdfunder</a>

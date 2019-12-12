@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login, except: [:new]
+  before_action :restricted_when_voting_open, only: [:edit, :update, :destroy]
 
   def new
     @identity = request.env["omniauth.identity"]
@@ -52,6 +53,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def restricted_when_voting_open
+    redirect_to user_path if voting_info_locked?
+  end
 
   def user_params
     params.require(:user).permit(:preferred_party_id, :willing_party_id, :constituency_ons_id, :email)

@@ -1,7 +1,8 @@
 class User::SwapsController < ApplicationController
   before_action :require_swapping_open, only: [:show, :new, :create]
   before_action :require_login
-  before_action :assert_incoming_swap_exists, only: [:update, :destroy]
+  before_action :assert_incoming_swap_exists, only: [:destroy]
+  before_action :assert_swap_exists, only: [:update]
   before_action :assert_parties_exist, only: [:show]
   before_action :assert_has_email, only: [:new, :create, :update]
   before_action :assert_has_constituency, only: [:new, :create, :update]
@@ -33,6 +34,8 @@ class User::SwapsController < ApplicationController
   def update
     if swap_params[:confirmed] == "true"
       @user.confirm_swap(swap_params)
+    else
+      @user.update_swap(swap_params)
     end
 
     redirect_to user_path
@@ -72,12 +75,23 @@ class User::SwapsController < ApplicationController
     redirect_to user_path
   end
 
+  def assert_swap_exists
+    return if @user.incoming_swap || @user.outgoing_swap
+    flash[:errors] = ["You don't have a swap!"]
+    redirect_to user_path
+  end
+
   def assert_parties_exist
     return if @user.willing_party && @user.preferred_party
     redirect_to edit_user_path
   end
 
   def swap_params
-    params.require(:swap).permit(:confirmed, :consent_share_email_chosen)
+    params.require(:swap).permit(
+      :confirmed,
+      :consent_share_email_chooser,
+      :consent_share_email_chosen,
+      :consent_share_email
+    )
   end
 end

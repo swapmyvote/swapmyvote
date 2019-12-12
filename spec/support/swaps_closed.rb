@@ -1,10 +1,7 @@
 RSpec.shared_context "swapping closed" do
-  before do
-    ENV["SWAPS_CLOSED"] = "true"
-  end
-
-  after do
-    ENV.delete "SWAPS_CLOSED"
+  before(:each) do
+    allow(ENV)
+      .to receive(:[]).with("SWAPMYVOTE_MODE").and_return("closed-warm-up")
   end
 end
 

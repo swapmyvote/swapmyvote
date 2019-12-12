@@ -1,0 +1,26 @@
+- methods = contact_methods(swap_user)
+
+- if methods.present?
+
+  You can reach out to
+
+  = swap_user.name
+
+  != methods.join " or "
+
+  to get to know your swap partner.
+
+- else
+
+  Unfortunately #{swap_user.name} has not shared their
+  email address or social media profile.
+
+- if methods.blank? or (methods.length == 1 && swap_user.facebook_login?)
+
+  If this makes you uncomfortable you can
+
+  -# has to be _url not _path to work from ActionMailer
+  = link_to("cancel your swap", faq_url + "#reset", target: "_blank") + "."
+
+- if voting_open?
+  = render partial: "shared/go_vote", locals: { user: user }

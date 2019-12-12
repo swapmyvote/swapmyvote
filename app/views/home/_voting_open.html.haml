@@ -1,0 +1,54 @@
+.background-pattern.border-bottom
+  .container.container-narrow
+    .card
+      %h2 It's time to vote!
+      %p
+
+        Now that the election polls are open, Swap My Vote is closed
+        for new swaps.
+
+        %strong
+          There is a chance we'll be able to reopen shortly,
+
+        so keep checking back - but that requires some frantic
+        coding on little sleep, so we're not making any promises.
+
+      - if current_user&.swap_confirmed?
+        %p
+
+          But that doesn't affect you since you managed to
+
+          = link_to("confirm a swap", user_path)
+
+          \- congratulations!
+
+      - else
+
+        %p
+          Either way, thank you so much for taking part - together we
+          are making democracy better and more representative!
+
+        %p
+
+          If you've haven't had a confirmation via email or web that
+          your vote has been swapped, we're sorry we weren't able to
+          pair you with a voting partner yet.  Even if we don't reopen
+          today though, all is not lost - you can still vote
+          tactically, or for the party you most wish to support.
+
+      = render partial: "shared/go_vote",
+               locals: { user: current_user }
+
+      %p
+        Till next time,
+        %br
+        All the best from the Swap My Vote team.
+
+      %hr
+
+      %p.text-center
+        Stay up to date with our future projects and for future elections.
+        %br
+        = link_to "Follow us on Twitter", "https://twitter.com/swapmyvote", class: "button button-twitter"
+        = link_to "Like us on Facebook", "https://facebook.com/swapmyvote", class: "button button-facebook"
+

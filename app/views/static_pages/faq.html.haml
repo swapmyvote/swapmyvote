@@ -187,8 +187,26 @@
       you can reset your voting preferences and be matched again (see
       below).
 
+    %a(name="change")
+    %h2
+
+      Can I change my mind about my voting preferences, or change
+      constituency?
+
+    %p
+
+      Yes, you can change at any time.  Just update your info using
+
+      = link_to('the link that says "Not right? Update your info"',
+                edit_user_path) + "."
+
+      If you have already chosen or confirmed a swap, it will reset
+      the swap, letting your partner know it has been cancelled.  You
+      are then free to choose another swap.
+
     %a(name="reset")
-    %h2 My swap hasn't been confirmed. How can I reset or cancel my swap?
+    %h2 My swap hasn't been confirmed; what should I do?
+
     %p
 
       If your partner hasn't confirmed the swap, it will now
@@ -196,11 +214,13 @@
       will email both parties to let them know to log in to find a new
       partner.
 
-      If you have changed your voting preferences or moved
-      constituency (or if you would like to change partner) you can
-      just update your info using the link that says "Not right?
-      Update your info" and it will reset the swap, letting your
-      partner know it has been cancelled.
+    %p
+
+      However if you don't want to wait, you can
+
+      = link_to "cancel your swap immediately", "#reset"
+
+      as described below.
 
     %a(name="better")
     %h2
@@ -209,11 +229,24 @@
       better voting partner?
 
     %p
+      See how to
 
-      You can just update your info using the link that says "Not
-      right? Update your info" and it will reset the swap, letting
-      your partner know it has been cancelled. You are then free to
-      select another voting partner from the list.
+      = link_to "cancel your swap", "#reset"
+
+      as described below.
+
+    %a(name="reset")
+    %h2 How can I reset or cancel my swap?
+    %p
+
+      Just temporarily change your voting preferences using
+
+      = link_to 'the link that says "Not right? Update your info"',
+                edit_user_path
+
+      and it will reset the swap, letting your partner know it has
+      been cancelled.  Then change them back, and you will be ready to
+      choose another voting partner from the list.
 
     %a(name="noone")
     %h2 No-one is confirming a swap with me. What’s going on?
@@ -307,6 +340,18 @@
         interested in the intersection between politics and technology and
         wanted to do something positive instead of just shouting at the
         television.
+
+      %li
+
+        %a(target="_blank"
+           href="https://www.linkedin.com/in/andyrobertscoder/")
+          Andy Roberts
+        is a developer with a strong ruby bias, and a dabbler in other
+        programming languages. A keen amateur music maker, but sadly hobbies
+        have now taken a back seat to an obsession with
+        %a(target="_blank" title="Notes For An Essay on UK Reform"
+           href="https://notesforukreform.herokuapp.com/")
+          improving democracy in the UK.
 
     %p
 

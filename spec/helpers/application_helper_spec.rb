@@ -111,4 +111,44 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
+
+  describe ".swapping_open?" do
+    before do
+      allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return(app_mode)
+    end
+
+    %w[ closed-warm-up closed-and-voting closed-wind-down ].each do |value|
+      context "when SWAPMYVOTE_MODE is #{value.inspect}" do
+        let(:app_mode) { value }
+        specify { expect(helper.swapping_open?).to be_falsey }
+      end
+    end
+
+    %w[ open open-and-voting ].each do |value|
+      context "when SWAPMYVOTE_MODE is #{value.inspect}" do
+        let(:app_mode) { value }
+        specify { expect(helper.swapping_open?).to be_truthy }
+      end
+    end
+  end
+
+  describe ".voting_open?" do
+    before do
+      allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return(app_mode)
+    end
+
+    %w[ closed-warm-up open closed-wind-down ].each do |value|
+      context "when SWAPMYVOTE_MODE is #{value.inspect}" do
+        let(:app_mode) { value }
+        specify { expect(helper.voting_open?).to be_falsey }
+      end
+    end
+
+    %w[ open-and-voting closed-and-voting ].each do |value|
+      context "when SWAPMYVOTE_MODE is #{value.inspect}" do
+        let(:app_mode) { value }
+        specify { expect(helper.voting_open?).to be_truthy }
+      end
+    end
+  end
 end
