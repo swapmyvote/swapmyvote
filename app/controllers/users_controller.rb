@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   private
 
   def restricted_when_voting_open
-    redirect_to user_path if voting_open? && @user.swap_confirmed?
+    redirect_to user_path if voting_info_locked?
   end
 
   def user_params

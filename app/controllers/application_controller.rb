@@ -36,6 +36,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
+  def voting_info_locked?
+    voting_open? && current_user&.swap_confirmed?
+  end
+
   def prepops
     return session["pre_populate"]
   end

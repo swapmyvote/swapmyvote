@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "User::Constituencies", type: :request do
   context "when configured for swaps" do
     before(:each) do
-      allow(ENV).to receive(:[]).with("SWAPS_CLOSED").and_return(nil)
+      allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return("open")
     end
 
     # TODO: get request spec working as it appears to be the standard for rails 5+

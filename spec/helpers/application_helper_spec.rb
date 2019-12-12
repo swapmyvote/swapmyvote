@@ -112,24 +112,41 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
-  describe ".voting_open?" do
-    before { allow(ENV).to receive(:[]).with("VOTING_OPEN").and_return(env_variable) }
-
-    context "when VOTING_OPEN is missing" do
-      let(:env_variable) { nil }
-      specify { expect(helper.voting_open?).to be_falsey }
+  describe ".swapping_open?" do
+    before do
+      allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return(app_mode)
     end
 
-    %w[ n no false f 0 ].each do |value|
-      context "when VOTING_OPEN is #{value.inspect}" do
-        let(:env_variable) { value }
+    %w[ closed-warm-up closed-and-voting closed-wind-down ].each do |value|
+      context "when SWAPMYVOTE_MODE is #{value.inspect}" do
+        let(:app_mode) { value }
+        specify { expect(helper.swapping_open?).to be_falsey }
+      end
+    end
+
+    %w[ open open-and-voting ].each do |value|
+      context "when SWAPMYVOTE_MODE is #{value.inspect}" do
+        let(:app_mode) { value }
+        specify { expect(helper.swapping_open?).to be_truthy }
+      end
+    end
+  end
+
+  describe ".voting_open?" do
+    before do
+      allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return(app_mode)
+    end
+
+    %w[ closed-warm-up open closed-wind-down ].each do |value|
+      context "when SWAPMYVOTE_MODE is #{value.inspect}" do
+        let(:app_mode) { value }
         specify { expect(helper.voting_open?).to be_falsey }
       end
     end
 
-    %w[ y yes true t 1 ].each do |value|
-      context "when VOTING_OPEN is #{value.inspect}" do
-        let(:env_variable) { value }
+    %w[ open-and-voting closed-and-voting ].each do |value|
+      context "when SWAPMYVOTE_MODE is #{value.inspect}" do
+        let(:app_mode) { value }
         specify { expect(helper.voting_open?).to be_truthy }
       end
     end

@@ -16,8 +16,11 @@
       - if current_user&.swap_confirmed?
         %p
 
-          But that doesn't affect you since you managed to confirm a
-          swap - congratulations!
+          But that doesn't affect you since you managed to
+
+          = link_to("confirm a swap", user_path)
+
+          \- congratulations!
 
       - else
 
@@ -33,18 +36,7 @@
           today though, all is not lost - you can still vote
           tactically, or for the party you most wish to support.
 
-      %p
-        Here's how to get to your
-        = link_to("local polling station",
-                  "https://wheredoivote.co.uk/", target: "_blank") + "."
-        Get out there and vote!
-
-      - if current_user&.swap_confirmed?
-        %p
-          And please don't forget to come back here when you've voted
-          and
-          = link_to("let your swap partner know you've voted!",
-                    user_vote_path)
+      = render partial: "shared/go_vote"
 
       %p
         Till next time,

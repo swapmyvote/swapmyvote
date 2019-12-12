@@ -1,4 +1,7 @@
 class UserMailer < ApplicationMailer
+  # include ::AppModeConcern
+
+  helper :application  # ugh
   helper :swaps
   default from: "Swap My Vote <hello@swapmyvote.uk>"
 

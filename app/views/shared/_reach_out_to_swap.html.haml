@@ -21,3 +21,6 @@
 
   -# has to be _url not _path to work from ActionMailer
   = link_to("cancel your swap", faq_url + "#reset", target: "_blank") + "."
+
+- if voting_open?
+  = render partial: "shared/go_vote"
