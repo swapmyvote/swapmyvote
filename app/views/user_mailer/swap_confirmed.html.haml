@@ -5,12 +5,16 @@
   = user_profile_link(@swap_with) + "!"
   #{@swap_with.name} is going to vote for the #{@swap_with.willing_party.name} party for you, in the #{@swap_with.constituency.name} constituency.
   In return, you will vote for the #{@swap_with.preferred_party.name} party in your constituency (#{@user.constituency.name}).
-%p
-  We'll send some reminders to #{@swap_with.name} to remind them to vote for your chosen party on December 12th, and we'll ask them for confirmation once they have.
+
+- unless voting_open?
+  %p
+    We'll send some reminders to #{@swap_with.name} to remind them to
+    vote for your chosen party on December 12th, and we'll ask them
+    for confirmation once they have.
 
 %p
   = render partial: "shared/reach_out_to_swap",
-           locals: { swap_user: @swap_with }
+           locals: { user: @user, swap_user: @swap_with }
 
 %p
   Lastly, why not share Swap My Vote with your social networks so that more people can make their vote count?

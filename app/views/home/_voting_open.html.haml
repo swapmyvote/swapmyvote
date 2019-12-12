@@ -36,7 +36,8 @@
           today though, all is not lost - you can still vote
           tactically, or for the party you most wish to support.
 
-      = render partial: "shared/go_vote"
+      = render partial: "shared/go_vote",
+               locals: { user: current_user }
 
       %p
         Till next time,

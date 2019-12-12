@@ -23,4 +23,4 @@
   = link_to("cancel your swap", faq_url + "#reset", target: "_blank") + "."
 
 - if voting_open?
-  = render partial: "shared/go_vote"
+  = render partial: "shared/go_vote", locals: { user: user }

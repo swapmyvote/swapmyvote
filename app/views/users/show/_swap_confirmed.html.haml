@@ -44,4 +44,4 @@
 
 %p.text-center
   = render partial: "shared/reach_out_to_swap",
-           locals: { swap_user: @user.swapped_with }
+           locals: { user: @user, swap_user: @user.swapped_with }

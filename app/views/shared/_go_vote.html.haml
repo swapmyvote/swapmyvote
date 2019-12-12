@@ -4,9 +4,8 @@
             "https://wheredoivote.co.uk/", target: "_blank") + "."
   Get out there and vote!
 
-- if current_user&.swap_confirmed?
+- if user&.swap_confirmed?
   %p
     And please don't forget to come back here when you've voted
     and
-    = link_to("let your swap partner know you've voted!",
-              user_vote_path)
+    = link_to("let your swap partner know you've voted!", user_vote_url)
