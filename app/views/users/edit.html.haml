@@ -11,8 +11,16 @@
       .card-body
         - if @user.swapped?
           %p.text-center.text-warning.small
-            Warning: Changing your party preferences or constituency will undo any swap that
-            you have agreed to.
+            - if voting_info_locked?
+
+              Warning: it's election day and you've already confirmed
+              your swap, so your party preferences and constituency
+              are currently locked.
+
+            - else
+
+              Warning: Changing your party preferences or constituency
+              will undo any swap that you have agreed to.
 
         = form_for @user, url: user_path do |f|
           .form-group
