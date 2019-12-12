@@ -7,6 +7,10 @@ class UserMailer < ApplicationMailer
 
   helper :users
 
+  def session
+    {}
+  end
+
   def welcome_email(user)
     return nil if user.email.blank?
     @user = user
