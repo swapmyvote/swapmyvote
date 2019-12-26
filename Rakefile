@@ -3,12 +3,16 @@
 
 require "rubocop/rake_task"
 require "scss_lint/rake_task"
+require "haml_lint/rake_task"
 
 require File.expand_path("../config/application", __FILE__)
 
 RuboCop::RakeTask.new
 SCSSLint::RakeTask.new
+HamlLint::RakeTask.new
 
 Rails.application.load_tasks
 
-task default: [:spec, :rubocop, :scss_lint]
+task lint: [:rubocop, :scss_lint, :haml_lint]
+
+task default: [:spec, :lint]

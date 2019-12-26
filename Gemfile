@@ -55,6 +55,7 @@ gem "airbrake", "~> 9.5.0"
 
 gem "rubocop"
 gem "scss_lint"
+gem "haml_lint"
 
 gem "webpacker", "~> 4.x"
 
@@ -97,6 +98,7 @@ group :development, :test do
   gem "factory_bot_rails"
 
   gem "guard-scss_lint"
+  gem "guard-haml_lint"
 
   gem "guard-yarn"
 end
