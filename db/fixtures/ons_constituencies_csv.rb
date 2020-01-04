@@ -1,3 +1,7 @@
+# This encapsulates access to the reference CSV for constituencies
+# from the ONS, including ONS id and standardised constituency names.
+# Updates to the file can be obtained from
+# https://geoportal.statistics.gov.uk/datasets/westminster-parliamentary-constituencies-december-2018-names-and-codes-in-the-united-kingdom
 
 class OnsConstituenciesCsv
   attr_reader :file_name
