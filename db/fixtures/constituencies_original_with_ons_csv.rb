@@ -7,7 +7,10 @@ require "csv"
 # The csv is currently found at
 # db/fixtures/constituency_original_names_with_ons_ids.csv
 # It was derived partly programmatically, and partly manually.
-# It can't be downloaded from anywhere.
+
+# It can't be downloaded from anywhere, and it is crucial to being
+# able to relate the constituency names used in the electoral calculus
+# poll predictions to ONS constituency ids used eleswhere.
 
 class OriginalConstituenciesWithOnsCsv
   include Enumerable
