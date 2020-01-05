@@ -1,5 +1,17 @@
 require "csv"
 
+# This is an encapsulation of the CSV which maps "old" constituency
+# names (e.g. in table presently named "constituencies", now redundant)
+# to the ONS ids used in the "new" constituency table
+# (presently named "ons_constituencies")
+# The csv is currently found at
+# db/fixtures/constituency_original_names_with_ons_ids.csv
+# It was derived partly programmatically, and partly manually.
+
+# It can't be downloaded from anywhere, and it is crucial to being
+# able to relate the constituency names used in the electoral calculus
+# poll predictions to ONS constituency ids used eleswhere.
+
 class OriginalConstituenciesWithOnsCsv
   include Enumerable
 

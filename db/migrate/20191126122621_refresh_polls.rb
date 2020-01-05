@@ -2,6 +2,8 @@ require_relative "../fixtures/electoral_calculus_constituencies_tsv"
 
 class RefreshPolls < ActiveRecord::Migration[5.2]
   def up
+    # TODO: this code is currently duplicated in db/seeds.rb
+
     polls_data = ElectoralCalculusConstituenciesTsv.new
 
     polls_data.each do |party_result|

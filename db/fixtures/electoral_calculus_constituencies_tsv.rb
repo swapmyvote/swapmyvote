@@ -1,6 +1,16 @@
 require "csv"
 require_relative "constituencies_original_with_ons_csv"
 
+# This encapsulates access to the TSV which provides the projected
+# vote for each party for each constituency. The tsv is produced by
+# copy and pasting the html table from the page
+# https://www.electoralcalculus.co.uk/orderedseats.html
+# into a spreadsheet, which must then be saved as tab-separated values.
+# This is straightforward in LibreOffice spreadsheets, and
+# presumably in other tools too.
+# This then takes care of mapping the 'nationalist vote' to the
+# appropriate party.
+
 class ElectoralCalculusConstituenciesTsv
   include Enumerable
 

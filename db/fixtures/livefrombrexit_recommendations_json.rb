@@ -1,3 +1,11 @@
+# This encapsulates access to the tactical voting recommendations
+# aggregated by the livefrombrexit site.
+# The normal update process is to
+# visit the url
+# https://www.livefrombrexit.com/tacticals/data/recommendations.json
+# and save the result to the file referenced below in the private
+# method 'data'.
+
 class LivefrombrexitRecommendationsJson
   include Enumerable
 

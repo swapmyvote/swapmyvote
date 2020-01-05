@@ -46,6 +46,8 @@ puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
 
 puts "\n\nPolls Data from Electoral calculus\n\n"
 
+# TODO: this code is currently duplicated in db/migrate/20191126122621_refresh_polls.rb
+
 polls_data = ElectoralCalculusConstituenciesTsv.new
 
 polls_data.each do |party_result|
