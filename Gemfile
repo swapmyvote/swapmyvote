@@ -101,7 +101,7 @@ group :development, :test do
   gem "guard-yarn"
 
   # simple code coverage
-  gem 'simplecov', require: false
+  gem "simplecov", require: false
 end
 
 group :production do
