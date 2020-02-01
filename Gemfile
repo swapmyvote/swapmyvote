@@ -99,6 +99,9 @@ group :development, :test do
   gem "guard-scss_lint"
 
   gem "guard-yarn"
+
+  # simple code coverage
+  gem 'simplecov', require: false
 end
 
 group :production do
