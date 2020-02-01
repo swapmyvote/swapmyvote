@@ -45,6 +45,9 @@ config.local
 yarn-debug.log*
 .yarn-integrity
 
+# test coverage / simplecov
+coverage
+
 /backups/
 /screenshots/
 
