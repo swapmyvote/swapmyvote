@@ -1,3 +1,5 @@
+-- Execute via: heroku run rails db -p
+
 UPDATE users SET name=CONCAT('Anon person #', id);
 UPDATE users SET email=CONCAT(id, '@anonusers.swapmyvote.uk');
 UPDATE users SET encrypted_password='CENSORED' WHERE encrypted_password != '';
