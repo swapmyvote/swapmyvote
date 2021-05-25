@@ -48,4 +48,93 @@ footer {
             }
         }
     }
+
+    .fa.fa-icon {
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: normal;
+        font-size: 16px;
+    }
+
+    .footer {
+        margin:    2px;
+        font-size: 14px;
+    }
+
+    .left-group {
+        position: absolute;
+        width: 25%;
+        left: 0;
+        margin-left: 2px;
+        margin-bottom: 2px;
+        text-align: left;
+    }
+
+    .center-group {
+        position: absolute;
+        width: 35%;
+        left: 25%;
+        margin-left: 2px;
+        margin-bottom: 12px;
+        text-align: left;
+    }
+
+    .right-group {
+        position: absolute;
+        width: 40%;
+        left: 60%;
+        margin-right: 2px;
+        margin-bottom: 12px;
+        text-align: right;
+    }
+
+    .impressum {
+        font-weight: normal;
+        font-style: italic;
+        font-size: 14px;
+        color: $faded-color;
+        padding: 0 2px 0 2px;
+        margin-bottom: 2px;
+    }
+
+    .button {
+        color: $white;
+        background-color: $faded-color;
+        font-size: 12px;
+        font-weight: normal;
+        padding: 0 2px 0 0;
+        margin-right: 2px;
+    }
+
+    .logo {
+        background-color: $white;
+        font-weight: normal;
+        padding: 0 2px 0 0;
+    }
+
+
+    // social media buttons
+
+    .envelope {
+        padding: 2px 2px 4px 2px;
+        margin-right: 6px;
+    }
+
+    .fb-like {
+        margin-bottom: 2px;
+    }
+
+    .fb-share {
+        margin-bottom: 2px;
+    }
+
+    .twitter-follow-button {
+        margin-bottom: -6px;
+    }
+
+    .btn {
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+
 }

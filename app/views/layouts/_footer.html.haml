@@ -1,3 +1,10 @@
+/ footer: credits, impressarium, links, about
+
+/ see https://www.w3schools.com/icons/fontawesome_icons_brand.asp
+/ fkorning: facebook like/share
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0"></script>
+
 %footer
   .container
     %ul
@@ -17,13 +24,11 @@
       %li
         %h3 Connect
       %li
-        = link_to "Donate", "https://crowdfunder.co.uk/swapmyvote", class: "small"
-      %li
         = link_to "Twitter", "https://twitter.com/swapmyvote", class: "small"
       %li
         = link_to "Facebook", "https://www.facebook.com/swapmyvote", class: "small"
       %li
-        = link_to "News", "https://blog.swapmyvote.uk", class: "small"
+        = link_to "Blog", "https://blog.swapmyvote.uk", class: "small"
       %li
         = link_to "API", api_path, class: "small"
     %ul
@@ -36,3 +41,34 @@
         = link_to "How do I know my partner will vote (for who I want)?", faq_path(anchor: "trust"), class: "small"
       %li
         = link_to "More ...", faq_path, class: "small"
+  .list-group
+    .left-group
+      = image_tag('fwd_democracy_banner.png', size: "256x32", class: "footer" )
+    .center-group   
+      .impressum
+        Powered by Forward-Democracy (https://forwarddemocracy.com/)
+    .right-group
+      %a.button{ :href => "mailto:?subject=#SwapMyVote&body=Vote Tactical at #SwapMyVote https://swapmyvote.uk", class: "button footer envelope" }
+        %i.fa.fa-fw.fa-envelope
+        email                        
+      / %a.button{ :href => "share:", class: "button footer share" }
+      /  %i.fa.fa-fw.fa-share-alt-square
+      /  share
+      / %a.button{ :href => "https://whatsapp.com", class: "button footer whatsapp" }
+      /   %i.fa.fa-fw.fa-whatsapp
+      /   whatsapp
+      / %a.button{ :href => "https://telegram.com", class: "button footer telegram" }
+      /   %i.fa.fa-fw.fa-telegram
+      /   telegram
+      / %a.button{ :href => "https://linkedin", class: "button footer linkedin" }
+      /  %i.fa.fa-fw.fa-linkedin
+      /  linkedin
+      <a href="https://twitter.com/swapmyvote?ref_src=twsrc%5Etfw" class="twitter-follow-button footer twitter" data-show-screen-name="false" data-dnt="true" data-show-count="false">Follow @swapmyvote</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      / %a.button{ :href => "share:", class: "button footer share" }
+      /  %i.fa.fa-fw.fa-share-alt-square
+      /  share
+      <div class="fb-like footer facebook" data-href="https://www.swapmyvote.uk" data-width="" data-layout="button" data-action="like" data-size="small" data-share="true"></div>
+      / %a.button{ :href => "https://facebook.com/", class: "button footer facebook fb-like" }
+      /   %i.fa.fa-fw.fa-facebook-official 
+      /   facebook
+      <iframe class="btn footer tumblr" frameborder="0" border="0" scrolling="no" height="20" width="65" src="https://platform.tumblr.com/v2/follow_button.html?type=follow&amp;tumblelog=swapmyvote&amp;color=blue"></iframe>
