@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ApplicationController, type: :controller do
-  context "#default_ons_constituency" do
+  describe "#default_ons_constituency" do
     let(:ons_constituency) { build(:ons_constituency) }
 
     it "returns nil when no constituency in session" do
