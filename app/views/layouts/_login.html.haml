@@ -59,9 +59,3 @@
             and
             = link_to("FAQ", faq_path + "#login",
                     target: "_blank") + "."
-
-          - if ENV["DISABLE_LOG_INS"] == 'facebook'
-            %p.text-center
-              We're still waiting for our Facebook app to be approved, and we're
-              working on adding support for signing up with an email address. In
-              the meantime, you can log in with Twitter.
