@@ -53,7 +53,6 @@ gem "json"
 
 gem "airbrake", "~> 9.5.0"
 
-gem "rubocop"
 gem "scss_lint"
 
 gem "webpacker", "~> 4.x"
@@ -63,6 +62,9 @@ group :development do
   gem "web-console"
   gem "listen"  # required by config.file_watcher
   gem "bundler-audit"
+  gem "rubocop"
+  gem "rubocop-rails"
+  gem "rubocop-rspec"
 end
 
 group :development, :test do
