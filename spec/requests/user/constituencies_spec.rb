@@ -20,7 +20,7 @@ RSpec.describe "User::Constituencies", type: :request do
         it "works! (now write some real specs)" do
           # get edit_user_constituency_path
           put "/user/constituency"
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:ok)
         end
       end
     end
