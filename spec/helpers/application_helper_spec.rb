@@ -1,5 +1,5 @@
 require "rails_helper"
-require "support/user_sessions.rb"
+require 'support/user_sessions'
 
 RSpec.describe ApplicationHelper, type: :helper do
   include Devise::Test::ControllerHelpers

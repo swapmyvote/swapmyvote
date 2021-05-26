@@ -1,6 +1,6 @@
 require "rails_helper"
-require "support/user_sessions.rb"
-require "support/swaps_closed.rb"
+require 'support/user_sessions'
+require 'support/swaps_closed'
 
 RSpec.describe HomeController, type: :controller do
   include Devise::Test::ControllerHelpers
