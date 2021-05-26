@@ -46,14 +46,14 @@ RSpec.describe Recommendation, type: :model do
   describe "#party_style_from_text" do
     Party.short_codes.each do |short_code|
       describe "for party \"#{short_code.titlecase}\"" do
-        specify { expect(Recommendation.new(text: short_code).party_style_from_text).not_to be_nil }
-        specify { expect(Recommendation.new(text: short_code).party_style_from_text).not_to eq("") }
+        specify { expect(described_class.new(text: short_code).party_style_from_text).not_to be_nil }
+        specify { expect(described_class.new(text: short_code).party_style_from_text).not_to eq("") }
       end
     end
 
     describe "for text not matching a party" do
-      specify { expect(Recommendation.new(text: "combustible edison").party_style_from_text).not_to be_nil }
-      specify { expect(Recommendation.new(text: "combustible edison").party_style_from_text).not_to eq("") }
+      specify { expect(described_class.new(text: "combustible edison").party_style_from_text).not_to be_nil }
+      specify { expect(described_class.new(text: "combustible edison").party_style_from_text).not_to eq("") }
     end
   end
 end
