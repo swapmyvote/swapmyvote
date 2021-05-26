@@ -41,12 +41,14 @@ RSpec.describe Poll, type: :model do
           described_class.calculate_marginal_score
         end
       end
+
       describe "poll with 2731 votes" do
         specify do
           expect(poll2).to receive(:update).with(marginal_score: (poll1.votes - poll2.votes))
           described_class.calculate_marginal_score
         end
       end
+
       describe "poll with 1943 votes" do
         specify do
           expect(poll3).to receive(:update).with(marginal_score: (poll1.votes - poll3.votes))

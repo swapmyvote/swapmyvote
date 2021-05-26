@@ -33,6 +33,7 @@ RSpec.describe Recommendation, type: :model do
               .to eq(expected_value[:short_code]&.to_sym)
           end
         end
+
         describe "#party_short_name_from_text" do
           specify do
             expect(described_class.new(text: text).party_short_name_from_text)

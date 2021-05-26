@@ -153,6 +153,7 @@ RSpec.describe User::SwapsController, type: :controller do
             end
           end
         end
+
         context "when the user has an OUTgoing swap" do
           before do
             swap_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
