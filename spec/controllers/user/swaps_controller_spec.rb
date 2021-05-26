@@ -123,7 +123,7 @@ RSpec.describe User::SwapsController, type: :controller do
 
               it "does not email both voters with swap confirmation" do
                 expect(swap_user.swap.confirmed).to be nil
-                expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
+                put :update, params: { swap: { consent_share_email_chosen: true } }
                 put :update, params: { swap: { confirmed: true } }
               end
 
@@ -194,7 +194,7 @@ RSpec.describe User::SwapsController, type: :controller do
 
               it "does not email both voters with swap confirmation" do
                 expect(swap_user.swap.confirmed).to be nil
-                expect { put :update, params: { swap: { consent_share_email_chooser: true } } }
+                put :update, params: { swap: { consent_share_email_chooser: true } }
                 put :update, params: { swap: { confirmed: true } }
               end
 
@@ -212,7 +212,7 @@ RSpec.describe User::SwapsController, type: :controller do
 
               it "does not email both voters with swap confirmation" do
                 expect(swap_user.swap.confirmed).to be nil
-                expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
+                put :update, params: { swap: { consent_share_email_chosen: true } }
                 put :update, params: { swap: { confirmed: true } }
               end
 
