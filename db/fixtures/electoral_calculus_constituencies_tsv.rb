@@ -64,7 +64,7 @@ class ElectoralCalculusConstituenciesTsv
         throw "Invalid country '#{country}' for #{constituency_name};"
       end
 
-      votes.keys.each do |party|
+      votes.each_key do |party|
         data_transformed = {
           vote_percent: votes[party][:percent].to_f,
           party_id: @parties_by_party_code[party].id,
