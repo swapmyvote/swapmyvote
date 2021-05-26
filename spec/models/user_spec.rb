@@ -362,7 +362,6 @@ RSpec.describe User, type: :model do
       expect(subject.email_consent?).to be_falsey
     end
 
-
     context "swapper is chooser and" do
       before do
         subject.outgoing_swap = swap
