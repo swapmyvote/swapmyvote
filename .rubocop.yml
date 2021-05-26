@@ -43,6 +43,8 @@ Style/NumericLiterals:
   Enabled: false
 Style/RedundantReturn:
   Enabled: false
+Style/StringConcatenation:
+  Enabled: false
 Style/StringLiterals:
   EnforcedStyle: double_quotes
   Enabled: true
