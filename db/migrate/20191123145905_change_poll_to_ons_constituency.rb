@@ -6,7 +6,7 @@ class ChangePollToOnsConstituency < ActiveRecord::Migration[5.2]
 
     Poll.all.each do |poll|
       unless poll.constituency_id.nil?
-        ons_id = cons_id_to_ons_lookup.find_by_id(poll.constituency_id)
+        ons_id = cons_id_to_ons_lookup.find_by(id: poll.constituency_id)
         poll.update!(constituency_ons_id: ons_id) unless ons_id.nil?
       end
     end

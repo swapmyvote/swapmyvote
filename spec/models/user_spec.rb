@@ -143,7 +143,7 @@ RSpec.describe User, type: :model do
         mobile = subject.mobile_phone
         expect(mobile).to be_a(MobilePhone)
         subject.destroy
-        expect(MobilePhone.find_by_id(mobile.id)).to be_nil
+        expect(MobilePhone.find_by(id: mobile.id)).to be_nil
       end
 
       it "prevents two users having the same number" do
@@ -194,7 +194,7 @@ RSpec.describe User, type: :model do
         subject.reload
         expect(subject.mobile_phone.number).to eq(number2)
         expect(subject.mobile_phone.id).not_to eq(mobile.id)
-        expect(MobilePhone.find_by_id(mobile.id)).to be_nil
+        expect(MobilePhone.find_by(id: mobile.id)).to be_nil
       end
 
       it "prevents two users having the same number" do
