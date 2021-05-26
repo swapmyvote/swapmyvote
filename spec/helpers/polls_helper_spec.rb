@@ -11,7 +11,7 @@ RSpec.describe PollsHelper, type: :helper do
       let(:party) { build(:party, name: "Pink") }
       let(:poll_1) { build(:poll, party: party, constituency_ons_id: constituency.ons_id, votes: 4234)}
 
-      before(:each) do
+      before do
         constituency.save!
         poll_1.save!
       end

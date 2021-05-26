@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "User::Constituencies", type: :request do
   context "when configured for swaps" do
-    before(:each) do
+    before do
       allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return("open")
     end
 
