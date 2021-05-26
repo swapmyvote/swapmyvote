@@ -57,14 +57,17 @@ gem "scss_lint"
 
 gem "webpacker", "~> 4.x"
 
+# These need to be outside the development group for Rakefile to
+# be happy in Heroku.
+gem "rubocop"
+gem "rubocop-rails"
+gem "rubocop-rspec"
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem "web-console"
   gem "listen"  # required by config.file_watcher
   gem "bundler-audit"
-  gem "rubocop"
-  gem "rubocop-rails"
-  gem "rubocop-rspec"
 end
 
 group :development, :test do
