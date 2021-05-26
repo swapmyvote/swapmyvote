@@ -44,7 +44,7 @@ class User < ApplicationRecord
   end
 
   def willing_party_poll
-    constituency.polls.where(party_id: willing_party_id).take
+    constituency.polls.find_by(party_id: willing_party_id)
   end
 
   def potential_swap_users(number = 5)
