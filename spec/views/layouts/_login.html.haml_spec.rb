@@ -5,7 +5,7 @@ RSpec.describe "layouts/_login", type: :view do
     render
     expect(rendered).to have_css("div#js-login-modal",
                                  style: "display: none;",
-                                 visible: false)
+                                 visible: :hidden)
   end
 
   it "displays a login modal if log_in_with param set" do
