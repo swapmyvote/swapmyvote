@@ -36,14 +36,15 @@ RSpec.describe MobilePhoneController, type: :controller do
   end
 
   context "when logged in" do
+    let(:user) { create(:user) }
+
     before do
-      @user = create(:user)
-      sign_in @user
+      sign_in user
     end
 
     describe "GET #verify_create" do
       it "returns http success" do
-        @user.mobile_number = "07775 562 717"
+        user.mobile_number = "07775 562 717"
         stub_verify_create
         get :verify_create
         expect(flash.alert).to be_nil
