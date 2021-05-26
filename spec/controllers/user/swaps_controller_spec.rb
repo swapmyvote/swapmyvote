@@ -123,7 +123,7 @@ RSpec.describe User::SwapsController, type: :controller do
 
               it "does not email both voters with swap confirmation" do
                 expect(swap_user.swap.confirmed).to be nil
-                expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
+                put :update, params: { swap: { consent_share_email_chosen: true } }
                 put :update, params: { swap: { confirmed: true } }
               end
 
@@ -153,6 +153,7 @@ RSpec.describe User::SwapsController, type: :controller do
             end
           end
         end
+
         context "when the user has an OUTgoing swap" do
           before do
             swap_user.save! # seemed to be necessary to get all the foreign keys right ... maybe try deleting later
@@ -193,7 +194,7 @@ RSpec.describe User::SwapsController, type: :controller do
 
               it "does not email both voters with swap confirmation" do
                 expect(swap_user.swap.confirmed).to be nil
-                expect { put :update, params: { swap: { consent_share_email_chooser: true } } }
+                put :update, params: { swap: { consent_share_email_chooser: true } }
                 put :update, params: { swap: { confirmed: true } }
               end
 
@@ -211,7 +212,7 @@ RSpec.describe User::SwapsController, type: :controller do
 
               it "does not email both voters with swap confirmation" do
                 expect(swap_user.swap.confirmed).to be nil
-                expect { put :update, params: { swap: { consent_share_email_chosen: true } } }
+                put :update, params: { swap: { consent_share_email_chosen: true } }
                 put :update, params: { swap: { confirmed: true } }
               end
 

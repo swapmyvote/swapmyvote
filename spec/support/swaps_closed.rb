@@ -1,5 +1,5 @@
 RSpec.shared_context "swapping closed" do
-  before(:each) do
+  before do
     allow(ENV)
       .to receive(:[]).with("SWAPMYVOTE_MODE").and_return("closed-warm-up")
   end

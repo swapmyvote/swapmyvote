@@ -1,10 +1,10 @@
 source "https://rubygems.org"
-ruby "2.6.5"
+ruby "2.7.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 5.2.0"
 # Use SCSS for stylesheets
-gem "sass-rails"
+gem "sassc-rails"
 # Use Uglifier as compressor for JavaScript assets
 gem "uglifier", ">= 1.3.0"
 # Use CoffeeScript for .coffee assets and views
@@ -53,10 +53,15 @@ gem "json"
 
 gem "airbrake", "~> 9.5.0"
 
-gem "rubocop"
 gem "scss_lint"
 
 gem "webpacker", "~> 4.x"
+
+# These need to be outside the development group for Rakefile to
+# be happy in Heroku.
+gem "rubocop"
+gem "rubocop-rails"
+gem "rubocop-rspec"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

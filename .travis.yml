@@ -2,7 +2,7 @@ language: ruby
 cache: bundler
 
 rvm:
-  - 2.6.5
+  - 2.7.3
 
 cache:
   bundler: true
@@ -12,7 +12,7 @@ cache:
 
 install:
   - bundle install
-  - nvm install node
+  - nvm install
   - node -v
   - npm i -g yarn
   - yarn

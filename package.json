@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Swap My Vote is a platform which allows voters to find a partner to swap their vote with.  Rather than voting for their preferred minority party in a constituency where a tactical vote is necessary or worthwhile, a voter can find someone who will vote for their preferred party somewhere where that vote makes sense, even under First Past The Post. In return, they will vote for their partners preferred party as a tactical vote in their own constituency.",
   "dependencies": {
-    "@rails/webpacker": "^4.2.0",
+    "@rails/webpacker": "4.3.0",
     "intl-tel-input": "16.0.7"
   },
   "repository": {
@@ -16,6 +16,9 @@
   },
   "homepage": "https://github.com/swapmyvote/swapmyvote#readme",
   "devDependencies": {
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.11.2"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }

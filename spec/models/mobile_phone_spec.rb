@@ -13,7 +13,7 @@ RSpec.describe MobilePhone, type: :model do
     user2.mobile_phone = phone2
     user2.save!
     expect {
-      MobilePhone.create!(user: user2, number: number1)
+      described_class.create!(user: user2, number: number1)
     }.to raise_error(ActiveRecord::RecordInvalid,
                      /Number has already been taken/)
     # Check it has kept the old numbers
@@ -29,7 +29,7 @@ RSpec.describe MobilePhone, type: :model do
   end
 
   it "must not validate without a user_id" do
-    expect(subject).to_not be_valid
+    expect(subject).not_to be_valid
     subject.valid?
     expect(subject.errors[:user]).to include("must exist")
   end

@@ -5,7 +5,7 @@ def create_random_user(i, preferred_party_id, willing_party_id)
 
   ons_constituency_id = rand(1 + OnsConstituency.count)
 
-  ons_id = OnsConstituency.find_by_id(ons_constituency_id).ons_id
+  ons_id = OnsConstituency.find_by(id: ons_constituency_id).ons_id
 
   user = User.create(
     name: "#{firstname} #{Random.lastname}",

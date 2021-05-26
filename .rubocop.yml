@@ -1,3 +1,7 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
 AllCops:
   Include:
   - app/**/*.rb
@@ -16,8 +20,9 @@ AllCops:
   - db/schema.rb
   TargetRubyVersion: 2.6
   StyleGuideCopsOnly: true
+  NewCops: enable
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 Metrics/MethodLength:
   Max: 15
@@ -38,6 +43,8 @@ Style/NumericLiterals:
   Enabled: false
 Style/RedundantReturn:
   Enabled: false
+Style/StringConcatenation:
+  Enabled: false
 Style/StringLiterals:
   EnforcedStyle: double_quotes
   Enabled: true
@@ -47,4 +54,25 @@ Style/SymbolArray:
 Style/TrailingCommaInArguments:
   Enabled: false
 Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/ExpectInHook:
+  Enabled: false
+RSpec/MessageSpies:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/PredicateMatcher:
+  Enabled: false
+RSpec/StubbedMock:
+  Enabled: false
+RSpec/VerifiedDoubles:
   Enabled: false

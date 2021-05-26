@@ -4,11 +4,7 @@ class Identity < ApplicationRecord
   # FIXME: The devise_email is not actually used yet; if the user logs in
   # via email, their identity association is nil.  Ideally we should move
   # that into this model.
-  enum provider: %i[
-    twitter
-    facebook
-    devise_email
-  ]
+  enum provider: { twitter: 0, facebook: 1, devise_email: 2 }
 
   def self.from_omniauth(auth, user_id)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |identity|

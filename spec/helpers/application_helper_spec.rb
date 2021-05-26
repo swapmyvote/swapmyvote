@@ -1,5 +1,5 @@
 require "rails_helper"
-require "support/user_sessions.rb"
+require "support/user_sessions"
 
 RSpec.describe ApplicationHelper, type: :helper do
   include Devise::Test::ControllerHelpers
@@ -120,6 +120,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     %w[ closed-warm-up closed-and-voting closed-wind-down ].each do |value|
       context "when SWAPMYVOTE_MODE is #{value.inspect}" do
         let(:app_mode) { value }
+
         specify { expect(helper.swapping_open?).to be_falsey }
       end
     end
@@ -127,6 +128,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     %w[ open open-and-voting ].each do |value|
       context "when SWAPMYVOTE_MODE is #{value.inspect}" do
         let(:app_mode) { value }
+
         specify { expect(helper.swapping_open?).to be_truthy }
       end
     end
@@ -140,6 +142,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     %w[ closed-warm-up open closed-wind-down ].each do |value|
       context "when SWAPMYVOTE_MODE is #{value.inspect}" do
         let(:app_mode) { value }
+
         specify { expect(helper.voting_open?).to be_falsey }
       end
     end
@@ -147,6 +150,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     %w[ open-and-voting closed-and-voting ].each do |value|
       context "when SWAPMYVOTE_MODE is #{value.inspect}" do
         let(:app_mode) { value }
+
         specify { expect(helper.voting_open?).to be_truthy }
       end
     end

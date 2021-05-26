@@ -9,10 +9,11 @@ RSpec.describe PollsHelper, type: :helper do
     context "with single party, single constituency" do
       let(:constituency) { build(:ons_constituency) }
       let(:party) { build(:party, name: "Pink") }
-      let(:poll_1) { build(:poll, party: party, constituency_ons_id: constituency.ons_id, votes: 4234)}
-      before(:each) do
+      let(:poll1) { build(:poll, party: party, constituency_ons_id: constituency.ons_id, votes: 4234)}
+
+      before do
         constituency.save!
-        poll_1.save!
+        poll1.save!
       end
 
       specify { expect { helper.poll_data_for(constituency) }.not_to raise_error }
@@ -22,7 +23,7 @@ RSpec.describe PollsHelper, type: :helper do
       end
 
       context "and when votes count is zero" do
-        before { poll_1.update!(votes: 0)}
+        before { poll1.update!(votes: 0)}
 
         it "does not return the party data" do
           expect(helper.poll_data_for(constituency)).not_to match('"Pink"')

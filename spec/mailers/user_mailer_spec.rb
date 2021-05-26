@@ -7,26 +7,26 @@ RSpec.describe UserMailer do
 
     it "sends email if swap_with is not blank" do
       user1.create_identity(provider: "twitter")
-      response = UserMailer.swap_cancelled(user1, user2)
+      response = described_class.swap_cancelled(user1, user2)
       expect(response.subject)
         .to eq "Your swapped vote with #{user2.name} has been cancelled."
     end
 
     it "sends email if swap_with is blank" do
       user1.create_identity(provider: "twitter")
-      response = UserMailer.swap_cancelled(user1, nil)
+      response = described_class.swap_cancelled(user1, nil)
       expect(response.subject).to eq "Your swapped vote has been cancelled."
     end
 
     it "fails cleanly if user is blank" do
-      response = UserMailer.swap_cancelled(nil, user2)
+      response = described_class.swap_cancelled(nil, user2)
       expect(response.to_json).to eq "null"
     end
   end
 
   describe "email_address_shared" do
     specify do
-      expect { UserMailer.email_address_shared(:something) }.not_to raise_error
+      expect { described_class.email_address_shared(:something) }.not_to raise_error
     end
   end
 end

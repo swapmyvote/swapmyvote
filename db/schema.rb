@@ -116,8 +116,8 @@ ActiveRecord::Schema.define(version: 2019_12_09_132125) do
     t.datetime "updated_at", null: false
     t.boolean "has_voted", default: false
     t.boolean "sent_vote_reminder_email", default: false
-    t.string "constituency_ons_id"
     t.integer "mobile_phone_id"
+    t.string "constituency_ons_id"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"

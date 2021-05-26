@@ -1,5 +1,5 @@
 class Party < ApplicationRecord
-  has_many :polls
+  has_many :polls, dependent: :destroy
 
   REFERENCE_DATA = {
     lab: { name: "Labour", color: "#DC241f" },
@@ -22,7 +22,7 @@ class Party < ApplicationRecord
     end
 
     def names
-      master_list.map { |p| p[:name] }
+      master_list.pluck(:name)
     end
 
     def master_list

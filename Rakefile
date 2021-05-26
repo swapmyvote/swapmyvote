@@ -6,7 +6,11 @@ require "scss_lint/rake_task"
 
 require File.expand_path("../config/application", __FILE__)
 
-RuboCop::RakeTask.new
+RuboCop::RakeTask.new do |task|
+  task.requires << "rubocop-rails"
+  task.requires << "rubocop-rspec"
+end
+
 SCSSLint::RakeTask.new
 
 Rails.application.load_tasks

@@ -1,5 +1,7 @@
 require "rails_helper"
 
+# FIXME: this causes a lot of rubocop-rails cops to be unhappy.
+
 RSpec.describe User, type: :model do
   subject { create(:user, name: "Fred") }
 
@@ -141,7 +143,7 @@ RSpec.describe User, type: :model do
         mobile = subject.mobile_phone
         expect(mobile).to be_a(MobilePhone)
         subject.destroy
-        expect(MobilePhone.find_by_id(mobile.id)).to be_nil
+        expect(MobilePhone.find_by(id: mobile.id)).to be_nil
       end
 
       it "prevents two users having the same number" do
@@ -192,7 +194,7 @@ RSpec.describe User, type: :model do
         subject.reload
         expect(subject.mobile_phone.number).to eq(number2)
         expect(subject.mobile_phone.id).not_to eq(mobile.id)
-        expect(MobilePhone.find_by_id(mobile.id)).to be_nil
+        expect(MobilePhone.find_by(id: mobile.id)).to be_nil
       end
 
       it "prevents two users having the same number" do
@@ -211,13 +213,16 @@ RSpec.describe User, type: :model do
       before { subject.update(email: "some@email.address") }
 
       specify "#save DOES call #send_welcome_email" do
-        is_expected.to receive(:send_welcome_email)
+        # rubocop:disable RSpec/SubjectStub
+        expect(subject).to receive(:send_welcome_email)
+        # rubocop:enable RSpec/SubjectStub
         subject.sent_emails.clear
         subject.save!
       end
 
       describe "#send_welcome_email" do
         let(:an_email) { double(:an_email) }
+
         before do
           allow(an_email).to receive(:deliver_now)
           allow(UserMailer).to receive(:welcome_email).and_return(an_email)
@@ -239,7 +244,9 @@ RSpec.describe User, type: :model do
           before { subject.save! }
 
           it "does not send another email" do
-            is_expected.not_to receive(:send_welcome_email)
+            # rubocop:disable RSpec/SubjectStub
+            expect(subject).not_to receive(:send_welcome_email)
+            # rubocop:enable RSpec/SubjectStub
             subject.save!
           end
 
@@ -353,11 +360,11 @@ RSpec.describe User, type: :model do
   end
 
   describe "#email_consent?" do
+    let(:swap) { build(:swap) }
+
     it "is false by default" do
       expect(subject.email_consent?).to be_falsey
     end
-
-    let(:swap) { build(:swap) }
 
     context "swapper is chooser and" do
       before do
@@ -404,7 +411,7 @@ RSpec.describe User, type: :model do
     end
 
     it "allows different emails to be being created" do
-      expect{create(:user, name: "Bob")}.to_not raise_error
+      expect{create(:user, name: "Bob")}.not_to raise_error
     end
   end
 

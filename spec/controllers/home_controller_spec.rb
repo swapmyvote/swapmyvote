@@ -1,16 +1,17 @@
 require "rails_helper"
-require "support/user_sessions.rb"
-require "support/swaps_closed.rb"
+require "support/user_sessions"
+require "support/swaps_closed"
 
 RSpec.describe HomeController, type: :controller do
   include Devise::Test::ControllerHelpers
 
   def test_renders_home_page(params = {})
-    @party = create(:party, name: "Liberal Democrats")
+    party = create(:party, name: "Liberal Democrats")
     get :index, params: params
     expect(subject).to render_template(:index)
     expect(assigns(:parties)).to all(be_a(Party))
     expect(assigns(:parties).count).to be >= 1
+    return party
   end
 
   context "when not logged" do
@@ -32,15 +33,15 @@ RSpec.describe HomeController, type: :controller do
     it "prepopulates preferred party from session" do
       slug = "liberal_democrats"
       session["pre_populate"] = { "preferred_party_name" => slug }
-      test_renders_home_page
-      expect(assigns(:preferred_party_id)).to eq(@party.id)
+      party = test_renders_home_page
+      expect(assigns(:preferred_party_id)).to eq(party.id)
     end
 
     it "prepopulates willing party from session" do
       slug = "liberal_democrats"
       session["pre_populate"] = { "willing_party_name" => slug }
-      test_renders_home_page
-      expect(assigns(:willing_party_id)).to eq(@party.id)
+      party = test_renders_home_page
+      expect(assigns(:willing_party_id)).to eq(party.id)
     end
 
     it "doesn't prepopulate an unrecognised preferred party from session" do

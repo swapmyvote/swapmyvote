@@ -29,6 +29,7 @@ RSpec.describe RecommendationsHelper, type: :helper do
         a.site <=> b.site
       end
     end
+
     before { allow(constituency).to receive(:recommendations).and_return(real_recs) }
 
     specify "returns sites in required order" do

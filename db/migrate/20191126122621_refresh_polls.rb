@@ -1,8 +1,12 @@
 require_relative "../fixtures/electoral_calculus_constituencies_tsv"
 
 class RefreshPolls < ActiveRecord::Migration[5.2]
-  def up
-    # TODO: this code is currently duplicated in db/seeds.rb
+  def up_disabled
+    # TODO: this code is currently duplicated in db/seeds.rb, and
+    # doesn't correctly handle when there are no parties in the
+    # database yet. So when performing the migration from a fresh
+    # empty database, it breaks.  However it was previously useful
+    # when migrating existing databases, so we keep the code disabled.
 
     polls_data = ElectoralCalculusConstituenciesTsv.new
 

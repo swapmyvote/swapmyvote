@@ -24,8 +24,8 @@ class User < ApplicationRecord
   has_many :sent_emails, dependent: :destroy
 
   before_save :clear_swap, if: :details_changed?
-  after_save :send_welcome_email, if: :needs_welcome_email?
   before_destroy :clear_swap
+  after_save :send_welcome_email, if: :needs_welcome_email?
 
   # Additional validation for emails, :validatable has already added basic validation
   validate :email_uniqueness, on: :create
@@ -38,13 +38,13 @@ class User < ApplicationRecord
   def omniauth_tokens(auth)
     self.token = auth.credentials.token
     if auth.credentials.expires_at
-      self.expires_at = Time.at(auth.credentials.expires_at)
+      self.expires_at = Time.zone.at(auth.credentials.expires_at)
     end
     save!
   end
 
   def willing_party_poll
-    constituency.polls.where(party_id: willing_party_id).take
+    constituency.polls.find_by(party_id: willing_party_id)
   end
 
   def potential_swap_users(number = 5)
