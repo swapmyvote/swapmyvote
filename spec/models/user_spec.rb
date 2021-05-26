@@ -213,7 +213,9 @@ RSpec.describe User, type: :model do
       before { subject.update(email: "some@email.address") }
 
       specify "#save DOES call #send_welcome_email" do
+        # rubocop:disable RSpec/SubjectStub
         expect(subject).to receive(:send_welcome_email)
+        # rubocop:enable RSpec/SubjectStub
         subject.sent_emails.clear
         subject.save!
       end
@@ -242,7 +244,9 @@ RSpec.describe User, type: :model do
           before { subject.save! }
 
           it "does not send another email" do
+            # rubocop:disable RSpec/SubjectStub
             expect(subject).not_to receive(:send_welcome_email)
+            # rubocop:enable RSpec/SubjectStub
             subject.save!
           end
 
