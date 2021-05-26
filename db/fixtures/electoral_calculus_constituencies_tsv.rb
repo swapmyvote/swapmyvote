@@ -60,7 +60,7 @@ class ElectoralCalculusConstituenciesTsv
         votes["snp"] = { percent: data[11], note: "(Assigning nationalist vote to SNP)" }
       elsif country == "W"
         votes["plaid"] = { percent: data[11], note: "(Assigning nationalist vote to Plaid Cymru)" }
-      elsif !%w[S E W N].include?(country)
+      elsif %w[S E W N].exclude?(country)
         throw "Invalid country '#{country}' for #{constituency_name};"
       end
 
