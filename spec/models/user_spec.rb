@@ -218,6 +218,7 @@ RSpec.describe User, type: :model do
 
       describe "#send_welcome_email" do
         let(:an_email) { double(:an_email) }
+
         before do
           allow(an_email).to receive(:deliver_now)
           allow(UserMailer).to receive(:welcome_email).and_return(an_email)

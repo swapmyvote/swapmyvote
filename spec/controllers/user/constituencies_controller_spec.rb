@@ -21,6 +21,7 @@ RSpec.describe User::ConstituenciesController, type: :controller do
 
       describe "GET #edit" do
         let(:constituencies_list) { double(:constituencies_list) }
+
         before do
           allow(OnsConstituency).to receive(:all).and_return(constituencies_list)
           allow(constituencies_list).to receive(:order).with(:name).and_return(double.as_null_object)
