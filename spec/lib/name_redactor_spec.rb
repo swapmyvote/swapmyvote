@@ -1,4 +1,3 @@
-# coding: utf-8
 require "spec_helper"
 require_relative "../../app/lib/name_redactor"
 
