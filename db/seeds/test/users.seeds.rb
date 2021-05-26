@@ -1,1 +1,1 @@
-require_relative '../development/users.seeds'
+require_relative "../development/users.seeds"
