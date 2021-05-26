@@ -25,7 +25,9 @@ class Poll < ApplicationRecord
     # without a chance
     #
     def calculate_marginal_score(progress: false)
+      # rubocop:disable Rails/FindEach
       OnsConstituency.all.each do |constituency|
+      # rubocop:enable Rails/FindEach
         polls = constituency.polls
 
         polls.each do |poll|
