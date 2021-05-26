@@ -1,5 +1,7 @@
 require "rails_helper"
 
+# FIXME: this causes a lot of rubocop-rails cops to be unhappy.
+
 RSpec.describe User, type: :model do
   subject { create(:user, name: "Fred") }
 
