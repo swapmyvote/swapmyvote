@@ -12,7 +12,9 @@ RSpec.describe Swap, type: :model do
 
       specify "the swap gets destroyed" do
         expired_swap.save!
+        # rubocop:disable RSpec/AnyInstance
         allow_any_instance_of(described_class).to receive(:destroy)
+        # rubocop:enable RSpec/AnyInstance
         expect(described_class.cancel_old).to include(expired_swap.id)
       end
     end
@@ -24,7 +26,9 @@ RSpec.describe Swap, type: :model do
 
       specify "the swap does not get destroyed" do
         keeper_swap.save!
+        # rubocop:disable RSpec/AnyInstance
         expect_any_instance_of(described_class).not_to receive(:destroy)
+        # rubocop:enable RSpec/AnyInstance
         expect(described_class.cancel_old).not_to include(keeper_swap.id)
       end
     end
@@ -36,7 +40,9 @@ RSpec.describe Swap, type: :model do
 
       specify "the swap does not get destroyed" do
         keeper_swap.save!
+        # rubocop:disable RSpec/AnyInstance
         expect_any_instance_of(described_class).not_to receive(:destroy)
+        # rubocop:enable RSpec/AnyInstance
         expect(described_class.cancel_old).not_to include(keeper_swap.id)
       end
     end
