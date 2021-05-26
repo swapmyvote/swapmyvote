@@ -38,7 +38,7 @@ class User < ApplicationRecord
   def omniauth_tokens(auth)
     self.token = auth.credentials.token
     if auth.credentials.expires_at
-      self.expires_at = Time.at(auth.credentials.expires_at)
+      self.expires_at = Time.zone.at(auth.credentials.expires_at)
     end
     save!
   end
