@@ -2,7 +2,7 @@ require_relative "../helpers/swaps_helper"
 
 class Swap < ApplicationRecord
   belongs_to :chosen_user, class_name: "User"
-  has_one    :choosing_user, class_name: "User"
+  has_one    :choosing_user, class_name: "User", dependent: :nullify
 
   before_destroy :notify_users_of_cancelled_swap
   def notify_users_of_cancelled_swap
