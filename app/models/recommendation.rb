@@ -76,7 +76,7 @@ class Recommendation < ApplicationRecord
 
       puts if progress
       puts "#{Recommendation.count} records after update"  if progress
-      select_untouched = Recommendation.where(["updated_at <> ?", timestamp])
+      select_untouched = Recommendation.where.not(updated_at: timestamp)
       untouched_count = select_untouched.count
       puts "#{untouched_count} records untouched"  if progress
 

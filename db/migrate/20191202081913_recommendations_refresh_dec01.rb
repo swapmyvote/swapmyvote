@@ -23,7 +23,7 @@ class RecommendationsRefreshDec01 < ActiveRecord::Migration[5.2]
 
     puts "#{Recommendation.count} records after update"
 
-    select_untouched = Recommendation.where(["updated_at <> ?", timestamp])
+    select_untouched = Recommendation.where.not(updated_at: timestamp)
 
     untouched_count = select_untouched.count
 
