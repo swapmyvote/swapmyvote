@@ -357,6 +357,7 @@ RSpec.describe User, type: :model do
 
   describe "#email_consent?" do
     let(:swap) { build(:swap) }
+
     it "is false by default" do
       expect(subject.email_consent?).to be_falsey
     end
