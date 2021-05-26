@@ -213,7 +213,7 @@ RSpec.describe User, type: :model do
       before { subject.update(email: "some@email.address") }
 
       specify "#save DOES call #send_welcome_email" do
-        is_expected.to receive(:send_welcome_email)
+        expect(subject).to receive(:send_welcome_email)
         subject.sent_emails.clear
         subject.save!
       end
@@ -242,7 +242,7 @@ RSpec.describe User, type: :model do
           before { subject.save! }
 
           it "does not send another email" do
-            is_expected.not_to receive(:send_welcome_email)
+            expect(subject).not_to receive(:send_welcome_email)
             subject.save!
           end
 
@@ -407,7 +407,7 @@ RSpec.describe User, type: :model do
     end
 
     it "allows different emails to be being created" do
-      expect{create(:user, name: "Bob")}.to_not raise_error
+      expect{create(:user, name: "Bob")}.not_to raise_error
     end
   end
 

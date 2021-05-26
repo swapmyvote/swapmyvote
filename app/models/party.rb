@@ -22,7 +22,7 @@ class Party < ApplicationRecord
     end
 
     def names
-      master_list.map { |p| p[:name] }
+      master_list.pluck(:name)
     end
 
     def master_list
