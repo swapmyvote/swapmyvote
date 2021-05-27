@@ -4,14 +4,7 @@
       %h2 It's time to vote!
       %p
 
-        Now that the election polls are open, Swap My Vote is closed
-        for new swaps.
-
-        %strong
-          There is a chance we'll be able to reopen shortly,
-
-        so keep checking back - but that requires some frantic
-        coding on little sleep, so we're not making any promises.
+        The election polls are open!
 
       - if current_user&.swap_confirmed?
         %p
@@ -23,6 +16,9 @@
           \- congratulations!
 
       - else
+
+        However you still have time to find a voting partner to
+        swap with.
 
         %p
           Either way, thank you so much for taking part - together we
@@ -51,4 +47,3 @@
         %br
         = link_to "Follow us on Twitter", "https://twitter.com/swapmyvote", class: "button button-twitter"
         = link_to "Like us on Facebook", "https://facebook.com/swapmyvote", class: "button button-facebook"
-
