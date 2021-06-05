@@ -3,6 +3,86 @@
   - :name: Batley and Spen
     :ons_id: E14000548
     :candidates:
+      - :party_name: Green
+        :name: Carolyne Culver
+        :colour: "#008066"
+        :votes_count: 3_042
+        :votes_percent: 5.5
+      - :party_name: Conservative
+        :name: Peter Fleet
+        :colour: "#0087DC"
+        :votes_count: 30_850
+        :votes_percent: 55.4
+      - :party_name: Liberal Democrats
+        :name: Sarah Green
+        :colour: "#FDBB30"
+        :votes_count: 14_627
+        :votes_percent: 26.3
+      - :party_name: Rejoin EU
+        :name: Brendan Donnelly
+        :colour:
+        :votes_count:
+        :votes_percent:
+      - :party_name: Breakthrough Party
+        :name: Carla Gregory
+        :colour:
+        :votes_count:
+        :votes_percent:
+      - :party_name: Freedom Alliance
+        :name: Adrian Oliver
+        :colour:
+        :votes_count:
+        :votes_percent:
+      - :party_name: Labour
+        :name: Natasa Pantelic
+        :colour: "#DC241f"
+        :votes_count: 7_166
+        :votes_percent: 12.9
+      - :party_name: Reform UK
+        :name: Alex Wilson
+        :colour: "#00BED6"
+        :votes_count:
+        :votes_percent:
   - :name: Chesham and Amersham
     :ons_id: E14000631
     :candidates:
+      - :party_name: Labour
+        :name: Kim Leadbeater
+        :colour: "#DC241f"
+        :votes_count: 22_594
+        :votes_percent: 42.7
+      - :party_name: Conservative
+        :name: Ryan Stephenson
+        :colour: "#0087DC"
+        :votes_count: 19_069
+        :votes_percent: 36.0
+      - :party_name: Liberal Democrats
+        :name: Tom Gordon
+        :colour: "#FDBB30"
+        :votes_count: 2,462
+        :votes_percent: 4.7
+      - :party_name: Green
+        :name: Ross Peltier
+        :colour: "#008066"
+        :votes_count: 692
+        :votes_percent: 1.3
+      - :party_name: Yorkshire
+        :name: Corey Robinson
+        :colour: "#00baff"
+        :votes_count:
+        :votes_percent:
+      - :party_name: Workers Party
+        :name: George Galloway
+        :colour: "#ff4500"
+        :votes_count:
+        :votes_percent:
+      - :party_name: For Britain
+        :name: Anne Marie Walters
+        :colour: "#301934"
+        :votes_count:
+        :votes_percent:
+      - :party_name: Independent
+        :name: Jayda Fransen
+        :colour:
+        :votes_count:
+        :votes_percent:
