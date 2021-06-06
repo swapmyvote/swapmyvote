@@ -6,15 +6,24 @@ RSpec.describe Party, type: :model do
 
   it { is_expected.to respond_to :polls }
 
+  # refer to api docs at app/views/static_pages/api.html.haml
   describe ".canonical_names" do
     %w[
        labour
        liberal_democrats
-       green_party
+       green
        conservatives
        ukip
        snp
        plaid_cymru
+       breakthrough
+       for_britain
+       freedom_alliance
+       independent
+       reform_uk
+       rejoin_eu
+       workers
+       yorkshire
     ].each do |canonical_name|
       it "includes #{canonical_name.inspect} mentioned in api docs" do
         expect(described_class.canonical_names).to include(canonical_name)
@@ -42,13 +51,13 @@ RSpec.describe Party, type: :model do
   describe ".names" do
     [
       "Conservatives",
-      "Green Party",
+      "Green",
       "Labour",
       "Liberal Democrats",
       "UKIP",
       "SNP",
       "Plaid Cymru",
-      "Brexit Party",
+      "Brexit",
     ].each do |name|
       it "includes #{name.inspect} used in seeds scripts" do
         expect(described_class.names).to include(name)
