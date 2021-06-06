@@ -1,6 +1,9 @@
 require_relative "../../../../db/fixtures/be2021/party"
 
 RSpec.describe Db::Fixtures::Be2021::Party do
+  # rubocop:disable RSpec/IteratedExpectation
+  # rubocop's recommendation doesn't improve the code in this instance and it worsens the spec output
+
   describe ".all_with_duplicates" do
     subject { described_class.new.all_with_duplicates }
 
@@ -11,17 +14,8 @@ RSpec.describe Db::Fixtures::Be2021::Party do
     end
 
     describe "each party" do
-      specify do
-        subject.map do |party|
-          expect(party).to have_key(:name)
-        end
-      end
-
-      specify do
-        subject.map do |party|
-          expect(party).to have_key(:colour)
-        end
-      end
+      specify { subject.each { |party| expect(party).to have_key(:name) } }
+      specify { subject.each { |party| expect(party).to have_key(:colour) } }
     end
   end
 
@@ -39,17 +33,8 @@ RSpec.describe Db::Fixtures::Be2021::Party do
     end
 
     describe "each party" do
-      specify do
-        subject.map do |party|
-          expect(party).to have_key(:name)
-        end
-      end
-
-      specify do
-        subject.map do |party|
-          expect(party).to have_key(:colour)
-        end
-      end
+      specify { subject.each { |party| expect(party).to have_key(:name) } }
+      specify { subject.each { |party| expect(party).to have_key(:colour) } }
     end
   end
 end
