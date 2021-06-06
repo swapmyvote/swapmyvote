@@ -9,6 +9,11 @@
 require_relative "fixtures/be2021_yaml"
 require_relative "fixtures/be2021/party"
 require_relative "fixtures/be2021/candidate"
+require_relative "../app/helpers/application_helper"
+
+class SeedHelper
+  include ApplicationHelper
+end
 
 puts "\nParties"
 
@@ -59,5 +64,20 @@ puts "\n\n"
 puts "\n\nCalculate Marginal Score\n\n"
 
 Poll.calculate_marginal_score(progress: true)
+
+puts "\n\n"
+
+# ---------------------------------------------------------------------------------
+
+puts "\n\nVerifying canonical names include in api\n\n"
+
+party_canonical_names = Party.canonical_names
+
+Party.all.each do |party|
+  unless party_canonical_names.include?(SeedHelper.new.canonical_name(party.name))
+    puts "ERROR: canonical name for party #{party.name} not included in Party.REFERENCE_DATA - it's needed for API"
+  end
+  print "."
+end
 
 puts "\n\n"

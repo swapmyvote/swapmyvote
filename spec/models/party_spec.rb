@@ -12,7 +12,7 @@ RSpec.describe Party, type: :model do
        labour
        liberal_democrats
        green
-       conservatives
+       conservative
        ukip
        snp
        plaid_cymru
@@ -50,7 +50,7 @@ RSpec.describe Party, type: :model do
 
   describe ".names" do
     [
-      "Conservatives",
+      "Conservative",
       "Green",
       "Labour",
       "Liberal Democrats",

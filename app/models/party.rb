@@ -5,7 +5,7 @@ class Party < ApplicationRecord
     lab: { name: "Labour", color: "#DC241f" },
     libdem: { name: "Liberal Democrats", color: "#FFB602" },
     green: { name: "Green", color: "#6AB023" },
-    con: { name: "Conservatives", color: "#0087DC" },
+    con: { name: "Conservative", color: "#0087DC" },
     ukip: { name: "UKIP", color: "#70147A" },
     snp: { name: "SNP", color: "#FFF95D" },
     plaid: { name: "Plaid Cymru", color: "#008142" },
