@@ -81,6 +81,7 @@ group :all_plugins, halt_on_fail: true do
     watch(rspec.spec_support) { rspec.spec_dir }
     watch(rspec.spec_files)
     watch(%{db/fixtures})
+    watch(%r{^db/fixtures/.*}) { "#{rspec.spec_dir}/db/fixtures" }
 
     # Ruby files
     ruby = dsl.ruby
@@ -125,4 +126,3 @@ group :all_plugins, halt_on_fail: true do
   end
 
 end # halt_on_fail
-
