@@ -6,77 +6,78 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-require "active_record/fixtures"
-require "csv"
-require_relative "fixtures/ons_constituencies_csv"
-require_relative "fixtures/electoral_calculus_constituencies_tsv"
+require_relative "fixtures/be2021_yaml"
+require_relative "fixtures/be2021/party"
+require_relative "fixtures/be2021/candidate"
+require_relative "../app/helpers/application_helper"
 
-Party.find_or_create_by(name: "Conservatives", color: "#0087DC")
-Party.find_or_create_by(name: "Green Party", color: "#6AB023")
-Party.find_or_create_by(name: "Labour", color: "#DC241f")
-Party.find_or_create_by(name: "Liberal Democrats", color: "#FFB602")
-Party.find_or_create_by(name: "UKIP", color: "#70147A")
-Party.find_or_create_by(name: "SNP", color: "#FFF95D")
-Party.find_or_create_by(name: "Plaid Cymru", color: "#008142")
-Party.find_or_create_by(name: "Brexit Party", color: "#5bc0de")
-
-# ---------------------------------------------------------------------------------
-
-puts "\nONS Constituencies"
-
-ons_constituencies_csv = OnsConstituenciesCsv.new(
-  "db/fixtures/Westminster_Parliamentary_Constituencies_December_2018" \
-  "_Names_and_Codes_in_the_United_Kingdom.csv")
-
-ons_constituencies_csv.each do |constituency|
-  cons = OnsConstituency.find_or_initialize_by ons_id: constituency[:ons_id]
-  puts "#{cons.ons_id} #{cons.name}"
-  cons.update!(constituency)
+class SeedHelper
+  include ApplicationHelper
 end
 
-puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
+puts "\nParties"
+
+Db::Fixtures::Be2021::Party.all.each do |party|
+  ::Party.find_or_create_by(name: party[:name], color: party[:colour])
+  puts "Party #{party[:name]} created"
+end
 
 # ---------------------------------------------------------------------------------
 
-# Possible backup first
-# Poll.all.map(&:as_json).map do |p| p.slice(
-#   "id", "old_constituency_id", "constituency_ons_id", "party_id", "votes"
-# )
-# end.to_yaml
+puts "\nConstituencies"
 
-puts "\n\nPolls Data from Electoral calculus\n\n"
+Db::Fixtures::Be2021Yaml.data[:constituencies].each do |constituency|
+  cons = OnsConstituency.find_or_initialize_by ons_id: constituency[:ons_id]
+  puts "#{cons.ons_id} #{cons.name}"
+  cons.update!(constituency.slice(:name, :ons_id))
+end
 
-# TODO: this code is currently duplicated in db/migrate/20191126122621_refresh_polls.rb
+puts "#{OnsConstituency.count} Constituencies loaded\n\n"
 
-polls_data = ElectoralCalculusConstituenciesTsv.new
+# ---------------------------------------------------------------------------------
 
-polls_data.each do |party_result|
-  vote_count = (party_result[:vote_percent] * 100).to_i
-  ons_id = party_result[:constituency_ons_id]
-  party_id = party_result[:party_id]
-  conversion_note = party_result[:conversion_note]
+puts "\n\nPolls Data\n\n"
 
-  unless conversion_note.nil?
-    puts "\nConversion Note: #{party_result} "
+Db::Fixtures::Be2021::Candidate.all.each do |candidate|
+  vote_count = candidate[:votes_percent] ? (candidate[:votes_percent] * 100).to_i : nil
+  ons_id = candidate[:constituency_ons_id]
+  party_name = candidate[:party_name]
+
+  party = ::Party.find_by(name: party_name)
+
+  unless party
+    raise "No matching party for #{party_name}"
   end
 
-  poll = Poll.find_or_initialize_by constituency_ons_id: ons_id, party_id: party_id
-  poll.votes = vote_count
-  poll.save!
+  poll = Poll.find_or_initialize_by constituency_ons_id: ons_id, party_id: party.id
+
+  if vote_count
+    poll.votes = vote_count
+    poll.save!
+  end
   print "."
 end
 puts "\n\n"
 
 # ---------------------------------------------------------------------------------
 
-puts "\n\nRecommendations aggregated by LiveFromBrexit\n\n"
-
-Recommendation.refresh_from_json(progress: true)
-
-# ---------------------------------------------------------------------------------
-
 puts "\n\nCalculate Marginal Score\n\n"
 
 Poll.calculate_marginal_score(progress: true)
+
+puts "\n\n"
+
+# ---------------------------------------------------------------------------------
+
+puts "\n\nVerifying canonical names include in api\n\n"
+
+party_canonical_names = Party.canonical_names
+
+Party.all.each do |party|
+  unless party_canonical_names.include?(SeedHelper.new.canonical_name(party.name))
+    puts "ERROR: canonical name for party #{party.name} not included in Party.REFERENCE_DATA - it's needed for API"
+  end
+  print "."
+end
 
 puts "\n\n"
