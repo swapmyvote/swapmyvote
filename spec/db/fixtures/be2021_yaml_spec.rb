@@ -4,7 +4,7 @@ RSpec.describe Db::Fixtures::Be2021Yaml do
   # rubocop:disable RSpec/IteratedExpectation
   # rubocop's recommendation doesn't improve the code in this instance and it worsens the spec output
 
-  subject { described_class.new.data }
+  subject { described_class.data }
 
   it "returns data as a hash" do
     expect(subject).to be_an_instance_of(Hash)
@@ -16,7 +16,7 @@ RSpec.describe Db::Fixtures::Be2021Yaml do
   end
 
   describe "each constituency" do
-    subject { described_class.new.data[:constituencies] }
+    subject { described_class.data[:constituencies] }
 
     specify { subject.each { |constituency| expect(constituency).to have_key(:name) } }
     specify { subject.each { |constituency| expect(constituency).to have_key(:ons_id) } }
