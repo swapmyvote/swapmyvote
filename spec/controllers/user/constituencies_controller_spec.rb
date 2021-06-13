@@ -9,7 +9,11 @@ RSpec.describe User::ConstituenciesController, type: :controller do
     end
 
     context "and user is logged in" do
-      let(:logged_in_user) { instance_double(User, constituency: :some_constituency, email: :some_email) }
+      let(:logged_in_user) {
+        instance_double(User,
+                        constituency_ons_id: 1,
+                        email: "user@fake.com")
+      }
 
       before do
         # Stub out authentication
