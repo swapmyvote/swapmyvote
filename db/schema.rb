@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_09_132125) do
+ActiveRecord::Schema.define(version: 2021_06_13_192222) do
 
   create_table "constituencies", force: :cascade do |t|
     t.string "name"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 2019_12_09_132125) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.boolean "swaps_paused", default: false
     t.index ["mobile_phone_id"], name: "index_users_on_mobile_phone_id", unique: true
     t.index ["preferred_party_id", "willing_party_id", "constituency_ons_id"], name: "index_users_on_complementary_users"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
