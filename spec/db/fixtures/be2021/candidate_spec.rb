@@ -4,7 +4,7 @@ RSpec.describe Db::Fixtures::Be2021::Candidate do
   # rubocop:disable RSpec/IteratedExpectation
   # rubocop's recommendation doesn't improve the code in this instance and it worsens the spec output
 
-  subject { described_class.new.all }
+  subject { described_class.all }
 
   describe ".all" do
     specify { expect(subject).to be_an_instance_of(Array) }

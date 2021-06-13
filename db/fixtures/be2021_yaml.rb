@@ -8,26 +8,16 @@ module Db
       FILENAME = "db/fixtures/be2021.yml"
 
       class << self
-        def instance
-          @instance ||= new
-        end
-
         def data
-          instance.data
+          ::YAML.load(file_content)
         end
-      end
 
-      attr_reader :file_name
-
-      def data
-        ::YAML.load(file_content)
-      end
-
-      def file_content
-        @file_content ||= ::File.read(FILENAME)
-      rescue Errno::ENOENT => e
-        puts "Filename #{FILENAME} read failed with error #{e}"
-        raise e
+        def file_content
+          @file_content ||= ::File.read(FILENAME)
+        rescue Errno::ENOENT => e
+          puts "Filename #{FILENAME} read failed with error #{e}"
+          raise e
+        end
       end
     end
   end

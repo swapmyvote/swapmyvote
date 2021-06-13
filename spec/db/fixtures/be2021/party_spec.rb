@@ -5,7 +5,7 @@ RSpec.describe Db::Fixtures::Be2021::Party do
   # rubocop's recommendation doesn't improve the code in this instance and it worsens the spec output
 
   describe ".all_with_duplicates" do
-    subject { described_class.new.all_with_duplicates }
+    subject { described_class.all_with_duplicates }
 
     specify { expect(subject).to be_an_instance_of(Array) }
 
@@ -20,12 +20,12 @@ RSpec.describe Db::Fixtures::Be2021::Party do
   end
 
   describe ".all" do
-    subject { described_class.new.all }
+    subject { described_class.all }
 
     specify { expect(subject).to be_an_instance_of(Array) }
 
     it "has less parties than .all_with_duplicates" do
-      expect(subject.size).to be < described_class.new.all_with_duplicates.size
+      expect(subject.size).to be < described_class.all_with_duplicates.size
     end
 
     it "has more than 1 party" do
