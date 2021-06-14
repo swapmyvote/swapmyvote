@@ -28,6 +28,9 @@ $(function() {
           delay: 0,
           minLength: 0,
           source: $.proxy(this, "_source"),
+          change: function(event, ui) {
+            // Same as autocompletechange below?
+          },
           classes: {
             "ui-autocomplete": "constituency-autocomplete-select"
           }
@@ -47,6 +50,7 @@ $(function() {
       this._on(this.input, {
         autocompleteselect: function(event, ui) {
           ui.item.option.selected = true;
+          $("#txt-postcode").val("");
           this._trigger("select", event, {
             item: ui.item.option
           });
