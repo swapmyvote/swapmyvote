@@ -9,6 +9,9 @@ module ApplicationHelper
     "/auth/twitter"
   end
 
+  # def current_user   # for greppability
+  # Note: current_user is provided by devise/controllers/helpers.rb
+
   def logged_in?
     return !current_user.nil?
   end
