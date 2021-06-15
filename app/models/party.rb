@@ -39,7 +39,7 @@ class Party < ApplicationRecord
         attributes.merge(
           canonical_name: attributes[:name].parameterize(separator: "_").to_sym,
           short_code: short_code
-      )
+        )
       end
     end
   end
