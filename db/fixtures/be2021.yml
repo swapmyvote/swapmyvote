@@ -23,6 +23,11 @@
         :colour:
         :votes_count:
         :votes_percent:
+      - :party_name: Freedom Alliance
+        :name: Adrian Oliver
+        :colour:
+        :votes_count:
+        :votes_percent:
       - :party_name: Labour
         :name: Natasa Pantelic
         :colour: "#DC241f"
@@ -53,6 +58,11 @@
         :votes_percent: 1.3
       - :party_name: Rejoin EU
         :name: Andrew Smith
+        :colour:
+        :votes_count:
+        :votes_percent:
+      - :party_name: Freedom Alliance
+        :name: Jonathan Richard Tilt
         :colour:
         :votes_count:
         :votes_percent:
