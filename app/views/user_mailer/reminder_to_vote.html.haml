@@ -1,13 +1,22 @@
 %p
   Hi #{@user.name},
+
 %p
+
   The Chesham & Amersham 2021 by-election is now open!
+
   = user_profile_link(@user.swapped_with)
-  is going to vote #{@user.swapped_with.willing_party.name} for you,
-  in the #{@user.swapped_with.constituency.name} constituency.
+
+  is going to vote for your party, in the
+  #{@user.swapped_with.constituency.name} constituency.
+
 %p
-  In return, you've agreed to vote #{@user.willing_party.name}
-  in your constituency (#{@user.constituency.name}). Once you've done so,
+
+  In return, you've agreed to vote for their preferred party in your
+  constituency (#{@user.constituency.name}).
+
+%p
+  Once you've done so,
   = link_to "please let #{@user.swapped_with.name} know you've voted!", user_vote_url(log_in_with: @user.provider)
 %p
   All the best,

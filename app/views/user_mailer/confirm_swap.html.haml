@@ -4,10 +4,8 @@
 %p
 
   Good news! #{@swap_with.redacted_name} would like to swap their vote
-  with you.  #{@swap_with.redacted_name} is voting in the
-  #{@swap_with.constituency.name} constituency, and will vote for the
-  #{@swap_with.willing_party.name} party if you vote for the
-  #{@swap_with.preferred_party.name} party in your constituency!
+  and will vote for your preferred party if you vote for theirs, in
+  your constituency!
 
 %p
 
@@ -15,12 +13,11 @@
 
 %p
 
-  Please confirm this swap as soon as possible. Votes for the
-  #{@swap_with.willing_party.name} party are in demand, so if you
-  don't confirm this swap, we may not be able to find you someone else
-  to swap with.  If we don't get a confirmation in the next
-  #{swap_validity_hours} hours , we'll have to look for someone else
-  to swap #{@swap_with.redacted_name}'s vote with.
+  Please confirm this swap as soon as possible. Votes for your
+  preferred party are in demand, so if you don't confirm this swap, we
+  may not be able to find you someone else to swap with. If we don't
+  get a confirmation in the next #{swap_validity_hours} hours, we'll
+  have to look for someone else to swap with.
 
 %p
 

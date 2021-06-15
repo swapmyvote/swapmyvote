@@ -1,13 +1,19 @@
 %p
   Hi #{@user.name},
 %p
+
   You're all set to swap your vote with
+
   = user_profile_link(@swap_with) + "!"
-  #{@swap_with.name} is going to vote for the #{@swap_with.willing_party.name} party for you, in the #{@swap_with.constituency.name} constituency.
-  In return, you will vote for the #{@swap_with.preferred_party.name} party in your constituency (#{@user.constituency.name}).
+
+  #{@swap_with.name} is going to vote for your preferred party for
+  you, in the #{@swap_with.constituency.name} constituency.  In
+  return, you will vote for their preferred party in your constituency
+  (#{@user.constituency.name}).
 
 - unless voting_open?
   %p
+
     We'll send some reminders to #{@swap_with.name} to remind them to
     vote for your chosen party in their by-election, and we'll ask them
     for confirmation once they have.
@@ -17,7 +23,9 @@
            locals: { user: @user, swap_user: @swap_with }
 
 %p
-  Lastly, why not share Swap My Vote with your social networks so that more people can make their vote count?
+
+  Lastly, why not share Swap My Vote with your social networks so that
+  more people can make their vote count?
 
   <a href="https://twitter.com/intent/tweet?text=Join%20me%20in%20making%20our%20votes%20count%20for%20more%20at%20https://swapmyvote.uk%20&#35;SwapmyVote">Tweet</a>
   <a href="https://www.facebook.com/sharer/sharer.php?app_id=377810399053422&u=https%3A%2F%2Fwww.swapmyvote.uk&sdk=joey&display=popup&ref=plugin">Share on Facebook</a>
