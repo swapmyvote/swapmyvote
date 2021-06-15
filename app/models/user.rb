@@ -136,6 +136,8 @@ class User < ApplicationRecord
     return nil if potential_swaps.exists?(target_user: target_user)
     # Ignore if me
     return nil if target_user.id == id
+    # Ignore if my constituency
+    return nil if target_user.constituency_ons_id == constituency_ons_id
     # Success
     return potential_swaps.create(target_user: target_user)
   end

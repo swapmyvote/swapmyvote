@@ -71,13 +71,14 @@ RSpec.describe User, type: :model do
     before do
       subject.willing_party_id = 2
       subject.preferred_party_id = 3
+      subject.constituency_ons_id = 1
       subject.save!
     end
 
     context "when there is a valid candidate" do
       let(:candidate) {
         create(:user, name: "candidate", email: "c@candidate.com",
-               willing_party_id: 3, preferred_party_id: 2)
+               willing_party_id: 3, preferred_party_id: 2, constituency_ons_id: 2)
       }
 
       it "creates no potential swap without constituency" do
@@ -87,6 +88,13 @@ RSpec.describe User, type: :model do
 
       it "creates no potential swap blank constituency" do
         candidate.constituency_ons_id = ""
+        candidate.save!
+        ps = subject.try_to_create_potential_swap
+        expect(ps).to be_nil
+      end
+
+      it "creates no potential swap when same constituency" do
+        candidate.constituency_ons_id = subject.constituency_ons_id
         candidate.save!
         ps = subject.try_to_create_potential_swap
         expect(ps).to be_nil
