@@ -1,0 +1,1 @@
+TRUNCATE ons_constituencies, parties, polls, potential_swaps, recommendations, sent_emails, swaps, users RESTART IDENTITY CASCADE;
