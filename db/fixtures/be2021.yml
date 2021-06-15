@@ -1,7 +1,7 @@
 ---
 :constituencies:
-  - :name: Batley and Spen
-    :ons_id: E14000548
+  - :name: Chesham and Amersham
+    :ons_id: E14000631
     :candidates:
       - :party_name: Green
         :name: Carolyne Culver
@@ -23,11 +23,6 @@
         :colour:
         :votes_count:
         :votes_percent:
-      - :party_name: Breakthrough Party
-        :name: Carla Gregory
-        :colour:
-        :votes_count:
-        :votes_percent:
       - :party_name: Freedom Alliance
         :name: Adrian Oliver
         :colour:
@@ -38,13 +33,8 @@
         :colour: "#DC241f"
         :votes_count: 7_166
         :votes_percent: 12.9
-      - :party_name: Reform UK
-        :name: Alex Wilson
-        :colour: "#00BED6"
-        :votes_count:
-        :votes_percent:
-  - :name: Chesham and Amersham
-    :ons_id: E14000631
+  - :name: Batley and Spen
+    :ons_id: E14000548
     :candidates:
       - :party_name: Labour
         :name: Kim Leadbeater
@@ -66,23 +56,13 @@
         :colour: "#008066"
         :votes_count: 692
         :votes_percent: 1.3
-      - :party_name: Yorkshire
-        :name: Corey Robinson
-        :colour: "#00baff"
+      - :party_name: Rejoin EU
+        :name: Andrew Smith
+        :colour:
         :votes_count:
         :votes_percent:
-      - :party_name: Workers Party
-        :name: George Galloway
-        :colour: "#ff4500"
-        :votes_count:
-        :votes_percent:
-      - :party_name: For Britain
-        :name: Anne Marie Walters
-        :colour: "#301934"
-        :votes_count:
-        :votes_percent:
-      - :party_name: Independent
-        :name: Jayda Fransen
+      - :party_name: Freedom Alliance
+        :name: Jonathan Richard Tilt
         :colour:
         :votes_count:
         :votes_percent:
