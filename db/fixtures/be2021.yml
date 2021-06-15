@@ -1,7 +1,7 @@
 ---
 :constituencies:
-  - :name: Batley and Spen
-    :ons_id: E14000548
+  - :name: Chesham and Amersham
+    :ons_id: E14000631
     :candidates:
       - :party_name: Green
         :name: Carolyne Culver
@@ -43,8 +43,8 @@
         :colour: "#00BED6"
         :votes_count:
         :votes_percent:
-  - :name: Chesham and Amersham
-    :ons_id: E14000631
+  - :name: Batley and Spen
+    :ons_id: E14000548
     :candidates:
       - :party_name: Labour
         :name: Kim Leadbeater
