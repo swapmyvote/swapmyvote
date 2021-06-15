@@ -101,7 +101,7 @@ RSpec.describe User, type: :model do
       end
 
       it "creates a potential swap" do
-        candidate.constituency_ons_id = create(:ons_constituency).id
+        candidate.constituency_ons_id = 2
         candidate.save!
         ps = subject.try_to_create_potential_swap
         expect(ps.source_user).to eq(subject)
