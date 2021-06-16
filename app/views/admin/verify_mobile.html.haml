@@ -23,7 +23,7 @@
       .form-group
         %label.mb-0 Enter phone number verified:
         = telephone_field_tag "mobile_phone[full]",
-                              current_user.mobile_number,
+                              current_user&.mobile_number,
                               size: 14, class: "form-control"
 
         = button_tag "Verify", name: "mode", value: "verify",
