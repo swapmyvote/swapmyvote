@@ -1,0 +1,41 @@
+= javascript_pack_tag "intlTelInput"
+= stylesheet_pack_tag "intlTelInput"
+
+.background-pattern
+  .container
+    %h1 Swap My Vote - manually bypass SMS verification
+
+    %p
+
+      This page lets you manually force a phone number to be verified
+      without going through SMS verification.  This makes it easy to
+      test from multiple accounts with only one mobile phone number or
+      even with none - just enter a fake number in the account and
+      then visit this page to fake its verification.
+
+    %p
+
+      You can also reverse the process and de-verify a number which
+      has already been verified.
+
+    = form_tag fake_verify_mobile_path do |f|
+
+      .form-group
+        %label.mb-0 Enter phone number verified:
+        = telephone_field_tag "mobile_phone[full]",
+                              current_user.mobile_number,
+                              size: 14, class: "form-control"
+
+        = button_tag "Verify", name: "mode", value: "verify",
+                     formaction: fake_verify_mobile_path,
+                     class: "btn btn-secondary"
+
+        = button_tag "De-verify", name: "mode", value: "deverify",
+                     formaction: fake_verify_mobile_path,
+                     class: "btn btn-secondary"
+
+        - if @successful_action
+          %p Successfully #@successful_action!
+
+          %p
+            = link_to "Go to home page", root_path

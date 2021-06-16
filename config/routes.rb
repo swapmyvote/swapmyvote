@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   match "mobile_phone/verify_token", as: "verify_token", via: [:get, :post]
 
   get "admin/stats", to: "admin#stats"
+  match "admin/verify_mobile", to: "admin#verify_mobile",
+      as: "fake_verify_mobile", via: [:get, :post]
 
   get "swap", to: "api#pre_populate"
 end
