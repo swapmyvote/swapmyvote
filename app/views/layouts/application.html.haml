@@ -33,8 +33,6 @@
     .smv-navbar
       = link_to "SwapMyVote", root_path, class: "smv-brand"
 
-      = render partial: 'layouts/donate'
-
       - if logged_in?
         = render partial: "layouts/current_user"
       - else
