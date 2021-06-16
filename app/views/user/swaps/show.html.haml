@@ -5,9 +5,9 @@
   .container.container-narrow
 
     - if @potential_swaps.length > 0
-      = render partial: "user/swaps/list_potential_swaps"
+      = render partial: "user/swaps/list_potential_swaps",
+               locals: {expiry: potential_swap_expiry_mins}
     - else
       = render partial: "user/swaps/searching_for_swap"
 
 = render partial: "users/info_summary"
-
