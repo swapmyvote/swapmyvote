@@ -45,18 +45,29 @@
   function submit_modal() {
     preferred_party_id = $("select[name='user[preferred_party_id]']").val();
     willing_party_id = $("select[name='user[willing_party_id]']").val();
-    if (preferred_party_id !== null && willing_party_id !== null) {
-      $("#js-login-modal").modal();
+    if (preferred_party_id == null || willing_party_id == null) {
+      $(".js-blank-error-modal").modal();
+    } else if (preferred_party_id == willing_party_id) {
+      $(".js-equal-party-error-modal").modal();
     } else {
-      $("#js-error-modal").modal();
+      $("#js-login-modal").modal();
     }
   }
 
-.modal#js-error-modal{ tabindex: "-1", role: "dialog" }
+.modal.js-blank-error-modal{ tabindex: "-1", role: "dialog" }
   .modal-dialog
     .modal-content
       .modal-body
         Please choose both your preferred party and your willing party.
       .modal-footer
-        %button.btn.btn-primary{ :data => { dismiss: "modal" }, :aria => { label: "Close" } }
+        %button.btn.btn-primary{ data: { dismiss: "modal" }, aria: { label: "Close" } }
+          Close
+
+.modal.js-equal-party-error-modal{ tabindex: "-1", role: "dialog" }
+  .modal-dialog
+    .modal-content
+      .modal-body
+        Your preferred party and your willing party cannot be the same.
+      .modal-footer
+        %button.btn.btn-primary{ data: { dismiss: "modal" }, aria: { label: "Close" } }
           Close

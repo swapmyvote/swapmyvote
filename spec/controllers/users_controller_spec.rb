@@ -68,6 +68,13 @@ RSpec.describe UsersController, type: :controller do
         expect(logged_in_user.email).to eq("a@b.c")
         expect(response).to redirect_to(:user)
       end
+
+      it "redirects to #edit if user has same preferred party and willing party" do
+        post :update, params: { user: { preferred_party_id: 1, willing_party_id: 1 } }
+        expect(response).to redirect_to(edit_user_path)
+        expect(flash[:errors]).to be_present
+        expect(flash[:errors]).to include("Preferred party and willing party cannot be the same")
+      end
     end
 
     describe "DELETE #destroy" do
