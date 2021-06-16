@@ -23,5 +23,5 @@
 - unless other_user.constituency.nil?
   .profile-poll
     .text-center.small
-      Polls in #{other_user.constituency.try(:name) or "Unknown"}
+      GE2019 results for #{other_user.constituency.try(:name) or "Unknown"}
     .poll-chart{ id: "poll_#{other_user.id}" }
