@@ -3,8 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 window.shareOnFacebook = (app_id, url, quote, hashtag) ->
-  share_url =  "https://www.facebook.com/sharer/sharer.php?app_id=#{app_id}"
-  share_url += "&u=#{encodeURIComponent(url)}"
+  share_url =  "https://www.facebook.com/sharer/sharer.php?"
+  share_url += "u=#{encodeURIComponent(url)}"
   share_url += "&display=popup"
   share_url += "&quote=#{encodeURIComponent(quote)}"
   share_url += "&hashtag=#{encodeURIComponent(hashtag)}"
