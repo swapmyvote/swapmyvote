@@ -1,9 +1,24 @@
 - if swapping_open?
-  = render partial: "swaps_open"
-- else
+
+  -# N.B. If swapping is open and the user is logged in,
+  -# HomeController#index will redirect them to UsersController#show
+  -# instead of rendering this file.  So it's pointless including
+  -# content in the following two partials which is intended to be
+  -# shown to a logged in user.
+
   - if voting_open?
-    = render partial: "voting_open"
+    = render partial: "open_and_voting"
   - else
+    = render partial: "open_pre_elections"
+
+- else
+
+  - if voting_open?
+
+    = render partial: "closed_and_voting"
+
+  - else
+
     - if app_mode == "closed-warm-up"
       = render partial: "closed_warm_up"
     - else

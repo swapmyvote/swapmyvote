@@ -1,0 +1,32 @@
+.background-pattern.border-bottom
+  .container.text-center
+    %h1
+      The 2021 summer by&#8209;elections are here!
+
+    %h2
+      Are you able to vote in the Chesham & Amersham by-election
+
+      = succeed "," do
+        %strong today
+
+      or in Batley & Spen on 1st July?
+
+    %h2
+
+      If so, you still have time to find a voting partner to swap
+      with, if you haven't already!
+
+    %h2.subdued
+
+      You can swap your vote with someone in the other constituency
+      where it could count for more. You get to vote for who you
+      really want, and to help someone else do the same!
+
+= render partial: "swap_form"
+
+.background-pattern.border-bottom
+  .container.text-center
+    %h2 Ready to vote?
+
+    = render partial: "shared/go_vote",
+             locals: { user: current_user }

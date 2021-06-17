@@ -4,7 +4,8 @@
       %h2 It's time to vote!
       %p
 
-        The election polls are open!
+        Now that the election polls are open, Swap My Vote is
+        closed for new swaps.
 
       - if current_user&.swap_confirmed?
         %p
@@ -17,20 +18,18 @@
 
       - else
 
-        However you still have time to find a voting partner to
-        swap with.
-
-        %p
-          Either way, thank you so much for taking part - together we
-          are making democracy better and more representative!
-
         %p
 
           If you've haven't had a confirmation via email or web that
           your vote has been swapped, we're sorry we weren't able to
-          pair you with a voting partner yet.  Even if we don't reopen
-          today though, all is not lost - you can still vote
-          tactically, or for the party you most wish to support.
+          pair you with a voting partner yet.  However, all is not
+          lost - you can still vote tactically, or for the party you
+          most wish to support.
+
+      %p
+
+        Thank you so much for taking part - together we are making
+        democracy better and more representative!
 
       = render partial: "shared/go_vote",
                locals: { user: current_user }

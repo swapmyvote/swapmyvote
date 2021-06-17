@@ -6,6 +6,8 @@ class HomeController < ApplicationController
       session.delete("pre_populate")
     end
 
+    # Don't change this without also updating the related comment in
+    # the view!
     if logged_in? && swapping_open?
       redirect_to user_path
       return
