@@ -1,6 +1,5 @@
 %span.user
-  = link_to "Already been here? Log in", "#", class: "small subdued logout",
-            onclick: "$('#js-login-modal').modal(); return false"
+  = link_to "Already been here? Log in", "#js-login-modal", class: "small subdued logout", data: {toggle: "modal"}
 .modal#js-login-modal{ tabindex: "-1", role: "dialog",
                        style: "display: %s;" % display_login_modal }
   .modal-dialog
