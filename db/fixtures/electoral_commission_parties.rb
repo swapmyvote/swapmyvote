@@ -27,6 +27,20 @@ class ElectoralCommissionParties
     end
   end
 
+  def unique_entities
+    each_with_object({}) do  |p, result|
+      name = p["RegulatedEntityName"]
+      register = p["RegisterName"]
+      result[name] = {} if result[name].nil?
+      result[name][:registrations] = {} if result[name][:registrations].nil?
+      result[name][:registrations][register] = p
+      result[name][:names] = [] if result[name][:names].nil?
+      result[name][:names] << name
+      result[name][:names] << p["Description"] unless p["Description"].nil?
+      result[name][:unique_entity_name] = name
+    end
+  end
+
   def find_by_name(name)
     ec_ref = index_ec_ref_by_name_or_description[name]
     return unless ec_ref
