@@ -1,6 +1,13 @@
 require "open-uri"
 require "CSV"
 
+# Example of use in terminal
+# $ bundle exec rails c
+# > require "./db/fixtures/electoral_commission_parties"
+# > ElectoralCommissionParties.download
+# > fa_ref =  ElectoralCommissionParties.new.index_ec_ref_by_name_or_description["Freedom Alliance. Dignity and Democracy"]
+# > ElectoralCommissionParties.new.index_by_ec_ref[fa_ref]
+
 class ElectoralCommissionParties
   include Enumerable
 
@@ -20,44 +27,44 @@ class ElectoralCommissionParties
   end
 
   def each(&block)
+    csv_data.each do |hash|
+      block.call(hash)
+    end
+  end
+
+  # Hash to enable lookup of a parties ECRef based on its resgistered name or registered description
+  def index_ec_ref_by_name_or_description
+    each_with_object({}) do |party, ec_ref_by_name|
+      ec_ref = party[:ec_ref]
+      name = party["RegulatedEntityName"]
+      description = party["Description"]
+
+      ec_ref_by_name[name] = ec_ref
+      ec_ref_by_name[description] = ec_ref if description
+    end
+  end
+
+  # Hash to enable registration entries for the party to be found from EC Ref. This gives a unique entity name
+  def index_by_ec_ref
+    each_with_object({}) do | party, parties_by_ec_ref |
+      ec_ref = party[:ec_ref]
+      parties_by_ec_ref[ec_ref] = party unless parties_by_ec_ref.has_key?(ec_ref)
+    end
+  end
+
+  private def csv_data
+    return @csv_data if defined?(@csv_data)
+    @csv_data = []
+
     CSV.foreach(FILE, headers: true, col_sep: ",") do |data|
       # data_transformed = {
       #   ons_id: data.to_h.values[0], # don't ask ... data[ID_KEY] should have worked
       #   name: data[NAME_KEY],
       # }
 
-      block.call(data.to_hash.merge(ec_ref: data[0])) # for some reason CSV gem doesn't get the first column  right
+      @csv_data << data.to_hash.merge(ec_ref: data[0]) # for some reason CSV gem doesn't get the first column  right
     end
-  end
 
-  def unique_index_by_ec_ref
-    puts "unique_index_by_ec_ref"
-    each_with_object({}) do | party, parties_by_ec_ref |
-      ec_ref_name = party[:ec_ref]
-
-      # puts party.keys.to_s
-
-      # puts party.to_s
-
-      # ref = party["ECRef"].to_s
-
-      # puts "==ref==#{ref}===="
-
-      # puts "==:my_data==#{party[:my_data]}===="
-
-      # raise "kaboom"
-
-      parties_by_ec_ref[ec_ref_name] = party
-    end
-  end
-
-  def index_by_entity
-    unique_index_by_ec_ref.each_with_object({}) do | (_ec_ref, party), parties_by_entity |
-      entity_name = party["RegulatedEntityName"]
-
-      parties_by_entity[entity_name] = [] unless parties_by_entity.has_key?(entity_name)
-
-      parties_by_entity[entity_name] << party
-    end
+    return @csv_data
   end
 end
