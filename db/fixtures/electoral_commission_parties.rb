@@ -26,12 +26,33 @@ class ElectoralCommissionParties
       #   name: data[NAME_KEY],
       # }
 
-      block.call(data.to_hash)
+      block.call(data.to_hash.merge(ec_ref: data[0])) # for some reason CSV gem doesn't get the first column  right
+    end
+  end
+
+  def unique_index_by_ec_ref
+    puts "unique_index_by_ec_ref"
+    each_with_object({}) do | party, parties_by_ec_ref |
+      ec_ref_name = party[:ec_ref]
+
+      # puts party.keys.to_s
+
+      # puts party.to_s
+
+      # ref = party["ECRef"].to_s
+
+      # puts "==ref==#{ref}===="
+
+      # puts "==:my_data==#{party[:my_data]}===="
+
+      # raise "kaboom"
+
+      parties_by_ec_ref[ec_ref_name] = party
     end
   end
 
   def index_by_entity
-    each_with_object({}) do | party, parties_by_entity |
+    unique_index_by_ec_ref.each_with_object({}) do | (_ec_ref, party), parties_by_entity |
       entity_name = party["RegulatedEntityName"]
 
       parties_by_entity[entity_name] = [] unless parties_by_entity.has_key?(entity_name)
