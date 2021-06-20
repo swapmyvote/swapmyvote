@@ -5,8 +5,9 @@ require "CSV"
 # $ bundle exec rails c
 # > require "./db/fixtures/electoral_commission_parties"
 # > ElectoralCommissionParties.download
-# > fa_ref =  ElectoralCommissionParties.new.index_ec_ref_by_name_or_description["Freedom Alliance. Dignity and Democracy"]
-# > ElectoralCommissionParties.new.index_by_ec_ref[fa_ref]
+# > ecdata =  ElectoralCommissionParties.new
+# > ecdata.find_by_name("Liberal Democrat")
+# => {"ECRef"=>"PP90", "RegulatedEntityName"=>"Liberal Democrats", ...
 
 class ElectoralCommissionParties
   include Enumerable
@@ -24,6 +25,12 @@ class ElectoralCommissionParties
       ec_parties_data_as_csv = open(URL).read
       File.write(FILE, ec_parties_data_as_csv)
     end
+  end
+
+  def find_by_name(name)
+    ec_ref = index_ec_ref_by_name_or_description[name]
+    return unless ec_ref
+    index_by_ec_ref[ec_ref]
   end
 
   def each(&block)
@@ -48,7 +55,7 @@ class ElectoralCommissionParties
   def index_by_ec_ref
     each_with_object({}) do | party, parties_by_ec_ref |
       ec_ref = party[:ec_ref]
-      parties_by_ec_ref[ec_ref] = party unless parties_by_ec_ref.has_key?(ec_ref)
+      parties_by_ec_ref[ec_ref] = party unless parties_by_ec_ref.key?(ec_ref)
     end
   end
 
