@@ -5,9 +5,14 @@ require "CSV"
 # $ bundle exec rails c
 # > require "./db/fixtures/electoral_commission_parties"
 # > ElectoralCommissionParties.download
+#
 # > ecdata =  ElectoralCommissionParties.new
 # > ecdata.find_by_name("Liberal Democrat")
 # => {"ECRef"=>"PP90", "RegulatedEntityName"=>"Liberal Democrats", ...
+#
+# > uni = ecdata.unique_entities
+# > uni["Labour Party"]
+# => {:unique_name=>"Labour Party", :joint_name=>"Labour and Co-operative Party" ...}
 
 class ElectoralCommissionParties
   include Enumerable
@@ -31,13 +36,16 @@ class ElectoralCommissionParties
     each_with_object({}) do  |p, result|
       name = p["RegulatedEntityName"]
       register = p["RegisterName"]
+      description = p["Description"]
       result[name] = {} if result[name].nil?
       result[name][:registrations] = {} if result[name][:registrations].nil?
       result[name][:registrations][register] = p
-      result[name][:names] = [] if result[name][:names].nil?
+      result[name][:names] = Set.new if result[name][:names].nil?
       result[name][:names] << name
-      result[name][:names] << p["Description"] unless p["Description"].nil?
-      result[name][:unique_entity_name] = name
+      result[name][:names] << description unless description.nil?
+      result[name][:unique_name] = name
+      joint_match = description =~ /\(joint/i
+      result[name][:joint_name] = description[0..(joint_match - 1)].strip if joint_match
     end
   end
 
