@@ -12,7 +12,11 @@ require "CSV"
 #
 # > uni = ecdata.unique_entities
 # > uni["Labour Party"]
-# => {:unique_name=>"Labour Party", :joint_name=>"Labour and Co-operative Party" ...}
+# => {:regulated_entity_name=>"Labour Party", :joint_description=>"Labour and Co-operative Party" ...
+# > uni["Co-operative Party"]
+# => {:regulated_entity_name=>"Co-operative Party", :joint_description=>"Labour and Co-operative Party" ...
+# > uni["Conservative and Unionist Party"]
+# => {: regulated_entity_name=>"Conservative and Unionist Party", :descriptions => ["Conservatives", "NI Conservatives" ...
 
 class ElectoralCommissionParties
   include Enumerable
@@ -33,19 +37,21 @@ class ElectoralCommissionParties
   end
 
   def unique_entities
-    each_with_object({}) do  |p, result|
+    return @unique_entities if defined?(@unique_entities)
+    @unique_entities = each_with_object({}) do  |p, result|
       name = p["RegulatedEntityName"]
-      register = p["RegisterName"]
+      register = p["RegisterName"] || "(none)"
       description = p["Description"]
-      result[name] = {} if result[name].nil?
-      result[name][:registrations] = {} if result[name][:registrations].nil?
-      result[name][:registrations][register] = p
-      result[name][:names] = Set.new if result[name][:names].nil?
-      result[name][:names] << name
-      result[name][:names] << description unless description.nil?
-      result[name][:unique_name] = name
+      result[name] ||= {}
+
+      result[name][:regulated_entity_name] = name
       joint_match = description =~ /\(joint/i
-      result[name][:joint_name] = description[0..(joint_match - 1)].strip if joint_match
+      result[name][:joint_description] = description[0..(joint_match - 1)].strip if joint_match
+
+      result[name][:registrations] ||= Set.new
+      result[name][:registrations] << { "RegisterName" => register,  "ECRef" => p[:ec_ref] }
+      result[name][:descriptions] ||= Set.new
+      result[name][:descriptions] << description unless description.nil?
     end
   end
 
