@@ -36,6 +36,12 @@ class ElectoralCommissionParties
     end
   end
 
+  # The EC has a concept of unique entities, so one parliamentary entity has a unique name,
+  # even though it may have more # than one registration (GB and NI) for that single name.
+  # This returns a hash of those entities, with all their registered descriptions, and all registrations.
+  # Also, joint descriptions are collected, so that parties in permanent alliance (e.g. Labour and Co-op) can be tracked.
+  # However, this goes a bit beyond the EC modelling, and so Labour and Co-op for instance are returned as distinct
+  # entities, which can be found to work together by matching their joint description.
   def unique_entities
     return @unique_entities if defined?(@unique_entities)
     @unique_entities = each_with_object({}) do  |p, result|
