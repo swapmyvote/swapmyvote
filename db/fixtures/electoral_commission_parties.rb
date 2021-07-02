@@ -20,7 +20,7 @@ require "csv"
 
 module Db
   module Fixtures
-    class Db::Fixtures::ElectoralCommissionParties
+    class ElectoralCommissionParties
       include Enumerable
 
       # wikipedia page at https://en.wikipedia.org/wiki/List_of_political_parties_in_the_United_Kingdom#cite_note-1
@@ -42,9 +42,8 @@ module Db
       # The EC has a concept of unique entities, so one parliamentary entity has a unique name,
       # even though it may have more than one registration (GB and NI) for that single name.
       # This returns a hash of those entities, with all their registered descriptions, and all registrations.
-      # Also, joint descriptions are collected, so that parties in permanent alliance
-      # (e.g. Labour and Co-op) can be tracked.
-      # However, this goes a bit beyond the EC modelling, and so Labour and Co-op for instance are returned as distinct
+      # Also, joint descriptions are collected, so that parties in permanent alliance can be tracked.
+      # Labour and Co-op for instance are returned as distinct
       # entities, which can be found to work together by matching their joint description.
       def unique_entities
         return @unique_entities if defined?(@unique_entities)
@@ -65,6 +64,10 @@ module Db
         end
       end
 
+      # This is unique entities, but with parties with a permanent electoral alliance
+      # (joint descriptions, e.g. Labour and Co-op) merged into one.
+      # The name given to the merged/joint party is the joint description from the EC data.
+      # Parties which do not represent merges keep the regulated entity name
       def unique_entities_joint_merged
         return @unique_entities_joint_merged if defined?(@unique_entities_joint_merged)
         @unique_entities_joint_merged = unique_entities.values.each_with_object({}) do  |p, result|
@@ -74,6 +77,10 @@ module Db
           result[name][:name] = name
           result[name][:regulated_entity_names] ||= []
           result[name][:regulated_entity_names] << p[:regulated_entity_name]
+          result[name][:descriptions] ||= []
+          result[name][:descriptions] += p[:descriptions].to_a
+          result[name][:registrations] ||= []
+          result[name][:registrations] += p[:registrations].to_a
         end
       end
 
