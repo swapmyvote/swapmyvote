@@ -16,17 +16,17 @@ require "csv"
 # > uni["Co-operative Party"]
 # => {:regulated_entity_name=>"Co-operative Party", :joint_description=>"Labour and Co-operative Party" ...
 # > uni["Conservative and Unionist Party"]
-# => {: regulated_entity_name=>"Conservative and Unionist Party", :descriptions => ["Conservatives", "NI Conservatives" ...
+# => {: regulated_entity_name=>"Conservative and Unionist Party", :descriptions => ["Conservatives", "NI Conservatives"
 
 module Db
   module Fixtures
-
     class Db::Fixtures::ElectoralCommissionParties
       include Enumerable
 
       # wikipedia page at https://en.wikipedia.org/wiki/List_of_political_parties_in_the_United_Kingdom#cite_note-1
       # starts with http://search.electoralcommission.org.uk/Search/Registrations?currentPage=1&rows=10&sort=RegulatedEntityName&order=asc&et=pp&et=ppm&register=gb&register=ni&register=none&regStatus=registered
-      # we have tacked on getDescriptions=true and adapted the link to point to the CSV download, not the html search page
+      # we have tacked on getDescriptions=true and adapted the link to point to the CSV download,
+      # and not the html search page
 
       URL = "http://search.electoralcommission.org.uk/api/csv/Registrations?sort=RegulatedEntityName&order=asc&et=pp&et=ppm&register=gb&register=ni&register=none&regStatus=registered&getDescriptions=true"
       FILE = File.expand_path("./electoral_commission_parties.csv", __dir__)
@@ -42,7 +42,8 @@ module Db
       # The EC has a concept of unique entities, so one parliamentary entity has a unique name,
       # even though it may have more than one registration (GB and NI) for that single name.
       # This returns a hash of those entities, with all their registered descriptions, and all registrations.
-      # Also, joint descriptions are collected, so that parties in permanent alliance (e.g. Labour and Co-op) can be tracked.
+      # Also, joint descriptions are collected, so that parties in permanent alliance
+      # (e.g. Labour and Co-op) can be tracked.
       # However, this goes a bit beyond the EC modelling, and so Labour and Co-op for instance are returned as distinct
       # entities, which can be found to work together by matching their joint description.
       def unique_entities
@@ -61,6 +62,18 @@ module Db
           result[name][:registrations] << { "RegisterName" => register,  "ECRef" => p[:ec_ref] }
           result[name][:descriptions] ||= Set.new
           result[name][:descriptions] << description unless description.nil?
+        end
+      end
+
+      def unique_entities_joint_merged
+        return @unique_entities_joint_merged if defined?(@unique_entities_joint_merged)
+        @unique_entities_joint_merged = unique_entities.values.each_with_object({}) do  |p, result|
+          name = p[:joint_description] || p[:regulated_entity_name]
+          result[name] ||= {}
+
+          result[name][:name] = name
+          result[name][:regulated_entity_names] ||= []
+          result[name][:regulated_entity_names] << p[:regulated_entity_name]
         end
       end
 

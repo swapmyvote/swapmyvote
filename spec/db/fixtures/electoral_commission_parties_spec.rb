@@ -47,6 +47,34 @@ module Db
           end
         end
       end
+
+      describe "#unique_entities_joint_merged" do
+        let(:unique_entities_joint_merged) { described_class.new.unique_entities_joint_merged }
+
+        describe "Labour and Co-operative Party"  do
+          subject { unique_entities_joint_merged["Labour and Co-operative Party"] }
+
+          describe "name" do
+            specify { expect(subject[:name]).to eq("Labour and Co-operative Party") }
+          end
+
+          describe "regulated_entity_names" do
+            specify { expect(subject[:regulated_entity_names]).to eq(["Co-operative Party", "Labour Party"]) }
+          end
+        end
+
+        describe "Conservative and Unionist Party"  do
+          subject { unique_entities_joint_merged["Conservative and Unionist Party"] }
+
+          describe "name" do
+            specify { expect(subject[:name]).to eq("Conservative and Unionist Party") }
+          end
+
+          describe "regulated_entity_names" do
+            specify { expect(subject[:regulated_entity_names]).to eq(["Conservative and Unionist Party"]) }
+          end
+        end
+      end
     end
   end
 end
