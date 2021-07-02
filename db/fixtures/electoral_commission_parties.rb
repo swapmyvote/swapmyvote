@@ -1,5 +1,5 @@
 require "open-uri"
-require "CSV"
+require "csv"
 
 # Example of use in terminal
 # $ bundle exec rails c
@@ -18,94 +18,99 @@ require "CSV"
 # > uni["Conservative and Unionist Party"]
 # => {: regulated_entity_name=>"Conservative and Unionist Party", :descriptions => ["Conservatives", "NI Conservatives" ...
 
-class ElectoralCommissionParties
-  include Enumerable
+module Db
+  module Fixtures
 
-  # wikipedia page at https://en.wikipedia.org/wiki/List_of_political_parties_in_the_United_Kingdom#cite_note-1
-  # starts with http://search.electoralcommission.org.uk/Search/Registrations?currentPage=1&rows=10&sort=RegulatedEntityName&order=asc&et=pp&et=ppm&register=gb&register=ni&register=none&regStatus=registered
-  # we have tacked on getDescriptions=true and adapted the link to point to the CSV download, not the html search page
+    class Db::Fixtures::ElectoralCommissionParties
+      include Enumerable
 
-  URL = "http://search.electoralcommission.org.uk/api/csv/Registrations?sort=RegulatedEntityName&order=asc&et=pp&et=ppm&register=gb&register=ni&register=none&regStatus=registered&getDescriptions=true"
-  FILE = File.expand_path("./electoral_commission_parties.csv", __dir__)
+      # wikipedia page at https://en.wikipedia.org/wiki/List_of_political_parties_in_the_United_Kingdom#cite_note-1
+      # starts with http://search.electoralcommission.org.uk/Search/Registrations?currentPage=1&rows=10&sort=RegulatedEntityName&order=asc&et=pp&et=ppm&register=gb&register=ni&register=none&regStatus=registered
+      # we have tacked on getDescriptions=true and adapted the link to point to the CSV download, not the html search page
 
-  class << self
-    def download
-      # ec_parties_data_as_csv = URI.open(URL).read ruby 3.0 syntax
-      ec_parties_data_as_csv = open(URL).read
-      File.write(FILE, ec_parties_data_as_csv)
+      URL = "http://search.electoralcommission.org.uk/api/csv/Registrations?sort=RegulatedEntityName&order=asc&et=pp&et=ppm&register=gb&register=ni&register=none&regStatus=registered&getDescriptions=true"
+      FILE = File.expand_path("./electoral_commission_parties.csv", __dir__)
+
+      class << self
+        def download
+          # ec_parties_data_as_csv = URI.open(URL).read ruby 3.0 syntax
+          ec_parties_data_as_csv = open(URL).read
+          File.write(FILE, ec_parties_data_as_csv)
+        end
+      end
+
+      # The EC has a concept of unique entities, so one parliamentary entity has a unique name,
+      # even though it may have more than one registration (GB and NI) for that single name.
+      # This returns a hash of those entities, with all their registered descriptions, and all registrations.
+      # Also, joint descriptions are collected, so that parties in permanent alliance (e.g. Labour and Co-op) can be tracked.
+      # However, this goes a bit beyond the EC modelling, and so Labour and Co-op for instance are returned as distinct
+      # entities, which can be found to work together by matching their joint description.
+      def unique_entities
+        return @unique_entities if defined?(@unique_entities)
+        @unique_entities = each_with_object({}) do  |p, result|
+          name = p["RegulatedEntityName"]
+          register = p["RegisterName"] || "(none)"
+          description = p["Description"]
+          result[name] ||= {}
+
+          result[name][:regulated_entity_name] = name
+          joint_match = description =~ /\(joint/i
+          result[name][:joint_description] = description[0..(joint_match - 1)].strip if joint_match
+
+          result[name][:registrations] ||= Set.new
+          result[name][:registrations] << { "RegisterName" => register,  "ECRef" => p[:ec_ref] }
+          result[name][:descriptions] ||= Set.new
+          result[name][:descriptions] << description unless description.nil?
+        end
+      end
+
+      def find_by_name(name)
+        ec_ref = index_ec_ref_by_name_or_description[name]
+        return unless ec_ref
+        index_by_ec_ref[ec_ref]
+      end
+
+      def each(&block)
+        csv_data.each do |hash|
+          block.call(hash)
+        end
+      end
+
+      # Hash to enable lookup of a parties ECRef based on its resgistered name or registered description
+      def index_ec_ref_by_name_or_description
+        each_with_object({}) do |party, ec_ref_by_name|
+          ec_ref = party[:ec_ref]
+          name = party["RegulatedEntityName"]
+          description = party["Description"]
+
+          ec_ref_by_name[name] = ec_ref
+          ec_ref_by_name[description] = ec_ref if description
+        end
+      end
+
+      # Hash to enable registration entries for the party to be found from EC Ref. This gives a unique entity name
+      def index_by_ec_ref
+        each_with_object({}) do | party, parties_by_ec_ref |
+          ec_ref = party[:ec_ref]
+          parties_by_ec_ref[ec_ref] = party unless parties_by_ec_ref.key?(ec_ref)
+        end
+      end
+
+      private def csv_data
+        return @csv_data if defined?(@csv_data)
+        @csv_data = []
+
+        ::CSV.foreach(FILE, headers: true, col_sep: ",") do |data|
+          # data_transformed = {
+          #   ons_id: data.to_h.values[0], # don't ask ... data[ID_KEY] should have worked
+          #   name: data[NAME_KEY],
+          # }
+
+          @csv_data << data.to_hash.merge(ec_ref: data[0]) # for some reason CSV gem doesn't get the first column  right
+        end
+
+        return @csv_data
+      end
     end
-  end
-
-  # The EC has a concept of unique entities, so one parliamentary entity has a unique name,
-  # even though it may have more # than one registration (GB and NI) for that single name.
-  # This returns a hash of those entities, with all their registered descriptions, and all registrations.
-  # Also, joint descriptions are collected, so that parties in permanent alliance (e.g. Labour and Co-op) can be tracked.
-  # However, this goes a bit beyond the EC modelling, and so Labour and Co-op for instance are returned as distinct
-  # entities, which can be found to work together by matching their joint description.
-  def unique_entities
-    return @unique_entities if defined?(@unique_entities)
-    @unique_entities = each_with_object({}) do  |p, result|
-      name = p["RegulatedEntityName"]
-      register = p["RegisterName"] || "(none)"
-      description = p["Description"]
-      result[name] ||= {}
-
-      result[name][:regulated_entity_name] = name
-      joint_match = description =~ /\(joint/i
-      result[name][:joint_description] = description[0..(joint_match - 1)].strip if joint_match
-
-      result[name][:registrations] ||= Set.new
-      result[name][:registrations] << { "RegisterName" => register,  "ECRef" => p[:ec_ref] }
-      result[name][:descriptions] ||= Set.new
-      result[name][:descriptions] << description unless description.nil?
-    end
-  end
-
-  def find_by_name(name)
-    ec_ref = index_ec_ref_by_name_or_description[name]
-    return unless ec_ref
-    index_by_ec_ref[ec_ref]
-  end
-
-  def each(&block)
-    csv_data.each do |hash|
-      block.call(hash)
-    end
-  end
-
-  # Hash to enable lookup of a parties ECRef based on its resgistered name or registered description
-  def index_ec_ref_by_name_or_description
-    each_with_object({}) do |party, ec_ref_by_name|
-      ec_ref = party[:ec_ref]
-      name = party["RegulatedEntityName"]
-      description = party["Description"]
-
-      ec_ref_by_name[name] = ec_ref
-      ec_ref_by_name[description] = ec_ref if description
-    end
-  end
-
-  # Hash to enable registration entries for the party to be found from EC Ref. This gives a unique entity name
-  def index_by_ec_ref
-    each_with_object({}) do | party, parties_by_ec_ref |
-      ec_ref = party[:ec_ref]
-      parties_by_ec_ref[ec_ref] = party unless parties_by_ec_ref.key?(ec_ref)
-    end
-  end
-
-  private def csv_data
-    return @csv_data if defined?(@csv_data)
-    @csv_data = []
-
-    CSV.foreach(FILE, headers: true, col_sep: ",") do |data|
-      # data_transformed = {
-      #   ons_id: data.to_h.values[0], # don't ask ... data[ID_KEY] should have worked
-      #   name: data[NAME_KEY],
-      # }
-
-      @csv_data << data.to_hash.merge(ec_ref: data[0]) # for some reason CSV gem doesn't get the first column  right
-    end
-
-    return @csv_data
   end
 end
