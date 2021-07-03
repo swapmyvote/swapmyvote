@@ -105,6 +105,69 @@ module Db
             expect(register_names).to include("Northern Ireland")
           end
         end
+
+
+        describe "Other parties in UK parliament" do
+          describe "Liberal Democrats" do
+            subject { joint_merged["Liberal Democrats"] }
+
+            specify { expect(subject[:name]).to eq("Liberal Democrats") }
+          end
+
+          describe "Green Party" do
+            subject { joint_merged["Green Party"] }
+
+            specify { expect(subject[:name]).to eq("Green Party") }
+          end
+
+          describe "Scottish National Party (SNP)" do
+            subject { joint_merged["Scottish National Party (SNP)"] }
+
+            specify { expect(subject[:name]).to eq("Scottish National Party (SNP)") }
+          end
+
+          describe "Plaid Cymru - The Party of Wales" do
+            subject { joint_merged["Plaid Cymru - The Party of Wales"] }
+
+            specify { expect(subject[:name]).to eq("Plaid Cymru - The Party of Wales") }
+          end
+
+          describe "Reform UK" do
+            subject { joint_merged["Reform UK"] }
+
+            specify { expect(subject[:name]).to eq("Reform UK") }
+          end
+
+          describe "Democratic Unionist Party - D.U.P." do
+            subject { joint_merged["Democratic Unionist Party - D.U.P."] }
+
+            specify { expect(subject[:name]).to eq("Democratic Unionist Party - D.U.P.") }
+          end
+
+          describe "Sinn Féin" do
+            subject { joint_merged["Sinn Féin"] }
+
+            specify { expect(subject[:name]).to eq("Sinn Féin") }
+          end
+
+          describe "SDLP (Social Democratic & Labour Party)" do
+            subject { joint_merged["SDLP (Social Democratic & Labour Party)"] }
+
+            specify { expect(subject[:name]).to eq("SDLP (Social Democratic & Labour Party)") }
+          end
+
+          describe "Alliance - Alliance Party of Northern Ireland" do
+            subject { joint_merged["Alliance - Alliance Party of Northern Ireland"] }
+
+            specify { expect(subject[:name]).to eq("Alliance - Alliance Party of Northern Ireland") }
+          end
+
+          describe "Alba Party" do
+            subject { joint_merged["Alba Party"] }
+
+            specify { expect(subject[:name]).to eq("Alba Party") }
+          end
+        end
       end
     end
   end
