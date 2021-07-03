@@ -106,7 +106,6 @@ module Db
           end
         end
 
-
         describe "Other parties in UK parliament" do
           describe "Liberal Democrats" do
             subject { joint_merged["Liberal Democrats"] }
