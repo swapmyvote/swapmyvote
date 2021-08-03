@@ -47,10 +47,10 @@ module Db
       # entities, which can be found to work together by matching their joint description.
       def unique_entities
         return @unique_entities if defined?(@unique_entities)
-        @unique_entities = each_with_object({}) do  |p, result|
-          name = p["RegulatedEntityName"]
-          register = p["RegisterName"] || "(none)"
-          description = p["Description"]
+        @unique_entities = each_with_object({}) do  |party, result|
+          name = party["RegulatedEntityName"]
+          register = party["RegisterName"] || "(none)"
+          description = party["Description"]
           result[name] ||= {}
 
           result[name][:regulated_entity_name] = name
@@ -58,7 +58,7 @@ module Db
           result[name][:joint_description] = description[0..(joint_match - 1)].strip if joint_match
 
           result[name][:registrations] ||= Set.new
-          result[name][:registrations] << { "RegisterName" => register,  "ECRef" => p[:ec_ref] }
+          result[name][:registrations] << { "RegisterName" => register,  "ECRef" => party[:ec_ref] }
           result[name][:descriptions] ||= Set.new
           result[name][:descriptions] << description unless description.nil?
         end
@@ -70,17 +70,17 @@ module Db
       # Parties which do not represent merges keep the regulated entity name
       def unique_entities_joint_merged
         return @unique_entities_joint_merged if defined?(@unique_entities_joint_merged)
-        @unique_entities_joint_merged = unique_entities.values.each_with_object({}) do  |p, result|
-          name = p[:joint_description] || p[:regulated_entity_name]
+        @unique_entities_joint_merged = unique_entities.values.each_with_object({}) do  |party, result|
+          name = party[:joint_description] || party[:regulated_entity_name]
           result[name] ||= {}
 
           result[name][:name] = name
           result[name][:regulated_entity_names] ||= []
-          result[name][:regulated_entity_names] << p[:regulated_entity_name]
+          result[name][:regulated_entity_names] << party[:regulated_entity_name]
           result[name][:descriptions] ||= []
-          result[name][:descriptions] += p[:descriptions].to_a
+          result[name][:descriptions] += party[:descriptions].to_a
           result[name][:registrations] ||= []
-          result[name][:registrations] += p[:registrations].to_a
+          result[name][:registrations] += party[:registrations].to_a
         end
       end
 
