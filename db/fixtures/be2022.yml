@@ -1,0 +1,68 @@
+---
+:constituencies:
+  - :name: Wakefield
+    :ons_id: E14001009
+    :candidates:
+      - :party_name: Labour
+        :name: Simon Lightwood
+        :colour: "#DC241f"
+        :votes_count: 17_925
+        :votes_percent: 39.8
+      - :party_name: Conservative
+        :name: Nadeem Ahmed
+        :colour: "#0087DC"
+        :votes_count: 21_283
+        :votes_percent: 47.3
+      - :party_name: Liberal Democrats
+        :name: Jamie Needle
+        :colour: "#FDBB30"
+        :votes_count: 1_772
+        :votes_percent: 3.9
+      - :party_name: Green
+        :name: Ashley Routh
+        :colour: "#008066"
+        :votes_count:
+        :votes_percent:
+      - :party_name: Reform UK
+        :name: Chris Walsh
+        :colour:
+        :votes_count:
+        :votes_percent:
+      - :party_name: UKIP
+        :name: Jordan Gaskell
+        :colour:
+        :votes_count:
+        :votes_percent:
+  - :name: Tiverton and Honiton
+    :ons_id: E14000996
+    :candidates:
+      - :party_name: Labour
+        :name: Liz Pole
+        :colour: "#DC241f"
+        :votes_count: 11_654
+        :votes_percent: 19.5
+      - :party_name: Conservative
+        :name: Helen Hurford
+        :colour: "#0087DC"
+        :votes_count: 35_893
+        :votes_percent: 60.2
+      - :party_name: Liberal Democrats
+        :name: Richard Foord
+        :colour: "#FDBB30"
+        :votes_count: 8_807
+        :votes_percent: 14.8
+      - :party_name: Green
+        :name: Gill Westcott
+        :colour: "#008066"
+        :votes_count: 2_291
+        :votes_percent: 3.8
+      - :party_name: Reform UK
+        :name: Andy Foan
+        :colour: "#12B6CF"
+        :votes_count:
+        :votes_percent:
+      - :party_name: UKIP
+        :name: Ben Walker
+        :colour: "#70147A"
+        :votes_count: 968
+        :votes_percent: 1.6
