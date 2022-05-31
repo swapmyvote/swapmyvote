@@ -6,9 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-require_relative "fixtures/be2021_yaml"
-require_relative "fixtures/be2021/party"
-require_relative "fixtures/be2021/candidate"
+require_relative "fixtures/be2022_yaml"
+require_relative "fixtures/be2022/party"
+require_relative "fixtures/be2022/candidate"
 require_relative "../app/helpers/application_helper"
 
 class SeedHelper
@@ -17,7 +17,7 @@ end
 
 puts "\nParties"
 
-Db::Fixtures::Be2021::Party.all.each do |party|
+Db::Fixtures::Be2022::Party.all.each do |party|
   ::Party.find_or_create_by(name: party[:name], color: party[:colour])
   puts "Party #{party[:name]} created"
 end
@@ -26,7 +26,7 @@ end
 
 puts "\nConstituencies"
 
-Db::Fixtures::Be2021Yaml.data[:constituencies].each do |constituency|
+Db::Fixtures::Be2022Yaml.data[:constituencies].each do |constituency|
   cons = OnsConstituency.find_or_initialize_by ons_id: constituency[:ons_id]
   puts "#{cons.ons_id} #{cons.name}"
   cons.update!(constituency.slice(:name, :ons_id))
@@ -38,7 +38,7 @@ puts "#{OnsConstituency.count} Constituencies loaded\n\n"
 
 puts "\n\nPolls Data\n\n"
 
-Db::Fixtures::Be2021::Candidate.all.each do |candidate|
+Db::Fixtures::Be2022::Candidate.all.each do |candidate|
   vote_count = candidate[:votes_percent] ? (candidate[:votes_percent] * 100).to_i : nil
   ons_id = candidate[:constituency_ons_id]
   party_name = candidate[:party_name]
