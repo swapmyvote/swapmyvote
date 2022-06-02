@@ -48,22 +48,38 @@ class AdminController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def send_email_proofs
     if current_user.nil?
       flash[:errors] = ["You need to be logged on so we have an email address to send to"]
       redirect_to root_path
     else
-      flash[:warnings] = ["I would have sent an email if I was finished code"]
+      logger.debug "Sending proof-reading emails email to #{current_user}"
 
-      # def send_welcome_email
-      #   return if email.blank?
-      #   logger.debug "Sending Welcome email"
-      #   UserMailer.welcome_email(self).deliver_now
-      #   sent_emails.create!(template: SentEmail::WELCOME)
-      # end
-
-      logger.debug "Sending Welcome email to #{current_user}"
       UserMailer.welcome_email(current_user).deliver_now
+
+      other_user = User.first
+      other_user.destroy_all_potential_swaps
+      current_user.create_outgoing_swap(
+        chosen_user: other_user,
+        confirmed: false,
+        consent_share_email_chooser: true
+      )
+
+      UserMailer.confirm_swap(current_user, other_user).deliver_now
+      UserMailer.email_address_shared(current_user, other_user).deliver_now
+
+      UserMailer.swap_confirmed(current_user, other_user, true).deliver_now
+      UserMailer.swap_confirmed(current_user, other_user, false).deliver_now
+
+      UserMailer.swap_cancelled(current_user, other_user).deliver_now
+
+      UserMailer.not_swapped_follow_up(current_user).deliver_now
+      UserMailer.partner_has_voted(current_user).deliver_now
+      UserMailer.reminder_to_vote(current_user).deliver_now
+      UserMailer.no_swap(current_user).deliver_now
+      UserMailer.swap_not_confirmed(current_user).deliver_now
+
       redirect_to user_path
     end
   end
