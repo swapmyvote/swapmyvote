@@ -3,6 +3,8 @@ class AdminController < ApplicationController
     raise "You didn't set ADMIN_PASSWORD!"
   end
 
+  # before_action :require_login, only: [:send_email_proofs]
+
   http_basic_authenticate_with name: "swapmyvote",
                                password: ENV["ADMIN_PASSWORD"] || "secret"
 
@@ -43,6 +45,26 @@ class AdminController < ApplicationController
       flash.now[:errors] = ["The number #{num} wasn't verified!"]
     else
       change_mobile_verification(mode, phone)
+    end
+  end
+
+  def send_email_proofs
+    if current_user.nil?
+      flash[:errors] = ["You need to be logged on so we have an email address to send to"]
+      redirect_to root_path
+    else
+      flash[:warnings] = ["I would have sent an email if I was finished code"]
+
+      # def send_welcome_email
+      #   return if email.blank?
+      #   logger.debug "Sending Welcome email"
+      #   UserMailer.welcome_email(self).deliver_now
+      #   sent_emails.create!(template: SentEmail::WELCOME)
+      # end
+
+      logger.debug "Sending Welcome email to #{current_user}"
+      UserMailer.welcome_email(current_user).deliver_now
+      redirect_to user_path
     end
   end
 
