@@ -1,3 +1,7 @@
+inherits_from:
+  - .haml-lint_todo.yml
+
+
 # Whether to ignore frontmatter at the beginning of HAML documents for
 # frameworks such as Jekyll/Middleman
 skip_frontmatter: false
@@ -12,8 +16,9 @@ linters:
   ClassesBeforeIds:
     enabled: true
 
-  ConsecutiveComments:
-    enabled: true
+  # Seems to default to true anyway, but un-commenting it interferes with he TODO file
+  # ConsecutiveComments:
+  #   enabled: true
 
   ConsecutiveSilentScripts:
     enabled: true
@@ -22,8 +27,9 @@ linters:
   EmptyScript:
     enabled: true
 
-  HtmlAttributes:
-    enabled: true
+  # Seems to default to true anyway, but un-commenting it interferes with he TODO file
+  # HtmlAttributes:
+  #   enabled: true
 
   ImplicitDiv:
     enabled: true
@@ -33,7 +39,7 @@ linters:
 
   LineLength:
     enabled: true
-    max: 200
+    max: 300
 
   MultilinePipe:
     enabled: true
@@ -53,9 +59,10 @@ linters:
   SpaceBeforeScript:
     enabled: true
 
-  SpaceInsideHashAttributes:
-    enabled: true
-    style: space
+  # Seems to default to true anyway, but un-commenting it interferes with he TODO file
+  # SpaceInsideHashAttributes:
+  #   enabled: true
+  #   style: space
 
   TagName:
     enabled: true
@@ -63,8 +70,11 @@ linters:
   TrailingWhitespace:
     enabled: true
 
-  UnnecessaryInterpolation:
-    enabled: true
+  # Seems to default to true anyway, but un-commenting it interferes with he TODO file
+  # UnnecessaryInterpolation:
+  #   enabled: true
 
   UnnecessaryStringOutput:
     enabled: true
+
+
