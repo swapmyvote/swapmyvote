@@ -59,7 +59,7 @@ gem "webpacker", "~> 4.x"
 
 # These need to be outside the development group for Rakefile to
 # be happy in Heroku.
-gem "rubocop"
+gem "rubocop", "~> 1.22.1"
 gem "rubocop-rails"
 gem "rubocop-rspec"
 
