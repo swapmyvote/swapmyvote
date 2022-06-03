@@ -4,8 +4,7 @@
 %p
   .smv-card.profile
     = render partial: "user/swaps/swap_profile",
-      object: user.swapped_with, as: "other_user"
-
+      locals: {other_user: user.swapped_with, hide_polls: hide_polls}
 
 = render partial: "user/swaps/double_check_constituency",
     locals: { swap_with: user.swapped_with }
