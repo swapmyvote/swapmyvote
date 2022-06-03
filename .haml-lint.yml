@@ -3,68 +3,72 @@
 skip_frontmatter: false
 
 linters:
-  AltText:
-    enabled: false
+  # AltText:
+  #   enabled: false
 
-  ClassAttributeWithStaticValue:
-    enabled: true
+  # ClassAttributeWithStaticValue:
+  #   enabled: true
 
-  ClassesBeforeIds:
-    enabled: true
+  # ClassesBeforeIds:
+  #   enabled: true
 
-  ConsecutiveComments:
-    enabled: true
+  # ConsecutiveComments:
+  #   enabled: true
 
-  ConsecutiveSilentScripts:
-    enabled: true
-    max_consecutive: 2
+  # ConsecutiveSilentScripts:
+  #   enabled: true
+  #   max_consecutive: 2
 
-  EmptyScript:
-    enabled: true
+  # EmptyScript:
+  #   enabled: true
 
-  HtmlAttributes:
-    enabled: true
+  # HtmlAttributes:
+  #   enabled: true
 
-  ImplicitDiv:
-    enabled: true
+  # ImplicitDiv:
+  #   enabled: true
 
-  LeadingCommentSpace:
-    enabled: true
+  # LeadingCommentSpace:
+  #   enabled: true
 
   LineLength:
     enabled: true
-    max: 200
+    max: 300
 
-  MultilinePipe:
-    enabled: true
+  # MultilinePipe:
+  #   enabled: true
 
-  MultilineScript:
-    enabled: true
+  # MultilineScript:
+  #   enabled: true
 
-  ObjectReferenceAttributes:
-    enabled: true
+  # ObjectReferenceAttributes:
+  #   enabled: true
 
-  RuboCop:
-    enabled: false
+  # RuboCop:
+  #   enabled: false
 
-  RubyComments:
-    enabled: true
+  # RubyComments:
+  #   enabled: true
 
-  SpaceBeforeScript:
-    enabled: true
+  # SpaceBeforeScript:
+  #   enabled: true
 
-  SpaceInsideHashAttributes:
-    enabled: true
-    style: space
+  # SpaceInsideHashAttributes:
+  #   enabled: true
+  #   style: space
 
-  TagName:
-    enabled: true
+  # TagName:
+  #   enabled: true
 
-  TrailingWhitespace:
-    enabled: true
+  # TrailingWhitespace:
+  #   enabled: true
 
-  UnnecessaryInterpolation:
-    enabled: true
+  # UnnecessaryInterpolation:
+  #   enabled: true
 
-  UnnecessaryStringOutput:
-    enabled: true
+  # UnnecessaryStringOutput:
+  #   enabled: true
+
+inherits_from:
+  - .haml-lint_todo.yml
+
