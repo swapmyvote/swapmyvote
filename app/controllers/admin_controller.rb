@@ -54,7 +54,7 @@ class AdminController < ApplicationController
       flash[:errors] = ["You need to be logged on so we have an email address to send to"]
       redirect_to root_path
     else
-      logger.debug "Sending proof-reading emails email to #{current_user}"
+      logger.debug "Sending proof-reading emails to #{current_user}"
 
       UserMailer.welcome_email(current_user).deliver_now
 
