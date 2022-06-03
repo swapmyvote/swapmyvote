@@ -11,6 +11,7 @@ RSpec.describe "user/swaps/new", type: :view do
                  constituency: constituency
     )
     assign(:swap_with, user)
+    assign(:two_party_by_election, false)
     expect { render }.not_to raise_error
   end
 end
