@@ -7,7 +7,7 @@
       locals: {other_user: user.swapped_with, hide_polls: hide_polls}
 
 = render partial: "user/swaps/double_check_constituency",
-    locals: { swap_with: user.swapped_with }
+    locals: { swap_with: user.swapped_with, hide_polls: @two_party_by_election }
 
 %p.text-center
   - if current_user.mobile_verification_missing?
