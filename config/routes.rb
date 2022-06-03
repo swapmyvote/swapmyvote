@@ -29,7 +29,9 @@ Rails.application.routes.draw do
   get "mobile_phone/verify_create", as: "verify_mobile"
   match "mobile_phone/verify_token", as: "verify_token", via: [:get, :post]
 
+  get "admin", to: "admin#index"
   get "admin/stats", to: "admin#stats"
+  get "admin/send_email_proofs", to: "admin#send_email_proofs", via: [:get]
   match "admin/verify_mobile", to: "admin#verify_mobile",
       as: "fake_verify_mobile", via: [:get, :post]
 

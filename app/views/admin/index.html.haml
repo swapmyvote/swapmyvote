@@ -1,0 +1,15 @@
+.background-pattern
+  .container
+    %h1 Swap My Vote Admin
+    .card
+      %p
+        Welcome to the admin interface.
+
+      %ul
+        %li
+          = link_to "Statistics dashboard", admin_stats_path
+        %li
+          = link_to "Mobile verification", fake_verify_mobile_path
+        %li
+          = link_to "Send 11 emails to me for proof-reading",
+              admin_send_email_proofs_path
