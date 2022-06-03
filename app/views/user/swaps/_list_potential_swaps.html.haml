@@ -3,16 +3,18 @@
 
 %p.text-center.small.subdued
 
-  Consider the polls in their constituency to give your vote the best
-  chance of making a difference!
+  - unless hide_polls
+    Consider the polls in their constituency to give your vote the best
+    chance of making a difference!
 
 .spacer
 - for swap in @potential_swaps
   .smv-card
-    = render partial: "swap_profile", object: swap, as: "other_user", locals: { link_to_swap: true }
+    = render partial: "swap_profile", object: swap, as: "other_user", locals: { hide_polls: hide_polls, link_to_swap: true }
 
-%p.text-center
-  Poll results are from the 2019 General Election.
+- unless hide_polls
+  %p.text-center
+    Poll results are from the 2019 General Election.
 
 %p.text-center.small.subdued
 

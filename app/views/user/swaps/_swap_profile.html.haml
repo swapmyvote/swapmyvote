@@ -1,10 +1,10 @@
 - if defined? link_to_swap and link_to_swap
   = link_to new_user_swap_path(user_id: other_user.id), class: "profile" do
-    = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
+    = render partial: "user/swaps/swap_profile_inner", locals: { hide_polls: hide_polls, other_user: other_user }
 - else
   .profile
-    = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
+    = render partial: "user/swaps/swap_profile_inner", locals: { hide_polls: hide_polls, other_user: other_user }
 
-- unless other_user.constituency.nil?
+- if !hide_polls && !other_user.constituency.nil?
   :javascript
     drawPollChart("poll_#{other_user.id}", #{poll_data_for(other_user.constituency)});
