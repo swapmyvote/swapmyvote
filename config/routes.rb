@@ -31,7 +31,7 @@ Rails.application.routes.draw do
 
   get "admin", to: "admin#index"
   get "admin/stats", to: "admin#stats"
-  get "admin/send_email_proofs", to: "admin#send_email_proofs"
+  get "admin/send_email_proofs", to: "admin#send_email_proofs", via: [:get]
   match "admin/verify_mobile", to: "admin#verify_mobile",
       as: "fake_verify_mobile", via: [:get, :post]
 

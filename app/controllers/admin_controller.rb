@@ -80,7 +80,9 @@ class AdminController < ApplicationController
       UserMailer.no_swap(current_user).deliver_now
       UserMailer.swap_not_confirmed(current_user).deliver_now
 
-      redirect_to user_path
+      # flash[:info] = ["Mails have been sent"]
+
+      redirect_to admin_path
     end
   end
 
