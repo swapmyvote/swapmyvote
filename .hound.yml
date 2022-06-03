@@ -8,3 +8,6 @@ scss:
 
 jshint:
   config_file: .jshintrc
+
+haml:
+  config_file: .haml.yml
