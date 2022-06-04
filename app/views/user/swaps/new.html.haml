@@ -10,7 +10,7 @@
       = form_tag user_swap_path, class: "form-inline" do
         = hidden_field_tag 'user_id', @swap_with.id
 
-        .form-check.row.mx-auto
+        .form-group.form-check.row.mx-auto
           %input.form-check-input{ type: "checkbox", id: "consent-check",
                                   name: "consent_share_email_chooser" }
           %label.form-check-label{ for: "consent-check" }

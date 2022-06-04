@@ -28,7 +28,7 @@
     %p.text-center
       = form_tag user_swap_path, class: "form-inline", method: "put" do
         = hidden_field_tag 'swap[confirmed]', true
-        .form-check.mx-auto
+        .form-group.form-check.mx-auto
           %input{ type: "hidden", id: "swap_dummy",
                   name: "swap[dummy]", value: "dummy"}
           %input.form-check-input{ type: "checkbox", id: "consent-check",
