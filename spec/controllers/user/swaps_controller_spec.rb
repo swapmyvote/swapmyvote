@@ -71,8 +71,6 @@ RSpec.describe User::SwapsController, type: :controller do
       describe "GET #new" do
         it "assigns @two_party_by_election" do
           allow(controller).to receive(:swapping_open?).and_return(true)
-          # allow(new_user).to receive(:willing_party).and_return(1)
-          # allow(new_user).to receive(:preferred_party).and_return(2)
           get :new, params: { user_id: swap_user.id }
           expect(assigns).to have_key(:two_party_by_election)
         end
