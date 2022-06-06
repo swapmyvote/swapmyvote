@@ -95,59 +95,61 @@
       will be presented to voting partners in different constituencies
       who have the complementary preferences.
 
-    %a(name="login")
-    %h2 Why do I need to log in with Facebook / Twitter / email, and not X?
+    - if log_in_with_facebook? || log_in_with_twitter?
+      %a(name="login")
+      %h2 Why do I need to log in with Facebook / Twitter / email, and not X?
 
-    %p
+      %p
 
-      We are trying to bring an element of trust to vote swapping (see
-      = link_to("the section on trust above", "#trust") + ") -"
-      in order that your voting partner can have a sense of
-      who you are, and vice versa, we currently ask that you either
-      log in with one of the two biggest public social networks used
-      in the UK (Twitter and Facebook), or via email.  This way you
-      both have a chance to find out a bit about each other, and what
-      kinds of issues matter to you both, effectively forming a
-      mini-alliance.  We are open to other options for the future as
-      platform use develops.
+        We are trying to bring an element of trust to vote swapping (see
+        = link_to("the section on trust above", "#trust") + ") -"
+        in order that your voting partner can have a sense of
+        who you are, and vice versa, we currently ask that you either
+        log in with one of the two biggest public social networks used
+        in the UK (Twitter and Facebook), or via email.  This way you
+        both have a chance to find out a bit about each other, and what
+        kinds of issues matter to you both, effectively forming a
+        mini-alliance.  We are open to other options for the future as
+        platform use develops.
 
-    %a(name="facebook-profile")
-    %h2 Why can't I reach my swap partner's Facebook profile?
+    - if log_in_with_facebook?
+      %a(name="facebook-profile")
+      %h2 Why can't I reach my swap partner's Facebook profile?
 
-    %p
+      %p
 
-      This could be for one of a few reasons:
+        This could be for one of a few reasons:
 
-    %ul
-      %li
-        You're not in your swap partner's network of friends on Facebook.
-        Unfortunately we recently discovered that Facebook have locked down
-        the links to user profiles which they provide to apps, so that
+      %ul
+        %li
+          You're not in your swap partner's network of friends on Facebook.
+          Unfortunately we recently discovered that Facebook have locked down
+          the links to user profiles which they provide to apps, so that
 
-        = link_to "https://developers.facebook.com/docs/facebook-login/permissions/#reference-user_link",
-                  target: "_blank" do
-          they only work for users who are already friends.
-      %li
-        Your swap partner chose not to allow the Swap My Vote app access to a
-        link to their Facebook profile when they logged in to the app via
-        Facebook.
-      %li
-        Your swap partner logged into the app through some other mechanism,
-        e.g. Twitter or email.
+          = link_to "https://developers.facebook.com/docs/facebook-login/permissions/#reference-user_link",
+                    target: "_blank" do
+            they only work for users who are already friends.
+        %li
+          Your swap partner chose not to allow the Swap My Vote app access to a
+          link to their Facebook profile when they logged in to the app via
+          Facebook.
+        %li
+          Your swap partner logged into the app through some other mechanism,
+          e.g. Twitter or email.
 
-    %p
+      %p
 
-      To help fix this problem, we are also asking everyone for
-      consent to share their email address with their swap partner.
+        To help fix this problem, we are also asking everyone for
+        consent to share their email address with their swap partner.
 
-    %p
-      However as a last resort, you can always consider
+      %p
+        However as a last resort, you can always consider
 
-      = link_to "cancelling your swap", "#reset"
+        = link_to "cancelling your swap", "#reset"
 
-      and looking for another swap partner.  The little icons next to
-      someone's name can help you find someone who is easier to reach
-      out to.
+        and looking for another swap partner.  The little icons next to
+        someone's name can help you find someone who is easier to reach
+        out to.
 
     %a(name="trouble")
     %h2 I'm having trouble logging in - help!
