@@ -139,6 +139,10 @@ GEM
       guard (~> 2.2)
       guard-compat (~> 1.1)
     guard-compat (1.2.1)
+    guard-haml_lint (1.1.0)
+      guard (~> 2.2)
+      guard-compat (~> 1.2)
+      haml_lint (>= 0.30.0)
     guard-rails (0.8.1)
       guard (~> 2.11)
       guard-compat (~> 1.0)
@@ -163,6 +167,12 @@ GEM
       haml (>= 4.0.6, < 6.0)
       html2haml (>= 1.0.1)
       railties (>= 5.1)
+    haml_lint (0.37.0)
+      haml (>= 4.0, < 5.3)
+      parallel (~> 1.10)
+      rainbow
+      rubocop (>= 0.50.0)
+      sysexits (~> 1.1)
     hashie (4.1.0)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
@@ -378,6 +388,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
+    sysexits (1.2.0)
     temple (0.8.2)
     terminal-notifier-guard (1.7.0)
     thor (1.1.0)
@@ -424,12 +435,14 @@ DEPENDENCIES
   factory_bot_rails
   guard
   guard-bundler
+  guard-haml_lint
   guard-rails
   guard-rspec
   guard-rubocop
   guard-scss_lint
   guard-yarn
   haml-rails
+  haml_lint
   jazz_fingers
   jquery-rails
   jquery-ui-rails

@@ -120,6 +120,11 @@ group :all_plugins, halt_on_fail: true do
     watch(%r{^.scss-lint.yml}) { Dir.glob "app/assets/stylesheets/*.scss" }
   end
 
+  guard :haml_lint do
+    watch(%r{.+\.html.*\.haml$})
+    watch(%r{(?:.+/)?\.haml-lint\.yml$}) { |m| File.dirname(m[0]) }
+  end
+
   guard( :rubocop, cli: %w(--fail-fast) ) do
     watch(%r{.+\.rb$})
     watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
