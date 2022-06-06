@@ -10,7 +10,7 @@
           Edit profile
       .card-body
         - if @user.swapped?
-          %p.text-center.text-warning.small
+          %p.text-center.text-error.small
             - if voting_info_locked?
 
               Warning: it's election day and you've already confirmed

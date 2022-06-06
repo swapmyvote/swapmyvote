@@ -32,7 +32,7 @@
     When they confirm the swap, they will be notified of your email address.
   %p.text-center
     = form_tag user_swap_path, class: "form-inline", method: "put" do
-      .form-check.mx-auto
+      .form-group.form-check.mx-auto
         %input{ type: "hidden", id: "swap_dummy",
           name: "swap[dummy]", value: "dummy"}
         %input.form-check-input{ type: "checkbox", id: "swap_consent_share_email_chooser",
