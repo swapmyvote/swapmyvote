@@ -14,64 +14,64 @@
     "SERVER_HOST": {
       "description": "Determine what cookie name to use.  This can also be used to construct SERVER_HOST_PORT.",
       "value": ""
-    }
+    },
     "SERVER_HOST_PORT": {
-      "description": "Used to figure out what URLs to generate when sending out email.  It can't be done dynamically because the mailer instance doesn't have any context about the incoming request."
-      "required": "false",
-    }
+      "description": "Used to figure out what URLs to generate when sending out email.  It can't be done dynamically because the mailer instance doesn't have any context about the incoming request.",
+      "required": "false"
+    },
     "FACEBOOK_KEY": {
       "description": "Facebook application key for allowing log-ins via Facebook.",
       "required": "false",
       "value": ""
-    }
+    },
     "FACEBOOK_SECRET": {
       "description": "Facebook application secret for allowing log-ins via Facebook.",
       "required": "false",
       "value": ""
-    }
+    },
     "TWITTER_KEY": {
       "description": "Twitter application key for allowing log-ins via Twitter.",
       "required": "false",
       "value": ""
-    }
+    },
     "TWITTER_SECRET": {
       "description": "Twitter application secret for allowing log-ins via Twitter.",
       "required": "false",
       "value": ""
-    }
+    },
     "GOOGLE_ANALYTICS_ID": {
       "description": "Google Analytics tracking ID (optional)",
       "required": "false",
       "value": ""
-    }
+    },
     "MESSAGEBIRD_API_KEY": {
       "description": "MessageBird API key for SMS delivery",
       "required": "false",
       "value": ""
-    }
+    },
     "ADMIN_PASSWORD": {
       "description": "A password to protect the admin area of the site",
       "value": ""
-    }
+    },
     "SWAPMYVOTE_MODE": {
       "description": "Current mode for the site; options are defined in AppModeConcern::VALID_MODES",
       "value": ""
-    }
+    },
     "SWAP_EXPIRY_HOURS": {
       "description": "Swap expiry duration in hours",
       "required": "false",
       "value": "12"
-    }
+    },
     "POTENTIAL_SWAP_EXPIRY_MINS": {
       "description": "Potential swap expiry duration in minutes",
       "required": "false",
       "value": "120"
-    }
+    },
     "TEST_USERS_SKIP_MOBILE_VERIFICATION": {
       "description": "Allow test users (example.com / Facebook test users) to skip mobile verification",
       "required": "false",
       "value": "yes"
-    }
+    },
     "DISABLE_LOG_INS": {
       "description": "Set to 'twitter' or 'facebook', or 'all' to disable any login method other than email.",
       "required": "false",
