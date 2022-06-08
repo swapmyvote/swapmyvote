@@ -16,7 +16,7 @@ linters:
   ClassesBeforeIds:
     enabled: true
 
-  # Seems to default to true anyway, but un-commenting it interferes with he TODO file
+  # Seems to default to true anyway, but uncommenting it interferes with the TODO file
   # ConsecutiveComments:
   #   enabled: true
 
@@ -27,7 +27,7 @@ linters:
   EmptyScript:
     enabled: true
 
-  # Seems to default to true anyway, but un-commenting it interferes with he TODO file
+  # Seems to default to true anyway, but uncommenting it interferes with the TODO file
   # HtmlAttributes:
   #   enabled: true
 
@@ -59,7 +59,7 @@ linters:
   SpaceBeforeScript:
     enabled: true
 
-  # Seems to default to true anyway, but un-commenting it interferes with he TODO file
+  # Seems to default to true anyway, but uncommenting it interferes with the TODO file
   # SpaceInsideHashAttributes:
   #   enabled: true
   #   style: space
@@ -70,11 +70,9 @@ linters:
   TrailingWhitespace:
     enabled: true
 
-  # Seems to default to true anyway, but un-commenting it interferes with he TODO file
+  # Seems to default to true anyway, but uncommenting it interferes with the TODO file
   # UnnecessaryInterpolation:
   #   enabled: true
 
   UnnecessaryStringOutput:
     enabled: true
-
-
