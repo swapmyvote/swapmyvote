@@ -67,9 +67,14 @@ group :all_plugins, halt_on_fail: true do
   #  * zeus: 'zeus rspec' (requires the server to be started separately)
   #  * 'just' rspec: 'rspec'
 
+  RSPEC_CMD = 'bundle exec rspec --no-profile'
+
   guard( :rspec,
-      cmd: 'bundle exec rspec --no-profile',
-      all_after_pass: true, all_on_start: true) do
+         cmd: 'NO_COVERAGE=true ' + RSPEC_CMD,
+         run_all: {cmd: RSPEC_CMD, message: 'Running all tests'},
+         all_after_pass: true,
+         all_on_start: true,
+       ) do
     require "guard/rspec/dsl"
     dsl = Guard::RSpec::Dsl.new(self)
 
