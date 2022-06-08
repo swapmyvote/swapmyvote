@@ -1,17 +1,17 @@
 %h3.text-center
-  You've asked to swap your vote with #{@user.swapped_with.redacted_name}!
+  You've asked to swap your vote with #{user.swapped_with.redacted_name}!
 
 %p
   .smv-card.profile
     = render partial: "user/swaps/swap_profile",
-    locals: {other_user: @user.swapped_with, hide_polls: hide_polls}
+    locals: {other_user: user.swapped_with, hide_polls: hide_polls}
 
 %p.text-center
   %i.fa.fa-fw.fa-hourglass-half
-  We're just waiting for #{@user.swapped_with.redacted_name} to confirm the
+  We're just waiting for #{user.swapped_with.redacted_name} to confirm the
   swap!
 
-  - if @user.email.blank?
+  - if user.email.blank?
 
     Keep checking back here, or
     = link_to("set an email address", edit_user_path)
@@ -21,15 +21,15 @@
 
     When they do we'll send you an email.
 
-- if @user.my_email_consent?
+- if user.my_email_consent?
   %p.text-center
     You have opted to share your email address
-    with #{@user.swapped_with.redacted_name}.
+    with #{user.swapped_with.redacted_name}.
     When they confirm the swap, they will be notified of your email address.
 - else
   %p.text-center
     We encourage you to share your email address
-    with #{@user.swapped_with.redacted_name}.
+    with #{user.swapped_with.redacted_name}.
     When they confirm the swap, they will be notified of your email address.
   %p.text-center
     = form_tag user_swap_path, class: "form-inline", method: "put" do
@@ -39,10 +39,10 @@
         %input.form-check-input{ type: "checkbox", id: "swap_consent_share_email_chooser",
           name: "swap[consent_share_email_chooser]", value: "true"}
         %label.form-check-label{ for: "swap_consent_share_email_chooser" }
-          Share my email address with #{@user.swapped_with.redacted_name}
+          Share my email address with #{user.swapped_with.redacted_name}
 
       %p.text-center{style: "width: 100%"}
-        = button_tag "Share with #{@user.swapped_with.redacted_name}", class: 'btn btn-primary'
+        = button_tag "Share with #{user.swapped_with.redacted_name}", class: 'btn btn-primary'
 
 
 %p.text-center

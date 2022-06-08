@@ -8,7 +8,7 @@
         locals: {user: @user, hide_polls: @two_party_by_election}
     - elsif @user.outgoing_swap
       = render partial: "users/show/confirm_outgoing_swap",
-        locals: {hide_polls: @two_party_by_election}
+        locals: {user: @user, hide_polls: @two_party_by_election}
     - elsif @user.incoming_swap
       = render partial: "users/show/confirm_incoming_swap",
         locals: {user: @user, mobile_number: @mobile_number, hide_polls: @two_party_by_election}
