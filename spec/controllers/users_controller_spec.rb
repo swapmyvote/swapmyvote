@@ -14,6 +14,18 @@ RSpec.describe UsersController, type: :controller do
       allow(controller).to receive(:current_user).and_return(logged_in_user)
     end
 
+    describe "GET #new" do
+      it "returns http success" do
+        get :new
+        expect(response).to have_http_status(:success)
+      end
+
+      it "assigns @identity" do
+        get :new
+        expect(assigns).to have_key(:identity)
+      end
+    end
+
     describe "GET #show" do
       it "returns http success" do
         swap_with_user = create(:ready_to_swap_user2, name: "Jane")
@@ -28,6 +40,11 @@ RSpec.describe UsersController, type: :controller do
       it "redirects to user_swap" do
         get :show
         expect(response).to redirect_to(:user_swap)
+      end
+
+      it "assigns @two_party_by_election" do
+        get :show
+        expect(assigns).to have_key(:two_party_by_election)
       end
     end
 

@@ -1,33 +1,34 @@
 %h3.text-center
-  You've swapped your vote with #{@user.swapped_with.name}!
+  You've swapped your vote with #{user.swapped_with.name}!
 
 %p
   .smv-card.profile
-    = render partial: "user/swaps/swap_profile", object: @user.swapped_with, as: "other_user"
+    = render partial: "user/swaps/swap_profile",
+    locals: {other_user: user.swapped_with, hide_polls: hide_polls}
 
 %p.text-center
-  #{@user.swapped_with.name} will vote
-  %strong= @user.swapped_with.willing_party.name
+  #{user.swapped_with.name} will vote
+  %strong= user.swapped_with.willing_party.name
   in
-  %strong= @user.swapped_with.constituency.name
+  %strong= user.swapped_with.constituency.name
   for you, and you will vote
-  %strong= @user.willing_party.name
+  %strong= user.willing_party.name
   in
-  %strong= @user.constituency.name
-  for #{@user.swapped_with.name}.
+  %strong= user.constituency.name
+  for #{user.swapped_with.name}.
 
 %p.text-center.small.text-success
   %i.fa.fa-fw.fa-check
-  #{@user.swapped_with.name} has confirmed the swap. You're all set!
+  #{user.swapped_with.name} has confirmed the swap. You're all set!
 
-- if @user.my_email_consent?
+- if user.my_email_consent?
   %p.text-center
     You have shared your email address
-    with #{@user.swapped_with.name}.
+    with #{user.swapped_with.name}.
 - else
   %p.text-center
     We encourage you to share your email address
-    with #{@user.swapped_with.name}.
+    with #{user.swapped_with.name}.
   %p.text-center
     = form_tag user_swap_path, class: "form-inline", method: "put" do
       .form-group.form-check.mx-auto
@@ -36,12 +37,12 @@
         %input.form-check-input{ type: "checkbox", id: "consent-check",
                                 name: "swap[consent_share_email]", value: "true"}
         %label.form-check-label{ for: "consent-check" }
-          Share my email address with #{@user.swapped_with.name}
+          Share my email address with #{user.swapped_with.name}
 
       %p.text-center{style: "width: 100%"}
-        = button_tag "Share with #{@user.swapped_with.name}", class: 'btn btn-primary'
+        = button_tag "Share with #{user.swapped_with.name}", class: 'btn btn-primary'
 
 
 %p.text-center
   = render partial: "shared/reach_out_to_swap",
-           locals: { user: @user, swap_user: @user.swapped_with }
+           locals: { user: user, swap_user: user.swapped_with }

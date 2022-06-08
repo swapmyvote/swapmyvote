@@ -7,6 +7,7 @@ class User::SwapsController < ApplicationController
   before_action :assert_has_email, only: [:new, :create, :update]
   before_action :assert_has_constituency, only: [:new, :create, :update]
   before_action :assert_mobile_phone_verified, only: [:new, :create, :update]
+  before_action :two_party_by_election, only: [:show, :new]
 
   include UsersHelper
 
@@ -47,6 +48,11 @@ class User::SwapsController < ApplicationController
   end
 
   private
+
+  def two_party_by_election
+    return @two_party_by_election if defined?(@two_party_by_election)
+    @two_party_by_election = OnsConstituency.count == 2
+  end
 
   def assert_mobile_phone_verified
     return unless @user.mobile_verification_missing?

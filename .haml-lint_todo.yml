@@ -34,8 +34,6 @@ linters:
       - "app/views/home/_swap_form.html.haml"
       - "app/views/user/swaps/_searching_for_swap.html.haml"
       - "app/views/users/_info_summary.html.haml"
-      - "app/views/users/show/_confirm_outgoing_swap.html.haml"
-      - "app/views/users/show/_swap_confirmed.html.haml"
 
   # Offense count: 1
   ConsecutiveComments:

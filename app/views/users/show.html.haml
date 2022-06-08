@@ -4,11 +4,13 @@
 .background-pattern.border-bottom
   .container.container-narrow
     - if @user.swap_confirmed?
-      = render partial: "users/show/swap_confirmed"
+      = render partial: "users/show/swap_confirmed",
+        locals: {user: @user, hide_polls: @two_party_by_election}
     - elsif @user.outgoing_swap
-      = render partial: "users/show/confirm_outgoing_swap"
+      = render partial: "users/show/confirm_outgoing_swap",
+        locals: {user: @user, hide_polls: @two_party_by_election}
     - elsif @user.incoming_swap
       = render partial: "users/show/confirm_incoming_swap",
-        locals: {user: @user, mobile_number: @mobile_number}
+        locals: {user: @user, mobile_number: @mobile_number, hide_polls: @two_party_by_election}
 
 = render partial: "users/info_summary"
