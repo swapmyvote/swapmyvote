@@ -29,13 +29,13 @@
         = hidden_field_tag 'swap[confirmed]', true
         .form-group.form-check.mx-auto
           %input{ type: "hidden", id: "swap_dummy",
-                  name: "swap[dummy]", value: "dummy"}
+                  name: "swap[dummy]", value: "dummy" }
           %input.form-check-input{ type: "checkbox", id: "consent-check",
                                    name: "swap[consent_share_email_chosen]" }
           %label.form-check-label{ for: "consent-check" }
             Share my email address with #{user.swapped_with.redacted_name}
 
-        %p.text-center{style: "width: 100%"}
+        %p.text-center{ style: "width: 100%" }
           = button_tag "Swap with #{user.swapped_with.redacted_name}", class: 'btn btn-primary'
 
   .text-center

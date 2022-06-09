@@ -58,8 +58,6 @@ linters:
       - "app/views/user/share/show.html.haml"
       - "app/views/user/swaps/_double_check_constituency.html.haml"
       - "app/views/users/_info_summary.html.haml"
-      - "app/views/users/show/_confirm_incoming_swap.html.haml"
-      - "app/views/users/show/_confirm_outgoing_swap.html.haml"
       - "app/views/users/show/_swap_confirmed.html.haml"
 
   # Offense count: 2
