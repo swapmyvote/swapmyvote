@@ -30,23 +30,11 @@
     %p
 
       We require that anyone logging in via email can be reached by
-      the swap partner they have agreed to.  The kinds of thoughts and
-      articles you choose to share with your swap partner may help
-      trust arise naturally.
-
+      the swap partner they have agreed to.
     %p
-
-      In the past we have integrated the Swap My Vote platform with
-      two of the biggest public social networks used in the UK
-      (Twitter and Facebook) as another way to check that there is a
-      real person at the other end of the swap.  However, due to
-      technical challenges these are not available during the 2022
-      summer by-elections.
-
-    %p
-
-      To help prevent fake accounts, we have also made verification of a
+      To help ensure account belong to real people, we have also made verification of a
       mobile phone number mandatory.
+
 
     %p
 
@@ -67,6 +55,17 @@
       community amongst voters, all hoping to make the country run as
       well as possible for a better future for everyone.
 
+    -
+    %p
+      In the past we integrated the Swap My Vote platform with
+      two of the biggest public social networks used in the UK
+      (Twitter and Facebook) as another way to check that there is a
+      real person at the other end of the swap.
+
+      However, due to
+      technical challenges these are not currently available during the 2022
+      summer by-elections.
+
     %a(name="privacy")
     %h2 Do my voting intentions stay private?
     %p
@@ -75,6 +74,10 @@
 
       We do not publish anything on your behalf outside the Swap My
       Vote platform and emails.
+
+      Your name, profile picture, constituency and voting preferences
+      will be presented to voting partners in different constituencies
+      who have the complementary preferences.
 
       Sharing the site is voluntary and the 'share' buttons create a
       draft post with generic text which you can change before
@@ -91,9 +94,46 @@
 
       for more about how we use cookies to monitor visits to the site.
 
-      Your name, profile picture, constituency and voting preferences
-      will be presented to voting partners in different constituencies
-      who have the complementary preferences.
+
+    %a(name="independence")
+    %h2
+      Are you aligned with a political party?
+
+    %p
+
+      No.
+    %p
+      The Swap My Vote team is committed to creating a tool that can help make votes fairer and more equal.
+      We believe in a healthy democracy with multiple parties, and a better voting system to gauge the public's support for them.
+      The platform is independent of any party and will remain so.
+
+    %a(name="parties")
+    %h2 How have you chosen which political parties to offer through Swap My Vote?
+
+    %p
+
+      Working out which parties to include in the swapmyvote.uk
+      platform has not been straightforward: initially we prioritised
+      parties that were fielding candidates in all constituencies
+      across the UK. Then, particularly in the wake of 2015's Leaders
+      Debates, which uncovered hidden demand for Scottish and Welsh
+      parties, we added SNP and Plaid Cymru.
+
+    %p
+      Inclusion in the platform
+      is currently a trade-off between simplicity and the time it
+      takes to include parties; updating poll information is
+      time-consuming and we are at present a small team.
+    %p
+      Lastly, with
+      the phenomenal demand for the platform, we have been working
+      hard to make sure that other aspects of the site work as well as
+      possible.
+    %p
+      Ultimately, Swap My Vote is devotedly non-partisan and
+      aspires to as fully inclusive as practically possible - thank
+      you for bearing with us while we work towards this.
+
 
     - if log_in_with_facebook? || log_in_with_twitter?
       %a(name="login")
@@ -160,26 +200,7 @@
       using any browser extensions that may block data from Facebook
       or Twitter (like Adblock).
 
-    %a(name="parties")
-    %h2 How have you chosen which political parties to offer through Swap My Vote?
-
-    %p
-
-      Working out which parties to include in the swapmyvote.uk
-      platform has not been straightforward: initially we prioritised
-      parties that were fielding candidates in all constituencies
-      across the UK. Then, particularly in the wake of 2015's Leaders
-      Debates, which uncovered hidden demand for Scottish and Welsh
-      parties, we added SNP and Plaid Cymru. Inclusion in the platform
-      is currently a trade-off between simplicity and the time it
-      takes to include parties; updating poll information is
-      time-consuming and we are at present a small team. Lastly, with
-      the phenomenal demand for the platform, we have been working
-      hard to make sure that other aspects of the site work as well as
-      possible. Ultimately, Swap My Vote is devotedly non-partisan and
-      aspires to as fully inclusive as practically possible - thank
-      you for bearing with us while we work towards this.
-
+    -
     %a(name="constituencies")
     %h2
       I want to swap with someone in a particular constituency. Please
@@ -187,7 +208,8 @@
 
     %p
 
-      At present we show you potential voting partners in a range of
+      This question refers to general elections - in the current by-elections, there are only two constituencies in play.
+      At a general election, we show you potential voting partners in a range of
       constituencies in order to maximise the number of swaps
       available to everyone who has signed up. You can see polls by
       their names and, if you can't find a swap you are happy with,
@@ -197,8 +219,7 @@
     %a(name="change")
     %h2
 
-      Can I change my mind about my voting preferences, or change
-      constituency?
+      Can I change my mind about my voting preferences, or my other information?
 
     %p
 
@@ -259,8 +280,10 @@
     %h2 No-one is confirming a swap with me. What’s going on?
     %p
 
+      In the by-elections, new voting partners will be available as they log into the platform.
       People finding it hard to find a swap are often in quite safe
-      seats - you may find it useful to think about experimenting with
+      seats or specify a party for whom there is not as much support or demand.
+      You may find it useful to think about experimenting with
       your 'willing' party - you can update your info using the link
       that says "Not right? Update your info" and we will try to find
       you new voting partners based on the new details.
