@@ -445,6 +445,29 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#swap_with_user_id" do
+    let(:email) { double(:email, "deliver_now": true) }
+
+    context "happy path" do
+      let(:other_user) { create(:user, name: "the other user") }
+      let(:consent_share_email) { true }
+
+      before do
+        allow(UserMailer).to receive(:confirm_swap).and_return(email)
+      end
+
+      it "sends confirm_swap email" do
+        expect(UserMailer).to receive(:confirm_swap).and_return(email)
+        subject.swap_with_user_id(other_user.id, consent_share_email)
+      end
+
+      it "sets no errors" do
+        subject.swap_with_user_id(other_user.id, consent_share_email)
+        expect(subject.errors.messages).to eq({})
+      end
+    end
+  end
+
   context "when user has Facebook login" do
     before do
       subject.email = "foo@example.com"
