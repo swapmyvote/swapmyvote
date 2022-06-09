@@ -52,3 +52,6 @@ coverage
 /screenshots/
 
 .byebug_history
+
+# Stupid Mac OS litter
+.DS_Store
