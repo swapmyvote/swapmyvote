@@ -29,9 +29,9 @@
             <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
           </div>
 
-          <div class="form-group">
-            <%= f.label  :consent_news_email, "Opt in to email updates from Forward Democracy", class: "mb-0" %>
-            <%= f.check_box :consent_news_email, class: "form-control" %>
+          <div class="form-group form-check">
+            <%= f.check_box :consent_news_email, class: "form-check-input" %>
+            <%= f.label  :consent_news_email, "Opt-in to Forward Democracy email updates", class: "mb-0 form-check-label" %>
           </div>
 
           <div class="actions">
