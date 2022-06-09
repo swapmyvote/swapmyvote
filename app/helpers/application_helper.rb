@@ -83,11 +83,11 @@ module ApplicationHelper
 
   def app_tagline
     [
-      "I'm using https://SwapMyVote.uk to make my vote count in the" +
+      "I'm using Swap My Vote to make my vote count in the" +
       "#Wakefield or #TivertonandHoniton #byelection\\n\\n" +
       "#SwapMyVote",
 
-      "Use https://SwapMyVote.uk to make your vote count in the " +
+      "Use Swap My Vote to make your vote count in the " +
       "#Wakefield or #TivertonandHoniton #byelection\\n\\n" +
       "#SwapMyVote",
     ].sample
