@@ -130,6 +130,13 @@ Our roadmap can be seen in our [list of
 When submitting new issues or PRs, please remember to apply any
 relevant labels.  Thanks!
 
+## Documentation
+
+Our docs are currently very thin on the ground, but you will find
+a few things in the [`doc/` directory](doc/), in particular the
+[admin guide](doc/admin-guide.md) which contains a cheatsheet for
+administering a live site.
+
 ## Contact
 
 You can contact us at hello@swapmyvote.uk.
