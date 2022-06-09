@@ -1,3 +1,8 @@
+Admin guide
+===========
+
+Here are some recipes for commonly needed administrative actions.
+
 Expiring old swaps
 ------------------
 
@@ -52,3 +57,14 @@ Open or close swaps in Heroku environment
 
     # Set app mode to one of AppModeConcern::VALID_MODES
     heroku config:set -a swapmyvotedev SWAPMYVOTE_MODE=open
+
+Resetting Heroku database for a new election cycle
+--------------------------------------------------
+
+N.B. in the below, `db:schema:load` is currently required rather than
+`db:migrate`!
+
+    heroku pg:reset -a swapmyvote && \
+    heroku run -a swapmyvote bundle exec rake db:schema:load && \
+    heroku run -a swapmyvote bundle exec rake db:seed
+
