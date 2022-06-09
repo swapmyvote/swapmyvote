@@ -33,7 +33,7 @@
           %input.form-check-input{ type: "checkbox", id: "consent-check",
                                    name: "swap[consent_share_email_chosen]" }
           %label.form-check-label{ for: "consent-check" }
-            Share my email address with #{user.swapped_with.redacted_name}
+            I understand that my email address will be shared with #{user.swapped_with.redacted_name}
 
         %p.text-center{ style: "width: 100%" }
           = button_tag "Swap with #{user.swapped_with.redacted_name}", class: 'btn btn-primary'

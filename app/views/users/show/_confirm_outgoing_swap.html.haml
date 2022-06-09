@@ -8,7 +8,7 @@
 
 %p.text-center
   %i.fa.fa-fw.fa-hourglass-half
-  We're just waiting for #{user.swapped_with.redacted_name} to confirm the swap!"
+  We're just waiting for #{user.swapped_with.redacted_name} to confirm the swap!
 
   - if user.email.blank?
 
@@ -38,7 +38,7 @@
         %input.form-check-input{ type: "checkbox", id: "swap_consent_share_email_chooser",
           name: "swap[consent_share_email_chooser]", value: "true" }
         %label.form-check-label{ for: "swap_consent_share_email_chooser" }
-          Share my email address with #{user.swapped_with.redacted_name}
+          I understand that my email address will be shared with #{user.swapped_with.redacted_name}
 
       %p.text-center{ style: "width: 100%" }
         = button_tag "Share with #{user.swapped_with.redacted_name}", class: 'btn btn-primary'
@@ -46,7 +46,7 @@
 
 %p.text-center
 
-  If we don't hear back from them in #{swap_validity_hours} hours, we'll cancel the swap and you can pick someone else."
+  If we don't hear back from them in #{swap_validity_hours} hours, we'll cancel the swap and you can pick someone else.
 
 %h3.text-center
   In the meantime ...
