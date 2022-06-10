@@ -183,7 +183,9 @@ class User < ApplicationRecord
 
   def swap_consent_given?(consent)
     unless consent
-      errors.add :base, "We cant set up a swap unless you agree to share your email address"
+      errors.add :base,
+                 "You and your vote swap partner need to be able to contact " +
+                 "each other by email so you can establish trust between you. (See the FAQ)"
       return false
     end
     return true
