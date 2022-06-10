@@ -104,7 +104,6 @@ RSpec.describe User::SwapsController, type: :controller do
             let(:swap)  { Swap.create(chosen_user_id: swap_user.id) }
 
             context "with confirmed: true" do
-
               context "AND with consent_share_email_chosen: false" do
                 it "does NOT change the swap to confirmed" do
                   expect(swap_user.swap.confirmed).to be nil
