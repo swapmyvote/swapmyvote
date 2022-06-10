@@ -166,6 +166,7 @@ class User < ApplicationRecord
   def swap_with_user_id(user_id, consent_share_email) # test this
     other_user = User.find(user_id)
     return unless can_swap_with?(other_user)
+    return unless swap_consent_given?(consent_share_email)
 
     destroy_all_potential_swaps
     other_user.destroy_all_potential_swaps
@@ -178,6 +179,14 @@ class User < ApplicationRecord
       consent_share_email_chooser: (consent_share_email || false)
     )
     save
+  end
+
+  private def swap_consent_given?(consent)
+    unless consent
+      errors.add :base, "We cant set up a swap unless you agree to share your email address"
+      return false
+    end
+    return true
   end
 
   private def can_swap_with?(other_user)

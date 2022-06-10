@@ -80,7 +80,7 @@ RSpec.describe User::SwapsController, type: :controller do
         it "redirects to user page" do
           expect(new_user.swap).to be_nil
 
-          post :create, params: { user_id: swap_user.id }
+          post :create, params: { user_id: swap_user.id, consent_share_email_chooser: true }
 
           expect(response).to redirect_to :user
           expect(new_user.swap.chosen_user_id).to eq swap_user.id
