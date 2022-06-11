@@ -56,7 +56,7 @@ gem "airbrake", "~> 9.5.0"
 gem "scss_lint"
 gem "haml_lint"
 
-gem "webpacker", "~> 4.x"
+gem "webpacker", "~> 5.x"
 
 # These need to be outside the development group for Rakefile to
 # be happy in Heroku.
