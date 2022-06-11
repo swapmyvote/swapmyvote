@@ -4,10 +4,10 @@
 %p
   .smv-card.profile
     = render partial: "user/swaps/swap_profile",
-      locals: {other_user: user.swapped_with, hide_polls: hide_polls}
+      locals: {other_user: user.swapped_with}
 
 = render partial: "user/swaps/double_check_constituency",
-    locals: { swap_with: user.swapped_with, hide_polls: hide_polls }
+    locals: { swap_with: user.swapped_with}
 
 %p.text-center
   - if current_user.mobile_verification_missing?

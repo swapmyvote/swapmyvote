@@ -10,7 +10,7 @@
 .spacer
 - for swap in @potential_swaps
   .smv-card
-    = render partial: "swap_profile", object: swap, as: "other_user", locals: { hide_polls: hide_polls, link_to_swap: true }
+    = render partial: "swap_profile", object: swap, as: "other_user", locals: { link_to_swap: true }
 
 - unless hide_polls
   %p.text-center
