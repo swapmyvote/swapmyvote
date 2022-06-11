@@ -92,4 +92,9 @@ module ApplicationHelper
       "#SwapMyVote",
     ].sample
   end
+
+  def hide_polls
+    return @hide_polls if defined?(@hide_polls)
+    @hide_polls = OnsConstituency.count == 2
+  end
 end

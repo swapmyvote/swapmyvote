@@ -59,11 +59,6 @@ class UsersController < ApplicationController
 
   private
 
-  def hide_polls
-    return @hide_polls if defined?(@hide_polls)
-    @hide_polls = OnsConstituency.count == 2
-  end
-
   def restricted_when_voting_open
     redirect_to user_path if voting_info_locked?
   end

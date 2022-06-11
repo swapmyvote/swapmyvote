@@ -49,11 +49,6 @@ class User::SwapsController < ApplicationController
 
   private
 
-  def hide_polls
-    return @hide_polls if defined?(@hide_polls)
-    @hide_polls = OnsConstituency.count == 2
-  end
-
   def assert_mobile_phone_verified
     return unless @user.mobile_verification_missing?
 
