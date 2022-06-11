@@ -1,6 +1,8 @@
 inherits_from:
   - .haml-lint_todo.yml
 
+exclude:
+  - vendor/**/*
 
 # Whether to ignore frontmatter at the beginning of HAML documents for
 # frameworks such as Jekyll/Middleman
