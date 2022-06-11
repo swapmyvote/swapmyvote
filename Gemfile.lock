@@ -58,6 +58,8 @@ GEM
     bootsnap (1.7.5)
       msgpack (~> 1.0)
     builder (3.2.4)
+    bundle-audit (0.1.0)
+      bundler-audit
     bundler-audit (0.8.0)
       bundler (>= 1.2.0, < 3)
       thor (~> 1.0)
@@ -426,6 +428,7 @@ DEPENDENCIES
   airbrake (~> 9.5.0)
   autoprefixer-rails
   bootsnap
+  bundle-audit
   bundler-audit
   byebug
   capybara

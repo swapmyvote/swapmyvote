@@ -109,6 +109,8 @@ group :development, :test do
 
   # simple code coverage
   gem "simplecov", require: false
+
+  gem "bundle-audit"
 end
 
 group :production do
