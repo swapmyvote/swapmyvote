@@ -42,9 +42,9 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to(:user_swap)
       end
 
-      it "assigns @two_party_by_election" do
+      it "assigns @hide_polls" do
         get :show
-        expect(assigns).to have_key(:two_party_by_election)
+        expect(assigns).to have_key(:hide_polls)
       end
     end
 
