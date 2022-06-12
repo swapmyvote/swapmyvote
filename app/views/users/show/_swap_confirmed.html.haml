@@ -21,7 +21,7 @@
   %i.fa.fa-fw.fa-check
   #{user.swapped_with.name} has confirmed the swap. You're all set!
 
-- if user.my_email_consent?
+- if user.consented_to_share_email?
   %p.text-center
     You have shared your email address
     with #{user.swapped_with.name}.

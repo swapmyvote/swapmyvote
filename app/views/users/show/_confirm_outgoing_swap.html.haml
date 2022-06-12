@@ -21,7 +21,7 @@
 
     When they do we'll send you an email.
 
-- if user.my_email_consent?
+- if user.consented_to_share_email?
   %p.text-center
     You have opted to share your email address
     with #{user.swapped_with.redacted_name}.
