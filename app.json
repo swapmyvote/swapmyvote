@@ -87,23 +87,8 @@
   "image": "heroku/ruby",
   "addons": [
     {
-      "plan": "airbrake:free_heroku",
-      "as": "AIRBRAKE"
-    },
-    {
-      "plan": "heroku-postgresql",
-      "as": "DATABASE",
-      "options": {
-        "version": "9.5"
-      }
-    },
-    {
       "plan": "mailgun:starter",
       "as": "MAILGUN"
-    },
-    {
-      "plan": "scheduler:standard",
-      "as": "SCHEDULER"
     }
   ],
   "buildpacks": [
