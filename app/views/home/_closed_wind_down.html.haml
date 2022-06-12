@@ -39,13 +39,14 @@
 
       = render partial: "actionnetwork.html"
 
-      %p
-        Please help support our continued work on Swap My Vote and related
-        projects - donate to
+      - if donate_info[:show]
+        %p
+          Please help support our continued work on Swap My Vote and related
+          projects - donate to
 
-        = link_to "our crowdfunder.",
-                  "https://www.crowdfunder.co.uk/swapmyvote",
-                  target: "_blank"
+          = link_to "our crowdfunder.",
+                    donate_info[:link],
+                    target: "_blank"
 
       %hr
 
