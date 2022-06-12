@@ -1,5 +1,5 @@
 %img.profile-img{ src: other_user.image_url }
-.profile-content
+.profile-content{ class: [hide_polls? ? 'without-polls' : 'with-polls'] }
   .profile-name= other_user.redacted_name
 
   .profile-icons
