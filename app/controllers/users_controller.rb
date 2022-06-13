@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:new]
   before_action :require_swapping_open, only: :show
   before_action :restricted_when_voting_open, only: [:edit, :update, :destroy]
-  before_action :two_party_by_election, only: [:show]
+  before_action :hide_polls, only: [:show]
 
   def new
     @identity = request.env["omniauth.identity"]
@@ -58,11 +58,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def two_party_by_election
-    return @two_party_by_election if defined?(@two_party_by_election)
-    @two_party_by_election = OnsConstituency.count == 2
-  end
 
   def restricted_when_voting_open
     redirect_to user_path if voting_info_locked?
