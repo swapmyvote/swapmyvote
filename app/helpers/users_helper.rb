@@ -11,7 +11,7 @@ module UsersHelper
   def contact_methods(user)
     methods = social_contact_methods(user)
 
-    if user.email.present? && user.email_consent?
+    if user.email.present? && user.consented_to_share_email?
       methods << "by email at " + link_to(user.email, user.email_url)
     end
 
