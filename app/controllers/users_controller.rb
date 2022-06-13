@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:new]
   before_action :require_swapping_open, only: :show
   before_action :restricted_when_voting_open, only: [:edit, :update, :destroy]
-  before_action :hide_polls, only: [:show]
+  before_action :hide_polls?, only: [:show]
 
   def new
     @identity = request.env["omniauth.identity"]

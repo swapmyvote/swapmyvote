@@ -20,7 +20,7 @@
     if you vote
     %strong= other_user.preferred_party.name
 
-- if !hide_polls && !other_user.constituency.nil?
+- if !hide_polls? && !other_user.constituency.nil?
   .profile-poll
     .text-center.small
       GE2019 results for #{other_user.constituency.try(:name) or "Unknown"}

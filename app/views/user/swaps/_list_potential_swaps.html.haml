@@ -3,7 +3,7 @@
 
 %p.text-center.small.subdued
 
-  - unless hide_polls
+  - unless hide_polls?
     Consider the polls in their constituency to give your vote the best
     chance of making a difference!
 
@@ -12,7 +12,7 @@
   .smv-card
     = render partial: "swap_profile", object: swap, as: "other_user", locals: { link_to_swap: true }
 
-- unless hide_polls
+- unless hide_polls?
   %p.text-center
     Poll results are from the 2019 General Election.
 

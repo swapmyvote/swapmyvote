@@ -7,7 +7,7 @@ class User::SwapsController < ApplicationController
   before_action :assert_has_email, only: [:new, :create, :update]
   before_action :assert_has_constituency, only: [:new, :create, :update]
   before_action :assert_mobile_phone_verified, only: [:new, :create, :update]
-  before_action :hide_polls, only: [:show, :new]
+  before_action :hide_polls?, only: [:show, :new]
 
   include UsersHelper
 
