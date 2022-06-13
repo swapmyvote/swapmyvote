@@ -81,6 +81,13 @@ module ApplicationHelper
     methods.join(" or ")
   end
 
+  def donate_info
+    return @donate_info if defined?(@donate_info)
+    link = ENV["DONATE_LINK"] || "https://crowdfunder.co.uk/swapmyvote"
+    show = !ENV["DONATE_SHOW"].nil? && ENV["DONATE_SHOW"][0] != "n" && ENV["DONATE_SHOW"][0] != "f"
+    @donate_info = { link: link, show: show }
+  end
+
   def app_tagline
     [
       "I am using Swap My Vote to make my vote count in the" +

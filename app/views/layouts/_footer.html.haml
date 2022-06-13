@@ -16,6 +16,9 @@
     %ul
       %li
         %h3 Connect
+      - if donate_info[:show]
+        %li
+          = link_to "Donate", donate_info[:link], class: "small"
       %li
         = link_to "Twitter", "https://twitter.com/swapmyvote", class: "small"
       %li
