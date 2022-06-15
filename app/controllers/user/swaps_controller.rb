@@ -33,10 +33,15 @@ class User::SwapsController < ApplicationController
   end
 
   def update
-    if swap_params[:confirmed] == "true"
+    if swap_params[:confirmed] == "true" && @user.swap_consent_given?(swap_params[:consent_share_email_chosen] == "on")
       @user.confirm_swap(swap_params)
     else
+      swap_params.delete(:confirmed)
       @user.update_swap(swap_params)
+    end
+
+    unless @user.errors.empty?
+      flash[:errors] = @user.errors.full_messages
     end
 
     redirect_to user_path

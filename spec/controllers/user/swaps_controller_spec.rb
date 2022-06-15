@@ -80,7 +80,7 @@ RSpec.describe User::SwapsController, type: :controller do
         it "redirects to user page" do
           expect(new_user.swap).to be_nil
 
-          post :create, params: { user_id: swap_user.id }
+          post :create, params: { user_id: swap_user.id, consent_share_email_chooser: true }
 
           expect(response).to redirect_to :user
           expect(new_user.swap.chosen_user_id).to eq swap_user.id
@@ -104,31 +104,33 @@ RSpec.describe User::SwapsController, type: :controller do
             let(:swap)  { Swap.create(chosen_user_id: swap_user.id) }
 
             context "with confirmed: true" do
-              it "changes the swap to confirmed" do
-                expect(swap_user.swap.confirmed).to be nil
+              context "AND with consent_share_email_chosen: false" do
+                it "does NOT change the swap to confirmed" do
+                  expect(swap_user.swap.confirmed).to be nil
 
-                put :update, params: { swap: { confirmed: true } }
+                  put :update, params: { swap: { confirmed: true, consent_share_email_chosen: nil } }
 
-                expect(response).to redirect_to :user
-                expect(swap_user.swap.chosen_user_id).to eq new_user.id
-                expect(flash[:errors]).to be_blank
-                expect(swap_user.swap.confirmed).to be true
-              end
+                  expect(response).to redirect_to :user
+                  expect(swap_user.swap.chosen_user_id).to eq new_user.id
+                  expect(flash[:errors]).not_to be_blank
+                  expect(swap_user.swap.confirmed).not_to be true
+                end
 
-              it "emails both voters with swap confirmation" do
-                expect(UserMailer).to receive(:swap_confirmed).twice
-                put :update, params: { swap: { confirmed: true } }
+                it "does NOT email both voters with swap confirmation" do
+                  expect(UserMailer).not_to receive(:swap_confirmed)
+                  put :update, params: { swap: { confirmed: true, consent_share_email_chosen: nil } }
+                end
               end
 
               context "AND with consent_share_email_chosen: true" do
                 it "changes the swap to consent_share_email_chosen: true" do
-                  expect { put :update, params: { swap: { confirmed: true, consent_share_email_chosen: true } } }
+                  expect { put :update, params: { swap: { confirmed: true, consent_share_email_chosen: "on" } } }
                     .to change(swap_user.swap, :consent_share_email_chosen).from(false).to(true)
                 end
 
                 it "emails both voters with swap confirmation" do
                   expect(UserMailer).to receive(:swap_confirmed).twice
-                  put :update, params: { swap: { confirmed: true } }
+                  put :update, params: { swap: { confirmed: true, consent_share_email_chosen: "on" } }
                 end
               end
             end

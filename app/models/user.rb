@@ -163,9 +163,10 @@ class User < ApplicationRecord
     mobile_phone&.verified
   end
 
-  def swap_with_user_id(user_id, consent_share_email)
+  def swap_with_user_id(user_id, consent_share_email) # test this
     other_user = User.find(user_id)
     return unless can_swap_with?(other_user)
+    return unless swap_consent_given?(consent_share_email)
 
     destroy_all_potential_swaps
     other_user.destroy_all_potential_swaps
@@ -180,7 +181,17 @@ class User < ApplicationRecord
     save
   end
 
-  def can_swap_with?(other_user)
+  def swap_consent_given?(consent)
+    unless consent
+      errors.add :base,
+                 "You and your vote swap partner need to be able to contact " +
+                 "each other by email so you can establish trust between you. (See the FAQ)"
+      return false
+    end
+    return true
+  end
+
+  private def can_swap_with?(other_user)
     if outgoing_swap || incoming_swap
       errors.add :base, "Choosing user is already swapped"
       return false
