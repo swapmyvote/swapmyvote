@@ -78,7 +78,7 @@
       constituency, they could use this outbound link:
 
       - url1 = swap_url(willing_party_name: "liberal_democrats",
-                        constituency_name: "Somerton and Frome")
+                        constituency_name: "Wakefield")
 
       %pre
         %code
@@ -87,11 +87,13 @@
       This one would also work:
 
       - url2 = swap_url(willing_party_name: "liberal_democrats",
-                        constituency_name: "E14000932")
+                        constituency_ons_id: "E14000996")
 
       %pre
         %code
           = link_to url2, url2
+
+      It links to Tiverton and Honiton using the code.
 
     %p
 
