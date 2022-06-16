@@ -72,7 +72,6 @@
                   target: "_blank") + "."
 
     %p
-
       - party1 = Party.all.sample.name
 
       For example if a tactical voting site wishes to recommend a user
@@ -81,29 +80,27 @@
       candidate in the Wakefield
       constituency, they could use this outbound link:
 
+
+    %p
       - url1 = swap_url(willing_party_name: party1.parameterize.gsub('-', '_'),
                         constituency_name: "Wakefield")
+      = link_to url1, url1
 
-      %pre
-        %code
-          = link_to url1, url1
-
+    %p
       This one would also work:
 
+    %p
       - party2 = Party.all.sample.name
 
       - url2 = swap_url(preferred_party_name: party2.parameterize.gsub('-', '_'),
                         constituency_ons_id: "E14000996")
+      = link_to url2, url2
 
-      %pre
-        %code
-          = link_to url2, url2
-
+    %p
       It links to Tiverton and Honiton using the code.
       Also, it specifies the preferred party. Preferred party and willing party can be used in combination.
 
     %p
-
       The party names should be lowercased and use underscores instead
       of spaces; here are the available options:
 
