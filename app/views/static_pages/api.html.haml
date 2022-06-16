@@ -87,7 +87,7 @@
       = link_to url1, url1
 
     %p
-      This one would also work:
+      This one would also work, but rather than specify the tactical vote, instead specifies the user’s preferred party. This time their constituency is Tiverton and Honiton.
 
     %p
       - party2 = Party.all.sample.name
@@ -97,8 +97,7 @@
       = link_to url2, url2
 
     %p
-      It links to Tiverton and Honiton using the code.
-      Also, it specifies the preferred party. Preferred party and willing party can be used in combination.
+      Preferred party and willing party can be used singly or in combination.
 
     %p
       The party names should be lowercased and use underscores instead
