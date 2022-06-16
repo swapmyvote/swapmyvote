@@ -77,7 +77,9 @@
       to vote for the Liberal Democrat candidate in the Somerton and Frome
       constituency, they could use this outbound link:
 
-      - url1 = swap_url(willing_party_name: "liberal_democrats",
+      - party1 = Party.all.sample.name.parameterize.gsub('-', '_')
+
+      - url1 = swap_url(willing_party_name: party1,
                         constituency_name: "Wakefield")
 
       %pre
@@ -86,7 +88,9 @@
 
       This one would also work:
 
-      - url2 = swap_url(willing_party_name: "liberal_democrats",
+      - party2 = Party.all.sample.name.parameterize.gsub('-', '_')
+
+      - url2 = swap_url(willing_party_name: party2,
                         constituency_ons_id: "E14000996")
 
       %pre
