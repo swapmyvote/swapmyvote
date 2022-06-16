@@ -90,9 +90,9 @@
 
       This one would also work:
 
-      - party2 = Party.all.sample.name.parameterize.gsub('-', '_')
+      - party2 = Party.all.sample.name
 
-      - url2 = swap_url(willing_party_name: party2,
+      - url2 = swap_url(preferred_party_name: party2.parameterize.gsub('-', '_'),
                         constituency_ons_id: "E14000996")
 
       %pre
@@ -100,6 +100,7 @@
           = link_to url2, url2
 
       It links to Tiverton and Honiton using the code.
+      Also, it specifies the preferred party. Preferred party and willing party can be used in combination.
 
     %p
 
