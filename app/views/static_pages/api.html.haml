@@ -72,29 +72,36 @@
                   target: "_blank") + "."
 
     %p
+      - party1 = Party.all.sample.name
 
       For example if a tactical voting site wishes to recommend a user
-      to vote for the Liberal Democrat candidate in the Somerton and Frome
+      to vote for (randomly chosen)
+      = party1
+      candidate in the Aberdeen North
       constituency, they could use this outbound link:
 
-      - url1 = swap_url(willing_party_name: "liberal_democrats",
-                        constituency_name: "Somerton and Frome")
-
-      %pre
-        %code
-          = link_to url1, url1
-
-      This one would also work:
-
-      - url2 = swap_url(willing_party_name: "liberal_democrats",
-                        constituency_name: "E14000932")
-
-      %pre
-        %code
-          = link_to url2, url2
+    %p
+      - url1 = swap_url(willing_party_name: party1.parameterize.gsub('-', '_'),
+                        constituency_name: "Aberdeen North")
+      = link_to url1, url1
 
     %p
+      - party2 = Party.all.sample.name
 
+      This one would also work, but rather than specify the tactical vote,
+      instead specifies the user’s preferred party (randomly chosen)
+      = party2
+      \. This time their constituency is York Outer (specified by ONS code).
+
+    %p
+      - url2 = swap_url(preferred_party_name: party2.parameterize.gsub('-', '_'),
+                        constituency_ons_id: "E14001062")
+      = link_to url2, url2
+
+    %p
+      Preferred party and willing party can be used singly or in combination.
+
+    %p
       The party names should be lowercased and use underscores instead
       of spaces; here are the available options:
 
@@ -111,6 +118,39 @@
         %code reform_uk
       %li
         %code ukip
+
+    %p The constituencies for this by election are
+
+    %p
+      %b Tiverton and Honiton
+
+    %dl
+      %dt
+        %code
+          constituency_name
+      %dd
+        Tiverton+and+Honiton
+      %dt
+        %code
+          constituency_ons_id
+      %dd
+        E14000996
+
+    %p
+      %b Wakefield
+
+      %dl
+        %dt
+          %code
+            constituency_name
+        %dd
+          Wakefield
+        %dt
+          %code
+            constituency_ons_id
+        %dd
+          E14001009
+
 
     %p
 
