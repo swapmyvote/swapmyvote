@@ -86,11 +86,14 @@
       = link_to url1, url1
 
     %p
-      This one would also work, but rather than specify the tactical vote, instead specifies the user’s preferred party (randomly chosen). This time their constituency is York Outer (specified by ONS code).
-
-    %p
       - party2 = Party.all.sample.name
 
+      This one would also work, but rather than specify the tactical vote,
+      instead specifies the user’s preferred party (randomly chosen)
+      = party2
+      \. This time their constituency is York Outer (specified by ONS code).
+
+    %p
       - url2 = swap_url(preferred_party_name: party2.parameterize.gsub('-', '_'),
                         constituency_ons_id: "E14001062")
       = link_to url2, url2
