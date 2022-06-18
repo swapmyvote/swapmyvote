@@ -26,12 +26,12 @@ class User::SwapsController < ApplicationController
 
   def create
     @user.swap_with_user_id(params[:user_id], params[:consent_share_email_chooser])
-    unless @user.errors.empty?
+    if @user.errors.empty?
+      redirect_to user_path
+    else
       flash[:errors] = @user.errors.full_messages
       @swap_with = User.find(params[:user_id])
       render "new"
-    else
-      redirect_to user_path
     end
   end
 
