@@ -21,7 +21,8 @@ window.shareOnEmail = (url, text) ->
   share_url =  "mailto:somebody"
   share_url += "?subject=SwapMyVote"
   share_url += "&body=#{encodeURIComponent(text + '\n\n' + url)}"
-  newWindow = window.open(share_url, 'email_sharer', "toolbar=0,status=0,width=626,height=436")
+  newWindow = window.open(share_url, 'email_sharer',
+                          "toolbar=0,status=0,width=626,height=436")
   closeFn = () ->
     newWindow.close()
-  setTimeout( closeFn, 2000);
+  setTimeout( closeFn, 2000)
