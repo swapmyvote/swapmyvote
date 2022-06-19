@@ -23,7 +23,6 @@ linters:
   HtmlAttributes:
     exclude:
       - "app/views/home/_swap_form.html.haml"
-      - "app/views/layouts/application.html.haml"
       - "app/views/static_pages/contact.html.haml"
       - "app/views/static_pages/faq.html.haml"
       - "app/views/static_pages/privacy.html.haml"
@@ -52,7 +51,6 @@ linters:
   # Offense count: 54
   SpaceInsideHashAttributes:
     exclude:
-      - "app/views/layouts/application.html.haml"
       - "app/views/layouts/mailer.html.haml"
       - "app/views/recommendations/_recommendation.html.haml"
       - "app/views/user/share/show.html.haml"
