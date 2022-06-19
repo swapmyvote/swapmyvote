@@ -18,8 +18,11 @@
     %meta{name: "twitter:description", content: "Make your vote count in the June 23rd 2022 by-elections!"}
     %meta{name: "twitter:image", content: image_url("facebook_sharing_banner_BE2022.png")}
 
-    %meta{property: "description", content: "Make votes matter! Swap yours with someone in a constituency where both could count for more. You get to vote for who you really want, and help someone else do the same. Turn tactical voting into a win-win!"}
-    %meta{property: "og:description", content: "Make votes matter! Swap yours with someone in a constituency where both could count for more. You get to vote for who you really want, and help someone else do the same. Turn tactical voting into a win-win!"}
+    - meta_description = "Make votes matter! Swap yours with someone in a constituency where both could count for more. You get to vote for who you really want, and help someone else do the same. Turn tactical voting into a win-win!"
+    - meta_og_description = yield(:meta_og_description).strip || meta_description
+    %meta{property: "description", content: meta_description }
+    %meta{property: "og:description", content: meta_og_description }
+
     %meta{property: "og:url", content: "https://www.swapmyvote.uk"}
 
     = favicon_link_tag(source="favicon_16.png", {sizes: "16x16"})
