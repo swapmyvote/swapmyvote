@@ -31,3 +31,13 @@
         color: $white;
     }
 }
+
+.btn-email {
+    background-color: $email-color;
+    color: $white;
+
+    &:hover {
+        background-color: darken($email-color, 10%);
+        color: $white;
+    }
+}
