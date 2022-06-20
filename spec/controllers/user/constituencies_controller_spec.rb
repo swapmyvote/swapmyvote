@@ -60,15 +60,15 @@ RSpec.describe User::ConstituenciesController, type: :controller do
         end
 
         context "and constituency_ons_id is empty string" do
-          before  { allow(logged_in_user).to receive(:constituency_ons_id).and_return('') }
+          before  { allow(logged_in_user).to receive(:constituency_ons_id).and_return("") }
 
           it "does NOT update the user" do
             expect(logged_in_user).not_to receive(:update)
-            patch :update, params: { user: { constituency_ons_id: '', email: "a@b.c" }   }
+            patch :update, params: { user: { constituency_ons_id: "", email: "a@b.c" }   }
           end
 
           it "does NOT redirect to user share" do
-            patch :update, params: { user: { constituency_ons_id: '', email: "a@b.c" }   }
+            patch :update, params: { user: { constituency_ons_id: "", email: "a@b.c" }   }
             expect(response).not_to redirect_to(:user_swap)
           end
         end
