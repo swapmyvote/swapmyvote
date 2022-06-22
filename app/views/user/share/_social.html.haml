@@ -11,3 +11,16 @@
 
     %i.fa.fa-twitter.fa-fw
     Share on Twitter
+
+  - message = [ "Hi,",
+      "I thought you might be interested to hear about Swap My Vote. It's a website set up to help us make our votes count in elections.",
+      "Can you vote in the Wakefield or Tiverton and Honiton by-elections on 23rd June?",
+      "You can swap votes with someone in the other constituency to help both votes count for more. You get to vote for who you really want, and to help someone else do the same - it's a win-win! ",
+      "https://swapmyvote.uk" ]
+
+  - joined_message = message.join("\n\n")
+
+  %a.btn.btn-email.btn-block{ href: "mailto:?subject=SwapMyVote&body=#{URI::Parser.new.escape(joined_message)}" }
+
+    %i.fa.fa-envelope.fa-fw
+    Share on Email
