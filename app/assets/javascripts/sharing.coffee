@@ -16,13 +16,3 @@ window.shareOnTwitter = (url, text) ->
   share_url += "&related=SwapMyVote"
   share_url += "&text=#{encodeURIComponent(text)}"
   window.open(share_url, 'twitter_sharer', "toolbar=0,status=0,width=626,height=436")
-
-window.shareOnEmail = (url, text) ->
-  share_url =  "mailto:somebody"
-  share_url += "?subject=SwapMyVote"
-  share_url += "&body=#{encodeURIComponent(text + '\n\n' + url)}"
-  newWindow = window.open(share_url, 'email_sharer',
-                          "toolbar=0,status=0,width=626,height=436")
-  closeFn = () ->
-    newWindow.close()
-  setTimeout( closeFn, 2000)
