@@ -9,8 +9,20 @@ class User::ConstituenciesController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
-    redirect_to user_swap_path
+    ons_id = user_params[:constituency_ons_id]
+
+    if !ons_id.nil? && !ons_id.empty?
+
+      @user.update(user_params)
+      redirect_to user_swap_path
+
+    else
+
+      flash.now[:errors] = ["You must tell us your constituency. Without it, the swaps we offer may not make sense"]
+      edit
+      render "edit"
+
+    end
   end
 
   private
