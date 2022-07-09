@@ -23,7 +23,9 @@ The text about whether electoral calculus data is a prediction or an election re
 
 ### Tactical Voting Recommendations
 
-Needs thorough review. We can't necessarily rely on the previous aggregator (LiveFromBrexit) giving us the same date in the same format from the same providers. We may need to find a way to hide this data. Or simply not load the data.
+Tactical voting suggestions were hidden in [this commit](https://github.com/swapmyvote/swapmyvote/commit/52fcb7866e1bb98dd42372464f9dc7d691c76d3d) so reverting that would be a good start, if we decide we want this feature back.
+
+But, this needs thorough review. We can't necessarily rely on the previous aggregator (LiveFromBrexit) giving us the same date in the same format from the same providers.
 
 ## Template changes
 
