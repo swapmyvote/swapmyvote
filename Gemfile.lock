@@ -53,6 +53,7 @@ GEM
     ast (2.4.2)
     autoprefixer-rails (10.2.5.1)
       execjs (> 0)
+    awesome_print (1.9.2)
     bcrypt (3.1.16)
     bindex (0.8.1)
     bootsnap (1.7.5)
@@ -334,6 +335,9 @@ GEM
       rspec-expectations (~> 3.9.0)
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
+    rspec-snapshot (2.0.1)
+      awesome_print (> 1.0.0)
+      rspec (> 3.0.0)
     rspec-support (3.9.4)
     rubocop (1.22.3)
       parallel (~> 1.10)
@@ -466,6 +470,7 @@ DEPENDENCIES
   rails-controller-testing
   random_data
   rspec-rails (~> 3.8)
+  rspec-snapshot
   rubocop (~> 1.22.1)
   rubocop-rails
   rubocop-rspec
