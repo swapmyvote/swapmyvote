@@ -16,6 +16,11 @@ Consider if constituecies data needs an update. May be need for boundary changes
 
 We should either get an update, or find a way to hide the polls data from voters. Method hide_polls? in [app/helpers/application_helper.rb](../../app/helpers/application_helper.rb) should let us do it.
 
+The text about whether electoral calculus data is a prediction or an election result may need to be adjusted in these two templates
+
+  app/views/user/swaps/_list_potential_swaps.html.haml
+  app/views/user/swaps/_swap_profile_inner.html.haml
+
 ### Tactical Voting Recommendations
 
 Needs thorough review. We can't necessarily rely on the previous aggregator (LiveFromBrexit) giving us the same date in the same format from the same providers. We may need to find a way to hide this data. Or simply not load the data.

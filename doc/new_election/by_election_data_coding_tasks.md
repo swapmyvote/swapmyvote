@@ -27,6 +27,11 @@ We should either get an update, or find a way to hide the polls data from voters
 
 For a two party by-election, the method hide_polls? will automatically hide the polls (since they're not needed as selection criteria)
 
+The text about whether electoral calculus data is a prediction or an election result may need to be adjusted in these two templates
+
+  app/views/user/swaps/_list_potential_swaps.html.haml
+  app/views/user/swaps/_swap_profile_inner.html.haml
+
 ### Tactical Voting Recommendations
 
 Needs thorough review. We can't necessarily rely on the previous aggregator (LiveFromBrexit) giving us the same date in the same format from the same providers. We may need to find a way to hide this data. Or simply not load the data.
