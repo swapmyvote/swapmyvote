@@ -25,7 +25,17 @@ The text about whether electoral calculus data is a prediction or an election re
 
 Needs thorough review. We can't necessarily rely on the previous aggregator (LiveFromBrexit) giving us the same date in the same format from the same providers. We may need to find a way to hide this data. Or simply not load the data.
 
+## Template changes
+
+These templates all refer to by elections or general election
+
+    app/views/user_mailer/confirm_swap.html.haml
+    app/views/user_mailer/email_address_shared.html.haml
+    app/views/user_mailer/swap_confirmed.html.haml
+    app/views/user_mailer/welcome_email.html.haml
+
+Also method app_tagline in app/helpers/application_helper.rb
+
 ## Preparing database
 
 In [doc/admin-guide.md](../admin-guide.md) see the last step 'Resetting Heroku database for a new election cycle'
-
