@@ -6,7 +6,7 @@ In general [db/fixtures/README](../../db/fixtures/README.md) can be a guide. If 
 
 ### Switch to by election mode if need be
 
-See [db/seeds.rb](../seeds.rb) and [db/seeds_for_general_election.rb](../seeds_for_general_election.rb) and edit.
+See [db/seeds.rb](../../db/seeds.rb) and [db/seeds_for_general_election.rb](../../db/seeds_for_general_election.rb) and edit.
 
 ### YAML file
 
