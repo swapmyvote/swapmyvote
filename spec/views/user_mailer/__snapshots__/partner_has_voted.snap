@@ -1,0 +1,27 @@
+<p>
+Hi John (test user),
+</p>
+<p>
+Good news! Jane (test user) has voted
+<strong>for your preferred party in Constituency2!</strong>
+</p>
+<p>
+If you haven't done so already,
+<a href="http://test.host/user/vote">please let us know</a>
+when you've voted on behalf of Jane (test user) in
+Constituency1.
+<a href="http://test.host/user/vote">You can do that by clicking here.</a>
+</p>
+<p>
+All the best,
+<br>
+Swap My Vote Team
+</p>
+<p>
+<a href="https://www.swapmyvote.uk/?utm_source=email&utm_medium=partner_has_voted&utm_campaign=site">Swap My Vote</a>
+<br>
+<a href="https://twitter.com/intent/follow?screen_name=swapmyvote">Follow us on Twitter</a>
+<br>
+<a href="https://facebook.com/swapmyvote">Like us on Facebook</a>
+
+</p>
