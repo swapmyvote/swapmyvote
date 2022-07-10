@@ -11,6 +11,7 @@ FactoryBot.define do
     end
 
     factory :ready_to_swap_user2 do
+      name { "Jane" }
       association :constituency, factory: :ons_constituency, name: "Constituency2"
       association :preferred_party, factory: :party, name: "PartyB", color: "orange"
       association :willing_party, factory: :party, name: "PartyA", color: "green"
