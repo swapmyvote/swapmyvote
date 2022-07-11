@@ -96,16 +96,20 @@ module ApplicationHelper
     "#Wakefield or #TivertonandHoniton #byelection"
   end
 
-  def app_tagline
+  def app_taglines
     [
-      "I am using Swap My Vote to make my vote count in the" +
+      "I am using Swap My Vote to make my vote count in the " +
       "#Wakefield or #TivertonandHoniton #byelection\\n\\n" +
       "#SwapMyVote",
 
       "Use Swap My Vote to make your vote count in the " +
       "#Wakefield or #TivertonandHoniton #byelection\\n\\n" +
       "#SwapMyVote",
-    ].sample
+    ]
+  end
+
+  def app_tagline
+    app_taglines.sample
   end
 
   def hide_polls?
