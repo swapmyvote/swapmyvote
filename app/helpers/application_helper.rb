@@ -88,6 +88,10 @@ module ApplicationHelper
     @donate_info = { link: link, show: show }
   end
 
+  def election_hashtags
+    "#Wakefield or #TivertonandHoniton #byelection"
+  end
+
   def app_tagline
     [
       "I am using Swap My Vote to make my vote count in the" +
