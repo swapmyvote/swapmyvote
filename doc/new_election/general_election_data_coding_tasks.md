@@ -29,14 +29,11 @@ But, this needs thorough review. We can't necessarily rely on the previous aggre
 
 ## Template changes
 
-These templates all refer to by elections or general election
+This template has very chatty text giving the context of the election
 
-    app/views/user_mailer/confirm_swap.html.haml
-    app/views/user_mailer/email_address_shared.html.haml
-    app/views/user_mailer/swap_confirmed.html.haml
-    app/views/user_mailer/welcome_email.html.haml
+    app/views/user_mailer/welcome_email.html.
 
-Also method app_tagline in app/helpers/application_helper.rb
+Also in app/helpers/application_helper.rb the two methods election_event_title and election_hashtags need updating but could be automated depending on the constituencies defined in the database.
 
 ## Preparing database
 
