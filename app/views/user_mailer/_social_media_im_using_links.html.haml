@@ -1,12 +1,11 @@
+:ruby
+  twitter_raw_text = "I'm using https://SwapMyVote.uk to make my vote count in the #{election_hashtags}\n\n#SwapMyVote @SwapMyVote"
 
-- twitter_raw_text = "I'm using https://SwapMyVote.uk to make my vote count in the #{election_hashtags}\n\n#SwapMyVote @SwapMyVote"
+  twitter_text = CGI.escape(twitter_raw_text)
 
-- twitter_text = CGI.escape(twitter_raw_text)
+  twitter_link = "https://twitter.com/intent/tweet?text=#{twitter_text}"
 
-- twitter_link = "https://twitter.com/intent/tweet?text=#{twitter_text}"
+  facebook_link = "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.swapmyvote.uk&sdk=joey&display=popup&ref=plugin"
 
 = link_to "Tweet", twitter_link
-
-- facebook_link = "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.swapmyvote.uk&sdk=joey&display=popup&ref=plugin"
-
 = link_to "Share on Facebook", facebook_link
