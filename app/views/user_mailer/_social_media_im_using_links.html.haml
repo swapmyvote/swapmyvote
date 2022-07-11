@@ -1,4 +1,9 @@
-- twitter_link = "https://twitter.com/intent/tweet?text=I%27m+using+https://SwapMyVote.uk+to+make+my+vote+count+in+the+%23Wakefield+or+%23TivertonandHoniton+%23byelection%0a%0a%23SwapMyVote+@SwapMyVote"
+
+- twitter_raw_text = "I'm using https://SwapMyVote.uk to make my vote count in the #Wakefield or #TivertonandHoniton #byelection\n\n#SwapMyVote @SwapMyVote"
+
+- twitter_text = CGI.escape(twitter_raw_text)
+
+- twitter_link = "https://twitter.com/intent/tweet?text=#{twitter_text}"
 
 = link_to "Tweet", twitter_link
 
