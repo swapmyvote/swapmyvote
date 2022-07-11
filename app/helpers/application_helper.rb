@@ -88,6 +88,10 @@ module ApplicationHelper
     @donate_info = { link: link, show: show }
   end
 
+  def election_event_title
+    "Wakefield and Tiverton & Honiton 2022 by-elections"
+  end
+
   def election_hashtags
     "#Wakefield or #TivertonandHoniton #byelection"
   end
