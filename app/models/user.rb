@@ -122,7 +122,7 @@ class User < ApplicationRecord
 
   private def complementary_voters
     user_ids_already_in_potential_swaps = potential_swaps.reload.map(&:target_user_id)
-    user_ids_we_dont_want = user_ids_already_in_potential_swaps + [self.id]
+    user_ids_we_dont_want = user_ids_already_in_potential_swaps + [id]
     User
       .left_joins(:incoming_swap, :outgoing_swap)
       .where(
@@ -132,8 +132,8 @@ class User < ApplicationRecord
       .where("users.email like '_%'") # We need emails to send confirmation emails
       .where("swaps.chosen_user_id IS ?", nil) # not in an incoming swap
       .where("outgoing_swaps_users.id IS ?", nil) # not in an outgoing swap
-      .where("users.id NOT IN (?)", user_ids_we_dont_want) # Ignore if already included in potential swaps, or if me
-      .where("users.constituency_ons_id != ?", constituency_ons_id)  # Ignore if my constituency
+      .where.not(users: { id: user_ids_we_dont_want }) # Ignore if already included in potential swaps, or if me
+      .where.not(users: { constituency_ons_id: constituency_ons_id }) # Ignore if my constituency
   end
 
   private def one_swap_from_possible_users(user_query)
