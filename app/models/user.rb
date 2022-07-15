@@ -124,15 +124,13 @@ class User < ApplicationRecord
     User.where(
       preferred_party_id: willing_party_id,
       willing_party_id: preferred_party_id
-    )
+    ).where("users.email like '_%'") # We need emails to send confirmation emails
   end
 
   private def one_swap_from_possible_users(user_query)
     offset = rand(user_query.count)
     target_user = user_query.offset(offset).take
     return nil unless target_user
-    # We need emails to send confirmation emails
-    return nil if target_user.email.blank?
     # Don't include if already swapped
     return nil if target_user.swap
     # Ignore if already included
