@@ -132,16 +132,14 @@ class User < ApplicationRecord
       where("users.email like '_%'"). # We need emails to send confirmation emails
       where("swaps.chosen_user_id IS ?", nil). # not in an incoming swap
       where("outgoing_swaps_users.id IS ?", nil). # not in an outgoing swap
-      where("users.id NOT IN (?)", user_ids_we_dont_want) # Ignore if already included in potential swaps, or if me
+      where("users.id NOT IN (?)", user_ids_we_dont_want). # Ignore if already included in potential swaps, or if me
+      where("users.constituency_ons_id != ?", constituency_ons_id)  # Ignore if my constituency
   end
 
   private def one_swap_from_possible_users(user_query)
     offset = rand(user_query.count)
     target_user = user_query.offset(offset).take
     return nil unless target_user
-    # Ignore if my constituency
-    return nil if target_user.constituency_ons_id == constituency_ons_id
-    # Success
     return potential_swaps.create(target_user: target_user)
   end
 
