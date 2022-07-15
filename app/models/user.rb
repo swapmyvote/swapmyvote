@@ -121,18 +121,21 @@ class User < ApplicationRecord
   end
 
   private def complementary_voters
-    User.where(
-      preferred_party_id: willing_party_id,
-      willing_party_id: preferred_party_id
-    ).where("users.email like '_%'") # We need emails to send confirmation emails
+    User.
+      left_joins(:incoming_swap, :outgoing_swap).
+      where(
+        preferred_party_id: willing_party_id,
+        willing_party_id: preferred_party_id
+      ).
+      where("users.email like '_%'"). # We need emails to send confirmation emails
+      where("swaps.chosen_user_id IS ?", nil). # not in an incoming swap
+      where("outgoing_swaps_users.id IS ?", nil) # not in an outgoing swap
   end
 
   private def one_swap_from_possible_users(user_query)
     offset = rand(user_query.count)
     target_user = user_query.offset(offset).take
     return nil unless target_user
-    # Don't include if already swapped
-    return nil if target_user.swap
     # Ignore if already included
     return nil if potential_swaps.exists?(target_user: target_user)
     # Ignore if me
