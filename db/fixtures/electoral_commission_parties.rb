@@ -57,9 +57,9 @@ module Db
           joint_match = description =~ /\(joint/i
           result[name][:joint_description] = description[0..(joint_match - 1)].strip if joint_match
 
-          result[name][:registrations] ||= Set.new
+          result[name][:registrations] ||= ::Set.new
           result[name][:registrations] << { "RegisterName" => register,  "ECRef" => party[:ec_ref] }
-          result[name][:descriptions] ||= Set.new
+          result[name][:descriptions] ||= ::Set.new
           result[name][:descriptions] << description unless description.nil?
         end
       end
