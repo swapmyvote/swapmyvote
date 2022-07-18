@@ -88,16 +88,30 @@ module ApplicationHelper
     @donate_info = { link: link, show: show }
   end
 
-  def app_tagline
+  def election_event_title
+    "Wakefield and Tiverton & Honiton 2022 by-elections"
+  end
+
+  def election_hashtags
+    "#Wakefield or #TivertonandHoniton #byelection"
+  end
+
+  def app_taglines
     [
-      "I am using Swap My Vote to make my vote count in the" +
-      "#Wakefield or #TivertonandHoniton #byelection\\n\\n" +
+      "I am using Swap My Vote to make my vote count in the " +
+      election_hashtags +
+      "\\n\\n" +
       "#SwapMyVote",
 
       "Use Swap My Vote to make your vote count in the " +
-      "#Wakefield or #TivertonandHoniton #byelection\\n\\n" +
+      election_hashtags +
+      "\\n\\n" +
       "#SwapMyVote",
-    ].sample
+    ]
+  end
+
+  def app_tagline
+    app_taglines.sample
   end
 
   def hide_polls?

@@ -1,29 +1,17 @@
 require "rails_helper"
 
 RSpec.describe "user_mailer/swap_confirmed", type: :view do
-  context "wit all options on" do
-    specify do
-      willing_party = build(:party)
-      preferred_party = build(:party)
-      consituency1 = build(:ons_constituency)
-      consituency2 = build(:ons_constituency)
+  context "with :swap_with_email_consent, true" do
+    specify "matches snapshot" do
+      swap = build(:swap_with_two_users)
 
-      assign(:user,
-             build(:user,
-                   willing_party: willing_party,
-                   preferred_party: preferred_party,
-                   constituency: consituency1
-             )
-      )
-      assign(:swap_with,
-             build(:user,
-                   willing_party: preferred_party,
-                   preferred_party: willing_party,
-                   constituency: consituency2
-             )
-      )
+      assign(:user, swap.choosing_user)
+      assign(:swap_with, swap.chosen_user)
       assign(:swap_with_email_consent, true)
+
       expect { render }.not_to raise_error
+
+      expect(rendered).to match_snapshot("swap_confirmed")
     end
   end
 end

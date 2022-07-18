@@ -155,4 +155,10 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
+
+  describe "#app_taglines" do
+    it "matches snapshot" do
+      expect(helper.app_taglines).to match_snapshot("application_helper_app_taglines")
+    end
+  end
 end
