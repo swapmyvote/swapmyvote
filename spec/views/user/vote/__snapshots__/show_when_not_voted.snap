@@ -1,0 +1,17 @@
+<div class='background-pattern border-bottom'>
+<div class='container container-narrow'>
+<p class='text-center'>
+Please let us know when you've voted...
+</p>
+<p class='text-center'>
+<a class="btn btn-primary" rel="nofollow" data-method="post" href="/user/vote">Yes, I&#39;ve voted! (for PartyB)</a>
+</p>
+<p class='text-center subdued'>
+We'll email your swap partner, Jane (test user)
+<br>
+and let them know that you've voted
+<strong>PartyB</strong>
+for them.
+</p>
+</div>
+</div>
