@@ -96,6 +96,10 @@ module ApplicationHelper
     "Wakefield and Tiverton & Honiton 2022 by-elections"
   end
 
+  def election_event_title(combined = "and")
+    "Wakefield #{combined} Tiverton & Honiton by-elections"
+  end
+
   def election_hashtags
     "#Wakefield or #TivertonandHoniton #byelection"
   end
