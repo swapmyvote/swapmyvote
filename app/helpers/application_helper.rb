@@ -104,8 +104,12 @@ module ApplicationHelper
     "#Wakefield or #TivertonandHoniton #byelection"
   end
 
-  def election_date_and_type
+  def election_date_and_type_mdy
     "June 23rd 2022 by-elections"
+  end
+
+  def election_date_and_type_my
+    "June 2022 by-elections"
   end
 
   def election_date_md
