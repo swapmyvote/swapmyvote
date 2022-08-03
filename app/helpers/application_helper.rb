@@ -112,6 +112,10 @@ module ApplicationHelper
     "June 2022 by-elections"
   end
 
+  def election_date_season_type
+    "2022 summer by-elections"
+  end
+
   def election_date_md
     "June 23rd"
   end
