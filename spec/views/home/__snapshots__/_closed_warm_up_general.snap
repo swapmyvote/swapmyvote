@@ -1,0 +1,163 @@
+<div class='background-pattern border-bottom'>
+<div class='container container-narrow'>
+<div class='card'>
+<h2>June 2022 By Elections Update</h2>
+<p>
+We have updated the Swap My Vote platform for the
+2022 Summer By Elections!
+We aim to open for
+vote swapping soon!
+</p>
+<p>
+Please enter your email address for a reminder when vote
+swapping is open, and for further updates.
+</p>
+<!-- Begin Action Network Signup Form -->
+<link href='https://actionnetwork.org/css/style-embed-whitelabel-v3.css' rel='stylesheet' type='text/css' /><script src='https://actionnetwork.org/widgets/v4/form/swapmyvote?format=js&source=widget'></script><div id='can-form-area-swapmyvote'><!-- this div is the target for our HTML insertion --></div>
+<style>
+	<!--
+	
+	/************************/
+	/*****ACTIONNETWORK******/
+	/*********EMBEDS*********/
+	/************************/
+
+	/* FORM WIDTH and CENTERING */
+
+	#can-form-area-swapmyvote .can_embed {
+		min-width: 300px !important;
+	    max-width: 400px !important;
+	    margin: 0 auto !important;
+	}
+
+
+	/* FORCE SINGLE COLUMN FORM */
+
+	#can_embed_form.can_float #form_col1,
+	#can_embed_form.can_float #form_col2 {
+	    float: none !important;
+	    width: 100% !important;
+	}
+
+	/* HIDE HEADERS */
+	#can_embed_form h2,
+	#can_embed_form h4{
+	    display: none !important;
+	}
+
+	/* HIDE 'sponsored by forward democracy' TAGLINE */
+	#can_embed_form .action_info_user {
+	    display: none !important;
+	}
+
+	/*LABELS*/
+	#can-form-area-swapmyvote label {font-size:18px !important;}
+	#can-form-area-swapmyvote label.floatlabel-label-active {display:none !important}
+
+	/* HIDE LABELS */
+	#can-form-area-swapmyvote .control-label,
+	#can-form-area-swapmyvote .affirmative_note {
+	    display: none !important;
+	}
+
+	/* USE FORM ID TO APPLY OPT-IN HIDING ONLY ON NEWSLETTER SIGNUP FORMS */
+	#can-form-area-swapmyvote .controls.check_radio_field label:nth-child(2) {
+	    display: none !important;
+	}
+
+	/* LAYOUT FORMATTING */
+	#can_embed_form #d_sharing {
+		border-top: none !important;
+		padding: 0 0 0 0 !important;
+	}
+	#can_embed_form #d_sharing ul {
+		margin-top: 0 !important;
+	}
+
+	/*INPUTS
+	#can-form-area-swapmyvote input[type=text],
+	#can-form-area-swapmyvote input[type=email] {
+		color: #FFFFFF !important;
+		background-color: #333333 !important;
+		border-radius: 4px !important;
+		padding: 1.4rem 1rem !important;
+	}
+
+	#can-form-area-swapmyvote .can_select {
+		color: #FFFFFF !important;
+		background-color: #333333 !important;
+		border-radius: 4px !important;
+	}*/
+
+	/*ERROR COLOURS
+	#can_embed_form .check_radio_field label.error_checkbox {
+		color: #FF89FE !important;
+	}
+	#can_embed_form input.error_input {
+		border-color: #FF89FE !important;
+		box-shadow:0 0 0 2px #FF89FE inset, 0 0 4px 0 #FF89FE inset !important;
+	}*/
+
+	/* FORM BUTTON STYLING 
+	#can_embed_form .can_button,
+	#can_embed_form #donate_auto_modal input[type=submit],
+	#can_embed_form #donate_auto_modal .button,
+	#can_embed_form #donate_make_recurring_modal input[type=submit],
+	#can_embed_form #donate_make_recurring_modal .button,
+	#can_embed_form input[type=submit],
+	#can_embed_form .button {
+	background-color:#FF89FE !important;
+	color:#FFFFFF !important;
+	padding: 0.4em 1em !important;
+	border: 0 !important;
+	border-radius: 4px!important;
+	font-size: 1.2em !important;
+	font-weight: 600 !important;
+	text-transform: lowercase !important;
+	text-transform: capitalize !important;
+	font-family: inherit !important;
+	letter-spacing: 0.4px !important;
+	display: inline-block !important;
+	width: initial !important;
+	max-width: initial !important;
+	}*/
+
+
+	/* SUBMIT THANKYOU STYLING */
+	#can_embed_form .can_thank_you_wrap h2, .can_thank_you_wrap h4 {display: block !important;}
+	#can_embed_form .can_thank_you_wrap div#can_thank_you {background-color: #FFF !important;}
+	#can_embed_form .can_thank_you_wrap #action_info {display:none !important;}
+
+	/* HIDE EXTRA SHARE OPTIONS, email to a friend, embed your own form */
+	#can_embed_form .clearfix div.can_thank_you-block:nth-child(1) :nth-child(9) {display:none !important;}
+	#can_embed_form .clearfix div.can_thank_you-block:nth-child(1) :nth-child(10) {display:none !important;}
+	#can_embed_form .clearfix div.can_thank_you-block:nth-child(2) {display:none !important;}
+    #can_embed_form .clearfix div.can_thank_you-block:nth-child(3) {display:none !important;}
+
+	/*WELCOME BACK MESSAGE*/
+	#can_embed_form #action_welcome_message #action_welcome_message_inner  {
+		/*background-color:#333333 !important;
+		padding: 1.4rem !important;
+		border: none !important;*/
+		font-size: 17px !important;
+	}
+
+	/************************/
+	/*****ACTIONNETWORK******/
+	/*********EMBEDS*********/
+	/************************/
+
+	-->
+</style>
+
+<!-- End Action Network Signup Form -->
+<hr>
+<p class='text-center'>
+Stay up to date with our future projects and for future elections.
+<br>
+<a class="button button-twitter" href="https://twitter.com/swapmyvote">Follow us on Twitter</a>
+<a class="button button-facebook" href="https://www.facebook.com/swapmyvote">Like us on Facebook</a>
+</p>
+</div>
+</div>
+</div>

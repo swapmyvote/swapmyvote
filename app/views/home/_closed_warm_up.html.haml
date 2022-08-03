@@ -5,9 +5,15 @@
 
       %p
 
-        We have updated the Swap My Vote platform for the two
-        by&#8209;elections to be held this summer on #{election_date_md}:
-        #{election_title}. We aim to open for
+        We have updated the Swap My Vote platform for the
+        - if general_election?
+          #{election_date_season_type.titleize}!
+        - else
+          two
+          by-elections to be held this summer on #{election_date_md}:
+          #{election_title}.
+
+        We aim to open for
         vote swapping soon!
 
       %p
