@@ -161,4 +161,16 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(helper.app_taglines).to match_snapshot("application_helper_app_taglines")
     end
   end
+
+  describe '#by_election_constituencies' do
+    before do
+      wakefield = build(:ons_constituency, name: "Wakefield")
+      tiverton = build(:ons_constituency, name: "Tiverton and Honiton")
+      allow(OnsConstituency).to receive(:all).and_return([wakefield, tiverton])
+    end
+
+    context "when two constituencies" do
+      specify { expect(helper.by_election_constituencies).to eq(["Wakefield", "Tiverton & Honiton"]) }
+    end
+  end
 end

@@ -88,6 +88,10 @@ module ApplicationHelper
     @donate_info = { link: link, show: show }
   end
 
+  def by_election_constituencies
+    OnsConstituency.all.map(&:name).map{ |c| c.gsub(' and ', ' & ') }
+  end
+
   def election_title
     "Wakefield and Tiverton & Honiton"
   end
