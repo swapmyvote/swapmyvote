@@ -1,7 +1,10 @@
 .background-pattern.border-bottom
   .container.text-center
     %h1
-      The #{election_date_season_type} are here!
+      - if general_election?
+        The #{election_date_season_type.titleize} is here!
+      - else
+        The #{election_date_season_type} are here!
 
     %h2
       Can you vote in the

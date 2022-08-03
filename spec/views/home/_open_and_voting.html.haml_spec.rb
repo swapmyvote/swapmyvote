@@ -1,14 +1,33 @@
 require "rails_helper"
 
 RSpec.describe "home/_open_and_voting", type: :view do
-  specify "matches snapshot" do
+  context "in a by-election" do
+    specify "matches snapshot" do
+      allow(view).to receive(:general_election?).and_return(false)
 
-    assign(:parties, [create(:party)])
+      assign(:parties, [create(:party)])
 
-    allow(view).to receive(:current_user).and_return(create(:user))
+      allow(view).to receive(:current_user).and_return(create(:user))
 
-    expect { render }.not_to raise_error
+      expect { render }.not_to raise_error
 
-    expect(rendered).to match_snapshot("_open_and_voting")
+      expect(rendered).to match_snapshot("_open_and_voting_by_election")
+    end
+  end
+
+  context "in a general election" do
+    specify "matches snapshot" do
+      allow(view).to receive(:general_election?).and_return(true)
+
+      allow(view).to receive(:election_date_season_type).and_return("2019 general election")
+
+      assign(:parties, [create(:party)])
+
+      allow(view).to receive(:current_user).and_return(create(:user))
+
+      expect { render }.not_to raise_error
+
+      expect(rendered).to match_snapshot("_open_and_voting_general")
+    end
   end
 end
