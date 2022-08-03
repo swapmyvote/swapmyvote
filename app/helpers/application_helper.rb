@@ -112,6 +112,10 @@ module ApplicationHelper
     "June 23rd"
   end
 
+  def election_date_dm
+    "23rd June"
+  end
+
   def app_taglines
     [
       "I am using Swap My Vote to make my vote count in the " +
