@@ -128,6 +128,10 @@ module ApplicationHelper
     "23rd June"
   end
 
+  def election_constituency_choice
+    "the other constituency"
+  end
+
   def general_election?
     false
   end
