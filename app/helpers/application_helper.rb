@@ -124,6 +124,10 @@ module ApplicationHelper
     "23rd June"
   end
 
+  def general_election?
+    false
+  end
+
   def app_taglines
     [
       "I am using Swap My Vote to make my vote count in the " +
