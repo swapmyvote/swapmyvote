@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "home/_closed_warm_up", type: :view do
+  before do
+    allow(OnsConstituency).to receive(:all).and_return([build(:wakefield), build(:tiverton)])
+  end
+
   context "in a by-election" do
     specify "matches snapshot" do
       allow(view).to receive(:general_election?).and_return(false)

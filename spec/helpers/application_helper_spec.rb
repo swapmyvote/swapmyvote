@@ -162,7 +162,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
-  describe '#by_election_constituencies' do
+  describe "#election_title" do
     before do
       wakefield = build(:ons_constituency, name: "Wakefield")
       tiverton = build(:ons_constituency, name: "Tiverton and Honiton")
@@ -170,7 +170,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     context "when two constituencies" do
-      specify { expect(helper.by_election_constituencies).to eq(["Wakefield", "Tiverton & Honiton"]) }
+      specify { expect(helper.election_title).to eq("Wakefield and Tiverton & Honiton") }
     end
   end
 end

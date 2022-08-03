@@ -89,11 +89,11 @@ module ApplicationHelper
   end
 
   def by_election_constituencies
-    OnsConstituency.all.map(&:name).map{ |c| c.gsub(' and ', ' & ') }
+    OnsConstituency.all.map(&:name)
   end
 
   def election_title
-    "Wakefield and Tiverton & Honiton"
+    by_election_constituencies.map{ |c| c.gsub(' and ', ' & ') }.to_sentence
   end
 
   def election_event_title_with_year

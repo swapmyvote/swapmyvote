@@ -9,8 +9,12 @@
 
 %p
 
-  The #{election_date_season_type} for #{election_title}
-  are on <em>Thursday, #{election_date_dm}</em>.
+  - if general_election?
+    The #{election_date_season_type} is
+  - else
+    The #{election_date_season_type} for #{election_title} are
+
+  on <em>Thursday, #{election_date_dm}</em>.
 
 %p
 
