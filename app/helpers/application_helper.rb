@@ -97,7 +97,11 @@ module ApplicationHelper
   end
 
   def election_event_title_with_year
-    "Wakefield and Tiverton & Honiton 2022 by-elections"
+    if general_election?
+      "General Election 2022"
+    else
+      "#{by_election_constituencies_as_sentence} 2022 by-elections"
+    end
   end
 
   def election_event_choice
