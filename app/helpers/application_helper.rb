@@ -92,8 +92,8 @@ module ApplicationHelper
     OnsConstituency.all.map(&:name)
   end
 
-  def election_title
-    by_election_constituencies.map{ |c| c.gsub(' and ', ' & ') }.to_sentence
+  def by_election_constituencies_as_sentence
+    by_election_constituencies.map{ |c| c.gsub(" and ", " & ") }.to_sentence
   end
 
   def election_event_title_with_year
