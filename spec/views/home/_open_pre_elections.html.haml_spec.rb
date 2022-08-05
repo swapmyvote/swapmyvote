@@ -1,12 +1,31 @@
 require "rails_helper"
 
 RSpec.describe "home/_open_pre_elections", type: :view do
-  specify "matches snapshot" do
+  before do
+    allow(OnsConstituency).to receive(:all).and_return([build(:wakefield), build(:tiverton)])
+  end
 
-    assign(:parties, [create(:party)])
+  context "when in by-election"  do
+    specify "matches snapshot" do
+      allow(view).to receive(:general_election?).and_return(false)
 
-    expect { render }.not_to raise_error
+      assign(:parties, [create(:party)])
 
-    expect(rendered).to match_snapshot("_open_pre_elections")
+      expect { render }.not_to raise_error
+
+      expect(rendered).to match_snapshot("_open_pre_elections_by_election")
+    end
+  end
+
+  context "when in general election"  do
+    specify "matches snapshot" do
+      allow(view).to receive(:general_election?).and_return(true)
+
+      assign(:parties, [create(:party)])
+
+      expect { render }.not_to raise_error
+
+      expect(rendered).to match_snapshot("_open_pre_elections_general")
+    end
   end
 end

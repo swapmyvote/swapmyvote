@@ -1,9 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "home/_open_and_voting", type: :view do
+  before do
+    allow(OnsConstituency).to receive(:all).and_return([build(:wakefield), build(:tiverton)])
+  end
+
   context "in a by-election" do
     specify "matches snapshot" do
       allow(view).to receive(:general_election?).and_return(false)
+      allow(view).to receive(:hide_polls?).and_return(true)
 
       assign(:parties, [create(:party)])
 
@@ -18,6 +23,7 @@ RSpec.describe "home/_open_and_voting", type: :view do
   context "in a general election" do
     specify "matches snapshot" do
       allow(view).to receive(:general_election?).and_return(true)
+      allow(view).to receive(:hide_polls?).and_return(false)
 
       allow(view).to receive(:election_date_season_type).and_return("2019 general election")
 
