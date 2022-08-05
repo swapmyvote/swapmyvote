@@ -173,4 +173,15 @@ RSpec.describe ApplicationHelper, type: :helper do
       specify { expect(helper.by_election_constituencies_as_sentence).to eq("Wakefield and Tiverton & Honiton") }
     end
   end
+
+  describe "#election_event_choice" do
+    before do
+      allow(OnsConstituency).to receive(:all).and_return([build(:wakefield), build(:tiverton)])
+    end
+
+    context "when two constituencies" do
+      specify { expect(helper.election_event_choice).to eq("Wakefield or Tiverton & Honiton by-elections") }
+    end
+  end
+
 end

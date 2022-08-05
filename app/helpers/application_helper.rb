@@ -105,7 +105,12 @@ module ApplicationHelper
   end
 
   def election_event_choice
-    "Wakefield or Tiverton & Honiton by-elections"
+    if general_election?
+      "General Election"
+    else
+      options = { words_connector: ", ", last_word_connector: " or ", two_words_connector: " or " }
+      "#{by_election_constituencies.map{ |c| c.gsub(" and ", " & ") }.to_sentence(options)} by-elections"
+    end
   end
 
   def election_hashtags
