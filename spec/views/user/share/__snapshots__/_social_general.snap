@@ -1,9 +1,9 @@
 <p class='text-center'>
-<a class='btn btn-facebook btn-block' href='#' onclick='shareOnFacebook(&#39;&#39;, &#39;https://swapmyvote.uk&#39;, &#39;I am using Swap My Vote to make my vote count in the #Wakefield or #TivertonandHoniton #byelection\n\n#SwapMyVote&#39;, &#39;#SwapMyVote&#39;); return false'>
+<a class='btn btn-facebook btn-block' href='#' onclick='shareOnFacebook(&#39;&#39;, &#39;https://swapmyvote.uk&#39;, &#39;I am using Swap My Vote to make my vote count in the #GeneralElection\n\n#SwapMyVote&#39;, &#39;#SwapMyVote&#39;); return false'>
 <img src="/assets/facebook_icon-b37cc3698e78b4de3bfd3649370d31321c7dbabdc7793057d54410c73bc4d75f.png" />
 Share on Facebook
 </a>
-<a class='btn btn-twitter btn-block' href='#' onclick='shareOnTwitter(&#39;https://swapmyvote.uk&#39;, &#39;I am using Swap My Vote to make my vote count in the #Wakefield or #TivertonandHoniton #byelection\n\n#SwapMyVote @SwapMyVote&#39;); return false'>
+<a class='btn btn-twitter btn-block' href='#' onclick='shareOnTwitter(&#39;https://swapmyvote.uk&#39;, &#39;I am using Swap My Vote to make my vote count in the #GeneralElection\n\n#SwapMyVote @SwapMyVote&#39;); return false'>
 <i class='fa fa-twitter fa-fw'></i>
 Share on Twitter
 </a>

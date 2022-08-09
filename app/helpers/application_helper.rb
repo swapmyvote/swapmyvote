@@ -120,7 +120,16 @@ module ApplicationHelper
   end
 
   def election_hashtags
-    "#Wakefield or #TivertonandHoniton #byelection"
+    if general_election?
+      "#GeneralElection"
+    else
+      # "#Wakefield or #TivertonandHoniton #byelection"
+      hashtags = by_election_constituencies.map do |name|
+        "#" + name.gsub(/[^A-Za-z]/, "")
+      end
+      options = { words_connector: ", ", last_word_connector: " or ", two_words_connector: " or " }
+      "#{hashtags.to_sentence(options)} #byelection"
+    end
   end
 
   def election_date_and_type_mdy

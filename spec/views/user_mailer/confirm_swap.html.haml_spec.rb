@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "user_mailer/confirm_swap", type: :view do
+  before do
+    allow(OnsConstituency).to receive(:all).and_return([build(:wakefield), build(:tiverton)])
+  end
+
   specify "matches snapshot" do
     swap = build(:swap_with_two_users)
 

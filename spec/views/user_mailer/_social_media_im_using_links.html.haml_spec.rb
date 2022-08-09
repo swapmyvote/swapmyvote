@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "user_mailer/_social_media_im_using_links", type: :view do
+  before do
+    allow(OnsConstituency).to receive(:all).and_return([build(:wakefield), build(:tiverton)])
+  end
+
   context "in a by-election" do
     specify "matches snapshot" do
       allow(view).to receive(:general_election?).and_return(false)

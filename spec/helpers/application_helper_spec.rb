@@ -157,6 +157,10 @@ RSpec.describe ApplicationHelper, type: :helper do
   end
 
   describe "#app_taglines" do
+    before do
+      allow(OnsConstituency).to receive(:all).and_return([build(:wakefield), build(:tiverton)])
+    end
+
     it "matches snapshot" do
       expect(helper.app_taglines).to match_snapshot("application_helper_app_taglines")
     end
@@ -164,9 +168,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
   describe "#by_election_constituencies_as_sentence" do
     before do
-      wakefield = build(:ons_constituency, name: "Wakefield")
-      tiverton = build(:ons_constituency, name: "Tiverton and Honiton")
-      allow(OnsConstituency).to receive(:all).and_return([wakefield, tiverton])
+      allow(OnsConstituency).to receive(:all).and_return([build(:wakefield), build(:tiverton)])
     end
 
     context "when two constituencies" do
