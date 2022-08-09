@@ -142,7 +142,11 @@ module ApplicationHelper
     # "June 23rd 2022 by-elections"
     day = election_date.day.ordinalize
     date_formatted = election_date.strftime("%B #{day} %Y")
-    date_formatted + " by-elections"
+    if general_election?
+      date_formatted + " general election"
+    else
+      date_formatted + " by-elections"
+    end
   end
 
   def election_date_and_type_my
