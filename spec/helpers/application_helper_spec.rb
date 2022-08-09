@@ -185,5 +185,4 @@ RSpec.describe ApplicationHelper, type: :helper do
       specify { expect(helper.election_event_choice).to eq("Wakefield or Tiverton & Honiton by-elections") }
     end
   end
-
 end

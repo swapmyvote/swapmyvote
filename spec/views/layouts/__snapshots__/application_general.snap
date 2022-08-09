@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta content='width=device-width, initial-scale=1' name='viewport'>
+<title>Swap My Vote</title>
+<meta content='' property='fb:app_id'>
+<meta content='website' property='og:type'>
+<meta content='Swap My Vote | Make your vote count in the June 23rd 2022 by-elections! Don’t wait for electoral reform.' property='og:title'>
+<meta content='http://test.host/assets/facebook_sharing_banner_BE2022-b1af1741f875a7ea86317869bbe014015eb946c8e745f8ef96821c43ecd76236.png' property='og:image'>
+<meta content='1200' property='og:image:width'>
+<meta content='630' property='og:image:height'>
+<meta content='Swap My Vote' property='og:site_name'>
+<meta content='summary_large_image' name='twitter:card'>
+<meta content='@SwapMyVote' name='twitter:site'>
+<meta content='@SwapMyVote' name='twitter:creator'>
+<meta content='Swap My Vote' name='twitter:title'>
+<meta content='Make your vote count in the June 23rd 2022 by-elections!' name='twitter:description'>
+<meta content='http://test.host/assets/facebook_sharing_banner_BE2022-b1af1741f875a7ea86317869bbe014015eb946c8e745f8ef96821c43ecd76236.png' name='twitter:image'>
+<meta content='Make votes matter! Swap yours with someone in a constituency where both could count for more. You get to vote for who you really want, and help someone else do the same. Turn tactical voting into a win-win!' property='description'>
+<meta content='' property='og:description'>
+<meta content='https://www.swapmyvote.uk' property='og:url'>
+<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon_16-e03b154a5696ead4723b4d8944d477bae9498aca3c21b42cacb709f82f0de10e.png" sizes="16x16" />
+<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon_32-6298b02d0a593ae79b52178f262d5d5b6d914a781bdee08a2df143f3ef517965.png" sizes="32x32" />
+<link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' rel='stylesheet'>
+<link href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
+<script src='https://www.gstatic.com/charts/loader.js' type='text/javascript'></script>
+<link rel="stylesheet" media="all" href="/assets/application-8a48579c0a14d544cbc1d656cac9a52b01ceeb9c834d2e36d1f5fed0cbd9b6fb.css" data-turbolinks-track="true" />
+<script src="/assets/application-956a2af0450c0c4c95035eb6b5593e2ffbcdea52ad555a7a7bef8d31929ac08e.js" data-turbolinks-track="true"></script>
+
+<script data='false' src='https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js'></script>
+<script>
+  window.addEventListener("load", function() {
+    window.cookieconsent.initialise({
+      palette: {
+        popup:  {background: "#5cbdd3"},
+        button: {background: "#f1d600"}
+      },
+      content: {
+        message: "We use cookies to improve your experience.",
+        href: "/cookies",
+        dismiss: "OK"
+      },
+      cookie: {
+        name: "_swapmyvote_cookie_consent",
+        domain: ""
+      }
+    });
+  });
+</script>
+
+<!-- GOOGLE_ANALYTICS_ID not set -->
+
+</head>
+<body>
+<div class='smv-navbar'>
+<a class="smv-brand" href="/">SwapMyVote</a>
+<span class='user'>
+<a href="/user/edit"><img src="https://secure.gravatar.com/avatar/d4c74594d841139328695756648b6bd6?d=identicon&amp;s=80" /></a>
+<span class='name'>
+<a href="/user/edit">John (test user)</a>
+</span>
+<a class="small subdued logout" rel="nofollow" data-method="delete" href="/users/sign_out">Log out</a>
+</span>
+
+</div>
+
+<footer>
+<div class='container'>
+<ul>
+<li>
+<h3>Swap My Vote</h3>
+</li>
+<li>
+<a class="small" href="/about">About</a>
+</li>
+<li>
+<a class="small" href="/contact">Contact Us</a>
+</li>
+<li>
+<a class="small" href="/privacy">Privacy Policy</a>
+</li>
+<li>
+<a class="small" href="/terms">Terms of Use</a>
+</li>
+<li>
+<a class="small" href="/cookies">Cookie Policy</a>
+</li>
+</ul>
+<ul>
+<li>
+<h3>Connect</h3>
+</li>
+<li>
+<a class="small" href="https://twitter.com/swapmyvote">Twitter</a>
+</li>
+<li>
+<a class="small" href="https://www.facebook.com/swapmyvote">Facebook</a>
+</li>
+<li>
+<a class="small" href="/api">API</a>
+</li>
+</ul>
+<ul>
+<li>
+<h3>
+<a class="stealth-link" href="/faq">FAQ</a>
+</h3>
+</li>
+<li>
+<a class="small" href="/faq#legal">Is this legal?</a>
+</li>
+<li>
+<a class="small" href="/faq#trust">How do I know my partner will vote (for who I want)?</a>
+</li>
+<li>
+<a class="small" href="/faq">More ...</a>
+</li>
+</ul>
+</div>
+</footer>
+
+<script crossorigin='anonymous' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
+<script crossorigin='anonymous' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+</body>
+</html>
