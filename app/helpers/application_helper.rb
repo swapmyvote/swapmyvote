@@ -92,15 +92,21 @@ module ApplicationHelper
     OnsConstituency.all.map(&:name)
   end
 
+  def by_election_constituencies_ampersand
+    by_election_constituencies.map do |name|
+      name.gsub(" and ", " & ")
+    end
+  end
+
   def by_election_constituencies_as_sentence
-    by_election_constituencies.map{ |c| c.gsub(" and ", " & ") }.to_sentence
+    by_election_constituencies_ampersand.to_sentence
   end
 
   def election_event_title_with_year
     if general_election?
-      "General Election 2022"
+      "General Election #{election_year}"
     else
-      "#{by_election_constituencies_as_sentence} 2022 by-elections"
+      "#{by_election_constituencies_as_sentence} #{election_year} by-elections"
     end
   end
 
@@ -109,7 +115,7 @@ module ApplicationHelper
       "General Election"
     else
       options = { words_connector: ", ", last_word_connector: " or ", two_words_connector: " or " }
-      "#{by_election_constituencies.map{ |c| c.gsub(" and ", " & ") }.to_sentence(options)} by-elections"
+      "#{by_election_constituencies_ampersand.to_sentence(options)} by-elections"
     end
   end
 
@@ -127,6 +133,10 @@ module ApplicationHelper
 
   def election_date_season_type
     "2022 summer by-elections"
+  end
+
+  def election_year
+    "2022"
   end
 
   def election_season
