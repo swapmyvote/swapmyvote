@@ -132,8 +132,17 @@ module ApplicationHelper
     end
   end
 
+  def election_date
+    date_from_env = ENV["ELECTION_DATE"]
+    return Date.parse(date_from_env) unless date_from_env.nil? || (date_from_env == "")
+    Date.parse("2022-6-23")
+  end
+
   def election_date_and_type_mdy
-    "June 23rd 2022 by-elections"
+    # "June 23rd 2022 by-elections"
+    day = election_date.day.ordinalize
+    date_formatted = election_date.strftime("%B #{day} %Y")
+    date_formatted + " by-elections"
   end
 
   def election_date_and_type_my

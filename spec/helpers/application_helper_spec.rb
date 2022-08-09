@@ -185,4 +185,22 @@ RSpec.describe ApplicationHelper, type: :helper do
       specify { expect(helper.election_event_choice).to eq("Wakefield or Tiverton & Honiton by-elections") }
     end
   end
+
+  describe "#election_date" do
+    context "when date ENV variable is set" do
+      it "returns the parsed ENV variable" do
+        allow(ENV).to receive(:[]).with("ELECTION_DATE").and_return("2019-12-11")
+        expected_date = Date.parse("2019-12-11")
+        expect(helper.election_date).to eq(expected_date)
+      end
+    end
+
+    context "when date ENV variable is NOT set" do
+      it "returns the parsed default date" do
+        allow(ENV).to receive(:[]).with("ELECTION_DATE").and_return(nil)
+        expected_date = Date.parse("2022-06-23")
+        expect(helper.election_date).to eq(expected_date)
+      end
+    end
+  end
 end
