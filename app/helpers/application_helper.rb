@@ -99,6 +99,7 @@ module ApplicationHelper
   end
 
   def by_election_constituencies_as_sentence
+    # "Wakefield and Tiverton & Honiton"
     by_election_constituencies_ampersand.to_sentence
   end
 
@@ -114,6 +115,7 @@ module ApplicationHelper
     if general_election?
       "General Election"
     else
+      # "Wakefield or Tiverton & Honiton by-elections"
       options = { words_connector: ", ", last_word_connector: " or ", two_words_connector: " or " }
       "#{by_election_constituencies_ampersand.to_sentence(options)} by-elections"
     end
