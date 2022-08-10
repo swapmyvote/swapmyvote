@@ -185,7 +185,9 @@ module ApplicationHelper
   end
 
   def election_date_md
-    "June 23rd"
+    # "June 23rd"
+    day = election_date.day.ordinalize
+    election_date.strftime("%B #{day}")
   end
 
   def election_date_dm
