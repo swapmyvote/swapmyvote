@@ -152,7 +152,13 @@ module ApplicationHelper
   end
 
   def election_date_and_type_my
-    "June 2022 by-elections"
+    # "June 2022 by-elections"
+    date_formatted = election_date.strftime("%B %Y")
+    if general_election?
+      date_formatted + " general election"
+    else
+      date_formatted + " by-elections"
+    end
   end
 
   def election_date_season_type
