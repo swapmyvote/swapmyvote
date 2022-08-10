@@ -81,6 +81,11 @@
       "description": "date of the election in the format YYYY-MM-DD",
       "required": "false",
       "value": ""
+    },
+    "ELECTION_TYPE": {
+      "description": "Type of election, general or by / g or b",
+      "required": "false",
+      "value": ""
     }
   },
   "formation": {

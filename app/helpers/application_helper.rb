@@ -208,8 +208,18 @@ module ApplicationHelper
     end
   end
 
+  def election_type_override
+    election_type = ENV["ELECTION_TYPE"]
+    return nil unless !election_type.nil? && election_type.size.positive?
+    return :general if election_type[0].downcase == "g"
+    return :by if election_type[0].downcase == "b"
+    return nil
+  end
+
   def general_election?
-    false
+    !election_type_override.nil? ?
+      (election_type_override == :general) :
+      (OnsConstituency.count > OnsConstituency::NUMBER_OF_UK_CONSTITUENCIES / 2)
   end
 
   def app_taglines
