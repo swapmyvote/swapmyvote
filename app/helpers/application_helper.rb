@@ -140,7 +140,6 @@ module ApplicationHelper
     Date.parse("2022-6-23")
   end
 
-
   def election_date_and_type_mdy
     # "June 23rd 2022 by-elections"
     day = election_date.day.ordinalize
@@ -163,7 +162,12 @@ module ApplicationHelper
   end
 
   def election_date_season_type
-    "2022 #{election_season} by-elections"
+    # "2022 summer by-elections"
+    if general_election?
+      "2022 general election"
+    else
+      "2022 #{election_season} by-elections"
+    end
   end
 
   def election_year
