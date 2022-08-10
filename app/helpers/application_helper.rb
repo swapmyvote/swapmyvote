@@ -164,14 +164,14 @@ module ApplicationHelper
   def election_date_season_type
     # "2022 summer by-elections"
     if general_election?
-      "2022 general election"
+      "#{election_year} general election"
     else
-      "2022 #{election_season} by-elections"
+      "#{election_year} #{election_season} by-elections"
     end
   end
 
   def election_year
-    "2022"
+    election_date.year.to_s
   end
 
   def election_season
