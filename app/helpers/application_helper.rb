@@ -196,8 +196,16 @@ module ApplicationHelper
     election_date.strftime("#{day} %B")
   end
 
-  def election_constituency_choice
-    "the other constituency"
+  def choice_of_swap_constituencies?
+    OnsConstituency.count > 2
+  end
+
+  def election_constituency_other
+    if general_election? || choice_of_swap_constituencies?
+      "another constituency"
+    else
+      "the other constituency"
+    end
   end
 
   def general_election?
