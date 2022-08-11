@@ -4,22 +4,23 @@ In general [db/fixtures/README](../../db/fixtures/README.md) can be a guide. If 
 
 ## Preparing data
 
-### Switch to by election mode if need be
+### YAML files
 
-See [db/seeds.rb](../../db/seeds.rb) and [db/seeds_for_general_election.rb](../../db/seeds_for_general_election.rb) and edit.
+A yaml file needs to be prepared with all the party and constituency data. Previous yaml files should be a guide, for example see the commits for the By Election in 2020 and the files
 
-### YAML file
-
-A yaml file needs to be prepared with all the party and constituency data. Previous yaml files should be a guide, for example see the commits for the By Election in 2020 and the files 
+    db/fixtures/be2022.yml
 
     db/seeds.rb
     db/fixtures/be2022/candidate.rb
     db/fixtures/be2022/party.rb
+    db/fixtures/be2022_yaml.rb
     spec/db/fixtures/be2022/candidate_spec.rb
     spec/db/fixtures/be2022/party_spec.rb
-    db/fixtures/be2022.yml
-    db/fixtures/be2022_yaml.rb
     spec/db/fixtures/be2022_yaml_spec.rb
+
+### Switch to by election mode if need be
+
+See [db/seeds.rb](../../db/seeds.rb) and optionally edit so that the default election type is by election. This can be overridden using an environment variable (ELECTION_TYPE=by), however, making the edit means other developers don't need to remember to use the envirobment variables.
 
 ### Poll predictions from electoral calculus
 
@@ -40,12 +41,13 @@ But, this needs thorough review. We can't necessarily rely on the previous aggre
 
 ## Template changes
 
-This template has very chatty text giving the context of the election
-
-    app/views/user_mailer/welcome_email.html.
-
-Also in app/helpers/application_helper.rb the two methods election_event_title and election_hashtags need updating but could be automated depending on the constituencies defined in the database.
+Should not be required. Text is switched automatically once the two environment variables are set, and rake db:seeds has been run.
 
 ## Preparing database
+
+Wether on heroku or your local dev environment, you will need to set two environment variables.
+
+* ELECTION_DATE needs to be set permanently to the date of the election in format YYYY-MM-DD
+* ELECTION_TYPE should preferably be set permanently to 'by' or 'b'. It's possible to omit this step, but the database will be queried more often if it is not set. It may also need to be set for rake db:seed to run correctly for a by-election.
 
 In [doc/admin-guide.md](../admin-guide.md) see the last step 'Resetting Heroku database for a new election cycle'
