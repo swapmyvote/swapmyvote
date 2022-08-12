@@ -10,7 +10,7 @@ RSpec.describe "home/_open_and_voting", type: :view do
       allow(view).to receive(:general_election?).and_return(false)
       allow(view).to receive(:hide_polls?).and_return(true)
 
-      assign(:parties, [create(:party)])
+      assign(:parties, [build(:party, id: 1)])
 
       allow(view).to receive(:current_user).and_return(create(:user))
 
@@ -27,7 +27,7 @@ RSpec.describe "home/_open_and_voting", type: :view do
 
       allow(view).to receive(:election_date_season_type).and_return("2019 general election")
 
-      assign(:parties, [create(:party)])
+      assign(:parties, [build(:party, id: 1)])
 
       allow(view).to receive(:current_user).and_return(create(:user))
 

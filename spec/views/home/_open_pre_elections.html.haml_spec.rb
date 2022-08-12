@@ -9,7 +9,7 @@ RSpec.describe "home/_open_pre_elections", type: :view do
     specify "matches snapshot" do
       allow(view).to receive(:general_election?).and_return(false)
 
-      assign(:parties, [create(:party)])
+      assign(:parties, [build(:party, id: 1)])
 
       expect { render }.not_to raise_error
 
@@ -21,7 +21,7 @@ RSpec.describe "home/_open_pre_elections", type: :view do
     specify "matches snapshot" do
       allow(view).to receive(:general_election?).and_return(true)
 
-      assign(:parties, [create(:party)])
+      assign(:parties, [build(:party, id: 1)])
 
       expect { render }.not_to raise_error
 
