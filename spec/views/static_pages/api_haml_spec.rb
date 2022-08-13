@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe "static_pages/api", type: :view do
   before do
-    allow(Party).to receive(:all).and_return([create(:party)])
+    allow(Party).to receive(:all).and_return([build(:party)])
+    allow(OnsConstituency).to receive(:all).and_return([build(:tiverton), build(:wakefield)])
   end
 
   context "in a by-election" do

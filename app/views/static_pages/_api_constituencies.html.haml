@@ -1,31 +1,19 @@
 %p The constituencies for this by election are
 
-%p
-  %b Tiverton and Honiton
+- constituencies = OnsConstituency.all
+- constituencies.each do |constituency|
+  %p
 
-%dl
-  %dt
-    %code
-      constituency_name
-  %dd
-    Tiverton+and+Honiton
-  %dt
-    %code
-      constituency_ons_id
-  %dd
-    E14000996
-
-%p
-  %b Wakefield
+    %b= constituency.name
 
   %dl
     %dt
       %code
         constituency_name
     %dd
-      Wakefield
+      = CGI.escape constituency.name
     %dt
       %code
         constituency_ons_id
     %dd
-      E14001009
+      = constituency.ons_id
