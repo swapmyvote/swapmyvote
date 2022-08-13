@@ -1,0 +1,149 @@
+<div class='plain-pattern border-bottom'>
+<div class='container api'>
+<h1>Swap My Vote API</h1>
+<p>
+Swap My Vote does not have a conventional REST API, but we do
+have a single end point to pre-populate some of the fields that
+a user can choose.
+</p>
+<p>
+This should be ideal for tactical voting campaigns which want to
+encourage voters to follow their recommendations, and indeed we
+would be very happy to see tactical voting sites integrate with
+Swap My Vote.  The below documentation is probably sufficient,
+but if you need assistance then please
+<a href="/contact">get in touch</a>.
+</p>
+<p>
+Available parameters are:
+</p>
+<dl>
+<dt>
+<code>willing_party_name</code>
+</dt>
+<dd>
+The party that the user is willing to vote for, say
+tactically.
+</dd>
+<dt>
+<code>preferred_party_name</code>
+</dt>
+<dd>
+The party that the user would ideally like to vote for, say if
+all votes counted equally nationally.
+</dd>
+<dt>
+<code>constituency_name</code>
+</dt>
+<dd>
+The name of the default constituency for the user post-login.
+This is useful if you want to refer a user for tactical voting
+and you know in which constituency they are registered to vote,
+as it will save them manually selecting that constituency.
+The name must match one of the constituencies in the
+<code>PCON18NM</code>
+field of
+<a target="_blank" href="https://geoportal.statistics.gov.uk/datasets/westminster-parliamentary-constituencies-december-2018-names-and-codes-in-the-united-kingdom/data">this data set</a>.
+</dd>
+<dt>
+<code>constituency_ons_id</code>
+</dt>
+<dd>
+The same as for
+<code>constituency_name</code>
+above, except that rather than the name, it's the ONS id of
+the constituency listed in the
+<code>PCON18CD</code>
+field of
+<a target="_blank" href="https://geoportal.statistics.gov.uk/datasets/westminster-parliamentary-constituencies-december-2018-names-and-codes-in-the-united-kingdom/data">the data set</a>.
+</dd>
+</dl>
+<p>
+For example if a tactical voting site wishes to recommend a user
+to vote for (randomly chosen)
+Green
+candidate in the Aberdeen North
+constituency, they could use this outbound link:
+</p>
+<p>
+<a href="http://test.host/swap?constituency_name=Aberdeen+North&amp;willing_party_name=green">http://test.host/swap?constituency_name=Aberdeen+North&amp;willing_party_name=green</a>
+</p>
+<p>
+This one would also work, but rather than specify the tactical vote,
+instead specifies the user’s preferred party (randomly chosen)
+Green
+. This time their constituency is York Outer (specified by ONS code).
+</p>
+<p>
+<a href="http://test.host/swap?constituency_ons_id=E14001062&amp;preferred_party_name=green">http://test.host/swap?constituency_ons_id=E14001062&amp;preferred_party_name=green</a>
+</p>
+<p>
+Preferred party and willing party can be used singly or in combination.
+</p>
+<p>
+The party names should be lowercased and use underscores instead
+of spaces; here are the available options:
+</p>
+<ul>
+<li>
+<code>labour</code>
+</li>
+<li>
+<code>liberal_democrats</code>
+</li>
+<li>
+<code>green</code>
+</li>
+<li>
+<code>conservative</code>
+</li>
+<li>
+<code>reform_uk</code>
+</li>
+<li>
+<code>ukip</code>
+</li>
+</ul>
+<p>The constituencies for this by election are</p>
+<p>
+<b>Tiverton and Honiton</b>
+</p>
+<dl>
+<dt>
+<code>constituency_name</code>
+</dt>
+<dd>
+Tiverton+and+Honiton
+</dd>
+<dt>
+<code>constituency_ons_id</code>
+</dt>
+<dd>
+E14000996
+</dd>
+</dl>
+<p>
+<b>Wakefield</b>
+<dl>
+<dt>
+<code>constituency_name</code>
+</dt>
+<dd>
+Wakefield
+</dd>
+<dt>
+<code>constituency_ons_id</code>
+</dt>
+<dd>
+E14001009
+</dd>
+</dl>
+</p>
+<p>
+Note that any parameters set are "sticky" and will apply even
+after the page is reloaded.  They can be "unstuck" by adding
+<code>?clear</code>
+to the end of the URL.
+</p>
+</div>
+</div>
