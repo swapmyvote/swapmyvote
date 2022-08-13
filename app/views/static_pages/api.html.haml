@@ -121,38 +121,8 @@
       %li
         %code ukip
 
-    %p The constituencies for this by election are
-
-    %p
-      %b Tiverton and Honiton
-
-    %dl
-      %dt
-        %code
-          constituency_name
-      %dd
-        Tiverton+and+Honiton
-      %dt
-        %code
-          constituency_ons_id
-      %dd
-        E14000996
-
-    %p
-      %b Wakefield
-
-      %dl
-        %dt
-          %code
-            constituency_name
-        %dd
-          Wakefield
-        %dt
-          %code
-            constituency_ons_id
-        %dd
-          E14001009
-
+    - unless general_election?
+      = render partial: "api_constituencies"
 
     %p
 

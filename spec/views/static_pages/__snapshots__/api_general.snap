@@ -104,41 +104,6 @@ of spaces; here are the available options:
 <code>ukip</code>
 </li>
 </ul>
-<p>The constituencies for this by election are</p>
-<p>
-<b>Tiverton and Honiton</b>
-</p>
-<dl>
-<dt>
-<code>constituency_name</code>
-</dt>
-<dd>
-Tiverton+and+Honiton
-</dd>
-<dt>
-<code>constituency_ons_id</code>
-</dt>
-<dd>
-E14000996
-</dd>
-</dl>
-<p>
-<b>Wakefield</b>
-<dl>
-<dt>
-<code>constituency_name</code>
-</dt>
-<dd>
-Wakefield
-</dd>
-<dt>
-<code>constituency_ons_id</code>
-</dt>
-<dd>
-E14001009
-</dd>
-</dl>
-</p>
 <p>
 Note that any parameters set are "sticky" and will apply even
 after the page is reloaded.  They can be "unstuck" by adding
