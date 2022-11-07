@@ -88,12 +88,138 @@ module ApplicationHelper
     @donate_info = { link: link, show: show }
   end
 
-  def election_event_title
-    "Wakefield and Tiverton & Honiton 2022 by-elections"
+  def by_election_constituencies
+    OnsConstituency.all.map(&:name)
+  end
+
+  def by_election_constituencies_ampersand
+    by_election_constituencies.map do |name|
+      name.gsub(" and ", " & ")
+    end
+  end
+
+  def by_election_constituencies_as_sentence
+    # "Wakefield and Tiverton & Honiton"
+    by_election_constituencies_ampersand.to_sentence
+  end
+
+  def election_event_title_with_year
+    if general_election?
+      "General Election #{election_year}"
+    else
+      "#{by_election_constituencies_as_sentence} #{election_year} by-elections"
+    end
+  end
+
+  def election_event_choice
+    if general_election?
+      "General Election"
+    else
+      # "Wakefield or Tiverton & Honiton by-elections"
+      options = { words_connector: ", ", last_word_connector: " or ", two_words_connector: " or " }
+      "#{by_election_constituencies_ampersand.to_sentence(options)} by-elections"
+    end
   end
 
   def election_hashtags
-    "#Wakefield or #TivertonandHoniton #byelection"
+    if general_election?
+      "#GeneralElection"
+    else
+      # "#Wakefield or #TivertonandHoniton #byelection"
+      hashtags = by_election_constituencies.map do |name|
+        "#" + name.gsub(/[^A-Za-z]/, "")
+      end
+      options = { words_connector: ", ", last_word_connector: " or ", two_words_connector: " or " }
+      "#{hashtags.to_sentence(options)} #byelection"
+    end
+  end
+
+  def election_date
+    date_from_env = ENV["ELECTION_DATE"]
+    return Date.parse(date_from_env) unless date_from_env.nil? || (date_from_env == "")
+    Date.parse("2022-6-23")
+  end
+
+  def election_date_and_type_mdy
+    # "June 23rd 2022 by-elections"
+    day = election_date.day.ordinalize
+    date_formatted = election_date.strftime("%B #{day} %Y")
+    if general_election?
+      date_formatted + " general election"
+    else
+      date_formatted + " by-elections"
+    end
+  end
+
+  def election_date_and_type_my
+    # "June 2022 by-elections"
+    date_formatted = election_date.strftime("%B %Y")
+    if general_election?
+      date_formatted + " general election"
+    else
+      date_formatted + " by-elections"
+    end
+  end
+
+  def election_date_season_type
+    # "2022 summer by-elections"
+    if general_election?
+      "#{election_year} general election"
+    else
+      "#{election_year} #{election_season} by-elections"
+    end
+  end
+
+  def election_year
+    election_date.year.to_s
+  end
+
+  def election_season
+    case election_date.month
+    when 1..2 then :winter
+    when 3..5 then :spring
+    when 6..8 then :summer
+    when 9..11 then :autumn
+    when 12 then :winter
+    end
+  end
+
+  def election_date_md
+    # "June 23rd"
+    day = election_date.day.ordinalize
+    election_date.strftime("%B #{day}")
+  end
+
+  def election_date_dm
+    # "23rd June"
+    day = election_date.day.ordinalize
+    election_date.strftime("#{day} %B")
+  end
+
+  def choice_of_swap_constituencies?
+    OnsConstituency.count > 2
+  end
+
+  def election_constituency_other
+    if general_election? || choice_of_swap_constituencies?
+      "another constituency"
+    else
+      "the other constituency"
+    end
+  end
+
+  def election_type_override
+    election_type = ENV["ELECTION_TYPE"]
+    return nil unless !election_type.nil? && election_type.size.positive?
+    return :general if election_type[0].downcase == "g"
+    return :by if election_type[0].downcase == "b"
+    return nil
+  end
+
+  def general_election?
+    !election_type_override.nil? ?
+      (election_type_override == :general) :
+      (OnsConstituency.count > OnsConstituency::NUMBER_OF_UK_CONSTITUENCIES / 2)
   end
 
   def app_taglines

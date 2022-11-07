@@ -1,13 +1,19 @@
 .background-pattern.border-bottom
   .container.container-narrow
     .card
-      %h2 June 2022 By-Election Update
+      %h2 #{election_date_and_type_my.titleize} Update
 
       %p
 
-        We have updated the Swap My Vote platform for the two
-        by&#8209;elections to be held this summer on June 23rd:
-        Wakefield, and Tiverton & Honiton. We aim to open for
+        We have updated the Swap My Vote platform for the
+        - if general_election?
+          #{election_date_season_type.titleize}!
+        - else
+          two
+          by-elections to be held this #{election_season} on #{election_date_md}:
+          #{by_election_constituencies_as_sentence}.
+
+        We aim to open for
         vote swapping soon!
 
       %p

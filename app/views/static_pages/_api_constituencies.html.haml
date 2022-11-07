@@ -1,0 +1,19 @@
+%p The constituencies for this by election are
+
+- constituencies = OnsConstituency.all
+- constituencies.each do |constituency|
+  %p
+
+    %b= constituency.name
+
+  %dl
+    %dt
+      %code
+        constituency_name
+    %dd
+      = CGI.escape constituency.name
+    %dt
+      %code
+        constituency_ons_id
+    %dd
+      = constituency.ons_id

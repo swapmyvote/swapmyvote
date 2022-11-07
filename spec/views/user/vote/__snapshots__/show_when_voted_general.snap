@@ -1,0 +1,16 @@
+<div class='background-pattern border-bottom'>
+<div class='container container-narrow'>
+<p class='text-center'>
+Thanks! We've emailed Jane (test user)
+to let them know that you've voted
+<strong>PartyB</strong>
+for them.
+</p>
+<p class='text-center'>
+<a class='btn btn-twitter' href='#' onclick='shareOnTwitter(&#39;http://www.swapmyvote.uk&#39;, &#39;I&#39;m using https://SwapMyVote.uk to make my vote count in the #GeneralElection\n\n#SwapMyVote @SwapMyVote&#39;)'>
+<i class='fa fa-twitter fa-fw'></i>
+Share on Twitter
+</a>
+</p>
+</div>
+</div>

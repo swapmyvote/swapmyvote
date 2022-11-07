@@ -1,7 +1,10 @@
 .background-pattern.border-bottom
   .container.container-narrow
     .card
-      %h2 Wakefield and Tiverton & Honiton 2022 by-elections are a wrap!
+      %h2
+        #{election_event_title_with_year}
+        = general_election? ? "is" : "are"
+        a wrap!
 
       %p
 

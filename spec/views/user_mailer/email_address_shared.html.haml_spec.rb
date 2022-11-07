@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "user_mailer/email_address_shared.html.haml", type: :view do
+  before do
+    allow(OnsConstituency).to receive(:all).and_return([build(:wakefield), build(:tiverton)])
+  end
+
   specify "matches snapshot" do
     swap = build(:swap_with_two_users)
 
