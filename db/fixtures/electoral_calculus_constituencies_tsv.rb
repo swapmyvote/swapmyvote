@@ -22,10 +22,9 @@ class ElectoralCalculusConstituenciesTsv
       "green"  => Party.find_by(name: "Green Party"),
       "lab"    => Party.find_by(name: "Labour"),
       "libdem" => Party.find_by(name: "Liberal Democrats"),
-      "ukip"   => Party.find_by(name: "UKIP"),
       "snp"    => Party.find_by(name: "SNP"),
       "plaid"  => Party.find_by(name: "Plaid Cymru"),
-      "brexit" => Party.find_by(name: "Brexit Party")
+      "reform" => Party.find_by(name: "Reform Party")
     }
 
     missing_parties = @parties_by_party_code.select{ |_key, value| value.nil? }
@@ -36,8 +35,8 @@ class ElectoralCalculusConstituenciesTsv
   # rubocop:disable Metrics/MethodLength
   def each
     CSV.foreach(TSV_FILE_NAME, headers: false, col_sep: "\t") do |data|
-      unless data.length == 17
-        raise ArgumentError, "Input fields #{data.to_h.keys} do not have expected length 17"
+      unless data.length == 16
+        raise ArgumentError, "Input fields #{data} do not have expected length 16"
       end
 
       constituency_name = data[2]
@@ -51,9 +50,8 @@ class ElectoralCalculusConstituenciesTsv
         "con" => { percent: data[6] },
         "lab" => { percent: data[7] },
         "libdem" => { percent: data[8] },
-        "brexit" => { percent: data[9] },
-        "green" => { percent: data[10] },
-        "ukip" => { percent: data[12] }
+        "reform" => { percent: data[9] },
+        "green" => { percent: data[10] }
       }
 
       if country == "S"
