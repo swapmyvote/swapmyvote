@@ -13,7 +13,7 @@ RSpec.describe Party, type: :model do
        liberal_democrats
        green
        conservatives
-       reform_uk
+       reform
        ukip
     ].each do |canonical_name|
       it "includes #{canonical_name.inspect} mentioned in api docs" do

@@ -14,7 +14,7 @@ class Party < ApplicationRecord
     for_britain: { name: "For Britain" },
     freedom_alliance: { name: "Freedom Alliance" },
     independent: { name: "Independent" },
-    reform_uk: { name: "Reform uk" },
+    reform: { name: "Reform" },
     rejoin_eu: { name: "Rejoin eu" },
     workers: { name: "Workers" },
     yorkshire: { name: "Yorkshire" },

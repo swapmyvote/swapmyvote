@@ -24,7 +24,7 @@ class ElectoralCalculusConstituenciesTsv
       "libdem" => Party.find_by(name: "Liberal Democrats"),
       "snp"    => Party.find_by(name: "SNP"),
       "plaid"  => Party.find_by(name: "Plaid Cymru"),
-      "reform" => Party.find_by(name: "Reform Party")
+      "reform" => Party.find_by(name: "Reform")
     }
 
     missing_parties = @parties_by_party_code.select{ |_key, value| value.nil? }

@@ -17,7 +17,7 @@ Party.find_or_create_by(name: "Labour", color: "#DC241f")
 Party.find_or_create_by(name: "Liberal Democrats", color: "#FFB602")
 Party.find_or_create_by(name: "SNP", color: "#FFF95D")
 Party.find_or_create_by(name: "Plaid Cymru", color: "#008142")
-Party.find_or_create_by(name: "Reform Party", color: "#5bc0de")
+Party.find_or_create_by(name: "Reform", color: "#5bc0de")
 
 # ---------------------------------------------------------------------------------
 
