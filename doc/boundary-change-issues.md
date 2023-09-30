@@ -26,7 +26,9 @@ Electoral calculus gives: Bangor Aberconwy
 
 https://12v.github.io/boundary-mapper/ also gives Bangor Aberconwy
 
-## New Constituency List
+## New Constituency List - sources
+
+(Issue created: https://github.com/swapmyvote/swapmyvote/issues/726 )
 
 These can be almost guaranteed to have no ONS ids, certainly not for new constituencies.
 
@@ -48,6 +50,17 @@ Matching possibilities
 
 https://github.com/12v/boundary-mapper/tree/main/output
 
-Matching possibilties: Constituency name only. 
+Matching possibilties: Constituency name only.
 
 ### Democracy club (future)
+
+## New Constituency List - Lack of ONS_ID
+
+(Issue created: https://github.com/swapmyvote/swapmyvote/issues/727)
+
+Means code adjustments in the following areas
+
+- polls (predictions or past results, currently electoral calculus) are indexed partially by constituency_ons_id
+- recommendations (TV) are indexed partially by constituency_ons_id
+- users own constituency noted by by constituency_ons_id
+- the API (for sites linking directly to swapmyvote) prepopulates the form based on ONS_ID
