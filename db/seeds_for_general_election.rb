@@ -12,7 +12,7 @@ require_relative "fixtures/ons_constituencies_csv"
 require_relative "fixtures/electoral_calculus_constituencies_tsv"
 
 Party.find_or_create_by(name: "Conservatives", color: "#0087DC")
-Party.find_or_create_by(name: "Green Party", color: "#6AB023")
+Party.find_or_create_by(name: "Green", color: "#6AB023")
 Party.find_or_create_by(name: "Labour", color: "#DC241f")
 Party.find_or_create_by(name: "Liberal Democrats", color: "#FFB602")
 Party.find_or_create_by(name: "SNP", color: "#FFF95D")

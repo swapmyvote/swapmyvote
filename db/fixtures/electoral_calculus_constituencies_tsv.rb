@@ -19,7 +19,7 @@ class ElectoralCalculusConstituenciesTsv
   def initialize
     @parties_by_party_code = {
       "con"    => Party.find_by(name: "Conservatives"),
-      "green"  => Party.find_by(name: "Green Party"),
+      "green"  => Party.find_by(name: "Green"),
       "lab"    => Party.find_by(name: "Labour"),
       "libdem" => Party.find_by(name: "Liberal Democrats"),
       "snp"    => Party.find_by(name: "SNP"),
