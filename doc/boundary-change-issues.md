@@ -1,6 +1,6 @@
 # boundary-change-issues
 
-This page gives a rough guide to new, changing and dissappearing constituencies. Rough, because they don't always use the official names. 
+This page gives a rough guide to new, changing and dissappearing constituencies. Rough, because they don't always use the official names.
 
 https://www.electoralcalculus.co.uk/boundaries2023.html
 
@@ -25,3 +25,29 @@ Our lookup gives the old constituency: Arfon
 Electoral calculus gives: Bangor Aberconwy
 
 https://12v.github.io/boundary-mapper/ also gives Bangor Aberconwy
+
+## New Constituency List
+
+These can be almost guaranteed to have no ONS ids, certainly not for new constituencies.
+
+### pages.mysociety.org (now)
+
+https://pages.mysociety.org/2025-constituencies/datasets/parliament_con_2025/latest
+
+Matching possibilities
+
+| Column name | Data type | Description Unique                                                                                     | Required values |
+| ----------- | --------- | ------------------------------------------------------------------------------------------------------ | --------------- |
+| full_code   | string    | Unique identifier for the constituency, in the form uk.org.mysociety.cons.ukparl.2025.aad              | Yes             |
+| short_code  | string    | Unique identifier for the constituency, in the form UKPARL.2025.AAD                                    | Yes             |
+| name        | string    | Name of the constituency from the Boundary Commissions                                                 | Yes             |
+| gss_code    | string    | Unique identifier for the constituency - Currently without NI                                          | No              |
+| three_code  | string    | Rae and Brown 3 letter codes (http://www.statsmapsnpix.com/2023/07/a-new-uk-constituency-hex-map.html) | Yes             |
+
+### github.com/12v/boundary-mapper (now)
+
+https://github.com/12v/boundary-mapper/tree/main/output
+
+Matching possibilties: Constituency name only. 
+
+### Democracy club (future)
