@@ -70,9 +70,11 @@ puts "\n\n"
 
 # ---------------------------------------------------------------------------------
 
-puts "\n\nRecommendations aggregated by LiveFromBrexit\n\n"
+puts "\n\nNO RECOMMENDATIONS DATA LOADED - this is emergency fix code \n\n"
 
-Recommendation.refresh_from_json(progress: true)
+# puts "\n\nRecommendations aggregated by LiveFromBrexit\n\n"
+
+# Recommendation.refresh_from_json(progress: true)
 
 # ---------------------------------------------------------------------------------
 
