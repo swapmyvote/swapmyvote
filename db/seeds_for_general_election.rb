@@ -8,7 +8,7 @@
 
 require "active_record/fixtures"
 require "csv"
-require_relative "fixtures/ons_constituencies_csv"
+require_relative "fixtures/mysociety_constituencies_csv"
 require_relative "fixtures/electoral_calculus_constituencies_tsv"
 
 Party.find_or_create_by(name: "Conservatives", color: "#0087DC")
@@ -23,14 +23,13 @@ Party.find_or_create_by(name: "Reform", color: "#5bc0de")
 
 puts "\nONS Constituencies"
 
-ons_constituencies_csv = OnsConstituenciesCsv.new(
-  "db/fixtures/Westminster_Parliamentary_Constituencies_December_2018" \
-  "_Names_and_Codes_in_the_United_Kingdom.csv")
+constituencies_csv = MysocietyConstituenciesCsv.new("db/fixtures/mysociety_parl_constituencies_2025.csv")
 
-ons_constituencies_csv.each do |constituency|
+constituencies_csv.each do |constituency|
+  # puts constituency
   cons = OnsConstituency.find_or_initialize_by ons_id: constituency[:ons_id]
   puts "#{cons.ons_id} #{cons.name}"
-  cons.update!(constituency)
+  cons.update!(constituency) if cons.ons_id
 end
 
 puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
