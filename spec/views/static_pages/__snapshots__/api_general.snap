@@ -43,7 +43,7 @@ as it will save them manually selecting that constituency.
 The name must match one of the constituencies in the
 <code>PCON18NM</code>
 field of
-<a target="_blank" href="https://geoportal.statistics.gov.uk/datasets/westminster-parliamentary-constituencies-december-2018-names-and-codes-in-the-united-kingdom/data">this data set</a>.
+<a target="_blank" href="https://pages.mysociety.org/2025-constituencies/datasets/parliament_con_2025/latest">this data set</a>.
 </dd>
 <dt>
 <code>constituency_ons_id</code>
@@ -55,7 +55,7 @@ above, except that rather than the name, it's the ONS id of
 the constituency listed in the
 <code>PCON18CD</code>
 field of
-<a target="_blank" href="https://geoportal.statistics.gov.uk/datasets/westminster-parliamentary-constituencies-december-2018-names-and-codes-in-the-united-kingdom/data">the data set</a>.
+<a target="_blank" href="https://pages.mysociety.org/2025-constituencies/datasets/parliament_con_2025/latest">the data set</a>.
 </dd>
 </dl>
 <p>
