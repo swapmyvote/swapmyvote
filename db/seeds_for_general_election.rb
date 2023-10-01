@@ -43,27 +43,29 @@ puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
 # )
 # end.to_yaml
 
-puts "\n\nPolls Data from Electoral calculus\n\n"
+puts "\n\nNO POLLS DATA LOADED - this is emergency fix code \n\n"
 
-# TODO: this code is currently duplicated in db/migrate/20191126122621_refresh_polls.rb
+# puts "\n\nPolls Data from Electoral calculus\n\n"
 
-polls_data = ElectoralCalculusConstituenciesTsv.new
+# # TODO: this code is currently duplicated in db/migrate/20191126122621_refresh_polls.rb
 
-polls_data.each do |party_result|
-  vote_count = (party_result[:vote_percent] * 100).to_i
-  ons_id = party_result[:constituency_ons_id]
-  party_id = party_result[:party_id]
-  conversion_note = party_result[:conversion_note]
+# polls_data = ElectoralCalculusConstituenciesTsv.new
 
-  unless conversion_note.nil?
-    puts "\nConversion Note: #{party_result} "
-  end
+# polls_data.each do |party_result|
+#   vote_count = (party_result[:vote_percent] * 100).to_i
+#   ons_id = party_result[:constituency_ons_id]
+#   party_id = party_result[:party_id]
+#   conversion_note = party_result[:conversion_note]
 
-  poll = Poll.find_or_initialize_by constituency_ons_id: ons_id, party_id: party_id
-  poll.votes = vote_count
-  poll.save!
-  print "."
-end
+#   unless conversion_note.nil?
+#     puts "\nConversion Note: #{party_result} "
+#   end
+
+#   poll = Poll.find_or_initialize_by constituency_ons_id: ons_id, party_id: party_id
+#   poll.votes = vote_count
+#   poll.save!
+#   print "."
+# end
 puts "\n\n"
 
 # ---------------------------------------------------------------------------------
