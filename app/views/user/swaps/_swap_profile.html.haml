@@ -5,6 +5,8 @@
   .profile
     = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
 
-- if !hide_polls? && !other_user.constituency.nil?
+- poll_data = poll_data_for(other_user.constituency)
+
+- if !hide_polls? && !other_user.constituency.nil? && poll_data != "" and poll_data != "[]"
   :javascript
-    drawPollChart("poll_#{other_user.id}", #{poll_data_for(other_user.constituency)});
+    drawPollChart("poll_#{other_user.id}", #{poll_data});
