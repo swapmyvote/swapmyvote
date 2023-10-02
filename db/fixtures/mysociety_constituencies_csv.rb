@@ -5,11 +5,18 @@
 
 class MysocietyConstituenciesCsv
   # First shot at using mysociety_constituencies_csv
-  # BUT
-  # 1. the gss/ons ids are faked ones, none of them match the old ones
-  #    (most of them should match for unchanged constituencies)
-  # 2. some of them, the NI ones, are blank.
-
+  #
+  # PROBLEMS TO BE FIXED with gss/ons ids
+  # 1. new codes don't match the old codes where the constituency is unchanged,
+  #    which breaks the linkage to the polling data from electoral calculus
+  # 2. some of the gss codes are blank, the NI ones, are blank. so these are skipped.
+  #
+  # We should be able to fix this with the "PARL10 to PARL25" data available here
+  #   https://pages.mysociety.org/2025-constituencies/datasets/geographic_overlaps/latest
+  # which maps the 2010 ons/GSS ids to the mysociety ids. the mapping of my society ids
+  # to the new ons/GSS ids is covered by the CSV data we are already using here,
+  # though this code does not yet expose that column
+  #
   attr_reader :file_name
 
   ID_KEY = "gss_code"
