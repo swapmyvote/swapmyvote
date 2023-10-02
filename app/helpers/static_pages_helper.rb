@@ -1,5 +1,5 @@
 module StaticPagesHelper
   def constituency_ons_id_dataset_url
-    "https://geoportal.statistics.gov.uk/datasets/westminster-parliamentary-constituencies-december-2018-names-and-codes-in-the-united-kingdom/data"
+    "https://pages.mysociety.org/2025-constituencies/datasets/parliament_con_2025/latest"
   end
 end
