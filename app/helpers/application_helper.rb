@@ -241,8 +241,7 @@ module ApplicationHelper
   end
 
   def hide_polls?
-    return true # emergency fix for boundary changes - no ONS ids means no immediate tie-in to polling data
-    # return @hide_polls if defined?(@hide_polls)
-    # @hide_polls = OnsConstituency.count == 2
+    return @hide_polls if defined?(@hide_polls)
+    @hide_polls = OnsConstituency.count == 2
   end
 end

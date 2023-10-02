@@ -44,7 +44,7 @@ RSpec.describe UsersController, type: :controller do
 
       it "assigns @hide_polls" do
         get :show
-        expect(assigns).not_to have_key(:hide_polls)
+        expect(assigns).to have_key(:hide_polls)
       end
     end
 
