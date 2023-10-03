@@ -23,5 +23,5 @@
 - if !hide_polls? && !other_user.constituency.nil?
   .profile-poll
     .text-center.small
-      GE2019 results for #{other_user.constituency.try(:name) or "Unknown"}
+      Predicted GE2024 results for #{other_user.constituency.try(:name) or "Unknown"}
     .poll-chart{ id: "poll_#{other_user.id}" }
