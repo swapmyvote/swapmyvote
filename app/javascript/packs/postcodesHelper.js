@@ -30,8 +30,8 @@ $(document).ready(() => {
   };
 
   const handlePostcodeLookup = postcode => {
-    const onsId = postcode.result.codes.parliamentary_constituency;
-    const name = postcode.result.parliamentary_constituency;
+    const onsId = postcode.result.codes.parliamentary_constituency_2024;
+    const name = postcode.result.parliamentary_constituency_2024;
 
     const hasOption = $('select#user_constituency_ons_id option[value="' + onsId + '"]');
     if (hasOption.length == 0) {
