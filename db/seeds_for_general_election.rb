@@ -8,7 +8,7 @@
 
 require "active_record/fixtures"
 require "csv"
-require_relative "fixtures/ons_constituencies_csv"
+require_relative "fixtures/mysociety_constituencies_csv"
 require_relative "fixtures/electoral_calculus_constituencies_tsv"
 
 Party.find_or_create_by(name: "Conservatives", color: "#0087DC")
@@ -23,14 +23,13 @@ Party.find_or_create_by(name: "Reform", color: "#5bc0de")
 
 puts "\nONS Constituencies"
 
-ons_constituencies_csv = OnsConstituenciesCsv.new(
-  "db/fixtures/Westminster_Parliamentary_Constituencies_December_2018" \
-  "_Names_and_Codes_in_the_United_Kingdom.csv")
+constituencies_csv = MysocietyConstituenciesCsv.new("db/fixtures/mysociety_parl_constituencies_2025.csv")
 
-ons_constituencies_csv.each do |constituency|
+constituencies_csv.each do |constituency|
+  # puts constituency
   cons = OnsConstituency.find_or_initialize_by ons_id: constituency[:ons_id]
   puts "#{cons.ons_id} #{cons.name}"
-  cons.update!(constituency)
+  cons.update!(constituency) if cons.ons_id
 end
 
 puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
@@ -43,34 +42,38 @@ puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
 # )
 # end.to_yaml
 
-puts "\n\nPolls Data from Electoral calculus\n\n"
+puts "\n\nNO POLLS DATA LOADED - this is emergency fix code \n\n"
 
-# TODO: this code is currently duplicated in db/migrate/20191126122621_refresh_polls.rb
+# puts "\n\nPolls Data from Electoral calculus\n\n"
 
-polls_data = ElectoralCalculusConstituenciesTsv.new
+# # TODO: this code is currently duplicated in db/migrate/20191126122621_refresh_polls.rb
 
-polls_data.each do |party_result|
-  vote_count = (party_result[:vote_percent] * 100).to_i
-  ons_id = party_result[:constituency_ons_id]
-  party_id = party_result[:party_id]
-  conversion_note = party_result[:conversion_note]
+# polls_data = ElectoralCalculusConstituenciesTsv.new
 
-  unless conversion_note.nil?
-    puts "\nConversion Note: #{party_result} "
-  end
+# polls_data.each do |party_result|
+#   vote_count = (party_result[:vote_percent] * 100).to_i
+#   ons_id = party_result[:constituency_ons_id]
+#   party_id = party_result[:party_id]
+#   conversion_note = party_result[:conversion_note]
 
-  poll = Poll.find_or_initialize_by constituency_ons_id: ons_id, party_id: party_id
-  poll.votes = vote_count
-  poll.save!
-  print "."
-end
+#   unless conversion_note.nil?
+#     puts "\nConversion Note: #{party_result} "
+#   end
+
+#   poll = Poll.find_or_initialize_by constituency_ons_id: ons_id, party_id: party_id
+#   poll.votes = vote_count
+#   poll.save!
+#   print "."
+# end
 puts "\n\n"
 
 # ---------------------------------------------------------------------------------
 
-puts "\n\nRecommendations aggregated by LiveFromBrexit\n\n"
+puts "\n\nNO RECOMMENDATIONS DATA LOADED - this is emergency fix code \n\n"
 
-Recommendation.refresh_from_json(progress: true)
+# puts "\n\nRecommendations aggregated by LiveFromBrexit\n\n"
+
+# Recommendation.refresh_from_json(progress: true)
 
 # ---------------------------------------------------------------------------------
 

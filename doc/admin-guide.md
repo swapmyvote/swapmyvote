@@ -66,5 +66,5 @@ N.B. in the below, `db:schema:load` is currently required rather than
 
     heroku pg:reset -a swapmyvote && \
     heroku run -a swapmyvote bundle exec rake db:schema:load && \
-    heroku run -a swapmyvote bundle exec rake db:seed
+    heroku run -a swapmyvote bundle exec ELECTION_TYPE=g rake db:seed
 
