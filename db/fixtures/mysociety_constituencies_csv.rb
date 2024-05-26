@@ -1,14 +1,9 @@
 # This encapsulates access to the reference CSV for constituencies
 # from mysociety
 # Updates to the file can be obtained from
-# https://pages.mysociety.org/2025-constituencies/datasets/parliament_con_2025/latestm
+# https://pages.mysociety.org/2025-constituencies/datasets/parliament_con_2025/latest
 
 class MysocietyConstituenciesCsv
-  # First shot at using mysociety_constituencies_csv
-  # BUT
-  # 1. the gss/ons ids are faked ones, none of them match the old ones
-  #    (most of them should match for unchanged constituencies)
-  # 2. some of them, the NI ones, are blank.
 
   attr_reader :file_name
 
