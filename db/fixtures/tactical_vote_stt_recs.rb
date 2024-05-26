@@ -30,7 +30,7 @@ class TacticalVoteSttRecs
       rec = Recommendation.find_or_initialize_by(rec_key)
       rec.text = row[:advice]
 
-      if rec.text == ""
+      if rec.text == "" || rec.text == "None"
         # if there is right now no recommendation and we loaded from the DB, we must delete
         unless rec.id.nil?
           rec.delete
