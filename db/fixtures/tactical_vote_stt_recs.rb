@@ -1,11 +1,10 @@
 # This loads the tactical voting recommandations from StopTheTories.vote
 # into the recommendations table
 
-require_relative('tactical_vote_stt_csv')
-require_relative('mysociety_constituencies_csv')
+require_relative("tactical_vote_stt_csv")
+require_relative("mysociety_constituencies_csv")
 
 class TacticalVoteSttRecs
-
   ACCEPTABLE_NON_PARTY_ADVICE = ["None"]
   attr_reader :advisor, :mysoc_constituencies
 
@@ -14,6 +13,7 @@ class TacticalVoteSttRecs
     @mysoc_constituencies = MysocietyConstituenciesCsv.new
   end
 
+  # rubocop:disable Metrics/MethodLength
   def load
     ons_id_by_mysoc_short_code = {}
 
@@ -34,7 +34,7 @@ class TacticalVoteSttRecs
         # if there is right now no recommendation and we loaded from the DB, we must delete
         unless rec.id.nil?
           rec.delete
-          print 'X' # to signify delete
+          print "X" # to signify delete
         end
         next
       end
@@ -43,16 +43,13 @@ class TacticalVoteSttRecs
       party_short_code = rec.party_short_code_from_text
 
       rec.save
-      print '.' # to signify update
+      print "." # to signify update
 
-      if party_short_code.nil? && !ACCEPTABLE_NON_PARTY_ADVICE.include?(rec.text)
-        not_recognised.add({advice: rec.text, party_short_code: party_short_code} )
+      if party_short_code.nil? && ACCEPTABLE_NON_PARTY_ADVICE.exclude?(rec.text)
+        not_recognised.add({ advice: rec.text, party_short_code: party_short_code })
       end
     end
 
-    if not_recognised.size > 0
-      puts "Voting advice not recognised #{not_recognised.to_a}"
-    end
+    puts "Voting advice not recognised #{not_recognised.to_a}" if not_recognised.size.positive?
   end
-
 end

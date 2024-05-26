@@ -10,7 +10,7 @@ require "active_record/fixtures"
 require "csv"
 require_relative "fixtures/mysociety_constituencies_csv"
 require_relative "fixtures/electoral_calculus_constituencies_tsv"
-require_relative('fixtures/tactical_vote_stt_recs')
+require_relative("fixtures/tactical_vote_stt_recs")
 
 Party.find_or_create_by(name: "Conservatives", color: "#0087DC")
 Party.find_or_create_by(name: "Green", color: "#6AB023")

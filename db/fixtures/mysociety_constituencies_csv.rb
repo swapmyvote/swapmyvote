@@ -4,7 +4,6 @@
 # https://pages.mysociety.org/2025-constituencies/datasets/parliament_con_2025/latest
 
 class MysocietyConstituenciesCsv
-
   attr_reader :file_name
 
   ID_KEY = "gss_code"
@@ -22,7 +21,7 @@ class MysocietyConstituenciesCsv
 
   def each
     CSV.foreach(file_name, headers: true, col_sep: ",") do |data|
-      unless data.to_h.keys[4] == ID_KEY && data.to_h.keys[2] == NAME_KEY  && data.to_h.keys[1] == SHORT_CODE_KEY
+      unless data.to_h.keys[4] == ID_KEY && data.to_h.keys[2] == NAME_KEY && data.to_h.keys[1] == SHORT_CODE_KEY
         raise ArgumentError, "Input fields #{data.to_h.keys} do not match #{REQUIRED_INPUT_KEYS}"
       end
 

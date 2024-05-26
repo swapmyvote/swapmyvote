@@ -2,12 +2,12 @@
 # updates can be obtained from
 # https://github.com/asibs/tactical-next/blob/main/public/data/latest.csv
 
-require('csv')
+require("csv")
 
 class TacticalVoteCsv
   attr_reader :file_name, :link, :site
 
-  FILE_NAME = 'db/fixtures/tactical_vote_stt.csv'
+  FILE_NAME = "db/fixtures/tactical_vote_stt.csv"
 
   ID_KEY = "Short Code"
   ADVICE_KEY = "TV Advice"
