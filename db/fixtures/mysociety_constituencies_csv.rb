@@ -14,8 +14,9 @@ class MysocietyConstituenciesCsv
 
   ID_KEY = "gss_code"
   NAME_KEY = "name"
+  SHORT_CODE_KEY = "short_code"
 
-  REQUIRED_INPUT_KEYS = [ ID_KEY , NAME_KEY ]
+  REQUIRED_INPUT_KEYS = [ ID_KEY , NAME_KEY, SHORT_CODE_KEY ]
 
   def initialize(file_name)
     @file_name = file_name
@@ -24,13 +25,14 @@ class MysocietyConstituenciesCsv
 
   def each
     CSV.foreach(file_name, headers: true, col_sep: ",") do |data|
-      unless data.to_h.keys[4] == ID_KEY && data.to_h.keys[2] == NAME_KEY
+      unless data.to_h.keys[4] == ID_KEY && data.to_h.keys[2] == NAME_KEY  && data.to_h.keys[1] == SHORT_CODE_KEY
         raise ArgumentError, "Input fields #{data.to_h.keys} do not match #{REQUIRED_INPUT_KEYS}"
       end
 
       data_transformed = {
         # ons_id: data.to_h.values[0], # don't ask ... data[ID_KEY] should have worked
         ons_id: data[ID_KEY],
+        short_code: data[SHORT_CODE_KEY],
         name: data[NAME_KEY]
       }
 
