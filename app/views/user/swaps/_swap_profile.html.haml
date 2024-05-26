@@ -10,3 +10,11 @@
 - if !hide_polls? && !other_user.constituency.nil? && poll_data != "" and poll_data != "[]"
   :javascript
     drawPollChart("poll_#{other_user.id}", #{poll_data});
+- unless other_user.constituency.nil?
+  %h6.text-center.mt-2
+    Does this help your vote count ?
+  .profile-recommendations.text-center.smv-card
+    .recommendations-header
+      Tactical Recommendations
+    - recommendations = recommendations_for(other_user.constituency)
+    = render :partial => 'recommendations/recommendation', :collection => recommendations
