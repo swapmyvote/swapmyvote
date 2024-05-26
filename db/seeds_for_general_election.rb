@@ -10,6 +10,7 @@ require "active_record/fixtures"
 require "csv"
 require_relative "fixtures/mysociety_constituencies_csv"
 require_relative "fixtures/electoral_calculus_constituencies_tsv"
+require_relative("fixtures/tactical_vote_stt_recs")
 
 Party.find_or_create_by(name: "Conservatives", color: "#0087DC")
 Party.find_or_create_by(name: "Green", color: "#6AB023")
@@ -23,13 +24,13 @@ Party.find_or_create_by(name: "Reform", color: "#5bc0de")
 
 puts "\nONS Constituencies"
 
-constituencies_csv = MysocietyConstituenciesCsv.new("db/fixtures/mysociety_parl_constituencies_2025.csv")
+constituencies_csv = MysocietyConstituenciesCsv.new
 
 constituencies_csv.each do |constituency|
   # puts constituency
   cons = OnsConstituency.find_or_initialize_by ons_id: constituency[:ons_id]
   puts "#{cons.ons_id} #{cons.name}"
-  cons.update!(constituency) if cons.ons_id
+  cons.update!(constituency.slice(:name, :ons_id)) if cons.ons_id
 end
 
 puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
@@ -69,11 +70,13 @@ puts "\n\n"
 
 # ---------------------------------------------------------------------------------
 
-puts "\n\nNO RECOMMENDATIONS DATA LOADED - this is emergency fix code \n\n"
-
 # puts "\n\nRecommendations aggregated by LiveFromBrexit\n\n"
 
 # Recommendation.refresh_from_json(progress: true)
+
+puts "Loading Recommendations from STT"
+
+TacticalVoteSttRecs.new.load
 
 # ---------------------------------------------------------------------------------
 
