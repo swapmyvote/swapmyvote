@@ -29,7 +29,7 @@ constituencies_csv.each do |constituency|
   # puts constituency
   cons = OnsConstituency.find_or_initialize_by ons_id: constituency[:ons_id]
   puts "#{cons.ons_id} #{cons.name}"
-  cons.update!(constituency) if cons.ons_id
+  cons.update!(constituency.slice(:name, :ons_id)) if cons.ons_id
 end
 
 puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
