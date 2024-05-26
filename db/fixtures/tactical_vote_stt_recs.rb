@@ -32,7 +32,10 @@ class TacticalVoteSttRecs
 
       if rec.text == ""
         # if there is right now no recommendation and we loaded from the DB, we must delete
-        rec.delete unless rec.id.nil?
+        unless rec.id.nil?
+          rec.delete
+          print 'X' # to signify delete
+        end
         next
       end
 
@@ -40,6 +43,7 @@ class TacticalVoteSttRecs
       party_short_code = rec.party_short_code_from_text
 
       rec.save
+      print '.' # to signify update
 
       if party_short_code.nil? && !ACCEPTABLE_NON_PARTY_ADVICE.include?(rec.text)
         not_recognised.add({advice: rec.text, party_short_code: party_short_code} )
