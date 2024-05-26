@@ -11,7 +11,7 @@ class TacticalVoteSttRecs
 
   def initialize
     @advisor = TacticalVoteCsv.new
-    @mysoc_constituencies = MysocietyConstituenciesCsv.new("db/fixtures/mysociety_parl_constituencies_2025.csv")
+    @mysoc_constituencies = MysocietyConstituenciesCsv.new
   end
 
   def load

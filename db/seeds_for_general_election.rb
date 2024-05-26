@@ -24,7 +24,7 @@ Party.find_or_create_by(name: "Reform", color: "#5bc0de")
 
 puts "\nONS Constituencies"
 
-constituencies_csv = MysocietyConstituenciesCsv.new("db/fixtures/mysociety_parl_constituencies_2025.csv")
+constituencies_csv = MysocietyConstituenciesCsv.new
 
 constituencies_csv.each do |constituency|
   # puts constituency

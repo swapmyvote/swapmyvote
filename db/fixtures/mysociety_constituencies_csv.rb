@@ -16,10 +16,12 @@ class MysocietyConstituenciesCsv
   NAME_KEY = "name"
   SHORT_CODE_KEY = "short_code"
 
+  FILE_NAME = "db/fixtures/mysociety_parl_constituencies_2025.csv"
+
   REQUIRED_INPUT_KEYS = [ ID_KEY , NAME_KEY, SHORT_CODE_KEY ]
 
-  def initialize(file_name)
-    @file_name = file_name
+  def initialize
+    @file_name = FILE_NAME
     raise ArgumentError, "single argument file_name required" unless file_name && file_name != ""
   end
 
