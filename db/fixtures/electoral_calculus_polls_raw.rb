@@ -29,11 +29,15 @@ class ElectoralCalculusConstituenciesPollsRaw
 
   # rubocop:disable Metrics/MethodLength
   def each
+    failed_ons_lookup = Set.new
+
     ElectoralCalculusConstituenciesTsv.new.each do |data|
       constituency_name = data[:constituency_name]
-      constituency_ons_id = ons_ids_by_constituency_name[constituency_name]
+      constituency_ons_id = constituency_ons_id_from_ec_constituency_name(constituency_name)
+
       if constituency_ons_id.nil?
-        puts "failed ons id lookup for #{constituency_name} "
+        # puts "failed ons id lookup for #{constituency_name} "
+        failed_ons_lookup.add(constituency_name)
         next
       end
       country = constituency_ons_id[0]
@@ -60,6 +64,15 @@ class ElectoralCalculusConstituenciesPollsRaw
         yield data_transformed
       end
     end
+
+    return unless failed_ons_lookup.size.positive?
+
+    puts "\n\nConstituencies where no ONS id found (count: #{failed_ons_lookup.size})"
+    pp failed_ons_lookup.to_a.sort
+  end
+
+  private def constituency_ons_id_from_ec_constituency_name(name)
+    ons_ids_by_constituency_name[name]
   end
 
   private def original_constituencies_with_ons_csv
