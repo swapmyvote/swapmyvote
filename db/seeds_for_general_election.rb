@@ -9,7 +9,7 @@
 require "active_record/fixtures"
 require "csv"
 require_relative "fixtures/mysociety_constituencies_csv"
-require_relative "fixtures/electoral_calculus_constituencies_tsv"
+require_relative "fixtures/electoral_calculus_polls"
 require_relative("fixtures/tactical_vote_stt_recs")
 
 Party.find_or_create_by(name: "Conservatives", color: "#0087DC")
@@ -37,34 +37,9 @@ puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
 
 # ---------------------------------------------------------------------------------
 
-# Possible backup first
-# Poll.all.map(&:as_json).map do |p| p.slice(
-#   "id", "old_constituency_id", "constituency_ons_id", "party_id", "votes"
-# )
-# end.to_yaml
-
 puts "\n\nPolls Data from Electoral calculus\n\n"
 
-# TODO: this code is currently duplicated in db/migrate/20191126122621_refresh_polls.rb
-
-polls_data = ElectoralCalculusConstituenciesTsv.new
-
-polls_data.each do |party_result|
-  vote_count = (party_result[:vote_percent] * 100).to_i
-  ons_id = party_result[:constituency_ons_id]
-  party_id = party_result[:party_id]
-  conversion_note = party_result[:conversion_note]
-
-  unless conversion_note.nil?
-    puts "\nConversion Note: #{party_result} "
-  end
-
-  poll = Poll.find_or_initialize_by constituency_ons_id: ons_id, party_id: party_id
-  poll.votes = vote_count
-  poll.save!
-  print "."
-end
-puts "\n\n"
+ElectoralCalculusPolls.new.load
 
 # ---------------------------------------------------------------------------------
 
@@ -72,7 +47,7 @@ puts "\n\n"
 
 # Recommendation.refresh_from_json(progress: true)
 
-puts "Loading Recommendations from STT"
+puts "\n\nLoading Recommendations from STT"
 
 TacticalVoteSttRecs.new.load
 
