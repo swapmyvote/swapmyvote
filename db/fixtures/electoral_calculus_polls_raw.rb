@@ -72,21 +72,20 @@ class ElectoralCalculusConstituenciesPollsRaw
   end
 
   private def constituency_ons_id_from_ec_constituency_name(name)
-    ons_ids_by_constituency_name[name]
+    # right now, this misses just 78 constituencies.
+    # expect to fix this by calling alternative lookups if the my_soc one returns a nil
+    # looks like we'll find a few in the pattern "Hampshire East" <=> "East Hampshire"
+    my_soc_constituency_ons_ids_by_name[name]
   end
 
-  private def original_constituencies_with_ons_csv
-    OriginalConstituenciesWithOnsCsv
-      .new("db/fixtures/constituency_original_names_with_ons_ids.csv")
-  end
+  private def my_soc_constituency_ons_ids_by_name
+    return @my_soc_constituency_ons_ids_by_name if defined?(@my_soc_constituency_ons_ids_by_name)
 
-  private def ons_ids_by_constituency_name
-    return @ons_ids_by_constituency_name if defined?(@ons_ids_by_constituency_name)
-
-    @ons_ids_by_constituency_name = original_constituencies_with_ons_csv.each_with_object({}) do |c, hash|
+    hash = {}
+    MysocietyConstituenciesCsv.new.each do |c|
       hash[c[:name]] = c[:ons_id]
     end
 
-    return @ons_ids_by_constituency_name
+    return @my_soc_constituency_ons_ids_by_name = hash
   end
 end
