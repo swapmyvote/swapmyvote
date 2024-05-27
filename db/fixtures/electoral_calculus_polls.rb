@@ -1,12 +1,12 @@
 # This loads the electoral calculus poll predictions into the polls table
 
-require_relative "electoral_calculus_constituencies_tsv"
+require_relative "electoral_calculus_polls_raw"
 
 class ElectoralCalculusPolls
   attr_reader :polls_data
 
   def initialize
-    @polls_data = ElectoralCalculusConstituenciesTsv.new
+    @polls_data = ElectoralCalculusConstituenciesPollsRaw.new
   end
 
   def load
