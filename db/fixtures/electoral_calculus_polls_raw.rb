@@ -40,25 +40,17 @@ class ElectoralCalculusConstituenciesPollsRaw
         failed_ons_lookup.add(constituency_name)
         next
       end
-      country = constituency_ons_id[0]
 
-      if country == "S"
-        data[:votes][:snp] = { percent: data[:votes][:nat][:percent], note: "(Assigning nationalist vote to SNP)" }
-      elsif country == "W"
-        data[:votes][:plaid] = { percent: data[:votes][:nat][:percent], note: "(Assigning nationalist vote to Plaid" }
-      elsif %w[S E W N].exclude?(country)
-        throw "Invalid country '#{country}' for #{constituency_name};"
-      end
-      data[:votes].delete(:nat)
+      vote_data = find_nationalist_vote(data[:votes], constituency_ons_id)
 
-      data[:votes].each_key do |party|
+      vote_data.each_key do |party|
         data_transformed = {
-          vote_percent: data[:votes][party][:percent].to_f,
+          vote_percent: vote_data[party][:percent].to_f,
           party_id: @parties_by_party_code[party].id,
           party_name: @parties_by_party_code[party].name,
           constituency_ons_id: constituency_ons_id,
           constituency_name: constituency_name,
-          conversion_note: data[:votes][party][:note]
+          conversion_note: vote_data[party][:note]
         }
 
         yield data_transformed
@@ -69,6 +61,21 @@ class ElectoralCalculusConstituenciesPollsRaw
 
     puts "\n\nConstituencies where no ONS id found (count: #{failed_ons_lookup.size})"
     pp failed_ons_lookup.to_a.sort
+  end
+
+  def find_nationalist_vote(vote_data, constituency_ons_id)
+    country = constituency_ons_id[0]
+
+    if country == "S"
+      vote_data[:snp] = { percent: vote_data[:nat][:percent], note: "(Assigning nationalist vote to SNP)" }
+    elsif country == "W"
+      vote_data[:plaid] = { percent: vote_data[:nat][:percent], note: "(Assigning nationalist vote to Plaid" }
+    elsif %w[S E W N].exclude?(country)
+      throw "Invalid country '#{country}' for #{constituency_name};"
+    end
+    vote_data.delete(:nat)
+
+    return vote_data
   end
 
   private def constituency_ons_id_from_ec_constituency_name(name)
