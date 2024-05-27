@@ -64,7 +64,7 @@ RSpec.describe User::SwapsController, type: :controller do
           allow(new_user).to receive(:willing_party).and_return(1)
           allow(new_user).to receive(:preferred_party).and_return(2)
           get :show
-          expect(assigns).not_to have_key(:hide_polls)
+          expect(assigns).to have_key(:hide_polls)
         end
       end
 
@@ -72,7 +72,7 @@ RSpec.describe User::SwapsController, type: :controller do
         it "assigns @hide_polls" do
           allow(controller).to receive(:swapping_open?).and_return(true)
           get :new, params: { user_id: swap_user.id }
-          expect(assigns).not_to have_key(:hide_polls)
+          expect(assigns).to have_key(:hide_polls)
         end
       end
 
