@@ -9,6 +9,8 @@ require_relative "electoral_calculus_constituencies_tsv"
 # - takes care of mapping the 'nationalist vote' to the appropriate party.
 
 class ElectoralCalculusConstituenciesPollsRaw
+  attr_reader :parties_by_party_code
+
   include Enumerable
 
   def initialize
@@ -41,19 +43,10 @@ class ElectoralCalculusConstituenciesPollsRaw
         next
       end
 
-      vote_data = find_nationalist_vote(data[:votes], constituency_ons_id)
+      vote_data = find_nationalist_vote(data[:votes], constituency_ons_id, constituency_name)
 
       vote_data.each_key do |party|
-        data_transformed = {
-          vote_percent: vote_data[party][:percent].to_f,
-          party_id: @parties_by_party_code[party].id,
-          party_name: @parties_by_party_code[party].name,
-          constituency_ons_id: constituency_ons_id,
-          constituency_name: constituency_name,
-          conversion_note: vote_data[party][:note]
-        }
-
-        yield data_transformed
+        yield party_and_constituency_data(vote_data, party, constituency_ons_id)
       end
     end
 
@@ -63,7 +56,17 @@ class ElectoralCalculusConstituenciesPollsRaw
     pp failed_ons_lookup.to_a.sort
   end
 
-  def find_nationalist_vote(vote_data, constituency_ons_id)
+  def party_and_constituency_data(vote_data, party, constituency_ons_id)
+    {
+      vote_percent: vote_data[party][:percent].to_f,
+      party_id: parties_by_party_code[party].id,
+      party_name: parties_by_party_code[party].name,
+      constituency_ons_id: constituency_ons_id,
+      conversion_note: vote_data[party][:note]
+    }
+  end
+
+  def find_nationalist_vote(vote_data, constituency_ons_id, constituency_name)
     country = constituency_ons_id[0]
 
     if country == "S"
