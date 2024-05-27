@@ -30,12 +30,12 @@ class ElectoralCalculusConstituenciesTsv
       constituency_name = data[2]
 
       votes = {
-        "con" => { percent: data[6] },
-        "lab" => { percent: data[7] },
-        "libdem" => { percent: data[8] },
-        "reform" => { percent: data[9] },
-        "green" => { percent: data[10] },
-        "nat" => { percent: data[11] }
+        con:    { percent: data[6] },
+        lab:    { percent: data[7] },
+        libdem: { percent: data[8] },
+        reform: { percent: data[9] },
+        green:  { percent: data[10] },
+        nat:    { percent: data[11] }
       }
 
       data_transformed = {

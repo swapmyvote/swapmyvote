@@ -13,13 +13,13 @@ class ElectoralCalculusConstituenciesPollsRaw
 
   def initialize
     @parties_by_party_code = {
-      "con"    => Party.find_by(name: "Conservatives"),
-      "green"  => Party.find_by(name: "Green"),
-      "lab"    => Party.find_by(name: "Labour"),
-      "libdem" => Party.find_by(name: "Liberal Democrats"),
-      "snp"    => Party.find_by(name: "SNP"),
-      "plaid"  => Party.find_by(name: "Plaid Cymru"),
-      "reform" => Party.find_by(name: "Reform")
+      con:    Party.find_by(name: "Conservatives"),
+      green:  Party.find_by(name: "Green"),
+      lab:    Party.find_by(name: "Labour"),
+      libdem: Party.find_by(name: "Liberal Democrats"),
+      snp:    Party.find_by(name: "SNP"),
+      plaid:  Party.find_by(name: "Plaid Cymru"),
+      reform: Party.find_by(name: "Reform")
     }
 
     missing_parties = @parties_by_party_code.select{ |_key, value| value.nil? }
@@ -39,14 +39,13 @@ class ElectoralCalculusConstituenciesPollsRaw
       country = constituency_ons_id[0]
 
       if country == "S"
-        data[:votes]["snp"] = { percent: data[:votes]["nat"][:percent], note: "(Assigning nationalist vote to SNP)" }
+        data[:votes][:snp] = { percent: data[:votes][:nat][:percent], note: "(Assigning nationalist vote to SNP)" }
       elsif country == "W"
-        # rubocop:disable Layout/LineLength
-        data[:votes]["plaid"] = { percent: data[:votes]["nat"][:percent], note: "(Assigning nationalist vote to Plaid Cymru)" }
+        data[:votes][:plaid] = { percent: data[:votes][:nat][:percent], note: "(Assigning nationalist vote to Plaid" }
       elsif %w[S E W N].exclude?(country)
         throw "Invalid country '#{country}' for #{constituency_name};"
       end
-      data[:votes].delete("nat")
+      data[:votes].delete(:nat)
 
       data[:votes].each_key do |party|
         data_transformed = {
