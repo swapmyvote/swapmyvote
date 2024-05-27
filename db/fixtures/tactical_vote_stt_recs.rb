@@ -7,7 +7,7 @@ require_relative("mysociety_constituencies_csv")
 class TacticalVoteSttRecs
   attr_reader :advisor, :mysoc_constituencies
 
-  ACCEPTABLE_NON_PARTY_ADVICE = []
+  ACCEPTABLE_NON_PARTY_ADVICE = ["Heart"]
 
   def initialize
     @advisor = TacticalVoteCsv.new
