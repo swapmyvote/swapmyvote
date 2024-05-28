@@ -18,7 +18,6 @@ class TacticalVoteSprintforprRecs
     ons_id_by_mysoc_name = {}
 
     mysoc_constituencies.each do |constituency|
-      # puts constituency
       ons_id_by_mysoc_name[constituency[:name]] = constituency[:ons_id]
     end
 
@@ -43,6 +42,10 @@ class TacticalVoteSprintforprRecs
         not_recognised.add({ advice: rec.text, party_short_code: party_short_code }) if rec.text != "" && !acceptable
 
         next
+      end
+
+      if party_short_code
+        rec.text = Recommendation::LFB_REFERENCE_DATA[party_short_code][:short_name]
       end
 
       rec.link = advisor.link
