@@ -8,6 +8,8 @@ require_relative "electoral_calculus_constituencies_tsv"
 # - loop over each party/constituency combo, not over constituencies
 # - takes care of mapping the 'nationalist vote' to the appropriate party.
 
+MAPPING_FILE = "db/fixtures/electoral_calculus_constituency_mapping_to_mysoc.yml"
+
 class ElectoralCalculusConstituenciesPollsRaw
   attr_reader :parties_by_party_code
 
@@ -52,8 +54,11 @@ class ElectoralCalculusConstituenciesPollsRaw
 
     return unless failed_ons_lookup.size.positive?
 
-    puts "\n\nConstituencies where no ONS id found (count: #{failed_ons_lookup.size})"
+    puts "\n\nElectoral Calculus Constituencies where no ONS id found (count: #{failed_ons_lookup.size})"
     pp failed_ons_lookup.to_a.sort
+
+    puts "\n\nThe mapping file \"#{MAPPING_FILE}\" should be updated\n"
+    exit 1
   end
 
   def party_and_constituency_data(vote_data, party, constituency_ons_id)
@@ -91,6 +96,10 @@ class ElectoralCalculusConstituenciesPollsRaw
     ons_id = my_soc_constituency_ons_ids_by_name[alt_name]
     return ons_id if ons_id
 
+    manual_map_name = manual_map_name_from_ec(name)
+    ons_id = my_soc_constituency_ons_ids_by_name[manual_map_name]
+    return ons_id if ons_id
+
     return nil
   end
 
@@ -103,6 +112,14 @@ class ElectoralCalculusConstituenciesPollsRaw
     end
 
     return @my_soc_constituency_ons_ids_by_name = hash
+  end
+
+  private def manual_map
+    defined?(@manual_map) ? @manual_map : @manual_map = YAML.load_file(MAPPING_FILE)
+  end
+
+  private def  manual_map_name_from_ec(name)
+    manual_map[name]
   end
 
   private def alternative_compass_names_for_ec(name)
