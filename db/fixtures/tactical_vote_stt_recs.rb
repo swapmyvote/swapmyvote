@@ -5,8 +5,9 @@ require_relative("tactical_vote_stt_csv")
 require_relative("mysociety_constituencies_csv")
 
 class TacticalVoteSttRecs
-  ACCEPTABLE_NON_PARTY_ADVICE = ["None"]
   attr_reader :advisor, :mysoc_constituencies
+
+  ACCEPTABLE_NON_PARTY_ADVICE = []
 
   def initialize
     @advisor = TacticalVoteCsv.new
@@ -18,7 +19,6 @@ class TacticalVoteSttRecs
     ons_id_by_mysoc_short_code = {}
 
     mysoc_constituencies.each do |constituency|
-      # puts constituency
       ons_id_by_mysoc_short_code[constituency[:short_code]] = constituency[:ons_id]
     end
 
@@ -30,24 +30,24 @@ class TacticalVoteSttRecs
       rec = Recommendation.find_or_initialize_by(rec_key)
       rec.text = row[:advice]
 
-      if rec.text == "" || rec.text == "None"
-        # if there is right now no recommendation and we loaded from the DB, we must delete
+      party_short_code = rec.party_short_code_from_text
+      acceptable = party_short_code || ACCEPTABLE_NON_PARTY_ADVICE.include?(rec.text)
+
+      if rec.text == "" || !acceptable
+        # if it's not acceptable, or blank we must delete the existing entry
         unless rec.id.nil?
           rec.delete
           print "X" # to signify delete
         end
+
+        not_recognised.add({ advice: rec.text, party_short_code: party_short_code }) if rec.text != "" && !acceptable
+
         next
       end
 
       rec.link = advisor.link
-      party_short_code = rec.party_short_code_from_text
-
       rec.save
       print "." # to signify update
-
-      if party_short_code.nil? && ACCEPTABLE_NON_PARTY_ADVICE.exclude?(rec.text)
-        not_recognised.add({ advice: rec.text, party_short_code: party_short_code })
-      end
     end
 
     puts "Voting advice not recognised #{not_recognised.to_a}" if not_recognised.size.positive?
