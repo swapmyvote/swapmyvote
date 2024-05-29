@@ -41,7 +41,7 @@ This is useful if you want to refer a user for tactical voting
 and you know in which constituency they are registered to vote,
 as it will save them manually selecting that constituency.
 The name must match one of the constituencies in the
-<code>PCON18NM</code>
+<code>name</code>
 field of
 <a target="_blank" href="https://pages.mysociety.org/2025-constituencies/datasets/parliament_con_2025/latest">this data set</a>.
 </dd>
@@ -53,7 +53,7 @@ The same as for
 <code>constituency_name</code>
 above, except that rather than the name, it's the ONS id of
 the constituency listed in the
-<code>PCON18CD</code>
+<code>gss_code</code>
 field of
 <a target="_blank" href="https://pages.mysociety.org/2025-constituencies/datasets/parliament_con_2025/latest">the data set</a>.
 </dd>
