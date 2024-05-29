@@ -83,9 +83,15 @@ class ElectoralCalculusConstituenciesPollsRaw
 
   private def constituency_ons_id_from_ec_constituency_name(name)
     # right now, this misses just 78 constituencies.
-    # expect to fix this by calling alternative lookups if the my_soc one returns a nil
-    # looks like we'll find a few in the pattern "Hampshire East" <=> "East Hampshire"
-    my_soc_constituency_ons_ids_by_name[name]
+    ons_id = my_soc_constituency_ons_ids_by_name[name]
+    return ons_id if ons_id
+
+    # this step gets us down to 24 missed constituencies
+    alt_name = alternative_compass_names_for_ec(name)
+    ons_id = my_soc_constituency_ons_ids_by_name[alt_name]
+    return ons_id if ons_id
+
+    return nil
   end
 
   private def my_soc_constituency_ons_ids_by_name
@@ -97,5 +103,38 @@ class ElectoralCalculusConstituenciesPollsRaw
     end
 
     return @my_soc_constituency_ons_ids_by_name = hash
+  end
+
+  private def alternative_compass_names_for_ec(name)
+    #
+    # Hacky attempt to switch compass points as EC uses them
+    #   Leicestershire North West
+    #   Ayrshire Central
+    # to the standard names from boundary commission
+    #   Central Ayrshire
+    #   North West Leicestershire
+    #
+    compass_points = [
+      /North/,
+      /South/,
+      /East/,
+      /West/,
+      /Mid/,
+      /Central/
+    ]
+
+    # derive the place name without compass points
+    place_name = name
+    compass_points.each do |point|
+      place_name = place_name.gsub(point, "").strip.gsub("  ", " ")
+    end
+
+    return if place_name == name # no compass points found
+    return unless name.include?(place_name) # we didn't isolate the simple place name
+
+    # remove the place name from the original text, leaving just the compass points in order
+    points_text = name.gsub(place_name, "").strip.gsub("  ", " ")
+
+    return [points_text, place_name].join(" ")
   end
 end
