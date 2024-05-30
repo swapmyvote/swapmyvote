@@ -77,7 +77,7 @@ class ElectoralCalculusConstituenciesPollsRaw
     if country == "S"
       vote_data[:snp] = { percent: vote_data[:nat][:percent], note: "(Assigning nationalist vote to SNP)" }
     elsif country == "W"
-      vote_data[:plaid] = { percent: vote_data[:nat][:percent], note: "(Assigning nationalist vote to Plaid" }
+      vote_data[:plaid] = { percent: vote_data[:nat][:percent], note: "(Assigning nationalist vote to Plaid)" }
     elsif %w[S E W N].exclude?(country)
       throw "Invalid country '#{country}' for #{constituency_name};"
     end
