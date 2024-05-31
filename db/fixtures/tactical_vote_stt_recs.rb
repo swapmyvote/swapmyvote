@@ -35,11 +35,11 @@ class TacticalVoteSttRecs
 
       if advice_is_not_party
         rec.text = ADVICE_TRANSLATION[source_advice] || source_advice
-        acceptable = !!rec.text
+        acceptable = !rec.text.nil?
       else
         rec.text = source_advice
         party_short_code = rec.party_short_code_from_text
-        acceptable = !!party_short_code
+        acceptable = !party_short_code.nil?
       end
 
       if rec.text == "" || !acceptable
