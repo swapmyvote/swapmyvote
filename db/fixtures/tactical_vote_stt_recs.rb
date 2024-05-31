@@ -8,6 +8,7 @@ class TacticalVoteSttRecs
   attr_reader :advisor, :mysoc_constituencies
 
   ACCEPTABLE_NON_PARTY_ADVICE = ["Heart"]
+  ADVICE_TRANSLATION = { "Heart" => "Any" }
 
   def initialize
     @advisor = TacticalVoteCsv.new
@@ -28,10 +29,18 @@ class TacticalVoteSttRecs
       ons_id = ons_id_by_mysoc_short_code[row[:mysoc_short_code]]
       rec_key = { constituency_ons_id: ons_id, site: advisor.site }
       rec = Recommendation.find_or_initialize_by(rec_key)
-      rec.text = row[:advice]
 
-      party_short_code = rec.party_short_code_from_text
-      acceptable = party_short_code || ACCEPTABLE_NON_PARTY_ADVICE.include?(rec.text)
+      source_advice = row[:advice]
+      advice_is_not_party = ACCEPTABLE_NON_PARTY_ADVICE.include?(source_advice)
+
+      if advice_is_not_party
+        rec.text = ADVICE_TRANSLATION[source_advice] || source_advice
+        acceptable = !!rec.text
+      else
+        rec.text = source_advice
+        party_short_code = rec.party_short_code_from_text
+        acceptable = !!party_short_code
+      end
 
       if rec.text == "" || !acceptable
         # if it's not acceptable, or blank we must delete the existing entry
@@ -40,7 +49,7 @@ class TacticalVoteSttRecs
           print "X" # to signify delete
         end
 
-        not_recognised.add({ advice: rec.text, party_short_code: party_short_code }) if rec.text != "" && !acceptable
+        not_recognised.add({ advice: source_advice }) if rec.text != "" && !acceptable
 
         next
       end
@@ -50,6 +59,6 @@ class TacticalVoteSttRecs
       print "." # to signify update
     end
 
-    puts "Voting advice not recognised #{not_recognised.to_a}" if not_recognised.size.positive?
+    puts "\n\nVoting advice not recognised #{not_recognised.to_a}" if not_recognised.size.positive?
   end
 end
