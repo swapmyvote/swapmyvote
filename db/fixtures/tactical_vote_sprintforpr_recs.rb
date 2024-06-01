@@ -35,6 +35,7 @@ class TacticalVoteSprintforprRecs
 
       if advice_is_not_party
         rec.text = ADVICE_TRANSLATION[source_advice] || source_advice
+        party_short_code = nil
         acceptable = !rec.text.nil?
       else
         rec.text = source_advice
