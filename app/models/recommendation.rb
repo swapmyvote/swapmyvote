@@ -32,7 +32,7 @@ class Recommendation < ApplicationRecord
   }
 
   def party_short_code_from_text
-    canonical_text_sym = text.parameterize(separator: "_").to_sym
+    canonical_text_sym = text.downcase.parameterize(separator: "_").to_sym
     return canonical_text_sym if Party::REFERENCE_DATA.keys.include?(canonical_text_sym)
     lfb_lookup = LFB_NAMES_TO_SHORT_CODE[canonical_text_sym]
     return lfb_lookup unless lfb_lookup.nil?

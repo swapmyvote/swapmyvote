@@ -13,6 +13,7 @@ module RecommendationsHelper
   def recommendations_sites
     {
       "stop-the-tories" => { order: 1 },
+      "sprint-for-pr" => { order: 2 },
       "get-voting" => { order: 91 },
       "peoples-vote" => { order: 92 },
       "remain-united" => { order: 93 },
