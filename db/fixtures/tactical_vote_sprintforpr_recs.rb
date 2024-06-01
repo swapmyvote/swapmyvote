@@ -5,7 +5,9 @@ require_relative "tactical_vote_sprintforpr_csv"
 require_relative "mysociety_constituencies_csv"
 
 class TacticalVoteSprintforprRecs
-  ACCEPTABLE_NON_PARTY_ADVICE = []
+  ACCEPTABLE_NON_PARTY_ADVICE = ["NOT LABOUR"]
+  ADVICE_TRANSLATION = { "NOT LABOUR" => "NOT Lab" }
+
   attr_reader :advisor, :mysoc_constituencies
 
   def initialize
@@ -27,10 +29,18 @@ class TacticalVoteSprintforprRecs
       ons_id = ons_id_by_mysoc_name[row[:constituency_name]]
       rec_key = { constituency_ons_id: ons_id, site: advisor.site }
       rec = Recommendation.find_or_initialize_by(rec_key)
-      rec.text = row[:advice]
 
-      party_short_code = rec.party_short_code_from_text
-      acceptable = party_short_code || ACCEPTABLE_NON_PARTY_ADVICE.include?(rec.text)
+      source_advice = row[:advice]
+      advice_is_not_party = ACCEPTABLE_NON_PARTY_ADVICE.include?(source_advice)
+
+      if advice_is_not_party
+        rec.text = ADVICE_TRANSLATION[source_advice] || source_advice
+        acceptable = !rec.text.nil?
+      else
+        rec.text = source_advice
+        party_short_code = rec.party_short_code_from_text
+        acceptable = !party_short_code.nil?
+      end
 
       if rec.text == "" || !acceptable
         # if it's not acceptable, or blank we must delete the existing entry
@@ -39,7 +49,7 @@ class TacticalVoteSprintforprRecs
           print "X" # to signify delete
         end
 
-        not_recognised.add({ advice: rec.text, party_short_code: party_short_code }) if rec.text != "" && !acceptable
+        not_recognised.add({ advice: source_advice }) if rec.text != "" && !acceptable
 
         next
       end
