@@ -15,7 +15,7 @@ class TacticalVoteSprintforprCsv
 
   def initialize
     @file_name = FILE_NAME
-    @link = "https://sprintforpr.uk/"
+    @link = "https://sprintforpr.uk/plan"
     @site = "sprint-for-pr"
   end
 
