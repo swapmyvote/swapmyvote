@@ -1,5 +1,6 @@
 require "open-uri"
 require "csv"
+require "set"
 
 # Example of use in terminal
 # $ bundle exec rails c
