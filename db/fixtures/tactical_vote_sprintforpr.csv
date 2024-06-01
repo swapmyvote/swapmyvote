@@ -1,575 +1,635 @@
-"Boundary Comm name","Tactical Voting Advice","Stand-aside Advice","Labour Target","Lib Dem target","Lab-Con","Win19","Second19","CON%","LAB%","LD%","GRN%","Sprint for PR candidate"
-"Liverpool Riverside","GREEN",,1,,77.33,"Lab","Con",7.77,85.10,2.21,2.35,
-"Birmingham Ladywood","GREEN",,2,,73.16,"Lab","Con",9.84,83.00,2.77,1.85,
-"Liverpool Walton","GREEN",,3,,72.46,"Lab","Con",9.90,82.35,2.27,1.82,
-"Knowsley","GREEN",,4,,70.88,"Lab","Con",8.75,79.62,2.51,1.97,
-"Bootle","GREEN",,5,,70.27,"Lab","Con",9.17,79.44,3.71,2.37,
-"Manchester Rusholme","GREEN",,6,,69.49,"Lab","Con",9.10,78.59,4.02,4.26,
-"Liverpool West Derby","GREEN",,7,,69.29,"Lab","Con",8.61,77.89,2.72,1.95,
-"Tottenham","GREEN",,8,,66.68,"Lab","Con",11.10,77.79,5.04,4.30,
-"Walthamstow","GREEN",,9,,63.85,"Lab","Con",12.25,76.10,5.95,3.59,
-"Bethnal Green and Stepney","GREEN",,10,,63.37,"Lab","Con",10.14,73.51,9.28,4.21,
-"East Ham","GREEN",,11,,63.21,"Lab","Con",14.57,77.78,3.57,1.60,
-"Hackney South and Shoreditch","GREEN",,12,,63.03,"Lab","Con",10.39,73.42,8.16,6.44,
-"Liverpool Wavertree","GREEN",,13,,62.03,"Lab","Con",9.57,71.60,8.01,6.15,
-"Bradford West","GREEN",,14,,61.04,"Lab","Con",15.18,76.22,3.05,1.84,
-"Peckham","GREEN",,15,,59.61,"Lab","Con",11.22,70.83,10.38,5.01,
-"Liverpool Garston","GREEN",,16,,58.51,"Lab","Con",11.67,70.18,9.89,2.67,
-"Lewisham North","GREEN",,17,,57.23,"Lab","Con",12.21,69.43,11.11,5.25,
-"Hackney North and Stoke Newington","GREEN",,18,,56.78,"Lab","Con",13.03,69.82,7.74,8.02,
-"Stratford and Bow","GREEN",,19,,55.92,"Lab","Con",14.52,70.43,9.00,3.71,
-"Manchester Withington","GREEN",,20,130,55.21,"Lab","LD",11.26,66.47,15.67,4.05,
-"Sheffield Central","GREEN","LIB DEM",21,,54.57,"Lab","Con",12.40,66.97,5.44,10.87,
-"West Ham and Beckton","GREEN",,22,,54.26,"Lab","Con",16.44,70.70,6.06,2.53,
-"Islington North","GREEN",,23,132,54.12,"Lab","LD",10.19,64.31,15.64,8.04,
-"Lewisham West and East Dulwich","GREEN",,24,,51.54,"Lab","Con",14.52,66.05,9.88,7.29,
-"Birmingham Hall Green and Moseley","GREEN",,25,,51.23,"Lab","Con",15.02,66.25,7.16,1.68,
-"Holborn and St Pancras","GREEN",,26,,51.07,"Lab","Con",15.19,66.25,12.28,4.02,
-"Gorton and Denton","GREEN",,27,,48.39,"Lab","Con",18.85,67.24,5.83,2.52,
-"Dulwich and West Norwood","GREEN","LIB DEM",28,,47.83,"Lab","Con",16.64,64.47,0.96,16.24,
-"Birmingham Perry Barr","GREEN",,29,,47.59,"Lab","Con",20.42,68.01,6.53,1.88,
-"Leicester South","GREEN",,30,,46.36,"Lab","Con",21.83,68.19,4.32,3.34,
-"Vauxhall and Camberwell Green","GREEN",,31,94,45.92,"Lab","LD",14.53,60.45,19.05,4.12,
-"Widnes and Halewood","GREEN",,32,,45.63,"Lab","Con",20.82,66.45,2.78,2.34,
-"Leeds Central and Headingley","GREEN",,33,,45.53,"Lab","Con",17.90,63.43,11.19,3.45,
-"Hornsey and Friern Barnet","LIB DEM",,34,59,45.45,"Lab","LD",11.80,57.25,25.64,3.77,
-"Croydon West","GREEN",,35,,45.20,"Lab","Con",21.51,66.71,6.97,2.71,
-"Birkenhead","GREEN",,36,,44.42,"Lab","Con",15.58,60.00,3.98,3.00,
-"Manchester Central","GREEN",,37,,44.39,"Lab","Con",21.00,65.39,6.05,2.86,
-"Bristol Central","GREEN","LIB DEM",38,,44.14,"Lab","Green",14.34,58.48,0.00,26.02,
-"Ilford South","GREEN",,39,,44.02,"Lab","Con",21.22,65.23,3.33,1.34,
-"Leyton and Wanstead","GREEN",,40,,43.22,"Lab","Con",19.85,63.08,10.66,3.82,
-"Poplar and Limehouse","GREEN",,41,134,42.67,"Lab","Con",17.67,60.34,15.50,3.40,
-"Lewisham East","GREEN",,42,,42.66,"Lab","Con",20.00,62.66,10.11,3.53,
-"Blackburn","GREEN",,43,,42.65,"Lab","Con",23.33,65.98,2.42,1.60,
-"Nottingham East","GREEN",,44,,42.28,"Lab","Con",20.84,63.11,6.30,3.11,
-"Queen's Park and Maida Vale","GREEN",,45,,42.13,"Lab","Con",19.79,61.92,13.91,3.21,
-"Bradford East","GREEN",,46,,41.27,"Lab","Con",21.71,62.98,7.67,1.48,
-"Rhondda and Ogmore","GREEN",,47,,40.84,"Lab","Con",15.45,56.29,2.28,1.39,
-"Islington South and Finsbury","GREEN",,48,88,40.68,"Lab","LD",16.34,57.01,19.70,4.32,
-"Brent East","GREEN",,49,,40.34,"Lab","Con",23.50,63.84,9.02,3.24,
-"Streatham and Croydon North","GREEN",,50,107,39.05,"Lab","Con",18.84,57.89,17.55,4.44,
-"Wallasey","GREEN",,51,,37.73,"Lab","Con",25.93,63.67,3.90,2.37,
-"St Helens South and Whiston","GREEN",,52,,36.83,"Lab","Con",21.29,58.12,5.68,4.28,
-"Cardiff East","GREEN",,53,,36.51,"Lab","Con",22.7143,59.22,12.30,0.64,
-"Clapham and Brixton Hill","GREEN",,54,87,35.87,"Lab","LD",19.50,55.36,19.81,4.21,
-"Ealing Southall","GREEN",,55,,35.82,"Lab","Con",23.93,59.75,9.79,3.78,
-"Newcastle upon Tyne East and Wallsend","GREEN",,56,,35.61,"Lab","Con",23.65,59.26,8.33,3.85,
-"Bristol East","GREEN",,57,,35.08,"Lab","Con",23.31,58.39,6.95,8.44,
-"Oxford East","GREEN",,58,,35.00,"Lab","Con",21.45,56.45,14.02,4.70,
-"Salford","GREEN",,59,,34.12,"Lab","Con",23.30,57.41,6.16,4.27,
-"Barking","GREEN",,60,,34.11,"Lab","Con",26.82,60.94,3.31,1.83,
-"Leeds North East","GREEN",,61,,33.84,"Lab","Con",23.63,57.47,11.22,3.82,
-"Bermondsey and Old Southwark","LIB DEM","GREEN",62,37,32.83,"Lab","LD",16.80,49.64,31.08,0.05,
-"Stretford and Urmston","GREEN",,63,,32.79,"Lab","Con",27.52,60.31,5.93,2.71,
-"Cambridge","LIB DEM","GREEN",64,35,32.68,"Lab","LD",14.76,47.45,31.16,4.16,
-"Newcastle upon Tyne Central and West","GREEN",,65,,32.68,"Lab","Con",26.57,59.25,2.97,3.04,
-"Greenwich and Woolwich","GREEN",,66,,32.28,"Lab","Con",22.73,55.01,14.58,4.60,
-"Ellesmere Port and Bromborough","GREEN",,67,,32.24,"Lab","Con",27.06,59.30,7.42,1.90,
-"Leeds South","GREEN",,68,,32.11,"Lab","Con",26.31,58.41,4.44,3.78,
-"Birmingham Hodge Hill and Solihull North","GREEN",,69,,31.36,"Lab","Con",28.56,59.92,4.33,3.49,
-"Birmingham Yardley","GREEN",,70,,31.36,"Lab","Con",26.75,58.10,8.93,1.20,
-"Sheffield Brightside and Hillsborough","GREEN",,71,,31.19,"Lab","Con",25.39,56.58,3.89,3.00,
-"Merthyr Tydfil and Aberdare","GREEN",,72,,31.11,"Lab","Con",20.61,51.71,3.33,0.00,
-"Blaenau Gwent and Rhymney","LABOUR",,73,,30.81,"Lab","Con",19.59,50.40,3.74,0.99,
-"Blackley and Middleton South","GREEN",,74,,30.78,"Lab","Con",28.23,59.01,3.01,2.03,
-"Mitcham and Morden","GREEN",,75,,30.75,"Lab","Con",26.71,57.47,10.83,2.25,
-"Dewsbury and Batley","GREEN",,76,,30.39,"Lab","Con",28.70,59.09,2.51,1.11,
-"Aberafan Maesteg","GREEN",,77,,30.29,"Lab","Con",22.63,52.92,3.70,1.58,
-"Hove and Portslade","GREEN",,78,,30.22,"Lab","Con",28.08,58.30,6.62,4.43,
-"Erith and Thamesmead","GREEN",,79,,30.15,"Lab","Con",28.21,58.35,4.92,2.85,
-"Middlesbrough and Thornaby East","GREEN",,80,,29.64,"Lab","Con",24.34,53.98,2.64,1.47,
-"Slough","GREEN",,81,,29.30,"Lab","Con",29.51,58.80,6.80,2.08,
-"Southgate and Wood Green","GREEN",,82,,29.24,"Lab","Con",28.55,57.80,9.94,2.45,
-"York Central","GREEN",,83,,28.63,"Lab","Con",27.78,56.40,7.82,4.19,
-"Preston","GREEN",,84,,27.49,"Lab","Con",29.80,57.29,6.76,2.00,
-"Edmonton and Winchmore Hill","GREEN",,85,,27.08,"Lab","Con",31.11,58.19,6.73,2.06,
-"Smethwick","GREEN",,86,,26.79,"Lab","Con",30.18,56.97,4.49,2.33,
-"Sheffield Heeley","GREEN",,87,,26.74,"Lab","Con",27.13,53.88,6.72,4.30,
-"Ealing Central and Acton","GREEN",,88,110,26.67,"Lab","Con",25.62,52.29,17.35,3.38,
-"Stockport","GREEN",,89,,26.10,"Lab","Con",28.18,54.28,8.66,3.55,
-"St Helens North","GREEN",,90,,25.67,"Lab","Con",26.62,52.29,5.61,4.13,
-"Jarrow and Gateshead East","GREEN",,91,,25.47,"Lab","Con",23.70,49.17,6.54,2.49,
-"Oldham West, Chadderton and Royton","GREEN",,92,,25.04,"Lab","Con",30.27,55.32,3.34,1.53,
-"Bolton South and Walkden","GREEN",,93,,24.85,"Lab","Con",31.74,56.59,3.85,2.45,
-"Norwich South","GREEN",,94,,24.52,"Lab","Con",29.00,53.53,9.45,4.83,
-"Hampstead and Highgate","LIB DEM",,95,64,24.47,"Lab","LD",23.17,47.64,24.29,3.65,
-"Tooting","GREEN",,96,,24.47,"Lab","Con",28.22,52.69,14.20,3.96,
-"Ealing North","GREEN",,97,,24.42,"Lab","Con",31.90,56.32,8.84,2.94,
-"Birmingham Selly Oak","GREEN",,98,,24.09,"Lab","Con",31.63,55.71,6.24,3.69,
-"Cardiff South and Penarth","GREEN",,99,,23.53,"Lab","Con",30.14,53.66,7.00,2.29,
-"Wythenshawe and Sale East","GREEN",,100,,23.23,"Lab","Con",30.07,53.30,6.95,3.48,
-"Exeter","LABOUR",,101,,22.72,"Lab","Con",32.08,54.80,0.02,9.34,
-"Swansea West","LABOUR",,102,,22.71,"Lab","Con",28.67,51.38,6.41,0.83,
-"Nottingham South","LABOUR",,103,,22.25,"Lab","Con",31.56,53.81,6.72,3.29,
-"Brentford and Isleworth","LABOUR",,104,121,22.03,"Lab","Con",28.30,50.33,16.32,2.98,
-"Hayes and Harlington","LABOUR",,105,,21.05,"Lab","Con",34.74,55.79,4.43,1.68,
-"Hammersmith and Chiswick","LABOUR",,106,,20.31,"Lab","Con",30.46,50.77,13.87,3.06,
-"Cardiff West","LABOUR",,107,,20.30,"Lab","Con",29.85,50.15,5.29,2.20,
-"Easington","LABOUR",,108,,19.70,"Lab","Con",27.06,46.76,4.14,0.26,
-"Luton North","LABOUR",,109,,19.60,"Lab","Con",34.26,53.86,4.63,1.87,
-"Brent West","LABOUR",,110,,19.48,"Lab","Con",33.80,53.28,9.11,1.71,
-"Pontypridd","LABOUR",,111,,19.30,"Lab","Con",27.33,46.63,1.40,0.22,
-"Rochdale","LABOUR",,112,,19.28,"Lab","Con",31.55,50.83,7.53,1.88,
-"Barnsley South","LABOUR",,113,,19.16,"Lab","Brexit",22.65,41.82,3.50,2.06,
-"Neath and Swansea East","LABOUR",,114,,18.85,"Lab","Con",28.22,47.08,4.13,1.73,
-"Bristol South","LABOUR",,115,,18.81,"Lab","Con",32.82,51.62,6.24,5.07,
-"Harrow West","LABOUR",,116,,18.27,"Lab","Con",34.82,53.09,8.25,2.06,
-"South Shields","LABOUR",,117,,18.26,"Lab","Con",25.82,44.09,3.55,3.15,
-"Sefton Central","LABOUR",,118,,18.24,"Lab","Con",34.33,52.57,6.64,2.07,
-"Ilford North","LABOUR",,119,,17.45,"Lab","Con",36.70,54.14,3.97,1.37,
-"Enfield North","LABOUR",,120,,17.42,"Lab","Con",35.92,53.34,6.53,2.42,
-"Coventry East","LABOUR",,121,,17.07,"Lab","Con",35.02,52.10,5.40,2.33,
-"Birmingham Edgbaston","LABOUR",,122,,16.87,"Lab","Con",35.45,52.32,7.25,2.57,
-"Brighton Kemptown and Peacehaven","LABOUR",,123,,16.75,"Lab","Con",34.43,51.18,6.00,5.69,
-"Reading Central","LABOUR",,124,,16.21,"Lab","Con",36.40,52.60,6.38,3.11,
-"Feltham and Heston","LABOUR",,125,,15.94,"Lab","Con",35.79,51.72,6.62,2.39,
-"West Lancashire","LABOUR",,126,,15.83,"Lab","Con",36.31,52.14,4.86,2.37,
-"Caerphilly","LABOUR",,127,,15.31,"Lab","Con",28.58,43.89,0.72,0.36,
-"Huddersfield","LABOUR",,128,,15.07,"Lab","Con",36.36,51.43,4.96,3.82,
-"Wigan","LABOUR",,129,,14.94,"Lab","Con",31.78,46.72,5.39,2.88,
-"Barnsley North","LABOUR",,130,,14.56,"Lab","Brexit",23.97,38.54,3.57,2.36,
-"Blyth and Ashington","LABOUR",,131,,14.23,"Lab","Con",33.45,47.69,6.42,2.90,
-"Derby South","LABOUR",,132,,14.18,"Lab","Con",36.91,51.08,6.17,0.00,
-"Gateshead Central and Whickham","LABOUR",,133,,14.07,"Lab","Con",33.02,47.09,12.23,3.79,
-"Cardiff North","LABOUR",,134,,13.85,"Lab","Con",35.74,49.59,6.55,1.50,
-"Southampton Test","LABOUR",,135,,13.81,"Lab","Con",35.66,49.46,7.67,3.18,
-"Luton South and South Bedfordshire","LABOUR",,136,,13.45,"Lab","Con",35.20,48.65,0.50,2.66,
-"Kingston upon Hull North and Cottingham","LABOUR",,137,,13.18,"Lab","Con",33.46,46.64,6.49,2.61,
-"Leicester West","LABOUR",,138,,12.65,"Lab","Con",36.65,49.30,6.72,2.83,
-"Newcastle upon Tyne North","LABOUR",,139,,12.60,"Lab","Con",31.78,44.38,14.03,4.05,
-"Leicester East","LABOUR",,140,,12.44,"Lab","Con",38.48,50.92,5.63,1.78,
-"Bristol North West","LABOUR",,141,,12.39,"Lab","Con",36.49,48.88,8.11,6.38,
-"Runcorn and Helsby","LABOUR",,142,,11.94,"Lab","Con",36.84,48.78,6.71,2.92,
-"Chester North and Neston","LABOUR",,143,,11.85,"Lab","Con",38.47,50.32,6.19,2.23,
-"Ashton-under-Lyne","LABOUR",,144,,11.33,"Lab","Con",36.20,47.53,4.29,3.48,
-"Portsmouth South","LABOUR",,145,,11.31,"Lab","Con",37.33,48.64,11.42,0.00,
-"Newport East","LABOUR",,146,,11.29,"Lab","Con",36.20,47.49,5.71,1.88,
-"Bristol North East","LABOUR",,147,,11.17,"Lab","Con",39.12,50.30,5.10,3.98,
-"Sheffield South East","LABOUR",,148,,11.12,"Lab","Con",35.63,46.75,4.66,0.17,
-"Makerfield","LABOUR",,149,,10.98,"Lab","Con",34.29,45.27,4.79,2.58,
-"Battersea","LABOUR",,150,144,10.97,"Lab","Con",35.38,46.35,15.14,2.48,
-"Plymouth Sutton and Devonport","LABOUR",,151,,10.40,"Lab","Con",38.01,48.41,4.90,3.00,
-"Torfaen","LABOUR",,152,,9.44,"Lab","Con",33.31,42.74,4.95,2.22,
-"Washington and Gateshead South","LABOUR",,153,,9.39,"Lab","Con",33.73,43.12,4.93,2.67,
-"Sheffield Hallam","LIB DEM","GREEN",154,25,9.27,"Lab","LD",25.70,34.97,33.12,3.00,
-"North Durham","LABOUR",,155,,9.26,"Lab","Con",34.43,43.69,6.36,2.61,
-"Stockton North","LABOUR",,156,,9.21,"Lab","Con",37.50,46.71,4.00,0.00,
-"Blaydon and Consett","LABOUR",,157,,9.12,"Lab","Con",34.86,43.98,4.57,3.03,
-"City of Durham","LABOUR",,158,113,9.08,"Lab","Con",31.86,40.94,16.94,3.29,
-"Hartlepool","LABOUR",,159,,8.76,"Lab","Con",28.92,37.68,4.13,0.00,
-"Llanelli","LABOUR",,160,,8.64,"Lab","Con",30.67,39.31,0.00,0.00,
-"Normanton and Hemsworth","LABOUR",,161,,8.12,"Lab","Con",31.43,39.55,4.22,1.80,
-"Worsley and Eccles","LABOUR",,162,,7.99,"Lab","Con",38.53,46.52,5.26,2.54,
-"Birmingham Erdington","LABOUR",,163,,7.96,"Lab","Con",41.48,49.44,3.25,1.80,
-"Putney","LABOUR",,164,116,7.95,"Lab","Con",36.37,44.33,16.90,2.34,
-"Rotherham","LABOUR",,165,,7.58,"Lab","Con",33.09,40.67,6.24,0.11,
-"Houghton and Sunderland South","LABOUR",,166,,7.47,"Lab","Con",32.94,40.40,5.94,2.70,
-"Kingston upon Hull East","LABOUR",,167,,7.35,"Lab","Con",34.28,41.63,4.96,2.31,
-"Stalybridge and Hyde","LABOUR",,168,,6.95,"Lab","Con",37.95,44.90,4.31,3.33,
-"Sunderland Central","LABOUR",,169,,6.82,"Lab","Con",35.36,42.17,6.96,2.79,
-"Croydon East","LABOUR",,170,,6.74,"Lab","Con",41.34,48.08,6.60,2.33,
-"Bradford South","LABOUR",,171,,6.67,"Lab","Con",40.06,46.74,3.71,2.46,
-"Tynemouth","LABOUR",,172,,6.51,"Lab","Con",40.22,46.73,6.71,2.44,
-"Wolverhampton South East","LABOUR",,173,,6.21,"Lab","Con",41.18,47.39,3.81,1.70,
-"Leeds West and Pudsey","LABOUR",,174,,6.18,"Lab","Con",42.23,48.41,3.64,1.43,
-"Leeds East","LABOUR",,175,,6.13,"Lab","Con",40.84,46.97,3.66,2.13,
-"Gower","LABOUR",,176,,5.87,"Lab","Con",39.89,45.75,5.87,0.00,
-"Nottingham North and Kimberley","LABOUR",,177,,5.79,"Lab","Con",40.22,46.00,3.75,2.48,
-"Doncaster North","LABOUR",,178,,5.17,"Lab","Con",33.16,38.32,3.61,0.04,
-"Brighton Pavilion","GREEN","LIB DEM",,,4.93,"Green","Lab",17.74,22.67,0.00,57.05,
-"Cramlington and Killingworth","LABOUR",,179,,4.49,"Lab","Con",39.89,44.37,5.24,2.48,
-"Newport West and Islwyn","LABOUR",,180,,4.12,"Lab","Con",37.67,41.79,5.10,1.95,
-"Halifax","LABOUR",,181,,3.98,"Lab","Con",41.67,45.65,4.82,1.98,
-"Canterbury","LABOUR",,182,,3.78,"Lab","Con",44.82,48.60,5.70,0.00,
-"Warrington North","LABOUR",,183,,3.25,"Lab","Con",40.94,44.19,6.56,2.69,
-"Oldham East and Saddleworth","LABOUR",,184,,3.25,"Lab","Con",40.27,43.51,5.25,1.69,
-"Chesterfield","LABOUR",,185,,3.21,"Lab","Con",37.00,40.21,8.82,2.54,
-"Rawmarsh and Conisbrough","LABOUR",,186,,3.10,"Lab","Con",36.98,40.08,3.70,0.48,
-"Doncaster Central","LABOUR",,187,,2.76,"Lab","Con",36.60,39.36,4.09,2.25,
-"Pontefract, Castleford and Knottingley","LABOUR",,188,,2.62,"Lab","Con",35.57,38.19,6.78,0.00,
-"Bedford","LABOUR",,189,,2.39,"Lab","Con",41.95,44.34,10.03,1.98,
-"Warwick and Leamington","LABOUR",,190,,2.24,"Lab","Con",41.07,43.31,10.90,2.91,
-"Coventry South","LABOUR",,191,,1.73,"Lab","Con",42.54,44.27,6.73,2.65,
-"Dagenham and Rainham","LABOUR",,192,,1.60,"Lab","Con",43.12,44.73,3.04,1.53,
-"Heywood and Middleton North","LABOUR",,193,,1.60,"Lab","Con",41.47,43.07,4.21,2.82,
-"Beckenham and Penge","LABOUR",,194,125,1.05,"Lab","Con",39.05,40.10,16.06,4.02,
-"Wirral West","LABOUR",,195,,0.81,"Lab","Con",44.36,45.17,5.72,2.53,
-"Alyn and Deeside","LABOUR",,196,,0.79,"Lab","Con",41.95,42.74,5.91,0.00,
-"Kensington and Bayswater","LABOUR",,197,85,0.71,"Lab","Con",38.32,39.03,20.16,1.40,
-"Coventry North West","LABOUR",,198,,0.44,"Lab","Con",43.38,43.81,5.69,3.02,
-"Warrington South","LABOUR",,199,,0.12,"Lab","Con",44.35,44.47,8.16,0.01,
-"Burnley","LABOUR",,200,,-0.27,"Con","Lab",40.46,40.19,7.67,1.80,
-"Leigh and Atherton","LABOUR",,201,,-0.66,"Con","Lab",43.83,43.17,4.59,0.35,
-"High Peak","LABOUR",,202,,-1.09,"Con","Lab",45.86,44.77,5.08,2.12,
-"Bangor Aberconwy","LABOUR",,203,,-1.55,"Con","Lab",39.98,38.44,4.42,0.00,
-"Wolverhampton West","LABOUR",,204,,-1.83,"Con","Lab",47.37,45.54,4.36,0.24,
-"Bury South","LABOUR",,205,,-1.88,"Con","Lab",43.47,41.58,6.16,1.81,
-"Bury North","LABOUR",,206,,-2.40,"Con","Lab",47.29,44.89,3.07,1.76,
-"Bolton North East","LABOUR",,207,,-2.56,"Con","Lab",45.01,42.45,4.39,1.61,
-"Watford","LABOUR",,208,105,-2.69,"Con","Lab",42.00,39.31,17.74,0.26,
-"Chingford and Woodford Green","LABOUR",,209,,-2.94,"Con","Lab",48.20,45.27,5.85,0.39,
-"Wycombe","LABOUR",,210,,-3.19,"Con","Lab",43.11,39.92,11.32,2.58,
-"Dwyfor Meirionnydd","PLAID",,,,-3.34,"PC","Con",26.19,22.85,0.16,0.00,
-"Birmingham Northfield","LABOUR",,211,,-3.38,"Con","Lab",46.08,42.70,4.61,2.22,
-"Leeds North West","LABOUR",,212,148,-3.59,"Con","Lab",41.87,38.28,14.75,2.27,
-"Stroud","LABOUR",,213,,-4.07,"Con","Lab",45.70,41.63,2.23,8.00,
-"Keighley and Ilkley","LABOUR",,214,,-4.22,"Con","Lab",48.10,43.88,4.89,0.00,
-"Stoke-on-Trent Central","LABOUR",,215,,-4.22,"Con","Lab",47.11,42.89,3.76,1.97,
-"Whitehaven and Workington","LABOUR",,216,,-4.34,"Con","Lab",48.42,44.08,3.96,1.23,
-"Gedling","LABOUR",,217,,-4.45,"Con","Lab",47.20,42.75,4.49,2.19,
-"Walsall and Bloxwich","LABOUR",,218,,-4.79,"Con","Lab",49.21,44.42,2.93,1.53,
-"Peterborough","LABOUR",,219,,-4.94,"Con","Lab",46.48,41.54,4.90,1.51,
-"Vale of Glamorgan","LABOUR",,220,,-5.13,"Con","Lab",49.08,43.94,0.00,5.96,
-"West Bromwich","LABOUR",,221,,-5.20,"Con","Lab",47.32,42.12,3.55,1.91,
-"Mid Cheshire","LABOUR",,222,,-5.32,"Con","Lab",46.95,41.63,8.39,1.96,
-"Wakefield and Rothwell","LABOUR",,223,,-5.35,"Con","Lab",44.86,39.51,10.92,1.00,
-"Ynys Môn","LABOUR",,224,,-5.38,"Con","Lab",35.45,30.07,0.00,0.00,
-"Derby North","LABOUR",,225,,-5.40,"Con","Lab",45.22,39.81,7.34,2.22,
-"Bridgend","LABOUR",,226,,-5.47,"Con","Lab",43.96,38.49,5.25,1.86,
-"Clwyd North","LABOUR",,227,,-5.53,"Con","Lab",45.78,40.25,4.88,0.00,
-"Lancaster and Wyre","LABOUR",,228,,-6.10,"Con","Lab",47.96,41.86,3.94,4.44,
-"Hastings and Rye","LABOUR",,229,,-6.72,"Con","Lab",49.09,42.37,7.40,0.06,
-"Eltham and Chislehurst","LABOUR",,230,,-6.74,"Con","Lab",46.85,40.11,7.49,2.97,
-"Lincoln","LABOUR",,231,,-6.94,"Con","Lab",47.93,40.99,4.78,2.36,
-"Hyndburn","LABOUR",,232,,-6.96,"Con","Lab",48.50,41.54,2.89,1.99,
-"Broxtowe","LABOUR",,233,,-7.16,"Con","Lab",45.17,38.00,0.51,3.01,
-"Chipping Barnet","LABOUR",,234,,-7.20,"Con","Lab",47.55,40.34,9.83,2.16,
-"Ceredigion Preseli","PLAID",,,150,-7.49,"PC","Con",28.26,20.77,14.63,1.28,
-"Northampton North","LABOUR",,235,,-7.70,"Con","Lab",49.77,42.08,5.69,2.46,
-"Newton Aycliffe and Spennymoor","LABOUR",,236,,-7.86,"Con","Lab",46.14,38.29,5.40,1.48,
-"Hendon","LABOUR",,237,,-8.03,"Con","Lab",48.91,40.88,8.57,1.64,
-"Truro and Falmouth","LABOUR",,238,,-8.08,"Con","Lab",46.83,38.75,10.84,2.76,
-"Wrexham","LABOUR",,239,,-8.36,"Con","Lab",46.54,38.19,4.27,0.94,
-"Kingston upon Hull West and Haltemprice","LABOUR",,240,,-8.71,"Con","Lab",42.48,33.77,9.22,1.06,
-"Blackpool South","LABOUR",,241,,-8.72,"Con","Lab",48.84,40.12,3.53,1.91,
-"Calder Valley","LABOUR",,242,,-9.05,"Con","Lab",51.35,42.31,5.06,0.00,
-"Milton Keynes Central","LABOUR",,243,,-9.41,"Con","Lab",47.55,38.14,10.43,2.46,
-"Southampton Itchen","LABOUR",,244,,-9.49,"Con","Lab",50.51,41.02,5.28,2.19,
-"Clwyd East","LABOUR",,245,,-10.00,"Con","Lab",47.94,37.94,5.34,0.00,
-"Darlington","LABOUR",,246,,-10.73,"Con","Lab",49.66,38.93,4.62,2.52,
-"Redcar","LABOUR",,247,,-10.91,"Con","Lab",47.53,36.62,4.81,1.56,
-"Ipswich","LABOUR",,248,,-11.05,"Con","Lab",50.33,39.28,4.92,2.59,
-"Altrincham and Sale West","LABOUR",,249,,-11.21,"Con","Lab",48.05,36.84,11.02,2.86,
-"Swindon South","LABOUR",,250,,-11.41,"Con","Lab",51.62,40.21,7.65,0.53,
-"Cities of London and Westminster","LABOUR","LIB DEM AND GREEN",251,50,-11.47,"Con","Lab",40.33,28.87,28.23,1.94,
-"Bolsover","LABOUR","LIB DEM AND GREEN",252,,-11.54,"Con","Lab",47.71,36.17,3.81,1.57,
-"Shipley","LABOUR","LIB DEM AND GREEN",253,,-11.56,"Con","Lab",50.81,39.25,5.90,2.41,
-"Crewe and Nantwich","LABOUR","LIB DEM AND GREEN",254,,-11.59,"Con","Lab",50.82,39.24,5.13,1.89,
-"Loughborough","LABOUR","LIB DEM AND GREEN",255,,-11.80,"Con","Lab",50.56,38.76,7.63,2.60,
-"Tipton and Wednesbury","LABOUR","LIB DEM AND GREEN",256,,-12.29,"Con","Lab",50.71,38.42,3.13,1.89,
-"Rushcliffe","LABOUR","LIB DEM AND GREEN",257,128,-12.36,"Con","Lab",47.34,34.98,15.96,0.00,
-"Norwich North","LABOUR","LIB DEM AND GREEN",258,,-12.62,"Con","Lab",51.56,38.93,6.23,2.27,
-"Spen Valley","LABOUR","LIB DEM AND GREEN",259,,-12.85,"Con","Lab",46.36,33.51,5.84,1.76,
-"Milton Keynes North","LABOUR","LIB DEM AND GREEN",260,,-13.10,"Con","Lab",51.64,38.53,6.72,3.10,
-"Worcester","LABOUR","LIB DEM AND GREEN",261,,-13.28,"Con","Lab",50.80,37.52,7.20,3.33,
-"Rother Valley","LABOUR","LIB DEM AND GREEN",262,,-13.49,"Con","Lab",46.11,32.62,4.83,2.47,
-"Southport","LABOUR","LIB DEM AND GREEN",263,,-13.59,"Con","Lab",50.38,36.78,12.48,0.36,
-"Ashfield","LABOUR","LIB DEM AND GREEN",264,,-13.63,"Con","Other",39.20,25.58,2.07,1.31,
-"Shrewsbury","LABOUR","LIB DEM AND GREEN",265,,-13.92,"Con","Lab",49.37,35.46,10.81,3.25,
-"East Worthing and Shoreham","LABOUR","LIB DEM AND GREEN",266,,-14.07,"Con","Lab",51.02,36.95,7.77,3.78,
-"Caerfyrddin","LABOUR","LIB DEM AND GREEN",267,,-14.08,"Con","PC",39.16,25.08,1.29,0.00,
-"Penistone and Stocksbridge","LABOUR","LIB DEM AND GREEN",268,,-14.56,"Con","Lab",47.84,33.28,10.21,0.00,
-"Barrow and Furness","LABOUR","LIB DEM AND GREEN",269,,-14.86,"Con","Lab",53.05,38.19,4.51,1.54,
-"Colne Valley","LABOUR","LIB DEM AND GREEN",270,,-14.99,"Con","Lab",51.23,36.23,7.01,1.73,
-"Filton and Bradley Stoke","LABOUR","LIB DEM AND GREEN",271,,-15.23,"Con","Lab",51.00,35.77,10.01,2.72,
-"Uxbridge and South Ruislip","LABOUR","LIB DEM AND GREEN",272,,-15.63,"Con","Lab",52.60,36.97,6.64,2.65,
-"Mid and South Pembrokeshire","LABOUR","LIB DEM AND GREEN",273,,-15.68,"Con","Lab",52.89,37.20,4.60,0.00,
-"East Thanet","LABOUR","LIB DEM AND GREEN",274,,-15.83,"Con","Lab",53.45,37.62,5.19,3.74,
-"Corby and East Northamptonshire","LABOUR","LIB DEM AND GREEN",275,,-16.10,"Con","Lab",54.64,38.54,6.83,0.00,
-"Leeds South West and Morley","LABOUR","LIB DEM AND GREEN",276,,-16.32,"Con","Lab",53.13,36.81,2.77,3.30,
-"Bishop Auckland","LABOUR","LIB DEM AND GREEN",277,,-16.39,"Con","Lab",53.00,36.61,3.60,0.61,
-"Chelsea and Fulham","LABOUR","LIB DEM AND GREEN",278,67,-16.42,"Con","Lab",45.47,29.05,23.83,0.42,
-"Crawley","LABOUR","LIB DEM AND GREEN",279,,-16.75,"Con","Lab",54.19,37.44,5.47,2.91,
-"Harrow East","LABOUR","LIB DEM AND GREEN",280,,-17.19,"Con","Lab",54.61,37.42,7.52,0.26,
-"South Ribble","LABOUR","LIB DEM AND GREEN",281,,-17.30,"Con","Lab",53.52,36.22,7.74,2.51,
-"Newcastle-under-Lyme","LABOUR","LIB DEM AND GREEN",282,,-17.45,"Con","Lab",52.80,35.35,5.64,2.16,
-"Bournemouth East","LABOUR","LIB DEM AND GREEN",283,,-17.87,"Con","Lab",50.59,32.72,10.98,4.16,
-"Stevenage","LABOUR","LIB DEM AND GREEN",284,,-17.96,"Con","Lab",53.12,35.16,8.67,3.06,
-"Wimbledon","LIB DEM","GREEN",,18,-18.96,"Con","LD",39.77,20.81,38.29,0.24,
-"Camborne and Redruth","LABOUR","LIB DEM AND GREEN",285,,-19.09,"Con","Lab",53.26,34.17,8.47,2.79,
-"Stoke-on-Trent North","LABOUR","LIB DEM AND GREEN",286,,-19.30,"Con","Lab",54.14,34.84,3.30,1.37,
-"Gloucester","LABOUR","LIB DEM AND GREEN",287,,-19.34,"Con","Lab",54.58,35.24,7.67,2.50,
-"Finchley and Golders Green","LABOUR","LIB DEM AND GREEN",288,33,-19.43,"Con","LD",43.79,24.36,31.83,0.01,
-"Bath","LIB DEM ","GREEN",,3,-19.57,"LD","Con",32.09,12.52,53.41,0.26,
-"York Outer","LABOUR","LIB DEM AND GREEN",289,98,-19.69,"Con","Lab",49.63,29.94,18.67,0.02,
-"Rossendale and Darwen","LABOUR","LIB DEM AND GREEN",290,,-19.70,"Con","Lab",56.35,36.64,4.17,2.48,
-"Wolverhampton North East","LABOUR","LIB DEM AND GREEN",291,,-19.83,"Con","Lab",55.69,35.86,3.57,1.83,
-"Macclesfield","LABOUR","LIB DEM AND GREEN",292,,-19.88,"Con","Lab",52.52,32.64,10.55,4.29,
-"Blackpool North and Fleetwood","LABOUR","LIB DEM AND GREEN",293,,-20.22,"Con","Lab",55.84,35.62,4.04,1.91,
-"Monmouthshire","LABOUR","LIB DEM AND GREEN",294,,-20.50,"Con","Lab",52.14,31.64,9.59,2.52,
-"Scarborough and Whitby","LABOUR","LIB DEM AND GREEN",295,,-20.65,"Con","Lab",55.49,34.84,6.11,0.00,
-"Welwyn Hatfield","LABOUR","LIB DEM AND GREEN",296,,-20.80,"Con","Lab",52.49,31.69,12.71,3.11,
-"Hitchin","LABOUR","LIB DEM AND GREEN",297,69,-20.84,"Con","Lab",47.02,26.18,23.67,1.51,
-"Bolton West","LABOUR","LIB DEM AND GREEN",298,,-21.29,"Con","Lab",56.54,35.25,5.64,1.79,
-"Scunthorpe","LABOUR","LIB DEM AND GREEN",299,,-21.44,"Con","Lab",56.32,34.88,2.64,1.83,
-"Erewash","LABOUR","LIB DEM AND GREEN",300,,-21.73,"Con","Lab",56.46,34.73,5.09,2.28,
-"Bournemouth West","NOT LABOUR",,301,,-21.73,"Con","Lab",53.58,31.85,10.06,4.52,"Primary"
-"Carlisle","NOT LABOUR",,302,,-22.03,"Con","Lab",56.52,34.48,5.00,1.61,"Primary"
-"Earley and Woodley","LIB DEM",,303,78,-22.10,"Con","Lab",48.76,26.67,21.81,2.22,"Primary"
-"Colchester","NOT LABOUR",,304,149,-22.29,"Con","Lab",52.34,30.05,14.68,2.93,"Primary"
-"Oxford West and Abingdon","LIB DEM","GREEN",,5,-22.29,"LD","Con",34.09,11.80,52.19,0.47,
-"Stockton West","NOT LABOUR",,305,,-22.57,"Con","Lab",56.48,33.91,4.45,0.50,"Primary"
-"Hexham","NOT LABOUR",,306,,-22.59,"Con","Lab",54.34,31.75,9.41,3.62,"Primary"
-"Ossett and Denby Dale","NOT LABOUR",,307,,-22.69,"Con","Lab",53.85,31.17,4.94,1.24,"Primary"
-"Kingston and Surbiton","LIB DEM","GREEN",,4,-22.87,"LD","Con",33.07,10.21,52.65,1.58,
-"Middlesbrough South and East Cleveland","NOT LABOUR",,308,,-22.87,"Con","Lab",57.86,34.98,4.05,2.23,"Primary"
-"Doncaster East and the Isle of Axholme","NOT LABOUR",,309,,-23.41,"Con","Lab",52.13,28.72,4.44,2.36,"Primary"
-"Great Grimsby and Cleethorpes","NOT LABOUR",,310,,-23.42,"Con","Lab",55.62,32.20,4.92,1.97,"Primary"
-"Pendle and Clitheroe","NOT LABOUR",,311,,-23.85,"Con","Lab",56.93,33.09,7.34,2.08,"Primary"
-"Basingstoke","NOT LABOUR",,312,,-24.03,"Con","Lab",52.69,28.65,13.28,3.92,"Primary"
-"Dover and Deal","NOT LABOUR",,313,,-24.26,"Con","Lab",56.87,32.61,5.72,2.74,"Primary"
-"Penrith and Solway","NOT LABOUR",,314,,-24.67,"Con","Lab",54.82,30.15,8.17,3.11,"Primary"
-"Telford","NOT LABOUR",,315,,-25.04,"Con","Lab",59.37,34.33,6.24,0.06,"Primary"
-"Twickenham","LIB DEM","GREEN",,1,-25.18,"LD","Con",33.83,8.66,56.24,0.00,
-"Buckingham and Bletchley","NOT LABOUR",,316,136,-25.37,"Con","Lab",53.06,27.69,15.43,1.20,"Primary"
-"Morecambe and Lunesdale","NOT LABOUR",,317,133,-25.49,"Con","Lab",53.61,28.11,15.61,1.27,"Primary"
-"North East Derbyshire","NOT LABOUR",,318,,-26.08,"Con","Lab",58.40,32.32,6.14,2.67,"Primary"
-"Rugby","NOT LABOUR",,319,,-26.20,"Con","Lab",57.33,31.13,8.29,3.25,"Primary"
-"Croydon South","NOT LABOUR",,320,,-26.34,"Con","Lab",54.48,28.13,13.53,2.88,"Primary"
-"Bassetlaw","NOT LABOUR",,321,,-26.40,"Con","Lab",54.41,28.01,6.73,0.00,"Primary"
-"Worthing West","NOT LABOUR",,322,,-26.47,"Con","Lab",56.00,29.53,9.92,3.62,"Primary"
-"Stafford","NOT LABOUR",,323,,-26.74,"Con","Lab",57.94,31.20,6.38,4.48,"Primary"
-"Hemel Hempstead","NOT LABOUR",,324,,-26.82,"Con","Lab",54.95,28.13,11.35,2.92,"Primary"
-"Northampton South","NOT LABOUR",,325,,-26.86,"Con","Lab",57.76,30.90,7.92,3.42,"Primary"
-"Thurrock","NOT LABOUR",,326,,-26.96,"Con","Lab",59.91,32.95,3.13,1.67,"Primary"
-"Banbury","NOT LABOUR",,327,83,-27.16,"Con","Lab",51.95,24.79,20.34,2.91,"Primary"
-"Plymouth Moor View","NOT LABOUR",,328,,-27.54,"Con","Lab",59.83,32.29,5.05,2.60,"Primary"
-"Halesowen","NOT LABOUR",,329,,-27.63,"Con","Lab",60.24,32.61,3.49,2.44,"Primary"
-"Southend East and Rochford","NOT LABOUR",,330,,-27.67,"Con","Lab",59.00,31.33,6.43,0.10,"Primary"
-"Swindon North","NOT LABOUR",,331,,-27.96,"Con","Lab",58.50,30.54,7.90,3.06,"Primary"
-"Frome and East Somerset","LIB DEM",,332,70,-28.12,"Con","LD",49.29,21.17,23.45,6.08,"Primary"
-"Selby","NOT LABOUR",,333,,-28.13,"Con","Lab",57.95,29.83,6.00,3.04,"Primary"
-"South Cambridgeshire","LIB DEM","GREEN",,13,-28.40,"Con","LD",43.53,15.13,41.04,0.16,
-"North Somerset","NOT LABOUR",,334,119,-28.46,"Con","Lab",53.48,25.02,16.57,4.93,"Primary"
-"North East Somerset and Hanham","NOT LABOUR",,335,146,-28.53,"Con","Lab",54.73,26.20,15.02,2.39,"Primary"
-"Aylesbury","LIB DEM",,336,77,-28.75,"Con","Lab",51.69,22.95,21.89,2.94,"Primary"
-"Montgomeryshire and Glyndwr","NOT LABOUR",,337,118,-28.83,"Con","Lab",53.64,24.80,16.78,0.00,"Primary"
-"St Austell and Newquay","NOT LABOUR",,338,,-28.93,"Con","Lab",55.57,26.64,10.82,3.07,"Primary"
-"Weston-super-Mare","NOT LABOUR",,339,,-29.02,"Con","Lab",57.14,28.12,11.73,3.01,"Primary"
-"Brecon, Radnor and Cwm Tawe","LIB DEM","GREEN",340,47,-29.08,"Con","LD",46.61,17.53,29.22,0.42,"Primary"
-"Nuneaton","NOT LABOUR",,341,,-29.09,"Con","Lab",60.61,31.52,4.12,3.74,"Primary"
-"Bromley and Biggin Hill","NOT LABOUR",,342,127,-29.31,"Con","Lab",54.45,25.13,15.98,3.68,"Primary"
-"Hazel Grove","LIB DEM","GREEN",,19,-29.31,"Con","LD",45.59,16.27,37.22,0.31,
-"Folkestone and Hythe","NOT LABOUR",,343,,-29.55,"Con","Lab",56.32,26.76,10.00,4.88,"Primary"
-"Harborough, Oadby and Wigston","NOT LABOUR",,344,112,-29.68,"Con","Lab",54.46,24.78,16.95,3.08,"Primary"
-"Burton and Uttoxeter","NOT LABOUR",,345,,-29.74,"Con","Lab",60.65,30.91,5.50,2.94,"Primary"
-"Carshalton and Wallington","LIB DEM","GREEN",,11,-30.02,"Con","LD",42.41,12.39,41.13,1.55,
-"Southend West and Leigh","NOT LABOUR",,346,,-30.05,"Con","Lab",59.06,29.00,10.60,0.00,"Primary"
-"Bracknell","NOT LABOUR",,347,,-30.13,"Con","Lab",55.50,25.36,13.98,3.98,"Primary"
-"Ruislip, Northwood and Pinner","NOT LABOUR",,348,142,-30.25,"Con","Lab",55.34,25.08,15.16,2.64,"Primary"
-"Rochester and Strood","NOT LABOUR",,349,,-30.36,"Con","Lab",58.47,28.11,7.10,2.59,"Primary"
-"St Albans","LIB DEM","GREEN",,6,-30.43,"LD","Con",39.25,8.82,49.93,1.72,
-"Isle of Wight West","GREEN",,350,,-30.49,"Con","Lab",54.98,24.49,0.00,16.39,"Primary"
-"Central Devon","NOT LABOUR",,351,147,-30.50,"Con","Lab",55.30,24.80,14.99,4.92,"Secondary"
-"Forest of Dean","NOT LABOUR",,352,,-30.83,"Con","Lab",59.60,28.77,0.00,9.09,"Secondary"
-"Sherwood Forest","NOT LABOUR",,353,,-31.26,"Con","Lab",60.81,29.55,5.70,2.60,"Secondary"
-"Woking","LIB DEM","GREEN",354,38,-31.53,"Con","LD",48.26,16.73,31.05,2.77,"Secondary"
-"Dartford","NOT LABOUR",,355,,-31.63,"Con","Lab",61.12,29.49,6.99,2.40,"Secondary"
-"Bexleyheath and Crayford","NOT LABOUR",,356,,-31.79,"Con","Lab",60.78,28.99,5.99,2.26,"Secondary"
-"Dunstable and Leighton Buzzard","NOT LABOUR",,357,,-31.87,"Con","Lab",58.71,26.84,10.79,3.65,"Secondary"
-"Hertford and Stortford","NOT LABOUR",,358,,-32.01,"Con","Lab",55.68,23.68,14.21,4.65,"Secondary"
-"Dudley","NOT LABOUR",,359,,-32.23,"Con","Lab",63.16,30.93,3.79,2.12,"Secondary"
-"Ribble Valley","NOT LABOUR",,360,,-32.23,"Con","Lab",59.84,27.61,8.00,2.84,"Secondary"
-"St Neots and Mid Cambridgeshire","LIB DEM",,361,55,-32.48,"Con","LD",51.30,18.81,26.82,1.70,"Secondary"
-"Mid Derbyshire","NOT LABOUR",,362,,-32.60,"Con","Lab",59.56,26.96,9.62,3.86,"Secondary"
-"Harwich and North Essex","NOT LABOUR",,363,,-32.64,"Con","Lab",58.55,25.92,10.73,3.56,"Secondary"
-"Stourbridge","NOT LABOUR",,364,,-32.68,"Con","Lab",61.79,29.11,5.78,1.98,"Secondary"
-"Lowestoft","NOT LABOUR",,365,,-32.72,"Con","Lab",60.92,28.20,5.14,5.20,"Secondary"
-"Gravesham","NOT LABOUR",,366,,-32.76,"Con","Lab",62.20,29.43,5.43,2.94,"Secondary"
-"North Northumberland","NOT LABOUR",,367,124,-32.81,"Con","Lab",55.93,23.12,16.09,3.40,"Secondary"
-"North East Hertfordshire","NOT LABOUR",,368,135,-32.88,"Con","Lab",56.56,23.68,15.48,4.28,"Secondary"
-"Gillingham and Rainham","NOT LABOUR",,369,,-32.90,"Con","Lab",61.30,28.40,5.45,2.27,"Secondary"
-"Stoke-on-Trent South","NOT LABOUR",,370,,-32.90,"Con","Lab",62.53,29.63,6.23,1.60,"Secondary"
-"South Norfolk","NOT LABOUR",,371,111,-33.12,"Con","Lab",56.50,23.38,16.97,3.16,"Secondary"
-"Mid Sussex","LIB DEM",,372,60,-33.28,"Con","LD",51.28,18.00,25.48,4.12,"Secondary"
-"Isle of Wight East","GREEN",,373,,-33.35,"Con","Lab",57.42,24.07,0.00,14.02,"Secondary"
-"Kettering","NOT LABOUR",,374,,-33.37,"Con","Lab",60.28,26.92,6.68,2.97,"Secondary"
-"Cheadle","LIB DEM","GREEN",,10,-33.71,"Con","LD",45.96,12.26,41.78,0.00,
-"Didcot and Wantage","LIB DEM","GREEN",375,34,-33.74,"Con","LD",49.76,16.02,31.32,0.68,"Secondary"
-"Reading West and Mid Berkshire","NOT LABOUR",,376,114,-33.89,"Con","Lab",56.79,22.89,16.90,3.42,"Secondary"
-"Mansfield","NOT LABOUR",,377,,-34.03,"Con","Lab",64.34,30.31,3.29,0.00,"Secondary"
-"Wellingborough and Rushden","NOT LABOUR",,378,,-34.09,"Con","Lab",62.35,28.26,6.67,2.71,"Secondary"
-"Portsmouth North","NOT LABOUR",,379,,-34.37,"Con","Lab",61.36,26.99,7.45,2.84,"Secondary"
-"South Dorset","NOT LABOUR",,380,,-34.42,"Con","Lab",59.20,24.78,10.68,4.43,"Secondary"
-"Aldershot","NOT LABOUR",,381,108,-34.70,"Con","Lab",56.83,22.13,17.50,3.55,"Secondary"
-"Tatton","NOT LABOUR",,382,123,-34.81,"Con","Lab",57.28,22.48,16.19,3.69,"Secondary"
-"Derbyshire Dales","NOT LABOUR",,383,,-34.85,"Con","Lab",59.00,24.15,12.76,4.09,"Secondary"
-"South Derbyshire","NOT LABOUR",,384,,-34.92,"Con","Lab",62.12,27.20,7.34,3.35,"Secondary"
-"Suffolk Coastal","NOT LABOUR",,385,145,-35.05,"Con","Lab",56.45,21.39,15.13,4.41,"Secondary"
-"Harlow","NOT LABOUR",,386,,-35.25,"Con","Lab",64.55,29.31,5.88,0.26,"Secondary"
-"Richmond Park","LIB DEM","GREEN",,2,-35.31,"LD","Con",40.57,5.26,53.65,0.00,
-"Ashford","NOT LABOUR",,387,,-35.43,"Con","Lab",59.20,23.77,10.65,4.60,"Secondary"
-"Runnymede and Weybridge","LIB DEM",,388,72,-35.47,"Con","LD",53.22,17.75,22.70,2.69,"Secondary"
-"Sutton and Cheam","LIB DEM","GREEN",,24,-35.72,"Con","LD",49.98,14.26,33.44,2.31,
-"South West Hertfordshire","NOT LABOUR",,389,,-36.10,"Con","Other",52.18,16.08,12.70,1.50,"Secondary"
-"North West Cambridgeshire","NOT LABOUR",,390,,-36.21,"Con","Lab",59.96,23.75,11.00,5.24,"Secondary"
-"Beverley and Holderness","NOT LABOUR",,391,,-36.33,"Con","Lab",60.99,24.66,9.25,2.49,"Secondary"
-"Windsor","NOT LABOUR",,392,97,-36.47,"Con","Lab",56.04,19.57,18.87,3.46,"Secondary"
-"Salisbury","NOT LABOUR",,393,91,-36.51,"Con","LD",55.25,18.74,19.51,5.09,"Secondary"
-"South Devon","LIB DEM","GREEN",394,49,-36.54,"Con","LD",53.57,17.03,28.25,0.15,"Secondary"
-"Congleton","NOT LABOUR",,395,,-36.54,"Con","Lab",60.64,24.10,11.08,2.86,"Secondary"
-"Chelmsford","LIB DEM",,396,57,-36.56,"Con","LD",54.71,18.15,26.07,0.00,"Secondary"
-"Mid Leicestershire","NOT LABOUR",,397,,-36.58,"Con","Lab",62.22,25.65,8.00,4.13,"Secondary"
-"North West Leicestershire","NOT LABOUR",,398,,-36.66,"Con","Lab",62.07,25.41,6.85,4.68,"Secondary"
-"Guildford","LIB DEM","GREEN",,17,-36.70,"Con","LD",45.09,8.39,39.16,0.37,
-"Epsom and Ewell","LIB DEM",,399,66,-36.76,"Con","LD",53.58,16.82,24.21,3.30,"Secondary"
-"South West Wiltshire","NOT LABOUR",,400,120,-36.79,"Con","Lab",58.31,21.53,16.48,3.68,"Secondary"
-"Sutton Coldfield","NOT LABOUR",,401,,-36.83,"Con","Lab",60.40,23.57,12.15,3.88,
-"Amber Valley","NOT LABOUR",,402,,-37.03,"Con","Lab",63.84,26.81,6.30,3.05,
-"Bicester and Woodstock","LIB DEM",,403,56,-37.06,"Con","LD",53.91,16.85,26.59,2.36,
-"Fylde","NOT LABOUR",,404,,-37.06,"Con","Lab",62.23,25.17,7.35,3.47,
-"Spelthorne","NOT LABOUR",,405,143,-37.15,"Con","Lab",58.86,21.71,15.15,4.29,
-"Bridgwater","NOT LABOUR",,406,106,-37.16,"Con","Lab",57.90,20.74,17.63,2.06,
-"Staffordshire Moorlands","NOT LABOUR",,407,,-37.41,"Con","Lab",64.10,26.69,6.14,3.07,
-"Broadland and Fakenham","NOT LABOUR",,408,126,-37.54,"Con","Lab",59.15,21.61,16.06,2.50,
-"Chester South and Eddisbury","NOT LABOUR",,409,140,-37.72,"Con","Lab",59.23,21.51,15.30,2.11,
-"Newton Abbot","LIB DEM",,410,75,-37.84,"Con","LD",55.56,17.72,22.25,2.87,
-"Poole","NOT LABOUR",,411,138,-38.13,"Con","Lab",58.80,20.67,15.35,3.44,
-"Romford","NOT LABOUR",,412,,-38.33,"Con","Lab",64.77,26.44,5.77,3.02,
-"Huntingdon","NOT LABOUR",,413,,-38.43,"Con","Lab",59.22,20.79,14.03,3.47,
-"South East Cornwall","NOT LABOUR",,414,122,-38.71,"Con","Lab",59.03,20.32,16.31,2.69,
-"Redditch","NOT LABOUR",,415,,-38.78,"Con","Lab",64.67,25.89,6.40,3.05,
-"Reigate","NOT LABOUR",,416,86,-38.90,"Con","LD",55.82,16.92,19.87,5.78,
-"North Warwickshire and Bedworth","NOT LABOUR",,417,,-39.11,"Con","Lab",65.88,26.77,4.51,2.84,
-"Newark","NOT LABOUR",,418,,-39.17,"Con","Lab",63.07,23.90,9.57,3.11,
-"North Shropshire","NOT LABOUR",,419,,-39.30,"Con","Lab",61.69,22.39,10.44,3.29,
-"Exmouth and Exeter East","NOT LABOUR",,420,,-39.31,"Con","Other",49.84,10.53,3.03,1.74,
-"Ely and East Cambridgeshire","LIB DEM","GREEN",421,46,-39.59,"Con","LD",53.95,14.37,29.26,0.57,
-"Skipton and Ripon","NOT LABOUR",,422,141,-39.66,"Con","Lab",58.86,19.20,15.21,4.74,
-"Melton and Syston","NOT LABOUR",,423,,-39.76,"Con","Lab",63.26,23.49,7.71,5.54,
-"St Ives","LIB DEM","GREEN",424,16,-39.91,"Con","LD",48.99,9.08,39.29,1.82,
-"Mid Bedfordshire","NOT LABOUR",,425,,-39.96,"Con","Lab",60.47,20.51,12.51,3.89,
-"Herne Bay and Sandwich","NOT LABOUR",,426,,-39.97,"Con","Lab",64.38,24.40,7.45,3.77,
-"Kenilworth and Southam","NOT LABOUR",,427,115,-39.98,"Con","Lab",58.96,18.98,16.90,4.18,
-"Maidstone and Malling","NOT LABOUR",,428,99,-40.01,"Con","LD",58.40,18.39,18.64,3.84,
-"Old Bexley and Sidcup","NOT LABOUR",,429,,-40.04,"Con","Lab",63.93,23.89,8.30,3.45,
-"Central Suffolk and North Ipswich","NOT LABOUR",,430,,-40.10,"Con","Lab",61.9337,21.84,10.64,5.59,
-"Horsham","LIB DEM",,431,62,-40.14,"Con","LD",55.78,15.64,24.71,3.01,
-"Eastbourne","LIB DEM","GREEN",432,9,-40.14,"Con","LD",47.09,6.95,42.86,0.00,
-"Eastleigh","LIB DEM","GREEN",433,22,-40.21,"Con","LD",51.87,11.66,34.43,2.04,
-"Broxbourne","NOT LABOUR",,434,,-40.26,"Con","Lab",64.24,23.99,9.00,2.77,
-"Tunbridge Wells","LIB DEM","GREEN",435,48,-40.29,"Con","LD",55.11,14.82,28.31,0.00,
-"The Wrekin","NOT LABOUR",,436,,-40.38,"Con","Lab",64.71,24.33,8.03,2.93,
-"Great Yarmouth","NOT LABOUR",,437,,-40.64,"Con","Lab",65.79,25.15,3.82,2.45,
-"Bexhill and Battle","NOT LABOUR",,438,,-40.98,"Con","Lab",61.76,20.77,13.39,4.08,
-"South West Devon","NOT LABOUR",,439,,-41.16,"Con","Lab",62.57,21.41,12.13,3.88,
-"Dorking and Horley","LIB DEM","GREEN",440,32,-41.23,"Con","LD",51.17,9.94,32.12,4.22,
-"Solihull West and Shirley","NOT LABOUR",,441,131,-41.45,"Con","Lab",60.90,19.45,15.67,3.99,
-"Chatham and Aylesford","NOT LABOUR",,442,,-41.46,"Con","Lab",65.89,24.43,6.73,2.48,
-"Lewes","LIB DEM","GREEN",443,12,-41.47,"Con","LD",48.54,7.07,41.11,2.86,
-"Mid Norfolk","NOT LABOUR",,444,,-41.51,"Con","Lab",64.42,22.91,10.44,0.31,
-"Meriden and Solihull East","NOT LABOUR",,445,,-41.56,"Con","Lab",62.40,20.85,13.56,3.20,
-"Harpenden and Berkhamsted","LIB DEM",,446,61,-41.67,"Con","LD",52.27,10.60,25.28,1.63,
-"Hereford and South Herefordshire","NOT LABOUR",,447,,-41.76,"Con","Lab",61.68,19.92,13.30,5.09,
-"South Basildon and East Thurrock","NOT LABOUR",,448,,-41.88,"Con","Lab",65.44,23.56,4.10,0.15,
-"Torridge and Tavistock","NOT LABOUR",,449,104,-41.98,"Con","LD",59.83,17.86,17.94,3.37,
-"North Bedfordshire","NOT LABOUR",,450,,-42.05,"Con","Lab",61.14,19.09,13.17,2.82,
-"Bury St Edmunds and Stowmarket","NOT LABOUR",,451,,-42.08,"Con","Lab",62.92,20.84,1.08,12.42,
-"Orpington","NOT LABOUR",,452,,-42.13,"Con","Lab",61.91,19.77,14.59,3.73,
-"West Suffolk","NOT LABOUR",,453,,-42.15,"Con","Lab",64.33,22.17,9.04,4.46,
-"Wyre Forest","NOT LABOUR",,454,,-42.35,"Con","Lab",65.19,22.84,8.07,3.90,
-"Harrogate and Knaresborough","LIB DEM","GREEN",455,21,-42.35,"Con","LD",51.98,9.63,36.16,0.05,
-"Maidenhead","LIB DEM",,456,68,-42.37,"Con","LD",57.40,15.03,23.81,3.77,
-"South Northamptonshire","NOT LABOUR",,457,,-42.40,"Con","Lab",63.18,20.78,11.11,3.80,
-"Tewkesbury","LIB DEM",,458,76,-42.41,"Con","LD",58.10,15.69,22.00,4.22,
-"Chesham and Amersham","LIB DEM",,459,73,-42.43,"Con","LD",56.35,13.91,22.43,4.84,
-"Hornchurch and Upminster","NOT LABOUR",,460,,-42.57,"Con","Lab",65.43,22.86,7.12,3.60,
-"Bromsgrove","NOT LABOUR",,461,,-42.57,"Con","Lab",63.40,20.82,12.49,3.29,
-"Witney","LIB DEM",,462,58,-42.66,"Con","LD",58.06,15.40,25.96,0.00,
-"Faversham and Mid Kent","NOT LABOUR",,463,,-42.76,"Con","Lab",62.61,19.85,12.47,4.09,
-"North Cotswolds","NOT LABOUR",,464,103,-42.82,"Con","LD",59.34,16.52,18.00,5.80,
-"South Suffolk","NOT LABOUR",,465,,-42.86,"Con","Lab",62.06,19.20,12.69,6.05,
-"Cannock Chase","NOT LABOUR",,466,,-42.92,"Con","Lab",68.31,25.39,0.00,6.30,
-"Lichfield","NOT LABOUR",,467,,-43.09,"Con","Lab",64.12,21.02,10.54,3.24,
-"North West Hampshire","NOT LABOUR",,468,100,-43.18,"Con","LD",60.08,16.89,18.46,4.57,
-"Bognor Regis and Littlehampton","NOT LABOUR",,469,,-43.20,"Con","Lab",62.17,18.97,13.29,3.26,
-"Westmorland and Lonsdale","LIB DEM","GREEN",470,14,-43.24,"Con","LD",50.16,6.92,40.68,0.53,
-"Chichester","NOT LABOUR",,471,84,-43.38,"Con","LD",58.76,15.39,20.30,4.90,
-"North West Norfolk","NOT LABOUR",,472,,-43.40,"Con","Lab",66.04,22.64,7.78,3.54,
-"Tamworth","NOT LABOUR",,473,,-43.42,"Con","Lab",66.72,23.30,5.32,2.05,
-"Waveney Valley","GREEN","LIB DEM",474,,-43.61,"Con","Lab",62.20,18.59,9.16,9.31,
-"Cheltenham","LIB DEM","GREEN",475,7,-43.65,"Con","LD",48.46,4.80,45.96,0.00,
-"Hertsmere","NOT LABOUR",,476,,-43.76,"Con","Lab",64.90,21.14,10.88,3.07,
-"Taunton and Wellington","LIB DEM","GREEN",477,20,-44.08,"Con","LD",51.98,7.90,36.30,0.00,
-"Epping Forest","NOT LABOUR",,478,,-44.11,"Con","Lab",64.38,20.27,10.72,3.93,
-"West Worcestershire","NOT LABOUR",,479,102,-44.17,"Con","LD",60.68,16.51,18.09,4.72,
-"Basildon and Billericay","NOT LABOUR",,480,,-44.29,"Con","Lab",65.88,21.60,8.42,2.98,
-"Godalming and Ash","LIB DEM","GREEN",481,23,-44.48,"Con","LD",53.40,8.92,34.14,1.62,
-"Goole and Pocklington","NOT LABOUR",,482,,-44.69,"Con","Lab",65.11,20.42,7.78,3.91,
-"Thirsk and Malton","NOT LABOUR",,483,,-44.71,"Con","Lab",62.50,17.79,12.46,4.50,
-"Chippenham","LIB DEM","GREEN",484,42,-44.71,"Con","LD",56.38,11.67,30.26,1.69,
-"Esher and Walton","LIB DEM","GREEN",485,8,-44.72,"Con","LD",49.52,4.80,44.15,0.23,
-"Arundel and South Downs","NOT LABOUR",,486,95,-44.76,"Con","LD",60.44,15.68,18.95,3.98,
-"East Grinstead and Uckfield","LIB DEM",,487,71,-44.90,"Con","LD",58.47,13.57,23.01,4.94,
-"West Dorset","LIB DEM","GREEN",488,27,-44.91,"Con","LD",54.27,9.36,32.84,3.52,
-"Gainsborough","NOT LABOUR",,489,,-45.14,"Con","Lab",66.30,21.16,10.36,0.00,
-"Wells and Mendip Hills","LIB DEM","GREEN",490,40,-45.36,"Con","LD",56.13,10.77,30.80,1.17,
-"Fareham and Waterlooville","NOT LABOUR",,491,96,-45.39,"Con","LD",61.18,15.78,18.94,4.10,
-"Henley and Thame","LIB DEM","GREEN",492,30,-45.55,"Con","LD",54.48,8.93,32.38,4.21,
-"Beaconsfield","NOT LABOUR",,493,,-45.60,"Con","Other",55.50,9.90,0.00,3.68,
-"Sittingbourne and Sheppey","NOT LABOUR",,494,,-45.63,"Con","Lab",66.52,20.89,6.33,2.23,
-"Wokingham","LIB DEM","GREEN",495,31,-45.63,"Con","LD",55.49,9.86,32.31,2.20,
-"Romsey and Southampton North","LIB DEM",,496,51,-45.73,"Con","LD",57.85,12.12,28.14,0.71,
-"Melksham and Devizes","LIB DEM",,497,54,-45.80,"Con","LD",57.79,11.99,27.26,2.96,
-"Grantham and Bourne","NOT LABOUR",,498,,-45.84,"Con","Lab",65.82,19.98,9.02,4.32,
-"Torbay","LIB DEM",,499,65,-46.08,"Con","LD",59.07,12.99,24.25,2.42,
-"Honiton and Sidmouth","NOT LABOUR",,500,,-46.17,"Con","Lab",60.39,14.22,9.56,2.07,
-"Mid Buckinghamshire","NOT LABOUR",,501,89,-46.18,"Con","LD",61.45,15.28,19.68,2.72,
-"South Leicestershire","NOT LABOUR",,502,,-46.61,"Con","Lab",66.54,19.93,9.57,3.97,
-"Bridlington and the Wolds","NOT LABOUR",,503,,-46.69,"Con","Lab",66.57,19.88,7.49,2.85,
-"East Hampshire","NOT LABOUR",,504,79,-46.71,"Con","LD",59.00,12.30,21.72,5.48,
-"Daventry","NOT LABOUR",,505,,-46.72,"Con","Lab",64.50,17.77,13.12,4.61,
-"Richmond and Northallerton","NOT LABOUR",,506,,-46.90,"Con","Lab",63.34,16.44,12.48,3.81,
-"Stone, Great Wyrley and Penkridge","NOT LABOUR",,507,,-46.90,"Con","Lab",68.48,21.58,6.52,3.42,
-"Tiverton and Minehead","NOT LABOUR",,508,92,-47.01,"Con","LD",61.32,14.31,19.49,4.26,
-"East Surrey","NOT LABOUR",,509,81,-47.16,"Con","LD",60.35,13.19,20.39,2.98,
-"South Cotswolds","LIB DEM",,510,53,-47.24,"Con","LD",57.90,10.66,27.65,3.79,
-"North Herefordshire","GREEN","LIB DEM",511,,-47.27,"Con","Lab",62.50,15.24,13.47,8.79,
-"Newbury","LIB DEM","GREEN",512,28,-47.37,"Con","LD",55.08,7.71,32.60,3.98,
-"Havant","NOT LABOUR",,513,,-47.42,"Con","Lab",65.39,17.97,12.42,3.47,
-"North Devon","LIB DEM","GREEN",514,43,-47.47,"Con","LD",56.64,9.17,29.99,3.16,
-"Sleaford and North Hykeham","NOT LABOUR",,515,,-47.89,"Con","Lab",66.47,18.58,8.20,2.42,
-"North West Essex","NOT LABOUR",,516,90,-47.92,"Con","LD",61.70,13.78,19.68,4.84,
-"Glastonbury and Somerton","LIB DEM","GREEN",517,39,-47.96,"Con","LD",57.54,9.58,30.87,2.01,
-"Gosport","NOT LABOUR",,518,,-48.04,"Con","Lab",66.51,18.47,11.30,3.73,
-"Aldridge-Brownhills","NOT LABOUR",,519,,-48.09,"Con","Lab",69.61,21.52,5.61,1.84,
-"Sevenoaks","NOT LABOUR",,520,93,-48.21,"Con","LD",61.72,13.51,19.40,3.44,
-"Surrey Heath","LIB DEM",,521,52,-48.48,"Con","LD",57.86,9.38,28.02,3.54,
-"Droitwich and Evesham","NOT LABOUR",,522,,-48.65,"Con","Lab",65.69,17.05,12.03,4.01,
-"Hamble Valley","LIB DEM",,523,80,-48.66,"Con","LD",62.23,13.57,21.05,3.15,
-"Rutland and Stamford","NOT LABOUR",,524,129,-48.67,"Con","LD",63.32,14.66,15.83,3.63,
-"Sussex Weald","NOT LABOUR",,525,117,-48.84,"Con","LD",63.71,14.87,16.84,4.58,
-"Stratford-on-Avon","LIB DEM",,526,63,-48.85,"Con","LD",60.19,11.34,24.68,3.79,
-"Winchester","LIB DEM","GREEN",527,15,-49.26,"Con","LD",54.02,4.76,39.86,0.92,
-"Witham","NOT LABOUR",,528,,-49.26,"Con","Lab",66.74,17.48,10.01,5.77,
-"Braintree","NOT LABOUR",,529,,-49.28,"Con","Lab",67.47,18.18,9.70,0.45,
-"North Cornwall","LIB DEM","GREEN",530,44,-49.45,"Con","LD",59.07,9.62,29.88,0.19,
-"South Shropshire","NOT LABOUR",,531,137,-49.60,"Con","Lab",65.39,15.79,15.36,3.46,
-"Tonbridge","NOT LABOUR",,532,,-49.68,"Con","Lab",64.76,15.08,12.29,7.88,
-"New Forest East","NOT LABOUR",,533,,-49.72,"Con","Lab",64.52,14.80,14.55,4.79,
-"Thornbury and Yate","LIB DEM","GREEN",534,29,-49.75,"Con","LD",58.48,8.74,32.56,0.22,
-"Wetherby and Easingwold","NOT LABOUR",,535,,-49.94,"Con","Lab",68.19,18.25,7.91,3.93,
-"East Wiltshire","NOT LABOUR",,536,,-50.06,"Con","Lab",65.94,15.88,14.49,3.69,
-"South West Norfolk","NOT LABOUR",,537,,-50.32,"Con","Lab",68.65,18.33,8.25,3.02,
-"Hinckley and Bosworth","NOT LABOUR",,538,101,-50.42,"Con","LD",64.64,14.22,18.19,2.94,
-"New Forest West","NOT LABOUR",,539,139,-50.73,"Con","LD",63.84,13.11,15.33,7.73,
-"North Norfolk","LIB DEM","GREEN",540,41,-50.74,"Con","LD",58.46,7.72,30.36,0.09,
-"North East Hampshire","LIB DEM",,541,74,-51.68,"Con","LD",61.91,10.24,22.37,3.00,
-"Brigg and Immingham","NOT LABOUR",,542,,-51.74,"Con","Lab",71.94,20.20,4.38,2.78,
-"North Dorset","NOT LABOUR",,543,82,-51.82,"Con","LD",63.75,11.93,20.37,3.95,
-"Yeovil","LIB DEM","GREEN",544,36,-51.84,"Con","LD",58.15,6.32,31.11,2.80,
-"Farnham and Bordon","LIB DEM","GREEN",545,26,-52.58,"Con","LD",59.40,6.82,32.85,0.94,
-"Christchurch","NOT LABOUR",,546,109,-52.73,"Con","LD",65.59,12.87,17.35,4.19,
-"Mid Dorset and North Poole","LIB DEM","GREEN",547,45,-52.79,"Con","LD",60.04,7.25,29.86,2.85,
-"Louth and Horncastle","NOT LABOUR",,548,,-54.74,"Con","Lab",72.45,17.71,7.79,0.00,
-"Brentwood and Ongar","NOT LABOUR",,549,,-54.86,"Con","Lab",68.54,13.69,13.59,3.17,
-"Clacton","NOT LABOUR",,550,,-56.31,"Con","Lab",71.88,15.56,6.19,2.94,
-"Rayleigh and Wickford","NOT LABOUR",,551,,-57.26,"Con","Lab",72.93,15.67,7.70,3.70,
-"Kingswinford and South Staffordshire","NOT LABOUR",,552,,-57.51,"Con","Lab",74.33,16.82,5.32,3.53,
-"North East Cambridgeshire","NOT LABOUR",,553,,-57.82,"Con","Lab",73.87,16.05,6.71,3.37,
-"Weald of Kent","NOT LABOUR",,554,,-57.91,"Con","Lab",71.96,14.06,10.11,3.88,
-"Maldon","NOT LABOUR",,555,,-59.59,"Con","Lab",72.23,12.64,11.68,3.45,
-"Castle Point","NOT LABOUR",,556,,-59.73,"Con","Lab",76.54,16.81,6.64,0.00,
-"Boston and Skegness","NOT LABOUR",,557,,-60.87,"Con","Lab",76.43,15.56,4.84,0.00,
-"South Holland and the Deepings","NOT LABOUR",,558,,-62.71,"Con","Lab",75.92,13.22,6.56,3.28,
+"Constituency Name","Tactical Voting Advice","Stand-aside Advice","Lab-Con","Win19","Second19","CON%","LAB%","LD%","GRN%","Labour Target","Lib Dem target"
+"Liverpool Riverside","GREEN",,77.3,"Lab","Con",7.8,85.1,2.2,2.4,1,
+"Birmingham Ladywood","GREEN",,73.2,"Lab","Con",9.8,83.0,2.8,1.8,2,
+"Liverpool Walton","GREEN",,72.5,"Lab","Con",9.9,82.4,2.3,1.8,3,
+"Knowsley","GREEN",,70.9,"Lab","Con",8.7,79.6,2.5,2.0,4,
+"Bootle","GREEN",,70.3,"Lab","Con",9.2,79.4,3.7,2.4,5,
+"Manchester Rusholme","GREEN",,69.5,"Lab","Con",9.1,78.6,4.0,4.3,6,
+"Liverpool West Derby","GREEN",,69.3,"Lab","Con",8.6,77.9,2.7,1.9,7,
+"Tottenham","GREEN",,66.7,"Lab","Con",11.1,77.8,5.0,4.3,8,
+"Walthamstow","GREEN",,63.9,"Lab","Con",12.3,76.1,5.9,3.6,9,
+"Bethnal Green and Stepney","GREEN",,63.4,"Lab","Con",10.1,73.5,9.3,4.2,10,
+"East Ham","GREEN",,63.2,"Lab","Con",14.6,77.8,3.6,1.6,11,
+"Hackney South and Shoreditch","GREEN",,63.0,"Lab","Con",10.4,73.4,8.2,6.4,12,
+"Liverpool Wavertree","GREEN",,62.0,"Lab","Con",9.6,71.6,8.0,6.2,13,
+"Bradford West","GREEN",,61.0,"Lab","Con",15.2,76.2,3.0,1.8,14,
+"Peckham","GREEN",,59.6,"Lab","Con",11.2,70.8,10.4,5.0,15,
+"Liverpool Garston","GREEN",,58.5,"Lab","Con",11.7,70.2,9.9,2.7,16,
+"Lewisham North","GREEN",,57.2,"Lab","Con",12.2,69.4,11.1,5.3,17,
+"Hackney North and Stoke Newington","GREEN",,56.8,"Lab","Con",13.0,69.8,7.7,8.0,18,
+"Stratford and Bow","GREEN",,55.9,"Lab","Con",14.5,70.4,9.0,3.7,19,
+"Manchester Withington","GREEN",,55.2,"Lab","LD",11.3,66.5,15.7,4.0,20,130
+"Sheffield Central","GREEN","LIB DEM",54.6,"Lab","Con",12.4,67.0,5.4,10.9,21,
+"West Ham and Beckton","GREEN",,54.3,"Lab","Con",16.4,70.7,6.1,2.5,22,
+"Islington North","GREEN",,54.1,"Lab","LD",10.2,64.3,15.6,8.0,23,132
+"Lewisham West and East Dulwich","GREEN",,51.5,"Lab","Con",14.5,66.1,9.9,7.3,24,
+"Birmingham Hall Green and Moseley","GREEN",,51.2,"Lab","Con",15.0,66.3,7.2,1.7,25,
+"Holborn and St Pancras","GREEN",,51.1,"Lab","Con",15.2,66.3,12.3,4.0,26,
+"Gorton and Denton","GREEN",,48.4,"Lab","Con",18.9,67.2,5.8,2.5,27,
+"Dulwich and West Norwood","GREEN","LIB DEM",47.8,"Lab","Con",16.6,64.5,1.0,16.2,28,
+"Birmingham Perry Barr","GREEN",,47.6,"Lab","Con",20.4,68.0,6.5,1.9,29,
+"Leicester South","GREEN",,46.4,"Lab","Con",21.8,68.2,4.3,3.3,30,
+"Vauxhall and Camberwell Green","GREEN",,45.9,"Lab","LD",14.5,60.5,19.1,4.1,31,94
+"Widnes and Halewood","GREEN",,45.6,"Lab","Con",20.8,66.5,2.8,2.3,32,
+"Leeds Central and Headingley","GREEN",,45.5,"Lab","Con",17.9,63.4,11.2,3.5,33,
+"Hornsey and Friern Barnet","LIB DEM",,45.4,"Lab","LD",11.8,57.3,25.6,3.8,34,59
+"Croydon West","GREEN",,45.2,"Lab","Con",21.5,66.7,7.0,2.7,35,
+"Birkenhead","GREEN",,44.4,"Lab","Con",15.6,60.0,4.0,3.0,36,
+"Manchester Central","GREEN",,44.4,"Lab","Con",21.0,65.4,6.0,2.9,37,
+"Bristol Central","GREEN","LIB DEM",44.1,"Lab","Green",14.3,58.5,0.0,26.0,38,
+"Ilford South","GREEN",,44.0,"Lab","Con",21.2,65.2,3.3,1.3,39,
+"Leyton and Wanstead","GREEN",,43.2,"Lab","Con",19.9,63.1,10.7,3.8,40,
+"Poplar and Limehouse","GREEN",,42.7,"Lab","Con",17.7,60.3,15.5,3.4,41,134
+"Lewisham East","GREEN",,42.7,"Lab","Con",20.0,62.7,10.1,3.5,42,
+"Blackburn","GREEN",,42.7,"Lab","Con",23.3,66.0,2.4,1.6,43,
+"Nottingham East","GREEN",,42.3,"Lab","Con",20.8,63.1,6.3,3.1,44,
+"Queen's Park and Maida Vale","GREEN",,42.1,"Lab","Con",19.8,61.9,13.9,3.2,45,
+"Bradford East","GREEN",,41.3,"Lab","Con",21.7,63.0,7.7,1.5,46,
+"Rhondda and Ogmore","GREEN",,40.8,"Lab","Con",15.4,56.3,2.3,1.4,47,
+"Islington South and Finsbury","GREEN",,40.7,"Lab","LD",16.3,57.0,19.7,4.3,48,88
+"Brent East","GREEN",,40.3,"Lab","Con",23.5,63.8,9.0,3.2,49,
+"Streatham and Croydon North","GREEN",,39.1,"Lab","Con",18.8,57.9,17.5,4.4,50,107
+"Wallasey","GREEN",,37.7,"Lab","Con",25.9,63.7,3.9,2.4,51,
+"St Helens South and Whiston","GREEN",,36.8,"Lab","Con",21.3,58.1,5.7,4.3,52,
+"Cardiff East","GREEN",,36.5,"Lab","Con",22.7,59.2,12.3,0.6,53,
+"Clapham and Brixton Hill","GREEN",,35.9,"Lab","LD",19.5,55.4,19.8,4.2,54,87
+"Ealing Southall","GREEN",,35.8,"Lab","Con",23.9,59.7,9.8,3.8,55,
+"Newcastle upon Tyne East and Wallsend","GREEN",,35.6,"Lab","Con",23.7,59.3,8.3,3.8,56,
+"Bristol East","GREEN",,35.1,"Lab","Con",23.3,58.4,6.9,8.4,57,
+"Oxford East","GREEN",,35.0,"Lab","Con",21.4,56.4,14.0,4.7,58,
+"Salford","GREEN",,34.1,"Lab","Con",23.3,57.4,6.2,4.3,59,
+"Barking","GREEN",,34.1,"Lab","Con",26.8,60.9,3.3,1.8,60,
+"Leeds North East","GREEN",,33.8,"Lab","Con",23.6,57.5,11.2,3.8,61,
+"Bermondsey and Old Southwark","LIB DEM","GREEN",32.8,"Lab","LD",16.8,49.6,31.1,0.1,62,37
+"Stretford and Urmston","GREEN",,32.8,"Lab","Con",27.5,60.3,5.9,2.7,63,
+"Cambridge","LIB DEM","GREEN",32.7,"Lab","LD",14.8,47.4,31.2,4.2,64,35
+"Newcastle upon Tyne Central and West","GREEN",,32.7,"Lab","Con",26.6,59.3,3.0,3.0,65,
+"Greenwich and Woolwich","GREEN",,32.3,"Lab","Con",22.7,55.0,14.6,4.6,66,
+"Ellesmere Port and Bromborough","GREEN",,32.2,"Lab","Con",27.1,59.3,7.4,1.9,67,
+"Leeds South","GREEN",,32.1,"Lab","Con",26.3,58.4,4.4,3.8,68,
+"Birmingham Hodge Hill and Solihull North","GREEN",,31.4,"Lab","Con",28.6,59.9,4.3,3.5,69,
+"Birmingham Yardley","GREEN",,31.4,"Lab","Con",26.7,58.1,8.9,1.2,70,
+"Sheffield Brightside and Hillsborough","GREEN",,31.2,"Lab","Con",25.4,56.6,3.9,3.0,71,
+"Merthyr Tydfil and Aberdare","GREEN",,31.1,"Lab","Con",20.6,51.7,3.3,0.0,72,
+"Blaenau Gwent and Rhymney","LABOUR",,30.8,"Lab","Con",19.6,50.4,3.7,1.0,73,
+"Blackley and Middleton South","GREEN",,30.8,"Lab","Con",28.2,59.0,3.0,2.0,74,
+"Mitcham and Morden","GREEN",,30.8,"Lab","Con",26.7,57.5,10.8,2.2,75,
+"Dewsbury and Batley","GREEN",,30.4,"Lab","Con",28.7,59.1,2.5,1.1,76,
+"Aberafan Maesteg","GREEN",,30.3,"Lab","Con",22.6,52.9,3.7,1.6,77,
+"Hove and Portslade","GREEN",,30.2,"Lab","Con",28.1,58.3,6.6,4.4,78,
+"Erith and Thamesmead","GREEN",,30.1,"Lab","Con",28.2,58.4,4.9,2.8,79,
+"Middlesbrough and Thornaby East","GREEN",,29.6,"Lab","Con",24.3,54.0,2.6,1.5,80,
+"Slough","GREEN",,29.3,"Lab","Con",29.5,58.8,6.8,2.1,81,
+"Southgate and Wood Green","GREEN",,29.2,"Lab","Con",28.6,57.8,9.9,2.5,82,
+"York Central","GREEN",,28.6,"Lab","Con",27.8,56.4,7.8,4.2,83,
+"Preston","GREEN",,27.5,"Lab","Con",29.8,57.3,6.8,2.0,84,
+"Edmonton and Winchmore Hill","GREEN",,27.1,"Lab","Con",31.1,58.2,6.7,2.1,85,
+"Smethwick","GREEN",,26.8,"Lab","Con",30.2,57.0,4.5,2.3,86,
+"Sheffield Heeley","GREEN",,26.7,"Lab","Con",27.1,53.9,6.7,4.3,87,
+"Ealing Central and Acton","GREEN",,26.7,"Lab","Con",25.6,52.3,17.3,3.4,88,110
+"Stockport","GREEN",,26.1,"Lab","Con",28.2,54.3,8.7,3.6,89,
+"St Helens North","GREEN",,25.7,"Lab","Con",26.6,52.3,5.6,4.1,90,
+"Jarrow and Gateshead East","GREEN",,25.5,"Lab","Con",23.7,49.2,6.5,2.5,91,
+"Oldham West, Chadderton and Royton","GREEN",,25.0,"Lab","Con",30.3,55.3,3.3,1.5,92,
+"Bolton South and Walkden","GREEN",,24.8,"Lab","Con",31.7,56.6,3.9,2.4,93,
+"Norwich South","GREEN",,24.5,"Lab","Con",29.0,53.5,9.5,4.8,94,
+"Hampstead and Highgate","LIB DEM",,24.5,"Lab","LD",23.2,47.6,24.3,3.7,95,64
+"Tooting","GREEN",,24.5,"Lab","Con",28.2,52.7,14.2,4.0,96,
+"Ealing North","GREEN",,24.4,"Lab","Con",31.9,56.3,8.8,2.9,97,
+"Birmingham Selly Oak","GREEN",,24.1,"Lab","Con",31.6,55.7,6.2,3.7,98,
+"Cardiff South and Penarth","GREEN",,23.5,"Lab","Con",30.1,53.7,7.0,2.3,99,
+"Wythenshawe and Sale East","GREEN",,23.2,"Lab","Con",30.1,53.3,7.0,3.5,100,
+"Exeter","LABOUR",,22.7,"Lab","Con",32.1,54.8,0.0,9.3,101,
+"Swansea West","LABOUR",,22.7,"Lab","Con",28.7,51.4,6.4,0.8,102,
+"Nottingham South","LABOUR",,22.3,"Lab","Con",31.6,53.8,6.7,3.3,103,
+"Brentford and Isleworth","LABOUR",,22.0,"Lab","Con",28.3,50.3,16.3,3.0,104,121
+"Hayes and Harlington","LABOUR",,21.1,"Lab","Con",34.7,55.8,4.4,1.7,105,
+"Hammersmith and Chiswick","LABOUR",,20.3,"Lab","Con",30.5,50.8,13.9,3.1,106,
+"Cardiff West","LABOUR",,20.3,"Lab","Con",29.9,50.2,5.3,2.2,107,
+"Easington","LABOUR",,19.7,"Lab","Con",27.1,46.8,4.1,0.3,108,
+"Luton North","LABOUR",,19.6,"Lab","Con",34.3,53.9,4.6,1.9,109,
+"Brent West","LABOUR",,19.5,"Lab","Con",33.8,53.3,9.1,1.7,110,
+"Pontypridd","LABOUR",,19.3,"Lab","Con",27.3,46.6,1.4,0.2,111,
+"Rochdale","LABOUR",,19.3,"Lab","Con",31.6,50.8,7.5,1.9,112,
+"Barnsley South","LABOUR",,19.2,"Lab","Brexit",22.7,41.8,3.5,2.1,113,
+"Neath and Swansea East","LABOUR",,18.9,"Lab","Con",28.2,47.1,4.1,1.7,114,
+"Bristol South","LABOUR",,18.8,"Lab","Con",32.8,51.6,6.2,5.1,115,
+"Harrow West","LABOUR",,18.3,"Lab","Con",34.8,53.1,8.2,2.1,116,
+"South Shields","LABOUR",,18.3,"Lab","Con",25.8,44.1,3.5,3.1,117,
+"Sefton Central","LABOUR",,18.2,"Lab","Con",34.3,52.6,6.6,2.1,118,
+"Ilford North","LABOUR",,17.4,"Lab","Con",36.7,54.1,4.0,1.4,119,
+"Enfield North","LABOUR",,17.4,"Lab","Con",35.9,53.3,6.5,2.4,120,
+"Coventry East","LABOUR",,17.1,"Lab","Con",35.0,52.1,5.4,2.3,121,
+"Birmingham Edgbaston","LABOUR",,16.9,"Lab","Con",35.5,52.3,7.3,2.6,122,
+"Brighton Kemptown and Peacehaven","LABOUR",,16.8,"Lab","Con",34.4,51.2,6.0,5.7,123,
+"Reading Central","LABOUR",,16.2,"Lab","Con",36.4,52.6,6.4,3.1,124,
+"Feltham and Heston","LABOUR",,15.9,"Lab","Con",35.8,51.7,6.6,2.4,125,
+"West Lancashire","LABOUR",,15.8,"Lab","Con",36.3,52.1,4.9,2.4,126,
+"Caerphilly","LABOUR",,15.3,"Lab","Con",28.6,43.9,0.7,0.4,127,
+"Huddersfield","LABOUR",,15.1,"Lab","Con",36.4,51.4,5.0,3.8,128,
+"Wigan","LABOUR",,14.9,"Lab","Con",31.8,46.7,5.4,2.9,129,
+"Barnsley North","LABOUR",,14.6,"Lab","Brexit",24.0,38.5,3.6,2.4,130,
+"Blyth and Ashington","LABOUR",,14.2,"Lab","Con",33.5,47.7,6.4,2.9,131,
+"Derby South","LABOUR",,14.2,"Lab","Con",36.9,51.1,6.2,0.0,132,
+"Gateshead Central and Whickham","LABOUR",,14.1,"Lab","Con",33.0,47.1,12.2,3.8,133,
+"Cardiff North","LABOUR",,13.9,"Lab","Con",35.7,49.6,6.5,1.5,134,
+"Southampton Test","LABOUR",,13.8,"Lab","Con",35.7,49.5,7.7,3.2,135,
+"Luton South and South Bedfordshire","LABOUR",,13.5,"Lab","Con",35.2,48.7,0.5,2.7,136,
+"Kingston upon Hull North and Cottingham","LABOUR",,13.2,"Lab","Con",33.5,46.6,6.5,2.6,137,
+"Leicester West","LABOUR",,12.6,"Lab","Con",36.6,49.3,6.7,2.8,138,
+"Newcastle upon Tyne North","LABOUR",,12.6,"Lab","Con",31.8,44.4,14.0,4.1,139,
+"Leicester East","LABOUR",,12.4,"Lab","Con",38.5,50.9,5.6,1.8,140,
+"Bristol North West","LABOUR",,12.4,"Lab","Con",36.5,48.9,8.1,6.4,141,
+"Runcorn and Helsby","LABOUR",,11.9,"Lab","Con",36.8,48.8,6.7,2.9,142,
+"Chester North and Neston","LABOUR",,11.9,"Lab","Con",38.5,50.3,6.2,2.2,143,
+"Ashton-under-Lyne","LABOUR",,11.3,"Lab","Con",36.2,47.5,4.3,3.5,144,
+"Portsmouth South","LABOUR",,11.3,"Lab","Con",37.3,48.6,11.4,0.0,145,
+"Newport East","LABOUR",,11.3,"Lab","Con",36.2,47.5,5.7,1.9,146,
+"Bristol North East","LABOUR",,11.2,"Lab","Con",39.1,50.3,5.1,4.0,147,
+"Sheffield South East","LABOUR",,11.1,"Lab","Con",35.6,46.7,4.7,0.2,148,
+"Makerfield","LABOUR",,11.0,"Lab","Con",34.3,45.3,4.8,2.6,149,
+"Battersea","LABOUR",,11.0,"Lab","Con",35.4,46.4,15.1,2.5,150,144
+"Plymouth Sutton and Devonport","LABOUR",,10.4,"Lab","Con",38.0,48.4,4.9,3.0,151,
+"Torfaen","LABOUR",,9.4,"Lab","Con",33.3,42.7,5.0,2.2,152,
+"Washington and Gateshead South","LABOUR",,9.4,"Lab","Con",33.7,43.1,4.9,2.7,153,
+"Sheffield Hallam","LIB DEM","GREEN",9.3,"Lab","LD",25.7,35.0,33.1,3.0,154,25
+"North Durham","LABOUR",,9.3,"Lab","Con",34.4,43.7,6.4,2.6,155,
+"Stockton North","LABOUR",,9.2,"Lab","Con",37.5,46.7,4.0,0.0,156,
+"Blaydon and Consett","LABOUR",,9.1,"Lab","Con",34.9,44.0,4.6,3.0,157,
+"City of Durham","LABOUR",,9.1,"Lab","Con",31.9,40.9,16.9,3.3,158,113
+"Hartlepool","LABOUR",,8.8,"Lab","Con",28.9,37.7,4.1,0.0,159,
+"Llanelli","LABOUR",,8.6,"Lab","Con",30.7,39.3,0.0,0.0,160,
+"Normanton and Hemsworth","LABOUR",,8.1,"Lab","Con",31.4,39.6,4.2,1.8,161,
+"Worsley and Eccles","LABOUR",,8.0,"Lab","Con",38.5,46.5,5.3,2.5,162,
+"Birmingham Erdington","LABOUR",,8.0,"Lab","Con",41.5,49.4,3.3,1.8,163,
+"Putney","LABOUR",,8.0,"Lab","Con",36.4,44.3,16.9,2.3,164,116
+"Rotherham","LABOUR",,7.6,"Lab","Con",33.1,40.7,6.2,0.1,165,
+"Houghton and Sunderland South","LABOUR",,7.5,"Lab","Con",32.9,40.4,5.9,2.7,166,
+"Kingston upon Hull East","LABOUR",,7.3,"Lab","Con",34.3,41.6,5.0,2.3,167,
+"Stalybridge and Hyde","LABOUR",,7.0,"Lab","Con",38.0,44.9,4.3,3.3,168,
+"Sunderland Central","LABOUR",,6.8,"Lab","Con",35.4,42.2,7.0,2.8,169,
+"Croydon East","LABOUR",,6.7,"Lab","Con",41.3,48.1,6.6,2.3,170,
+"Bradford South","LABOUR",,6.7,"Lab","Con",40.1,46.7,3.7,2.5,171,
+"Tynemouth","LABOUR",,6.5,"Lab","Con",40.2,46.7,6.7,2.4,172,
+"Wolverhampton South East","LABOUR",,6.2,"Lab","Con",41.2,47.4,3.8,1.7,173,
+"Leeds West and Pudsey","LABOUR",,6.2,"Lab","Con",42.2,48.4,3.6,1.4,174,
+"Leeds East","LABOUR",,6.1,"Lab","Con",40.8,47.0,3.7,2.1,175,
+"Gower","LABOUR",,5.9,"Lab","Con",39.9,45.8,5.9,0.0,176,
+"Nottingham North and Kimberley","LABOUR",,5.8,"Lab","Con",40.2,46.0,3.8,2.5,177,
+"Doncaster North","LABOUR",,5.2,"Lab","Con",33.2,38.3,3.6,0.0,178,
+"Brighton Pavilion","GREEN","LIB DEM",4.9,"Green","Lab",17.7,22.7,0.0,57.0,,
+"Cramlington and Killingworth","LABOUR",,4.5,"Lab","Con",39.9,44.4,5.2,2.5,179,
+"Newport West and Islwyn","LABOUR",,4.1,"Lab","Con",37.7,41.8,5.1,2.0,180,
+"Halifax","LABOUR",,4.0,"Lab","Con",41.7,45.6,4.8,2.0,181,
+"Canterbury","LABOUR",,3.8,"Lab","Con",44.8,48.6,5.7,0.0,182,
+"Warrington North","LABOUR",,3.3,"Lab","Con",40.9,44.2,6.6,2.7,183,
+"Oldham East and Saddleworth","LABOUR",,3.2,"Lab","Con",40.3,43.5,5.2,1.7,184,
+"Chesterfield","LABOUR",,3.2,"Lab","Con",37.0,40.2,8.8,2.5,185,
+"Rawmarsh and Conisbrough","LABOUR",,3.1,"Lab","Con",37.0,40.1,3.7,0.5,186,
+"Doncaster Central","LABOUR",,2.8,"Lab","Con",36.6,39.4,4.1,2.3,187,
+"Pontefract, Castleford and Knottingley","LABOUR",,2.6,"Lab","Con",35.6,38.2,6.8,0.0,188,
+"Bedford","LABOUR",,2.4,"Lab","Con",42.0,44.3,10.0,2.0,189,
+"Warwick and Leamington","LABOUR",,2.2,"Lab","Con",41.1,43.3,10.9,2.9,190,
+"Coventry South","LABOUR",,1.7,"Lab","Con",42.5,44.3,6.7,2.6,191,
+"Dagenham and Rainham","LABOUR",,1.6,"Lab","Con",43.1,44.7,3.0,1.5,192,
+"Heywood and Middleton North","LABOUR",,1.6,"Lab","Con",41.5,43.1,4.2,2.8,193,
+"Beckenham and Penge","LABOUR",,1.0,"Lab","Con",39.1,40.1,16.1,4.0,194,125
+"Wirral West","LABOUR",,0.8,"Lab","Con",44.4,45.2,5.7,2.5,195,
+"Alyn and Deeside","LABOUR",,0.8,"Lab","Con",42.0,42.7,5.9,0.0,196,
+"Kensington and Bayswater","LABOUR",,0.7,"Lab","Con",38.3,39.0,20.2,1.4,197,85
+"Coventry North West","LABOUR",,0.4,"Lab","Con",43.4,43.8,5.7,3.0,198,
+"Warrington South","LABOUR",,0.1,"Lab","Con",44.4,44.5,8.2,0.0,199,
+"Burnley","LABOUR",,-0.3,"Con","Lab",40.5,40.2,7.7,1.8,200,
+"Leigh and Atherton","LABOUR",,-0.7,"Con","Lab",43.8,43.2,4.6,0.3,201,
+"High Peak","LABOUR",,-1.1,"Con","Lab",45.9,44.8,5.1,2.1,202,
+"Bangor Aberconwy","LABOUR",,-1.5,"Con","Lab",40.0,38.4,4.4,0.0,203,
+"Wolverhampton West","LABOUR",,-1.8,"Con","Lab",47.4,45.5,4.4,0.2,204,
+"Bury South","LABOUR",,-1.9,"Con","Lab",43.5,41.6,6.2,1.8,205,
+"Bury North","LABOUR",,-2.4,"Con","Lab",47.3,44.9,3.1,1.8,206,
+"Bolton North East","LABOUR",,-2.6,"Con","Lab",45.0,42.4,4.4,1.6,207,
+"Watford","LABOUR",,-2.7,"Con","Lab",42.0,39.3,17.7,0.3,208,105
+"Chingford and Woodford Green","LABOUR",,-2.9,"Con","Lab",48.2,45.3,5.8,0.4,209,
+"Wycombe","LABOUR",,-3.2,"Con","Lab",43.1,39.9,11.3,2.6,210,
+"Dwyfor Meirionnydd","PLAID",,-3.3,"PC","Con",26.2,22.8,0.2,0.0,,
+"Birmingham Northfield","LABOUR",,-3.4,"Con","Lab",46.1,42.7,4.6,2.2,211,
+"Leeds North West","LABOUR",,-3.6,"Con","Lab",41.9,38.3,14.8,2.3,212,148
+"Stroud","LABOUR",,-4.1,"Con","Lab",45.7,41.6,2.2,8.0,213,
+"Keighley and Ilkley","LABOUR",,-4.2,"Con","Lab",48.1,43.9,4.9,0.0,214,
+"Stoke-on-Trent Central","LABOUR",,-4.2,"Con","Lab",47.1,42.9,3.8,2.0,215,
+"Whitehaven and Workington","LABOUR",,-4.3,"Con","Lab",48.4,44.1,4.0,1.2,216,
+"Gedling","LABOUR",,-4.4,"Con","Lab",47.2,42.8,4.5,2.2,217,
+"Walsall and Bloxwich","LABOUR",,-4.8,"Con","Lab",49.2,44.4,2.9,1.5,218,
+"Peterborough","LABOUR",,-4.9,"Con","Lab",46.5,41.5,4.9,1.5,219,
+"Vale of Glamorgan","LABOUR",,-5.1,"Con","Lab",49.1,43.9,0.0,6.0,220,
+"West Bromwich","LABOUR",,-5.2,"Con","Lab",47.3,42.1,3.5,1.9,221,
+"Mid Cheshire","LABOUR",,-5.3,"Con","Lab",46.9,41.6,8.4,2.0,222,
+"Wakefield and Rothwell","LABOUR",,-5.3,"Con","Lab",44.9,39.5,10.9,1.0,223,
+"Ynys Môn","LABOUR",,-5.4,"Con","Lab",35.5,30.1,0.0,0.0,224,
+"Derby North","LABOUR",,-5.4,"Con","Lab",45.2,39.8,7.3,2.2,225,
+"Bridgend","LABOUR",,-5.5,"Con","Lab",44.0,38.5,5.3,1.9,226,
+"Clwyd North","LABOUR",,-5.5,"Con","Lab",45.8,40.3,4.9,0.0,227,
+"Lancaster and Wyre","LABOUR",,-6.1,"Con","Lab",48.0,41.9,3.9,4.4,228,
+"Hastings and Rye","LABOUR",,-6.7,"Con","Lab",49.1,42.4,7.4,0.1,229,
+"Eltham and Chislehurst","LABOUR",,-6.7,"Con","Lab",46.9,40.1,7.5,3.0,230,
+"Lincoln","LABOUR","LIB DEM AND GREEN",-6.9,"Con","Lab",47.9,41.0,4.8,2.4,231,
+"Hyndburn","LABOUR","LIB DEM AND GREEN",-7.0,"Con","Lab",48.5,41.5,2.9,2.0,232,
+"Broxtowe","LABOUR","LIB DEM AND GREEN",-7.2,"Con","Lab",45.2,38.0,0.5,3.0,233,
+"Chipping Barnet","LABOUR","LIB DEM AND GREEN",-7.2,"Con","Lab",47.5,40.3,9.8,2.2,234,
+"Ceredigion Preseli","PLAID",,-7.5,"PC","Con",28.3,20.8,14.6,1.3,,150
+"Northampton North","LABOUR","LIB DEM AND GREEN",-7.7,"Con","Lab",49.8,42.1,5.7,2.5,235,
+"Newton Aycliffe and Spennymoor","LABOUR","LIB DEM AND GREEN",-7.9,"Con","Lab",46.1,38.3,5.4,1.5,236,
+"Hendon","LABOUR","LIB DEM AND GREEN",-8.0,"Con","Lab",48.9,40.9,8.6,1.6,237,
+"Truro and Falmouth","LABOUR","LIB DEM AND GREEN",-8.1,"Con","Lab",46.8,38.8,10.8,2.8,238,
+"Wrexham","LABOUR","LIB DEM AND GREEN",-8.4,"Con","Lab",46.5,38.2,4.3,0.9,239,
+"Kingston upon Hull West and Haltemprice","LABOUR","LIB DEM AND GREEN",-8.7,"Con","Lab",42.5,33.8,9.2,1.1,240,
+"Blackpool South","LABOUR","LIB DEM AND GREEN",-8.7,"Con","Lab",48.8,40.1,3.5,1.9,241,
+"Calder Valley","LABOUR","LIB DEM AND GREEN",-9.0,"Con","Lab",51.4,42.3,5.1,0.0,242,
+"Milton Keynes Central","LABOUR","LIB DEM AND GREEN",-9.4,"Con","Lab",47.5,38.1,10.4,2.5,243,
+"Southampton Itchen","LABOUR","LIB DEM AND GREEN",-9.5,"Con","Lab",50.5,41.0,5.3,2.2,244,
+"Clwyd East","LABOUR","LIB DEM AND GREEN",-10.0,"Con","Lab",47.9,37.9,5.3,0.0,245,
+"Darlington","LABOUR","LIB DEM AND GREEN",-10.7,"Con","Lab",49.7,38.9,4.6,2.5,246,
+"Redcar","LABOUR","LIB DEM AND GREEN",-10.9,"Con","Lab",47.5,36.6,4.8,1.6,247,
+"Ipswich","LABOUR","LIB DEM AND GREEN",-11.1,"Con","Lab",50.3,39.3,4.9,2.6,248,
+"Altrincham and Sale West","LABOUR","LIB DEM AND GREEN",-11.2,"Con","Lab",48.0,36.8,11.0,2.9,249,
+"Swindon South","LABOUR","LIB DEM AND GREEN",-11.4,"Con","Lab",51.6,40.2,7.6,0.5,250,
+"Cities of London and Westminster","LABOUR","LIB DEM AND GREEN",-11.5,"Con","Lab",40.3,28.9,28.2,1.9,251,50
+"Bolsover","LABOUR","LIB DEM AND GREEN",-11.5,"Con","Lab",47.7,36.2,3.8,1.6,252,
+"Shipley","LABOUR","LIB DEM AND GREEN",-11.6,"Con","Lab",50.8,39.2,5.9,2.4,253,
+"Crewe and Nantwich","LABOUR","LIB DEM AND GREEN",-11.6,"Con","Lab",50.8,39.2,5.1,1.9,254,
+"Loughborough","LABOUR","LIB DEM AND GREEN",-11.8,"Con","Lab",50.6,38.8,7.6,2.6,255,
+"Tipton and Wednesbury","LABOUR","LIB DEM AND GREEN",-12.3,"Con","Lab",50.7,38.4,3.1,1.9,256,
+"Rushcliffe","LABOUR","LIB DEM AND GREEN",-12.4,"Con","Lab",47.3,35.0,16.0,0.0,257,128
+"Norwich North","LABOUR","LIB DEM AND GREEN",-12.6,"Con","Lab",51.6,38.9,6.2,2.3,258,
+"Spen Valley","LABOUR","LIB DEM AND GREEN",-12.8,"Con","Lab",46.4,33.5,5.8,1.8,259,
+"Milton Keynes North","LABOUR","LIB DEM AND GREEN",-13.1,"Con","Lab",51.6,38.5,6.7,3.1,260,
+"Worcester","LABOUR","LIB DEM AND GREEN",-13.3,"Con","Lab",50.8,37.5,7.2,3.3,261,
+"Rother Valley","LABOUR","LIB DEM AND GREEN",-13.5,"Con","Lab",46.1,32.6,4.8,2.5,262,
+"Southport","LABOUR","LIB DEM AND GREEN",-13.6,"Con","Lab",50.4,36.8,12.5,0.4,263,
+"Ashfield","LABOUR","LIB DEM AND GREEN",-13.6,"Con","Other",39.2,25.6,2.1,1.3,264,
+"Shrewsbury","LABOUR","LIB DEM AND GREEN",-13.9,"Con","Lab",49.4,35.5,10.8,3.2,265,
+"East Worthing and Shoreham","LABOUR","LIB DEM AND GREEN",-14.1,"Con","Lab",51.0,37.0,7.8,3.8,266,
+"Caerfyrddin","LABOUR","LIB DEM AND GREEN",-14.1,"Con","PC",39.2,25.1,1.3,0.0,267,
+"Penistone and Stocksbridge","LABOUR","LIB DEM AND GREEN",-14.6,"Con","Lab",47.8,33.3,10.2,0.0,268,
+"Barrow and Furness","LABOUR","LIB DEM AND GREEN",-14.9,"Con","Lab",53.1,38.2,4.5,1.5,269,
+"Colne Valley","LABOUR","LIB DEM AND GREEN",-15.0,"Con","Lab",51.2,36.2,7.0,1.7,270,
+"Filton and Bradley Stoke","LABOUR","LIB DEM AND GREEN",-15.2,"Con","Lab",51.0,35.8,10.0,2.7,271,
+"Uxbridge and South Ruislip","LABOUR","LIB DEM AND GREEN",-15.6,"Con","Lab",52.6,37.0,6.6,2.7,272,
+"Mid and South Pembrokeshire","LABOUR","LIB DEM AND GREEN",-15.7,"Con","Lab",52.9,37.2,4.6,0.0,273,
+"East Thanet","LABOUR","LIB DEM AND GREEN",-15.8,"Con","Lab",53.5,37.6,5.2,3.7,274,
+"Corby and East Northamptonshire","LABOUR","LIB DEM AND GREEN",-16.1,"Con","Lab",54.6,38.5,6.8,0.0,275,
+"Leeds South West and Morley","LABOUR","LIB DEM AND GREEN",-16.3,"Con","Lab",53.1,36.8,2.8,3.3,276,
+"Bishop Auckland","LABOUR","LIB DEM AND GREEN",-16.4,"Con","Lab",53.0,36.6,3.6,0.6,277,
+"Chelsea and Fulham","LABOUR","LIB DEM AND GREEN",-16.4,"Con","Lab",45.5,29.1,23.8,0.4,278,67
+"Crawley","LABOUR","LIB DEM AND GREEN",-16.8,"Con","Lab",54.2,37.4,5.5,2.9,279,
+"Harrow East","LABOUR","LIB DEM AND GREEN",-17.2,"Con","Lab",54.6,37.4,7.5,0.3,280,
+"South Ribble","NOT LABOUR",,-17.3,"Con","Lab",53.5,36.2,7.7,2.5,281,
+"Newcastle-under-Lyme","NOT LABOUR",,-17.5,"Con","Lab",52.8,35.4,5.6,2.2,282,
+"Bournemouth East","NOT LABOUR",,-17.9,"Con","Lab",50.6,32.7,11.0,4.2,283,
+"Stevenage","NOT LABOUR",,-18.0,"Con","Lab",53.1,35.2,8.7,3.1,284,
+"Wimbledon","LIB DEM","GREEN",-19.0,"Con","LD",39.8,20.8,38.3,0.2,,18
+"Camborne and Redruth","NOT LABOUR",,-19.1,"Con","Lab",53.3,34.2,8.5,2.8,285,
+"Stoke-on-Trent North","NOT LABOUR",,-19.3,"Con","Lab",54.1,34.8,3.3,1.4,286,
+"Gloucester","NOT LABOUR",,-19.3,"Con","Lab",54.6,35.2,7.7,2.5,287,
+"Finchley and Golders Green","LIB DEM","GREEN",-19.4,"Con","LD",43.8,24.4,31.8,0.0,288,33
+"Bath","LIB DEM ","GREEN",-19.6,"LD","Con",32.1,12.5,53.4,0.3,,3
+"York Outer","NOT LABOUR",,-19.7,"Con","Lab",49.6,29.9,18.7,0.0,289,98
+"Rossendale and Darwen","NOT LABOUR",,-19.7,"Con","Lab",56.3,36.6,4.2,2.5,290,
+"Wolverhampton North East","NOT LABOUR",,-19.8,"Con","Lab",55.7,35.9,3.6,1.8,291,
+"Macclesfield","NOT LABOUR",,-19.9,"Con","Lab",52.5,32.6,10.6,4.3,292,
+"Blackpool North and Fleetwood","NOT LABOUR",,-20.2,"Con","Lab",55.8,35.6,4.0,1.9,293,
+"Monmouthshire","NOT LABOUR",,-20.5,"Con","Lab",52.1,31.6,9.6,2.5,294,
+"Scarborough and Whitby","NOT LABOUR",,-20.7,"Con","Lab",55.5,34.8,6.1,0.0,295,
+"Welwyn Hatfield","NOT LABOUR",,-20.8,"Con","Lab",52.5,31.7,12.7,3.1,296,
+"Hitchin","LIB DEM",,-20.8,"Con","Lab",47.0,26.2,23.7,1.5,297,69
+"Bolton West","NOT LABOUR",,-21.3,"Con","Lab",56.5,35.2,5.6,1.8,298,
+"Scunthorpe","NOT LABOUR",,-21.4,"Con","Lab",56.3,34.9,2.6,1.8,299,
+"Erewash","NOT LABOUR",,-21.7,"Con","Lab",56.5,34.7,5.1,2.3,300,
+"Bournemouth West","NOT LABOUR",,-21.7,"Con","Lab",53.6,31.8,10.1,4.5,301,
+"Carlisle","NOT LABOUR",,-22.0,"Con","Lab",56.5,34.5,5.0,1.6,302,
+"Earley and Woodley","LIB DEM",,-22.1,"Con","Lab",48.8,26.7,21.8,2.2,303,78
+"Colchester","NOT LABOUR",,-22.3,"Con","Lab",52.3,30.1,14.7,2.9,304,149
+"Oxford West and Abingdon","LIB DEM","GREEN",-22.3,"LD","Con",34.1,11.8,52.2,0.5,,5
+"Stockton West","NOT LABOUR",,-22.6,"Con","Lab",56.5,33.9,4.4,0.5,305,
+"Hexham","NOT LABOUR",,-22.6,"Con","Lab",54.3,31.7,9.4,3.6,306,
+"Ossett and Denby Dale","NOT LABOUR",,-22.7,"Con","Lab",53.9,31.2,4.9,1.2,307,
+"Kingston and Surbiton","LIB DEM","GREEN",-22.9,"LD","Con",33.1,10.2,52.6,1.6,,4
+"Middlesbrough South and East Cleveland","NOT LABOUR",,-22.9,"Con","Lab",57.9,35.0,4.0,2.2,308,
+"Doncaster East and the Isle of Axholme","NOT LABOUR",,-23.4,"Con","Lab",52.1,28.7,4.4,2.4,309,
+"Great Grimsby and Cleethorpes","NOT LABOUR",,-23.4,"Con","Lab",55.6,32.2,4.9,2.0,310,
+"Pendle and Clitheroe","NOT LABOUR",,-23.8,"Con","Lab",56.9,33.1,7.3,2.1,311,
+"Basingstoke","NOT LABOUR",,-24.0,"Con","Lab",52.7,28.7,13.3,3.9,312,
+"Dover and Deal","NOT LABOUR",,-24.3,"Con","Lab",56.9,32.6,5.7,2.7,313,
+"Penrith and Solway","NOT LABOUR",,-24.7,"Con","Lab",54.8,30.1,8.2,3.1,314,
+"Telford","NOT LABOUR",,-25.0,"Con","Lab",59.4,34.3,6.2,0.1,315,
+"Twickenham","LIB DEM","GREEN",-25.2,"LD","Con",33.8,8.7,56.2,0.0,,1
+"Buckingham and Bletchley","NOT LABOUR",,-25.4,"Con","Lab",53.1,27.7,15.4,1.2,316,136
+"Morecambe and Lunesdale","NOT LABOUR",,-25.5,"Con","Lab",53.6,28.1,15.6,1.3,317,133
+"North East Derbyshire","NOT LABOUR",,-26.1,"Con","Lab",58.4,32.3,6.1,2.7,318,
+"Rugby","NOT LABOUR",,-26.2,"Con","Lab",57.3,31.1,8.3,3.3,319,
+"Croydon South","NOT LABOUR",,-26.3,"Con","Lab",54.5,28.1,13.5,2.9,320,
+"Bassetlaw","NOT LABOUR",,-26.4,"Con","Lab",54.4,28.0,6.7,0.0,321,
+"Worthing West","NOT LABOUR",,-26.5,"Con","Lab",56.0,29.5,9.9,3.6,322,
+"Stafford","NOT LABOUR",,-26.7,"Con","Lab",57.9,31.2,6.4,4.5,323,
+"Hemel Hempstead","NOT LABOUR",,-26.8,"Con","Lab",55.0,28.1,11.4,2.9,324,
+"Northampton South","NOT LABOUR",,-26.9,"Con","Lab",57.8,30.9,7.9,3.4,325,
+"Thurrock","NOT LABOUR",,-27.0,"Con","Lab",59.9,32.9,3.1,1.7,326,
+"Banbury","NOT LABOUR",,-27.2,"Con","Lab",52.0,24.8,20.3,2.9,327,83
+"Plymouth Moor View","NOT LABOUR",,-27.5,"Con","Lab",59.8,32.3,5.0,2.6,328,
+"Halesowen","NOT LABOUR",,-27.6,"Con","Lab",60.2,32.6,3.5,2.4,329,
+"Southend East and Rochford","NOT LABOUR",,-27.7,"Con","Lab",59.0,31.3,6.4,0.1,330,
+"Swindon North","NOT LABOUR",,-28.0,"Con","Lab",58.5,30.5,7.9,3.1,331,
+"Frome and East Somerset","LIB DEM",,-28.1,"Con","LD",49.3,21.2,23.5,6.1,332,70
+"Selby","NOT LABOUR",,-28.1,"Con","Lab",58.0,29.8,6.0,3.0,333,
+"South Cambridgeshire","LIB DEM","GREEN",-28.4,"Con","LD",43.5,15.1,41.0,0.2,,13
+"North Somerset","NOT LABOUR",,-28.5,"Con","Lab",53.5,25.0,16.6,4.9,334,119
+"North East Somerset and Hanham","NOT LABOUR",,-28.5,"Con","Lab",54.7,26.2,15.0,2.4,335,146
+"Aylesbury","LIB DEM",,-28.7,"Con","Lab",51.7,22.9,21.9,2.9,336,77
+"Montgomeryshire and Glyndwr","NOT LABOUR",,-28.8,"Con","Lab",53.6,24.8,16.8,0.0,337,118
+"St Austell and Newquay","NOT LABOUR",,-28.9,"Con","Lab",55.6,26.6,10.8,3.1,338,
+"Weston-super-Mare","NOT LABOUR",,-29.0,"Con","Lab",57.1,28.1,11.7,3.0,339,
+"Brecon, Radnor and Cwm Tawe","LIB DEM","GREEN",-29.1,"Con","LD",46.6,17.5,29.2,0.4,340,47
+"Nuneaton","NOT LABOUR",,-29.1,"Con","Lab",60.6,31.5,4.1,3.7,341,
+"Bromley and Biggin Hill","NOT LABOUR",,-29.3,"Con","Lab",54.4,25.1,16.0,3.7,342,127
+"Hazel Grove","LIB DEM","GREEN",-29.3,"Con","LD",45.6,16.3,37.2,0.3,,19
+"Folkestone and Hythe","NOT LABOUR",,-29.6,"Con","Lab",56.3,26.8,10.0,4.9,343,
+"Harborough, Oadby and Wigston","NOT LABOUR",,-29.7,"Con","Lab",54.5,24.8,16.9,3.1,344,112
+"Burton and Uttoxeter","NOT LABOUR",,-29.7,"Con","Lab",60.7,30.9,5.5,2.9,345,
+"Carshalton and Wallington","LIB DEM","GREEN",-30.0,"Con","LD",42.4,12.4,41.1,1.5,,11
+"Southend West and Leigh","NOT LABOUR",,-30.1,"Con","Lab",59.1,29.0,10.6,0.0,346,
+"Bracknell","NOT LABOUR",,-30.1,"Con","Lab",55.5,25.4,14.0,4.0,347,
+"Ruislip, Northwood and Pinner","NOT LABOUR",,-30.3,"Con","Lab",55.3,25.1,15.2,2.6,348,142
+"Rochester and Strood","NOT LABOUR",,-30.4,"Con","Lab",58.5,28.1,7.1,2.6,349,
+"St Albans","LIB DEM","GREEN",-30.4,"LD","Con",39.3,8.8,49.9,1.7,,6
+"Isle of Wight West","GREEN",,-30.5,"Con","Lab",55.0,24.5,0.0,16.4,350,
+"Central Devon","NOT LABOUR",,-30.5,"Con","Lab",55.3,24.8,15.0,4.9,351,147
+"Forest of Dean","NOT LABOUR",,-30.8,"Con","Lab",59.6,28.8,0.0,9.1,352,
+"Sherwood Forest","NOT LABOUR",,-31.3,"Con","Lab",60.8,29.5,5.7,2.6,353,
+"Woking","LIB DEM","GREEN",-31.5,"Con","LD",48.3,16.7,31.1,2.8,354,38
+"Dartford","NOT LABOUR",,-31.6,"Con","Lab",61.1,29.5,7.0,2.4,355,
+"Bexleyheath and Crayford","NOT LABOUR",,-31.8,"Con","Lab",60.8,29.0,6.0,2.3,356,
+"Dunstable and Leighton Buzzard","NOT LABOUR",,-31.9,"Con","Lab",58.7,26.8,10.8,3.7,357,
+"Hertford and Stortford","NOT LABOUR",,-32.0,"Con","Lab",55.7,23.7,14.2,4.6,358,
+"Dudley","NOT LABOUR",,-32.2,"Con","Lab",63.2,30.9,3.8,2.1,359,
+"Ribble Valley","NOT LABOUR",,-32.2,"Con","Lab",59.8,27.6,8.0,2.8,360,
+"St Neots and Mid Cambridgeshire","LIB DEM",,-32.5,"Con","LD",51.3,18.8,26.8,1.7,361,55
+"Mid Derbyshire","NOT LABOUR",,-32.6,"Con","Lab",59.6,27.0,9.6,3.9,362,
+"Harwich and North Essex","NOT LABOUR",,-32.6,"Con","Lab",58.6,25.9,10.7,3.6,363,
+"Stourbridge","NOT LABOUR",,-32.7,"Con","Lab",61.8,29.1,5.8,2.0,364,
+"Lowestoft","NOT LABOUR",,-32.7,"Con","Lab",60.9,28.2,5.1,5.2,365,
+"Gravesham","NOT LABOUR",,-32.8,"Con","Lab",62.2,29.4,5.4,2.9,366,
+"North Northumberland","NOT LABOUR",,-32.8,"Con","Lab",55.9,23.1,16.1,3.4,367,124
+"North East Hertfordshire","NOT LABOUR",,-32.9,"Con","Lab",56.6,23.7,15.5,4.3,368,135
+"Gillingham and Rainham","NOT LABOUR",,-32.9,"Con","Lab",61.3,28.4,5.4,2.3,369,
+"Stoke-on-Trent South","NOT LABOUR",,-32.9,"Con","Lab",62.5,29.6,6.2,1.6,370,
+"South Norfolk","NOT LABOUR",,-33.1,"Con","Lab",56.5,23.4,17.0,3.2,371,111
+"Mid Sussex","LIB DEM",,-33.3,"Con","LD",51.3,18.0,25.5,4.1,372,60
+"Isle of Wight East","GREEN",,-33.3,"Con","Lab",57.4,24.1,0.0,14.0,373,
+"Kettering","NOT LABOUR",,-33.4,"Con","Lab",60.3,26.9,6.7,3.0,374,
+"Cheadle","LIB DEM","GREEN",-33.7,"Con","LD",46.0,12.3,41.8,0.0,,10
+"Didcot and Wantage","LIB DEM","GREEN",-33.7,"Con","LD",49.8,16.0,31.3,0.7,375,34
+"Reading West and Mid Berkshire","NOT LABOUR",,-33.9,"Con","Lab",56.8,22.9,16.9,3.4,376,114
+"Mansfield","NOT LABOUR",,-34.0,"Con","Lab",64.3,30.3,3.3,0.0,377,
+"Wellingborough and Rushden","NOT LABOUR",,-34.1,"Con","Lab",62.4,28.3,6.7,2.7,378,
+"Portsmouth North","NOT LABOUR",,-34.4,"Con","Lab",61.4,27.0,7.4,2.8,379,
+"South Dorset","NOT LABOUR",,-34.4,"Con","Lab",59.2,24.8,10.7,4.4,380,
+"Aldershot","NOT LABOUR",,-34.7,"Con","Lab",56.8,22.1,17.5,3.5,381,108
+"Tatton","NOT LABOUR",,-34.8,"Con","Lab",57.3,22.5,16.2,3.7,382,123
+"Derbyshire Dales","NOT LABOUR",,-34.9,"Con","Lab",59.0,24.1,12.8,4.1,383,
+"South Derbyshire","NOT LABOUR",,-34.9,"Con","Lab",62.1,27.2,7.3,3.3,384,
+"Suffolk Coastal","NOT LABOUR",,-35.1,"Con","Lab",56.4,21.4,15.1,4.4,385,145
+"Harlow","NOT LABOUR",,-35.2,"Con","Lab",64.6,29.3,5.9,0.3,386,
+"Richmond Park","LIB DEM","GREEN",-35.3,"LD","Con",40.6,5.3,53.6,0.0,,2
+"Ashford","NOT LABOUR",,-35.4,"Con","Lab",59.2,23.8,10.7,4.6,387,
+"Runnymede and Weybridge","LIB DEM",,-35.5,"Con","LD",53.2,17.7,22.7,2.7,388,72
+"Sutton and Cheam","LIB DEM","GREEN",-35.7,"Con","LD",50.0,14.3,33.4,2.3,,24
+"South West Hertfordshire","NOT LABOUR",,-36.1,"Con","Other",52.2,16.1,12.7,1.5,389,
+"North West Cambridgeshire","NOT LABOUR",,-36.2,"Con","Lab",60.0,23.7,11.0,5.2,390,
+"Beverley and Holderness","NOT LABOUR",,-36.3,"Con","Lab",61.0,24.7,9.3,2.5,391,
+"Windsor","NOT LABOUR",,-36.5,"Con","Lab",56.0,19.6,18.9,3.5,392,97
+"Salisbury","NOT LABOUR",,-36.5,"Con","LD",55.2,18.7,19.5,5.1,393,91
+"South Devon","LIB DEM","GREEN",-36.5,"Con","LD",53.6,17.0,28.2,0.2,394,49
+"Congleton","NOT LABOUR",,-36.5,"Con","Lab",60.6,24.1,11.1,2.9,395,
+"Chelmsford","LIB DEM",,-36.6,"Con","LD",54.7,18.1,26.1,0.0,396,57
+"Mid Leicestershire","NOT LABOUR",,-36.6,"Con","Lab",62.2,25.6,8.0,4.1,397,
+"North West Leicestershire","NOT LABOUR",,-36.7,"Con","Lab",62.1,25.4,6.8,4.7,398,
+"Guildford","LIB DEM","GREEN",-36.7,"Con","LD",45.1,8.4,39.2,0.4,,17
+"Epsom and Ewell","LIB DEM",,-36.8,"Con","LD",53.6,16.8,24.2,3.3,399,66
+"South West Wiltshire","NOT LABOUR",,-36.8,"Con","Lab",58.3,21.5,16.5,3.7,400,120
+"Sutton Coldfield","NOT LABOUR",,-36.8,"Con","Lab",60.4,23.6,12.2,3.9,401,
+"Amber Valley","NOT LABOUR",,-37.0,"Con","Lab",63.8,26.8,6.3,3.0,402,
+"Bicester and Woodstock","LIB DEM",,-37.1,"Con","LD",53.9,16.9,26.6,2.4,403,56
+"Fylde","NOT LABOUR",,-37.1,"Con","Lab",62.2,25.2,7.3,3.5,404,
+"Spelthorne","NOT LABOUR",,-37.2,"Con","Lab",58.9,21.7,15.1,4.3,405,143
+"Bridgwater","NOT LABOUR",,-37.2,"Con","Lab",57.9,20.7,17.6,2.1,406,106
+"Staffordshire Moorlands","NOT LABOUR",,-37.4,"Con","Lab",64.1,26.7,6.1,3.1,407,
+"Broadland and Fakenham","NOT LABOUR",,-37.5,"Con","Lab",59.1,21.6,16.1,2.5,408,126
+"Chester South and Eddisbury","NOT LABOUR",,-37.7,"Con","Lab",59.2,21.5,15.3,2.1,409,140
+"Newton Abbot","LIB DEM",,-37.8,"Con","LD",55.6,17.7,22.2,2.9,410,75
+"Poole","NOT LABOUR",,-38.1,"Con","Lab",58.8,20.7,15.3,3.4,411,138
+"Romford","NOT LABOUR",,-38.3,"Con","Lab",64.8,26.4,5.8,3.0,412,
+"Huntingdon","NOT LABOUR",,-38.4,"Con","Lab",59.2,20.8,14.0,3.5,413,
+"South East Cornwall","NOT LABOUR",,-38.7,"Con","Lab",59.0,20.3,16.3,2.7,414,122
+"Redditch","NOT LABOUR",,-38.8,"Con","Lab",64.7,25.9,6.4,3.0,415,
+"Reigate","NOT LABOUR",,-38.9,"Con","LD",55.8,16.9,19.9,5.8,416,86
+"North Warwickshire and Bedworth","NOT LABOUR",,-39.1,"Con","Lab",65.9,26.8,4.5,2.8,417,
+"Newark","NOT LABOUR",,-39.2,"Con","Lab",63.1,23.9,9.6,3.1,418,
+"North Shropshire","NOT LABOUR",,-39.3,"Con","Lab",61.7,22.4,10.4,3.3,419,
+"Exmouth and Exeter East","NOT LABOUR",,-39.3,"Con","Other",49.8,10.5,3.0,1.7,420,
+"Ely and East Cambridgeshire","LIB DEM","GREEN",-39.6,"Con","LD",54.0,14.4,29.3,0.6,421,46
+"Skipton and Ripon","NOT LABOUR",,-39.7,"Con","Lab",58.9,19.2,15.2,4.7,422,141
+"Melton and Syston","NOT LABOUR",,-39.8,"Con","Lab",63.3,23.5,7.7,5.5,423,
+"St Ives","LIB DEM","GREEN",-39.9,"Con","LD",49.0,9.1,39.3,1.8,424,16
+"Mid Bedfordshire","NOT LABOUR",,-40.0,"Con","Lab",60.5,20.5,12.5,3.9,425,
+"Herne Bay and Sandwich","NOT LABOUR",,-40.0,"Con","Lab",64.4,24.4,7.5,3.8,426,
+"Kenilworth and Southam","NOT LABOUR",,-40.0,"Con","Lab",59.0,19.0,16.9,4.2,427,115
+"Maidstone and Malling","NOT LABOUR",,-40.0,"Con","LD",58.4,18.4,18.6,3.8,428,99
+"Old Bexley and Sidcup","NOT LABOUR",,-40.0,"Con","Lab",63.9,23.9,8.3,3.5,429,
+"Central Suffolk and North Ipswich","NOT LABOUR",,-40.1,"Con","Lab",61.9,21.8,10.6,5.6,430,
+"Horsham","LIB DEM",,-40.1,"Con","LD",55.8,15.6,24.7,3.0,431,62
+"Eastbourne","LIB DEM","GREEN",-40.1,"Con","LD",47.1,6.9,42.9,0.0,432,9
+"Eastleigh","LIB DEM","GREEN",-40.2,"Con","LD",51.9,11.7,34.4,2.0,433,22
+"Broxbourne","NOT LABOUR",,-40.3,"Con","Lab",64.2,24.0,9.0,2.8,434,
+"Tunbridge Wells","LIB DEM","GREEN",-40.3,"Con","LD",55.1,14.8,28.3,0.0,435,48
+"The Wrekin","NOT LABOUR",,-40.4,"Con","Lab",64.7,24.3,8.0,2.9,436,
+"Great Yarmouth","NOT LABOUR",,-40.6,"Con","Lab",65.8,25.1,3.8,2.4,437,
+"Bexhill and Battle","NOT LABOUR",,-41.0,"Con","Lab",61.8,20.8,13.4,4.1,438,
+"South West Devon","NOT LABOUR",,-41.2,"Con","Lab",62.6,21.4,12.1,3.9,439,
+"Dorking and Horley","LIB DEM","GREEN",-41.2,"Con","LD",51.2,9.9,32.1,4.2,440,32
+"Solihull West and Shirley","NOT LABOUR",,-41.4,"Con","Lab",60.9,19.5,15.7,4.0,441,131
+"Chatham and Aylesford","NOT LABOUR",,-41.5,"Con","Lab",65.9,24.4,6.7,2.5,442,
+"Lewes","LIB DEM","GREEN",-41.5,"Con","LD",48.5,7.1,41.1,2.9,443,12
+"Mid Norfolk","NOT LABOUR",,-41.5,"Con","Lab",64.4,22.9,10.4,0.3,444,
+"Meriden and Solihull East","NOT LABOUR",,-41.6,"Con","Lab",62.4,20.8,13.6,3.2,445,
+"Harpenden and Berkhamsted","LIB DEM",,-41.7,"Con","LD",52.3,10.6,25.3,1.6,446,61
+"Hereford and South Herefordshire","NOT LABOUR",,-41.8,"Con","Lab",61.7,19.9,13.3,5.1,447,
+"South Basildon and East Thurrock","NOT LABOUR",,-41.9,"Con","Lab",65.4,23.6,4.1,0.2,448,
+"Torridge and Tavistock","NOT LABOUR",,-42.0,"Con","LD",59.8,17.9,17.9,3.4,449,104
+"North Bedfordshire","NOT LABOUR",,-42.0,"Con","Lab",61.1,19.1,13.2,2.8,450,
+"Bury St Edmunds and Stowmarket","NOT LABOUR",,-42.1,"Con","Lab",62.9,20.8,1.1,12.4,451,
+"Orpington","NOT LABOUR",,-42.1,"Con","Lab",61.9,19.8,14.6,3.7,452,
+"West Suffolk","NOT LABOUR",,-42.2,"Con","Lab",64.3,22.2,9.0,4.5,453,
+"Wyre Forest","NOT LABOUR",,-42.4,"Con","Lab",65.2,22.8,8.1,3.9,454,
+"Harrogate and Knaresborough","LIB DEM","GREEN",-42.4,"Con","LD",52.0,9.6,36.2,0.0,455,21
+"Maidenhead","LIB DEM",,-42.4,"Con","LD",57.4,15.0,23.8,3.8,456,68
+"South Northamptonshire","NOT LABOUR",,-42.4,"Con","Lab",63.2,20.8,11.1,3.8,457,
+"Tewkesbury","LIB DEM",,-42.4,"Con","LD",58.1,15.7,22.0,4.2,458,76
+"Chesham and Amersham","LIB DEM",,-42.4,"Con","LD",56.3,13.9,22.4,4.8,459,73
+"Hornchurch and Upminster","NOT LABOUR",,-42.6,"Con","Lab",65.4,22.9,7.1,3.6,460,
+"Bromsgrove","NOT LABOUR",,-42.6,"Con","Lab",63.4,20.8,12.5,3.3,461,
+"Witney","LIB DEM",,-42.7,"Con","LD",58.1,15.4,26.0,0.0,462,58
+"Faversham and Mid Kent","NOT LABOUR",,-42.8,"Con","Lab",62.6,19.8,12.5,4.1,463,
+"North Cotswolds","NOT LABOUR",,-42.8,"Con","LD",59.3,16.5,18.0,5.8,464,103
+"South Suffolk","NOT LABOUR",,-42.9,"Con","Lab",62.1,19.2,12.7,6.0,465,
+"Cannock Chase","NOT LABOUR",,-42.9,"Con","Lab",68.3,25.4,0.0,6.3,466,
+"Lichfield","NOT LABOUR",,-43.1,"Con","Lab",64.1,21.0,10.5,3.2,467,
+"North West Hampshire","NOT LABOUR",,-43.2,"Con","LD",60.1,16.9,18.5,4.6,468,100
+"Bognor Regis and Littlehampton","NOT LABOUR",,-43.2,"Con","Lab",62.2,19.0,13.3,3.3,469,
+"Westmorland and Lonsdale","LIB DEM","GREEN",-43.2,"Con","LD",50.2,6.9,40.7,0.5,470,14
+"Chichester","NOT LABOUR",,-43.4,"Con","LD",58.8,15.4,20.3,4.9,471,84
+"North West Norfolk","NOT LABOUR",,-43.4,"Con","Lab",66.0,22.6,7.8,3.5,472,
+"Tamworth","NOT LABOUR",,-43.4,"Con","Lab",66.7,23.3,5.3,2.1,473,
+"Waveney Valley","GREEN","LIB DEM",-43.6,"Con","Lab",62.2,18.6,9.2,9.3,474,
+"Cheltenham","LIB DEM","GREEN",-43.7,"Con","LD",48.5,4.8,46.0,0.0,475,7
+"Hertsmere","NOT LABOUR",,-43.8,"Con","Lab",64.9,21.1,10.9,3.1,476,
+"Taunton and Wellington","LIB DEM","GREEN",-44.1,"Con","LD",52.0,7.9,36.3,0.0,477,20
+"Epping Forest","NOT LABOUR",,-44.1,"Con","Lab",64.4,20.3,10.7,3.9,478,
+"West Worcestershire","NOT LABOUR",,-44.2,"Con","LD",60.7,16.5,18.1,4.7,479,102
+"Basildon and Billericay","NOT LABOUR",,-44.3,"Con","Lab",65.9,21.6,8.4,3.0,480,
+"Godalming and Ash","LIB DEM","GREEN",-44.5,"Con","LD",53.4,8.9,34.1,1.6,481,23
+"Goole and Pocklington","NOT LABOUR",,-44.7,"Con","Lab",65.1,20.4,7.8,3.9,482,
+"Thirsk and Malton","NOT LABOUR",,-44.7,"Con","Lab",62.5,17.8,12.5,4.5,483,
+"Chippenham","LIB DEM","GREEN",-44.7,"Con","LD",56.4,11.7,30.3,1.7,484,42
+"Esher and Walton","LIB DEM","GREEN",-44.7,"Con","LD",49.5,4.8,44.2,0.2,485,8
+"Arundel and South Downs","NOT LABOUR",,-44.8,"Con","LD",60.4,15.7,19.0,4.0,486,95
+"East Grinstead and Uckfield","LIB DEM",,-44.9,"Con","LD",58.5,13.6,23.0,4.9,487,71
+"West Dorset","LIB DEM","GREEN",-44.9,"Con","LD",54.3,9.4,32.8,3.5,488,27
+"Gainsborough","NOT LABOUR",,-45.1,"Con","Lab",66.3,21.2,10.4,0.0,489,
+"Wells and Mendip Hills","LIB DEM","GREEN",-45.4,"Con","LD",56.1,10.8,30.8,1.2,490,40
+"Fareham and Waterlooville","NOT LABOUR",,-45.4,"Con","LD",61.2,15.8,18.9,4.1,491,96
+"Henley and Thame","LIB DEM","GREEN",-45.5,"Con","LD",54.5,8.9,32.4,4.2,492,30
+"Beaconsfield","NOT LABOUR",,-45.6,"Con","Other",55.5,9.9,0.0,3.7,493,
+"Sittingbourne and Sheppey","NOT LABOUR",,-45.6,"Con","Lab",66.5,20.9,6.3,2.2,494,
+"Wokingham","LIB DEM","GREEN",-45.6,"Con","LD",55.5,9.9,32.3,2.2,495,31
+"Romsey and Southampton North","LIB DEM",,-45.7,"Con","LD",57.9,12.1,28.1,0.7,496,51
+"Melksham and Devizes","LIB DEM",,-45.8,"Con","LD",57.8,12.0,27.3,3.0,497,54
+"Grantham and Bourne","NOT LABOUR",,-45.8,"Con","Lab",65.8,20.0,9.0,4.3,498,
+"Torbay","LIB DEM",,-46.1,"Con","LD",59.1,13.0,24.2,2.4,499,65
+"Honiton and Sidmouth","NOT LABOUR",,-46.2,"Con","Lab",60.4,14.2,9.6,2.1,500,
+"Mid Buckinghamshire","NOT LABOUR",,-46.2,"Con","LD",61.5,15.3,19.7,2.7,501,89
+"South Leicestershire","NOT LABOUR",,-46.6,"Con","Lab",66.5,19.9,9.6,4.0,502,
+"Bridlington and the Wolds","NOT LABOUR",,-46.7,"Con","Lab",66.6,19.9,7.5,2.8,503,
+"East Hampshire","NOT LABOUR",,-46.7,"Con","LD",59.0,12.3,21.7,5.5,504,79
+"Daventry","NOT LABOUR",,-46.7,"Con","Lab",64.5,17.8,13.1,4.6,505,
+"Richmond and Northallerton","NOT LABOUR",,-46.9,"Con","Lab",63.3,16.4,12.5,3.8,506,
+"Stone, Great Wyrley and Penkridge","NOT LABOUR",,-46.9,"Con","Lab",68.5,21.6,6.5,3.4,507,
+"Tiverton and Minehead","NOT LABOUR",,-47.0,"Con","LD",61.3,14.3,19.5,4.3,508,92
+"East Surrey","NOT LABOUR",,-47.2,"Con","LD",60.3,13.2,20.4,3.0,509,81
+"South Cotswolds","LIB DEM",,-47.2,"Con","LD",57.9,10.7,27.6,3.8,510,53
+"North Herefordshire","GREEN","LIB DEM",-47.3,"Con","Lab",62.5,15.2,13.5,8.8,511,
+"Newbury","LIB DEM","GREEN",-47.4,"Con","LD",55.1,7.7,32.6,4.0,512,28
+"Havant","NOT LABOUR",,-47.4,"Con","Lab",65.4,18.0,12.4,3.5,513,
+"North Devon","LIB DEM","GREEN",-47.5,"Con","LD",56.6,9.2,30.0,3.2,514,43
+"Sleaford and North Hykeham","NOT LABOUR",,-47.9,"Con","Lab",66.5,18.6,8.2,2.4,515,
+"North West Essex","NOT LABOUR",,-47.9,"Con","LD",61.7,13.8,19.7,4.8,516,90
+"Glastonbury and Somerton","LIB DEM","GREEN",-48.0,"Con","LD",57.5,9.6,30.9,2.0,517,39
+"Gosport","NOT LABOUR",,-48.0,"Con","Lab",66.5,18.5,11.3,3.7,518,
+"Aldridge-Brownhills","NOT LABOUR",,-48.1,"Con","Lab",69.6,21.5,5.6,1.8,519,
+"Sevenoaks","NOT LABOUR",,-48.2,"Con","LD",61.7,13.5,19.4,3.4,520,93
+"Surrey Heath","LIB DEM",,-48.5,"Con","LD",57.9,9.4,28.0,3.5,521,52
+"Droitwich and Evesham","NOT LABOUR",,-48.6,"Con","Lab",65.7,17.0,12.0,4.0,522,
+"Hamble Valley","LIB DEM",,-48.7,"Con","LD",62.2,13.6,21.1,3.1,523,80
+"Rutland and Stamford","NOT LABOUR",,-48.7,"Con","LD",63.3,14.7,15.8,3.6,524,129
+"Sussex Weald","NOT LABOUR",,-48.8,"Con","LD",63.7,14.9,16.8,4.6,525,117
+"Stratford-on-Avon","LIB DEM",,-48.8,"Con","LD",60.2,11.3,24.7,3.8,526,63
+"Winchester","LIB DEM","GREEN",-49.3,"Con","LD",54.0,4.8,39.9,0.9,527,15
+"Witham","NOT LABOUR",,-49.3,"Con","Lab",66.7,17.5,10.0,5.8,528,
+"Braintree","NOT LABOUR",,-49.3,"Con","Lab",67.5,18.2,9.7,0.5,529,
+"North Cornwall","LIB DEM","GREEN",-49.4,"Con","LD",59.1,9.6,29.9,0.2,530,44
+"South Shropshire","NOT LABOUR",,-49.6,"Con","Lab",65.4,15.8,15.4,3.5,531,137
+"Tonbridge","NOT LABOUR",,-49.7,"Con","Lab",64.8,15.1,12.3,7.9,532,
+"New Forest East","NOT LABOUR",,-49.7,"Con","Lab",64.5,14.8,14.6,4.8,533,
+"Thornbury and Yate","LIB DEM","GREEN",-49.7,"Con","LD",58.5,8.7,32.6,0.2,534,29
+"Wetherby and Easingwold","NOT LABOUR",,-49.9,"Con","Lab",68.2,18.2,7.9,3.9,535,
+"East Wiltshire","NOT LABOUR",,-50.1,"Con","Lab",65.9,15.9,14.5,3.7,536,
+"South West Norfolk","NOT LABOUR",,-50.3,"Con","Lab",68.7,18.3,8.3,3.0,537,
+"Hinckley and Bosworth","NOT LABOUR",,-50.4,"Con","LD",64.6,14.2,18.2,2.9,538,101
+"New Forest West","NOT LABOUR",,-50.7,"Con","LD",63.8,13.1,15.3,7.7,539,139
+"North Norfolk","LIB DEM","GREEN",-50.7,"Con","LD",58.5,7.7,30.4,0.1,540,41
+"North East Hampshire","LIB DEM",,-51.7,"Con","LD",61.9,10.2,22.4,3.0,541,74
+"Brigg and Immingham","NOT LABOUR",,-51.7,"Con","Lab",71.9,20.2,4.4,2.8,542,
+"North Dorset","NOT LABOUR",,-51.8,"Con","LD",63.8,11.9,20.4,3.9,543,82
+"Yeovil","LIB DEM","GREEN",-51.8,"Con","LD",58.2,6.3,31.1,2.8,544,36
+"Farnham and Bordon","LIB DEM","GREEN",-52.6,"Con","LD",59.4,6.8,32.8,0.9,545,26
+"Christchurch","NOT LABOUR",,-52.7,"Con","LD",65.6,12.9,17.4,4.2,546,109
+"Mid Dorset and North Poole","LIB DEM","GREEN",-52.8,"Con","LD",60.0,7.3,29.9,2.9,547,45
+"Louth and Horncastle","NOT LABOUR",,-54.7,"Con","Lab",72.5,17.7,7.8,0.0,548,
+"Brentwood and Ongar","NOT LABOUR",,-54.9,"Con","Lab",68.5,13.7,13.6,3.2,549,
+"Clacton","NOT LABOUR",,-56.3,"Con","Lab",71.9,15.6,6.2,2.9,550,
+"Rayleigh and Wickford","NOT LABOUR",,-57.3,"Con","Lab",72.9,15.7,7.7,3.7,551,
+"Kingswinford and South Staffordshire","NOT LABOUR",,-57.5,"Con","Lab",74.3,16.8,5.3,3.5,552,
+"North East Cambridgeshire","NOT LABOUR",,-57.8,"Con","Lab",73.9,16.0,6.7,3.4,553,
+"Weald of Kent","NOT LABOUR",,-57.9,"Con","Lab",72.0,14.1,10.1,3.9,554,
+"Maldon","NOT LABOUR",,-59.6,"Con","Lab",72.2,12.6,11.7,3.4,555,
+"Castle Point","NOT LABOUR",,-59.7,"Con","Lab",76.5,16.8,6.6,0.0,556,
+"Boston and Skegness","NOT LABOUR",,-60.9,"Con","Lab",76.4,15.6,4.8,0.0,557,
+"South Holland and the Deepings","NOT LABOUR",,-62.7,"Con","Lab",75.9,13.2,6.6,3.3,558,
+,,,,,,,,,,,
+"SCOTLAND ADVICE",,,,,,,,,,,
+"Boundary Comm name","Tactical Voting Advice",,"SNP-Lab","Win19","Second19","CON%","LAB%","LD%","SNP%",,
+"Edinburgh South","None",,-20.36,"Lab","SNP",16.8,46.2,8.19,25.86,,
+"Lothian East","None",,4.35,"SNP","Lab",27.5,30.5,6.29,34.8,,
+"Cowdenbeath and Kirkcaldy","None",,6.83,"SNP","Lab",22.2,29.5,6.46,36.32,,
+"Glasgow North East","None",,10.02,"SNP","Lab",11.0,37.7,3.4,47.75,,
+"Coatbridge and Bellshill","None",,11.08,"SNP","Lab",11.9,36.3,3,47.35,,
+"Airdrie and Shotts","None",,11.49,"SNP","Lab",17.3,33.1,3.57,44.6,,
+"Midlothian","None",,11.83,"SNP","Lab",21.7,29.7,7.04,41.54,,
+"Rutherglen","None",,11.95,"SNP","Lab",17.3,31.2,7.19,43.1,,
+"Glasgow South West","None",,12.86,"SNP","Lab",12.6,33.8,4.4,46.71,,
+"Glasgow North","None",,13.44,"SNP","Lab",8.8,34.1,5.19,47.56,,
+"Glasgow East","None",,15.24,"SNP","Lab",12.3,33.5,4.1,48.69,,
+"Hamilton and Clyde Valley","None",,16.36,"SNP","Lab",25.5,27.1,3.83,43.45,,
+"Na h-Eileanan an Iar","None",,16.84,"SNP","Lab",22.2,28.3,4.4,45.11,,
+"Motherwell, Wishaw and Carluke","None",,18.46,"SNP","Lab",21.2,27.5,3.96,45.94,,
+"Glasgow South","None",,18.85,"SNP","Lab",12.7,29.5,6.02,48.3,,
+"Inverclyde and Renfrewshire West","None",,19.28,"SNP","Lab",17.9,28.2,6.44,47.48,,
+"Glasgow West","None",,20.58,"SNP","Lab",15.4,28.0,7.52,48.59,,
+"Dunfermline and Dollar","None",,20.72,"SNP","Lab",21.5,23.6,8.44,44.3,,
+"West Dunbartonshire","None",,21.11,"SNP","Lab",14.2,28.6,4.18,49.69,,
+"Edinburgh North and Leith","None",,22.06,"SNP","Lab",17.6,21.7,12.51,43.79,,
+"Glenrothes and Mid Fife","SNP",,22.12,"SNP","Lab",15.3,27.4,4.44,49.48,,
+"Edinburgh East and Musselburgh","SNP",,22.57,"SNP","Lab",14.1,26.4,6.97,48.97,,
+"Paisley and Renfrewshire South","SNP",,23.92,"SNP","Lab",18.2,25.9,6.23,49.77,,
+"Bathgate and Linlithgow","SNP",,24.21,"SNP","Con",24.6,18.8,8.22,43.01,,
+"Edinburgh West","LIB DEM",,24.28,"LD","SNP",18.0,8.7,38.23,32.98,,
+"Cumbernauld and Kirkintilloch","SNP",,24.9,"SNP","Lab",15.0,27.1,5.58,52.03,,
+"Paisley and Renfrewshire North","SNP",,25.13,"SNP","Lab",19.5,23.7,7.57,48.86,,
+"Livingston","SNP",,25.22,"SNP","Lab",21.9,22.0,6.2,47.26,,
+"East Kilbride and Strathaven","SNP",,25.48,"SNP","Lab",21.4,21.6,6.88,47.04,,
+"Orkney and Shetland","LIB DEM",,27.31,"LD","SNP",9.9,6.7,44.82,34,,
+"Mid Dunbartonshire","LIB DEM",,28.45,"SNP","LD",15.6,9.4,34.49,37.88,,
+"Dumfriesshire, Clydesdale and Tweeddale","SNP",,29.64,"Con","SNP",46.5,8.3,7.3,37.94,,
+"Ayr, Carrick and Cumnock","SNP",,30.16,"SNP","Con",38.5,13.4,4.63,43.51,,
+"Dumfries and Galloway","SNP",,31.47,"Con","SNP",43.8,9.4,5.97,40.84,,
+"Kilmarnock and Loudoun","SNP",,31.93,"SNP","Con",24.3,18.9,5.13,50.84,,
+"Central Ayrshire","SNP",,32.03,"SNP","Con",34.8,14.2,4.91,46.17,,
+"East Renfrewshire","SNP",,32.56,"SNP","Con",35.1,12.4,7.54,44.94,,
+"Dundee Central","SNP",,32.63,"SNP","Lab",11.1,23.9,5.54,56.48,,
+"Edinburgh South West","SNP",,33.29,"SNP","Con",24.7,14.3,9.54,47.63,,
+"Caithness, Sutherland and Easter Ross","LIB DEM",,33.57,"SNP","LD",17.3,5.3,33.59,38.88,,
+"Berwickshire, Roxburgh and Selkirk","SNP",,34.03,"Con","SNP",48.5,4.7,8.07,38.76,,
+"North Ayrshire and Arran","SNP",,34.63,"SNP","Con",30.9,13.9,4.38,48.54,,
+"North East Fife","LIB DEM",,35.48,"SNP","LD",13.7,5.5,39.56,40.95,,
+"Gordon and Buchan","SNP",,35.69,"Con","SNP",46.0,3.5,11.35,39.19,,
+"Aberdeen South","SNP",,36.49,"SNP","Con",34.4,8.8,10.69,45.26,,
+"West Aberdeenshire and Kincardine","SNP",,36.51,"Con","SNP",42.7,4.6,11.72,41.07,,
+"Argyll, Bute and South Lochaber","SNP",,37.08,"SNP","Con",34.5,7.1,14.14,44.16,,
+"Alloa and Grangemouth","SNP",,38.17,"SNP","Con",24.8,14.5,5.31,52.67,,
+"Aberdeenshire North and Moray East","SNP",,38.92,"Con","SNP",48.3,4.2,4.42,43.09,,
+"Inverness, Skye and West Ross-shire","SNP",,39.28,"SNP","Con",23.3,9.4,15.12,48.67,,
+"Falkirk","SNP",,39.68,"SNP","Con",25.9,12.1,6.78,51.75,,
+"Perth and Kinross-shire","SNP",,40.27,"SNP","Con",41.1,5.0,7.98,45.25,,
+"Arbroath and Broughty Ferry","SNP",,40.73,"SNP","Con",30.3,10.2,8,50.94,,
+"Aberdeen North","SNP",,40.92,"SNP","Con",24.6,12.0,7.73,52.9,,
+"Moray West, Nairn and Strathspey","SNP",,41.47,"SNP","Con",40.9,4.6,5.88,46.1,,
+"Stirling and Strathallan","SNP",,42.18,"SNP","Con",35.0,7.7,5.85,49.83,,
+"Angus and Perthshire Glens","SNP",,46.17,"SNP","Con",39.8,4.3,4.96,50.42,,
