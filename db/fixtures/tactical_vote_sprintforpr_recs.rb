@@ -39,7 +39,7 @@ class TacticalVoteSprintforprRecs
         acceptable = !rec.text.nil?
       else
         rec.text = source_advice
-        party_short_code = rec.party_short_code_from_text
+        party_short_code = source_advice ? rec.party_short_code_from_text : nil
         acceptable = !party_short_code.nil?
       end
 

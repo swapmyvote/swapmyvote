@@ -8,7 +8,7 @@ class TacticalVoteSprintforprCsv
 
   FILE_NAME = "db/fixtures/tactical_vote_sprintforpr.csv"
 
-  NAME_KEY = "Boundary Comm name"
+  NAME_KEY = "Constituency Name"
   ADVICE_KEY = "Tactical Voting Advice"
 
   REQUIRED_INPUT_KEYS = [ NAME_KEY , ADVICE_KEY ]
