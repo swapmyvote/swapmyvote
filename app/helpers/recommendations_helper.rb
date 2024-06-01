@@ -12,14 +12,15 @@ module RecommendationsHelper
 
   def recommendations_sites
     {
-      "get-voting" => { order: 1 },
-      "peoples-vote" => { order: 2 },
-      "remain-united" => { order: 3 },
-      "tacticalvote-co-uk" => { order: 4 },
-      "tactical-vote" => { order: 5 },
-      "avaaz-votesmart" => { order: 6 },
-      "one-uk" => { order: 7 },
-      "unite-2-leave" => { order: 8 }
+      "stop-the-tories" => { order: 1 },
+      "get-voting" => { order: 91 },
+      "peoples-vote" => { order: 92 },
+      "remain-united" => { order: 93 },
+      "tacticalvote-co-uk" => { order: 94 },
+      "tactical-vote" => { order: 95 },
+      "avaaz-votesmart" => { order: 96 },
+      "one-uk" => { order: 97 },
+      "unite-2-leave" => { order: 98 }
     }
   end
 end

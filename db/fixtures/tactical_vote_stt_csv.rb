@@ -17,7 +17,7 @@ class TacticalVoteCsv
   def initialize
     @file_name = FILE_NAME
     @link = "https://stopthetories.vote/"
-    @site = "StopTheTories"
+    @site = "stop-the-tories"
   end
 
   def data
