@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       return edit_user_path
     end
 
-    return edit_user_path if !@user.valid?
+    return edit_user_path unless @user.valid?
 
     # Otherwise, return to the user path - user will see a verification prompt if needed
     user_path
