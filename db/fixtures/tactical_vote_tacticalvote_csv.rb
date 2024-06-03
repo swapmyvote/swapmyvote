@@ -1,0 +1,39 @@
+# This encapsulates access to the tactical voting recommendations from tactical.vote
+# updates can be obtained by cut and paste https://tactical.vote/all/ into a spreadsheet
+
+require("csv")
+
+class TacticalVoteTacticalVoteCsv
+  attr_reader :file_name, :link, :site
+
+  FILE_NAME = "db/fixtures/tactical_vote_tacticalvote.csv"
+
+  NAME_KEY = "Constituency Name"
+  ADVICE_KEY = "Tactical Voting Advice"
+
+  REQUIRED_INPUT_KEYS = [ NAME_KEY , ADVICE_KEY ]
+
+  def initialize
+    @file_name = FILE_NAME
+    @link = "https://tactical.vote/all/"
+    @site = "tactical-vote"
+  end
+
+  def data
+    return @data if defined?(@data)
+
+    @data = []
+
+    CSV.foreach(FILE_NAME, headers: false, col_sep: ",") do |line|
+
+      line_transformed = {
+        constituency_name: line[0],
+        advice: line[1]
+      }
+
+      data << line_transformed
+    end
+
+    return @data
+  end
+end
