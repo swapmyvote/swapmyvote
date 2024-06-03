@@ -25,7 +25,6 @@ class TacticalVoteTacticalVoteCsv
     @data = []
 
     CSV.foreach(FILE_NAME, headers: false, col_sep: ",") do |line|
-
       line_transformed = {
         constituency_name: line[0],
         advice: line[1]
