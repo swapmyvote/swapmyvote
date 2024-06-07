@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_07_094541) do
+ActiveRecord::Schema.define(version: 2024_06_07_131441) do
 
   create_table "identities", force: :cascade do |t|
     t.integer "user_id"
@@ -79,6 +79,18 @@ ActiveRecord::Schema.define(version: 2024_06_07_094541) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site", "constituency_ons_id"], name: "index_recommendations_on_site_and_constituency_ons_id", unique: true
+  end
+
+  create_table "recommended_parties", force: :cascade do |t|
+    t.string "text"
+    t.string "link"
+    t.string "site", null: false
+    t.string "constituency_ons_id", null: false
+    t.integer "party_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["constituency_ons_id", "party_id", "site"], name: "index_recommended_parties_on_site_and_constituency_and_party", unique: true
+    t.index ["party_id"], name: "index_recommended_parties_on_party_id"
   end
 
   create_table "sent_emails", force: :cascade do |t|
