@@ -38,10 +38,10 @@ RSpec.describe Recommendation, type: :model do
   end
 
   describe "#party_style_from_text" do
-    Party.short_codes.each do |short_code|
-      describe "for party \"#{short_code.titlecase}\"" do
-        specify { expect(described_class.new(text: short_code).party_style_from_text).not_to be_nil }
-        specify { expect(described_class.new(text: short_code).party_style_from_text).not_to eq("") }
+    Party.smv_codes.each do |smv_code|
+      describe "for party \"#{smv_code.titlecase}\"" do
+        specify { expect(described_class.new(text: smv_code).party_style_from_text).not_to be_nil }
+        specify { expect(described_class.new(text: smv_code).party_style_from_text).not_to eq("") }
       end
     end
 

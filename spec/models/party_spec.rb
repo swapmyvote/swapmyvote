@@ -22,7 +22,7 @@ RSpec.describe Party, type: :model do
     end
   end
 
-  describe ".short_codes" do
+  describe ".smv_codes" do
     %w[
       con
       lab
@@ -34,7 +34,7 @@ RSpec.describe Party, type: :model do
       plaid
     ].each do |short_code|
       it "includes #{short_code.inspect} used in mapping polls info" do
-        expect(described_class.short_codes).to include(short_code)
+        expect(described_class.smv_codes).to include(short_code)
       end
     end
   end

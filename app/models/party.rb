@@ -26,8 +26,8 @@ class Party < ApplicationRecord
       master_list.map { |p| p[:canonical_name].to_s }
     end
 
-    def short_codes
-      master_list.map { |p| p[:short_code].to_s }
+    def smv_codes
+      master_list.map { |p| p[:smv_code].to_s }
     end
 
     def names
@@ -35,10 +35,10 @@ class Party < ApplicationRecord
     end
 
     def master_list
-      REFERENCE_DATA.map do |(short_code, attributes)|
+      REFERENCE_DATA.map do |(smv_code, attributes)|
         attributes.merge(
           canonical_name: attributes[:name].parameterize(separator: "_").to_sym,
-          short_code: short_code
+          smv_code: smv_code
         )
       end
     end
