@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_09_052323) do
+ActiveRecord::Schema.define(version: 2024_06_07_094541) do
 
   create_table "identities", force: :cascade do |t|
     t.integer "user_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2022_06_09_052323) do
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "smv_code"
   end
 
   create_table "polls", force: :cascade do |t|
