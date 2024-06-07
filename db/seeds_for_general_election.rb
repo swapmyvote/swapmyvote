@@ -24,6 +24,13 @@ parties_for_ge.each do |party_attributes|
   puts party_attributes.slice(:name, :smv_code)
 end
 
+unique_smv_codes = Party.all.each_with_object(Set.new) { |p, set| set.add(p.smv_code) }
+if Party.count > unique_smv_codes.count
+  puts "Party SMV codes are not unique"
+  puts "Party SMV Codes #{Party.all.pluck(:name, :smv_code)}"
+  exit(1)
+end
+
 # ---------------------------------------------------------------------------------
 
 puts "\n\nONS Constituencies"
