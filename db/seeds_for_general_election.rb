@@ -14,17 +14,19 @@ require_relative "fixtures/tactical_vote_stt_recs"
 require_relative "fixtures/tactical_vote_sprintforpr_recs"
 require_relative "fixtures/tactical_vote_tacticalvote_recs"
 
-Party.find_or_create_by(name: "Conservatives", color: "#0087DC")
-Party.find_or_create_by(name: "Green", color: "#6AB023")
-Party.find_or_create_by(name: "Labour", color: "#DC241f")
-Party.find_or_create_by(name: "Liberal Democrats", color: "#FFB602")
-Party.find_or_create_by(name: "SNP", color: "#FFF95D")
-Party.find_or_create_by(name: "Plaid Cymru", color: "#008142")
-Party.find_or_create_by(name: "Reform", color: "#5bc0de")
+puts "\n\nParties selected for GE"
+
+parties_for_ge = Party.master_list.select { |p| p[:ge_default] }
+
+parties_for_ge.each do |party_attributes|
+  party = Party.find_or_initialize_by(name: party_attributes[:name])
+  party.update!(party_attributes.slice(:smv_code, :colour))
+  puts party_attributes.slice(:name, :smv_code)
+end
 
 # ---------------------------------------------------------------------------------
 
-puts "\nONS Constituencies"
+puts "\n\nONS Constituencies"
 
 constituencies_csv = MysocietyConstituenciesCsv.new
 
