@@ -42,10 +42,6 @@ class Recommendation < ApplicationRecord
     return party_attributes_from_text[:style]
   end
 
-  def party_short_name_from_text
-    return party_attributes_from_text[:short_name] || text
-  end
-
   private def party_attributes_from_text
     short_code = party_short_code_from_text
     return LFB_REFERENCE_DATA[short_code] || { style: LFB_DEFAULT_STYLE }
