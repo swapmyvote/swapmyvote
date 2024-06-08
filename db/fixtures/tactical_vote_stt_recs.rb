@@ -70,7 +70,7 @@ class TacticalVoteSttRecs
       # ------------------------------------------------------------------------
 
       rec.link = advisor.link
-      rec.save
+      rec.save!
       print "." # to signify update
     end
 

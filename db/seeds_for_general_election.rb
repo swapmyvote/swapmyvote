@@ -70,6 +70,15 @@ puts "\n\nLoading Recommendations from tactical.vote"
 
 TacticalVoteTacticalVoteRecs.new.load
 
+r_c_count = Recommendation.left_joins(:constituency).where(ons_constituencies: { ons_id: nil }).count
+puts "There are #{r_c_count} Recommendation records with no matching OnsConstituency" unless r_c_count.zero?
+
+rp_p_count = RecommendedParty.left_joins(:party).where(parties: { id: nil }).count
+puts "There are #{rp_p_count} RecommendationParty records with no matching Party" unless rp_p_count.zero?
+
+rp_c_count = RecommendedParty.left_joins(:constituency).where(ons_constituencies: { ons_id: nil }).count
+puts "There are #{rp_c_count} RecommendationParty records with no matching OnsConstituency" unless rp_c_count.zero?
+
 # ---------------------------------------------------------------------------------
 
 puts "\n\nCalculate Marginal Score\n\n"
