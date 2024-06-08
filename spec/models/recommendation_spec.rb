@@ -11,19 +11,19 @@ RSpec.describe Recommendation, type: :model do
 
   describe "with real names from the livefrombrexit json" do
     {
-      "LibDem"        => { short_code: "libdem", short_name: "LD" },
-      "Lib Dem"       => { short_code: "libdem", short_name: "LD" },
-      "Lib Dems"      => { short_code: "libdem", short_name: "LD" },
-      "LD"            => { short_code: "libdem", short_name: "LD" },
-      "Labour"        => { short_code: "lab", short_name: "Lab" },
-      "Green Party"   => { short_code: "green", short_name: "Green" },
-      "Conservatives" => { short_code: "con", short_name: "Con" },
-      "UKIP"          => { short_code: "ukip", short_name: "UKIP" },
-      "SNP"           => { short_code: "snp", short_name: "SNP" },
-      "Plaid Cymru"   => { short_code: "plaid", short_name: "Plaid" },
-      "PC"            => { short_code: "plaid", short_name: "Plaid" },
-      "Brexit"        => { short_code: "brexit", short_name: "BXP" },
-      "BXP"           => { short_code: "brexit", short_name: "BXP" },
+      "LibDem"        => { short_code: "libdem" },
+      "Lib Dem"       => { short_code: "libdem" },
+      "Lib Dems"      => { short_code: "libdem" },
+      "LD"            => { short_code: "libdem" },
+      "Labour"        => { short_code: "lab" },
+      "Green Party"   => { short_code: "green" },
+      "Conservatives" => { short_code: "con" },
+      "UKIP"          => { short_code: "ukip" },
+      "SNP"           => { short_code: "snp" },
+      "Plaid Cymru"   => { short_code: "plaid" },
+      "PC"            => { short_code: "plaid" },
+      "Brexit"        => { short_code: "brexit" },
+      "BXP"           => { short_code: "brexit" },
       "random string" => { short_name: "random string" }
     }.each do |(text, expected_value)|
       context "when text is #{text.inspect} " do
@@ -33,22 +33,15 @@ RSpec.describe Recommendation, type: :model do
               .to eq(expected_value[:short_code]&.to_sym)
           end
         end
-
-        describe "#party_short_name_from_text" do
-          specify do
-            expect(described_class.new(text: text).party_short_name_from_text)
-              .to eq(expected_value[:short_name])
-          end
-        end
       end
     end
   end
 
   describe "#party_style_from_text" do
-    Party.short_codes.each do |short_code|
-      describe "for party \"#{short_code.titlecase}\"" do
-        specify { expect(described_class.new(text: short_code).party_style_from_text).not_to be_nil }
-        specify { expect(described_class.new(text: short_code).party_style_from_text).not_to eq("") }
+    Party.smv_codes.each do |smv_code|
+      describe "for party \"#{smv_code.titlecase}\"" do
+        specify { expect(described_class.new(text: smv_code).party_style_from_text).not_to be_nil }
+        specify { expect(described_class.new(text: smv_code).party_style_from_text).not_to eq("") }
       end
     end
 

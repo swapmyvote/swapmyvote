@@ -42,8 +42,23 @@ class Recommendation < ApplicationRecord
     return party_attributes_from_text[:style]
   end
 
-  def party_short_name_from_text
-    return party_attributes_from_text[:short_name] || text
+  def update_parties(parties)
+    rec_key = { constituency_ons_id: constituency_ons_id, site: site }
+
+    party_ids = parties.select{ |p| p.standing_in(constituency_ons_id) }.map(&:id)
+
+    party_ids.each do |party_id|
+      rec_party = RecommendedParty.find_or_initialize_by(rec_key.merge({ party_id: party_id }))
+      rec_party.link = link
+      rec_party.text = text
+      rec_party.save!
+      print "!" # to signify update with heart/any
+    end
+
+    RecommendedParty.where(rec_key).where.not(party_id: party_ids).all.find_each do |party|
+      party.delete
+      print "*" # to signify remove with heart/any
+    end
   end
 
   private def party_attributes_from_text

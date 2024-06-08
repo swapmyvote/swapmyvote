@@ -5,8 +5,14 @@ require_relative "tactical_vote_sprintforpr_csv"
 require_relative "mysociety_constituencies_csv"
 
 class TacticalVoteSprintforprRecs
-  ACCEPTABLE_NON_PARTY_ADVICE = ["NOT LABOUR"]
-  ADVICE_TRANSLATION = { "NOT LABOUR" => "NOT Lab" }
+  ACCEPTABLE_NON_PARTY_ADVICE = [:not_labour]
+  SMV_CODES_BY_ADVICE_TEXT = {
+    lib_dem: :libdem,
+    labour: :lab,
+    plaid: :plaid,
+    green: :green,
+    snp: :snp
+  }
 
   attr_reader :advisor, :mysoc_constituencies
 
@@ -23,44 +29,56 @@ class TacticalVoteSprintforprRecs
       ons_id_by_mysoc_name[constituency[:name]] = constituency[:ons_id]
     end
 
+    parties_by_smv_code = Party.all.each_with_object({}) do |party, lookup|
+      lookup[party.smv_code.to_sym] = party
+    end
+
+    non_labour_parties = Party.all.select { |p| p.smv_code != "lab"}
+
     not_recognised = Set.new
 
     advisor.data.each do |row|
       ons_id = ons_id_by_mysoc_name[row[:constituency_name]]
-      rec_key = { constituency_ons_id: ons_id, site: advisor.site }
-      rec = Recommendation.find_or_initialize_by(rec_key)
 
-      source_advice = row[:advice]
-      advice_is_not_party = ACCEPTABLE_NON_PARTY_ADVICE.include?(source_advice)
-
-      if advice_is_not_party
-        rec.text = ADVICE_TRANSLATION[source_advice] || source_advice
-        party_short_code = nil
-        acceptable = !rec.text.nil?
-      else
-        rec.text = source_advice
-        party_short_code = source_advice ? rec.party_short_code_from_text : nil
-        acceptable = !party_short_code.nil?
+      unless ons_id
+        puts "\nIGNORING: Constituency lookup failed for #{row}."
+        next
       end
 
-      if rec.text == "" || !acceptable
-        # if it's not acceptable, or blank we must delete the existing entry
+      rec_key = { constituency_ons_id: ons_id, site: advisor.site }
+      rec = Recommendation.find_or_initialize_by(rec_key)
+      source_advice = row[:advice]
+
+      # ------------------------------------------------------------------------
+
+      canonical_advice = source_advice.strip.downcase.parameterize(separator: "_").to_sym
+      party_smv_code = SMV_CODES_BY_ADVICE_TEXT[canonical_advice]
+      non_party_advice = ACCEPTABLE_NON_PARTY_ADVICE.include?(canonical_advice) ? canonical_advice : nil
+
+      if party_smv_code && parties_by_smv_code[party_smv_code]
+        rec.text = party_smv_code.to_s.titleize
+        party = parties_by_smv_code[party_smv_code]
+        rec.update_parties([party])
+      elsif non_party_advice && non_party_advice == :not_labour
+        rec.text = "Not Lab"
+        rec.update_parties(non_labour_parties)
+      else
+        # if we can't turn it into a recommendation we must delete any existing entry
         unless rec.id.nil?
+          rec.update_parties([]) # keep none, delete the rest
           rec.delete
           print "X" # to signify delete
         end
 
-        not_recognised.add({ advice: source_advice }) if rec.text != "" && !acceptable
+        not_recognised.add({ advice: source_advice })
 
         next
       end
 
-      if party_short_code
-        rec.text = Recommendation::LFB_REFERENCE_DATA[party_short_code][:short_name]
-      end
+      # ------------------------------------------------------------------------
 
       rec.link = advisor.link
-      rec.save
+      rec.save!
       print "." # to signify update
     end
 

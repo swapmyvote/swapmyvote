@@ -22,7 +22,7 @@ RSpec.describe Party, type: :model do
     end
   end
 
-  describe ".short_codes" do
+  describe ".smv_codes" do
     %w[
       con
       lab
@@ -34,7 +34,7 @@ RSpec.describe Party, type: :model do
       plaid
     ].each do |short_code|
       it "includes #{short_code.inspect} used in mapping polls info" do
-        expect(described_class.short_codes).to include(short_code)
+        expect(described_class.smv_codes).to include(short_code)
       end
     end
   end
@@ -52,6 +52,68 @@ RSpec.describe Party, type: :model do
     ].each do |name|
       it "includes #{name.inspect} used in seeds scripts" do
         expect(described_class.names).to include(name)
+      end
+    end
+  end
+
+  describe "#standing_in" do
+    context "Plaid" do
+      subject { described_class.new(smv_code: :plaid) }
+
+      it "returns true for welsh constituency" do
+        expect(subject.standing_in("Wzzzzz")).to be_truthy
+      end
+
+      it "returns false for english constituency" do
+        expect(subject.standing_in("Ezzzzz")).to be_falsy
+      end
+
+      it "returns false for scottish constituency" do
+        expect(subject.standing_in("Szzzzz")).to be_falsy
+      end
+
+      it "returns false for NI constituency" do
+        expect(subject.standing_in("Nzzzzz")).to be_falsy
+      end
+    end
+
+    context "SNP" do
+      subject { described_class.new(smv_code: :snp) }
+
+      it "returns false for welsh constituency" do
+        expect(subject.standing_in("Wzzzzz")).to be_falsy
+      end
+
+      it "returns false for english constituency" do
+        expect(subject.standing_in("Ezzzzz")).to be_falsy
+      end
+
+      it "returns true for scottish constituency" do
+        expect(subject.standing_in("Szzzzz")).to be_truthy
+      end
+
+      it "returns false for NI constituency" do
+        expect(subject.standing_in("Nzzzzz")).to be_falsy
+      end
+    end
+
+    context "some other party" do
+      subject { described_class.new(smv_code: :elephants_are_super) }
+
+      it "returns true for welsh constituency" do
+        expect(subject.standing_in("Wzzzzz")).to be_truthy
+      end
+
+      it "returns true for english constituency" do
+        expect(subject.standing_in("Ezzzzz")).to be_truthy
+      end
+
+      it "returns true for scottish constituency" do
+        expect(subject.standing_in("Szzzzz")).to be_truthy
+      end
+
+      it "returns true for NI constituency" do
+        expect(subject.standing_in("Nzzzzz")).to be_truthy
       end
     end
   end

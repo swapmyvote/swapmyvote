@@ -7,8 +7,12 @@ require_relative("mysociety_constituencies_csv")
 class TacticalVoteSttRecs
   attr_reader :advisor, :mysoc_constituencies
 
-  ACCEPTABLE_NON_PARTY_ADVICE = ["Heart"]
-  ADVICE_TRANSLATION = { "Heart" => "Any" }
+  ACCEPTABLE_NON_PARTY_ADVICE = [:heart, :none]
+  SMV_CODES_BY_ADVICE_TEXT = {
+    lab: :lab,
+    snp: :snp,
+    ld: :libdem
+  }
 
   def initialize
     @advisor = TacticalVoteCsv.new
@@ -23,41 +27,50 @@ class TacticalVoteSttRecs
       ons_id_by_mysoc_short_code[constituency[:short_code]] = constituency[:ons_id]
     end
 
+    parties_by_smv_code = Party.all.each_with_object({}) do |party, lookup|
+      lookup[party.smv_code.to_sym] = party
+    end
+
+    non_tory_parties = Party.all.select { |p| p.smv_code != "con"}
+
     not_recognised = Set.new
 
     advisor.data.each do |row|
       ons_id = ons_id_by_mysoc_short_code[row[:mysoc_short_code]]
       rec_key = { constituency_ons_id: ons_id, site: advisor.site }
       rec = Recommendation.find_or_initialize_by(rec_key)
-
       source_advice = row[:advice]
-      advice_is_not_party = ACCEPTABLE_NON_PARTY_ADVICE.include?(source_advice)
 
-      if advice_is_not_party
-        rec.text = ADVICE_TRANSLATION[source_advice] || source_advice
-        # rubocop:disable Lint/UselessAssignment
-        party_short_code = nil
-        acceptable = !rec.text.nil?
+      # ------------------------------------------------------------------------
+
+      canonical_advice = source_advice.downcase.parameterize(separator: "_").to_sym
+      party_smv_code = SMV_CODES_BY_ADVICE_TEXT[canonical_advice]
+      non_party_advice = ACCEPTABLE_NON_PARTY_ADVICE.include?(canonical_advice) ? canonical_advice : nil
+
+      if party_smv_code && parties_by_smv_code[party_smv_code]
+        rec.text = party_smv_code.to_s.titleize
+        party = parties_by_smv_code[party_smv_code]
+        rec.update_parties([party])
+      elsif non_party_advice && non_party_advice == :heart
+        rec.text = "Any"
+        rec.update_parties(non_tory_parties)
       else
-        rec.text = source_advice
-        party_short_code = rec.party_short_code_from_text
-        acceptable = !party_short_code.nil?
-      end
-
-      if rec.text == "" || !acceptable
-        # if it's not acceptable, or blank we must delete the existing entry
+        # if we can't turn it into a recommendation we must delete any existing entry
         unless rec.id.nil?
+          rec.update_parties([]) # keep none, delete the rest
           rec.delete
           print "X" # to signify delete
         end
 
-        not_recognised.add({ advice: source_advice }) if rec.text != "" && !acceptable
+        not_recognised.add({ advice: source_advice })
 
         next
       end
 
+      # ------------------------------------------------------------------------
+
       rec.link = advisor.link
-      rec.save
+      rec.save!
       print "." # to signify update
     end
 
