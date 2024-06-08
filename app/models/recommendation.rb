@@ -42,6 +42,23 @@ class Recommendation < ApplicationRecord
     return party_attributes_from_text[:style]
   end
 
+  def update_parties(party_ids)
+    rec_key = { constituency_ons_id: constituency_ons_id, site: site }
+
+    party_ids.each do |party_id|
+      rec_party = RecommendedParty.find_or_initialize_by(rec_key.merge({ party_id: party_id }))
+      rec_party.link = link
+      rec_party.text = text
+      rec_party.save!
+      print "!" # to signify update with heart/any
+    end
+
+    RecommendedParty.where(rec_key).where.not(party_id: party_ids).all.find_each do |party|
+      party.delete
+      print "*" # to signify remove with heart/any
+    end
+  end
+
   private def party_attributes_from_text
     short_code = party_short_code_from_text
     return LFB_REFERENCE_DATA[short_code] || { style: LFB_DEFAULT_STYLE }

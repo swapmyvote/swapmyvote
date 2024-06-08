@@ -8,7 +8,7 @@ class TacticalVoteSttRecs
   attr_reader :advisor, :mysoc_constituencies
 
   ACCEPTABLE_NON_PARTY_ADVICE = [:heart, :none]
-  SMV_CODES_BY_RECOMMENDATION_TEXT = {
+  SMV_CODES_BY_ADVICE_TEXT = {
     lab: :lab,
     snp: :snp,
     ld: :libdem
@@ -39,44 +39,30 @@ class TacticalVoteSttRecs
       ons_id = ons_id_by_mysoc_short_code[row[:mysoc_short_code]]
       rec_key = { constituency_ons_id: ons_id, site: advisor.site }
       rec = Recommendation.find_or_initialize_by(rec_key)
-
       source_advice = row[:advice]
 
       # ------------------------------------------------------------------------
 
       canonical_advice = source_advice.downcase.parameterize(separator: "_").to_sym
-      party_smv_code = SMV_CODES_BY_RECOMMENDATION_TEXT[canonical_advice]
-      non_party_advice = if party_smv_code.nil?
-                           ACCEPTABLE_NON_PARTY_ADVICE.include?(canonical_advice) ? canonical_advice : nil
-                          else
-                            nil
-                          end
+      party_smv_code = SMV_CODES_BY_ADVICE_TEXT[canonical_advice]
+      non_party_advice = ACCEPTABLE_NON_PARTY_ADVICE.include?(canonical_advice) ? canonical_advice : nil
 
       if party_smv_code && parties_by_smv_code[party_smv_code]
         rec.text = party_smv_code.to_s.titleize
         party = parties_by_smv_code[party_smv_code]
-        rec_party = RecommendedParty.find_or_initialize_by(rec_key.merge({ party_id: party.id }))
-        rec_party.link = advisor.link
-        rec_party.text = rec.text
-        rec_party.save!
+        rec.update_parties( [party.id] )
       elsif non_party_advice && non_party_advice == :heart
         rec.text = "Any"
-
-        non_tory_parties.each do |party|
-          rec_party = RecommendedParty.find_or_initialize_by(rec_key.merge({ party_id: party.id }))
-          rec_party.link = advisor.link
-          rec_party.text = rec.text
-          rec_party.save!
-          print "!" # to signify update with heart/any
-        end
+        rec.update_parties( non_tory_parties.map(&:id) )
       else
-        # if it's not acceptable, or blank we must delete the existing entry
+        # if we can't turn it into a recommendation we must delete any existing entry
         unless rec.id.nil?
+          rec.update_parties( [] ) # keep none, delete the rest
           rec.delete
           print "X" # to signify delete
         end
 
-        not_recognised.add({ advice: source_advice }) unless non_party_advice == :none
+        not_recognised.add({ advice: source_advice })
 
         next
       end
