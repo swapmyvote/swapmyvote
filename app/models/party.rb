@@ -26,10 +26,10 @@ class Party < ApplicationRecord
 
   def standing_in(ons_id)
     if smv_code.to_sym == :plaid
-      return ons_id[0] == 'W'
+      return ons_id[0] == "W"
     end
     if smv_code.to_sym == :snp
-      return ons_id[0] == 'S'
+      return ons_id[0] == "S"
     end
     return true
   end
