@@ -24,6 +24,16 @@ class Party < ApplicationRecord
     yorkshire: { name: "Yorkshire" },
   }
 
+  def standing_in(ons_id)
+    if smv_code.to_sym == :plaid
+      return ons_id[0] == 'W'
+    end
+    if smv_code.to_sym == :snp
+      return ons_id[0] == 'S'
+    end
+    return true
+  end
+
   class << self
     def canonical_names
       master_list.map { |p| p[:canonical_name].to_s }
