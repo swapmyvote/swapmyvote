@@ -10,6 +10,13 @@ class OnsConstituency < ApplicationRecord
            foreign_key: "constituency_ons_id",
            dependent: :destroy
 
+  has_many :recommended_parties,
+           inverse_of: :constituency,
+           source: :recommended_party,
+           primary_key: "ons_id",
+           foreign_key: "constituency_ons_id",
+           dependent: :destroy
+
   def parties_by_marginal_score
     polls.order(:marginal_score).map(&:party)
   end
