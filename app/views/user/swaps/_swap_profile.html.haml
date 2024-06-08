@@ -19,3 +19,11 @@
       .recommendations-header
         Tactical Recommendations
       = render :partial => 'recommendations/recommendation', :collection => recommendations
+  - party_recommendations = party_recommendations_for(other_user.constituency, other_user.willing_party)
+  - if party_recommendations.size > 0
+    %h6.text-center.mt-2
+      Does this help your vote count ? (2)
+    .profile-recommendations.text-center.smv-card
+      .recommendations-header
+        Tactical Recommendations (2)
+      = render :partial => 'recommendations/party_recommendation', :collection => party_recommendations

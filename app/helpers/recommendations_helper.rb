@@ -10,6 +10,14 @@ module RecommendationsHelper
     return data
   end
 
+  def party_recommendations_for(constituency, party)
+    data = []
+    RecommendedParty.where(party_id: party.id, constituency_ons_id: constituency.ons_id).each do |recommendation|
+      data.push recommendation
+    end
+    return data
+  end
+
   def recommendations_sites
     {
       "stop-the-tories" => { order: 1 },
