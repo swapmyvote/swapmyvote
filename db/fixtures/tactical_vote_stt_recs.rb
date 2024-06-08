@@ -50,14 +50,14 @@ class TacticalVoteSttRecs
       if party_smv_code && parties_by_smv_code[party_smv_code]
         rec.text = party_smv_code.to_s.titleize
         party = parties_by_smv_code[party_smv_code]
-        rec.update_parties( [party.id] )
+        rec.update_parties([party])
       elsif non_party_advice && non_party_advice == :heart
         rec.text = "Any"
-        rec.update_parties( non_tory_parties.map(&:id) )
+        rec.update_parties(non_tory_parties)
       else
         # if we can't turn it into a recommendation we must delete any existing entry
         unless rec.id.nil?
-          rec.update_parties( [] ) # keep none, delete the rest
+          rec.update_parties([]) # keep none, delete the rest
           rec.delete
           print "X" # to signify delete
         end

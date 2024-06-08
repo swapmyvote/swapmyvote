@@ -42,8 +42,10 @@ class Recommendation < ApplicationRecord
     return party_attributes_from_text[:style]
   end
 
-  def update_parties(party_ids)
+  def update_parties(parties)
     rec_key = { constituency_ons_id: constituency_ons_id, site: site }
+
+    party_ids = parties.select{ |p| p.standing_in(constituency_ons_id) }.map(&:id)
 
     party_ids.each do |party_id|
       rec_party = RecommendedParty.find_or_initialize_by(rec_key.merge({ party_id: party_id }))
