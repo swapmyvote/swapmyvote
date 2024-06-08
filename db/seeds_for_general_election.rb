@@ -12,6 +12,7 @@ require_relative "fixtures/mysociety_constituencies_csv"
 require_relative "fixtures/electoral_calculus_polls"
 require_relative "fixtures/tactical_vote_stt_recs"
 require_relative "fixtures/tactical_vote_sprintforpr_recs"
+require_relative "fixtures/tactical_vote_tacticalvote_recs"
 
 Party.find_or_create_by(name: "Conservatives", color: "#0087DC")
 Party.find_or_create_by(name: "Green", color: "#6AB023")
@@ -55,6 +56,10 @@ TacticalVoteSttRecs.new.load
 puts "\n\nLoading Recommendations from SprintForPr"
 
 TacticalVoteSprintforprRecs.new.load
+
+puts "\n\nLoading Recommendations from tactical.vote"
+
+TacticalVoteTacticalVoteRecs.new.load
 
 # ---------------------------------------------------------------------------------
 
