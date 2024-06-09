@@ -25,5 +25,6 @@
       Does this help your vote count ? (2)
     .profile-recommendations.text-center.smv-card
       .recommendations-header
-        Tactical Recommendations (2)
+        Recommendations for
+        = other_user.constituency.name
       = render :partial => 'recommendations/party_recommendation', :collection => party_recommendations
