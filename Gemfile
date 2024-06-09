@@ -13,6 +13,7 @@ gem "coffee-rails"
 # gem 'therubyracer', platforms: :ruby
 
 gem "bootsnap", require: false
+gem "net-http"
 
 # Use jquery as the JavaScript library
 gem "jquery-rails"

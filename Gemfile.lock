@@ -227,6 +227,8 @@ GEM
     msgpack (1.7.2)
     multi_xml (0.6.0)
     nenv (0.3.0)
+    net-http (0.4.1)
+      uri
     net-imap (0.4.12)
       date
       net-protocol
@@ -442,6 +444,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     unicode-display_width (2.5.0)
     unicode_utils (1.4.0)
+    uri (0.13.0)
     version_gem (1.1.4)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -495,6 +498,7 @@ DEPENDENCIES
   json
   listen
   messagebird-rest
+  net-http
   normalize-rails
   omniauth-facebook
   omniauth-rails_csrf_protection (~> 0.1)
