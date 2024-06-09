@@ -68,11 +68,24 @@ installed.
 
         bundle exec rake db:setup
 
+-   environment variables
+
+    You will need to be aware  of two environment variables.
+
+    * ELECTION_DATE needs to be set permanently to the date of the election in format YYYY-MM-DD. This has an impact on your local site
+    * ELECTION_TYPE should preferably be set permanently to 'general' or 'g'. It's possible to omit this step, but the database will be queried more often if it is not set. It may also need to be set for rake db:seed to run correctly for a by-election.
+
+-   Seed the database
+
+    Put some default content into your database
+
+        ELECTION_TYPE=(g or b) bundle exec rake db:seed
+
 -   Run the application:
 
         # Ensure binding to localhost even if $HOST is set, so that
         # the URL is accepted by the facebook development app
-        bundle exec rails server -b localhost
+        ELECTION_DATE=YY-MM-DD bundle exec rails server -b localhost
 
 -   Open your browser to http://localhost:3000.
 
@@ -80,6 +93,18 @@ installed.
     style linting:
 
         bundle exec guard
+
+-   Database migrations
+
+    When you pull from swapmyvotemaster and database migrations (files  in db/migrations) are included you'll need to run
+
+        bundle exec rake db:migrate
+
+    And for tests to keep running successful you'll also need to run
+
+        bundle exec RAILS_ENV=test rake db:migrate
+
+    The test database should be empty, do not run the seeds task against it, some tests will fail.
 
 Note that in the development environment, emails are not sent but instead written
 as files in the `tmp/mails/` subdirectory.
