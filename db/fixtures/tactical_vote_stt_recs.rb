@@ -39,6 +39,7 @@ class TacticalVoteSttRecs
       ons_id = ons_id_by_mysoc_short_code[row[:mysoc_short_code]]
       rec_key = { constituency_ons_id: ons_id, site: advisor.site }
       rec = Recommendation.find_or_initialize_by(rec_key)
+      rec.link = advisor.link
       source_advice = row[:advice]
 
       # ------------------------------------------------------------------------
@@ -69,7 +70,6 @@ class TacticalVoteSttRecs
 
       # ------------------------------------------------------------------------
 
-      rec.link = advisor.link
       rec.save!
       print "." # to signify update
     end
