@@ -1,7 +1,6 @@
 require_relative "../../../db/fixtures/be2022_yaml"
 
 RSpec.describe Db::Fixtures::Be2022Yaml do
-  # rubocop:disable RSpec/IteratedExpectation
   # rubocop's recommendation doesn't improve the code in this instance and it worsens the spec output
 
   subject { described_class.data }
