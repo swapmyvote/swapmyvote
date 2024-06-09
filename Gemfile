@@ -88,7 +88,7 @@ group :development, :test do
   gem "sqlite3"
 
   # add rspec
-  gem "rspec-rails", "~> 3.8"
+  gem "rspec-rails", "~> 4.0"
   gem "capybara"
   gem "database_cleaner"
   gem "rspec-snapshot"
