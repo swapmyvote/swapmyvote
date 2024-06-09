@@ -1,9 +1,15 @@
 %p{ class: "party-recommendation #{party_recommendation.last.site}" }
-  - if party_recommendation.first == :good
-    &#x2705 Good Swap -
+  - if party_recommendation.first != :unknown
+    - if party_recommendation.first == :good
+      &#x2705 Good Swap -
+    - else
+      &#x274C Bad Swap -
+    = link_to URI.parse(party_recommendation.last.link).host, party_recommendation.last.link
+    recommend
+    = party_recommendation.last.text
   - else
-    &#x274C Bad Swap -
-  = link_to URI.parse(party_recommendation.last.link).host, party_recommendation.last.link
-  recommend
-  = party_recommendation.last.text
+    &#x1F937 unknown -
+    = party_recommendation.last.site
+    has no recommendation
+
 

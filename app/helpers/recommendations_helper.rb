@@ -18,19 +18,29 @@ module RecommendationsHelper
     return data
   end
 
-  def full_party_recommendations_for(constituency, party)
+  # rubocop:disable Metrics/MethodLength
+  def fullest_recommendations_for(constituency, party)
     rec_party_results = party_recommendations_for(constituency, party)
-
     rec_party_lookup = rec_party_results.each_with_object({}) do |rec, hash|
       hash[rec.site] = rec
     end
 
-    recommendations_for(constituency).each_with_object([]) do |rec, array|
-      rec_party = rec_party_lookup[rec.site]
+    rec_results = recommendations_for(constituency)
+    rec_lookup = rec_results.each_with_object({}) do |rec, hash|
+      hash[rec.site] = rec
+    end
+
+    recommendations_sites
+        .sort { |(_k1, v1), (_k2, v2)| v1[:order] <=> v2[:order] }
+        .each_with_object([]) do |(site, _attr), array|
+      rec_party = rec_party_lookup[site]
+      rec = rec_lookup[site]
       if rec_party
-        array.push([:good, rec_party])
+        array.push([:good, rec_party]) # we know the site recommended exactly this party
+      elsif rec
+        array.push([:bad, rec]) # we know the site make a recommendation, but not this party
       else
-        array.push([:bad, rec])
+        array.push([:unknown, OpenStruct.new(site: site)]) # site did not offer a recommendation
       end
     end
   end

@@ -11,7 +11,7 @@
   :javascript
     drawPollChart("poll_#{other_user.id}", #{poll_data});
 - unless other_user.constituency.nil?
-  - party_recommendations = full_party_recommendations_for(other_user.constituency, other_user.willing_party)
+  - party_recommendations = fullest_recommendations_for(other_user.constituency, other_user.willing_party)
   - if party_recommendations.size > 0
     %h6.text-center.mt-2
       Does this help your vote count ?
