@@ -47,6 +47,10 @@ p {
     &:first-child {
         margin-top: 0;
     }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 select {
@@ -66,11 +70,7 @@ select {
 }
 
 .container-narrow {
-    max-width: 600px;
-
-    .card {
-        padding: 16px;
-    }
+    max-width: 610px;
 }
 
 .container-extra-narrow {
@@ -92,14 +92,6 @@ select {
 
 .text-center {
     text-align: center;
-}
-
-.text-error {
-    color: red;
-}
-
-.text-warning {
-    color: orange;
 }
 
 .text-success {
@@ -194,5 +186,6 @@ $oscillation-size: 3px;
         transform: rotate(360deg) translateX($oscillation-size) rotate(-360deg);
     }
 }
+
 // scss-lint:enable VendorPrefix
 // scss-lint:enable SpaceBeforeBrace

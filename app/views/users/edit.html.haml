@@ -9,19 +9,6 @@
         %h2.h4.mb-0
           Edit profile
       .card-body
-        - if @user.swapped?
-          %p.text-center.text-error.small
-            - if voting_info_locked?
-
-              Warning: it's election day and you've already confirmed
-              your swap, so your party preferences and constituency
-              are currently locked.
-
-            - else
-
-              Warning: Changing your party preferences or constituency
-              will undo any swap that you have agreed to.
-
         = form_for @user, url: user_path do |f|
           .form-group
             %label.mb-0 My preferred party is
@@ -63,6 +50,19 @@
             accounts.
 
             = link_to "Your details will stay private with us.", privacy_path
+
+          - if @user.swapped?
+            .alert.alert-danger.small
+              - if voting_info_locked?
+
+                It's election day and you've already confirmed
+                your swap, so your party preferences and constituency
+                are currently locked
+
+              - else
+
+                Changing your party preferences or constituency
+                will undo any swap that you have agreed to
 
           %p.text-center
             = submit_tag("Save", class: "btn btn-primary")

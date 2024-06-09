@@ -55,7 +55,7 @@
     - if flash[:errors]
       .error.border-bottom
         - for error in flash[:errors]
-          %p.text-error.text-center= error
+          .alert.alert-danger.small= error
 
     = yield
 

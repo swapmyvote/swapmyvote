@@ -18,7 +18,7 @@
         .card-body
           - if flash[:messagebird_error]
 
-            %p.text-error
+            .alert.alert-danger.small
               = flash[:messagebird_error]
 
             %p
