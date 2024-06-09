@@ -1,4 +1,4 @@
 %p{ class: "party-recommendation #{party_recommendation.site}" }
   &#x2705 Good Swap (according to
-  = party_recommendation.site
+  = link_to URI.parse(party_recommendation.link).host, party_recommendation.link
   )
