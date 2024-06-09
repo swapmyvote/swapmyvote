@@ -81,6 +81,18 @@ installed.
 
         bundle exec guard
 
+-   Database migrations
+
+    When you pull from swapmyvotemaster and database migrations (files  in db/migrations) are included you'll need to run
+
+        bundle exec rake db:migrate
+
+    And for tests to keep running successful you'll also need to run
+
+        bundle exec RAILS_ENV=test rake db:migrate
+
+    The test database should be empty, do not run the seeds task against it, some tests will fail.
+
 Note that in the development environment, emails are not sent but instead written
 as files in the `tmp/mails/` subdirectory.
 
