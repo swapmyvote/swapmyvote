@@ -39,14 +39,7 @@ module RecommendationsHelper
     {
       "stop-the-tories" => { order: 1 },
       "sprint-for-pr" => { order: 2 },
-      "get-voting" => { order: 91 },
-      "peoples-vote" => { order: 92 },
-      "remain-united" => { order: 93 },
-      "tacticalvote-co-uk" => { order: 94 },
-      "tactical-vote" => { order: 95 },
-      "avaaz-votesmart" => { order: 96 },
-      "one-uk" => { order: 97 },
-      "unite-2-leave" => { order: 98 }
+      "tactical-vote" => { order: 3 }
     }
   end
 end
