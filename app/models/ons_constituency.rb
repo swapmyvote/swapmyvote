@@ -12,7 +12,6 @@ class OnsConstituency < ApplicationRecord
 
   has_many :recommended_parties,
            inverse_of: :constituency,
-           source: :recommended_party,
            primary_key: "ons_id",
            foreign_key: "constituency_ons_id",
            dependent: :destroy

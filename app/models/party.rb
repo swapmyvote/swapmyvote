@@ -2,7 +2,6 @@ class Party < ApplicationRecord
   has_many :polls, dependent: :destroy
   has_many :recommended_parties,
            inverse_of: :party,
-           source: :recommended_party,
            dependent: :destroy
 
   REFERENCE_DATA = {
