@@ -12,7 +12,7 @@ module UserErrorsConcern
 
     # Add our custom one
     if existing_user.email_login?
-      msg = "A user with this email address already exists! " +
+      msg = "A user with this email address already exists. " +
             link_to("Log in instead.", new_user_session_path)
       errors.add(:base, msg.html_safe)
     else
