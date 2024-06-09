@@ -20,7 +20,7 @@ A yaml file needs to be prepared with all the party and constituency data. Previ
 
 ### Switch to by election mode if need be
 
-See [db/seeds.rb](../../db/seeds.rb) and optionally edit so that the default election type is by election. This can be overridden using an environment variable (ELECTION_TYPE=by), however, making the edit means other developers don't need to remember to use the envirobment variables.
+See [db/seeds.rb](../../db/seeds.rb) and optionally edit so that the default election type is by election. This can be overridden using an environment variable (ELECTION_TYPE=by), however, making the edit means other developers don't need to remember to use the environment variables.
 
 ### Poll predictions from electoral calculus
 
