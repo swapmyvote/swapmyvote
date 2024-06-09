@@ -1,5 +1,9 @@
-%p{ class: "party-recommendation #{party_recommendation.site}" }
-  &#x2705 Good Swap -
-  = link_to URI.parse(party_recommendation.link).host, party_recommendation.link
+%p{ class: "party-recommendation #{party_recommendation.last.site}" }
+  - if party_recommendation.first == :good
+    &#x2705 Good Swap -
+  - else
+    &#x274C Bad Swap -
+  = link_to URI.parse(party_recommendation.last.link).host, party_recommendation.last.link
   recommend
-  = party_recommendation.text
+  = party_recommendation.last.text
+

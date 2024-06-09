@@ -18,6 +18,23 @@ module RecommendationsHelper
     return data
   end
 
+  def full_party_recommendations_for(constituency, party)
+    rec_party_results = party_recommendations_for(constituency, party)
+
+    rec_party_lookup = rec_party_results.each_with_object({}) do |rec, hash|
+      hash[rec.site] = rec
+    end
+
+    recommendations_for(constituency).each_with_object([]) do |rec, array|
+      rec_party = rec_party_lookup[rec.site]
+      if rec_party
+        array.push([:good, rec_party])
+      else
+        array.push([:bad, rec])
+      end
+    end
+  end
+
   def recommendations_sites
     {
       "stop-the-tories" => { order: 1 },
