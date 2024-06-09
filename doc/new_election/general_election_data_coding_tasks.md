@@ -6,7 +6,7 @@ In general [db/fixtures/README](../../db/fixtures/README.md) can be a guide. If 
 
 ### Switch to general election mode if need be
 
-See [db/seeds.rb](../../db/seeds.rb) and optionally edit so that the default election type is general election. This can be overridden using an environment variable (ELECTION_TYPE=general), however, making the edit means other developers don't need to remember to use the envirobment variables.
+See [db/seeds.rb](../../db/seeds.rb) and optionally edit so that the default election type is general election. This can be overridden using an environment variable (ELECTION_TYPE=general), however, making the edit means other developers don't need to remember to use the environment variables.
 
 ### Constituencies
 
