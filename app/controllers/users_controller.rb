@@ -46,7 +46,13 @@ class UsersController < ApplicationController
 
   def redirect_path
     # If the user came from the edit path, and the mobile still needs verification, return there
-    return edit_user_path if params[:user] && mobile_set_but_not_verified? || !@user.valid?
+    if params[:user] && mobile_set_but_not_verified?
+      flash[:errors] = ["Please verify the mobile phone number you provided."]
+      return edit_user_path
+    end
+
+    return edit_user_path unless @user.valid?
+
     # Otherwise, return to the user path - user will see a verification prompt if needed
     user_path
   end
