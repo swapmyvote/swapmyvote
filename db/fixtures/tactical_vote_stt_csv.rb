@@ -5,7 +5,7 @@
 require("csv")
 
 class TacticalVoteCsv
-  attr_reader :file_name, :link, :site
+  attr_reader :file_name, :site
 
   FILE_NAME = "db/fixtures/tactical_vote_stt.csv"
 
@@ -16,7 +16,6 @@ class TacticalVoteCsv
 
   def initialize
     @file_name = FILE_NAME
-    @link = "https://stopthetories.vote/"
     @site = "stop-the-tories"
   end
 

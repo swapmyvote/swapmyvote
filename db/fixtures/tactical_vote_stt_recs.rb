@@ -45,7 +45,6 @@ class TacticalVoteSttRecs
 
       rec_key = { constituency_ons_id: ons_id, site: advisor.site }
       rec = Recommendation.find_or_initialize_by(rec_key)
-      rec.link = advisor.link
       source_advice = row[:advice]
 
       # ------------------------------------------------------------------------

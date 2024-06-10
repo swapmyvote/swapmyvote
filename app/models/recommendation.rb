@@ -49,8 +49,6 @@ class Recommendation < ApplicationRecord
 
     party_ids.each do |party_id|
       rec_party = RecommendedParty.find_or_initialize_by(rec_key.merge({ party_id: party_id }))
-      rec_party.link = link
-      rec_party.text = text
       rec_party.save!
       print "!" # to signify update with heart/any
     end
