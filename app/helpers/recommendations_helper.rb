@@ -29,10 +29,10 @@ module RecommendationsHelper
       rec_party = rec_party_lookup[site.id]
       rec = rec_lookup[site.id]
 
-      if rec_party
-        array.push([:good, rec_party]) # we know the site recommended exactly this party
+      if rec_party && rec
+        array.push([:good, site, rec, rec_party]) # we know the site recommended exactly this party
       elsif rec
-        array.push([:bad, rec]) # we know the site make a recommendation, but not this party
+        array.push([:bad, site, rec]) # we know the site make a recommendation, but not this party
       else
         array.push([:unknown, site]) # site did not offer a recommendation
       end

@@ -39,5 +39,5 @@ Happening as part of [issue 773 - Annotate Swaps with parties in tactical vote r
 - [X] add new fields to data structure
 - [X] update tactical.vote import to create Recommendation records for parties not in our database
 - [X] update import scripts to populate new fields
-- [ ] update helpers and views to pick up data from new places
+- [X] update helpers and views to pick up data from new places
 - [ ] remove any now-rendundant fields
