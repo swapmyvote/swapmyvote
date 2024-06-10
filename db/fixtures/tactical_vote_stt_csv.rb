@@ -25,7 +25,7 @@ class TacticalVoteCsv
     @data = []
 
     CSV.foreach(FILE_NAME, headers: true, col_sep: ",") do |line|
-      unless line.to_h.keys[0] == ID_KEY && line.to_h.keys[47] == ADVICE_KEY
+      unless line.to_h.keys[0] == ID_KEY && line.to_h.keys[56] == ADVICE_KEY
         raise ArgumentError, "Input fields #{line.to_h.keys} do not match #{REQUIRED_INPUT_KEYS}"
       end
 
