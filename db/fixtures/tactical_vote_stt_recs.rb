@@ -11,7 +11,9 @@ class TacticalVoteSttRecs
   SMV_CODES_BY_ADVICE_TEXT = {
     lab: :lab,
     snp: :snp,
-    ld: :libdem
+    ld: :libdem,
+    pc: :plaid,
+    green: :green
   }
 
   def initialize
