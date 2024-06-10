@@ -4,7 +4,7 @@
 
 require("csv")
 
-class TacticalVoteCsv
+class TacticalVoteSttCsv
   attr_reader :file_name, :site
 
   FILE_NAME = "db/fixtures/tactical_vote_stt.csv"

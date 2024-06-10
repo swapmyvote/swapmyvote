@@ -17,7 +17,7 @@ class TacticalVoteSttRecs
   }
 
   def initialize
-    @advisor = TacticalVoteCsv.new
+    @advisor = TacticalVoteSttCsv.new
     @mysoc_constituencies = MysocietyConstituenciesCsv.new
   end
 
