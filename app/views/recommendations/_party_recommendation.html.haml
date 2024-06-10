@@ -1,15 +1,15 @@
-%p{ class: "party-recommendation #{party_recommendation[1]}" }
-  - if party_recommendation.first != :unknown
-    - if party_recommendation.first == :good
+%p{ class: "party-recommendation #{rec.site.id}" }
+  - if rec.match != :unknown
+    - if rec.match == :good
       &#x2705
     - else
       &#x274C
-    = link_to URI.parse(party_recommendation[1].link).host, party_recommendation[1].link
+    = link_to URI.parse(rec.site.link).host, rec.site.link
     recommend
-    = party_recommendation[2].text
+    = rec.recommendation.text
   - else
     &#x1F937
-    = link_to URI.parse(party_recommendation[1].link).host, party_recommendation[1].link
+    = link_to URI.parse(rec.site.link).host, rec.site.link
     has no recommendation
 
 

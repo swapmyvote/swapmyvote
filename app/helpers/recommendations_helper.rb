@@ -18,6 +18,7 @@ module RecommendationsHelper
     return data
   end
 
+  # rubocop:disable Metrics/MethodLength
   def fullest_recommendations_for(constituency, party)
     rec_party_results = party_recommendations_for(constituency, party)
     rec_party_lookup = rec_party_results.each_with_object({}) { |rec, hash| hash[rec.site] = rec }
@@ -30,11 +31,26 @@ module RecommendationsHelper
       rec = rec_lookup[site.id]
 
       if rec_party && rec
-        array.push([:good, site, rec, rec_party]) # we know the site recommended exactly this party
+        # we know the site recommended exactly this party
+        array.push(OpenStruct.new({
+          match: :good,
+          site: site,
+          recommendation: rec,
+          recommendation_party: rec_party
+        }))
       elsif rec
-        array.push([:bad, site, rec]) # we know the site make a recommendation, but not this party
+        # we know the site make a recommendation, but not this party
+        array.push(OpenStruct.new({
+          match: :bad,
+          site: site,
+          recommendation: rec
+        }))
       else
-        array.push([:unknown, site]) # site did not offer a recommendation
+        # site did not offer a recommendation
+        array.push(OpenStruct.new({
+          match: :unknown,
+          site: site
+        }))
       end
     end
   end
