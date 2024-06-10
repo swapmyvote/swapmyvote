@@ -5,6 +5,8 @@ require_relative "tactical_vote_tacticalvote_csv"
 require_relative "mysociety_constituencies_csv"
 
 class TacticalVoteTacticalVoteRecs
+  attr_reader :advisor, :mysoc_constituencies
+
   ACCEPTABLE_NON_PARTY_ADVICE = [:alliance, :sinn_fein, :sdlp]
   SMV_CODES_BY_ADVICE_TEXT = {
     lib_dem: :libdem,
@@ -13,8 +15,6 @@ class TacticalVoteTacticalVoteRecs
     green: :green,
     snp: :snp
   }
-
-  attr_reader :advisor, :mysoc_constituencies
 
   def initialize
     @advisor = TacticalVoteTacticalVoteCsv.new
@@ -37,6 +37,12 @@ class TacticalVoteTacticalVoteRecs
 
     advisor.data.each do |row|
       ons_id = ons_id_by_mysoc_name[row[:constituency_name]]
+
+      unless ons_id
+        puts "\nIGNORING: Constituency lookup failed for #{row}."
+        next
+      end
+
       rec_key = { constituency_ons_id: ons_id, site: advisor.site }
       rec = Recommendation.find_or_initialize_by(rec_key)
       rec.link = advisor.link

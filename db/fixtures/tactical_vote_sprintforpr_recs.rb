@@ -5,6 +5,8 @@ require_relative "tactical_vote_sprintforpr_csv"
 require_relative "mysociety_constituencies_csv"
 
 class TacticalVoteSprintforprRecs
+  attr_reader :advisor, :mysoc_constituencies
+
   ACCEPTABLE_NON_PARTY_ADVICE = [:not_labour]
   SMV_CODES_BY_ADVICE_TEXT = {
     lib_dem: :libdem,
@@ -13,8 +15,6 @@ class TacticalVoteSprintforprRecs
     green: :green,
     snp: :snp
   }
-
-  attr_reader :advisor, :mysoc_constituencies
 
   def initialize
     @advisor = TacticalVoteSprintforprCsv.new
@@ -71,7 +71,7 @@ class TacticalVoteSprintforprRecs
           print "X" # to signify delete
         end
 
-        not_recognised.add({ advice: source_advice })
+        not_recognised.add({ advice: source_advice, canonical_advice: canonical_advice })
 
         next
       end

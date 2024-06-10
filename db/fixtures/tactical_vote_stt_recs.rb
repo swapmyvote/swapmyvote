@@ -1,8 +1,8 @@
 # This loads the tactical voting recommandations from StopTheTories.vote
 # into the recommendations table
 
-require_relative("tactical_vote_stt_csv")
-require_relative("mysociety_constituencies_csv")
+require_relative "tactical_vote_stt_csv"
+require_relative "mysociety_constituencies_csv"
 
 class TacticalVoteSttRecs
   attr_reader :advisor, :mysoc_constituencies
@@ -37,6 +37,12 @@ class TacticalVoteSttRecs
 
     advisor.data.each do |row|
       ons_id = ons_id_by_mysoc_short_code[row[:mysoc_short_code]]
+
+      unless ons_id
+        puts "\nIGNORING: Constituency lookup failed for #{row}."
+        next
+      end
+
       rec_key = { constituency_ons_id: ons_id, site: advisor.site }
       rec = Recommendation.find_or_initialize_by(rec_key)
       rec.link = advisor.link
@@ -44,7 +50,7 @@ class TacticalVoteSttRecs
 
       # ------------------------------------------------------------------------
 
-      canonical_advice = source_advice.downcase.parameterize(separator: "_").to_sym
+      canonical_advice = source_advice.strip.downcase.parameterize(separator: "_").to_sym
       party_smv_code = SMV_CODES_BY_ADVICE_TEXT[canonical_advice]
       non_party_advice = ACCEPTABLE_NON_PARTY_ADVICE.include?(canonical_advice) ? canonical_advice : nil
 
@@ -63,7 +69,7 @@ class TacticalVoteSttRecs
           print "X" # to signify delete
         end
 
-        not_recognised.add({ advice: source_advice })
+        not_recognised.add({ advice: source_advice, canonical_advice: canonical_advice })
 
         next
       end
