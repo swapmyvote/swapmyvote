@@ -55,8 +55,8 @@ class TacticalVoteTacticalVoteRecs
       non_party_advice = ACCEPTABLE_NON_PARTY_ADVICE.include?(canonical_advice) ? canonical_advice : nil
 
       if party_smv_code && parties_by_smv_code[party_smv_code]
-        rec.text = party_smv_code.to_s.titleize
         party = parties_by_smv_code[party_smv_code]
+        rec.text = party.name
         rec.update_parties([party])
       elsif non_party_advice
         # actually, here we mean a party not in our database so we can't link to a party record
