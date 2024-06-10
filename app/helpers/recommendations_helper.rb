@@ -18,31 +18,32 @@ module RecommendationsHelper
     return data
   end
 
-  # rubocop:disable Metrics/MethodLength
   def fullest_recommendations_for(constituency, party)
     rec_party_results = party_recommendations_for(constituency, party)
-    rec_party_lookup = rec_party_results.each_with_object({}) do |rec, hash|
-      hash[rec.site] = rec
-    end
+    rec_party_lookup = rec_party_results.each_with_object({}) { |rec, hash| hash[rec.site] = rec }
 
     rec_results = recommendations_for(constituency)
-    rec_lookup = rec_results.each_with_object({}) do |rec, hash|
-      hash[rec.site] = rec
-    end
+    rec_lookup = rec_results.each_with_object({}) { |rec, hash| hash[rec.site] = rec }
 
-    recommendations_sites
-        .sort { |(_k1, v1), (_k2, v2)| v1[:order] <=> v2[:order] }
-        .each_with_object([]) do |(site, _attr), array|
-      rec_party = rec_party_lookup[site]
-      rec = rec_lookup[site]
+    recommendation_site_models_in_order.each_with_object([]) do |site, array|
+      rec_party = rec_party_lookup[site.id]
+      rec = rec_lookup[site.id]
+
       if rec_party
         array.push([:good, rec_party]) # we know the site recommended exactly this party
       elsif rec
         array.push([:bad, rec]) # we know the site make a recommendation, but not this party
       else
-        array.push([:unknown, OpenStruct.new(site: site)]) # site did not offer a recommendation
+        array.push([:unknown, site]) # site did not offer a recommendation
       end
     end
+  end
+
+  def recommendation_site_models_in_order
+    # doing our best to emulate activeRecord model here
+    recommendations_sites
+        .sort { |(_a_site_id, a_attributes), (_b_site_id, b_attributes)| a_attributes[:order] <=> b_attributes[:order] }
+        .map { |site_id, attributes| OpenStruct.new(attributes.merge(id: site_id)) }
   end
 
   def recommendations_sites
