@@ -48,9 +48,18 @@ module RecommendationsHelper
 
   def recommendations_sites
     {
-      "stop-the-tories" => { order: 1 },
-      "sprint-for-pr" => { order: 2 },
-      "tactical-vote" => { order: 3 }
+      "stop-the-tories" => {
+        order: 1 ,
+        link: "https://stopthetories.vote/"
+      },
+      "sprint-for-pr" => {
+        order: 2,
+        link: "https://sprintforpr.uk/plan"
+     },
+      "tactical-vote" => {
+        order: 3,
+        link: "https://tactical.vote/all/"
+     }
     }
   end
 end

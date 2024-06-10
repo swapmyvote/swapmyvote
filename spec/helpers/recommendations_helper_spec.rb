@@ -18,7 +18,7 @@ RSpec.describe RecommendationsHelper, type: :helper do
   describe "#recommendations_for" do
     let(:constituency) { instance_double(OnsConstituency) }
     let(:real_recs) do
-      rec_models = %w[tactical-vote stop-the-tories].map do |recs_site|
+      %w[tactical-vote stop-the-tories].map do |recs_site|
         rec = Recommendation.new(site: recs_site)
         rec.text = "#{recs_site}-recommendation"
         rec.link = "#{recs_site}-link"
@@ -36,5 +36,15 @@ RSpec.describe RecommendationsHelper, type: :helper do
 
       expect(helper.recommendations_for(constituency).map{ |s|  s.site }).to eq(expected_order)
     end
+  end
+
+  describe "#recommendation_site_models_in_order" do
+    subject { helper.recommendation_site_models_in_order }
+
+    specify { is_expected.not_to be_empty }
+
+    specify { is_expected.to all(respond_to(:id)) }
+    specify { is_expected.to all(respond_to(:order)) }
+    specify { is_expected.to all(respond_to(:link)) }
   end
 end

@@ -36,8 +36,8 @@ Aim to keep duplication to a minimum, site_id should link to related info in the
 
 Happening as part of [issue 773 - Annotate Swaps with parties in tactical vote recommendations](https://github.com/swapmyvote/swapmyvote/issues/773)
 
-- add new fields to data structure
-- update tactical.vote import to create Recommendation records for parties not in our database
-- update import scripts to populate new fields
-- update helpers and views to pick up data from new places
-- remove any now-rendundant fields
+- [X] add new fields to data structure
+- [ ] update tactical.vote import to create Recommendation records for parties not in our database
+- [ ] update import scripts to populate new fields
+- [ ] update helpers and views to pick up data from new places
+- [ ] remove any now-rendundant fields
