@@ -20,7 +20,7 @@ parties_for_ge = Party.master_list.select { |p| p[:ge_default] }
 
 parties_for_ge.each do |party_attributes|
   party = Party.find_or_initialize_by(name: party_attributes[:name])
-  party.update!(party_attributes.slice(:smv_code, :colour))
+  party.update!(party_attributes.slice(:smv_code, :color))
   puts party_attributes.slice(:name, :smv_code)
 end
 
