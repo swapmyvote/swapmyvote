@@ -16,7 +16,7 @@ def create_random_user(i, preferred_party_id, willing_party_id)
   )
 
   unless user.valid?
-    puts "User not created: #{user.errors.full_messages}"
+    puts "User #{user.email} not created: #{user.errors.full_messages}"
     return
   end
 
@@ -38,6 +38,10 @@ end
 
 puts "Creating users"
 
+starting_user_count = User.count
+puts starting_user_count.zero? ? "No existing users" : "#{starting_user_count} users already in database"
+puts "\n"
+
 5.times do |i|
   create_random_user(i, 1, 2)
   create_random_user(i, 1, 3)
@@ -57,3 +61,5 @@ puts "Creating users"
   create_random_user(i, 4, 3)
   create_random_user(i, 3, 4)
 end
+
+puts "\nFinished user creation, #{User.count} users in database, #{User.count - starting_user_count} users added"
