@@ -9,7 +9,7 @@ def create_random_user(i, preferred_party_id, willing_party_id)
 
   user = User.create(
     name: "#{firstname} #{Random.lastname}",
-    email: "#{firstname.downcase}@example.com",
+    email: "#{firstname.downcase}.#{i}-#{preferred_party_id}-#{willing_party_id}@example.com",
     constituency_ons_id: ons_id,
     preferred_party_id: preferred_party_id,
     willing_party_id: willing_party_id
