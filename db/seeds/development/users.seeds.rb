@@ -1,4 +1,4 @@
-
+# rubocop:disable Metrics/MethodLength
 def create_random_user(i, preferred_party_id, willing_party_id)
   gender = rand > 0.5 ? "female" : "male"
   firstname = gender == "male" ? Random.firstname_male : Random.firstname_female
@@ -15,11 +15,16 @@ def create_random_user(i, preferred_party_id, willing_party_id)
     willing_party_id: willing_party_id
   )
 
+  unless user.valid?
+    puts "User not created: #{user.errors.full_messages}"
+    return
+  end
+
   build_identity(user.id, i, gender)
 end
 
 def build_identity(user_id, i, gender)
-  Identity.create(
+  Identity.create!(
     user_id: user_id,
     provider: provider_array.sample,
     image_url: format("https://api.randomuser.me/portraits/med/%s/#{i}.jpg",
@@ -30,6 +35,8 @@ end
 def provider_array
   [:twitter, :facebook]
 end
+
+puts "Creating users"
 
 5.times do |i|
   create_random_user(i, 1, 2)
