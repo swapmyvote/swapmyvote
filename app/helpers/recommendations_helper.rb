@@ -30,9 +30,6 @@ module RecommendationsHelper
       rec_party = rec_party_lookup[site.id]
       rec = rec_lookup[site.id]
 
-      # skip display if campaign is scotland in union and this is not a scotland swap
-      next if site.id == "scotland-in-union" && constituency.ons_id[0] != "S"
-
       if rec_party && rec
         # we know the site recommended exactly this party
         array.push(OpenStruct.new({
