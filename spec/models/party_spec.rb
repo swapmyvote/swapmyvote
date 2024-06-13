@@ -15,6 +15,8 @@ RSpec.describe Party, type: :model do
        conservatives
        reform
        ukip
+       plaid_cymru
+       snp
     ].each do |canonical_name|
       it "includes #{canonical_name.inspect} mentioned in api docs" do
         expect(described_class.canonical_names).to include(canonical_name)
