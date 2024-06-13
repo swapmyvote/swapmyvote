@@ -14,7 +14,6 @@ RSpec.describe Party, type: :model do
        green
        conservatives
        reform
-       ukip
        plaid_cymru
        snp
     ].each do |canonical_name|
