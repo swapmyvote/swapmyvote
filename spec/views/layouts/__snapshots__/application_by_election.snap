@@ -42,7 +42,7 @@
       },
       cookie: {
         name: "_swapmyvote_cookie_consent",
-        domain: ""
+        domain: "localhost"
       }
     });
   });
