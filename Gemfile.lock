@@ -62,10 +62,10 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
-    airbrake (9.5.5)
-      airbrake-ruby (~> 4.8)
-    airbrake-ruby (4.15.0)
-      rbtree3 (~> 0.5)
+    airbrake (13.0.4)
+      airbrake-ruby (~> 6.0)
+    airbrake-ruby (6.2.2)
+      rbtree3 (~> 0.6)
     amazing_print (1.6.0)
     ast (2.4.2)
     autoprefixer-rails (10.4.16.0)
@@ -470,7 +470,7 @@ PLATFORMS
 
 DEPENDENCIES
   addressable
-  airbrake (~> 9.5.0)
+  airbrake
   autoprefixer-rails
   bootsnap
   bundle-audit

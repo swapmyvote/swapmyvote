@@ -52,7 +52,7 @@ gem "random_data"
 
 gem "json"
 
-gem "airbrake", "~> 9.5.0"
+gem "airbrake"
 
 gem "scss_lint"
 gem "haml_lint"
