@@ -506,7 +506,7 @@ DEPENDENCIES
   pg
   pry-byebug
   puma
-  rails (~> 6.0)
+  rails (~> 6.1)
   rails-controller-testing
   random_data
   rspec-rails (~> 4.0)
