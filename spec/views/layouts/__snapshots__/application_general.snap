@@ -24,8 +24,8 @@
 <link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' rel='stylesheet'>
 <link href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
 <script src='https://www.gstatic.com/charts/loader.js' type='text/javascript'></script>
-<link rel="stylesheet" media="all" href="/assets/application-7b2e97b4ae838ab685fb1aecd5913d7b3486a5b45ba97238bbdd085b57661b84.css" data-turbolinks-track="true" />
-<script src="/assets/application-956a2af0450c0c4c95035eb6b5593e2ffbcdea52ad555a7a7bef8d31929ac08e.js" data-turbolinks-track="true"></script>
+<link rel="stylesheet" media="all" href="/assets/application-a63275ba3a35e18e3c03ba7d6d01275aa3b18346dd9084c6c9adaec69235ceb1.css" data-turbolinks-track="true" />
+<script src="/assets/application-62b11afca2a5c94a8c3e0fc1c67140b5ebbce2bc6b423fc1696fd3a77e9287d6.js" data-turbolinks-track="true"></script>
 
 <script data='false' src='https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js'></script>
 <script>
