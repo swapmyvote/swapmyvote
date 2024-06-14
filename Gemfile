@@ -12,8 +12,12 @@ gem "coffee-rails"
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# FIXME: some of these will probably be removable when upgrading beyond Rails 6.1.
 gem "bootsnap", require: false
 gem "net-http"
+gem "csv"
+gem "mutex_m"
+gem "drb"
 
 # Use jquery as the JavaScript library
 gem "jquery-rails"

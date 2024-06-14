@@ -105,6 +105,7 @@ GEM
     coolline (0.5.0)
       unicode_utils (~> 1.4)
     crass (1.0.6)
+    csv (3.3.0)
     database_cleaner (2.0.2)
       database_cleaner-active_record (>= 2, < 3)
     database_cleaner-active_record (2.1.0)
@@ -124,6 +125,7 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
+    drb (2.2.1)
     erubi (1.12.0)
     execjs (2.9.1)
     factory_bot (6.4.5)
@@ -226,6 +228,7 @@ GEM
     minitest (5.23.1)
     msgpack (1.7.2)
     multi_xml (0.6.0)
+    mutex_m (0.2.0)
     nenv (0.3.0)
     net-http (0.4.1)
       uri
@@ -478,9 +481,11 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails
+  csv
   database_cleaner
   devise
   dotenv-rails
+  drb
   factory_bot_rails
   guard
   guard-bundler
@@ -498,6 +503,7 @@ DEPENDENCIES
   json
   listen
   messagebird-rest
+  mutex_m
   net-http
   normalize-rails
   omniauth-facebook
@@ -529,4 +535,4 @@ RUBY VERSION
    ruby 3.3.2p78
 
 BUNDLED WITH
-   2.2.17
+   2.5.13
