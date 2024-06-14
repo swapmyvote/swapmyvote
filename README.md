@@ -121,11 +121,11 @@ Before we can accept contributions from you, please make sure you read
 ### Deciding what to work on
 
 Please take a look at the [GitHub
-project](https://github.com/orgs/swapmyvote/projects/1).  Issues are
-sorted into milestones, and the items in each column are roughly
-sorted by priority descending, so a good place to start would be near
-the top of the `M0` column.  If you can, please avoid tackling stuff
-in future milestones until the current milestone is complete.
+project](https://github.com/orgs/swapmyvote/projects/2/views/3).
+Issues are sorted into milestones, and the items are roughly sorted by
+priority descending, so a good place to start would be near the top.
+If you can, please avoid tackling stuff in future milestones until the
+current milestone is complete.
 
 In addition, look out for issues labelled [`help
 wanted`](https://github.com/swapmyvote/swapmyvote/labels/help%20wanted)
