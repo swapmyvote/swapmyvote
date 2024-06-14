@@ -15,7 +15,7 @@ RSpec.describe AdminController, type: :controller do
     allow(controller).to receive(:current_user).and_return(mock_current_user)
     # allow(subject).to receive(:http_basic_authenticate_with)
 
-    allow(controller).to receive(:authenticate_or_request_with_http_basic).with(anything).and_return true
+    allow(controller).to receive(:authenticate_or_request_with_http_basic).with(anything, anything).and_return true
 
     expect(UserMailer).to receive(:welcome_email).and_return(mock_mailer_return)
     expect(UserMailer).to receive(:confirm_swap).and_return(mock_mailer_return)
