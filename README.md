@@ -94,6 +94,15 @@ installed.
 
         bundle exec guard
 
+-   [`rspec-snapshot](https://github.com/levinmr/rspec-snapshot)` is
+    used for some of the tests.  To update the snapshots, do:
+
+        UPDATE_SNAPSHOTS=true bundle exec rspec
+
+    or just for a subset of the tests:
+
+        UPDATE_SNAPSHOTS=true bundle exec rspec spec/foo/bar
+
 -   Database migrations
 
     When you pull from swapmyvotemaster and database migrations (files  in db/migrations) are included you'll need to run
