@@ -115,15 +115,8 @@ Any help would be well appreciated!
 
 ### Onboarding
 
-Firstly, you should [log in to Travis
-CI](http://travis-ci.org/swapmyvote/swapmyvote) to make sure that
-their system is aware of your GitHub user account, since for some
-strange reason they sometimes assume unknown users are malign and
-ignore any pull requests submitted by them!
-
-Secondly, before we can accept contributions from you, please make
-sure you read [the License section](#license) below and follow the
-required step.
+Before we can accept contributions from you, please make sure you read
+[the License section](#license) below and follow the required step.
 
 ### Deciding what to work on
 
