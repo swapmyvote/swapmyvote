@@ -28,10 +28,6 @@
         }
     }
 
-    .profile-votes {
-        margin-top: 12px;
-    }
-
     .profile-poll {
         height: 100%;
         box-sizing: border-box;
@@ -117,15 +113,6 @@
 .poll-chart {
     margin-top: 12px;
     height: 120px;
-}
-
-a.profile {
-    &:hover {
-        // FIXME
-        // scss-lint:disable ColorVariable
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-        text-decoration: none;
-    }
 }
 
 // Work around a flicker when hovering on the poll bars

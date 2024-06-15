@@ -1,9 +1,5 @@
-- if defined? link_to_swap and link_to_swap
-  = link_to new_user_swap_path(user_id: other_user.id), class: "profile" do
-    = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
-- else
-  .profile
-    = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
+.profile
+  = render partial: "user/swaps/swap_profile_inner", locals: { other_user: other_user }
 
 - poll_data = poll_data_for(other_user.constituency)
 
@@ -20,3 +16,7 @@
         Recommendations for
         = other_user.constituency.name
       = render :partial => 'recommendations/party_recommendation', :collection => recommendations, :as => :rec
+- if defined? link_to_swap and link_to_swap
+  .d-flex.justify-content-center
+    = link_to "Offer to swap", new_user_swap_path(user_id: other_user.id), class: "btn btn-secondary"
+

@@ -12,8 +12,9 @@
     - if other_user.email.present?
       %i.fa.fa-envelope{ title: "Email address potentially available" }
 
-  .profile-constituency.subdued
+  .subdued
     in #{other_user.constituency.try(:name) or "Unknown?"}
+
   .profile-votes
     Will vote
     %strong= other_user.willing_party.name
