@@ -13,7 +13,7 @@ class Party < ApplicationRecord
     snp: { name: "SNP", color: "#FFF95D", ge_default: true },
     plaid: { name: "Plaid Cymru", color: "#008142", ge_default: true },
     brexit: { name: "Brexit", color: "#5bc0de" },
-    breakthrough: { name: " Breakthrough" },
+    breakthrough: { name: "Breakthrough" },
     for_britain: { name: "For Britain" },
     freedom_alliance: { name: "Freedom Alliance" },
     independent: { name: "Independent" },
