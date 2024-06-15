@@ -89,11 +89,9 @@
             width: 11.5%;
             vertical-align: top;
         }
-
     }
 
     .recommendation-source {
-
         @include largescreen {
             font-size: $base-font-size * 0.7;
             min-height: 3.5em;
@@ -104,20 +102,16 @@
             width: 45%;
             text-align: right;
         }
-
     }
 
     .recommendation-text {
-
         @include smallscreen {
             display: inline-block;
             width: 45%;
             text-align: left;
             vertical-align: middle;
         }
-
     }
-
 }
 
 .poll-chart {

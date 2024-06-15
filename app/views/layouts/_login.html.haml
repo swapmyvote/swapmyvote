@@ -11,7 +11,7 @@
           %i.fa.fa-times.subdued
       .modal-body
         - if flash[:alert]
-          .alert.alert-danger
+          .alert.alert-danger.small
             != flash[:alert]
         = form_with url: "#", id: "login-form", local: true do
           - if log_in_with_facebook?

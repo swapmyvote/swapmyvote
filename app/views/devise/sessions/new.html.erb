@@ -6,11 +6,6 @@
       </div>
 
       <div class="card-body">
-        <% if flash[:alert] %>
-          <div class="alert alert-danger">
-            <%= flash[:alert] %>
-          </div>
-        <% end %>
 
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-group">
@@ -22,6 +17,12 @@
             <%= f.label :password, class: "mb-0" %>
             <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
           </div>
+
+          <% if flash[:alert] %>
+            <div class="alert alert-danger small">
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
 
           <div class="actions">
             <%= f.submit "Log in", class: "btn btn-primary btn-block" %>
