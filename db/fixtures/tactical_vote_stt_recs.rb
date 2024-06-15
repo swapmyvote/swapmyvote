@@ -11,11 +11,13 @@ class TacticalVoteSttRecs
   SMV_CODES_BY_ADVICE_TEXT = {
     lab: :lab,
     snp: :snp,
-    ld: :libdem
+    ld: :libdem,
+    pc: :plaid,
+    green: :green
   }
 
   def initialize
-    @advisor = TacticalVoteCsv.new
+    @advisor = TacticalVoteSttCsv.new
     @mysoc_constituencies = MysocietyConstituenciesCsv.new
   end
 
@@ -31,7 +33,7 @@ class TacticalVoteSttRecs
       lookup[party.smv_code.to_sym] = party
     end
 
-    non_tory_parties = Party.all.select { |p| p.smv_code != "con"}
+    included_parties = Party.where.not({ smv_code: [:con, :reform] }).all
 
     not_recognised = Set.new
 
@@ -59,7 +61,7 @@ class TacticalVoteSttRecs
         rec.update_parties([party])
       elsif non_party_advice && non_party_advice == :heart
         rec.text = "Any"
-        rec.update_parties(non_tory_parties)
+        rec.update_parties(included_parties)
       else
         # if we can't turn it into a recommendation we must delete any existing entry
         unless rec.id.nil?
