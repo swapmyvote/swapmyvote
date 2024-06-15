@@ -6,7 +6,7 @@
 
     - if @potential_swaps.length > 0
       = render partial: "user/swaps/list_potential_swaps",
-               locals: {expiry: potential_swap_expiry_mins}
+               locals: {expiry: potential_swap_expiry_mins, potential_swaps: @potential_swaps}
     - else
       = render partial: "user/swaps/searching_for_swap"
 
