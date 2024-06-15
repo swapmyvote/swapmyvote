@@ -94,6 +94,15 @@ installed.
 
         bundle exec guard
 
+-   [`rspec-snapshot](https://github.com/levinmr/rspec-snapshot)` is
+    used for some of the tests.  To update the snapshots, do:
+
+        UPDATE_SNAPSHOTS=true bundle exec rspec
+
+    or just for a subset of the tests:
+
+        UPDATE_SNAPSHOTS=true bundle exec rspec spec/foo/bar
+
 -   Database migrations
 
     When you pull from swapmyvotemaster and database migrations (files  in db/migrations) are included you'll need to run
@@ -115,24 +124,17 @@ Any help would be well appreciated!
 
 ### Onboarding
 
-Firstly, you should [log in to Travis
-CI](http://travis-ci.org/swapmyvote/swapmyvote) to make sure that
-their system is aware of your GitHub user account, since for some
-strange reason they sometimes assume unknown users are malign and
-ignore any pull requests submitted by them!
-
-Secondly, before we can accept contributions from you, please make
-sure you read [the License section](#license) below and follow the
-required step.
+Before we can accept contributions from you, please make sure you read
+[the License section](#license) below and follow the required step.
 
 ### Deciding what to work on
 
 Please take a look at the [GitHub
-project](https://github.com/orgs/swapmyvote/projects/1).  Issues are
-sorted into milestones, and the items in each column are roughly
-sorted by priority descending, so a good place to start would be near
-the top of the `M0` column.  If you can, please avoid tackling stuff
-in future milestones until the current milestone is complete.
+project](https://github.com/orgs/swapmyvote/projects/2/views/3).
+Issues are sorted into milestones, and the items are roughly sorted by
+priority descending, so a good place to start would be near the top.
+If you can, please avoid tackling stuff in future milestones until the
+current milestone is complete.
 
 In addition, look out for issues labelled [`help
 wanted`](https://github.com/swapmyvote/swapmyvote/labels/help%20wanted)
@@ -143,9 +145,9 @@ or [`easy`](https://github.com/swapmyvote/swapmyvote/labels/easy).
 If an issue is already assigned, then probably someone is already
 working on it or at least intending to.  If it's unassigned then
 probably it's up for grabs.  However it's safer to ask in the issue
-and/or in the Slack `#general` chat channel before starting on
+and/or in the Zulip `#general` chat channel before starting on
 anything, to avoid accidentally duplicating effort.  Please email us
-at the below address to request an invite to our Slack chat server.
+at the below address to request an invite to our Zulip chat server.
 
 Our roadmap can be seen in our [list of
  milestones](https://github.com/swapmyvote/swapmyvote/milestones?direction=asc&sort=due_date).
