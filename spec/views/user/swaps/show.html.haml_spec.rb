@@ -11,8 +11,8 @@ RSpec.describe "user/swaps/show", type: :view do
 
   context "with recommendations and potential swaps" do
     specify do
-      rec1 = build(:recommendation, site: "peoples-vote")
-      rec2 = build(:recommendation, site: "get-voting")
+      rec1 = build(:recommendation, site: "stop-the-tories")
+      rec2 = build(:recommendation, site: "tactical-vote")
       willing_party = build(:party)
       preferred_party = build(:party)
       constituency1 = build(:ons_constituency, ons_id: "one", id: 1)

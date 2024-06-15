@@ -5,7 +5,9 @@ require_relative "tactical_vote_tacticalvote_csv"
 require_relative "mysociety_constituencies_csv"
 
 class TacticalVoteTacticalVoteRecs
-  ACCEPTABLE_NON_PARTY_ADVICE = []
+  attr_reader :advisor, :mysoc_constituencies
+
+  ACCEPTABLE_NON_PARTY_ADVICE = [:alliance, :sinn_fein, :sdlp]
   SMV_CODES_BY_ADVICE_TEXT = {
     lib_dem: :libdem,
     labour: :lab,
@@ -13,8 +15,6 @@ class TacticalVoteTacticalVoteRecs
     green: :green,
     snp: :snp
   }
-
-  attr_reader :advisor, :mysoc_constituencies
 
   def initialize
     @advisor = TacticalVoteTacticalVoteCsv.new
@@ -37,6 +37,12 @@ class TacticalVoteTacticalVoteRecs
 
     advisor.data.each do |row|
       ons_id = ons_id_by_mysoc_name[row[:constituency_name]]
+
+      unless ons_id
+        puts "\nIGNORING: Constituency lookup failed for #{row}."
+        next
+      end
+
       rec_key = { constituency_ons_id: ons_id, site: advisor.site }
       rec = Recommendation.find_or_initialize_by(rec_key)
       source_advice = row[:advice]
@@ -45,11 +51,16 @@ class TacticalVoteTacticalVoteRecs
 
       canonical_advice = source_advice.strip.downcase.parameterize(separator: "_").to_sym
       party_smv_code = SMV_CODES_BY_ADVICE_TEXT[canonical_advice]
+      non_party_advice = ACCEPTABLE_NON_PARTY_ADVICE.include?(canonical_advice) ? canonical_advice : nil
 
       if party_smv_code && parties_by_smv_code[party_smv_code]
-        rec.text = party_smv_code.to_s.titleize
         party = parties_by_smv_code[party_smv_code]
+        rec.text = party.name
         rec.update_parties([party])
+      elsif non_party_advice
+        # actually, here we mean a party not in our database so we can't link to a party record
+        rec.text = source_advice
+        rec.update_parties([]) # delete anything
       else
         # if we can't turn it into a recommendation we must delete any existing entry
         unless rec.id.nil?
@@ -58,14 +69,13 @@ class TacticalVoteTacticalVoteRecs
           print "X" # to signify delete
         end
 
-        not_recognised.add({ advice: source_advice })
+        not_recognised.add({ advice: source_advice, canonical_advice: canonical_advice })
 
         next
       end
 
       # ------------------------------------------------------------------------
 
-      rec.link = advisor.link
       rec.save!
       print "." # to signify update
     end

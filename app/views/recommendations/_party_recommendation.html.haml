@@ -1,0 +1,12 @@
+%p{ class: "party-recommendation #{rec.site.id}" }
+  - if rec.match != :unknown
+    - if rec.match == :good
+      &#x2705
+    = link_to URI.parse(rec.site.link).host, rec.site.link
+    recommend
+    = rec.recommendation.text
+  - else
+    = link_to URI.parse(rec.site.link).host, rec.site.link
+    has no recommendation
+
+

@@ -5,6 +5,8 @@ require_relative "tactical_vote_sprintforpr_csv"
 require_relative "mysociety_constituencies_csv"
 
 class TacticalVoteSprintforprRecs
+  attr_reader :advisor, :mysoc_constituencies
+
   ACCEPTABLE_NON_PARTY_ADVICE = [:not_labour]
   SMV_CODES_BY_ADVICE_TEXT = {
     lib_dem: :libdem,
@@ -13,8 +15,6 @@ class TacticalVoteSprintforprRecs
     green: :green,
     snp: :snp
   }
-
-  attr_reader :advisor, :mysoc_constituencies
 
   def initialize
     @advisor = TacticalVoteSprintforprCsv.new
@@ -56,11 +56,11 @@ class TacticalVoteSprintforprRecs
       non_party_advice = ACCEPTABLE_NON_PARTY_ADVICE.include?(canonical_advice) ? canonical_advice : nil
 
       if party_smv_code && parties_by_smv_code[party_smv_code]
-        rec.text = party_smv_code.to_s.titleize
         party = parties_by_smv_code[party_smv_code]
+        rec.text = party.name
         rec.update_parties([party])
       elsif non_party_advice && non_party_advice == :not_labour
-        rec.text = "Not Lab"
+        rec.text = "Not Labour"
         rec.update_parties(non_labour_parties)
       else
         # if we can't turn it into a recommendation we must delete any existing entry
@@ -70,14 +70,13 @@ class TacticalVoteSprintforprRecs
           print "X" # to signify delete
         end
 
-        not_recognised.add({ advice: source_advice })
+        not_recognised.add({ advice: source_advice, canonical_advice: canonical_advice })
 
         next
       end
 
       # ------------------------------------------------------------------------
 
-      rec.link = advisor.link
       rec.save!
       print "." # to signify update
     end

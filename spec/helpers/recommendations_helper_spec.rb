@@ -18,41 +18,33 @@ RSpec.describe RecommendationsHelper, type: :helper do
   describe "#recommendations_for" do
     let(:constituency) { instance_double(OnsConstituency) }
     let(:real_recs) do
-      rec_models = LivefrombrexitRecommendationsJson.new.constituencies.first["recs"].map do |recs_hash|
-        rec = Recommendation.new(recs_hash.slice("site"))
-        rec.text = recs_hash["recommendation"]
-        rec.link = recs_hash["link"]
+      %w[tactical-vote stop-the-tories].map do |recs_site|
+        rec = Recommendation.new(site: recs_site)
+        rec.text = "#{recs_site}-recommendation"
+        rec.link = "#{recs_site}-link"
         rec
-      end
-      # Now jumble them up so we have a real test
-      rec_models.sort do |a, b|
-        a.site <=> b.site
       end
     end
 
     before { allow(constituency).to receive(:recommendations).and_return(real_recs) }
 
     specify "returns sites in required order" do
-      expected_order = [
-        "get-voting",
-        "peoples-vote",
-        "remain-united",
-        "tacticalvote-co-uk",
-        "tactical-vote",
-        "avaaz-votesmart",
-        "one-uk",
-        "unite-2-leave"
+      expected_order = %w[
+        stop-the-tories
+        tactical-vote
       ]
 
       expect(helper.recommendations_for(constituency).map{ |s|  s.site }).to eq(expected_order)
     end
   end
 
-  describe "#recommendations_sites" do
-    it "has keys matching the recommendations json" do
-      LivefrombrexitRecommendationsJson.new.unique_sites.each do |site|
-        expect(helper.recommendations_sites).to have_key(site)
-      end
-    end
+  describe "#recommendation_site_models_in_order" do
+    subject { helper.recommendation_site_models_in_order }
+
+    specify { is_expected.not_to be_empty }
+
+    specify { is_expected.to all(respond_to(:id)) }
+    specify { is_expected.to all(respond_to(:order)) }
+    specify { is_expected.to all(respond_to(:link)) }
   end
 end
