@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_16_103101) do
+ActiveRecord::Schema.define(version: 2024_06_16_111118) do
 
   create_table "identities", force: :cascade do |t|
     t.integer "user_id"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 2024_06_16_103101) do
     t.integer "party_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["constituency_ons_id", "party_id", "site"], name: "index_recommended_parties_on_site_and_constituency_and_party", unique: true
+    t.index ["constituency_ons_id", "site", "party_id"], name: "index_recommended_parties_on_constituency_site_party", unique: true
     t.index ["party_id"], name: "index_recommended_parties_on_party_id"
   end
 
