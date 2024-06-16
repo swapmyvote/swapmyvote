@@ -11,14 +11,13 @@ class Poll < ApplicationRecord
     # For each combination of party and constituency we figure out how close that party is to tipping the balance
     # in that constituency.
     #
-    # Method: Take the party of interest, and find their predicted (by Electoral Calculus) vote share in that
-    # constituency.
+    # Method: Take the party of interest, and find their predicted vote share in that constituency.
     # Then take the rest of the parties in that constituency and find the maximum vote share amongst them.
-    # Then find the difference and save it as an absolute value.
+    # Then find the difference and save it as an absolute value. Call it marginal score.
     #
     # Now we can offer voters an attractive constituency to swap with, by preferring constituencies where their
     # preferred party has a low marginal score ... meaning the party either needs a bit of help getting over
-    # the line, or it needs its expected majority bolstering to safe levels. I'm proposing that when we offer
+    # the line, or it needs its expected majority bolstering to safe levels. Now when we offer
     # potential swaps, 50% of those will be random, and 50% will be from marginals as defined above.
     #
     # Big marginal score implies the preferred party is either way out in front and a safe seat, or way behind
