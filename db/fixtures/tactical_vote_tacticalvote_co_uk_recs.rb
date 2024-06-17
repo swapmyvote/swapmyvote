@@ -9,7 +9,7 @@ class TacticalVoteTacticalVoteCoUkRecs
   FILE_NAME = "db/fixtures/tactical_vote_tacticalvote_co_uk.json"
 
   ACCEPTABLE_NON_PARTY_ADVICE = [
-    :alliance, :sinn_fein, :sdlp
+    :alliance, :sinn_fein, :sdlp, :any
   ]
   SMV_CODES_BY_ADVICE_TEXT = {
     lib_dem: :libdem,
@@ -33,6 +33,9 @@ class TacticalVoteTacticalVoteCoUkRecs
     parties_by_smv_code = Party.all.each_with_object({}) do |party, lookup|
       lookup[party.smv_code.to_sym] = party
     end
+
+    # tacticalvote.co.uk "Any" has been explained to me as the same as STT "heart", no tories, no reform
+    included_parties = Party.where.not({ smv_code: [:con, :reform] }).all
 
     not_recognised = Set.new
 
@@ -58,6 +61,9 @@ class TacticalVoteTacticalVoteCoUkRecs
         party = parties_by_smv_code[party_smv_code]
         rec.text = party.name
         rec.update_parties([party])
+      elsif non_party_advice && non_party_advice == :any
+        rec.text = "Any"
+        rec.update_parties(included_parties)
       elsif non_party_advice
         # actually, here we mean a party not in our database so we can't link to a party record
         rec.text = source_advice
