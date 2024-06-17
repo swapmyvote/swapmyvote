@@ -9,7 +9,7 @@ class TacticalVoteTacticalVoteCoUkRecs
   FILE_NAME = "db/fixtures/tactical_vote_tacticalvote_co_uk.json"
 
   ACCEPTABLE_NON_PARTY_ADVICE = [
-    :alliance, :sinn_fein, :sdlp, :any, :tbc_labour_or_plaid_cymru
+    :alliance, :sinn_fein, :sdlp, :any, :tbc_labour_or_plaid_cymru, :labour_or_snp
   ]
   SMV_CODES_BY_ADVICE_TEXT = {
     lib_dem: :libdem,
@@ -35,7 +35,8 @@ class TacticalVoteTacticalVoteCoUkRecs
     end
 
     # tacticalvote.co.uk "Any" has been explained to me as the same as STT "heart", no tories, no reform
-    included_parties = Party.where.not({ smv_code: [:con, :reform] }).all
+    included_any_parties = Party.where.not({ smv_code: [:con, :reform] }).all
+    included_labour_or_snp_parties = Party.where({ smv_code: [:lab, :snp] }).all
 
     not_recognised = Set.new
 
@@ -63,7 +64,10 @@ class TacticalVoteTacticalVoteCoUkRecs
         rec.update_parties([party])
       elsif non_party_advice && non_party_advice == :any
         rec.text = "Any"
-        rec.update_parties(included_parties)
+        rec.update_parties(included_any_parties)
+      elsif non_party_advice && non_party_advice == :labour_or_snp
+        rec.text = source_advice
+        rec.update_parties(included_labour_or_snp_parties)
       elsif non_party_advice
         # actually, here we mean a party not in our database so we can't link to a party record
         rec.text = source_advice
