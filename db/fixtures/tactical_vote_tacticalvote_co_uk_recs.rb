@@ -9,7 +9,7 @@ class TacticalVoteTacticalVoteCoUkRecs
   FILE_NAME = "db/fixtures/tactical_vote_tacticalvote_co_uk.json"
 
   ACCEPTABLE_NON_PARTY_ADVICE = [
-    :alliance, :sinn_fein, :sdlp, :any
+    :alliance, :sinn_fein, :sdlp, :any, :tbc_labour_or_plaid_cymru
   ]
   SMV_CODES_BY_ADVICE_TEXT = {
     lib_dem: :libdem,
