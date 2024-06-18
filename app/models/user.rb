@@ -364,7 +364,9 @@ class User < ApplicationRecord
   protected
 
   def password_required?
-    false
+    # devise should be able to figure this out ?
+    # but just in case we need to revisit and override, leave this function here
+    super
   end
 
   def email_uniqueness
