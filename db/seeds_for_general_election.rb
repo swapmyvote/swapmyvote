@@ -9,7 +9,8 @@
 require "active_record/fixtures"
 require "csv"
 require_relative "fixtures/mysociety_constituencies_csv"
-require_relative "fixtures/electoral_calculus_polls"
+# require_relative "fixtures/electoral_calculus_polls"
+require_relative "fixtures/mrp_averages_polls"
 require_relative "fixtures/tactical_vote_stt_recs"
 require_relative "fixtures/tactical_vote_sprintforpr_recs"
 require_relative "fixtures/tactical_vote_tacticalvote_recs"
@@ -49,9 +50,13 @@ puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
 
 # ---------------------------------------------------------------------------------
 
-puts "\n\nPolls Data from Electoral calculus\n\n"
+# puts "\n\nPolls Data from Electoral calculus\n\n"
 
-ElectoralCalculusPolls.new.load
+# ElectoralCalculusPolls.new.load
+
+puts "\n\nPolls Data from MRP averages\n\n"
+
+MrpAveragesPolls.new.load
 
 # ---------------------------------------------------------------------------------
 
