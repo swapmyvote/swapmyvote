@@ -1,8 +1,11 @@
 source "https://rubygems.org"
-ruby "2.7.6"
+ruby "3.3.2"
+
+# webrick no longer part of standard library since ruby 3.0.0
+gem "webrick", "~> 1.7"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 5.2.0"
+gem "rails", "~> 6.1"
 # Use SCSS for stylesheets
 gem "sassc-rails"
 # Use Uglifier as compressor for JavaScript assets
@@ -12,7 +15,12 @@ gem "coffee-rails"
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# FIXME: some of these will probably be removable when upgrading beyond Rails 6.1.
 gem "bootsnap", require: false
+gem "net-http"
+gem "csv"
+gem "mutex_m"
+gem "drb"
 
 # Use jquery as the JavaScript library
 gem "jquery-rails"
@@ -51,7 +59,7 @@ gem "random_data"
 
 gem "json"
 
-gem "airbrake", "~> 9.5.0"
+gem "airbrake"
 
 gem "scss_lint"
 gem "haml_lint"
@@ -87,7 +95,7 @@ group :development, :test do
   gem "sqlite3"
 
   # add rspec
-  gem "rspec-rails", "~> 3.8"
+  gem "rspec-rails", "~> 4.0"
   gem "capybara"
   gem "database_cleaner"
   gem "rspec-snapshot"

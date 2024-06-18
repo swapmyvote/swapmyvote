@@ -3,7 +3,6 @@ require_relative "../../../db/fixtures/electoral_commission_parties"
 module Db
   module Fixtures
     RSpec.describe ElectoralCommissionParties do
-      # rubocop:disable RSpec/IteratedExpectation
       # rubocop's recommendation doesn't improve the code in this instance and it worsens the spec output
 
       describe "#each" do

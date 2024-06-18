@@ -76,3 +76,6 @@ RSpec/StubbedMock:
   Enabled: false
 RSpec/VerifiedDoubles:
   Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false

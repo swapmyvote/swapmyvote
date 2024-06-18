@@ -1,7 +1,6 @@
 require_relative "../../../../db/fixtures/be2021/party"
 
 RSpec.describe Db::Fixtures::Be2021::Party do
-  # rubocop:disable RSpec/IteratedExpectation
   # rubocop's recommendation doesn't improve the code in this instance and it worsens the spec output
 
   describe ".all_with_duplicates" do
