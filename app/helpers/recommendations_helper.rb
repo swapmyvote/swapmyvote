@@ -71,19 +71,23 @@ module RecommendationsHelper
       "sprint-for-pr" => {
         order: 2,
         link: "https://sprintforpr.uk/plan"
-     },
-      "tactical-vote" => {
-        order: 3,
-        link: "https://tactical.vote/all/"
-     },
-     "scotland-in-union" => {
-      order: 4,
-      link: "https://scotlandinunion.co.uk/"
-     },
-     "tacticalvote-co-uk" => {
-      order: 5,
-      link: "https://tacticalvote.co.uk/"
-     }
-  }
+      },
+        "tactical-vote" => {
+          order: 3,
+          link: "https://tactical.vote/all/"
+      },
+      "scotland-in-union" => {
+          order: 4,
+          link: "https://scotlandinunion.co.uk/"
+      },
+      "tacticalvote-co-uk" => {
+          order: 5,
+          link: "https://tacticalvote.co.uk/"
+      },
+      "get-voting-org" => {
+          order: 6,
+          link: "https://getvoting.org/"
+      }
+    }
   end
 end
