@@ -79,7 +79,11 @@ module RecommendationsHelper
      "scotland-in-union" => {
       order: 4,
       link: "https://scotlandinunion.co.uk/"
-   }
+     },
+     "tacticalvote-co-uk" => {
+      order: 5,
+      link: "https://tacticalvote.co.uk/"
+     }
   }
   end
 end

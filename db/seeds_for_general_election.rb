@@ -15,6 +15,7 @@ require_relative "fixtures/tactical_vote_stt_recs"
 require_relative "fixtures/tactical_vote_sprintforpr_recs"
 require_relative "fixtures/tactical_vote_tacticalvote_recs"
 require_relative "fixtures/tactical_vote_siu_recs"
+require_relative "fixtures/tactical_vote_tacticalvote_co_uk_recs"
 
 puts "\n\nParties selected for GE"
 
@@ -79,6 +80,10 @@ TacticalVoteTacticalVoteRecs.new.load
 puts "\n\nLoading Recommendations from scotlandinunion.co.uk"
 
 TacticalVoteSiuRecs.new.load
+
+puts "\n\nLoading Recommendations from tacticalvote.co.uk"
+
+TacticalVoteTacticalVoteCoUkRecs.new.load
 
 r_c_count = Recommendation.left_joins(:constituency).where(ons_constituencies: { ons_id: nil }).count
 puts "There are #{r_c_count} Recommendation records with no matching OnsConstituency" unless r_c_count.zero?
