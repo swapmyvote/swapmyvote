@@ -14,7 +14,7 @@ module AppModeConcern
     "closed-and-voting",
     # The fancy new mode where we keep swaps open but don't allow users
     # with confirmed swaps to cancel or change their voting preferences
-    # or constituency.
+    # or constituency or delete their profile.
     "open-and-voting",
 
     # Post-election aftermath
@@ -41,6 +41,21 @@ module AppModeConcern
 
   def raise_invalid_mode(type, mode)
     raise "Invalid #{type} '#{mode}'; should be one of: #{VALID_MODES}"
+  end
+
+  def logins_open?
+    # During closed-warm-up the database should be empty, and most
+    # likely we're furiously coding and getting everything ready.
+    # At this point we don't want to mislead users into thinking
+    # there is anything usable, and or testers into thinking that
+    # they can test on the main site.
+    #
+    # At all other times, logins should be open.  In particular,
+    # closed-wind-down should allow logins so that users can delete
+    # their account via users#edit (although note this deletion is
+    # prevented via restricted_when_voting_open during open-and-voting
+    # mode).
+    return app_mode != "closed-warm-up"
   end
 
   def swapping_open?

@@ -31,6 +31,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_logins_open
+    return if logins_open?
+    redirect_to root_path
+  end
+
   def require_swapping_open
     return if swapping_open?
     redirect_to root_path

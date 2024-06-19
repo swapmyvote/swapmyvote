@@ -49,7 +49,7 @@
 
       - if logged_in?
         = render partial: "layouts/current_user"
-      - else
+      - elsif logins_open?
         = render partial: "layouts/login"
 
     - if flash[:errors]
