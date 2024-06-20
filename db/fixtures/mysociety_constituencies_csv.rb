@@ -6,6 +6,8 @@
 class MysocietyConstituenciesCsv
   attr_reader :file_name
 
+  include Enumerable
+
   ID_KEY = "gss_code"
   NAME_KEY = "name"
   SHORT_CODE_KEY = "short_code"
