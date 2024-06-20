@@ -312,8 +312,12 @@ class User < ApplicationRecord
   # This is used to determine whether to enforce the requirement for
   # mobile verification.
   def mobile_verification_missing?
-    return false if test_user? && ENV["TEST_USERS_SKIP_MOBILE_VERIFICATION"]
+    return false if test_user_validation_bypassed?
     return !mobile_phone_verified?
+  end
+
+  def test_user_validation_bypassed?
+    test_user? && ENV["TEST_USERS_SKIP_MOBILE_VERIFICATION"]
   end
 
   def image_url
@@ -364,7 +368,8 @@ class User < ApplicationRecord
   protected
 
   def password_required?
-    # devise should be able to figure this out ?
+    return false if test_user_validation_bypassed?
+    # otherwise devise should be able to figure this out ?
     # but just in case we need to revisit and override, leave this function here
     super
   end
