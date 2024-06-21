@@ -52,11 +52,37 @@ Run command in Heroku environment
     heroku run --app swapmyvote CONFIG=value bash
     heroku run --app swapmyvote CONFIG=value rails runner 'COMMAND'
 
+Poke around in a Heroku database
+--------------------------------
+
+    psql $(heroku config:get -a swapmyvotedev DATABASE_URL)
+
+This will also work, but is slower:
+
+    heroku run --app swapmyvotedev rails db -p
+
 Open or close swaps in Heroku environment
 -----------------------------------------
 
     # Set app mode to one of AppModeConcern::VALID_MODES
     heroku config:set -a swapmyvotedev SWAPMYVOTE_MODE=open
+
+Manually verify all phone numbers in staging
+--------------------------------------------
+
+This can be useful in staging if there is an issue with SMS sending.
+Make sure you don't do this in production!!!
+
+One shot:
+
+    heroku run --app swapmyvotedev rails runner \
+        'MobilePhone.where(verified: nil).map { |p| p.verified = true; p.save! }'
+
+Or interactively:
+
+    heroku run --app swapmyvotedev rails c
+    unverified = MobilePhone.where(verified: nil)
+    unverified.map { |p| p.verified = true; p.save! }
 
 Resetting Heroku database for a new election cycle
 --------------------------------------------------
@@ -68,3 +94,7 @@ N.B. in the below, `db:schema:load` is currently required rather than
     heroku run -a swapmyvote bundle exec rake db:schema:load && \
     heroku run -a swapmyvote bundle exec ELECTION_TYPE=g rake db:seed
 
+Anonymising the data after an election cycle
+--------------------------------------------
+
+See [`db/maintenance/anonymise-users.sql`](../db/maintenance/anonymise-users.sql) which can be run using the above `psql` trick, or via `rails db -p`.
