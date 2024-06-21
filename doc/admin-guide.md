@@ -77,3 +77,7 @@ N.B. in the below, `db:schema:load` is currently required rather than
     heroku run -a swapmyvote bundle exec rake db:schema:load && \
     heroku run -a swapmyvote bundle exec ELECTION_TYPE=g rake db:seed
 
+Anonymising the data after an election cycle
+--------------------------------------------
+
+See [`db/maintenance/anonymise-users.sql`](../db/maintenance/anonymise-users.sql) which can be run using the above `psql` trick, or via `rails db -p`.
