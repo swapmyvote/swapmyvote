@@ -67,6 +67,23 @@ Open or close swaps in Heroku environment
     # Set app mode to one of AppModeConcern::VALID_MODES
     heroku config:set -a swapmyvotedev SWAPMYVOTE_MODE=open
 
+Manually verify all phone numbers in staging
+--------------------------------------------
+
+This can be useful in staging if there is an issue with SMS sending.
+Make sure you don't do this in production!!!
+
+One shot:
+
+    heroku run --app swapmyvotedev rails runner \
+        'MobilePhone.where(verified: nil).map { |p| p.verified = true; p.save! }'
+
+Or interactively:
+
+    heroku run --app swapmyvotedev rails c
+    unverified = MobilePhone.where(verified: nil)
+    unverified.map { |p| p.verified = true; p.save! }
+
 Resetting Heroku database for a new election cycle
 --------------------------------------------------
 
