@@ -9,7 +9,7 @@
   "repository": "https://github.com/swapmyvote/swapmyvote",
   "logo": "https://github.com/swapmyvote/swapmyvote/blob/master/app/assets/images/logo-1024x1024.png",
   "success_url": "/",
-  "stack": "heroku-20",
+  "stack": "heroku-22",
   "env": {
     "SERVER_HOST": {
       "description": "Determine what cookie name to use.  This can also be used to construct SERVER_HOST_PORT.",
