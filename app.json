@@ -11,6 +11,12 @@
   "success_url": "/",
   "stack": "heroku-22",
   "env": {
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "STAGING_DATABASE_URL": {
+      "required": true
+    },
     "SERVER_HOST": {
       "description": "Determine what cookie name to use.  This can also be used to construct SERVER_HOST_PORT.",
       "value": ""
@@ -113,6 +119,17 @@
     "test": {
       "scripts": {
         "test": "bundle exec rake test"
+      }
+    },
+    "review": {
+      "addons": [
+        {
+          "plan": "heroku-postgresql:essential-0",
+          "as": "DATABASE"
+        }
+      ],
+      "scripts": {
+        "postdeploy": "pg_dump $STAGING_DATABASE_URL | psql $DATABASE_URL && bundle exec rake db:migrate"
       }
     }
   }
