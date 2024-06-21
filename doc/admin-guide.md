@@ -52,6 +52,15 @@ Run command in Heroku environment
     heroku run --app swapmyvote CONFIG=value bash
     heroku run --app swapmyvote CONFIG=value rails runner 'COMMAND'
 
+Poke around in a Heroku database
+--------------------------------
+
+    psql $(heroku config:get -a swapmyvotedev DATABASE_URL)
+
+This will also work, but is slower:
+
+    heroku run --app swapmyvotedev rails db -p
+
 Open or close swaps in Heroku environment
 -----------------------------------------
 
