@@ -41,12 +41,13 @@ puts "\n\nONS Constituencies"
 
 constituencies_csv = MysocietyConstituenciesCsv.new
 
-constituencies_csv.each do |constituency|
-  # puts constituency
-  cons = OnsConstituency.find_or_initialize_by ons_id: constituency[:ons_id]
-  puts "#{cons.ons_id} #{cons.name}"
-  cons.update!(constituency.slice(:name, :ons_id)) if cons.ons_id
+constituencies = constituencies_csv.map do |constituency|
+  puts "#{constituency[:ons_id]} #{constituency[:name]}"
+  # From Rails 7 onwards we don't need to specify the timestamps:
+  # https://blog.kiprosh.com/rails-7-adds-new-options-to-upsert_all/#recordtimestamps
+  constituency.slice(:name, :ons_id).merge(created_at: Time.current, updated_at: Time.current)
 end
+OnsConstituency.upsert_all(constituencies, unique_by: :ons_id)
 
 puts "#{OnsConstituency.count} ONS Constituencies loaded\n\n"
 
