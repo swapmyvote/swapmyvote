@@ -65,28 +65,28 @@ module RecommendationsHelper
   def recommendations_sites
     {
       "stop-the-tories" => {
-        order: 1 ,
+        order: 1,
         link: "https://stopthetories.vote/"
       },
       "sprint-for-pr" => {
         order: 2,
         link: "https://sprintforpr.uk/plan"
       },
-        "tactical-vote" => {
-          order: 3,
-          link: "https://tactical.vote/all/"
+      "tactical-vote" => {
+        order: 3,
+        link: "https://tactical.vote/all/"
       },
       "scotland-in-union" => {
-          order: 4,
-          link: "https://scotlandinunion.co.uk/"
+        order: 4,
+        link: "https://scotlandinunion.co.uk/"
       },
       "tacticalvote-co-uk" => {
-          order: 5,
-          link: "https://tacticalvote.co.uk/"
+        order: 5,
+        link: "https://tacticalvote.co.uk/"
       },
       "get-voting-org" => {
-          order: 6,
-          link: "https://getvoting.org/"
+        order: 6,
+        link: "https://getvoting.org/"
       }
     }
   end
