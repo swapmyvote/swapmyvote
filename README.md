@@ -57,6 +57,7 @@ installed.
     template:
 
         $ cp .env.example .env.development.local
+        $ cp .env.test.example .env.test.local
 
     Now edit `.env.development.local` to contain the appropriate
     credentials.  These will get automatically loaded via the
