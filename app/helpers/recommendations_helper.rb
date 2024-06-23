@@ -66,26 +66,32 @@ module RecommendationsHelper
     {
       "stop-the-tories" => {
         order: 1,
+        name: "Stop The Tories",
         link: "https://stopthetories.vote/"
       },
       "sprint-for-pr" => {
         order: 2,
+        name: "Sprint for PR",
         link: "https://sprintforpr.uk/plan"
       },
       "tactical-vote" => {
         order: 3,
+        name: "Tactical (dot) Vote",
         link: "https://tactical.vote/all/"
       },
       "scotland-in-union" => {
         order: 4,
+        name: "Scotland in Union",
         link: "https://scotlandinunion.co.uk/"
       },
       "tacticalvote-co-uk" => {
         order: 5,
+        name: "Tactical Vote UK",
         link: "https://tacticalvote.co.uk/"
       },
       "get-voting-org" => {
         order: 6,
+        name: "Get Voting",
         link: "https://getvoting.org/"
       }
     }
