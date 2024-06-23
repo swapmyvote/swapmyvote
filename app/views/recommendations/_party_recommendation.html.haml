@@ -2,9 +2,9 @@
   - if rec.match != :unknown
     - if rec.match == :good
       &#x2705
-    = link_to URI.parse(rec.site.link).host, rec.site.link
+    = link_to rec.site.name, rec.site.link, :title => "#{rec.site.name}: \"#{rec.site.meta_desc}\""
     recommend
     = rec.recommendation.text
   - else
-    = link_to URI.parse(rec.site.link).host, rec.site.link
+    = link_to rec.site.name, rec.site.link, :title => "#{rec.site.name}: \"#{rec.site.meta_desc}\""
     has no recommendation
