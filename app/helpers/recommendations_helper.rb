@@ -68,7 +68,7 @@ module RecommendationsHelper
         order: 1,
         name: "Stop The Tories",
         meta_desc: "Your vote is your power. " + \
-                   "Use it tactically to get the Tories out, then influence your new MP and the next government. ",
+                   "Use it tactically to get the Tories out, then influence your new MP and the next government.",
         link: "https://stopthetories.vote/"
       },
       "sprint-for-pr" => {
