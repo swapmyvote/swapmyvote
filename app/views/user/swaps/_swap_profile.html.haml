@@ -17,7 +17,7 @@
         = other_user.constituency.name
       = render :partial => 'recommendations/party_recommendation', :collection => recommendations, :as => :rec
       .recommendations-header
-        Polls Advice
+        Polls Interpretation
       = render :partial => 'user/swaps/polls_advice', locals: { constituency: other_user.constituency, party: other_user.willing_party }
 - if defined? link_to_swap and link_to_swap
   .d-flex.justify-content-center

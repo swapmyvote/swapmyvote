@@ -1,9 +1,9 @@
 - poll = constituency.polls.detect { |poll| poll.party_id == party.id }
 %p
   - if poll.marginal_score < 1000
-    &#10071 Battleground site for #{party.name}
+    &#10071 Check the poll chart, looks like your swap could make a difference for #{party.name}
   - elsif poll.signed_marginal_score.positive?
-    Safe seat for #{party.name}
+    Check the poll chart, looks like your swap may be supporting a safe win for #{party.name}
   - else
-    #{party.name} look set to loose
+    Check the poll chart, looks like #{party.name} may still lose despite your swap
 
