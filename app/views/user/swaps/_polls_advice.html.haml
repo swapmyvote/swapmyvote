@@ -1,0 +1,9 @@
+- poll = constituency.polls.detect { |poll| poll.party_id == party.id }
+%p
+  - if poll.marginal_score < 1000
+    &#10071 Battleground site for #{party.name}
+  - elsif poll.signed_marginal_score.positive?
+    Safe seat for #{party.name}
+  - else
+    #{party.name} look set to loose
+
