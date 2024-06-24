@@ -1,9 +1,18 @@
 - poll = constituency.polls.detect { |poll| poll.party_id == party.id }
 %p
   - if poll.marginal_score < 1000
-    &#10071 Check the poll chart, looks like your swap could make a difference for #{party.name}
+    - lead_trail = poll.signed_marginal_score.positive? ? "leading"  : "only trailing the leading party"
+    &#10071 Check the poll chart, looks like your swap could make a difference for #{party.name}, which is
+    = lead_trail
+    by
+    = poll.marginal_score/100.0
+    percent in the polls
   - elsif poll.signed_marginal_score.positive?
-    Check the poll chart, looks like your swap may be supporting a safe win for #{party.name}
+    Check the poll chart, looks like your swap may be supporting a safe win for #{party.name} which is already leading by
+    = poll.marginal_score/100.0
+    percent in the pools
   - else
-    Check the poll chart, looks like #{party.name} may still lose despite your swap
+    Check the poll chart, #{party.name} is trailing by
+    = poll.marginal_score/100.0
+    percent in the polls and may still lose despite your swap
 

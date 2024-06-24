@@ -7,7 +7,8 @@ RSpec.describe "user/swaps/new", type: :view do
     preferred_party = build(:party)
     constituency = OnsConstituency.find_by(ons_id: "one")
     poll1 = build(:poll, party: willing_party, constituency: constituency, marginal_score: 900)
-    constituency.update(polls: [poll1])
+    poll2 = build(:poll, party: preferred_party, constituency: constituency, marginal_score: 900)
+    constituency.update(polls: [poll1, poll2])
     user = build(:user,
                  willing_party: willing_party,
                  preferred_party: preferred_party,
