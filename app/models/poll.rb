@@ -28,7 +28,6 @@ class Poll < ApplicationRecord
       OnsConstituency.eager_load(polls: [:constituency]).each do |constituency|
       # rubocop:enable Rails/FindEach
         polls = constituency.polls
-
         polls.each do |poll|
           party_votes = poll.votes
           max_votes = polls.select { |p| p.id != poll.id }.map(&:votes).max
