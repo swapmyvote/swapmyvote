@@ -10,7 +10,6 @@ _drawCharts = () ->
 google.charts.load('1', {packages: ['corechart']})
 google.setOnLoadCallback(_drawCharts)
 
-
 _drawPollChart = (selector, poll_data) ->
   formatMS = new google.visualization.NumberFormat({
     suffix: '%',
@@ -26,28 +25,27 @@ _drawPollChart = (selector, poll_data) ->
   max = Math.max.apply(null, poll_data.map((d) -> d[1]))
 
   options = {
-    hAxis: { textPosition: 'none' },
+    hAxis: {
+      textPosition: 'out'
+    },
     vAxis: {
       textPosition: 'none',
       gridlines: {
         color: 'transparent'
       },
       viewWindow: {
-        min: 0, max: max
+        min: 0,
+        max: max
       },
       baselineColor: 'none',
     },
     legend: { position: "none" },
     bar: { groupWidth: '90%' },
     chartArea: {
-      width: '100%',
-      height: '100%'
+      width: '100%'
     },
     tooltip: {
-      textStyle: {
-        fontSize: 12,
-        fontFamily: "Open Sans"
-      }
+      trigger: "none"
     }
   }
 
