@@ -13,12 +13,13 @@
       Does this help your vote count ?
     .profile-recommendations.text-center.smv-card
       .recommendations-header
+        Polls Interpretation
+      = render :partial => 'user/swaps/polls_advice', locals: { constituency: other_user.constituency, party: other_user.willing_party }
+    .profile-recommendations.text-center.smv-card
+      .recommendations-header
         Recommendations for
         = other_user.constituency.name
       = render :partial => 'recommendations/party_recommendation', :collection => recommendations, :as => :rec
-      .recommendations-header
-        Polls Interpretation
-      = render :partial => 'user/swaps/polls_advice', locals: { constituency: other_user.constituency, party: other_user.willing_party }
 - if defined? link_to_swap and link_to_swap
   .d-flex.justify-content-center
     = link_to "Offer to swap", new_user_swap_path(user_id: other_user.id), class: "btn btn-secondary"
