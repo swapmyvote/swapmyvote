@@ -3,16 +3,14 @@ def create_random_user(i, preferred_party_id, willing_party_id)
   gender = rand > 0.5 ? "female" : "male"
   firstname = gender == "male" ? Random.firstname_male : Random.firstname_female
 
-  ons_constituency_id = OnsConstituency.all.pluck(:id).sample
-
-  ons_id = OnsConstituency.find_by(id: ons_constituency_id).ons_id
+  constituency = OnsConstituency.all.sample
   password = firstname + firstname
 
   user = User.create(
     name: "#{firstname} #{Random.lastname}",
     email: "#{firstname.downcase}.#{i}-#{preferred_party_id}-#{willing_party_id}@example.com",
     password: password,
-    constituency_ons_id: ons_id,
+    constituency_ons_id: constituency.ons_id,
     preferred_party_id: preferred_party_id,
     willing_party_id: willing_party_id
   )
@@ -24,7 +22,7 @@ def create_random_user(i, preferred_party_id, willing_party_id)
 
   build_identity(user.id, i, gender)
 
-  puts "User #{user.name} <#{user.email}> created with password #{password}"
+  puts "User #{user.name} <#{user.email}> created in #{constituency.name} with password #{password}"
 end
 
 def build_identity(user_id, i, gender)
