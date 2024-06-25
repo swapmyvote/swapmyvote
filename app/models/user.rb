@@ -371,9 +371,8 @@ class User < ApplicationRecord
   protected
 
   def password_required?
-    return false if test_user_validation_bypassed?
-    # otherwise devise should be able to figure this out ?
-    # but just in case we need to revisit and override, leave this function here
+    # Devise should be able to figure this out, but we leave this
+    # function here just in case we need to revisit and override.
     super
   end
 
