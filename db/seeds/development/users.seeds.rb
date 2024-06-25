@@ -44,24 +44,14 @@ starting_user_count = User.count
 puts starting_user_count.zero? ? "No existing users" : "#{starting_user_count} users already in database"
 puts "\n"
 
+parties = Party.all
 5.times do |i|
-  create_random_user(i, 1, 2)
-  create_random_user(i, 1, 3)
-
-  create_random_user(i, 2, 1)
-  create_random_user(i, 2, 3)
-
-  create_random_user(i, 3, 1)
-  create_random_user(i, 3, 2)
-
-  create_random_user(i, 4, 1)
-  create_random_user(i, 1, 4)
-
-  create_random_user(i, 4, 2)
-  create_random_user(i, 2, 4)
-
-  create_random_user(i, 4, 3)
-  create_random_user(i, 3, 4)
+  parties.each do |preferred|
+    parties.each do |willing|
+      next if preferred.id == willing.id
+      create_random_user(i, preferred.id, willing.id)
+    end
+  end
 end
 
 puts "\nFinished user creation, #{User.count} users in database, #{User.count - starting_user_count} users added"
