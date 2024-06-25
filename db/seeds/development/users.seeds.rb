@@ -21,6 +21,8 @@ def create_random_user(i, preferred_party_id, willing_party_id)
   end
 
   build_identity(user.id, i, gender)
+
+  puts "User #{user.name} <#{user.email}> created"
 end
 
 def build_identity(user_id, i, gender)
