@@ -1,5 +1,5 @@
 %p
-  - percent_score = (poll.marginal_score/100.0).to_s + "%"
+  - percent_score = (poll.marginal_score/100.0).round(1).to_s + "%"
   - if poll.marginal_score < 1000
     - lead_trail = poll.signed_marginal_score.positive? ? "leading"  : "only trailing the leading party"
     &#10071 Looks like this swap could make a difference for #{party.name}, which is
