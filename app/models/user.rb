@@ -271,7 +271,10 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    return if email.blank?
+    if email.blank? || test_user?
+      logger.debug "Not sending welcome email to test user #{email}"
+      return
+    end
     logger.debug "Sending Welcome email"
     UserMailer.welcome_email(self).deliver_now
     sent_emails.create!(template: SentEmail::WELCOME)
