@@ -22,7 +22,8 @@ def create_random_user(i, preferred_party_id, willing_party_id)
 
   build_identity(user.id, i, gender)
 
-  puts "User #{user.name} <#{user.email}> created in #{constituency.name} with password #{password}"
+  puts "User ##{user.id} #{user.name} <#{user.email}> created in #{constituency.name} with password #{password}"
+  puts "   preferred #{user.preferred_party.short_name}, willing #{user.willing_party.short_name}"
 end
 
 def build_identity(user_id, i, gender)
