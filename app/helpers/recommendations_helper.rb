@@ -64,44 +64,44 @@ module RecommendationsHelper
 
   def recommendations_sites
     {
-      "stop-the-tories" => {
+      "tacticalvote-co-uk" => {
         order: 1,
+        meta_desc: "Want to get the Tories out? Tactical Voting is the answer.",
+        name: "Tactical Vote",
+        link: "https://tacticalvote.co.uk/"
+      },
+      "stop-the-tories" => {
+        order: 2,
         name: "Stop The Tories",
         meta_desc: "Your vote is your power. " + \
                    "Use it tactically to get the Tories out, then influence your new MP and the next government.",
         link: "https://stopthetories.vote/"
       },
+      "get-voting-org" => {
+        order: 3,
+        meta_desc: "A tactical voting & voter informaton campaign from Best for Britain.",
+        name: "Get Voting",
+        link: "https://getvoting.org/"
+      },
+      "tactical-vote" => {
+        order: 4,
+        meta_desc: "How to vote tactically to get the Tories out in the 2024 General Election",
+        name: "tactical.vote",
+        link: "https://tactical.vote/all/"
+      },
+      "scotland-in-union" => {
+        order: 5,
+        meta_desc: "Campaigning to keep Scotland in the UK, challenging the independence agenda from the SNP",
+        name: "Scotland in Union",
+        link: "https://scotlandinunion.co.uk/"
+      },
       "sprint-for-pr" => {
-        order: 2,
+        order: 6,
         name: "Sprint for PR",
         meta_desc: "How and where to vote tactically in the next general election " + \
                    "to advocate for proportional representation",
         link: "https://sprintforpr.uk/plan"
       },
-      "tactical-vote" => {
-        order: 3,
-        meta_desc: "How to vote tactically to get the Tories out in the 2024 General Election",
-        name: "Tactical (dot) Vote",
-        link: "https://tactical.vote/all/"
-      },
-      "scotland-in-union" => {
-        order: 4,
-        meta_desc: "Campaigning to keep Scotland in the UK, challenging the independence agenda from the SNP",
-        name: "Scotland in Union",
-        link: "https://scotlandinunion.co.uk/"
-      },
-      "tacticalvote-co-uk" => {
-        order: 5,
-        meta_desc: "Want to get the Tories out? Tactical Voting is the answer.",
-        name: "Tactical Vote UK",
-        link: "https://tacticalvote.co.uk/"
-      },
-      "get-voting-org" => {
-        order: 6,
-        meta_desc: "A tactical voting & voter informaton campaign from Best for Britain.",
-        name: "Get Voting",
-        link: "https://getvoting.org/"
-      }
     }
   end
 end
