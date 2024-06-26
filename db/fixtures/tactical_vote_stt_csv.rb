@@ -1,13 +1,18 @@
 # This encapsulates access to the tactical voting recommandations from StopTheTories.vote
 # updates can be obtained from
-# https://github.com/asibs/tactical-next/blob/main/public/data/latest.csv
+#  https://stopthetories.vote/data
+#
+# In the rails console
+#     require './db/fixtures/tactical_vote_stt_recs'
+#     rec = TacticalVoteSttRecs.new
+#     rec.load
 
-require("csv")
+require "csv"
 
 class TacticalVoteSttCsv
   attr_reader :file_name, :site
 
-  FILE_NAME = "db/fixtures/tactical_vote_stt.csv"
+  FILE_NAME = "db/fixtures/tactical_vote_stt_20240625_2058.csv"
 
   ID_KEY = "Short Code"
   ADVICE_KEY = "TV Advice"
@@ -25,7 +30,7 @@ class TacticalVoteSttCsv
     @data = []
 
     CSV.foreach(FILE_NAME, headers: true, col_sep: ",") do |line|
-      unless line.to_h.keys[0] == ID_KEY && line.to_h.keys[56] == ADVICE_KEY
+      unless line.to_h.keys[0] == ID_KEY && line.to_h.keys[37] == ADVICE_KEY
         raise ArgumentError, "Input fields #{line.to_h.keys} do not match #{REQUIRED_INPUT_KEYS}"
       end
 
