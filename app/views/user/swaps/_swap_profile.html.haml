@@ -18,7 +18,7 @@
     - if recommendations.size > 0
       .profile-recommendations.text-center.smv-card
         .recommendations-header
-          Tactical Voting Recommendations for
+          Tactical voting recommendations for
           = other_user.constituency.name
         = render :partial => 'recommendations/party_recommendation', :collection => recommendations, :as => :rec
 - if defined? link_to_swap and link_to_swap
