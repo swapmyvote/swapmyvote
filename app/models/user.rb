@@ -271,7 +271,10 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    return if email.blank?
+    if email.blank? || test_user?
+      logger.debug "Not sending welcome email to test user #{email}"
+      return
+    end
     logger.debug "Sending Welcome email"
     UserMailer.welcome_email(self).deliver_now
     sent_emails.create!(template: SentEmail::WELCOME)
@@ -368,9 +371,8 @@ class User < ApplicationRecord
   protected
 
   def password_required?
-    return false if test_user_validation_bypassed?
-    # otherwise devise should be able to figure this out ?
-    # but just in case we need to revisit and override, leave this function here
+    # Devise should be able to figure this out, but we leave this
+    # function here just in case we need to revisit and override.
     super
   end
 
