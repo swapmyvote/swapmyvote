@@ -25,18 +25,20 @@ class Poll < ApplicationRecord
     #
     def calculate_marginal_score(progress: false)
       # rubocop:disable Rails/FindEach
-      OnsConstituency.all.each do |constituency|
+      OnsConstituency.eager_load(polls: [:constituency]).each do |constituency|
       # rubocop:enable Rails/FindEach
         polls = constituency.polls
-
         polls.each do |poll|
-          party_votes = poll.votes
-          max_votes = polls.select { |p| p.id != poll.id }.map(&:votes).max
-          poll.update(marginal_score: (max_votes - party_votes).abs)
+          poll.update(marginal_score: (poll.signed_marginal_score).abs)
           print "." if progress
         end
       end
       puts if progress
     end
+  end
+
+  def signed_marginal_score
+    other_poll_votes = constituency.polls.select { |p| p.id != id }.map(&:votes)
+    votes - other_poll_votes.max
   end
 end

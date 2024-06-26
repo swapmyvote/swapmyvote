@@ -27,13 +27,15 @@ RSpec.describe Poll, type: :model do
     end
 
     context "on a single constituency, split 32.56%, 27.31%, 19.43%" do
-      before { allow(OnsConstituency).to receive(:all).and_return(constituencies) }
+      before do
+        allow(OnsConstituency).to receive(:eager_load).and_return([constituency1])
+        create(:ons_constituency)
+      end
 
-      let(:constituencies) { [constituency1] }
-      let(:constituency1) { build(:ons_constituency, polls: [poll1, poll2, poll3]) }
-      let(:poll1) { build(:poll, id: 12, votes: 3256) }
-      let(:poll2) { build(:poll, id: 13, votes: 2731) }
-      let(:poll3) { build(:poll, id: 14, votes: 1943) }
+      let(:constituency1) { double(:constituency1, polls: [poll1, poll2, poll3]) }
+      let(:poll1) { create(:poll, id: 12, votes: 3256, constituency: OnsConstituency.first, party: create(:party)) }
+      let(:poll2) { create(:poll, id: 13, votes: 2731, constituency: OnsConstituency.first, party: create(:party)) }
+      let(:poll3) { create(:poll, id: 14, votes: 1943, constituency: OnsConstituency.first, party: create(:party)) }
 
       describe "poll with 3256 votes" do
         specify do
