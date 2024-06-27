@@ -7,12 +7,15 @@ require_relative "mysociety_constituencies_csv"
 class TacticalVoteTacticalVoteRecs
   attr_reader :advisor, :mysoc_constituencies
 
-  ACCEPTABLE_NON_PARTY_ADVICE = [:alliance, :sinn_fein, :sdlp]
+  ACCEPTABLE_NON_PARTY_ADVICE = [:alliance, :sinn_fein, :social_democratic_and_labour_party]
   SMV_CODES_BY_ADVICE_TEXT = {
+    liberal_democrat: :libdem,
     lib_dem: :libdem,
     labour: :lab,
+    plaid_cymru: :plaid,
     plaid: :plaid,
     green: :green,
+    scottish_national_party: :snp,
     snp: :snp
   }
 
