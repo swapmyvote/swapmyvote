@@ -1,6 +1,6 @@
 %p
   - polls_percent = poll.marginal_score/100.0
-  - percent_score = (polls_percent >= 10 ? "%d%%" : "%.1g%%") % [polls_percent]
+  - percent_score = (polls_percent >= 9 ? "%d%%" : "%.1g%%") % [polls_percent]
   - if poll.marginal_score < 1000
     - lead_trail = poll.signed_marginal_score.positive? ? "leading" : "only trailing the leading party"
     &#x2B50; Looks like this swap could make a difference for
