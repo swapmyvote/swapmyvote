@@ -1,5 +1,6 @@
 # This loads the tactical voting recommandations from tacticalvote.co.uk
 # into the recommendations table
+# the json can be found at https://tacticalvote.co.uk/opendata/
 
 require "json"
 
