@@ -1,5 +1,5 @@
 # This encapsulates access to the tactical voting recommendations from tactical.vote
-# updates can be obtained by cut and paste https://tactical.vote/all/ into a spreadsheet
+# updates can be obtained by CSV download from https://tactical.vote/all/
 
 require("csv")
 
@@ -23,10 +23,10 @@ class TacticalVoteTacticalVoteCsv
 
     @data = []
 
-    CSV.foreach(FILE_NAME, headers: false, col_sep: ",") do |line|
+    CSV.foreach(FILE_NAME, headers: true, col_sep: ",") do |line|
       line_transformed = {
-        constituency_name: line[0],
-        advice: line[1]
+        constituency_name: line[1],
+        advice: line[3]
       }
 
       data << line_transformed
