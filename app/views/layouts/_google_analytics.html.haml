@@ -5,11 +5,15 @@
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.googletagmanager.com/gtag/js', 'gtag');
 
-    console.log("#{ENV['GOOGLE_ANALYTICS_ID']}");
     gtag('config', '#{ENV['GOOGLE_ANALYTICS_ID']}', 'auto');
-    gtag('create', '#{ENV['GOOGLE_ANALYTICS_ID']}', 'auto');
     gtag('set', 'anonymizeIp', true);
-    gtag('send', 'pageview');
+    // GA4 automatically tracks pageviews, adding it explicitly risks double counting, so removed intentionally
+
+    // Example syntax to send a custom event
+    /* gtag("event", "click", {
+      "event_category": "foo",
+      "event_label": "bar"
+    });*/
 
 - else
   <!-- GOOGLE_ANALYTICS_ID not set -->
