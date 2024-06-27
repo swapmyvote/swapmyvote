@@ -24,17 +24,17 @@ RSpec.describe "layouts/_login", type: :view do
 
     it "login modal allows Facebook login" do
       render
-      expect(rendered).to include "Log in with Facebook"
+      expect(rendered).to include "Log in or sign up with Facebook"
     end
 
     it "login modal doesn't allow Twitter login" do
       render
-      expect(rendered).not_to include "Log in with Twitter"
+      expect(rendered).not_to include "Log in or sign up with Twitter"
     end
 
     it "login modal doesn't allow email login" do
       render
-      expect(rendered).not_to include "Log in with email"
+      expect(rendered).not_to include "Log in or sign up with email"
     end
   end
 
@@ -45,17 +45,17 @@ RSpec.describe "layouts/_login", type: :view do
 
     it "login modal doesn't allow Facebook login" do
       render
-      expect(rendered).not_to include "Log in with Facebook"
+      expect(rendered).not_to include "Log in or sign up with Facebook"
     end
 
     it "login modal allows Twitter login" do
       render
-      expect(rendered).to include "Log in with Twitter"
+      expect(rendered).to include "Log in or sign up with Twitter"
     end
 
     it "login modal doesn't allow email login" do
       render
-      expect(rendered).not_to include "Log in with email"
+      expect(rendered).not_to include "Log in or sign up with email"
     end
   end
 
@@ -66,17 +66,17 @@ RSpec.describe "layouts/_login", type: :view do
 
     it "login modal doesn't allow Facebook login" do
       render
-      expect(rendered).not_to include "Log in with Facebook"
+      expect(rendered).not_to include "Log in or sign up with Facebook"
     end
 
     it "login modal doesn't allow Twitter login" do
       render
-      expect(rendered).not_to include "Log in with Twitter"
+      expect(rendered).not_to include "Log in or sign up with Twitter"
     end
 
     it "login modal allows email login" do
       render
-      expect(rendered).to include "Log in with email"
+      expect(rendered).to include "Log in or sign up with email"
     end
   end
 end

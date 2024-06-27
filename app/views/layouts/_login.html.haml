@@ -5,7 +5,7 @@
   .modal-dialog
     .modal-content
       .modal-header
-        %h2{ class: "h4 mb-0" } Log in
+        %h2{ class: "h4 mb-0" } Log In or Sign Up
         %button.close{ type: "button", data: { dismiss: "modal" },
                        aria: { label: "Close" } }
           %i.fa.fa-times.subdued
@@ -19,18 +19,18 @@
               %button{ formaction: facebook_login_path, formmethod: :post,
                       class: "btn btn-facebook btn-block" }
                 = image_tag('facebook_icon.png')
-                Log in with Facebook
+                Log in or sign up with Facebook
           - if log_in_with_twitter?
             %p.text-center
               %button{ formaction: twitter_login_path, formmethod: :post,
                       class: "btn btn-twitter btn-block" }
                 %i.fa.fa-fw.fa-twitter
-                Log in with Twitter
+                Log in or sign up with Twitter
           - if log_in_with_email?
             %p.text-center
               %button{ formaction: new_user_session_path, formmethod: :post,
                       class: "btn btn-dark btn-block" }
-                Log in with email
+                Log in or sign up with email
           .form-check
             %input.form-check-input{ type: "checkbox", id: "data-consent",
                     name: "data-consent", required: true }
