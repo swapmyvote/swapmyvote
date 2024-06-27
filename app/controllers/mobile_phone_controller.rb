@@ -54,8 +54,8 @@ class MobilePhoneController < ApplicationController
   end
 
   def sms_template
-    "Your verification code is %token. Please enter this code at " +
-      verify_token_url(log_in_with: current_user.provider)
+    "Your verification code is %token. " +
+      "Please enter this code as prompted on the SwapMyVote website."
   end
 
   def api_get_otp
