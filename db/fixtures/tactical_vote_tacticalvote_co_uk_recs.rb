@@ -1,5 +1,6 @@
 # This loads the tactical voting recommandations from tacticalvote.co.uk
 # into the recommendations table
+# the json can be found at https://tacticalvote.co.uk/opendata/
 
 require "json"
 
@@ -9,7 +10,7 @@ class TacticalVoteTacticalVoteCoUkRecs
   FILE_NAME = "db/fixtures/tactical_vote_tacticalvote_co_uk.json"
 
   ACCEPTABLE_NON_PARTY_ADVICE = [
-    :alliance, :sinn_fein, :sdlp, :any, :tbc_labour_or_plaid_cymru, :labour_or_snp
+    :alliance, :sinn_fein, :sdlp, :any, :tbc_labour_or_plaid_cymru, :labour_or_snp, :labour_or_plaid_cymru
   ]
   SMV_CODES_BY_ADVICE_TEXT = {
     lib_dem: :libdem,
@@ -37,6 +38,7 @@ class TacticalVoteTacticalVoteCoUkRecs
     # tacticalvote.co.uk "Any" has been explained to me as the same as STT "heart", no tories, no reform
     included_any_parties = Party.where.not({ smv_code: [:con, :reform] }).all
     included_labour_or_snp_parties = Party.where({ smv_code: [:lab, :snp] }).all
+    included_labour_or_plaid_parties = Party.where({ smv_code: [:lab, :plaid] }).all
 
     not_recognised = Set.new
 
@@ -68,6 +70,9 @@ class TacticalVoteTacticalVoteCoUkRecs
       elsif non_party_advice && non_party_advice == :labour_or_snp
         rec.text = source_advice
         rec.update_parties(included_labour_or_snp_parties)
+      elsif non_party_advice && non_party_advice == :labour_or_plaid_cymru
+        rec.text = source_advice
+        rec.update_parties(included_labour_or_plaid_parties)
       elsif non_party_advice
         # actually, here we mean a party not in our database so we can't link to a party record
         rec.text = source_advice
