@@ -32,7 +32,7 @@ RSpec.describe Poll, type: :model do
         create(:ons_constituency)
       end
 
-      let(:constituency1) { double(:constituency1, polls: [poll1, poll2, poll3]) }
+      let(:constituency1) { create(:ons_constituency, ons_id: "twenty-two", polls: [poll1, poll2, poll3]) }
       let(:poll1) { create(:poll, id: 12, votes: 3256, constituency: OnsConstituency.first, party: create(:party)) }
       let(:poll2) { create(:poll, id: 13, votes: 2731, constituency: OnsConstituency.first, party: create(:party)) }
       let(:poll3) { create(:poll, id: 14, votes: 1943, constituency: OnsConstituency.first, party: create(:party)) }
