@@ -7,7 +7,7 @@
 
     gtag('config', '#{ENV['GOOGLE_ANALYTICS_ID']}', 'auto');
     gtag('set', 'anonymizeIp', true);
-    // GA4 automatically tracks pageviews, adding it explicitly risks double counting, so removed intentionally
+    gtag('send', 'pageview');
 
     // Example syntax to send a custom event
     /* gtag("event", "click", {
