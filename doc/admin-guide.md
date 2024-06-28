@@ -108,16 +108,23 @@ Or interactively:
 Resetting Heroku for a new election cycle
 -----------------------------------------
 
+Firstly, configure the type and date of the next election:
+
+    heroku config:set --app swapmyvote ELECTION_TYPE=general
+    heroku config:set --app swapmyvote ELECTION_DATE=2024-07-04
+
+Also reset swap expiry as mentioned above:
+
+    heroku config:set --app swapmyvote SWAP_EXPIRY_HOURS=24
+
+Then reset the database as follows.
+
 N.B. in the below, `db:schema:load` is currently required rather than
 `db:migrate`!
 
     heroku pg:reset -a swapmyvote && \
     heroku run -a swapmyvote bundle exec rake db:schema:load && \
-    heroku run -a swapmyvote bundle exec ELECTION_TYPE=g rake db:seed
-
-Remember to also reset swap expiry as mentioned above:
-
-    heroku config:set --app swapmyvote SWAP_EXPIRY_HOURS=24
+    heroku run -a swapmyvote bundle exec rake db:seed
 
 Anonymising the data after an election cycle
 --------------------------------------------
