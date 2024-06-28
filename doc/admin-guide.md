@@ -3,11 +3,32 @@ Admin guide
 
 Here are some recipes for commonly needed administrative actions.
 
-Expiring old swaps
-------------------
+Expiring old unconfirmed swaps
+------------------------------
 
-    swaps = Swap.where({confirmed: false}).where(['created_at < ?', DateTime.now - 2.days])
-    swaps.each {|s| s.destroy}
+Swaps which have been offered but not confirmed need to be expired
+after a while to give the person offering another chance to find
+someone else.  To configure this, make sure `SWAP_EXPIRY_HOURS` is set
+correctly (e.g. starting at 24 and then decreasing as election day
+approaches):
+
+    heroku config:set --app swapmyvote SWAP_EXPIRY_HOURS=24
+
+The Heroku scheduler add-on will take care of the rest automatically,
+since it runs this hourly:
+
+    rake swaps:cancel_old
+
+However you can check the status via:
+
+    rake swaps:show_old
+
+Expiring potential swap candidates
+----------------------------------
+
+This happens automatically within the code.  Swap candidates created
+longer than `POTENTIAL_SWAP_EXPIRY_MINS` minutes ago will be replaced
+with new candidates.
 
 In demand users
 ---------------
@@ -84,15 +105,26 @@ Or interactively:
     unverified = MobilePhone.where(verified: nil)
     unverified.map { |p| p.verified = true; p.save! }
 
-Resetting Heroku database for a new election cycle
---------------------------------------------------
+Resetting Heroku for a new election cycle
+-----------------------------------------
+
+Firstly, configure the type and date of the next election:
+
+    heroku config:set --app swapmyvote ELECTION_TYPE=general
+    heroku config:set --app swapmyvote ELECTION_DATE=2024-07-04
+
+Also reset swap expiry as mentioned above:
+
+    heroku config:set --app swapmyvote SWAP_EXPIRY_HOURS=24
+
+Then reset the database as follows.
 
 N.B. in the below, `db:schema:load` is currently required rather than
 `db:migrate`!
 
     heroku pg:reset -a swapmyvote && \
     heroku run -a swapmyvote bundle exec rake db:schema:load && \
-    heroku run -a swapmyvote bundle exec ELECTION_TYPE=g rake db:seed
+    heroku run -a swapmyvote bundle exec rake db:seed
 
 Anonymising the data after an election cycle
 --------------------------------------------

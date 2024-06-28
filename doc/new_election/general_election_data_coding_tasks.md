@@ -33,7 +33,7 @@ Should not be required. Text is switched automatically once the two environment 
 
 ## Preparing database
 
-Wether on heroku or your local dev environment, you will need to set two environment variables.
+Whether on Heroku or your local dev environment, you will need to set two environment variables.
 
 * ELECTION_DATE needs to be set permanently to the date of the election in format YYYY-MM-DD
 * ELECTION_TYPE should preferably be set permanently to 'general' or 'g'. It's possible to omit this step, but the database will be queried more often if it is not set. It may also need to be set for rake db:seed to run correctly for a general election.
