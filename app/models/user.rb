@@ -34,6 +34,7 @@ class User < ApplicationRecord
   validate :email_uniqueness, on: :create
 
   validates :name, presence: true
+  validates :consent_to_data_processing, acceptance: true
 
   include UsersHelper
   include ::UserErrorsConcern

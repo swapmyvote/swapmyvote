@@ -63,7 +63,7 @@ The recent polls by their name can help you see where your vote might make most 
     } else if (preferred_party_id == willing_party_id) {
       $(".js-equal-party-error-modal").modal();
     } else {
-      $("#js-login-modal").modal();
+       window.location.assign("/users/sign_up")
     }
   }
 </script>

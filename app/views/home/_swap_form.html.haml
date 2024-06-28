@@ -40,7 +40,7 @@
     } else if (preferred_party_id == willing_party_id) {
       $(".js-equal-party-error-modal").modal();
     } else {
-      $("#js-login-modal").modal();
+       window.location.assign("#{sign_up_path}")
     }
   }
 
