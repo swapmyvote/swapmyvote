@@ -32,6 +32,8 @@
             <%= f.label  :consent_news_email, "Opt-in to Forward Democracy email updates", class: "mb-0 form-check-label" %>
           </div>
 
+          <%= invisible_captcha %>
+
           <%= render "devise/shared/error_messages", resource: resource %>
 
           <div class="actions">
