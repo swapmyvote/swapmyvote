@@ -66,6 +66,8 @@ gem "haml_lint"
 
 gem "webpacker", "~> 5.x"
 
+gem "invisible_captcha", "~> 2.3"
+
 # These need to be outside the development group for Rakefile to
 # be happy in Heroku.
 gem "rubocop", "~> 1.22.1"
