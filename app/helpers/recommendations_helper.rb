@@ -96,11 +96,17 @@ module RecommendationsHelper
         link: "https://scotlandinunion.co.uk/"
       },
       "sprint-for-pr" => {
-        order: 6,
+        order: 7,
         name: "Sprint for PR",
         meta_desc: "How and where to vote tactically in the next general election " + \
                    "to advocate for proportional representation",
         link: "https://sprintforpr.uk/plan"
+      },
+      "vote-climate-uk" => {
+        order: 6,
+        name: "Vote Climate",
+        meta_desc: "Maximise your vote to save the planet.",
+        link: "https://voteclimate.uk/"
       },
     }
   end
