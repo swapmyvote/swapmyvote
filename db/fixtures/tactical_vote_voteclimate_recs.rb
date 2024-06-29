@@ -6,10 +6,6 @@ require_relative "tactical_vote_voteclimate_csv"
 class TacticalVoteVoteclimateRecs
   attr_reader :advisor
 
-  ACCEPTABLE_NON_PARTY_ADVICE = [
-    # :vote_with_your_heart
-    # , :none
-  ]
   SMV_CODES_BY_ADVICE_TEXT = {
     ld: :libdem,
     green: :green
@@ -25,15 +21,18 @@ class TacticalVoteVoteclimateRecs
       lookup[party.smv_code.to_sym] = party
     end
 
-    included_heart_parties = Party.where.not({ smv_code: [:con, :reform] }).all
+    current_ons_ids = Set.new(OnsConstituency.all.pluck(:ons_id))
 
+    old_constituency = Set.new
     not_recognised = Set.new
+    recommendations_count = 0
 
     advisor.data.each do |row|
       ons_id = row[:constituency_ons_id]
 
-      unless ons_id
-        puts "\nIGNORING: Constituency lookup failed for #{row}."
+      unless current_ons_ids.include? ons_id
+        # puts "\nIGNORING: Constituency lookup failed for #{row}."
+        old_constituency.add(row)
         next
       end
 
@@ -45,15 +44,11 @@ class TacticalVoteVoteclimateRecs
 
       canonical_advice = source_advice.strip.downcase.parameterize(separator: "_").to_sym
       party_smv_code = SMV_CODES_BY_ADVICE_TEXT[canonical_advice]
-      non_party_advice = ACCEPTABLE_NON_PARTY_ADVICE.include?(canonical_advice) ? canonical_advice : nil
 
       if party_smv_code && parties_by_smv_code[party_smv_code]
         party = parties_by_smv_code[party_smv_code]
         rec.text = party.name
         rec.update_parties([party])
-      elsif non_party_advice && non_party_advice == :vote_with_your_heart
-        rec.text = source_advice
-        rec.update_parties(included_heart_parties)
       else
         # if we can't turn it into a recommendation we must delete any existing entry
         unless rec.id.nil?
@@ -70,8 +65,12 @@ class TacticalVoteVoteclimateRecs
       # ------------------------------------------------------------------------
 
       rec.save!
+      recommendations_count += 1
       print "." # to signify update
     end
+
+    puts "\n\nConstituency Recommentations uploaded: #{recommendations_count}"
+    puts "Constituency ids discarded as not current #{old_constituency.size}" if old_constituency.size.positive?
 
     puts "\n\nVoting advice not recognised #{not_recognised.to_a}" if not_recognised.size.positive?
   end
