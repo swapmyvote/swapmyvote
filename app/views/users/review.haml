@@ -1,4 +1,19 @@
 = javascript_pack_tag "intlTelInput"
 = stylesheet_pack_tag "intlTelInput"
 
-= render partial: "users/info_summary"
+.plain-pattern.border-bottom
+  .container
+    %p.text-center
+      PLEASE TAKE A MOMENT TO REVIEW THIS.
+      This is how you will appear to potential swap partners.
+      Check how your selection of
+      = @user.willing_party.name
+      as the party you are willing to vote for affects this profile.
+    %p.text-center
+      You may want, if you are flexible, to change your selection of willing party get a better chance of swapping
+
+.background-pattern.border-bottom
+  .container.container-narrow
+    .smv-card.profile
+      = render partial: "user/swaps/swap_profile", locals: { other_user: @user }
+    = render partial: "user/swaps/double_check_constituency", locals: { swap_with: @user }
