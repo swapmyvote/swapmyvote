@@ -77,7 +77,8 @@ RSpec.describe UsersController, type: :controller do
         build(:mobile_phone, number: "07400 123456", verified: true, user_id: logged_in_user.id)
         new_constituency = build(:ons_constituency, name: "Wimbledon")
 
-        expect(logged_in_user).to receive(:update).and_call_original
+        expect(logged_in_user).to receive(:assign_attributes).and_call_original
+        expect(logged_in_user).to receive(:save).and_call_original
         post :update, params: { user: { constituency_ons_id: new_constituency.ons_id, email: "a@b.c" } }
         logged_in_user.reload
 
