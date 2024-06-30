@@ -17,3 +17,9 @@
     .smv-card.profile
       = render partial: "user/swaps/swap_profile", locals: { other_user: @user }
     = render partial: "user/swaps/double_check_constituency", locals: { swap_with: @user }
+
+.plain-pattern.border-bottom
+  .container
+    %p.text-center
+      = link_to "I want to change my profile", edit_user_path, class: "btn btn-primary"
+      = link_to "This is right, show me the swaps", user_path, class: "btn btn-primary"
