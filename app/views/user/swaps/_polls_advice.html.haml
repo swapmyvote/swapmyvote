@@ -5,7 +5,7 @@
     - lead_trail = poll.signed_marginal_score.positive? ? "leading" : "only trailing the leading party"
     &#x2B50; Looks like this swap could make a difference for
     = party.name
-    which is
+    who are
     = lead_trail
     by
     = percent_score
@@ -13,11 +13,11 @@
   - elsif poll.signed_marginal_score.positive?
     Looks like this swap may be supporting a safe win for
     = party.name
-    which is currently leading by
+    who are currently leading by
     = percent_score
     in the polls.
   - else
     = party.name
-    is trailing by
+    are trailing by
     = percent_score
     in the polls and may still lose despite this swap.
