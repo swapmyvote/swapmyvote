@@ -271,6 +271,10 @@ class User < ApplicationRecord
     preferred_party_id_changed? || willing_party_id_changed? || constituency_ons_id_changed?
   end
 
+  def swap_profile_changed?
+    willing_party_id_changed? || constituency_ons_id_changed?
+  end
+
   def send_welcome_email
     if email.blank? || test_user?
       logger.debug "Not sending welcome email to test user #{email}"

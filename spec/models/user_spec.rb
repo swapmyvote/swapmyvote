@@ -75,6 +75,48 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context "when user has preferred party, willing party and constituency," do
+    let(:constituency) { OnsConstituency.create!(name: "test con 1", ons_id: "another-fake-ons-id") }
+    let(:no_swap_user) { create(:user,
+                                name: "Cecil",
+                                id: 1,
+                                constituency_ons_id: constituency.ons_id,
+                                preferred_party_id: 3,
+                                willing_party_id: 2)
+                        }
+
+    describe "#swap_profile_changed?" do
+      context "setting constituency" do
+        let(:the_change) {
+          -> { no_swap_user.constituency_ons_id = "some-fake-ons-id" }
+        }
+
+        specify {
+          expect(&the_change).to change(no_swap_user, :swap_profile_changed?)
+                                   .from(false).to(true)
+        }
+      end
+
+      context "setting preferred_party" do
+        let(:the_change) { -> { no_swap_user.preferred_party_id = 1 } }
+
+        specify {
+          expect(&the_change).not_to change(no_swap_user, :swap_profile_changed?)
+                                           .from(false)
+        }
+      end
+
+      context "setting willing_party" do
+        let(:the_change) { -> { no_swap_user.willing_party_id = 4} }
+
+        specify {
+          expect(&the_change).to change(no_swap_user, :swap_profile_changed?)
+                                           .from(false).to(true)
+        }
+      end
+    end
+  end
+
   describe "#try_to_create_potential_swap" do
     before do
       subject.willing_party_id = 2
