@@ -4,22 +4,18 @@
 .plain-pattern.border-bottom
   .container
     %p.text-center
-      PLEASE TAKE A MOMENT TO REVIEW THIS.
-      This is how you will appear to potential swap partners.
-      Check how your selection of
-      = @user.willing_party.name
-      as the party you are willing to vote for affects this profile.
+      This is how the vote swap you're offering will appear for potential voting partners.
+      The party you are willing and offering to vote for in your constituency can have a strong affect on your swap options.
+      If you are happy to offer to swap a vote for other parties, it can sometimes improve your swap options.
     %p.text-center
-      You may want, if you are flexible, to change your selection of willing party get a better chance of swapping
+      %strong
+        Do you want to proceed with this party, or change your offered vote?
+    %p.text-center
+      = link_to "Proceed", user_path, class: "btn btn-primary"
+      = link_to "Change", edit_user_path, class: "btn btn-primary"
 
 .background-pattern.border-bottom
   .container.container-narrow
     .smv-card.profile
       = render partial: "user/swaps/swap_profile", locals: { other_user: @user }
     = render partial: "user/swaps/double_check_constituency", locals: { swap_with: @user }
-
-.plain-pattern.border-bottom
-  .container
-    %p.text-center
-      = link_to "I want to change my profile", edit_user_path, class: "btn btn-primary"
-      = link_to "This is right, show me the swaps", user_path, class: "btn btn-primary"
