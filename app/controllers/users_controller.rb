@@ -29,7 +29,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params) if params[:user]
+    if params[:user]
+      @user.assign_attributes(user_params)
+      @user.save
+    end
 
     if !phone_param.blank? && @user.mobile_number != phone_param
       begin
