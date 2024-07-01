@@ -4,7 +4,7 @@
 Make your vote count in the 2022 summer by-elections!
 </h1>
 <h2 class='subdued'>
-Swap My Vote can help if the party you really want vote for doesn't make sense in
+Swap My Vote can help if voting for your preferred party doesn't make sense in
 <strong>
 your
 </strong>
@@ -15,14 +15,13 @@ constituency.
 <div class='plain-pattern border-bottom'>
 <div class='container text-center'>
 <p class='choose-party'>
-What party you would really like to vote for ?
+Which party would you most like to vote for?
 <select form="login-form" name="user[preferred_party_id]" id="user_preferred_party_id"><option disabled selected>...</option>
 <option value="1">Green</option>
 </select></p>
 <p class='choose-party'>
-When we find someone to vote for your party in
-the other constituency
-what party could you vote for in exchange ?
+When we find someone to vote for your party in the other constituency,
+which party could you vote for in exchange?
 <select form="login-form" name="user[willing_party_id]" id="user_willing_party_id"><option disabled selected>...</option>
 <option value="1">Green</option>
 </select></p>
