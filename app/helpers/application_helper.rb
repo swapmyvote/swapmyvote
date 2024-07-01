@@ -1,12 +1,12 @@
 module ApplicationHelper
   include ::AppModeConcern
 
-  def facebook_login_path
-    "/auth/facebook"
+  def sign_in_path
+    "/users/sign_in"
   end
 
-  def twitter_login_path
-    "/auth/twitter"
+  def sign_up_path
+    "/users/sign_up"
   end
 
   # def current_user   # for greppability

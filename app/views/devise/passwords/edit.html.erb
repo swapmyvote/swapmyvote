@@ -11,12 +11,12 @@
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
           <%= f.hidden_field :reset_password_token %>
 
-          <div class="form-group">
+          <div class="form-group required">
             <%= f.label :password, "New password", class: "mb-0" %>
             <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %>
           </div>
 
-          <div class="form-group">
+          <div class="form-group required">
             <%= f.label :password_confirmation, "Confirm new password", class: "mb-0" %><br />
             <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
           </div>

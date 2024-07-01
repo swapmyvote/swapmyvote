@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  include ApplicationHelper
+
   before_action :configure_sign_up_params, only: [:create]
-  invisible_captcha only: [:create]
+
+  # We disable timestamps because it can cause problems if the user clicks the submit button
+  # several times in a row
+  invisible_captcha only: [:create], timestamp_enabled: false
+
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -46,7 +52,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [
-      :name, :preferred_party_id, :willing_party_id, :consent_news_email
+      :name, :preferred_party_id, :willing_party_id, :consent_news_email, :consent_to_data_processing
     ])
   end
 

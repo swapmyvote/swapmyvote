@@ -74,7 +74,7 @@ select {
 }
 
 .container-extra-narrow {
-    max-width: 450px;
+    max-width: 520px;
 }
 
 .background-pattern {
@@ -119,6 +119,11 @@ select {
     h3 {
         margin-top: 0;
     }
+}
+
+.form-group.required label::after {
+    content: " *";
+    color: red;
 }
 
 .searching-for-swap {

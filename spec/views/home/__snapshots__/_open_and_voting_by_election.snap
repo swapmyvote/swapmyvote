@@ -62,7 +62,7 @@ We’ll find you a list of people with the complementary preferences. Pick one p
     } else if (preferred_party_id == willing_party_id) {
       $(".js-equal-party-error-modal").modal();
     } else {
-      $("#js-login-modal").modal();
+       window.location.assign("/users/sign_up")
     }
   }
 </script>

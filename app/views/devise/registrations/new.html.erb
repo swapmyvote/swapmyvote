@@ -2,34 +2,46 @@
   <div class="container container-extra-narrow">
     <div class="card">
       <div class="card-header">
-        <h2 class="h4 mb-0">Sign up with email</h2>
+        <h2 class="h4 mb-0">Sign up</h2>
       </div>
 
       <div class="card-body">
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-          <div class="form-group">
+          <div class="form-group required">
             <%= f.label :email, class: "mb-0" %>
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
           </div>
 
-          <div class="form-group">
+          <div class="form-group required">
             <%= f.label :name, class: "mb-0" %>
             <%= f.text_field :name, autocomplete: "name", class: "form-control" %>
           </div>
 
-          <div class="form-group">
+          <div class="form-group required">
             <%= f.label :password, class: "mb-0" %>
             <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
           </div>
 
-          <div class="form-group">
+          <div class="form-group required">
             <%= f.label :password_confirmation, "Confirm password", class: "mb-0" %>
             <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
           </div>
 
           <div class="form-group form-check">
             <%= f.check_box :consent_news_email, class: "form-check-input" %>
-            <%= f.label  :consent_news_email, "Opt-in to Forward Democracy email updates", class: "mb-0 form-check-label" %>
+            <%= f.label  :consent_news_email, "Opt-in to Forward Democracy email updates", class: "form-check-label" %>
+          </div>
+
+          <div class="form-group form-check required">
+            <%= f.check_box :consent_to_data_processing, class: "form-check-input" %>
+            <%= f.label  :consent_to_data_processing, "I consent to SwapMyVote processing my personal data", class: "form-check-label" %>
+
+            <p class="small subdued mt-0">
+              Once you confirm a swap, we will share your email address and voting preferences with your partner
+              <a href="<%= faq_path %>#trust" target="_blank">so they know who you are</a>.
+              We may send this information by email or text message.
+              <a href="<%= privacy_path %>" target="_blank">Your details will stay private with us</a>.
+            </p>
           </div>
 
           <%= invisible_captcha %>
