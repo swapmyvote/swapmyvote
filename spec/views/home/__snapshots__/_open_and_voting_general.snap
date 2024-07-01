@@ -22,12 +22,13 @@ really want, and to help someone else do the same!
 <div class='plain-pattern border-bottom'>
 <div class='container text-center'>
 <p class='choose-party'>
-My preferred party is
+To get started, what party you would really like to vote for
 <select form="login-form" name="user[preferred_party_id]" id="user_preferred_party_id"><option disabled selected>...</option>
 <option value="1">Green</option>
 </select></p>
 <p class='choose-party'>
-but I'm willing to vote for
+If we can find someone to vote for that party in another constituency, what party would you
+be willing to vote for in exchange
 <select form="login-form" name="user[willing_party_id]" id="user_willing_party_id"><option disabled selected>...</option>
 <option value="1">Green</option>
 </select></p>

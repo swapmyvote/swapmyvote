@@ -7,21 +7,24 @@ Make your vote count in the 2022 general election!
 Can you vote in the General Election on 23rd June?
 </h2>
 <h2 class='subdued'>
-You can swap votes with someone in another constituency to help
-both votes count for more. You get to vote for who you really want,
-and to help someone else do the same!
+Swap My Vote can help if there is a party you want vote for, but in
+<strong>
+your
+</strong>
+constituency, voting for that party doesn't make sense.
 </h2>
 </div>
 </div>
 <div class='plain-pattern border-bottom'>
 <div class='container text-center'>
 <p class='choose-party'>
-My preferred party is
+To get started, what party you would really like to vote for
 <select form="login-form" name="user[preferred_party_id]" id="user_preferred_party_id"><option disabled selected>...</option>
 <option value="1">Green</option>
 </select></p>
 <p class='choose-party'>
-but I'm willing to vote for
+If we can find someone to vote for that party in another constituency, what party would you
+be willing to vote for in exchange
 <select form="login-form" name="user[willing_party_id]" id="user_willing_party_id"><option disabled selected>...</option>
 <option value="1">Green</option>
 </select></p>
