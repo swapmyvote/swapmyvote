@@ -4,27 +4,25 @@
 Make your vote count in the 2022 summer by-elections!
 </h1>
 <h2 class='subdued'>
-Can you vote in the Wakefield or Tiverton &amp; Honiton by-elections on 23rd June?
-</h2>
-<h2 class='subdued'>
-Swap My Vote can help if there is a party you want vote for, but in
+Swap My Vote can help if the party you really want vote for doesn't make sense in
 <strong>
 your
 </strong>
-constituency, voting for that party doesn't make sense.
+constituency.
 </h2>
 </div>
 </div>
 <div class='plain-pattern border-bottom'>
 <div class='container text-center'>
 <p class='choose-party'>
-To get started, what party you would really like to vote for
+What party you would really like to vote for ?
 <select form="login-form" name="user[preferred_party_id]" id="user_preferred_party_id"><option disabled selected>...</option>
 <option value="1">Green</option>
 </select></p>
 <p class='choose-party'>
-If we can find someone to vote for that party in the other constituency, what party would you
-be willing to vote for in exchange
+When we find someone to vote for your party in
+the other constituency
+what party could you vote for in exchange ?
 <select form="login-form" name="user[willing_party_id]" id="user_willing_party_id"><option disabled selected>...</option>
 <option value="1">Green</option>
 </select></p>
