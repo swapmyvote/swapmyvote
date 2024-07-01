@@ -1,13 +1,14 @@
 .plain-pattern.border-bottom
   .container.text-center
     %p.choose-party
-      To get started, what party you would really like to vote for
+      What party you would really like to vote for ?
       = select :user, :preferred_party_id, nil, {}, {form: 'login-form'} do
         %option(disabled=true selected=true) ...
         = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @preferred_party_id)
     %p.choose-party
-      If we can find someone to vote for that party in #{election_constituency_other}, what party would you
-      be willing to vote for in exchange
+      When we find someone to vote for your party in
+      = election_constituency_other
+      what party could you vote for in exchange ?
       = select :user, :willing_party_id, nil, {}, {form: 'login-form'} do
         %option(disabled=true selected=true) ...
         = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @willing_party_id)
