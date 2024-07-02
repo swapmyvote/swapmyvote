@@ -2,11 +2,11 @@
 = stylesheet_pack_tag "intlTelInput"
 
 .plain-pattern.border-bottom
-  .container
+  .container.container-narrow
+
     %p.text-center
-      This is how the vote swap you're offering will appear for potential voting partners.
-      The party you are willing and offering to vote for in your constituency can have a strong affect on your swap options.
-      If you are happy to offer to swap a vote for other parties, it can sometimes improve your swap options.
+      - poll = @user.constituency.polls.detect { |poll| poll.party_id == @user.willing_party.id }
+      = render partial: "user/swaps/polls_advice_self", locals: { poll: poll, party: @user.willing_party }
     %p.text-center
       %strong
         Do you want to proceed with this party, or change your offered vote?
