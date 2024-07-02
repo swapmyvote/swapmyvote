@@ -17,15 +17,16 @@ body {
 // scss-lint:disable ColorVariable
 
 a {
-    color: rgb(78, 94, 255);
+    color: $link-color;
     text-decoration: none;
 
     &:hover {
         text-decoration: underline;
+        color: $link-color;
     }
 
     &.stealth-link {
-        color: inherit;
+        color: $subdued-color;
     }
 }
 
@@ -103,7 +104,7 @@ select {
 }
 
 .subdued {
-    color: #999;
+    color: $grey;
 }
 
 .smv-card {
