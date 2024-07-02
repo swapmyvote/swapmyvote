@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  resource :user
+  resource :user do
+    member { get "review" }
+  end
 
   namespace :user do
     resource :constituency

@@ -28,8 +28,14 @@ class UsersController < ApplicationController
     @constituencies = OnsConstituency.all.order(:name)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def update
-    @user.update(user_params) if params[:user]
+    review_required = false
+    if params[:user]
+      @user.assign_attributes(user_params)
+      review_required = @user.swap_profile_changed?
+      @user.save
+    end
 
     if !phone_param.blank? && @user.mobile_number != phone_param
       begin
@@ -37,6 +43,12 @@ class UsersController < ApplicationController
       rescue ActiveRecord::RecordInvalid
         flash[:errors] = @user.mobile_phone.errors.full_messages
       end
+    end
+
+    no_flash_errors = (!flash[:errors] || flash[:errors].size.zero?)
+
+    if @user.valid? && no_flash_errors && review_required
+      redirect_to review_user_path and return
     end
 
     flash[:errors] = @user.errors.full_messages unless @user.valid?

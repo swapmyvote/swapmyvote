@@ -5,7 +5,7 @@ RSpec.describe UsersController, type: :controller do
 
   context "when user is logged in" do
     let(:logged_in_user) do
-      create(:ready_to_swap_user1, id: 111, constituency: build(:ons_constituency))
+      create(:ready_to_swap_user1, id: 111, constituency: build(:ons_constituency), willing_party: build(:party))
     end
 
     before do
@@ -75,13 +75,12 @@ RSpec.describe UsersController, type: :controller do
     describe "POST #update" do
       it "redirects to #show if user has verified phone number" do
         build(:mobile_phone, number: "07400 123456", verified: true, user_id: logged_in_user.id)
-        new_constituency = build(:ons_constituency, name: "Wimbledon")
 
-        expect(logged_in_user).to receive(:update).and_call_original
-        post :update, params: { user: { constituency_ons_id: new_constituency.ons_id, email: "a@b.c" } }
+        expect(logged_in_user).to receive(:assign_attributes).and_call_original
+        expect(logged_in_user).to receive(:save).and_call_original
+        post :update, params: { user: { email: "a@b.c" } }
         logged_in_user.reload
 
-        expect(logged_in_user.constituency_ons_id).to eq(new_constituency.ons_id)
         expect(logged_in_user.email).to eq("a@b.c")
         expect(response).to redirect_to(:user)
       end
@@ -91,6 +90,12 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to(edit_user_path)
         expect(flash[:errors]).to be_present
         expect(flash[:errors]).to include("Preferred party and willing party cannot be the same")
+      end
+
+      it "redirects to #review if user has changed willing party" do
+        post :update, params: { user: { willing_party_id: (logged_in_user.willing_party_id + 1) } }
+        expect(response).to redirect_to(review_user_path)
+        expect(flash[:errors]).not_to be_present
       end
     end
 
