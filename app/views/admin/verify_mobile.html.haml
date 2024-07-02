@@ -7,7 +7,7 @@
 
     %p
 
-      This page lets you manually force a phone number to be verified
+      This page lets you manually force a mobile phone number to be verified
       without going through SMS verification.  This makes it easy to
       test from multiple accounts with only one mobile phone number or
       even with none - just enter a fake number in the account and
@@ -21,7 +21,7 @@
     = form_tag fake_verify_mobile_path do |f|
 
       .form-group
-        %label.mb-0 Enter phone number verified:
+        %label.mb-0 Enter mobile number verified:
         = telephone_field_tag "mobile_phone[full]",
                               current_user&.mobile_number,
                               size: 14, class: "form-control"

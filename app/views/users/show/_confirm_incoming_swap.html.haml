@@ -14,7 +14,7 @@
 
     .mobile-phone.text-center
       %p
-        You must verify your phone number before you swap.
+        You must verify your mobile number before you swap.
       = form_for user, url: user_path, class: "text-center" do
         = render partial: 'mobile_phone/form',
                  locals: {mobile_number: mobile_number}
