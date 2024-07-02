@@ -14,7 +14,7 @@
 
     %p.text-center
       - poll = @user.constituency.polls.detect { |poll| poll.party_id == @user.willing_party.id }
-      = render partial: "user/swaps/polls_advice_self", locals: { poll: poll, party: @user.willing_party }
+      = render partial: "user/swaps/polls_advice_self", locals: { poll: poll, party: @user.willing_party, constituency: @user.constituency }
     %p.text-center
       %strong
         Do you want to proceed with this party, or change your offered vote?

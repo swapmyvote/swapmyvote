@@ -9,7 +9,8 @@
     = lead_trail
     by
     = percent_score
-    in the polls, so it's more likely that people supporting
+    in the polls for #{constituency.name},
+    so it's more likely that people supporting
     = party.name
     will want to swap with you.
   - elsif poll.signed_marginal_score.positive?
@@ -17,13 +18,15 @@
     = party.name
     who are currently leading by
     = percent_score
-    in the polls, so it's less likely that people supporting
+    in the polls for #{constituency.name},
+    so it's less likely that people supporting
     = party.name
     will want to swap with you.
   - else
     = party.name
     are trailing by
     = percent_score
-    in the polls and may still lose despite this swap, so it's less likely that people supporting
+    in the polls for #{constituency.name},
+    and may still lose despite this swap, so it's less likely that people supporting
     = party.name
     will want to swap with you.
