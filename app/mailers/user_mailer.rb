@@ -3,8 +3,6 @@ class UserMailer < ApplicationMailer
 
   helper :application  # ugh
   helper :swaps
-  default from: "Swap My Vote <hello@swapmyvote.uk>"
-
   helper :users
 
   def session
