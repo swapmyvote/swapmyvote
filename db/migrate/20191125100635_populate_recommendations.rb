@@ -1,7 +1,7 @@
 require_relative "../fixtures/livefrombrexit_recommendations_json"
 
 class PopulateRecommendations < ActiveRecord::Migration[5.2]
-  def up
+  def up_disabled
     json = LivefrombrexitRecommendationsJson.new
 
     json.each do |rec_as_hash|
