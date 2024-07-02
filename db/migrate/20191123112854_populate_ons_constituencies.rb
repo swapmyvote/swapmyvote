@@ -5,7 +5,7 @@ class PopulateOnsConstituencies < ActiveRecord::Migration[5.2]
     # nothing to do, we're just ensuring the table is populated
   end
 
-  def up
+  def up_disabled
     expected_rows = OnsConstituency::NUMBER_OF_UK_CONSTITUENCIES
 
     return if OnsConstituency.count == expected_rows

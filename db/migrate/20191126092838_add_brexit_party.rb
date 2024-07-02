@@ -1,5 +1,5 @@
 class AddBrexitParty < ActiveRecord::Migration[5.2]
-  def up
+  def up_disabled
     Party.find_or_create_by(name: "Brexit Party", color: "#5bc0de")
   end
 

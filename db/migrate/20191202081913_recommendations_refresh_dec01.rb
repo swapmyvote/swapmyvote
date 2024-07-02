@@ -2,7 +2,7 @@ require_relative "../fixtures/livefrombrexit_recommendations_json"
 
 class RecommendationsRefreshDec01 < ActiveRecord::Migration[5.2]
   # rubocop:disable Metrics/MethodLength
-  def up
+  def up_disabled
     json = LivefrombrexitRecommendationsJson.new
 
     timestamp = DateTime.now
