@@ -4,6 +4,14 @@
 .plain-pattern.border-bottom
   .container.container-narrow
 
+    .profile-poll
+      .text-center.small
+        Predicted GE2024 results for #{@user.constituency.try(:name) or "Unknown"}
+      .poll-chart{ id: "poll_#{@user.id}" }
+      - poll_data = poll_data_for(@user.constituency)
+      :javascript
+        drawPollChart("poll_#{@user.id}", #{poll_data});
+
     %p.text-center
       - poll = @user.constituency.polls.detect { |poll| poll.party_id == @user.willing_party.id }
       = render partial: "user/swaps/polls_advice_self", locals: { poll: poll, party: @user.willing_party }
@@ -13,9 +21,3 @@
     %p.text-center
       = link_to "Proceed", user_path, class: "btn btn-primary"
       = link_to "Change", edit_user_path, class: "btn btn-primary"
-
-.background-pattern.border-bottom
-  .container.container-narrow
-    .smv-card.profile
-      = render partial: "user/swaps/swap_profile", locals: { other_user: @user }
-    = render partial: "user/swaps/double_check_constituency", locals: { swap_with: @user }
