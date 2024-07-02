@@ -1,0 +1,32 @@
+%p
+  - polls_percent = poll.marginal_score/100.0
+  - percent_score = (polls_percent >= 9 ? "%d%%" : "%.1g%%") % [polls_percent]
+  - if poll.marginal_score < 1000
+    - lead_trail = poll.signed_marginal_score.positive? ? "leading" : "only trailing the leading party"
+    &#x2B50; Looks like your vote could make a difference for
+    = party.name
+    who are
+    = lead_trail
+    by
+    = percent_score
+    in the polls for #{constituency.name},
+    so it's more likely that people supporting
+    = party.name
+    will want to swap with you.
+  - elsif poll.signed_marginal_score.positive?
+    Looks like your vote may be supporting a safe win for
+    = party.name
+    who are currently leading by
+    = percent_score
+    in the polls for #{constituency.name},
+    so it's less likely that people supporting
+    = party.name
+    will want to swap with you.
+  - else
+    = party.name
+    are trailing by
+    = percent_score
+    in the polls for #{constituency.name},
+    and may still lose despite this swap, so it's less likely that people supporting
+    = party.name
+    will want to swap with you.

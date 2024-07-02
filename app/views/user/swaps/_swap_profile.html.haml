@@ -14,7 +14,7 @@
       Does this help your vote count ?
     - unless poll.nil?
       .profile-recommendations.text-center.smv-card
-        = render :partial => 'user/swaps/polls_advice', locals: { poll: poll, party: other_user.willing_party }
+        = render :partial => 'user/swaps/polls_interpretation', locals: { poll: poll, party: other_user.willing_party }
     - if recommendations.size > 0
       .profile-recommendations.text-center.smv-card
         .recommendations-header

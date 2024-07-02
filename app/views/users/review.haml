@@ -1,0 +1,23 @@
+= javascript_pack_tag "intlTelInput"
+= stylesheet_pack_tag "intlTelInput"
+
+.plain-pattern.border-bottom
+  .container.container-narrow
+
+    .profile-poll
+      .text-center.small
+        Predicted GE2024 results for #{@user.constituency.try(:name) or "Unknown"}
+      .poll-chart{ id: "poll_#{@user.id}" }
+      - poll_data = poll_data_for(@user.constituency)
+      :javascript
+        drawPollChart("poll_#{@user.id}", #{poll_data});
+
+    %p.text-center
+      - poll = @user.constituency.polls.detect { |poll| poll.party_id == @user.willing_party.id }
+      = render partial: "user/swaps/polls_interpretation_self", locals: { poll: poll, party: @user.willing_party, constituency: @user.constituency }
+    %p.text-center
+      %strong
+        Do you want to proceed with this party, or change your offered vote?
+    %p.text-center
+      = link_to "Proceed", user_path, class: "btn btn-primary"
+      = link_to "Change", edit_user_path, class: "btn btn-primary"
