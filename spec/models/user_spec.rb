@@ -205,12 +205,26 @@ RSpec.describe User, type: :model do
 
       it "sets a new mobile number and deletes the first" do
         subject.mobile_number = number1
-        mobile = subject.mobile_phone
+        subject.mobile_phone.verify_id = "some OTP verification code"
+        subject.save!
         subject.mobile_number = number2
         subject.reload
         expect(subject.mobile_phone.number).to eq(number2)
-        expect(subject.mobile_phone.id).not_to eq(mobile.id)
-        expect(MobilePhone.find_by(id: mobile.id)).to be_nil
+        expect(subject.mobile_phone.verify_id).to eq(nil)
+        # FIXME: we can't check that the mobile_phone id changed
+        # because due to this bug in ActiveRecord's SQLite3Adapter,
+        # AUTOINCREMENT gets lost from the db when schema.rb contains
+        #
+        #   add_foreign_key "mobile_phones", "users"
+        #
+        # https://github.com/rails/rails/issues/47400
+        #
+        # This means that the test db (which is always recreated
+        # from schema.rb) is missing AUTOINCREMENT, therefore the
+        # mobile_phone id will get reused via DESTROY followed by
+        # INSERT.  When we upgrade to Rails >= 7.1.x, this bug
+        # should vanish and we can also test that the id increments,
+        # although arguably this is an implementation detail anyway.
       end
 
       it "prevents two users having the same number" do
