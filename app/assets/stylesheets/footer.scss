@@ -38,8 +38,7 @@ footer {
             h3 {
                 margin: 0;
                 // FIXME
-                // scss-lint:disable ColorVariable
-                color: #888;
+                color: $subdued-color;
                 font-size: 16px;
             }
 
@@ -50,8 +49,7 @@ footer {
     }
 
     p {
-        // scss-lint:disable ColorVariable
-        color: #888;
+        color: $subdued-color;
         font-size: 16px;
     }
 }
