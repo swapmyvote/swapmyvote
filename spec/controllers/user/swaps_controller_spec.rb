@@ -296,19 +296,18 @@ RSpec.describe User::SwapsController, type: :controller do
     end
 
     describe "POST #create" do
-      it "redirects to user page" do
+      it "redirects to mobile verification page" do
         expect(new_user.swap).to be_nil
 
         post :create, params: { user_id: swap_user.id }
 
-        expect(response).to redirect_to :edit_user
-        expect(flash[:errors].first).to eq "Please verify your mobile phone number before you swap!"
+        expect(response).to redirect_to "/mobile_phone/verify_create"
         expect(new_user.swap).to be_nil
       end
     end
 
     describe "PUT #update" do
-      it "confirms the swap if all ducks are lined up" do
+      it "redirects to mobile verification page" do
         swap = Swap.create(chosen_user_id: swap_user.id)
         new_user.incoming_swap = swap
         swap_user.outgoing_swap = swap
@@ -317,8 +316,7 @@ RSpec.describe User::SwapsController, type: :controller do
 
         put :update, params: { swap: { confirmed: true } }
 
-        expect(response).to redirect_to :edit_user
-        expect(flash[:errors].first).to eq "Please verify your mobile phone number before you swap!"
+        expect(response).to redirect_to "/mobile_phone/verify_create"
         expect(swap_user.swap.confirmed).to be nil
       end
     end

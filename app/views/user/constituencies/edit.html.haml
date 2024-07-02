@@ -12,13 +12,14 @@
             = render partial: "users/why_need_email"
             = link_to "Your details will stay private with us.", privacy_path
 
-      = render partial: "users/postcode_field"
-
       %p.ui-widget
         My constituency is
         = f.collection_select :constituency_ons_id, @constituencies,
                               :ons_id, :name,
                               selected: @default_constituency_ons_id,
                               prompt: true
+
+      = render partial: "users/postcode_field"
+
       %p.text-center
         = submit_tag("Save", class: "btn btn-primary")
