@@ -6,6 +6,7 @@ class User::SwapsController < ApplicationController
   before_action :assert_parties_exist, only: [:show]
   before_action :assert_has_email, only: [:new, :create, :update]
   before_action :assert_has_constituency, only: [:new, :create, :update]
+  before_action :assert_mobile_phone_present, only: [:new, :create, :update]
   before_action :assert_mobile_phone_verified, only: [:new, :create, :update]
   before_action :hide_polls?, only: [:show, :new]
 
@@ -57,6 +58,13 @@ class User::SwapsController < ApplicationController
 
   private
 
+  def assert_mobile_phone_present
+    return unless @user.mobile_phone.blank?
+
+    flash[:errors] = ["Please enter your mobile phone number before you swap"]
+    redirect_to edit_user_path
+  end
+
   def assert_mobile_phone_verified
     return unless @user.mobile_verification_missing?
 
@@ -66,14 +74,14 @@ class User::SwapsController < ApplicationController
   def assert_has_email
     return unless @user.email.blank?
 
-    flash[:errors] = ["Please enter your email address before you swap!"]
+    flash[:errors] = ["Please enter your email address before you swap"]
     redirect_to edit_user_path
   end
 
   def assert_has_constituency
     return unless @user.constituency_ons_id.blank?
 
-    flash[:errors] = ["Please enter your postcode or constituency before you swap!"]
+    flash[:errors] = ["Please enter your postcode or constituency before you swap"]
     redirect_to edit_user_path
   end
 

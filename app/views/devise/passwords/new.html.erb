@@ -9,7 +9,7 @@
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-          <div class="form-group">
+          <div class="form-group required">
             <%= f.label :email, class: "mb-0" %>
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
           </div>

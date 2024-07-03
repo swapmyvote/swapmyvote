@@ -3,14 +3,15 @@
     - if @new_verification
       .card
         .card-header
-          %h1.h4.mb-0 Verification successful!
+          %h1.h4.mb-0 Verification successful
 
         .card-body
           %p
             Thank you for verifying your mobile phone number.
 
-          = link_to user_path do
-            = button_tag "Continue", class: 'btn btn-primary'
+          .d-flex.justify-content-center
+            = link_to user_path do
+              = button_tag "Continue", class: 'btn btn-primary'
 
     - else
       .card
@@ -21,5 +22,6 @@
           %p
             Your mobile phone number was already verified.
 
-          = link_to user_path do
-            = button_tag "Continue", class: 'btn btn-primary'
+          .d-flex.justify-content-center
+            = link_to user_path do
+              = button_tag "Continue", class: 'btn btn-primary'

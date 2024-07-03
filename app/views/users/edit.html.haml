@@ -10,7 +10,7 @@
           Edit profile
       .card-body
         = form_for @user, url: user_path do |f|
-          .form-group
+          .form-group.required
             %label.mb-0 My preferred party is
             = f.collection_select :preferred_party_id, @parties,
                                   :id, :name,
@@ -18,7 +18,7 @@
                                     selected: @user.preferred_party_id },
                                   { class: "form-control" }
 
-          .form-group
+          .form-group.required
             %label.mb-0 but I'm willing to vote for
             = f.collection_select :willing_party_id, @parties,
                                   :id, :name,
@@ -26,7 +26,7 @@
                                     selected: @user.willing_party_id },
                                   { class: "form-control" }
 
-          .form-group
+          .form-group.required
             %label.mb-0 My constituency is
             %br
             = f.collection_select :constituency_ons_id, @constituencies,
@@ -37,7 +37,7 @@
 
           = render partial: "postcode_field"
 
-          .form-group
+          .form-group.required
             = render partial: "users/email_field", locals: { f: f }
 
           = render partial: 'mobile_phone/form',

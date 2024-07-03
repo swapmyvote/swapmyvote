@@ -18,7 +18,7 @@ class User::ConstituenciesController < ApplicationController
 
     else
 
-      flash.now[:errors] = ["You must tell us your constituency. Without it, the swaps we offer may not make sense"]
+      flash.now[:errors] = ["You must tell us your constituency. Without it, the swaps we offer may not make sense."]
       edit
       render "edit"
 
