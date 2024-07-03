@@ -33,8 +33,13 @@ class User < ApplicationRecord
   # Additional validation for emails, :validatable has already added basic validation
   validate :email_uniqueness, on: :create
 
+  # Required fields
   validates :name, presence: true
+  validates :email, presence: true
   validates :consent_to_data_processing, acceptance: true
+
+  # Name cannot be the same as email
+  validate :check_email_and_name
 
   include UsersHelper
   include ::UserErrorsConcern
@@ -389,6 +394,10 @@ class User < ApplicationRecord
     return unless existing_user
 
     email_uniqueness_errors(existing_user)
+  end
+
+  def check_email_and_name
+    errors.add(:name, "can't be the same as email") if email == name
   end
 
   def find_existing_email(email)
