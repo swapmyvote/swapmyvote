@@ -51,6 +51,13 @@ RSpec.describe MobilePhoneController, type: :controller do
         expect(response).to have_http_status(:success)
         expect(response).to render_template "verify_create"
       end
+
+      it "redirects to use page if no mobile number" do
+        stub_verify_create
+        get :verify_create
+        expect(flash[:errors]).to include("Please enter your mobile phone number before you swap")
+        expect(response).to redirect_to(edit_user_path)
+      end
     end
   end
 end
