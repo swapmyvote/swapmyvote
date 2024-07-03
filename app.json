@@ -19,11 +19,13 @@
     },
     "SERVER_HOST": {
       "description": "Determine what cookie name to use.  This can also be used to construct SERVER_HOST_PORT.",
+      "required": "false",
       "value": ""
     },
     "SERVER_HOST_PORT": {
       "description": "Used to figure out what URLs to generate when sending out email.  It can't be done dynamically because the mailer instance doesn't have any context about the incoming request.",
-      "required": "false"
+      "required": "false",
+      "value": ""
     },
     "FACEBOOK_KEY": {
       "description": "Facebook application key for allowing log-ins via Facebook.",
