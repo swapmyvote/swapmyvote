@@ -3,21 +3,43 @@
 
 .plain-pattern.border-bottom
   .container.container-narrow
+    - constituency = @user.constituency
+    - party = @user.willing_party
 
-    .profile-poll
+    - if !party || !constituency
       .text-center.small
-        Predicted GE2024 results for #{@user.constituency.try(:name) or "Unknown"}
-      .poll-chart{ id: "poll_#{@user.id}" }
-      - poll_data = poll_data_for(@user.constituency)
-      :javascript
-        drawPollChart("poll_#{@user.id}", #{poll_data});
+        Whoops, you shouldn't be here.
+        - if !party
+          We don't know the party you are offering to vote for.
+        - if !constituency
+          We don't know the constituency you're going to vote in.
+        Please go and edit your profile details, and that should bring you back here when you're done.
+        = link_to "Edit Profile", edit_user_path, class: "btn btn-primary"
 
-    %p.text-center
-      - poll = @user.constituency.polls.detect { |poll| poll.party_id == @user.willing_party.id }
-      = render partial: "user/swaps/polls_interpretation_self", locals: { poll: poll, party: @user.willing_party, constituency: @user.constituency }
-    %p.text-center
-      %strong
-        Do you want to proceed with this party, or change your offered vote?
-    %p.text-center
-      = link_to "Proceed", user_path, class: "btn btn-primary"
-      = link_to "Change", edit_user_path, class: "btn btn-primary"
+    - else
+      .profile-poll
+        .text-center.small
+          Predicted GE2024 results for #{constituency.try(:name) or "Unknown"}
+          - logger.debug @user.inspect
+        .poll-chart{ id: "poll_chart_self" }
+        - poll_data = poll_data_for(constituency)
+        :javascript
+          drawPollChart("poll_chart_self", #{poll_data});
+
+      %p.text-center
+        - poll = constituency.polls.detect { |poll| poll.party_id == party.id }
+        - if poll
+          = render partial: "user/swaps/polls_interpretation_self", locals: { poll: poll, party: party, constituency: constituency }
+        - else
+          No polling data found for
+          = party.name
+          in
+          = constituency.name
+          so we can't interpret that for you.
+
+      %p.text-center
+        %strong
+          Do you want to proceed with this party, or change your offered vote?
+      %p.text-center
+        = link_to "Proceed", user_path, class: "btn btn-primary"
+        = link_to "Change", edit_user_path, class: "btn btn-primary"

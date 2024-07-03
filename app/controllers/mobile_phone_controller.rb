@@ -5,8 +5,22 @@ class MobilePhoneController < ApplicationController
   def verify_create
     return if mobile_verified?
 
+    if phone.nil?
+      rescue_error("Please enter your mobile phone number before you swap")
+      return
+    end
+
     phone.number = params[:mobile_phone][:full] if params[:mobile_phone]
 
+    verify_send
+  rescue ActiveRecord::RecordInvalid
+    # We can get here if a the number is already in the DB. This can happen
+    # legitimately if a user has two accounts (eg twitter + email) and verifies
+    # the same number for both: to be improved when we enable multiple profiles
+    rescue_error(phone.errors.full_messages)
+  end
+
+  def verify_send
     otp = api_get_otp
     if otp.nil?
       rescue_error("Sorry, I couldn't send you a verification SMS! Please try again later.")
@@ -20,11 +34,6 @@ class MobilePhoneController < ApplicationController
                  "verify_id: #{otp.id}"
 
     phone.save!
-  rescue ActiveRecord::RecordInvalid
-    # We can get here if a the number is already in the DB. This can happen
-    # legitimately if a user has two accounts (eg twitter + email) and verifies
-    # the same number for both: to be improved when we enable multiple profiles
-    rescue_error(phone.errors.full_messages)
   end
 
   def verify_token
@@ -50,7 +59,7 @@ class MobilePhoneController < ApplicationController
   def rescue_error(message_text)
     # Make sure the number is removed if we could not send verification
     # or if it is a duplicate
-    phone.update(number: nil)
+    phone&.update(number: nil)
     flash[:errors] = [message_text]
     redirect_back fallback_location: edit_user_path
     return
