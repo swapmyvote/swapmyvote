@@ -41,7 +41,7 @@
             = render partial: "users/email_field", locals: { f: f }
 
           = render partial: 'mobile_phone/form',
-            locals: {mobile_number: @mobile_number}
+                   locals: {allow_verification: false, mobile_number: @mobile_number}
 
           %p.subdued.small
             = render partial: "why_need_email"

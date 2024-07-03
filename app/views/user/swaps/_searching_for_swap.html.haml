@@ -21,7 +21,8 @@
     account is genuine.
 
   = form_for @user, url: user_path do
-    = render partial: 'mobile_phone/form', locals: {mobile_number: @mobile_number}
+    = render partial: 'mobile_phone/form',
+             locals: {allow_verification: true, mobile_number: @mobile_number}
 
 %h3 Spread the word!
 
