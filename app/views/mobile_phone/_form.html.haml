@@ -1,12 +1,4 @@
-.form-group
+.form-group.form-group-short
   %label.mb-0 My mobile number is
-  = telephone_field_tag "mobile_phone[full]", mobile_number, size: 14, class: "form-control"
 
-  - if mobile_number.present?
-    - if mobile_verified?
-      Verified!
-    - else
-      = button_tag "Verify", formaction: verify_mobile_path,
-        formmethod: :get, class: "btn btn-secondary"
-  - else
-    = submit_tag("Save", class: "btn btn-secondary")
+  = telephone_field_tag "mobile_phone[full]", mobile_number, size: 14, class: "form-control"
