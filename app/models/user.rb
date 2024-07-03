@@ -38,8 +38,8 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :consent_to_data_processing, acceptance: true
 
-  # Name cannot be the same as email
-  validate :check_email_and_name
+  # Name cannot look like an email
+  validate :check_name_is_not_email
 
   include UsersHelper
   include ::UserErrorsConcern
@@ -396,8 +396,8 @@ class User < ApplicationRecord
     email_uniqueness_errors(existing_user)
   end
 
-  def check_email_and_name
-    errors.add(:name, "can't be the same as email") if email == name
+  def check_name_is_not_email
+    errors.add(:name, "can't be an email") if name.include? "@"
   end
 
   def find_existing_email(email)
