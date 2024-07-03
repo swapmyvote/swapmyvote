@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
+<!-- GOOGLE_TAG_MANAGER_ID not set -->
+
 <meta content='width=device-width, initial-scale=1' name='viewport'>
 <title>Swap My Vote</title>
 <meta content='' property='fb:app_id'>
@@ -48,10 +50,10 @@
   });
 </script>
 
-<!-- GOOGLE_ANALYTICS_ID not set -->
-
 </head>
 <body>
+<!-- GOOGLE_TAG_MANAGER_ID not set -->
+
 <div class='smv-navbar'>
 <a class="smv-brand" href="/">SwapMyVote</a>
 <span class='user'>

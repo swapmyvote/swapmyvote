@@ -47,8 +47,8 @@
       "required": "false",
       "value": ""
     },
-    "GOOGLE_ANALYTICS_ID": {
-      "description": "Google Analytics tracking ID (optional)",
+    "GOOGLE_TAG_MANAGER_ID": {
+      "description": "Google TagManager container ID (optional)",
       "required": "false",
       "value": ""
     },
