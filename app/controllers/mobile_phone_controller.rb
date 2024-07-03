@@ -47,7 +47,7 @@ class MobilePhoneController < ApplicationController
   def rescue_error(message_text)
     # Make sure the number is removed if we could not send verification
     # or if it is a duplicate
-    phone.update_attributes(number: nil)
+    phone.update(number: nil)
     flash[:errors] = message_text
     redirect_back fallback_location: edit_user_path
     return
