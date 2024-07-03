@@ -487,6 +487,12 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "name validation" do
+    it "prevents name that looks like an email" do
+      expect{create(:user, name: "foo@bar.com", email: "bar@foo.com")}.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+
   context "when user has email login" do
     before do
       subject.email = "foo@example.com"
