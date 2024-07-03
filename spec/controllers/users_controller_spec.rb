@@ -5,7 +5,13 @@ RSpec.describe UsersController, type: :controller do
 
   context "when user is logged in" do
     let(:logged_in_user) do
-      create(:ready_to_swap_user1, id: 111, constituency: build(:ons_constituency), willing_party: build(:party))
+      create(
+        :ready_to_swap_user1,
+        id: 111,
+        constituency: build(:ons_constituency),
+        willing_party: build(:party),
+        preferred_party: build(:party, name: "another party")
+      )
     end
 
     before do
@@ -93,9 +99,13 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it "redirects to #review if user has changed willing party" do
-        post :update, params: { user: { willing_party_id: (logged_in_user.willing_party_id + 1) } }
-        expect(response).to redirect_to(review_user_path)
+        post :update, params: {
+               user: {
+                 willing_party_id: create(:party).id
+               }
+             }
         expect(flash[:errors]).not_to be_present
+        expect(response).to redirect_to(review_user_path)
       end
     end
 
