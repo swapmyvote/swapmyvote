@@ -325,10 +325,12 @@ class User < ApplicationRecord
   end
 
   def send_vote_reminder_email
+    # FIXME: check SentEmail to avoid duplicates
     return if sent_vote_reminder_email
     self.sent_vote_reminder_email = true
     save
     UserMailer.reminder_to_vote(self).deliver_now
+    sent_emails.create!(template: SentEmail::REMINDER_VOTE)
   end
 
   def name
