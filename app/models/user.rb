@@ -384,7 +384,7 @@ class User < ApplicationRecord
   end
 
   def name_and_email
-    "#{name} <#{email}>"
+    email.present? ? "#{name} <#{email}>" : name
   end
 
   def provider

@@ -181,6 +181,26 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#name_and_email" do
+    it "returns just name when no email" do
+      subject.name = "Ada Lovelace"
+      subject.email = ""
+      expect(subject.name_and_email).to eq("Ada Lovelace")
+    end
+
+    it "includes both when not test user" do
+      subject.name = "Ada Lovelace"
+      subject.email = "ada@lovelace.com"
+      expect(subject.name_and_email).to eq("Ada Lovelace <ada@lovelace.com>")
+    end
+
+    it "includes both when test user" do
+      subject.name = "Ada Lovelace"
+      subject.email = "ada@example.com"
+      expect(subject.name_and_email).to eq("Ada Lovelace (test user) <ada@example.com>")
+    end
+  end
+
   context "-> MobilePhone:" do
     let(:number1) { "07771 111 111" }
     let(:number2) { "07772 222 222" }
