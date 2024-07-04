@@ -315,11 +315,24 @@ class User < ApplicationRecord
     sent_emails.create!(template: SentEmail::REMINDER_GET_SWAPPING)
   end
 
+  def send_pending_swap_reminder_email(other_user)
+    template = SentEmail::REMINDER_PENDING_OFFER
+    already_sent = sent_emails.where(template: template).first
+    return if already_sent
+
+    save
+    UserMailer.reminder_to_accept_swap(self, other_user).deliver_now
+    sent_emails.create!(template: template)
+  end
+
   def send_vote_reminder_email
+    # FIXME: check SentEmail to avoid duplicates
+    # Errrm, looks like we have two ways to check if this mail was sent ?
     return if sent_vote_reminder_email
     self.sent_vote_reminder_email = true
     save
     UserMailer.reminder_to_vote(self).deliver_now
+    sent_emails.create!(template: SentEmail::REMINDER_VOTE)
   end
 
   def name
