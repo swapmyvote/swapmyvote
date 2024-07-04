@@ -280,6 +280,20 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#can_receive_email?" do
+    it "returns false for test users" do
+      expect(subject.can_receive_email?("welcome")).to be_falsey
+    end
+
+    it "returns false for users with blank email" do
+      expect(build(:user, email: "").can_receive_email?("welcome")).to be_falsey
+    end
+
+    it "returns true for non-test users" do
+      expect(build(:user, email: "real@address.honest.com").can_receive_email?("welcome")).to be_truthy
+    end
+  end
+
   describe "#send_welcome_email (after_save callback)" do
     context "when the user DOES have an email address" do
       before { subject.update(email: "some@email.address") }
