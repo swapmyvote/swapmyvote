@@ -305,6 +305,16 @@ class User < ApplicationRecord
     !email.blank? && sent_emails.where(template: SentEmail::WELCOME).none?
   end
 
+  def send_get_swapping_reminder_email
+    return unless can_receive_email?("get swapping")
+    if SentEmail.find_by(user_id: id, template: SentEmail::REMINDER_GET_SWAPPING)
+      logger.info "Already sent get swapping reminder email to #{name_and_email}"
+      return
+    end
+    UserMailer.reminder_to_get_swapping(self).deliver_now
+    sent_emails.create!(template: SentEmail::REMINDER_GET_SWAPPING)
+  end
+
   def send_vote_reminder_email
     return if sent_vote_reminder_email
     self.sent_vote_reminder_email = true

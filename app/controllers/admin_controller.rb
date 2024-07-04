@@ -76,6 +76,7 @@ class AdminController < ApplicationController
 
       UserMailer.not_swapped_follow_up(current_user).deliver_now
       UserMailer.partner_has_voted(current_user).deliver_now
+      UserMailer.reminder_to_get_swapping(current_user).deliver_now
       UserMailer.reminder_to_vote(current_user).deliver_now
       UserMailer.no_swap(current_user).deliver_now
       UserMailer.swap_not_confirmed(current_user).deliver_now

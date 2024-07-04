@@ -294,6 +294,27 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#send_get_swapping_reminder_email" do
+    context "when the user has an email address" do
+      before { subject.update(email: "some@email.address", willing_party: build(:party)) }
+
+      describe "sends a reminder email" do
+        before { subject.sent_emails.clear }
+
+        let(:an_email) { double(:an_email) }
+
+        it "sends only one email" do
+          expect(an_email).to receive(:deliver_now)
+          expect(UserMailer).to receive(:reminder_to_get_swapping).with(subject).and_return(an_email)
+          subject.send_get_swapping_reminder_email
+
+          expect(UserMailer).not_to receive(:reminder_to_get_swapping)
+          subject.send_get_swapping_reminder_email
+        end
+      end
+    end
+  end
+
   describe "#send_welcome_email (after_save callback)" do
     context "when the user DOES have an email address" do
       before { subject.update(email: "some@email.address") }
