@@ -47,7 +47,7 @@ namespace :users do
 
     puts "dry_run is #{args[:dry_run].inspect} on send_pending_offer_reminder_emails"
 
-    for swap in Swap.where(confirmed: false)
+    for swap in Swap.where(confirmed: false).eager_load(:chosen_user)
       user = swap.chosen_user
       can_receive = user.can_receive_email?("pending offer")
 
