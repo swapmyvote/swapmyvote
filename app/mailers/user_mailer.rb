@@ -64,6 +64,13 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "It's not too late to swap your vote!")
   end
 
+  def reminder_to_accept_swap(user, incoming_offer_user)
+    return nil if user.email.blank?
+    @user = user
+    @incoming_offer_user = incoming_offer_user
+    mail(to: @user.email, subject: "Don't keep your vote swap waiting!")
+  end
+
   def reminder_to_vote(user)
     return nil if user.email.blank?
     @user = user

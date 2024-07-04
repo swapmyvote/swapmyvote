@@ -38,4 +38,15 @@ namespace :users do
       end
     end
   end
+
+  desc "Send pending offer reminder emails to everyone with an unconfirmed incoming swap"
+  task send_pending_offer_reminder_emails: :environment do
+    for swap in Swap.where(confirmed: false)
+      begin
+        swap.chosen_user.send_pending_swap_reminder_email
+      rescue => e
+        print "Failed to send vote reminder"
+      end
+    end
+  end
 end

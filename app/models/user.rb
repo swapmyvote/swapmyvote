@@ -315,6 +315,15 @@ class User < ApplicationRecord
     sent_emails.create!(template: SentEmail::REMINDER_GET_SWAPPING)
   end
 
+  def send_pending_swap_reminder_email
+    # FIXME: check SentEmail to avoid duplicates
+    # return if ...
+    self.pending_swap_reminder_email = true
+    save
+    UserMailer.reminder_to_accept_swap(self).deliver_now
+    sent_emails.create!(template: SentEmail::REMINDER_PENDING_OFFER)
+  end
+
   def send_vote_reminder_email
     return if sent_vote_reminder_email
     self.sent_vote_reminder_email = true

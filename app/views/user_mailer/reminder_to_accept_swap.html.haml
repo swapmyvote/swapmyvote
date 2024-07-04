@@ -1,0 +1,38 @@
+%p
+  Hi #{@user.name},
+
+%p
+  Action needed!  You haven't yet accepted the offer from
+
+  = @incoming_offer_user.redacted_name
+
+  to vote for your preferred party #{@user.preferred_party.name} in
+  #{@incoming_offer_user.constituency.name}.
+
+%p
+  Please don't keep them waiting!  Either
+
+  = succeed "," do
+    = link_to "accept their offer", root_url
+
+  or
+
+  = succeed "," do
+    = link_to "decline it", root_url
+
+  so that you can receive other offers and they can look for another
+  swap elsewhere.
+
+%p
+  If you accept, you agree to vote for their preferred party
+  #{@user.willing_party.name} in your constituency of
+  (#{@user.constituency.name}).
+
+%p
+  All the best,
+  %br
+  Swap My Vote Team
+%p
+  <a href="https://www.swapmyvote.uk/?utm_source=email&utm_medium=reminder_to_vote&utm_campaign=site">Swap My Vote</a>
+  %br
+  = render partial: "footer_fixed_links"
