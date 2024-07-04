@@ -1,5 +1,5 @@
 namespace :users do
-  desc "Send vote reminder emails to everyone"
+  desc "Send vote reminder emails to everyone with a confirmed swap"
   task send_vote_reminder_emails: :environment do
     for swap in Swap.where(confirmed: true)
       begin
