@@ -14,7 +14,7 @@ constituency.
 </div>
 <div class='plain-pattern border-bottom'>
 <div class='container text-center'>
-<p class='choose-party'>
+<form id="login-form" action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" /><p class='choose-party'>
 Which party would you most like to vote for?
 <select form="login-form" name="user[preferred_party_id]" id="user_preferred_party_id"><option disabled selected>...</option>
 <option value="1">Green</option>
@@ -26,14 +26,16 @@ which party could you vote for in exchange?
 <option value="1">Green</option>
 </select></p>
 <p>
-<a class='btn btn-lg btn-primary' href='#' onclick='submit_modal(); return false'>Swap My Vote!</a>
+<button class='btn btn-lg btn-primary' formmethod='post' onclick='return checkForm()'>
+Swap My Vote!
+</button>
 </p>
 <p class='small subdued'>
 We will match you with someone who will
 cast your preferred vote in a different area where it could count for more.
 In return, you will cast their preferred vote in your area.
 </p>
-</div>
+</form></div>
 </div>
 <div class='background-pattern border-bottom'>
 <div class='container'>
@@ -48,16 +50,18 @@ We’ll find you a list of people with the complementary preferences. Pick one p
 </div>
 </div>
 <script>
-  function submit_modal() {
+  function checkForm() {
     preferred_party_id = $("select[name='user[preferred_party_id]']").val();
     willing_party_id = $("select[name='user[willing_party_id]']").val();
     if (preferred_party_id == null || willing_party_id == null) {
       $(".js-blank-error-modal").modal();
+      return false;
     } else if (preferred_party_id == willing_party_id) {
       $(".js-equal-party-error-modal").modal();
-    } else {
-       window.location.assign("/users/sign_up")
+      return false;
     }
+  
+    return true;
   }
 </script>
 <div class='modal js-blank-error-modal' role='dialog' tabindex='-1'>
