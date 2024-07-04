@@ -58,9 +58,9 @@ namespace :users do
 
       begin
         puts user.name_and_email if can_receive
-        user.send_pending_swap_reminder_email
+        user.send_pending_swap_reminder_email(swap.choosing_user)
       rescue => e
-        print "Failed to send vote reminder"
+        puts "Failed to send vote reminder - #{e.inspect}"
       end
     end
   end
