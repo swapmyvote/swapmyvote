@@ -280,18 +280,39 @@ class User < ApplicationRecord
     willing_party_id_changed? || constituency_ons_id_changed?
   end
 
-  def send_welcome_email
-    if email.blank? || test_user?
-      logger.debug "Not sending welcome email to test user #{email}"
-      return
+  def can_receive_email?(email_type)
+    if test_user?
+      logger.debug "Can't send #{email_type} email to test user #{name}"
+      return false
     end
-    logger.debug "Sending Welcome email"
+
+    if email.blank?
+      logger.debug "Can't send #{email_type} email to user #{name} with no email address set"
+      return false
+    end
+
+    logger.debug "Can send #{email_type} email to #{name_and_email}"
+    return true
+  end
+
+  def send_welcome_email
+    return unless can_receive_email?("welcome")
     UserMailer.welcome_email(self).deliver_now
     sent_emails.create!(template: SentEmail::WELCOME)
   end
 
   def needs_welcome_email?
     !email.blank? && sent_emails.where(template: SentEmail::WELCOME).none?
+  end
+
+  def send_get_swapping_reminder_email
+    return unless can_receive_email?("get swapping")
+    if SentEmail.find_by(user_id: id, template: SentEmail::REMINDER_GET_SWAPPING)
+      logger.info "Already sent get swapping reminder email to #{name_and_email}"
+      return
+    end
+    UserMailer.reminder_to_get_swapping(self).deliver_now
+    sent_emails.create!(template: SentEmail::REMINDER_GET_SWAPPING)
   end
 
   def send_vote_reminder_email
@@ -360,6 +381,10 @@ class User < ApplicationRecord
 
   def email_url
     "mailto:#{CGI.escape email}"
+  end
+
+  def name_and_email
+    "#{name} <#{email}>"
   end
 
   def provider

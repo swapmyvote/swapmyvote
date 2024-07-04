@@ -58,6 +58,12 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "#{@user.swapped_with.name} has voted for you!")
   end
 
+  def reminder_to_get_swapping(user)
+    return nil if user.email.blank?
+    @user = user
+    mail(to: @user.email, subject: "It's not too late to swap your vote!")
+  end
+
   def reminder_to_vote(user)
     return nil if user.email.blank?
     @user = user

@@ -1,0 +1,37 @@
+- utm = '?utm_source=email&utm_medium=reminder-get-swapping&utm_campaign=site'
+
+%p
+  Hello #{@user.name},
+
+%p
+  You're signed up to Swap My Vote but you haven't found a swap
+  yet.  There's still time!
+
+- if @user.willing_party
+  %p
+    If you haven't been offered a swap yet or have had your offers
+    declined, please
+
+    = succeed "." do
+      = link_to "review whether #{@user.willing_party.name} in your constituency is helpful to potential vote swap partners.", review_user_url + utm
+
+%p
+  If you just haven't had time to look for a swap yet, or were waiting
+  for more choices,
+
+  = succeed "!" do
+    = link_to "visit Swap My Vote now", root_url + utm
+
+- if voting_open?
+  %p
+    As it's polling day, once a swap is offered and confirmed, it isn't
+    possible to change it, so please offer or confirm only if you're
+    definitely happy with the swap.
+
+%p
+  To a better democracy,
+
+%p
+  <a href="https://www.swapmyvote.uk/#{utm}">Swap My Vote</a>
+  %br
+  = render partial: "footer_fixed_links"
