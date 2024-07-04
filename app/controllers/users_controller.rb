@@ -45,6 +45,13 @@ class UsersController < ApplicationController
       end
     end
 
+    unless @user.willing_party
+      (flash[:errors] ||= []).append "You must state which party you are willing to vote for."
+    end
+    unless @user.preferred_party
+      (flash[:errors] ||= []).append "You must state which party you would prefer to vote for."
+    end
+
     no_flash_errors = (!flash[:errors] || flash[:errors].size.zero?)
 
     if @user.valid? && no_flash_errors && review_required
