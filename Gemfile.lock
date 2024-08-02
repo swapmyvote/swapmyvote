@@ -353,7 +353,7 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.2.9)
+    rexml (3.3.3)
       strscan
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
