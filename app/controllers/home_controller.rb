@@ -4,9 +4,15 @@ class HomeController < ApplicationController
   before_action :whats_the_magic_word
 
   def index
-    if params.key?(:clear) && prepops
+
+    if params.key?(:clear)
       session.delete("pre_populate")
+      session.delete("pre_login_flow")
     end
+
+    logger.warn "params.inspect: #{params.inspect}"
+    logger.warn "session['pre_populate'].inspect: #{session["pre_populate"].inspect}"
+    logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
 
     # Don't change this without also updating the related comment in
     # the view!
@@ -23,10 +29,13 @@ class HomeController < ApplicationController
 
   def pre_login
 
-    logger.warn "#{params.inspect}"
+    logger.warn "params.inspect: #{params.inspect}"
+    logger.warn "session['pre_populate'].inspect: #{session["pre_populate"].inspect}"
+    logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
 
     if params["constituency_ons_id"]
       if !params["constituency_ons_id"].empty?
+        @constituency_ons_id = params["constituency_ons_id"]
         set_pre_login_constituency(params["constituency_ons_id"])
       end
     end

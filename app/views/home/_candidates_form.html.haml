@@ -10,6 +10,9 @@
     = select :user, :willing_party_id, nil, {}, {form: 'login-form'} do
       %option(disabled=true selected=true) ...
       = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @willing_party_id)
+
+  = hidden_field_tag 'constituency_ons_id', @constituency_ons_id
+
   %p
     %button{ formmethod: :post, onclick: "return checkForm()", class: "btn btn-lg btn-primary" }
       Swap Your Vote!

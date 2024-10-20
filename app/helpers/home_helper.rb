@@ -14,7 +14,7 @@ module HomeHelper
   def set_pre_login_constituency(ons_id)
     session["pre_populate"] ||= {}
     session["pre_login_flow"] ||= {}
-    session["pre_populate"]["constituency"] = ons_id
+    session["pre_populate"]["constituency_ons_id"] = ons_id
     session["pre_login_flow"]["constituency_form_complete"] = true
   end
 
