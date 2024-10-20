@@ -27,7 +27,16 @@ class HomeController < ApplicationController
 
     if params["constituency_ons_id"]
       if !params["constituency_ons_id"].empty?
-        set_pre_login_constituency_form_complete
+        set_pre_login_constituency(params["constituency_ons_id"])
+      end
+    end
+
+    if params["user"]
+      if params["user"]["willing_party_id"] &&
+        !params["user"]["willing_party_id"].empty?
+        params["user"]["preferred_party_id"] &&
+        !params["user"]["preferred_party_id"].empty?
+          set_pre_login_parties(params["user"])
       end
     end
 
@@ -35,8 +44,10 @@ class HomeController < ApplicationController
       # the view will figure out which form to render
       @parties = Party.all
       @constituencies = OnsConstituency.all
-      render action: "index"
+      render action: "index" and return
     end
+
+    render action: "new", controller: "../users/sessions"
   end
 
   private
