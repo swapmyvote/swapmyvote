@@ -11,6 +11,9 @@
       %option(disabled=true selected=true) ...
       = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @willing_party_id)
   %p
+    = hidden_field_tag 'user[constituency_ons_id]', @constituency_ons_id
+
+  %p
     %button{ formmethod: :post, onclick: "return checkForm()", class: "btn btn-lg btn-primary" }
       Swap Your Vote!
   %p.small.subdued
