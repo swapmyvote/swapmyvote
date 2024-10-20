@@ -14,6 +14,7 @@ class HomeController < ApplicationController
     end
 
     @parties = Party.all
+    @constituencies = OnsConstituency.all
 
     prepopulate_fields_from_session
   end
