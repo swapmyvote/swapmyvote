@@ -1,6 +1,9 @@
 .plain-pattern.border-bottom
   .container.text-center
-    = render partial: "candidates_form"
+    - if !pre_login_constituency_form_complete
+      = render partial: "constituency_form"
+    - else
+      = render partial: "candidates_form"
 
 .background-pattern.border-bottom
   .container
