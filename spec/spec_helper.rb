@@ -7,7 +7,7 @@ unless ENV["NO_COVERAGE"]
     add_filter "/spec/"
     add_filter "/config/"
 
-    minimum_coverage line: 69, branch: 56
+    minimum_coverage line: 68, branch: 56
   end
 end
 

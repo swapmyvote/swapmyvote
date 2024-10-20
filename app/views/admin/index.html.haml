@@ -11,5 +11,7 @@
         %li
           = link_to "Mobile verification", fake_verify_mobile_path
         %li
-          = link_to "Send 11 emails to me for proof-reading",
+          = link_to "Preview emails in browser", '/rails/mailers/user_mailer'
+        %li
+          = link_to "Send all emails to me for proof-reading",
               admin_send_email_proofs_path
