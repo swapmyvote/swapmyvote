@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get "account_deleted", to: "static_pages#account_deleted"
   get "confirm_account_deletion", to: "static_pages#confirm_account_deletion"
 
+  post "pre_login", to: "home#pre_login"
+
   root "home#index"
 
   resource :user do

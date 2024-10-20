@@ -1,10 +1,17 @@
 class HomeController < ApplicationController
+  include HomeHelper
+
   before_action :whats_the_magic_word
 
   def index
-    if params.key?(:clear) && prepops
+    if params.key?(:clear)
       session.delete("pre_populate")
+      session.delete("pre_login_flow")
     end
+
+    logger.warn "params.inspect: #{params.inspect}"
+    logger.warn "session['pre_populate'].inspect: #{session["pre_populate"].inspect}"
+    logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
 
     # Don't change this without also updating the related comment in
     # the view!
@@ -14,8 +21,44 @@ class HomeController < ApplicationController
     end
 
     @parties = Party.all
+    @constituencies = OnsConstituency.all.order(:name)
 
     prepopulate_fields_from_session
+  end
+
+  # rubocop:disable Metrics/MethodLength
+  def pre_login
+    logger.warn "params.inspect: #{params.inspect}"
+    logger.warn "session['pre_populate'].inspect: #{session["pre_populate"].inspect}"
+    logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
+
+    if params["constituency_ons_id"]
+      unless params["constituency_ons_id"].empty?
+
+        logger.warn "params['constituency_ons_id']: #{params["constituency_ons_id"]}"
+
+        @constituency_ons_id = params["constituency_ons_id"]
+        mark_pre_login_constituency_complete
+      end
+    end
+
+    if params["user"]
+      if params["user"]["willing_party_id"] &&
+        !params["user"]["willing_party_id"].empty?
+        params["user"]["preferred_party_id"] &&
+        !params["user"]["preferred_party_id"].empty?
+        mark_pre_login_parties_complete
+      end
+    end
+
+    if !pre_login_candidates_form_complete || !pre_login_candidates_form_complete
+      # the view will figure out which form to render
+      @parties = Party.all
+      @constituencies = OnsConstituency.all
+      render action: "index" and return
+    end
+
+    render action: "new", controller: "../users/sessions"
   end
 
   private
