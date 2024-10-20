@@ -1,12 +1,15 @@
 class AdminController < ApplicationController
-  if ENV["ADMIN_PASSWORD"].blank?
-    raise "You didn't set ADMIN_PASSWORD!"
-  end
-
   # before_action :require_login, only: [:send_email_proofs]
 
-  http_basic_authenticate_with name: "swapmyvote",
-                               password: ENV["ADMIN_PASSWORD"] || "secret"
+  def self.admin_user
+    "swapmyvote"
+  end
+
+  def self.admin_password
+    ENV["ADMIN_PASSWORD"] || "secret"
+  end
+
+  http_basic_authenticate_with name: admin_user, password: admin_password
 
   def index
   end
