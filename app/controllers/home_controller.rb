@@ -4,7 +4,6 @@ class HomeController < ApplicationController
   before_action :whats_the_magic_word
 
   def index
-
     if params.key?(:clear)
       session.delete("pre_populate")
       session.delete("pre_login_flow")
@@ -27,19 +26,19 @@ class HomeController < ApplicationController
     prepopulate_fields_from_session
   end
 
+  # rubocop:disable Metrics/MethodLength
   def pre_login
-
     logger.warn "params.inspect: #{params.inspect}"
     logger.warn "session['pre_populate'].inspect: #{session["pre_populate"].inspect}"
     logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
 
     if params["constituency_ons_id"]
-      if !params["constituency_ons_id"].empty?
+      unless params["constituency_ons_id"].empty?
 
         logger.warn "params['constituency_ons_id']: #{params["constituency_ons_id"]}"
 
         @constituency_ons_id = params["constituency_ons_id"]
-        set_pre_login_constituency(params["constituency_ons_id"])
+        add_pre_login_constituency(params["constituency_ons_id"])
       end
     end
 
@@ -48,7 +47,7 @@ class HomeController < ApplicationController
         !params["user"]["willing_party_id"].empty?
         params["user"]["preferred_party_id"] &&
         !params["user"]["preferred_party_id"].empty?
-          set_pre_login_parties(params["user"])
+        add_pre_login_parties(params["user"])
       end
     end
 

@@ -11,19 +11,18 @@ module HomeHelper
     !!pre_login_flow["candidates_form_complete"]
   end
 
-  def set_pre_login_constituency(ons_id)
+  def add_pre_login_constituency(ons_id)
     session["pre_populate"] ||= {}
     session["pre_login_flow"] ||= {}
     session["pre_populate"]["constituency_ons_id"] = ons_id
     session["pre_login_flow"]["constituency_form_complete"] = true
   end
 
-  def set_pre_login_parties(user)
+  def add_pre_login_parties(user)
     session["pre_populate"] ||= {}
     session["pre_login_flow"] ||= {}
     session["pre_populate"]["willing_party_id"] = user["willing_party_id"]
     session["pre_populate"]["preferred_party_id"] = user["preferred_party_id"]
     session["pre_login_flow"]["parties_form_complete"] = true
   end
-
 end
