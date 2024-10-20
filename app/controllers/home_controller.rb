@@ -35,6 +35,9 @@ class HomeController < ApplicationController
 
     if params["constituency_ons_id"]
       if !params["constituency_ons_id"].empty?
+
+        logger.warn "params['constituency_ons_id']: #{params["constituency_ons_id"]}"
+
         @constituency_ons_id = params["constituency_ons_id"]
         set_pre_login_constituency(params["constituency_ons_id"])
       end
