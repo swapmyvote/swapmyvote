@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  include HomeHelper
+
   before_action :whats_the_magic_word
 
   def index
@@ -17,6 +19,24 @@ class HomeController < ApplicationController
     @constituencies = OnsConstituency.all
 
     prepopulate_fields_from_session
+  end
+
+  def pre_login
+
+    logger.warn "#{params.inspect}"
+
+    if params["constituency_ons_id"]
+      if !params["constituency_ons_id"].empty?
+        set_pre_login_constituency_form_complete
+      end
+    end
+
+    if !pre_login_candidates_form_complete || !pre_login_candidates_form_complete
+      # the view will figure out which form to render
+      @parties = Party.all
+      @constituencies = OnsConstituency.all
+      render action: "index"
+    end
   end
 
   private
