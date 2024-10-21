@@ -19,14 +19,6 @@ linters:
       - "app/views/user/vote/show.html.haml"
       - "app/views/users/_info_summary.html.haml"
 
-  # Offense count: 42
-  HtmlAttributes:
-    exclude:
-      - "app/views/home/_swap_form.html.haml"
-      - "app/views/static_pages/contact.html.haml"
-      - "app/views/static_pages/faq.html.haml"
-      - "app/views/static_pages/privacy.html.haml"
-
   # Offense count: 27
   InstanceVariables:
     exclude:
