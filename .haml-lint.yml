@@ -29,9 +29,8 @@ linters:
   EmptyScript:
     enabled: true
 
-  # Seems to default to true anyway, but uncommenting it interferes with the TODO file
-  # HtmlAttributes:
-  #   enabled: true
+  HtmlAttributes:
+    enabled: false
 
   ImplicitDiv:
     enabled: true
