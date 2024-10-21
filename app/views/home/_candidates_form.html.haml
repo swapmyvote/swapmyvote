@@ -3,15 +3,15 @@
     Which party would you most like to vote for?
     = select :user, :preferred_party_id, nil, {}, {form: 'login-form'} do
       %option(disabled=true selected=true) ...
-      = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @preferred_party_id)
+      = options_for_select(parties.map {|p| [ p.name, p.id ]}, selected: preferred_party_id)
   %p.choose-party
     When we find someone to vote for your party in #{election_constituency_other},
     which party could you vote for in exchange?
     = select :user, :willing_party_id, nil, {}, {form: 'login-form'} do
       %option(disabled=true selected=true) ...
-      = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @willing_party_id)
+      = options_for_select(parties.map {|p| [ p.name, p.id ]}, selected: willing_party_id)
   %p
-    = hidden_field_tag 'user[constituency_ons_id]', @constituency_ons_id
+    = hidden_field_tag 'user[constituency_ons_id]', constituency_ons_id
 
   %p
     %button{ formmethod: :post, onclick: "return checkForm()", class: "btn btn-lg btn-primary" }
@@ -20,4 +20,3 @@
     We will match you with someone who will
     cast your preferred vote in a different area where it could count for more.
     In return, you will cast their preferred vote in your area.
-
