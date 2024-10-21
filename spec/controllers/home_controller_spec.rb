@@ -6,12 +6,11 @@ RSpec.describe HomeController, type: :controller do
   include Devise::Test::ControllerHelpers
 
   def test_renders_home_page(params = {})
-    party = create(:party, name: "Liberal Democrats")
+    create(:ons_constituency, name: "Burkshire")
     get :index, params: params
     expect(subject).to render_template(:index)
     expect(assigns(:constituencies)).to all(be_a(OnsConstituency))
     expect(assigns(:constituencies).count).to be >= 1
-    return party
   end
 
   context "when not logged" do
