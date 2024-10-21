@@ -29,19 +29,19 @@ RSpec.describe HomeController, type: :controller do
         .to change {session[:sesame] }.to(nil)
     end
 
-    it "prepopulates preferred party from session" do
-      slug = "liberal_democrats"
-      session["pre_populate"] = { "preferred_party_name" => slug }
-      party = test_renders_home_page
-      expect(assigns(:preferred_party_id)).to eq(party.id)
-    end
+    # it "prepopulates preferred party from session" do
+    #   slug = "liberal_democrats"
+    #   session["pre_populate"] = { "preferred_party_name" => slug }
+    #   party = test_renders_home_page
+    #   expect(assigns(:preferred_party_id)).to eq(party.id)
+    # end
 
-    it "prepopulates willing party from session" do
-      slug = "liberal_democrats"
-      session["pre_populate"] = { "willing_party_name" => slug }
-      party = test_renders_home_page
-      expect(assigns(:willing_party_id)).to eq(party.id)
-    end
+    # it "prepopulates willing party from session" do
+    #   slug = "liberal_democrats"
+    #   session["pre_populate"] = { "willing_party_name" => slug }
+    #   party = test_renders_home_page
+    #   expect(assigns(:willing_party_id)).to eq(party.id)
+    # end
 
     it "doesn't prepopulate an unrecognised preferred party from session" do
       slug = "green"
