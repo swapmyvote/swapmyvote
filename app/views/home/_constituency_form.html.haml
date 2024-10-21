@@ -2,9 +2,9 @@
 
   %p.ui-widget
     My constituency is
-    = f.collection_select :constituency_ons_id, @constituencies,
+    = f.collection_select :constituency_ons_id, constituencies,
                           :ons_id, :name,
-                          selected: @default_constituency_ons_id,
+                          selected: default_constituency_ons_id,
                           prompt: true
 
   %p.text-center
