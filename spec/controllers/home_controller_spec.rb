@@ -9,8 +9,8 @@ RSpec.describe HomeController, type: :controller do
     party = create(:party, name: "Liberal Democrats")
     get :index, params: params
     expect(subject).to render_template(:index)
-    expect(assigns(:parties)).to all(be_a(Party))
-    expect(assigns(:parties).count).to be >= 1
+    expect(assigns(:constituencies)).to all(be_a(OnsConstituency))
+    expect(assigns(:constituencies).count).to be >= 1
     return party
   end
 
