@@ -4,7 +4,7 @@ module HomeHelper
   end
 
   def pre_login_constituency_form_complete
-    !!pre_login_flow["constituency_form_complete"]
+    params["constituency_ons_id"] && !params["constituency_ons_id"].empty?
   end
 
   def pre_login_candidates_form_complete
