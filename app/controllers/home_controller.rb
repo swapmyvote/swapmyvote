@@ -10,7 +10,6 @@ class HomeController < ApplicationController
     end
 
     logger.warn "params.inspect: #{params.inspect}"
-    logger.warn "session['pre_populate'].inspect: #{session["pre_populate"].inspect}"
     logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
 
     # Don't change this without also updating the related comment in
@@ -22,14 +21,11 @@ class HomeController < ApplicationController
 
     @parties = Party.all
     @constituencies = OnsConstituency.all
-
-    prepopulate_fields_from_session
   end
 
   # rubocop:disable Metrics/MethodLength
   def pre_login
     logger.warn "params.inspect: #{params.inspect}"
-    logger.warn "session['pre_populate'].inspect: #{session["pre_populate"].inspect}"
     logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
 
     if params["constituency_ons_id"]
