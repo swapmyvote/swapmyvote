@@ -34,7 +34,7 @@ class HomeController < ApplicationController
         logger.warn "params['constituency_ons_id']: #{params["constituency_ons_id"]}"
 
         @constituency_ons_id = params["constituency_ons_id"]
-        add_pre_login_constituency(params["constituency_ons_id"])
+        mark_pre_login_constituency_complete
       end
     end
 
@@ -43,7 +43,7 @@ class HomeController < ApplicationController
         !params["user"]["willing_party_id"].empty?
         params["user"]["preferred_party_id"] &&
         !params["user"]["preferred_party_id"].empty?
-        add_pre_login_parties(params["user"])
+        mark_pre_login_parties_complete
       end
     end
 
