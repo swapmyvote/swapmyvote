@@ -2,7 +2,7 @@ source "https://rubygems.org"
 ruby "3.3.2"
 
 # webrick no longer part of standard library since ruby 3.0.0
-gem "webrick", "~> 1.7"
+gem "webrick", "~> 1.8"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1"
