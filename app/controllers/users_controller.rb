@@ -10,6 +10,11 @@ class UsersController < ApplicationController
 
   def show
     @mobile_number = @user.mobile_number
+
+    logger.warn "@user.email.blank?: #{@user.email.blank?}"
+    logger.warn "!@user.constituency: #{!@user.constituency}"
+    logger.warn "@user: #{@user.inspect}"
+
     if !@user.constituency || @user.email.blank?
       redirect_to edit_user_constituency_path
       return

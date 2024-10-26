@@ -14,28 +14,17 @@ constituency.
 </div>
 <div class='plain-pattern border-bottom'>
 <div class='container text-center'>
-<form id="login-form" action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" /><p class='choose-party'>
-Which party would you most like to vote for?
-<select form="login-form" name="user[preferred_party_id]" id="user_preferred_party_id"><option disabled selected>...</option>
-<option value="1">Green</option>
-</select></p>
-<p class='choose-party'>
-When we find someone to vote for your party in another constituency,
-which party could you vote for in exchange?
-<select form="login-form" name="user[willing_party_id]" id="user_willing_party_id"><option disabled selected>...</option>
-<option value="1">Green</option>
-</select></p>
-<p>
-<button class='btn btn-lg btn-primary' formmethod='post' onclick='return checkForm()'>
-Swap My Vote!
-</button>
+<form id="login-form" action="/pre_login" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" /><p class='ui-widget'>
+My constituency is
+<select name="constituency_ons_id" id="constituency_ons_id"><option value="">Please select</option>
+<option value="E14001009">Wakefield</option>
+<option value="E14000996">Tiverton and Honiton</option></select>
 </p>
-<p class='small subdued'>
-We will match you with someone who will
-cast your preferred vote in a different area where it could count for more.
-In return, you will cast their preferred vote in your area.
+<p class='text-center'>
+<input type="submit" name="commit" value="Save" class="btn btn-primary" data-disable-with="Save" />
 </p>
-</form></div>
+</form>
+</div>
 </div>
 <div class='background-pattern border-bottom'>
 <div class='container'>
@@ -92,6 +81,7 @@ Close
 </div>
 </div>
 </div>
+
 
 <div class='background-pattern border-bottom'>
 <div class='container text-center'>
