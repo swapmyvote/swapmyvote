@@ -32,15 +32,17 @@ The tsv is produced by copy and pasting the html table from the page
 into a spreadsheet, which must then be saved as tab-separated values.
 This is straightforward in LibreOffice spreadsheets, and presumably in other tools too.
 
-## Tactical Voting Recommendations from LiveFromBrexit
+## Tactical Voting Recommendations
 
-livefrombrexit_recommendations.json should contain the json from
-<https://www.livefrombrexit.com/tacticals/data/recommendations.json>
+These scripts were custom written for every source of recommendations. See db/seeds*for_general_election.rb and the requires for various files db/fixtures/tactical_vote*\* . Each source has notes on how the data was obtained.
 
-### Update Process
+See PR https://github.com/swapmyvote/swapmyvote/pull/823 for a from scratch implemmentation of recommendation scripts and note the need to update the recommendations helper app/helpers/recommendations_helper.rb.
 
-After download, commit the new file, then create a migration based on
-db/migrate/20191208113028_recommendations_refresh_dec08.rb
+This particular update follows a typical pattern.
+
+- db/fixtures/tactical_vote_getvoting.csv contains the csv obtained from the TV site
+- db/fixtures/tactical_vote_getvoting_csv.rb is a simplistic wrapper around the CSV (allows for column changes in the source CSV without impacting other code), and also assigns an id used to identify the site in the DB and in the front-end
+- db/fixtures/tactical_vote_getvoting_recs.rb maps the the data to the recommendations tables.
 
 ## Superseded data
 
