@@ -39,7 +39,7 @@ $(document).ready(() => {
     const name = postcode.result.parliamentary_constituency_2024;
 
     const hasOption = $(
-      'select#user_constituency_ons_id option[value="' + onsId + '"]'
+      'select#constituency_ons_id option[value="' + onsId + '"]'
     );
 
     if (hasOption.length == 0) {
@@ -48,13 +48,13 @@ $(document).ready(() => {
       );
       // this only changes the hidden dropdown, not the auto-complete
       // one
-      $("select#user_constituency_ons_id").val("").change();
+      $("select#constituency_ons_id").val("").change();
       $(".constituency-autocomplete-input").val("");
     } else {
       // this only changes the hidden dropdown, not the auto-complete
       // one
       clearPostcodeError();
-      $("select#user_constituency_ons_id").val(onsId).change(); // this SHOULD change the dropdown
+      $("select#constituency_ons_id").val(onsId).change(); // this SHOULD change the dropdown
       $(".constituency-autocomplete-input").val(name);
     }
   };
@@ -84,6 +84,6 @@ $(document).ready(() => {
   };
 
   $("#txt-postcode").keyup(postcodeEnter);
-  
+
   clearPostcodeError();
 });
