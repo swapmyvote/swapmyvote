@@ -2,14 +2,9 @@
 
 ## Constituencies (current)
 
-Westminster_Parliamentary_Constituencies_December_2018_Names_and_Codes_in_the_United_Kingdom.csv
-should contain a copy of the official ONS constituencies file downloaded from
-<https://geoportal.statistics.gov.uk/datasets/westminster-parliamentary-constituencies-december-2018-names-and-codes-in-the-united-kingdom>
+The current db/seeds_for_general_election.rb uses MysocietyConstituenciesCsv from db/fixtures/mysociety_constituencies_csv.rb to load up to date constituencies data.
 
-### Update process
-
-After downloading the new file and commiting it, create a new migration based on
-db/migrate/20191123112854_populate_ons_constituencies.rb
+db/fixtures/mysociety_constituencies_csv.rb has the information about obtaining updates.
 
 It will only update with boundary changes, not a regular event.
 
