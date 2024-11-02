@@ -21,6 +21,7 @@ class HomeController < ApplicationController
 
     @parties = Party.all
     @constituencies = OnsConstituency.all.order(:name)
+    @default_constituency_ons_id = default_ons_constituency&.ons_id
   end
 
   # rubocop:disable Metrics/MethodLength
