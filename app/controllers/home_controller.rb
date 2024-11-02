@@ -50,7 +50,10 @@ class HomeController < ApplicationController
     if !pre_login_candidates_form_complete || !pre_login_candidates_form_complete
       # the view will figure out which form to render
       @parties = Party.all
-      @constituencies = OnsConstituency.all
+      @constituencies = OnsConstituency.all.order(:name)
+
+      prepopulate_fields_from_session
+
       render action: "index" and return
     end
 

@@ -5,6 +5,16 @@ require "support/swaps_closed"
 RSpec.describe HomeController, type: :controller do
   include Devise::Test::ControllerHelpers
 
+  def test_renders_pre_login_page(params = {})
+  # party = Party.find_by(name: "Liberal Democrats")
+    party = create(:party, name: "Liberal Democrats")
+    get :pre_login, params: params
+    expect(subject).to render_template(:index)
+    expect(assigns(:parties)).to all(be_a(Party))
+    expect(assigns(:parties).count).to be >= 1
+    return party
+  end
+
   def test_renders_home_page(params = {})
     create(:ons_constituency, name: "Burkshire")
     get :index, params: params
@@ -13,7 +23,7 @@ RSpec.describe HomeController, type: :controller do
     expect(assigns(:constituencies).count).to be >= 1
   end
 
-  context "when not logged" do
+  context "home page: when not logged in" do
     it "renders home page when not logged in" do
       test_renders_home_page
     end
@@ -58,7 +68,41 @@ RSpec.describe HomeController, type: :controller do
     end
   end
 
-  context "when logged in", logged_in: true do
+  context "pre_login page: when not logged in" do
+    it "renders pre_login page when not logged in" do
+      test_renders_pre_login_page
+    end
+
+    it "prepopulates preferred party from session" do
+      slug = "liberal_democrats"
+      session["pre_populate"] = { "preferred_party_name" => slug }
+      party = test_renders_pre_login_page
+      expect(assigns(:preferred_party_id)).to eq(party.id)
+    end
+
+    it "prepopulates willing party from session" do
+      slug = "liberal_democrats"
+      session["pre_populate"] = { "willing_party_name" => slug }
+      party = test_renders_pre_login_page
+      expect(assigns(:willing_party_id)).to eq(party.id)
+    end
+
+    it "doesn't prepopulate an unrecognised preferred party from session" do
+      slug = "green"
+      session["pre_populate"] = { "preferred_party_name" => slug }
+      test_renders_pre_login_page
+      expect(assigns(:preferred_party_id)).to be_nil
+    end
+
+    it "doesn't prepopulate an unrecognised willing party from session" do
+      slug = "green"
+      session["pre_populate"] = { "willing_party_name" => slug }
+      test_renders_pre_login_page
+      expect(assigns(:willing_party_id)).to be_nil
+    end
+  end
+
+  context "home page: when logged in", logged_in: true do
     it "renders home page when swapping is closed", swapping: :closed do
       test_renders_home_page
     end
