@@ -20,7 +20,7 @@ class HomeController < ApplicationController
     end
 
     @parties = Party.all
-    @constituencies = OnsConstituency.all
+    @constituencies = OnsConstituency.all.order(:name)
   end
 
   # rubocop:disable Metrics/MethodLength
