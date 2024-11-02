@@ -1,4 +1,4 @@
-require_relative "../fixtures/electoral_calculus_constituencies_tsv"
+require_relative "../fixtures/uk_parliament/electoral_calculus_constituencies_tsv"
 
 class RefreshPolls < ActiveRecord::Migration[5.2]
   def up_disabled

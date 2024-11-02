@@ -1,4 +1,4 @@
-require_relative "../fixtures/ons_constituencies_csv"
+require_relative "../fixtures/uk_parliament/ons_constituencies_csv"
 
 class PopulateOnsConstituencies < ActiveRecord::Migration[5.2]
   def down
