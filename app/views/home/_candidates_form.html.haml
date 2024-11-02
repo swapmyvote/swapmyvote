@@ -10,7 +10,7 @@
     = select :user, :willing_party_id, nil, {}, {form: 'login-form'} do
       %option(disabled=true selected=true) ...
       = options_for_select(parties.map {|p| [ p.name, p.id ]}, selected: willing_party_id)
-  %p
+  %p.hidden-field
     = hidden_field_tag 'user[constituency_ons_id]', constituency_ons_id
 
   %p
