@@ -8,7 +8,7 @@ require_relative "electoral_calculus_constituencies_tsv"
 # - loop over each party/constituency combo, not over constituencies
 # - takes care of mapping the 'nationalist vote' to the appropriate party.
 
-MAPPING_FILE = "db/fixtures/electoral_calculus_constituency_mapping_to_mysoc.yml"
+MAPPING_FILE = "db/fixtures/uk_parliament/electoral_calculus_constituency_mapping_to_mysoc.yml"
 
 class ElectoralCalculusConstituenciesPollsRaw
   attr_reader :parties_by_party_code

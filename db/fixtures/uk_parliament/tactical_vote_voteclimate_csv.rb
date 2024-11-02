@@ -6,7 +6,7 @@ require "csv"
 class TacticalVoteVoteclimateCsv
   attr_reader :file_name, :site
 
-  FILE_NAME = "db/fixtures/tactical_vote_voteclimate_29jun24.csv"
+  FILE_NAME = "db/fixtures/uk_parliament/tactical_vote_voteclimate_29jun24.csv"
 
   ONS_ID_KEY = "id"
   ADVICE_KEY = "party_code"

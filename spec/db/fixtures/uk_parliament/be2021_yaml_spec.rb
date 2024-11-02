@@ -1,6 +1,6 @@
-require_relative "../../../db/fixtures/be2022_yaml"
+require_relative "../../../../db/fixtures/uk_parliament/be2021_yaml"
 
-RSpec.describe Db::Fixtures::Be2022Yaml do
+RSpec.describe Db::Fixtures::Be2021Yaml do
   # rubocop's recommendation doesn't improve the code in this instance and it worsens the spec output
 
   subject { described_class.data }

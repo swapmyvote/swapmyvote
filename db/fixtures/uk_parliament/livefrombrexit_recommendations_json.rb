@@ -62,7 +62,7 @@ class LivefrombrexitRecommendationsJson
   private def data
     return @data if defined?(@data)
 
-    file = File.open "db/fixtures/livefrombrexit_recommendations.json"
+    file = File.open "db/fixtures/uk_parliament/livefrombrexit_recommendations.json"
 
     @data = JSON.load file
     return @data

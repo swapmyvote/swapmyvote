@@ -1,5 +1,5 @@
 require "rails_helper"
-require "./db/fixtures/livefrombrexit_recommendations_json"
+require "./db/fixtures/uk_parliament/livefrombrexit_recommendations_json"
 
 # Specs in this file have access to a helper object that includes
 # the RecommendationsHelper. For example:

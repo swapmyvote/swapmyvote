@@ -1,4 +1,4 @@
-require_relative "../fixtures/livefrombrexit_recommendations_json"
+require_relative "../fixtures/uk_parliament/livefrombrexit_recommendations_json"
 
 class PopulateRecommendations < ActiveRecord::Migration[5.2]
   def up_disabled

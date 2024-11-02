@@ -1,4 +1,4 @@
-require_relative "../../db/fixtures/livefrombrexit_recommendations_json"
+require_relative "../../db/fixtures/uk_parliament/livefrombrexit_recommendations_json"
 
 class Recommendation < ApplicationRecord
   belongs_to :constituency,

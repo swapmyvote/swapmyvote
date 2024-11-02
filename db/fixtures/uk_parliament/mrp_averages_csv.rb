@@ -6,7 +6,7 @@ require "csv"
 class MrpAveragesCsv
   attr_reader :file_name
 
-  FILE_NAME = "db/fixtures/mrp_averages.csv"
+  FILE_NAME = "db/fixtures/uk_parliament/mrp_averages.csv"
 
   # Keys are the headers expected in the CSV
   # values are SMV preferred names, and in the case of parties, the SMV party codes.

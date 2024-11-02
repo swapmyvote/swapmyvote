@@ -1,4 +1,4 @@
-require_relative "../../../../db/fixtures/be2022/party"
+require_relative "../../../../../db/fixtures/uk_parliament/be2022/party"
 
 RSpec.describe Db::Fixtures::Be2022::Party do
   # rubocop's recommendation doesn't improve the code in this instance and it worsens the spec output

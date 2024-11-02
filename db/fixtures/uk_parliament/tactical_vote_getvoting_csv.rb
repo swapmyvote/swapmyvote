@@ -6,7 +6,7 @@ require "csv"
 class TacticalVoteGetvotingCsv
   attr_reader :file_name, :site
 
-  FILE_NAME = "db/fixtures/tactical_vote_getvoting.csv"
+  FILE_NAME = "db/fixtures/uk_parliament/tactical_vote_getvoting.csv"
 
   ID_KEY = "gss_code"
   ADVICE_KEY = "recommendation"
