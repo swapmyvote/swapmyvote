@@ -6,8 +6,6 @@ class Recommendation < ApplicationRecord
              primary_key: "ons_id",
              foreign_key: "constituency_ons_id"
 
-  LFB_DEFAULT_STYLE = "background-color: rgba(204, 204, 204, 0.4); color: rgb(132, 132, 132);"
-
   def party_short_code_from_text
     canonical_text_sym = text.downcase.parameterize(separator: "_").to_sym
     return canonical_text_sym if Party::REFERENCE_DATA.keys.include?(canonical_text_sym)
