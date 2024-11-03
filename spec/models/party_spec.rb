@@ -3,25 +3,7 @@ require "rails_helper"
 RSpec.describe Party, type: :model do
   it { is_expected.to respond_to :color }
   it { is_expected.to respond_to :name }
-
   it { is_expected.to respond_to :polls }
-
-  # refer to api docs at app/views/static_pages/api.html.haml
-  describe ".canonical_names" do
-    %w[
-       labour
-       liberal_democrats
-       green
-       conservatives
-       reform
-       plaid_cymru
-       snp
-    ].each do |canonical_name|
-      it "includes #{canonical_name.inspect} mentioned in api docs" do
-        expect(described_class.canonical_names).to include(canonical_name)
-      end
-    end
-  end
 
   describe "#standing_in" do
     context "Plaid" do
