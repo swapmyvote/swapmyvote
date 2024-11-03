@@ -1,6 +1,6 @@
 class RecommendationsRefreshDec06 < ActiveRecord::Migration[5.2]
   def up_disabled
-    Recommendation.refresh_from_json(progress: true)
+    # Recommendation.refresh_from_json(progress: true)
   end
 
   def down
