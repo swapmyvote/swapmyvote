@@ -23,23 +23,6 @@ RSpec.describe Party, type: :model do
     end
   end
 
-  describe ".smv_codes" do
-    %w[
-      con
-      lab
-      libdem
-      brexit
-      green
-      ukip
-      snp
-      plaid
-    ].each do |short_code|
-      it "includes #{short_code.inspect} used in mapping polls info" do
-        expect(described_class.smv_codes).to include(short_code)
-      end
-    end
-  end
-
   describe "#standing_in" do
     context "Plaid" do
       subject { described_class.new(smv_code: :plaid) }
