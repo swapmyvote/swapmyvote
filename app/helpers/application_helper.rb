@@ -216,6 +216,27 @@ module ApplicationHelper
     return nil
   end
 
+  # rubocop:disable Metrics/MethodLength
+  def election_institution
+    return @election_institution if defined?(@election_institution)
+    valid_institutions = %w[
+      uk_parliament
+      us_president
+    ]
+    raw_institution = ENV["ELECTION_INSTITUTION"]
+    if !raw_institution || raw_institution.empty?
+      institution = "uk_parliament"
+    else
+      institution = raw_institution.downcase.parameterize(separator: "_")
+      unless valid_institutions.include?(institution)
+        raise ArgumentError,
+              "Valid institution needed. You said #{raw_institution.inspect},"\
+              + "please select one of #{valid_institutions.inspect} through environment variable ELECTION_INSTITUTION"
+      end
+    end
+    @election_institution = institution
+  end
+
   def general_election?
     !election_type_override.nil? ?
       (election_type_override == :general) :
