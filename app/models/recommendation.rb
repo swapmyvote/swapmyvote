@@ -19,23 +19,9 @@ class Recommendation < ApplicationRecord
 
   LFB_DEFAULT_STYLE = "background-color: rgba(204, 204, 204, 0.4); color: rgb(132, 132, 132);"
 
-  LFB_NAMES_TO_SHORT_CODE = {
-    bxp:           :brexit,
-    pc:            :plaid,
-    plaid_cymru:   :plaid,
-    conservatives: :con,
-    lib_dem:       :libdem,
-    lib_dems:      :libdem,
-    ld:            :libdem,
-    labour:        :lab,
-    green_party:   :green
-  }
-
   def party_short_code_from_text
     canonical_text_sym = text.downcase.parameterize(separator: "_").to_sym
     return canonical_text_sym if Party::REFERENCE_DATA.keys.include?(canonical_text_sym)
-    lfb_lookup = LFB_NAMES_TO_SHORT_CODE[canonical_text_sym]
-    return lfb_lookup unless lfb_lookup.nil?
   end
 
   def party_style_from_text
