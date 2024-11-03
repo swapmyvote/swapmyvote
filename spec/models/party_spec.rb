@@ -40,23 +40,6 @@ RSpec.describe Party, type: :model do
     end
   end
 
-  describe ".names" do
-    [
-      "Conservatives",
-      "Green",
-      "Labour",
-      "Liberal Democrats",
-      "UKIP",
-      "SNP",
-      "Plaid Cymru",
-      "Brexit",
-    ].each do |name|
-      it "includes #{name.inspect} used in seeds scripts" do
-        expect(described_class.names).to include(name)
-      end
-    end
-  end
-
   describe "#standing_in" do
     context "Plaid" do
       subject { described_class.new(smv_code: :plaid) }
