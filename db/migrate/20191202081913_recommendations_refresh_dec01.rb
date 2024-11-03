@@ -1,4 +1,4 @@
-require_relative "../fixtures/uk_parliament/livefrombrexit_recommendations_json"
+# require_relative "../fixtures/uk_parliament/livefrombrexit_recommendations_json"
 
 class RecommendationsRefreshDec01 < ActiveRecord::Migration[5.2]
   # rubocop:disable Metrics/MethodLength
