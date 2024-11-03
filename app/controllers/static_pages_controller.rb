@@ -18,6 +18,7 @@ class StaticPagesController < ApplicationController
   end
 
   def api
+    @parties = Party.order(:name).all
   end
 
   def confirm_account_deletion
