@@ -1,6 +1,6 @@
 # New Election - By Election Data and Coding Tasks
 
-In general [db/fixtures/README](../../db/fixtures/README.md) can be a guide. If no other reference is given, it should be covered there.
+In general [db/fixtures/uk_parliament/README](../../db/fixtures/uk_parliament/README.md) can be a guide. If no other reference is given, it should be covered there.
 
 ## Preparing data
 
@@ -8,19 +8,19 @@ In general [db/fixtures/README](../../db/fixtures/README.md) can be a guide. If 
 
 A yaml file needs to be prepared with all the party and constituency data. Previous yaml files should be a guide, for example see the commits for the By Election in 2020 and the files
 
-    db/fixtures/be2022.yml
+    db/fixtures/uk_parliament/be2022.yml
 
-    db/seeds.rb
-    db/fixtures/be2022/candidate.rb
-    db/fixtures/be2022/party.rb
-    db/fixtures/be2022_yaml.rb
-    spec/db/fixtures/be2022/candidate_spec.rb
-    spec/db/fixtures/be2022/party_spec.rb
-    spec/db/fixtures/be2022_yaml_spec.rb
+    db/fixtures/uk_parliament/seeds.rb
+    db/fixtures/uk_parliament/be2022/candidate.rb
+    db/fixtures/uk_parliament/be2022/party.rb
+    db/fixtures/uk_parliament/be2022_yaml.rb
+    spec/db/fixtures/uk_parliament/be2022/candidate_spec.rb
+    spec/db/fixtures/uk_parliament/be2022/party_spec.rb
+    spec/db/fixtures/uk_parliament/be2022_yaml_spec.rb
 
 ### Switch to by election mode if need be
 
-See [db/seeds.rb](../../db/seeds.rb) and optionally edit so that the default election type is by election. This can be overridden using an environment variable (ELECTION_TYPE=by), however, making the edit means other developers don't need to remember to use the environment variables.
+See [db/fixtures/uk_parliament/seeds.rb](../../db/fixtures/uk_parliament/seeds.rb) and optionally edit so that the default election type is by election. This can be overridden using an environment variable (ELECTION_TYPE=by), however, making the edit means other developers don't need to remember to use the environment variables.
 
 ### Poll predictions from electoral calculus
 
