@@ -1,0 +1,25 @@
+---
+:harris:
+  :name: Kamala Harris
+  :short_name: Harris
+  :color: "#FFB602"
+  :ge_default: true
+:stein:
+  :name: Jill Stein (Green)
+  :color: "#6AB023"
+  :short_name: Stein
+  :ge_default: true
+:west:
+  :name: Cornel West (JFA)
+  :color: "#0087DC"
+  :short_name: West
+  :ge_default: true
+:cruz:
+  :name: Claudia de la Cruz (Peace and Freedom)
+  :short_name: Cruz
+  :ge_default: true
+:oliver:
+  :name: Chase Oliver (Libertarian)
+  :short_name: Oliver
+  :color: "#70147A"
+  :ge_default: true
