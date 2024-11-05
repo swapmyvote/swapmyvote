@@ -34,7 +34,7 @@ class Party < ApplicationRecord
   end
 
   def short_name
-    short = smv_code ? REFERENCE_DATA[smv_code.to_sym][:short_name] : nil
+    short = smv_code ? reference_data[smv_code.to_sym][:short_name] : nil
     short ||= name.downcase.gsub(/[aeiou]/, "")[0..2].titleize
     short
   end
@@ -52,8 +52,12 @@ class Party < ApplicationRecord
       master_list.pluck(:name)
     end
 
+    def reference_data
+      REFERENCE_DATA
+    end
+
     def master_list
-      REFERENCE_DATA.map do |(smv_code, attributes)|
+      reference_data.map do |(smv_code, attributes)|
         attributes.merge(
           canonical_name: attributes[:name].parameterize(separator: "_").to_sym,
           smv_code: smv_code
