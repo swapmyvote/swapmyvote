@@ -36,6 +36,14 @@ p {
     &.choose-party {
         font-size: 34px;
     }
+
+    &.choose-constituency {
+        font-size: 34px;
+    }
+
+    &.hidden-field {
+        display: none;
+    }
 }
 
 h1,

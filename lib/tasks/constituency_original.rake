@@ -1,4 +1,4 @@
-require_relative '../../db/fixtures/ons_constituency_lookup'
+require_relative '../../db/fixtures/uk_parliament/ons_constituency_lookup'
 
 namespace :constituencies_original do
 

@@ -1,4 +1,4 @@
-require_relative "../fixtures/ons_constituency_lookup"
+require_relative "../fixtures/uk_parliament/ons_constituency_lookup"
 
 class ChangePollToOnsConstituency < ActiveRecord::Migration[5.2]
   def up

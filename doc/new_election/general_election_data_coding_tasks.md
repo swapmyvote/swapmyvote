@@ -1,12 +1,12 @@
 # New Election - General Election Data and Coding Tasks
 
-In general [db/fixtures/README](../../db/fixtures/README.md) can be a guide. If no other reference is given, it should be covered there. 
+In general [db/fixtures/uk_parliament/README](../../db/fixtures/uk_parliament/README.md) can be a guide. If no other reference is given, it should be covered there.
 
 ## Preparing data
 
 ### Switch to general election mode if need be
 
-See [db/seeds.rb](../../db/seeds.rb) and optionally edit so that the default election type is general election. This can be overridden using an environment variable (ELECTION_TYPE=general), however, making the edit means other developers don't need to remember to use the environment variables.
+See [db/fixtures/uk_parliament/seeds.rb](../../db/fixtures/uk_parliament/seeds.rb) and optionally edit so that the default election type is general election. This can be overridden using an environment variable (ELECTION_TYPE=general), however, making the edit means other developers don't need to remember to use the environment variables.
 
 ### Constituencies
 
@@ -18,8 +18,8 @@ We should either get an update, or find a way to hide the polls data from voters
 
 The text about whether electoral calculus data is a prediction or an election result may need to be adjusted in these two templates
 
-  app/views/user/swaps/_list_potential_swaps.html.haml
-  app/views/user/swaps/_swap_profile_inner.html.haml
+    app/views/user/swaps/_list_potential_swaps.html.haml
+    app/views/user/swaps/_swap_profile_inner.html.haml
 
 ### Tactical Voting Recommendations
 
