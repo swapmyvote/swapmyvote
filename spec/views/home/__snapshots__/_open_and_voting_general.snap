@@ -26,11 +26,13 @@ My constituency is
 <option value="E14000996">Tiverton and Honiton</option></select>
 </p>
 <label class='mb-0'>Or find my constituency using my postcode</label>
+<div class='d-flex flex-row justify-content-center'>
 <div class='form-group form-group-short'>
 <div class='input-group'>
 <input class='form-control' id='txt-postcode' maxlength='9' minlength='5' size='10' spellcheck='false' type='text'>
 <div class='input-group-append'>
 <input class='btn btn-secondary' id='btn-postcode' type='button' value='Search'>
+</div>
 </div>
 </div>
 </div>
