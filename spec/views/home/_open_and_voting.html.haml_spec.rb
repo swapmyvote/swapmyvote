@@ -12,6 +12,7 @@ RSpec.describe "home/_open_and_voting", type: :view do
 
       assign(:parties, [build(:party, id: 1)])
       assign(:constituencies, OnsConstituency.all)
+      assign(:user, User.new)
 
       allow(view).to receive(:current_user).and_return(create(:user))
 
@@ -30,6 +31,7 @@ RSpec.describe "home/_open_and_voting", type: :view do
 
       assign(:parties, [build(:party, id: 1)])
       assign(:constituencies, OnsConstituency.all)
+      assign(:user, User.new)
 
       allow(view).to receive(:current_user).and_return(create(:user))
 

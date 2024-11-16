@@ -11,6 +11,7 @@ RSpec.describe "home/_open_pre_elections", type: :view do
 
       assign(:parties, [build(:party, id: 1)])
       assign(:constituencies, OnsConstituency.all)
+      assign(:user, User.new)
 
       expect { render }.not_to raise_error
 
@@ -24,6 +25,8 @@ RSpec.describe "home/_open_pre_elections", type: :view do
 
       assign(:parties, [build(:party, id: 1)])
       assign(:constituencies, OnsConstituency.all)
+      assign(:user, User.new)
+
 
       expect { render }.not_to raise_error
 

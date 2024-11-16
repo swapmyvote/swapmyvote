@@ -1,4 +1,4 @@
-<script src="/packs-test/js/postcodesHelper-14f1c6a7e21134534a10.js"></script>
+<script src="/packs-test/js/postcodesHelper-ca378dc418b4bbf203f3.js"></script>
 <div class='background-pattern border-bottom'>
 <div class='container text-center'>
 <h1>
@@ -19,10 +19,10 @@ constituency.
 </div>
 <div class='plain-pattern border-bottom'>
 <div class='container text-center'>
-<form id="login-form" action="/pre_login" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" /><div class='d-flex flex-column align-items-center'>
+<form class="new_user" id="new_user" action="/pre_login" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" /><div class='d-flex flex-column align-items-center'>
 <p class='choose-constituency'>
 My constituency is
-<select name="constituency_ons_id" id="constituency_ons_id"><option value="">Please select</option>
+<select name="user[constituency_ons_id]" id="user_constituency_ons_id"><option value="">Please select</option>
 <option value="E14001009">Wakefield</option>
 <option value="E14000996">Tiverton and Honiton</option></select>
 </p>
