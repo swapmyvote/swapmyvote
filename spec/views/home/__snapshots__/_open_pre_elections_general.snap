@@ -15,20 +15,19 @@ constituency.
 </div>
 <div class='plain-pattern border-bottom'>
 <div class='container text-center'>
-<form id="login-form" action="/pre_login" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" /><p class='choose-constituency'>
+<form id="login-form" action="/pre_login" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" /><div class='d-flex flex-column align-items-center'>
+<p class='choose-constituency'>
 My constituency is
 <select name="constituency_ons_id" id="constituency_ons_id"><option value="">Please select</option>
 <option value="E14001009">Wakefield</option>
 <option value="E14000996">Tiverton and Honiton</option></select>
 </p>
 <label class='mb-0'>Or find my constituency using my postcode</label>
-<div class='d-flex flex-row justify-content-center'>
 <div class='form-group form-group-short'>
 <div class='input-group'>
 <input class='form-control' id='txt-postcode' maxlength='9' minlength='5' size='10' spellcheck='false' type='text'>
 <div class='input-group-append'>
 <input class='btn btn-secondary' id='btn-postcode' type='button' value='Search'>
-</div>
 </div>
 </div>
 </div>
@@ -40,6 +39,7 @@ Enter your postcode only to find your constituency; we do not retain this info.
 <p class='text-center'>
 <input type="submit" name="commit" value="Next: Choose Parties" class="btn btn-primary" data-disable-with="Next: Choose Parties" />
 </p>
+</div>
 </form>
 </div>
 </div>
