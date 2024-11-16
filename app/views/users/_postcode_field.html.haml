@@ -1,12 +1,11 @@
 %label.mb-0 Or find my constituency using my postcode
 
-.d-flex.flex-row.justify-content-center
-  .form-group.form-group-short
-    .input-group
-      %input.form-control#txt-postcode{ type: "text", size: 10, minlength: 5,
-                                        maxlength: 9, spellcheck: "false" }
-      .input-group-append
-        %input.btn.btn-secondary#btn-postcode{ type: "button", value: "Search" }
+.form-group.form-group-short
+  .input-group
+    %input.form-control#txt-postcode{ type: "text", size: 10, minlength: 5,
+                                      maxlength: 9, spellcheck: "false" }
+    .input-group-append
+      %input.btn.btn-secondary#btn-postcode{ type: "button", value: "Search" }
 
 .alert.alert-danger.small#error-postcode
 
