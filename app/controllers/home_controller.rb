@@ -9,6 +9,8 @@ class HomeController < ApplicationController
       session.delete("pre_login_flow")
     end
 
+    @user = User.new
+
     logger.warn "params.inspect: #{params.inspect}"
     logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
 
@@ -29,14 +31,10 @@ class HomeController < ApplicationController
     logger.warn "params.inspect: #{params.inspect}"
     logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
 
-    if params["constituency_ons_id"]
-      unless params["constituency_ons_id"].empty?
+    @constituency_ons_id = params["user"] && params["user"]["constituency_ons_id"]
 
-        logger.warn "params['constituency_ons_id']: #{params["constituency_ons_id"]}"
-
-        @constituency_ons_id = params["constituency_ons_id"]
-        mark_pre_login_constituency_complete
-      end
+    if @constituency_ons_id && !@constituency_ons_id.empty?
+      mark_pre_login_constituency_complete
     end
 
     if params["user"]
