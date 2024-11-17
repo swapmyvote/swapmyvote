@@ -70,7 +70,7 @@ gem "invisible_captcha", "~> 2.3"
 
 # These need to be outside the development group for Rakefile to
 # be happy in Heroku.
-gem "rubocop", "~> 1.22.1"
+gem "rubocop", "1.22.1"
 gem "rubocop-rails"
 gem "rubocop-rspec"
 
