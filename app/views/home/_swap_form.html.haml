@@ -1,7 +1,7 @@
 .plain-pattern.border-bottom
   .container.text-center
     - if !pre_login_constituency_form_complete
-      = render partial: "constituency_form", locals: { constituencies: @constituencies, default_constituency_ons_id: @default_constituency_ons_id }
+      = render partial: "constituency_form", locals: { user: @user, constituencies: @constituencies, default_constituency_ons_id: @default_constituency_ons_id }
     - else
       = render partial: "candidates_form", locals: { parties: @parties, preferred_party_id: @preferred_party_id, willing_party_id: @willing_party_id, constituency_ons_id: @constituency_ons_id }
 
