@@ -27,7 +27,6 @@ RSpec.describe "home/_open_pre_elections", type: :view do
       assign(:constituencies, OnsConstituency.all)
       assign(:user, User.new)
 
-
       expect { render }.not_to raise_error
 
       expect(rendered).to match_snapshot("_open_pre_elections_general")
