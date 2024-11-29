@@ -1,24 +1,9 @@
 .plain-pattern.border-bottom
   .container.text-center
-    = form_with url: sign_in_path, id: "login-form", local: true do
-      %p.choose-party
-        Which party would you most like to vote for?
-        = select :user, :preferred_party_id, nil, {}, {form: 'login-form'} do
-          %option(disabled=true selected=true) ...
-          = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @preferred_party_id)
-      %p.choose-party
-        When we find someone to vote for your party in #{election_constituency_other},
-        which party could you vote for in exchange?
-        = select :user, :willing_party_id, nil, {}, {form: 'login-form'} do
-          %option(disabled=true selected=true) ...
-          = options_for_select(@parties.map {|p| [ p.name, p.id ]}, selected: @willing_party_id)
-      %p
-        %button{ formmethod: :post, onclick: "return checkForm()", class: "btn btn-lg btn-primary" }
-          Swap My Vote!
-      %p.small.subdued
-        We will match you with someone who will
-        cast your preferred vote in a different area where it could count for more.
-        In return, you will cast their preferred vote in your area.
+    - if !pre_login_constituency_form_complete
+      = render partial: "constituency_form", locals: { user: @user, constituencies: @constituencies, default_constituency_ons_id: @default_constituency_ons_id }
+    - else
+      = render partial: "candidates_form", locals: { parties: @parties, preferred_party_id: @preferred_party_id, willing_party_id: @willing_party_id, constituency_ons_id: @constituency_ons_id }
 
 .background-pattern.border-bottom
   .container
@@ -34,35 +19,4 @@
 
       %li If your partner agrees to the swap, it is confirmed. We’ll help you connect with each other, so if you like, you can introduce yourselves.
 
-:javascript
-  function checkForm() {
-    preferred_party_id = $("select[name='user[preferred_party_id]']").val();
-    willing_party_id = $("select[name='user[willing_party_id]']").val();
-    if (preferred_party_id == null || willing_party_id == null) {
-      $(".js-blank-error-modal").modal();
-      return false;
-    } else if (preferred_party_id == willing_party_id) {
-      $(".js-equal-party-error-modal").modal();
-      return false;
-    }
-
-    return true;
-  }
-
-.modal.js-blank-error-modal{ tabindex: "-1", role: "dialog" }
-  .modal-dialog
-    .modal-content
-      .modal-body
-        Please choose both your preferred party and your willing party.
-      .modal-footer
-        %button.btn.btn-primary{ data: { dismiss: "modal" }, aria: { label: "Close" } }
-          Close
-
-.modal.js-equal-party-error-modal{ tabindex: "-1", role: "dialog" }
-  .modal-dialog
-    .modal-content
-      .modal-body
-        Your preferred party and your willing party cannot be the same.
-      .modal-footer
-        %button.btn.btn-primary{ data: { dismiss: "modal" }, aria: { label: "Close" } }
-          Close
+= render partial: "candidates_form_js"

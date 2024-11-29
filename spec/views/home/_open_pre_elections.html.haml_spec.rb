@@ -10,6 +10,8 @@ RSpec.describe "home/_open_pre_elections", type: :view do
       allow(view).to receive(:general_election?).and_return(false)
 
       assign(:parties, [build(:party, id: 1)])
+      assign(:constituencies, OnsConstituency.all)
+      assign(:user, User.new)
 
       expect { render }.not_to raise_error
 
@@ -22,6 +24,8 @@ RSpec.describe "home/_open_pre_elections", type: :view do
       allow(view).to receive(:general_election?).and_return(true)
 
       assign(:parties, [build(:party, id: 1)])
+      assign(:constituencies, OnsConstituency.all)
+      assign(:user, User.new)
 
       expect { render }.not_to raise_error
 

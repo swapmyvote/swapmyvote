@@ -84,6 +84,6 @@ $(document).ready(() => {
   };
 
   $("#txt-postcode").keyup(postcodeEnter);
-  
+
   clearPostcodeError();
 });
