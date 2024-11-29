@@ -48,6 +48,7 @@ class HomeController < ApplicationController
 
     if !pre_login_candidates_form_complete || !pre_login_candidates_form_complete
       # the view will figure out which form to render
+      @user = User.new
       @parties = Party.all
       @constituencies = OnsConstituency.all.order(:name)
 
