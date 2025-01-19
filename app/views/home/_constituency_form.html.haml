@@ -1,0 +1,15 @@
+= form_for user, url: pre_login_path, id: "login-form", local: true do |f|
+
+  .d-flex.flex-column.align-items-center
+
+    %p.choose-constituency
+      My constituency is
+      = f.collection_select :constituency_ons_id, constituencies,
+                            :ons_id, :name,
+                            selected: default_constituency_ons_id,
+                            prompt: true
+
+    = render partial: "users/postcode_field"
+
+    %p.text-center
+      = submit_tag("Next: Choose Parties", class: "btn btn-primary")

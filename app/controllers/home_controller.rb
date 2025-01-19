@@ -1,10 +1,18 @@
 class HomeController < ApplicationController
+  include HomeHelper
+
   before_action :whats_the_magic_word
 
   def index
-    if params.key?(:clear) && prepops
+    if params.key?(:clear)
       session.delete("pre_populate")
+      session.delete("pre_login_flow")
     end
+
+    @user = User.new
+
+    logger.warn "params.inspect: #{params.inspect}"
+    logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
 
     # Don't change this without also updating the related comment in
     # the view!
@@ -14,8 +22,42 @@ class HomeController < ApplicationController
     end
 
     @parties = Party.all
+    @constituencies = OnsConstituency.all.order(:name)
+    @default_constituency_ons_id = default_ons_constituency&.ons_id
+  end
 
-    prepopulate_fields_from_session
+  # rubocop:disable Metrics/MethodLength
+  def pre_login
+    logger.warn "params.inspect: #{params.inspect}"
+    logger.warn "session['pre_login_flow'].inspect: #{session["pre_login_flow"].inspect}"
+
+    @constituency_ons_id = params["user"] && params["user"]["constituency_ons_id"]
+
+    if @constituency_ons_id && !@constituency_ons_id.empty?
+      mark_pre_login_constituency_complete
+    end
+
+    if params["user"]
+      if params["user"]["willing_party_id"] &&
+        !params["user"]["willing_party_id"].empty?
+        params["user"]["preferred_party_id"] &&
+        !params["user"]["preferred_party_id"].empty?
+        mark_pre_login_parties_complete
+      end
+    end
+
+    if !pre_login_candidates_form_complete || !pre_login_candidates_form_complete
+      # the view will figure out which form to render
+      @user = User.new
+      @parties = Party.all
+      @constituencies = OnsConstituency.all.order(:name)
+
+      prepopulate_fields_from_session
+
+      render action: "index" and return
+    end
+
+    render action: "new", controller: "../users/sessions"
   end
 
   private
