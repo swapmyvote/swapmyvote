@@ -1,0 +1,59 @@
+---
+:lab:
+  :name: Labour
+  :color: "#DC241f"
+  :short_name: Lab
+  :ge_default: true
+:libdem:
+  :name: Liberal Democrats
+  :short_name: LD
+  :color: "#FFB602"
+  :ge_default: true
+:green:
+  :name: Green
+  :color: "#6AB023"
+  :short_name: Green
+  :ge_default: true
+:con:
+  :name: Conservatives
+  :color: "#0087DC"
+  :short_name: Con
+  :ge_default: true
+:ukip:
+  :name: UKIP
+  :short_name: UKIP
+  :color: "#70147A"
+:snp:
+  :name: SNP
+  :short_name: SNP
+  :color: "#FFF95D"
+  :ge_default: true
+:plaid:
+  :name: Plaid Cymru
+  :short_name: PC
+  :color: "#008142"
+  :ge_default: true
+:brexit:
+  :name: Brexit
+  :short_name: Brexit
+  :color: "#5bc0de"
+:breakthrough:
+  :name: Breakthrough
+:for_britain:
+  :name: For Britain
+:freedom_alliance:
+  :name: Freedom Alliance
+:independent:
+  :name: Independent
+  :short_name: Ind
+:reform:
+  :name: Reform
+  :short_name: Ref
+  :color: "#5bc0de"
+  :ge_default: true
+:rejoin_eu:
+  :name: Rejoin eu
+:workers:
+  :name: Workers
+:yorkshire:
+  :name: Yorkshire

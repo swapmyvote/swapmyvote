@@ -8,7 +8,7 @@ require_relative "electoral_calculus_constituencies_tsv"
 # - loop over each party/constituency combo, not over constituencies
 # - takes care of mapping the 'nationalist vote' to the appropriate party.
 
-MAPPING_FILE = "db/fixtures/electoral_calculus_constituency_mapping_to_mysoc.yml"
+MAPPING_FILE = "db/fixtures/uk_parliament/electoral_calculus_constituency_mapping_to_mysoc.yml"
 
 class ElectoralCalculusConstituenciesPollsRaw
   attr_reader :parties_by_party_code
@@ -17,13 +17,13 @@ class ElectoralCalculusConstituenciesPollsRaw
 
   def initialize
     @parties_by_party_code = {
-      con:    Party.find_by(name: "Conservatives"),
-      green:  Party.find_by(name: "Green"),
-      lab:    Party.find_by(name: "Labour"),
-      libdem: Party.find_by(name: "Liberal Democrats"),
-      snp:    Party.find_by(name: "SNP"),
-      plaid:  Party.find_by(name: "Plaid Cymru"),
-      reform: Party.find_by(name: "Reform")
+      con:    Party.find_by(smv_code: :con),
+      green:  Party.find_by(smv_code: :green),
+      lab:    Party.find_by(smv_code: :lab),
+      libdem: Party.find_by(smv_code: :libdem),
+      snp:    Party.find_by(smv_code: :snp),
+      plaid:  Party.find_by(smv_code: :plaid),
+      reform: Party.find_by(smv_code: :reform)
     }
 
     missing_parties = @parties_by_party_code.select{ |_key, value| value.nil? }

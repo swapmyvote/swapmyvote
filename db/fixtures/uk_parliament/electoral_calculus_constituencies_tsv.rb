@@ -14,7 +14,7 @@ class ElectoralCalculusConstituenciesTsv
 
   include Enumerable
 
-  TSV_FILE_NAME = "./db/fixtures/electoral_calculus_constituencies.tsv"
+  TSV_FILE_NAME = "./db/fixtures/uk_parliament/electoral_calculus_constituencies.tsv"
 
   def initialize
     @file_name = TSV_FILE_NAME

@@ -7,7 +7,7 @@ require "json"
 class TacticalVoteTacticalVoteCoUkRecs
   attr_reader :file_name, :site
 
-  FILE_NAME = "db/fixtures/tactical_vote_tacticalvote_co_uk.json"
+  FILE_NAME = "db/fixtures/uk_parliament/tactical_vote_tacticalvote_co_uk.json"
 
   ACCEPTABLE_NON_PARTY_ADVICE = [
     :alliance, :sinn_fein, :sdlp, :any, :tbc_labour_or_plaid_cymru, :labour_or_snp, :labour_or_plaid_cymru

@@ -8,20 +8,22 @@
 
 require "active_record/fixtures"
 require "csv"
-require_relative "fixtures/mysociety_constituencies_csv"
-# require_relative "fixtures/electoral_calculus_polls"
-require_relative "fixtures/mrp_averages_polls"
-require_relative "fixtures/tactical_vote_stt_recs"
-require_relative "fixtures/tactical_vote_sprintforpr_recs"
-require_relative "fixtures/tactical_vote_tacticalvote_recs"
-require_relative "fixtures/tactical_vote_siu_recs"
-require_relative "fixtures/tactical_vote_tacticalvote_co_uk_recs"
-require_relative "fixtures/tactical_vote_getvoting_recs"
-require_relative "fixtures/tactical_vote_voteclimate_recs"
+require_relative "mysociety_constituencies_csv"
+# require_relative "electoral_calculus_polls"
+require_relative "mrp_averages_polls"
+require_relative "tactical_vote_stt_recs"
+require_relative "tactical_vote_sprintforpr_recs"
+require_relative "tactical_vote_tacticalvote_recs"
+require_relative "tactical_vote_siu_recs"
+require_relative "tactical_vote_tacticalvote_co_uk_recs"
+require_relative "tactical_vote_getvoting_recs"
+require_relative "tactical_vote_voteclimate_recs"
 
 puts "\n\nParties selected for GE"
 
-parties_for_ge = Party.master_list.select { |p| p[:ge_default] }
+parties_data  = YAML.load_file(File.join(File.dirname(__FILE__), "parties.yml"))
+
+parties_for_ge = Party.master_list(parties_data).select { |p| p[:ge_default] }
 
 parties_for_ge.each do |party_attributes|
   party = Party.find_or_initialize_by(name: party_attributes[:name])

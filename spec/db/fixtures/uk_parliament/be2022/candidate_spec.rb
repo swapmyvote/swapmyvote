@@ -1,6 +1,6 @@
-require_relative "../../../../db/fixtures/be2021/candidate"
+require_relative "../../../../../db/fixtures/uk_parliament/be2022/candidate"
 
-RSpec.describe Db::Fixtures::Be2021::Candidate do
+RSpec.describe Db::Fixtures::Be2022::Candidate do
   # rubocop's recommendation doesn't improve the code in this instance and it worsens the spec output
 
   subject { described_class.all }

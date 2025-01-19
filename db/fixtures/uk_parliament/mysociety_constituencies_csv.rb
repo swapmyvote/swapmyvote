@@ -12,7 +12,7 @@ class MysocietyConstituenciesCsv
   NAME_KEY = "name"
   SHORT_CODE_KEY = "short_code"
 
-  FILE_NAME = "db/fixtures/mysociety_parl_constituencies_2025.csv"
+  FILE_NAME = "db/fixtures/uk_parliament/mysociety_parl_constituencies_2025.csv"
 
   REQUIRED_INPUT_KEYS = [ ID_KEY , NAME_KEY, SHORT_CODE_KEY ]
 

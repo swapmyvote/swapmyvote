@@ -1,4 +1,4 @@
-require_relative "../../../db/fixtures/electoral_commission_parties"
+require_relative "../../../../db/fixtures/uk_parliament/electoral_commission_parties"
 
 module Db
   module Fixtures

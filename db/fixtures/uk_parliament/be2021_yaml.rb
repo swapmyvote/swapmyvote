@@ -1,11 +1,11 @@
 require "yaml"
 
-# This is an encapsulation of the Yaml file for By-election 2022
+# This is an encapsulation of the Yaml file for By-election 2019
 
 module Db
   module Fixtures
-    class Be2022Yaml
-      FILENAME = "db/fixtures/be2022.yml"
+    class Be2021Yaml
+      FILENAME = "db/fixtures/uk_parliament/be2021.yml"
 
       class << self
         def data

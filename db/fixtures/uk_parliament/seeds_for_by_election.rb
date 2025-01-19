@@ -6,10 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-require_relative "fixtures/be2022_yaml"
-require_relative "fixtures/be2022/party"
-require_relative "fixtures/be2022/candidate"
-require_relative "../app/helpers/application_helper"
+require_relative "be2022_yaml"
+require_relative "be2022/party"
+require_relative "be2022/candidate"
+require_relative "../../../app/helpers/application_helper"
 
 class SeedHelper
   include ApplicationHelper
