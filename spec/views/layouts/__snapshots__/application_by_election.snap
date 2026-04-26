@@ -79,7 +79,7 @@
 <a class="small" href="/contact">Contact Us</a>
 </li>
 <li>
-<a class="small" href="/privacy">Privacy Policy</a>
+<a class="small" target="_blank" rel="noopener" href="https://forwarddemocracy.com/privacy-policy">Privacy Policy</a>
 </li>
 <li>
 <a class="small" href="/terms">Terms of Use</a>
@@ -121,7 +121,8 @@
 </div>
 <div class='container'>
 <p>
-Published and promoted by Tom de Grunwald on behalf of Swap My Vote, a campaign name of FORWARD DEMOCRACY LIMITED registered at 100 Church Street, Brighton, BN1 1UJ. Registered company in England & Wales no. 11707599.
+Published and promoted by Tom de Grunwald on behalf of Forward Democracy.
+Registered as Movement Forward Ltd, company no. 11707599 in England &amp; Wales, 100 Church Street, Brighton, BN1 1UJ.
 </p>
 </div>
 </footer>
