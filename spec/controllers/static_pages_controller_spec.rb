@@ -18,9 +18,10 @@ RSpec.describe StaticPagesController, type: :controller do
   end
 
   describe "GET #privacy" do
-    it "returns http success" do
+    it "redirects to the Forward Democracy privacy policy with a 301" do
       get :privacy
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:moved_permanently)
+      expect(response).to redirect_to(StaticPagesController::FORWARD_DEMOCRACY_PRIVACY_POLICY_URL)
     end
   end
 
