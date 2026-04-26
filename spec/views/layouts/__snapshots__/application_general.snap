@@ -79,7 +79,7 @@
 <a class="small" href="/contact">Contact Us</a>
 </li>
 <li>
-<a class="small" href="https://forwarddemocracy.com/privacy-policy" rel="noopener" target="_blank">Privacy Policy</a>
+<a class="small" target="_blank" rel="noopener" href="https://forwarddemocracy.com/privacy-policy">Privacy Policy</a>
 </li>
 <li>
 <a class="small" href="/terms">Terms of Use</a>

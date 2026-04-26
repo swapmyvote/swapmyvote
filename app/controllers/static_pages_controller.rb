@@ -1,9 +1,11 @@
 class StaticPagesController < ApplicationController
+  FORWARD_DEMOCRACY_PRIVACY_POLICY_URL = "https://forwarddemocracy.com/privacy-policy".freeze
+
   def faq
   end
 
   def privacy
-    redirect_to "https://forwarddemocracy.com/privacy-policy",
+    redirect_to FORWARD_DEMOCRACY_PRIVACY_POLICY_URL,
                 status: :moved_permanently,
                 allow_other_host: true
   end
