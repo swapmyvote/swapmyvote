@@ -3,6 +3,9 @@ class StaticPagesController < ApplicationController
   end
 
   def privacy
+    redirect_to "https://forwarddemocracy.com/privacy-policy",
+                status: :moved_permanently,
+                allow_other_host: true
   end
 
   def cookies
