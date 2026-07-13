@@ -4,7 +4,14 @@
   "description": "Swap My Vote is a platform which allows voters to find a partner to swap their vote with.  Rather than voting for their preferred minority party in a constituency where a tactical vote is necessary or worthwhile, a voter can find someone who will vote for their preferred party somewhere where that vote makes sense, even under First Past The Post. In return, they will vote for their partners preferred party as a tactical vote in their own constituency.",
   "dependencies": {
     "@rails/webpacker": "5.4.4",
+    "@tanstack/react-query": "^5.101.2",
+    "bootstrap": "^5.3.8",
     "intl-tel-input": "16.0.7",
+    "react": "^19.2.7",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.2.7",
+    "react-icons": "^5.7.0",
+    "react-router-dom": "^7.18.1",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
@@ -17,11 +24,38 @@
     "url": "https://github.com/swapmyvote/swapmyvote/issues"
   },
   "homepage": "https://github.com/swapmyvote/swapmyvote#readme",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check app/frontend",
+    "lint:fix": "biome check --write app/frontend",
+    "format": "biome format --write app/frontend",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "e2e": "playwright test"
+  },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@biomejs/biome": "^2.5.3",
+    "@playwright/test": "^1.61.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "@vitest/coverage-v8": "^4.1.10",
+    "jsdom": "^29.1.1",
+    "sass": "^1.101.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.0.0",
+    "vite-plugin-ruby": "^5.2.0",
+    "vitest": "^4.1.10",
     "webpack-dev-server": "^3"
   },
   "engines": {
-    "node": ">=16.10 <17"
+    "node": ">=22"
   },
   "packageManager": "yarn@3.8.1"
 }

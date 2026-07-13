@@ -1,0 +1,418 @@
+// SwapMyVote global stylesheet — ported from tacticalvote's app/globals.scss.
+// Same brand system (magenta primary, Rubik uppercase headings, per-party
+// colour classes) so the two Forward Democracy apps read as one family.
+// Chart/trend and TV-hero-specific rules are intentionally omitted; add them
+// back per-feature as those screens are ported.
+
+// Rubik Bold as a local font (replaces tacticalvote's next/font/local).
+@font-face {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("@/assets/fonts/Rubik-Bold.ttf") format("truetype");
+}
+
+/***** GLOBAL CSS VARIABLES *****/
+:root {
+  --font-rubik: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+
+  --mf-pink-light: #ffccff;
+  --mf-pink-dark: #ee66ee;
+  --mf-pink-light-rgb: 255, 204, 255;
+  --mf-pink-dark-rgb: 238, 102, 238;
+
+  --mf-yellow-box-light: #fff3cd;
+  --mf-yellow-box-dark: #ffe69c;
+  --bs-link-decoration: underline;
+
+  --con-party-color: #0087dc;
+  --lab-party-color: #e4003b;
+  --ld-party-color: #faa61a;
+  --green-party-color: #02a95b;
+  --pc-party-color: #005b54;
+  --reform-party-color: #12b6cf;
+  --ukip-party-color: #6d3177;
+  --mk-party-color: #dac953;
+  --independent-party-color: var(--bs-gray-600);
+  --other-party-color: var(--bs-gray-600);
+  --heart-party-color: var(--bs-primary);
+  --snp-party-color: #fcec50;
+  --snp-party-fg-color: #212529;
+  --snp-party-text-color: #806c00;
+  --bs-gray-150: #f1f3f5;
+}
+
+@import "bootstrap/scss/functions";
+
+// Modify variables / disable unused features
+$enable-dark-mode: false;
+$enable-negative-margins: true;
+$small-font-size: 0.75em;
+$grid-row-columns: 12;
+
+$primary: #ff66ff; // Movement Forward magenta
+$pink: #ff99ff;
+$red: #dc3545;
+$orange: #fd7e45;
+$blue: #0d6efd;
+$green: #198754;
+$success: $blue;
+$danger: #212529; // gray-900
+
+$pc-green: #005b54;
+
+$body-bg: #f8f9fa;
+$link-color: #212529;
+$input-bg: #fff;
+
+$headings-font-family: var(--font-rubik);
+$headings-font-weight: 700;
+$headings-line-height: 1;
+
+$btn-font-family: var(--font-rubik);
+$btn-font-weight: 700;
+$btn-line-height: 1.3;
+
+$focus-ring-color: rgba(white, 0.25);
+
+@import "bootstrap/scss/variables";
+
+// Remove unused theme colours to trim generated CSS
+$theme-colors: map-remove($theme-colors, "info", "warning");
+
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// Selective Bootstrap partials (mirrors tacticalvote — keep CSS small)
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/placeholders";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities/api";
+
+/***** GLOBAL DEFAULT STYLES *****/
+.bg-red {
+  --bs-bg-opacity: 1;
+  background-color: rgba($red, var(--bs-bg-opacity)) !important;
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--mf-pink-dark);
+  --bs-btn-hover-border-color: var(--mf-pink-dark);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+}
+
+.btn-link {
+  font-weight: 700;
+}
+
+p a {
+  font-weight: 700;
+}
+
+/* TYPOGRAPHY */
+body {
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-transform: uppercase;
+}
+
+.small,
+small {
+  line-height: 1.2;
+}
+
+/* HEADER */
+header {
+  background-color: var(--bs-black);
+  color: var(--bs-white);
+
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: var(--bs-white);
+  }
+}
+
+header h1 {
+  font-size: 2.4rem;
+}
+
+@include media-breakpoint-up(xl) {
+  header h1 {
+    font-size: 5rem;
+  }
+}
+
+header p {
+  color: var(--bs-white);
+}
+
+header h6,
+section.section-dark h6 {
+  color: var(--bs-gray-900);
+  background-color: var(--bs-white);
+  display: inline-block;
+  padding: 0.2rem 0.4rem;
+}
+
+/* SECTIONS */
+section {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+@include media-breakpoint-up(lg) {
+  section {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.section-dark {
+  background-color: var(--bs-gray-900);
+  color: var(--bs-body-bg);
+}
+
+.section-darker {
+  background-color: var(--bs-black);
+  color: var(--bs-body-bg);
+}
+
+.section-dark,
+.section-darker {
+  a:link:not(.btn),
+  a:visited:not(.btn),
+  a:hover:not(.btn),
+  a:active:not(.btn) {
+    color: var(--bs-white);
+  }
+}
+
+/* SECTION INFO / ACTION AREAS */
+.rounded-box {
+  padding: 1rem 1rem 0.1rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+}
+
+.info-area p,
+.action-area p,
+.info-area h3,
+.action-area h3 {
+  color: var(--bs-black);
+}
+
+.section-light .action-area {
+  background: linear-gradient(var(--bs-gray-100), var(--bs-gray-150));
+  box-shadow: 0px 5px 10px 0px rgba($black, 0.075);
+}
+
+.info-area {
+  background-color: var(--mf-yellow-box-dark);
+  background: linear-gradient(
+    var(--mf-yellow-box-light),
+    var(--mf-yellow-box-dark)
+  );
+  box-shadow: 0px 5px 10px 0px rgba($black, 0.075);
+}
+
+/* NAVBAR */
+.brand-text {
+  @media (max-width: 424px) {
+    font-size: calc(10.5vw - 25px);
+  }
+}
+
+div.sticky-top:has(nav) {
+  box-shadow: 0px 5px 10px 0px rgba(var(--bs-black-rgb), 0.075);
+}
+
+/* FOOTER */
+main {
+  border-bottom: 2px solid var(--bs-gray-400);
+}
+
+footer {
+  background: var(--bs-gray-300);
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  border-top: 2px solid var(--bs-gray-100);
+}
+
+@include media-breakpoint-up(lg) {
+  footer {
+    padding-top: 6rem;
+  }
+}
+
+footer a:hover {
+  text-decoration-color: var(--bs-primary);
+}
+
+.footer ul svg {
+  color: var(--bs-black);
+}
+
+footer ul svg:hover {
+  color: var(--bs-primary);
+}
+
+.brand-tag {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  color: var(--mf-pink-dark) !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 0;
+  border-radius: 0;
+}
+
+/* PARTIES — per-party colour classes (spans/headings/svgs and filled divs) */
+h1.party-heart {
+  background-color: var(--bs-primary);
+  display: inline-block;
+}
+
+a span.party-heart,
+h3.party-heart,
+svg.party-heart,
+i.party-heart {
+  color: var(--heart-party-color);
+}
+
+span.party-none,
+h3.party-none,
+svg.party-none,
+i.party-none {
+  color: var(--bs-gray-500);
+}
+
+span.party-labour,
+h3.party-labour,
+h1.party-labour,
+svg.party-labour,
+i.party-labour {
+  color: var(--lab-party-color);
+}
+
+div.party-labour {
+  background: linear-gradient(rgba($red, 1), rgba($red, 0.85));
+  box-shadow: 0px 5px 10px 0px rgba($black, 0.075);
+}
+
+span.party-libdem,
+h3.party-libdem,
+h1.party-libdem,
+svg.party-libdem,
+i.party-libdem {
+  color: var(--ld-party-color);
+}
+
+div.party-libdem {
+  background: linear-gradient(rgba($orange, 1), rgba($orange, 0.85));
+  box-shadow: 0px 5px 10px 0px rgba($black, 0.075);
+}
+
+span.party-plaid,
+h3.party-plaid,
+svg.party-plaid,
+i.party-plaid {
+  color: var(--pc-party-color);
+}
+
+div.party-plaid {
+  background: linear-gradient(rgba($pc-green, 1), rgba($pc-green, 0.85));
+  box-shadow: 0px 5px 10px 0px rgba($black, 0.075);
+}
+
+span.party-snp,
+h3.party-snp,
+h1.party-snp,
+svg.party-snp,
+i.party-snp {
+  color: var(--snp-party-text-color);
+}
+
+div.party-snp {
+  background-color: var(--snp-party-color);
+  box-shadow: 0px 5px 10px 0px rgba(var(--bs-black-rgb), 0.075);
+}
+
+span.party-green,
+h3.party-green,
+h1.party-green,
+svg.party-green,
+i.party-green {
+  color: var(--green-party-color);
+}
+
+div.party-green {
+  background-color: var(--green-party-color);
+  box-shadow: 0px 5px 10px 0px rgba(var(--bs-black-rgb), 0.075);
+}
+
+span.party-conservative,
+h3.party-conservative,
+h1.party-conservative,
+svg.party-conservative,
+i.party-conservative {
+  color: var(--con-party-color);
+}
+
+div.party-conservative {
+  background-color: rgba(var(--bs-blue-rgb), 1);
+}
+
+span.party-reform,
+h3.party-reform,
+h1.party-reform,
+svg.party-reform,
+i.party-reform {
+  color: var(--reform-party-color);
+}
+
+div.party-reform {
+  background-color: var(--reform-party-color);
+  box-shadow: 0px 5px 10px 0px rgba(var(--bs-black-rgb), 0.075);
+}
+
+span.party-other,
+h3.party-other,
+h1.party-other,
+svg.party-other,
+i.party-other {
+  color: var(--other-party-color);
+}
+
+div.party-other {
+  background-color: var(--other-party-color);
+}

@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "vite",
+      "runtimeExecutable": "bundle",
+      "runtimeArgs": ["exec", "vite", "dev"],
+      "port": 3036
+    },
+    {
+      "name": "rails",
+      "runtimeExecutable": "bin/rails",
+      "runtimeArgs": ["s", "-p", "3000"],
+      "port": 3000
+    }
+  ]
+}

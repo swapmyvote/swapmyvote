@@ -128,3 +128,5 @@ group :production do
   gem "pg"
   gem "puma"
 end
+
+gem "vite_rails", "~> 3.11"
