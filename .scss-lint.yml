@@ -4,6 +4,11 @@ scss_files: "**/*.scss"
 exclude:
   - "vendor/**/*.scss"
   - "node_modules/**/*.scss"
+  # The React SPA's SCSS (app/frontend) is governed by Biome and follows
+  # the sibling tacticalvote project's conventions (2-space indent,
+  # colour literals, !important, /* */ comments). Keep scss_lint scoped to
+  # the legacy app/assets stylesheets so the two style systems don't clash.
+  - "app/frontend/**/*.scss"
 plugin_directories: ['.scss-linters']
 
 # List of gem names to load custom linters from (make sure they are already
