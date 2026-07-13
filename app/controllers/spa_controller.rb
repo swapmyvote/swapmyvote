@@ -8,6 +8,9 @@ class SpaController < ApplicationController
   layout "spa"
 
   def index
-    render html: nil, layout: true
+    # Render the `spa` layout with an empty body; React mounts into the
+    # layout's #root. Use an explicit html_safe empty string rather than nil
+    # so we don't rely on the HTML renderer's nil coercion.
+    render html: "".html_safe, layout: true
   end
 end
