@@ -15,7 +15,7 @@ The frontend is being migrated from server-rendered HAML + jQuery/CoffeeScript t
 - SPA source: `app/frontend/` (`@/*` path alias → `app/frontend/*`).
 - Brand styles: `app/frontend/styles/globals.scss` (ported from tacticalvote); component styles as co-located `*.module.scss`.
 - Coexistence: migrated paths render the `spa` layout (`app/views/layouts/spa.html.haml`) via `SpaController#index`, routed from an **explicit allow-list** in `config/routes.rb`. Keep the react-router route table (`app/frontend/app/App.tsx`) in lockstep with that allow-list. Legacy paths keep their HAML controllers + `application.html.haml` (Bootstrap 4 CDN). The two Bootstraps never load in the same document.
-- The full plan and milestone list live in the modernization plan file referenced in the PR that introduced this work.
+- The full plan, milestone list, and cutover strategy live in [`docs/frontend-modernization-plan.md`](docs/frontend-modernization-plan.md). **The existing HAML site stays fully live until each route's React replacement is verified and switched over; no legacy code is deleted until after cutover.**
 
 ## Development commands
 
