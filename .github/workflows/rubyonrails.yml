@@ -67,3 +67,23 @@ jobs:
       #   run: bin/bundler-audit --update
       # - name: Security audit application code
       #   run: bin/brakeman -q -w2
+
+  # Frontend (Vite/React SPA) quality gates. Node-only — no Ruby needed,
+  # since Vitest/tsc/Biome don't touch the Rails/Webpacker toolchain.
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+      - run: yarn install
+      - name: Biome lint
+        run: yarn lint
+      - name: Typecheck
+        run: yarn typecheck
+      - name: Vitest
+        run: yarn test
