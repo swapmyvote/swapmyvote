@@ -5,8 +5,8 @@
     "ignoreUnknown": true,
     "includes": [
       "app/frontend/**",
-      "vite.config.ts",
-      "vitest.config.ts",
+      "vite.config.mts",
+      "vitest.config.mts",
       "!**/node_modules",
       "!**/coverage",
       "!**/playwright-tests",

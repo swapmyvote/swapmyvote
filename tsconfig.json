@@ -18,6 +18,6 @@
     },
     "target": "ES2020"
   },
-  "include": ["app/frontend/**/*.ts", "app/frontend/**/*.tsx", "vite.config.ts", "vitest.config.ts"],
+  "include": ["app/frontend/**/*.ts", "app/frontend/**/*.tsx", "vite.config.mts", "vitest.config.mts"],
   "exclude": ["node_modules", "public", "app/assets", "app/javascript", ".claude/worktrees"]
 }
