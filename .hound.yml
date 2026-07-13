@@ -1,5 +1,10 @@
+# Hound's rubocop review is disabled. Its newest bundled rubocop (1.22.1) ships a
+# rubocop-rails older than 2.14, so it cannot recognize the Rails/I18nLocaleTexts
+# cop referenced in .rubocop.yml and errors out on every Ruby file. Ruby linting is
+# already covered authoritatively by the GitHub Actions `lint` job (bin/rake lint),
+# which uses the rubocop-rails pinned in Gemfile.lock.
 rubocop:
-  enabled: true
+  enabled: false
   config_file: .rubocop.yml
   version: 1.22.1
 
