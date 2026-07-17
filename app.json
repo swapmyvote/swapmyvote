@@ -14,6 +14,11 @@
     "HEROKU_APP_NAME": {
       "required": true
     },
+    "NODE_OPTIONS": {
+      "description": "Lets the legacy Webpacker (webpack 4) packs compile under Node >=17 during asset precompilation (webpack 4 fails on newer Node with an OpenSSL 3 error). Verified safe for the Vite build too. Remove once the Webpacker packs are ported to React and the gem is dropped.",
+      "required": "false",
+      "value": "--openssl-legacy-provider"
+    },
     "STAGING_DATABASE_URL": {
       "required": true
     },

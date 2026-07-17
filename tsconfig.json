@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
+    "paths": {
+      "@/*": ["./app/frontend/*"]
+    },
+    "target": "ES2020"
+  },
+  "include": ["app/frontend/**/*.ts", "app/frontend/**/*.tsx", "vite.config.mts", "vitest.config.mts"],
+  "exclude": ["node_modules", "public", "app/assets", "app/javascript", ".claude/worktrees"]
+}

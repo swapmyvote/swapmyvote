@@ -27,6 +27,13 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
       SERVER_HOST: localhost
+      # Node was bumped to 22 for the Vite/React frontend, but the legacy
+      # Webpacker packs (intlTelInput, postcodesHelper) still build with
+      # webpack 4, which fails on Node >=17 with an OpenSSL 3 error. This
+      # flag lets webpack 4 compile on the newer Node so on-demand pack
+      # compilation in the view/request specs keeps working. Remove once
+      # the Webpacker packs are ported to React and the gem is dropped.
+      NODE_OPTIONS: "--openssl-legacy-provider"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -60,3 +67,23 @@ jobs:
       #   run: bin/bundler-audit --update
       # - name: Security audit application code
       #   run: bin/brakeman -q -w2
+
+  # Frontend (Vite/React SPA) quality gates. Node-only — no Ruby needed,
+  # since Vitest/tsc/Biome don't touch the Rails/Webpacker toolchain.
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+      - run: yarn install
+      - name: Biome lint
+        run: yarn lint
+      - name: Typecheck
+        run: yarn typecheck
+      - name: Vitest
+        run: yarn test

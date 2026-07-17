@@ -1,0 +1,12 @@
+!!!
+%html{ lang: 'en' }
+  %head
+    %meta{ charset: "utf-8" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
+    %title Swap My Vote
+    = csrf_meta_tags
+    = vite_react_refresh_tag
+    = vite_client_tag
+    = vite_javascript_tag "application.tsx"
+  %body
+    #root

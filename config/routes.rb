@@ -17,6 +17,12 @@ Rails.application.routes.draw do
 
   post "pre_login", to: "home#pre_login"
 
+  # React SPA (Vite Ruby). Only migrated paths are routed to SpaController;
+  # everything else keeps its HAML controller. Keep this allow-list in lockstep
+  # with the react-router route table in app/frontend/app/App.tsx.
+  # M0 toolchain spike:
+  get "app/ping", to: "spa#index"
+
   root "home#index"
 
   resource :user do

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.3/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "app/frontend/**",
+      "vite.config.mts",
+      "vitest.config.mts",
+      "!**/node_modules",
+      "!**/coverage",
+      "!**/playwright-tests",
+      "!**/playwright-report",
+      "!**/build",
+      "!**/*.tsbuildinfo",
+      "!app/frontend/assets"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "expand": "auto",
+    "useEditorconfig": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "security": {
+        "noDangerouslySetInnerHtml": "error"
+      },
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "noUnusedFunctionParameters": "error",
+        "useParseIntRadix": "error",
+        "useExhaustiveDependencies": "error"
+      },
+      "complexity": {
+        "noUselessFragments": "error",
+        "useLiteralKeys": "error",
+        "useOptionalChain": "error",
+        "useDateNow": "error",
+        "noUselessUndefinedInitialization": "error",
+        "noBannedTypes": "error"
+      },
+      "style": {
+        "useTemplate": "error",
+        "useImportType": "error",
+        "useConst": "error",
+        "useNodejsImportProtocol": "error",
+        "noNonNullAssertion": "error"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "error",
+        "noExplicitAny": "error"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "all",
+      "semicolons": "always",
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "attributePosition": "auto"
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.test.ts", "**/*.test.tsx"],
+      "linter": {
+        "rules": { "style": { "noNonNullAssertion": "off" } }
+      }
+    }
+  ],
+  "assist": {
+    "enabled": true,
+    "actions": { "source": { "organizeImports": "off" } }
+  }
+}
