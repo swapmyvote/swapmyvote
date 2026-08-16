@@ -22,6 +22,12 @@ Rails.application.routes.draw do
   # with the react-router route table in app/frontend/app/App.tsx.
   # M0 toolchain spike:
   get "app/ping", to: "spa#index"
+  # M1 static pages — previewed under /app/* so the canonical /faq, /about, …
+  # routes above keep serving HAML until each page is verified and cut over.
+  get "app/about", to: "spa#index"
+  get "app/contact", to: "spa#index"
+  get "app/cookies", to: "spa#index"
+  get "app/terms", to: "spa#index"
 
   root "home#index"
 

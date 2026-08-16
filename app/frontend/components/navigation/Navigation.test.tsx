@@ -10,4 +10,12 @@ describe("Navigation", () => {
     // client-side link — "/" is still served by the legacy HAML home.
     expect(brand).toHaveAttribute("href", "/");
   });
+
+  it("shows the SwapMyVote logo image (pink wordmark + icon)", () => {
+    render(<Navigation />);
+    // The brand is the real logo_nav asset (matching the legacy site), not
+    // plain text — its accessible name comes from the img alt.
+    const logo = screen.getByRole("img", { name: /swapmyvote/i });
+    expect(logo.tagName).toBe("IMG");
+  });
 });
