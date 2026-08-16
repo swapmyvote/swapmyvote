@@ -22,7 +22,7 @@ export function CookieConsentBanner() {
   return (
     <aside
       aria-label="Cookie consent"
-      className={`${styles.banner} fixed-bottom bg-white border-top shadow p-3`}
+      className={`${styles.banner} bg-white border-top shadow p-3`}
     >
       <Container className="d-flex flex-column flex-md-row align-items-md-center gap-3 px-lg-5">
         <p className="mb-0 flex-grow-1 small">
