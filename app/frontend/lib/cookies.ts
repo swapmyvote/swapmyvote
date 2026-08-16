@@ -48,7 +48,16 @@ export function readCookie(name: string): string | null {
   for (const part of jar.split(";")) {
     const entry = part.trim();
     if (entry.startsWith(prefix)) {
-      return decodeURIComponent(entry.slice(prefix.length));
+      const raw = entry.slice(prefix.length);
+      try {
+        return decodeURIComponent(raw);
+      } catch {
+        // decodeURIComponent throws on a malformed escape ("%", "%zz"). Anything
+        // on the domain can write a cookie, and readConsent() runs during the
+        // provider's first render, so a throw here would take down the whole
+        // SPA. Fall back to the raw value; callers validate what they get.
+        return raw;
+      }
     }
   }
   return null;
