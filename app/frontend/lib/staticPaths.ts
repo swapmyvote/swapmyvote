@@ -7,8 +7,9 @@
 // paths. Centralising them here means cutover is a single edit: drop the
 // `/app` prefix (and update config/routes.rb + the HAML controller) once a
 // page is verified and ready to serve production traffic.
+// Only migrated pages belong here — the FAQ is deferred to M2, so links to it
+// stay full-page anchors to the HAML route (`/faq`) until it is ported.
 export const STATIC_PATHS = {
-  faq: "/app/faq",
   about: "/app/about",
   contact: "/app/contact",
   terms: "/app/terms",

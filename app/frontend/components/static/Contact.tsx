@@ -1,19 +1,16 @@
-import { Link } from "react-router-dom";
 import { StaticPage } from "@/components/static/StaticPage";
-import { STATIC_PATHS } from "@/lib/staticPaths";
 
 // Ported from app/views/static_pages/contact.html.haml. Static content page;
-// the FAQ reference is an in-SPA <Link> (both pages live in the SPA), while
-// the email is an external mailto <a>.
+// the FAQ is not yet migrated (M2) so it is a full-page <a> to the HAML route,
+// matching the Footer, and the email is an external mailto <a>.
 export function Contact() {
   return (
     <StaticPage>
       <h2>Contact details</h2>
 
       <p>
-        Before contacting us, please first check our{" "}
-        <Link to={STATIC_PATHS.faq}>FAQ</Link> to see if your question has
-        already been answered.
+        Before contacting us, please first check our <a href="/faq">FAQ</a> to
+        see if your question has already been answered.
       </p>
 
       <p>
