@@ -1,0 +1,7 @@
+// Bootstrap's .fixed-bottom and .sticky-top share z-index 1030, so the banner
+// would sit under the sticky navigation when the page is scrolled to the end.
+// One step up (Bootstrap's $zindex-fixed + 10) keeps it above the nav without
+// reaching modal/toast territory.
+.banner {
+  z-index: 1040;
+}
