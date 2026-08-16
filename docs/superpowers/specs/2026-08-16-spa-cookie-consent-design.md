@@ -99,7 +99,8 @@ Fixed-bottom bar, hidden entirely once `hasAnswered`. Content: "We use cookies t
 improve your experience.", a `<Link>` to `STATIC_PATHS.cookies`, and Accept /
 Decline buttons.
 
-a11y: `role="region"` with an `aria-label`, placed last in the DOM. It is **not**
+a11y: an `<aside>` (implicit `complementary` landmark) with an `aria-label`,
+placed last in the DOM. It is **not**
 a dialog — no `aria-modal`, no focus trap, no focus stealing. Both buttons are
 real `<button>`s, reachable by keyboard in document order, so the banner never
 blocks access to page content (ties into the axe work in #1038).
@@ -152,7 +153,8 @@ Vitest + React Testing Library, co-located `*.test.tsx` / `*.test.ts`:
 - **`CookieConsentBanner`** — renders when no cookie is set; does **not** render
   when the cookie holds `dismiss` (the legacy-consent case); Accept hides it and
   persists `allow`; Decline hides it and persists `deny`; the policy link points
-  at `STATIC_PATHS.cookies`; the region has an accessible name.
+  at `STATIC_PATHS.cookies`; the landmark has an accessible name; both buttons are
+  in the keyboard tab order.
 - **`GoogleTagManager`** — no script when consent is unset or `deny`; script
   injected once when `allow`; no script when the GTM id meta is absent.
 
