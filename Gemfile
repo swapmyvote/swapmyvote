@@ -130,3 +130,5 @@ group :production do
 end
 
 gem "vite_rails", "~> 3.11"
+
+gem "alba", "~> 3.5"
