@@ -7,7 +7,11 @@ export const SESSION_PATH = "/session";
 export const SESSION_QUERY_KEY = ["session"] as const;
 
 export interface SessionContextValue {
-  /** null until the first fetch resolves, or if it failed. */
+  /**
+   * null until the first *successful* fetch resolves. A later failed refetch
+   * leaves the last good payload in place (react-query keeps it), so an error
+   * does not imply a null session — check `isError` for that.
+   */
   session: SessionPayload | null;
   isLoading: boolean;
   isError: boolean;

@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import type { AppModeContextValue } from "@/contexts/AppModeContext";
 import { useAppMode } from "@/contexts/useAppMode";
 import {
   sessionPayload,
@@ -79,5 +80,54 @@ describe("AppModeProvider", () => {
     expect(flag("loginsOpen")).toBe("false");
     expect(flag("swappingOpen")).toBe("false");
     expect(flag("isLoaded")).toBe("false");
+  });
+
+  describe("value identity", () => {
+    // The session is re-fetched on a poll and after every mutation, so a fresh
+    // payload object arrives constantly. Consumers of the phase must not be
+    // re-rendered by that unless the phase itself moved.
+    function renderCapturing(session: ReturnType<typeof sessionPayload>) {
+      const seen: AppModeContextValue[] = [];
+      function Capture() {
+        seen.push(useAppMode());
+        return null;
+      }
+      const view = render(
+        <TestSessionProvider value={sessionValue({ session })}>
+          <Capture />
+        </TestSessionProvider>,
+      );
+      const rerenderWith = (next: ReturnType<typeof sessionPayload>) =>
+        view.rerender(
+          <TestSessionProvider value={sessionValue({ session: next })}>
+            <Capture />
+          </TestSessionProvider>,
+        );
+      return { seen, rerenderWith };
+    }
+
+    it("is stable when a new session payload carries the same flags", () => {
+      const { seen, rerenderWith } = renderCapturing(sessionPayload());
+
+      // A different object, identical phase — e.g. the user's swap changed.
+      rerenderWith(sessionPayload());
+
+      expect(seen.length).toBeGreaterThan(1);
+      expect(seen[seen.length - 1]).toBe(seen[0]);
+    });
+
+    it("changes when a flag actually moves", () => {
+      const { seen, rerenderWith } = renderCapturing(sessionPayload());
+
+      rerenderWith(
+        sessionPayload({
+          appMode: "open-and-voting",
+          flags: { votingOpen: true },
+        }),
+      );
+
+      expect(seen[seen.length - 1]).not.toBe(seen[0]);
+      expect(seen[seen.length - 1].votingOpen).toBe(true);
+    });
   });
 });

@@ -37,19 +37,29 @@ export const AppModeContext =
 export function AppModeProvider({ children }: { children: ReactNode }) {
   const { session } = useSession();
 
+  // Depend on the individual flags, not the session object: every poll and
+  // refetch produces a fresh object, so memoising on its identity would hand
+  // consumers a new context value whenever the user or swap changed — exactly
+  // the re-renders this provider exists to avoid.
+  const appMode = session?.appMode ?? null;
+  const loginsOpen = session?.flags.loginsOpen ?? false;
+  const swappingOpen = session?.flags.swappingOpen ?? false;
+  const votingOpen = session?.flags.votingOpen ?? false;
+  const votingInfoLocked = session?.flags.votingInfoLocked ?? false;
+
   const value = useMemo<AppModeContextValue>(() => {
-    if (!session) {
+    if (appMode === null) {
       return CLOSED_APP_MODE;
     }
     return {
-      appMode: session.appMode,
-      loginsOpen: session.flags.loginsOpen,
-      swappingOpen: session.flags.swappingOpen,
-      votingOpen: session.flags.votingOpen,
-      votingInfoLocked: session.flags.votingInfoLocked,
+      appMode,
+      loginsOpen,
+      swappingOpen,
+      votingOpen,
+      votingInfoLocked,
       isLoaded: true,
     };
-  }, [session]);
+  }, [appMode, loginsOpen, swappingOpen, votingOpen, votingInfoLocked]);
 
   return (
     <AppModeContext.Provider value={value}>{children}</AppModeContext.Provider>

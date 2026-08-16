@@ -4,7 +4,12 @@ import {
   SessionContext,
   type SessionContextValue,
 } from "@/contexts/SessionContext";
-import type { CurrentUser, SessionPayload, SwapSummary } from "@/types/api";
+import type {
+  CurrentUser,
+  SessionFlags,
+  SessionPayload,
+  SwapSummary,
+} from "@/types/api";
 
 // Fixtures + a harness for components that read the session. They inject a
 // SessionContext value directly rather than standing up react-query and a
@@ -48,7 +53,9 @@ export const TEST_SWAP: SwapSummary = {
 };
 
 export function sessionPayload(
-  overrides: Partial<SessionPayload> = {},
+  overrides: Partial<Omit<SessionPayload, "flags">> & {
+    flags?: Partial<SessionFlags>;
+  } = {},
 ): SessionPayload {
   return {
     ...LOGGED_OUT_SESSION,

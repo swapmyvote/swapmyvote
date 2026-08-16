@@ -13,13 +13,16 @@ vi.mock("@/lib/apiClient", () => ({
 }));
 
 function Probe() {
-  const { session, isLoading, isError, logOut } = useSession();
+  const { session, isLoading, isError, refetchSession, logOut } = useSession();
   return (
     <div>
       <span data-testid="state">
         {isLoading ? "loading" : isError ? "error" : "ready"}
       </span>
       <span data-testid="user">{session?.currentUser?.name ?? "none"}</span>
+      <button type="button" onClick={() => refetchSession()}>
+        Refetch
+      </button>
       <button type="button" onClick={() => logOut()}>
         Log out
       </button>
@@ -73,6 +76,23 @@ describe("SessionProvider", () => {
       expect(screen.getByTestId("state")).toHaveTextContent("error");
     });
     expect(screen.getByTestId("user")).toHaveTextContent("none");
+  });
+
+  it("keeps the last good payload when a later refetch fails", async () => {
+    renderWithProvider(<Probe />);
+    await waitFor(() => {
+      expect(screen.getByTestId("user")).toHaveTextContent("Ada Lovelace");
+    });
+
+    vi.mocked(apiClient.get).mockRejectedValue(new Error("network down"));
+    await userEvent.click(screen.getByRole("button", { name: "Refetch" }));
+
+    await waitFor(() => {
+      expect(screen.getByTestId("state")).toHaveTextContent("error");
+    });
+    // An error does not mean "logged out" — the chrome keeps rendering the
+    // user it last knew about rather than flickering to a logged-out state.
+    expect(screen.getByTestId("user")).toHaveTextContent("Ada Lovelace");
   });
 
   it("logs out through the API and primes the cache from the response", async () => {
