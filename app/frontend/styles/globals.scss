@@ -67,6 +67,11 @@ $body-bg: #f8f9fa;
 $link-color: #212529;
 $input-bg: #fff;
 
+// $code-color otherwise inherits $pink (#ff99ff), which is unreadable on the
+// light background. Use a dark magenta that keeps the brand tint but passes
+// contrast for inline <code> (e.g. cookie names on the Cookie Policy page).
+$code-color: #b3009e;
+
 $headings-font-family: var(--font-rubik);
 $headings-font-weight: 700;
 $headings-line-height: 1;
@@ -91,6 +96,7 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
 @import "bootstrap/scss/images";
+@import "bootstrap/scss/tables";
 @import "bootstrap/scss/containers";
 @import "bootstrap/scss/grid";
 @import "bootstrap/scss/forms";
