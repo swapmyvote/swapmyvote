@@ -31,10 +31,12 @@ corepack yarn typecheck   # tsc --noEmit — MUST PASS
 corepack yarn lint        # biome check app/frontend — MUST PASS
 corepack yarn lint:fix    # biome check --write app/frontend
 corepack yarn test        # vitest run (component tests) — MUST PASS
-corepack yarn e2e         # playwright (E2E + axe; needs the dev stack running)
+corepack yarn e2e         # playwright (E2E + axe; boots the dev stack, or reuses a running one)
 ```
 
-Lint/format is **Biome** (`biome.json`), scoped to the `app/frontend` tree. Ruby tooling (rubocop, scss_lint, haml_lint) is unchanged.
+Lint/format is **Biome** (`biome.json`), scoped to the `app/frontend` and `playwright-tests` trees. Ruby tooling (rubocop, scss_lint, haml_lint) is unchanged.
+
+`yarn e2e` needs **foreman** on your PATH (`gem install foreman` — it is deliberately not in the Gemfile) and a development database (`bin/rails db:create db:schema:load`). Browser E2E + axe specs live in `playwright-tests/` and run in CI via [`.github/workflows/playwright.yml`](.github/workflows/playwright.yml), which is path-filtered to frontend-touching changes.
 
 ### Backend (Rails)
 

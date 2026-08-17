@@ -5,11 +5,12 @@
     "ignoreUnknown": true,
     "includes": [
       "app/frontend/**",
+      "playwright-tests/**",
+      "playwright.config.ts",
       "vite.config.mts",
       "vitest.config.mts",
       "!**/node_modules",
       "!**/coverage",
-      "!**/playwright-tests",
       "!**/playwright-report",
       "!**/build",
       "!**/*.tsbuildinfo",
