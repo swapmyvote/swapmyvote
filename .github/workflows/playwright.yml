@@ -1,0 +1,84 @@
+# Browser end-to-end and accessibility (axe) tests for the React SPA.
+#
+# Kept out of rubyonrails.yml because it is the only lane that needs a booted
+# Rails + Vite stack, and because GitHub cannot path-filter an individual job
+# inside a workflow — a separate file lets `paths:` limit these runs to changes
+# that can actually affect the SPA. (The two path lists below are duplicated
+# because GitHub Actions does not support YAML anchors.)
+name: "Playwright E2E"
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - "app/frontend/**"
+      - "app/views/layouts/spa.html.haml"
+      - "app/controllers/spa_controller.rb"
+      - "config/routes.rb"
+      - "config/vite.json"
+      - "playwright-tests/**"
+      - "playwright.config.ts"
+      - "Procfile.dev"
+      - "vite.config.mts"
+      - "package.json"
+      - "yarn.lock"
+      - ".github/workflows/playwright.yml"
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - "app/frontend/**"
+      - "app/views/layouts/spa.html.haml"
+      - "app/controllers/spa_controller.rb"
+      - "config/routes.rb"
+      - "config/vite.json"
+      - "playwright-tests/**"
+      - "playwright.config.ts"
+      - "Procfile.dev"
+      - "vite.config.mts"
+      - "package.json"
+      - "yarn.lock"
+      - ".github/workflows/playwright.yml"
+  workflow_dispatch:
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    env:
+      # The specs drive the development stack (Procfile.dev), not the test env:
+      # Vite's dev server and the SpaController shell are what users get.
+      RAILS_ENV: development
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+      - run: yarn install
+      - name: Install foreman
+        # Procfile.dev is run by foreman, which is deliberately not in the
+        # Gemfile (it must not be loaded into the app's bundle).
+        run: gem install foreman --no-document
+      - name: Set up development database
+        # SQLite in development — the postgres service the `test` job needs is
+        # for the production adapter and is irrelevant here. Schema only, no
+        # seeds: these specs render static pages that read nothing from the
+        # database, and seeding imports large constituency/poll CSV fixtures
+        # that would dominate the job's runtime.
+        run: bin/rails db:create db:schema:load
+      - name: Install Playwright browsers
+        run: yarn playwright install --with-deps chromium
+      - name: Run Playwright
+        # playwright.config.ts boots the stack itself via its `webServer`
+        # (foreman start -f Procfile.dev) and waits for /app/ping.
+        run: yarn e2e
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
