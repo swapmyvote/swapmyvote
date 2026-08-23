@@ -131,3 +131,42 @@ export interface ApiErrorBody {
     fields: Record<string, string[]>;
   };
 }
+
+/** One party's predicted result in a constituency. Numbers are as stored:
+ *  `votes` and both marginal scores are hundredths of a percent, so a chart
+ *  divides by 100 to show a percentage. */
+export interface ConstituencyPoll {
+  partyId: number;
+  partyName: string | null;
+  /** Abbreviation the chart labels bars with, e.g. "Lab". */
+  partyShortName: string;
+  color: string | null;
+  votes: number;
+  /** Absolute gap to the best of the other parties. Null until the marginal
+   *  score rake task has run over this constituency. */
+  marginalScore: number | null;
+  /** Signed gap: positive when this party leads. */
+  signedMarginalScore: number;
+}
+
+/** `GET /api/v1/constituencies/:ons_id` — a constituency and the polls the
+ *  review screen charts. Parties with no predicted votes are already gone. */
+export interface ConstituencyDetail extends Constituency {
+  polls: ConstituencyPoll[];
+}
+
+/** `PATCH /api/v1/user`. Every field is optional: what is not sent is left
+ *  alone, so the constituency screen can post a subset. */
+export interface ProfileUpdate {
+  preferredPartyId?: string;
+  willingPartyId?: string;
+  constituencyOnsId?: string;
+  email?: string;
+}
+
+export interface ProfileUpdateResult {
+  user: CurrentUser;
+  /** The willing party or the constituency changed, so the user is sent to
+   *  the review screen — mirrors User#swap_profile_changed?. */
+  reviewRequired: boolean;
+}
