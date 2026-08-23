@@ -26,7 +26,9 @@ Rails.application.routes.draw do
 
       # Reference data for the entry form: unauthenticated, ungated, cacheable.
       resources :parties, only: [:index]
-      resources :constituencies, only: [:index]
+      # `param: :ons_id` because the ONS GSS code is the key the whole domain
+      # joins on — we never expose the row id.
+      resources :constituencies, only: [:index, :show], param: :ons_id
       resource :election, only: [:show], controller: "election"
 
       # The entry form's answers, stashed in the session so they survive the

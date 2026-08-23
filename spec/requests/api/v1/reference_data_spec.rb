@@ -67,6 +67,63 @@ RSpec.describe "Api::V1 reference data", type: :request do
     end
   end
 
+  describe "GET /api/v1/constituencies/:ons_id" do
+    let(:constituency) { create(:ons_constituency, name: "Woking", ons_id: "E14001063") }
+    let(:labour) { create(:party, name: "Labour", color: "#DC241f") }
+    let(:green) { create(:party, name: "Green", color: "#6AB023") }
+
+    it "returns the constituency with its polls, biggest vote first" do
+      create(:poll, constituency_ons_id: constituency.ons_id, party_id: green.id, votes: 1200)
+      create(:poll, constituency_ons_id: constituency.ons_id, party_id: labour.id, votes: 4210)
+
+      get "/api/v1/constituencies/#{constituency.ons_id}"
+
+      expect(response).to have_http_status(:ok)
+      expect(json["onsId"]).to eq "E14001063"
+      expect(json["name"]).to eq "Woking"
+      expect(json["polls"].map { |poll| poll["partyName"] }).to eq %w[Labour Green]
+      expect(json["polls"].first).to include(
+        "partyId" => labour.id,
+        "partyShortName" => labour.short_name,
+        "color" => "#DC241f",
+        "votes" => 4210,
+        "signedMarginalScore" => 3010
+      )
+    end
+
+    it "omits parties with no predicted votes, as the legacy chart does" do
+      create(:poll, constituency_ons_id: constituency.ons_id, party_id: labour.id, votes: 4210)
+      create(:poll, constituency_ons_id: constituency.ons_id, party_id: green.id, votes: 0)
+
+      get "/api/v1/constituencies/#{constituency.ons_id}"
+
+      expect(json["polls"].map { |poll| poll["partyName"] }).to eq %w[Labour]
+    end
+
+    it "reports the stored marginal score" do
+      create(:poll, constituency_ons_id: constituency.ons_id, party_id: labour.id,
+                    votes: 4210, marginal_score: 3010)
+      create(:poll, constituency_ons_id: constituency.ons_id, party_id: green.id, votes: 1200)
+
+      get "/api/v1/constituencies/#{constituency.ons_id}"
+
+      expect(json["polls"].first["marginalScore"]).to eq 3010
+    end
+
+    it "is available logged out, like the rest of the reference data" do
+      get "/api/v1/constituencies/#{constituency.ons_id}"
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "404s for an ONS id we do not run swaps in" do
+      get "/api/v1/constituencies/E99999999"
+
+      expect(response).to have_http_status(:not_found)
+      expect(json["error"]["code"]).to eq "not_found"
+    end
+  end
+
   describe "GET /api/v1/election" do
     def stub_env(values)
       allow(ENV).to receive(:[]).and_call_original
