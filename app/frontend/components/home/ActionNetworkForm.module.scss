@@ -69,6 +69,11 @@
     }
 
     input[type="radio"] {
+      // Back into the flow. They position it absolutely at the label's top
+      // left and reserve room for it with 25px of label padding; with the
+      // label a flex row, the radio has to be a flex item or it sits on top
+      // of its own text.
+      position: static !important;
       flex: none;
       // Nudged in em so it tracks the label's font size rather than a fixed
       // pixel value.
