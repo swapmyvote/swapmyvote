@@ -1,0 +1,8 @@
+// The menu is a plain Bootstrap dropdown, but it has to sit under the input
+// group rather than being positioned by a Popper instance, and stay scrollable
+// when a general election puts 650 constituencies in it.
+.menu {
+  max-height: 16rem;
+  overflow-y: auto;
+  position: static;
+}
