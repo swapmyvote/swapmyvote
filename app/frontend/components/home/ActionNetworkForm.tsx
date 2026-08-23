@@ -63,11 +63,12 @@ export function ActionNetworkForm() {
     );
   }
 
+  // No card of its own: the closed-phase screens already sit their copy in
+  // one, and nesting a card inside a card doubles the padding. NewsSignUp,
+  // which has no card around it, adds the boundary itself.
   return (
-    <div className={`card ${styles.embed}`}>
-      <div className="card-body text-start">
-        <div id={targetId} ref={target} />
-      </div>
+    <div className={`${styles.embed} text-start`}>
+      <div id={targetId} ref={target} />
     </div>
   );
 }

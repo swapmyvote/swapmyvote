@@ -11,7 +11,13 @@ export function NewsSignUp() {
       <p className="lead text-body-secondary">
         Sign up for future news from the Swap My Vote team and Forward Democracy
       </p>
-      <ActionNetworkForm />
+      {/* The embed is the one part of this page we do not author, so it gets
+          a boundary. The closed-phase screens already provide their own. */}
+      <div className="card">
+        <div className="card-body">
+          <ActionNetworkForm />
+        </div>
+      </div>
     </Section>
   );
 }
