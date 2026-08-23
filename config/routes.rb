@@ -24,6 +24,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :session, only: [:show, :destroy], controller: "session"
 
+      # The logged-in user's own profile — the React profile and constituency
+      # screens both patch this.
+      resource :user, only: [:update], controller: "users"
+
       # Reference data for the entry form: unauthenticated, ungated, cacheable.
       resources :parties, only: [:index]
       # `param: :ons_id` because the ONS GSS code is the key the whole domain

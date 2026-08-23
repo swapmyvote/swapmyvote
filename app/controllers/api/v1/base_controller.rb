@@ -41,6 +41,20 @@ module Api
         )
       end
 
+      # Mirrors UsersController#restricted_when_voting_open: once voting is
+      # open and this user's swap is confirmed, their voting information is
+      # frozen. The legacy version redirects; this reports the refusal.
+      def reject_when_voting_info_locked!
+        return unless voting_info_locked?
+
+        render_error(
+          code: "voting_info_locked",
+          status: :forbidden,
+          messages: ["It's election day and your swap is confirmed, so your " \
+                     "details are locked."]
+        )
+      end
+
       def render_error(code:, status:, messages: [], fields: {})
         render json: { error: { code: code, messages: messages, fields: fields } },
                status: status
