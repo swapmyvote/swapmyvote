@@ -26,5 +26,5 @@
     "vite.config.mts",
     "vitest.config.mts"
   ],
-  "exclude": ["node_modules", "public", "app/assets", "app/javascript", ".claude/worktrees"]
+  "exclude": ["node_modules", "public", "app/assets", ".claude/worktrees"]
 }

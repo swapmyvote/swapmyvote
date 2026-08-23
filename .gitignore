@@ -38,8 +38,6 @@ config.local
 /vendor/
 
 # Webpacker and npm
-/public/packs
-/public/packs-test
 /node_modules
 /yarn-error.log
 yarn-debug.log*
