@@ -14,6 +14,14 @@ RSpec.describe "users/edit", type: :view do
     expect { render }.not_to raise_error
   end
 
+  it "loads the intlTelInput and postcodesHelper entrypoints from Vite" do
+    render
+
+    expect(rendered).to match(%r{<script[^>]+src="/vite[^"]*/assets/intlTelInput-[^"]+\.js"})
+    expect(rendered).to match(%r{<script[^>]+src="/vite[^"]*/assets/postcodesHelper-[^"]+\.js"})
+    expect(rendered).not_to include "/packs"
+  end
+
   it "displays constituency" do
     render
 

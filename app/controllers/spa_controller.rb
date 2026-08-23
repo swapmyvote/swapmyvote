@@ -4,6 +4,12 @@
 # controllers/layout, so Bootstrap 4 (legacy) and Bootstrap 5 (SPA) never load
 # in the same document. The react-router route table must stay in lockstep
 # with the allow-list of paths pointed at this controller.
+#
+# Every path in that allow-list is an `/app/*` preview path, never a canonical
+# one: no route switches from HAML to React until the whole site is done,
+# tested and approved, and then they all switch at once. A finished milestone
+# is not a reason to flip its route. See "Cutover strategy" in
+# docs/frontend-modernization-plan.md.
 class SpaController < ApplicationController
   layout "spa"
 

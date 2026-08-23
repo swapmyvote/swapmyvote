@@ -1,4 +1,9 @@
-// Help with finding constituencies from postcodes
+// Help with finding constituencies from postcodes.
+//
+// Legacy jQuery entrypoint for the HAML pages that have not been ported to
+// React yet (see docs/frontend-modernization-plan.md). jQuery itself comes
+// from the sprockets bundle in app/views/layouts/application.html.haml, so it
+// is a global here rather than an import.
 
 $(document).ready(() => {
   const clearPostcodeError = () => {
@@ -12,25 +17,10 @@ $(document).ready(() => {
   };
 
   const handlePostcodeServiceError = (desc, _status, _err) => {
-    if (desc.status == 404 || desc.status == 400) {
+    if (desc.status === 404 || desc.status === 400) {
       showPostcodeError(JSON.parse(desc.responseText).error);
     } else {
-      showPostcodeError("Postcode Service Error Details: " + desc.responseText);
-    }
-  };
-
-  const handlePostcodeSubmit = () => {
-    const input = $("#txt-postcode").val();
-    const url = "https://api.postcodes.io/postcodes/" + input;
-
-    if (input == "") {
-      showPostcodeError("Please enter a postcode");
-    } else {
-      $.ajax({
-        url: url,
-        success: handlePostcodeLookup,
-        error: handlePostcodeServiceError,
-      }); //.done(handlePostcodeLookup);
+      showPostcodeError(`Postcode Service Error Details: ${desc.responseText}`);
     }
   };
 
@@ -39,23 +29,36 @@ $(document).ready(() => {
     const name = postcode.result.parliamentary_constituency_2024;
 
     const hasOption = $(
-      'select#user_constituency_ons_id option[value="' + onsId + '"]'
+      `select#user_constituency_ons_id option[value="${onsId}"]`,
     );
 
-    if (hasOption.length == 0) {
+    if (hasOption.length === 0) {
       showPostcodeError(
-        "Postcode is not in one of the accepted constituencies"
+        "Postcode is not in one of the accepted constituencies",
       );
-      // this only changes the hidden dropdown, not the auto-complete
-      // one
+      // this only changes the hidden dropdown, not the auto-complete one
       $("select#user_constituency_ons_id").val("").change();
       $(".constituency-autocomplete-input").val("");
     } else {
-      // this only changes the hidden dropdown, not the auto-complete
-      // one
+      // this only changes the hidden dropdown, not the auto-complete one
       clearPostcodeError();
-      $("select#user_constituency_ons_id").val(onsId).change(); // this SHOULD change the dropdown
+      $("select#user_constituency_ons_id").val(onsId).change();
       $(".constituency-autocomplete-input").val(name);
+    }
+  };
+
+  const handlePostcodeSubmit = () => {
+    const input = $("#txt-postcode").val();
+    const url = `https://api.postcodes.io/postcodes/${input}`;
+
+    if (input === "") {
+      showPostcodeError("Please enter a postcode");
+    } else {
+      $.ajax({
+        url: url,
+        success: handlePostcodeLookup,
+        error: handlePostcodeServiceError,
+      });
     }
   };
 
@@ -68,7 +71,7 @@ $(document).ready(() => {
 
   // Disable the default behaviour for Enter key
   const postcodeDisableEnter = (e) => {
-    if (e.which == 13) {
+    if (e.which === 13) {
       e.preventDefault();
       return false;
     }

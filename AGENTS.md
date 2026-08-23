@@ -6,15 +6,17 @@ Some conventions here are ported from the sibling repo **tacticalvote** (`../tac
 
 ## What this project is
 
-swapmyvote is a **Ruby on Rails 6.1** app (Ruby 3.3.2; SQLite in dev/test, Postgres in prod) that matches voters who want to swap votes tactically. Core domain lives in `app/models/` (`user.rb`, `swap.rb`, `potential_swap.rb`, `poll.rb`, `ons_constituency.rb`). Auth is Devise + OmniAuth (Twitter/Facebook) with SMS OTP via MessageBird. A five-phase operational engine (`app/controllers/concerns/app_mode_concern.rb`, driven by `ENV["SWAPMYVOTE_MODE"]`) gates most actions.
+swapmyvote is a **Ruby on Rails 6.1** app (Ruby 3.3.12; SQLite in dev/test, Postgres in prod) that matches voters who want to swap votes tactically. Core domain lives in `app/models/` (`user.rb`, `swap.rb`, `potential_swap.rb`, `poll.rb`, `ons_constituency.rb`). Auth is Devise + OmniAuth (Twitter/Facebook) with SMS OTP via MessageBird. A five-phase operational engine (`app/controllers/concerns/app_mode_concern.rb`, driven by `ENV["SWAPMYVOTE_MODE"]`) gates most actions.
 
 ### Frontend modernization (in progress)
 
-The frontend is being migrated from server-rendered HAML + jQuery/CoffeeScript to a **Vite + React 19 + TypeScript SPA** styled like tacticalvote (Bootstrap 5.3 + react-bootstrap, Rubik Bold uppercase headings, magenta `#ff66ff` primary, per-party colour classes). Rails is becoming a JSON API under `/api/v1`; the SPA is served **same-origin via `vite_rails`** during migration so Devise sessions, CSRF, and OmniAuth redirects work without cross-origin complexity. Rollout is **incremental, route-by-route** — old HAML and new React coexist.
+The frontend is being migrated from server-rendered HAML + jQuery/CoffeeScript to a **Vite + React 19 + TypeScript SPA** styled like tacticalvote (Bootstrap 5.3 + react-bootstrap, Rubik Bold uppercase headings, magenta `#ff66ff` primary, per-party colour classes). Rails is becoming a JSON API under `/api/v1`; the SPA is served **same-origin via `vite_rails`** during migration so Devise sessions, CSRF, and OmniAuth redirects work without cross-origin complexity. Rollout is an **incremental build behind a single cutover** — screens are ported one at a time under `/app/*` preview paths, old HAML and new React coexist, and nothing flips until the whole site is approved.
 
 - SPA source: `app/frontend/` (`@/*` path alias → `app/frontend/*`).
 - Brand styles: `app/frontend/styles/globals.scss` (ported from tacticalvote); component styles as co-located `*.module.scss`.
+- **Webpacker/webpack are gone.** All JavaScript is bundled by Vite. The two legacy jQuery widgets (`postcodesHelper`, `intlTelInput`) live on as Vite entrypoints in `app/frontend/entrypoints/` and are still loaded by their HAML pages via `vite_javascript_tag`. jQuery itself still comes from the Sprockets bundle, so it is a global in those two files. They are ported to React components later in the migration, not now.
 - Coexistence: migrated paths render the `spa` layout (`app/views/layouts/spa.html.haml`) via `SpaController#index`, routed from an **explicit allow-list** in `config/routes.rb`. Keep the react-router route table (`app/frontend/app/App.tsx`) in lockstep with that allow-list. Legacy paths keep their HAML controllers + `application.html.haml` (Bootstrap 4 CDN). The two Bootstraps never load in the same document.
+- **Never flip a canonical route to React.** Every migrated screen ships behind an `/app/*` preview path (`/app/about`, `/app/ping`, …) while its real path (`/`, `/faq`, `/user/swap`, …) keeps serving HAML. The whole site cuts over in **one** step at M9, once everything is done, tested and approved — a finished, verified milestone is not a reason to cut its route over. Paths live in `app/frontend/lib/staticPaths.ts` so that cutover is a single edit.
 - The full plan, milestone list, and cutover strategy live in [`docs/frontend-modernization-plan.md`](docs/frontend-modernization-plan.md). **The existing HAML site stays fully live until each route's React replacement is verified and switched over; no legacy code is deleted until after cutover.**
 
 ## Development commands
@@ -48,9 +50,9 @@ bin/rails db:prepare      # create + migrate dev DB
 
 ### Local environment gotchas
 
-- **Ruby**: the project pins **3.3.2** via rbenv (`.ruby-version`), but a newer system Ruby may shadow the rbenv shims. Prefix commands so the pinned Ruby wins, e.g. `PATH="$HOME/.rbenv/shims:$PATH" bundle exec …`, or use `rbenv exec`.
+- **Ruby**: the project pins **3.3.12** via rbenv (`.ruby-version`), but a newer system Ruby may shadow the rbenv shims. Prefix commands so the pinned Ruby wins, e.g. `PATH="$HOME/.rbenv/shims:$PATH" bundle exec …`, or use `rbenv exec`.
 - **Vite CLI**: use `bundle exec vite …` (not `bin/vite`) — `bin/vite`'s Bundler-binstub check can fail depending on how binstubs were generated. `Procfile.dev` already uses `bundle exec vite`.
-- **Legacy Webpacker packs** (`app/javascript/packs/*`) are built by webpack 4, which fails on Node ≥17 with an OpenSSL 3 error (`digital envelope routines::unsupported`). This breaks legacy HAML pages that still use `javascript_pack_tag` (e.g. the home page's `postcodesHelper`). It is unrelated to the Vite SPA and is resolved as those packs are ported to React (then the `webpacker` gem is removed).
+- **Postgres**: `pg` needs Homebrew's libpq to build locally. If `bundle install` fails on it, run `BUNDLE_BUILD__PG="--with-pg-config=/opt/homebrew/opt/libpq/bin/pg_config" bundle install`.
 
 ## Git & branch policy
 
