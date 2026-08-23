@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { Footer } from "@/components/footer/Footer";
 import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
-import { staticPaths } from "@/lib/staticPaths";
+import { spaPaths } from "@/lib/spaPaths";
 
 function renderFooter() {
   return render(
@@ -18,19 +18,19 @@ describe("Footer", () => {
     renderFooter();
     expect(screen.getByRole("link", { name: /^about$/i })).toHaveAttribute(
       "href",
-      staticPaths.about,
+      spaPaths.about,
     );
     expect(screen.getByRole("link", { name: /contact us/i })).toHaveAttribute(
       "href",
-      staticPaths.contact,
+      spaPaths.contact,
     );
     expect(screen.getByRole("link", { name: /terms of use/i })).toHaveAttribute(
       "href",
-      staticPaths.terms,
+      spaPaths.terms,
     );
     expect(
       screen.getByRole("link", { name: /cookie policy/i }),
-    ).toHaveAttribute("href", staticPaths.cookies);
+    ).toHaveAttribute("href", spaPaths.cookies);
   });
 
   it("links the not-yet-migrated FAQ and API to the HAML routes (full-page)", () => {

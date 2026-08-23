@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { CookieConsentBanner } from "@/components/cookieConsent/CookieConsentBanner";
 import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
 import { consentCookieName } from "@/lib/cookieConsent";
-import { staticPaths } from "@/lib/staticPaths";
+import { spaPaths } from "@/lib/spaPaths";
 import { clearTestCookie, setTestCookie } from "@/test/cookieHelpers";
 
 function renderBanner() {
@@ -37,7 +37,7 @@ describe("CookieConsentBanner", () => {
     renderBanner();
     expect(
       screen.getByRole("link", { name: /cookie policy/i }),
-    ).toHaveAttribute("href", staticPaths.cookies);
+    ).toHaveAttribute("href", spaPaths.cookies);
   });
 
   it("stays hidden when the legacy site already recorded consent", () => {

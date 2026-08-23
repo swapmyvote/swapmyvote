@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { Terms } from "@/components/static/Terms";
 import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
-import { staticPaths } from "@/lib/staticPaths";
+import { spaPaths } from "@/lib/spaPaths";
 
 function renderTerms() {
   return render(
@@ -32,7 +32,7 @@ describe("Terms", () => {
     renderTerms();
     expect(
       screen.getByRole("link", { name: /cookie policy/i }),
-    ).toHaveAttribute("href", staticPaths.cookies);
+    ).toHaveAttribute("href", spaPaths.cookies);
   });
 
   it("shows the copyright notice", () => {

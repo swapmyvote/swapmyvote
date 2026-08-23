@@ -110,7 +110,7 @@ export function ConstituencyAutocomplete({
   }
 
   return (
-    <Form.Group>
+    <Form.Group className={styles.combobox}>
       <Form.Label {...getLabelProps({ htmlFor: inputId })}>
         My constituency is
       </Form.Label>

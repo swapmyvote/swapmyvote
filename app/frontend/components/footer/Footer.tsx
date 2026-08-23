@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
-import { staticPaths } from "@/lib/staticPaths";
+import { spaPaths } from "@/lib/spaPaths";
 
 // Ported from app/views/layouts/_footer.html.haml. Shown on every SPA page.
 //
@@ -29,12 +29,12 @@ export function Footer() {
                 <h3 className="h5">Swap My Vote</h3>
               </li>
               <li>
-                <Link className="small" to={staticPaths.about}>
+                <Link className="small" to={spaPaths.about}>
                   About
                 </Link>
               </li>
               <li>
-                <Link className="small" to={staticPaths.contact}>
+                <Link className="small" to={spaPaths.contact}>
                   Contact Us
                 </Link>
               </li>
@@ -49,12 +49,12 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <Link className="small" to={staticPaths.terms}>
+                <Link className="small" to={spaPaths.terms}>
                   Terms of Use
                 </Link>
               </li>
               <li>
-                <Link className="small" to={staticPaths.cookies}>
+                <Link className="small" to={spaPaths.cookies}>
                   Cookie Policy
                 </Link>
               </li>

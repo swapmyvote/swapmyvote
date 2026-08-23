@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   get "app/contact", to: "spa#index"
   get "app/cookies", to: "spa#index"
   get "app/terms", to: "spa#index"
+  # M3 home / landing. `/` keeps serving HomeController until cutover.
+  get "app/home", to: "spa#index"
 
   root "home#index"
 

@@ -103,6 +103,9 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
 @import "bootstrap/scss/buttons";
 @import "bootstrap/scss/transitions";
 @import "bootstrap/scss/button-group";
+// Needed by the constituency combobox, whose menu is a .dropdown-menu of
+// .dropdown-items.
+@import "bootstrap/scss/dropdown";
 @import "bootstrap/scss/nav";
 @import "bootstrap/scss/navbar";
 @import "bootstrap/scss/badge";
