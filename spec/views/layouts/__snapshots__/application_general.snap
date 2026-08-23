@@ -29,6 +29,7 @@
 <link rel="stylesheet" media="all" href="/assets/application-5fa856845bdc41899c3799b6825eb0751b7eaa72b998095ee3ce0c2d17a7c921.css" data-turbolinks-track="true" />
 <script src="/assets/application-64d7c86a91d6bab88db476e61b84349e127c986bf52a1e25bb4575e323d7d7a2.js" data-turbolinks-track="true"></script>
 
+
 <script data='false' src='https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js'></script>
 <script>
   window.addEventListener("load", function() {
