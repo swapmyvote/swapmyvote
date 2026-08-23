@@ -2,6 +2,12 @@
 // embed needs taming from outside. The legacy _actionnetwork.html did this in
 // a ~130-line <style> block; these are the rules that still earn their place,
 // scoped to the embed so nothing here can reach the rest of the page.
+//
+// !important appears more than anyone would like. Their stylesheet is added to
+// the document by their script, so it lands after ours and wins every tie on
+// specificity; it is also cross-origin, so its rules cannot be read to target
+// them more precisely. The legacy block used !important throughout for the
+// same reason. Each use below is one their stylesheet actually contests.
 .embed {
   // Their form is built as two floated columns, which is far too wide for the
   // reading column it sits in.
@@ -24,9 +30,46 @@
     }
   }
 
-  // "Sponsored by Forward Democracy" — we are Forward Democracy.
+  // "Sponsored by Forward Democracy" — we are Forward Democracy. Its wrapper
+  // keeps a 40px top margin even with nothing left to show, which was the gap
+  // between the last field and the bottom of the card.
   :global(.action_info_user) {
     display: none;
+  }
+
+  // Taken out of the layout rather than just unspaced: its only visible child
+  // is the sponsor line above, so all it contributed was the band of empty
+  // space between the last field and the bottom of the card.
+  :global(#action_info) {
+    display: none !important;
+  }
+
+  // Their clearfix between the two columns. We force a single column, so it
+  // clears nothing and only adds height above the bottom of the card.
+  :global(#can_embed_form) :global(.clear) {
+    display: none;
+  }
+
+  // Their radios are inline-block labels, so the options sat side by side, and
+  // the input's baseline alignment left the text riding above it. One option
+  // per line, text aligned to the top of its control and wrapping under
+  // itself rather than under the radio.
+  :global(.check_radio_field) {
+    display: block !important;
+
+    :global(label.radio) {
+      display: flex !important;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    input[type="radio"] {
+      flex: none;
+      // Nudged in em so it tracks the label's font size rather than a fixed
+      // pixel value.
+      margin: 0.2em 0 0 !important;
+    }
   }
 
   // The share row draws a rule above itself that stops short of the container,
@@ -49,6 +92,9 @@
     input[type="submit"],
     :global(.can_button) {
       text-transform: none;
+      // Their stylesheet spaces the caption out by 2px a character, which
+      // reads as a logo rather than a button.
+      letter-spacing: normal;
       font-family: inherit;
       background-color: var(--bs-primary);
       border: 0;
