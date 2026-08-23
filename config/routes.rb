@@ -28,6 +28,10 @@ Rails.application.routes.draw do
       resources :parties, only: [:index]
       resources :constituencies, only: [:index]
       resource :election, only: [:show], controller: "election"
+
+      # The entry form's answers, stashed in the session so they survive the
+      # trip out to Devise/OmniAuth sign-up.
+      resource :pre_populate, only: [:create], controller: "pre_populate"
     end
   end
 

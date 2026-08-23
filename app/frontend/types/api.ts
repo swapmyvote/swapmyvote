@@ -116,6 +116,13 @@ export interface Election {
   };
 }
 
+/** What the entry form has stashed in the session so far. */
+export interface PrePopulate {
+  constituencyOnsId: string | null;
+  preferredPartyName: string | null;
+  willingPartyName: string | null;
+}
+
 /** Every non-2xx response body from /api/v1. */
 export interface ApiErrorBody {
   error: {

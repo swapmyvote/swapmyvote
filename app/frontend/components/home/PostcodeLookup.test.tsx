@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { useState } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { PostcodeLookup } from "@/components/home/PostcodeLookup";
 import { lookupPostcode, PostcodeLookupError } from "@/lib/postcodes";
@@ -15,14 +16,27 @@ const constituencyFixtures: Constituency[] = [
   { onsId: "E14000996", name: "Tiverton and Honiton" },
 ];
 
-function renderLookup() {
-  const onConstituencyFound = vi.fn();
-  render(
+// The postcode text is controlled by the caller, so tests drive it through a
+// small stateful harness rather than passing a frozen value.
+function Harness({
+  onConstituencyFound,
+}: {
+  onConstituencyFound: (onsId: string) => void;
+}) {
+  const [postcode, setPostcode] = useState("");
+  return (
     <PostcodeLookup
       constituencies={constituencyFixtures}
+      postcode={postcode}
+      onPostcodeChange={setPostcode}
       onConstituencyFound={onConstituencyFound}
-    />,
+    />
   );
+}
+
+function renderLookup() {
+  const onConstituencyFound = vi.fn();
+  render(<Harness onConstituencyFound={onConstituencyFound} />);
   return {
     onConstituencyFound,
     input: screen.getByLabelText(/find my constituency using my postcode/i),
@@ -59,10 +73,7 @@ describe("PostcodeLookup", () => {
     const onConstituencyFound = vi.fn();
     render(
       <form onSubmit={onSubmit}>
-        <PostcodeLookup
-          constituencies={constituencyFixtures}
-          onConstituencyFound={onConstituencyFound}
-        />
+        <Harness onConstituencyFound={onConstituencyFound} />
       </form>,
     );
 

@@ -9,6 +9,12 @@ import type { Constituency } from "@/types/api";
 interface PostcodeLookupProps {
   /** The constituencies we actually run swaps in. */
   constituencies: Constituency[];
+  /** The postcode being typed. Controlled by the caller so that picking a
+   *  constituency by name can empty it — the two inputs are two ways of
+   *  answering one question, and the legacy widget kept them exclusive
+   *  (`autocompleteselect` did `$("#txt-postcode").val("")`). */
+  postcode: string;
+  onPostcodeChange: (postcode: string) => void;
   /** Called with the matched ONS GSS code, or "" when the postcode resolves
    *  to somewhere we do not cover. */
   onConstituencyFound: (onsId: string) => void;
@@ -33,10 +39,11 @@ const notCovered = "Postcode is not in one of the accepted constituencies";
  */
 export function PostcodeLookup({
   constituencies,
+  postcode,
+  onPostcodeChange,
   onConstituencyFound,
 }: PostcodeLookupProps) {
   const inputId = useId();
-  const [postcode, setPostcode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [searching, setSearching] = useState(false);
 
@@ -88,7 +95,7 @@ export function PostcodeLookup({
           maxLength={9}
           spellCheck={false}
           autoComplete="postal-code"
-          onChange={(event) => setPostcode(event.target.value)}
+          onChange={(event) => onPostcodeChange(event.target.value)}
           onKeyDown={handleKeyDown}
           aria-describedby={error ? `${inputId}-error` : undefined}
         />
