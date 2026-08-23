@@ -10,11 +10,12 @@ swapmyvote is a **Ruby on Rails 6.1** app (Ruby 3.3.2; SQLite in dev/test, Postg
 
 ### Frontend modernization (in progress)
 
-The frontend is being migrated from server-rendered HAML + jQuery/CoffeeScript to a **Vite + React 19 + TypeScript SPA** styled like tacticalvote (Bootstrap 5.3 + react-bootstrap, Rubik Bold uppercase headings, magenta `#ff66ff` primary, per-party colour classes). Rails is becoming a JSON API under `/api/v1`; the SPA is served **same-origin via `vite_rails`** during migration so Devise sessions, CSRF, and OmniAuth redirects work without cross-origin complexity. Rollout is **incremental, route-by-route** — old HAML and new React coexist.
+The frontend is being migrated from server-rendered HAML + jQuery/CoffeeScript to a **Vite + React 19 + TypeScript SPA** styled like tacticalvote (Bootstrap 5.3 + react-bootstrap, Rubik Bold uppercase headings, magenta `#ff66ff` primary, per-party colour classes). Rails is becoming a JSON API under `/api/v1`; the SPA is served **same-origin via `vite_rails`** during migration so Devise sessions, CSRF, and OmniAuth redirects work without cross-origin complexity. Rollout is an **incremental build behind a single cutover** — screens are ported one at a time under `/app/*` preview paths, old HAML and new React coexist, and nothing flips until the whole site is approved.
 
 - SPA source: `app/frontend/` (`@/*` path alias → `app/frontend/*`).
 - Brand styles: `app/frontend/styles/globals.scss` (ported from tacticalvote); component styles as co-located `*.module.scss`.
 - Coexistence: migrated paths render the `spa` layout (`app/views/layouts/spa.html.haml`) via `SpaController#index`, routed from an **explicit allow-list** in `config/routes.rb`. Keep the react-router route table (`app/frontend/app/App.tsx`) in lockstep with that allow-list. Legacy paths keep their HAML controllers + `application.html.haml` (Bootstrap 4 CDN). The two Bootstraps never load in the same document.
+- **Never flip a canonical route to React.** Every migrated screen ships behind an `/app/*` preview path (`/app/about`, `/app/ping`, …) while its real path (`/`, `/faq`, `/user/swap`, …) keeps serving HAML. The whole site cuts over in **one** step at M9, once everything is done, tested and approved — a finished, verified milestone is not a reason to cut its route over. Paths live in `app/frontend/lib/staticPaths.ts` so that cutover is a single edit.
 - The full plan, milestone list, and cutover strategy live in [`docs/frontend-modernization-plan.md`](docs/frontend-modernization-plan.md). **The existing HAML site stays fully live until each route's React replacement is verified and switched over; no legacy code is deleted until after cutover.**
 
 ## Development commands
