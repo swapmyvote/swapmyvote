@@ -35,7 +35,7 @@ export function OpenAndVoting({
         </p>
         <p className="lead text-body-secondary mb-0">
           Swap My Vote can help if voting for your preferred party doesn't make
-          sense in <strong>your</strong> constituency.
+          sense in <strong>your</strong> constituency
         </p>
       </Section>
 

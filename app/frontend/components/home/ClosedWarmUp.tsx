@@ -26,7 +26,7 @@ export function ClosedWarmUp({ election }: { election: Election }) {
 
           <p>
             Please enter your email address for a reminder when vote swapping is
-            open, and for further updates.
+            open, and for further updates
           </p>
 
           <ActionNetworkForm />

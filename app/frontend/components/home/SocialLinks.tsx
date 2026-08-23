@@ -4,7 +4,7 @@ export function SocialLinks({ intro = true }: { intro?: boolean }) {
     <p className="text-center">
       {intro && (
         <>
-          Stay up to date with our future projects and for future elections.
+          Stay up to date with our future projects and for future elections
           <br />
         </>
       )}

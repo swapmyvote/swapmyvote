@@ -21,7 +21,7 @@ export function ClosedAndVoting({
             <h2>It's time to vote!</h2>
             <p>
               Now that the election polls are open, Swap My Vote is closed for
-              new swaps.
+              new swaps
             </p>
 
             {loggedIn && swapConfirmed ? (
@@ -50,7 +50,7 @@ export function ClosedAndVoting({
             <p>
               Till next time,
               <br />
-              All the best from the Swap My Vote team.
+              All the best from the Swap My Vote team
             </p>
 
             <hr />

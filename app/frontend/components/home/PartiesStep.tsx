@@ -18,9 +18,9 @@ interface PartiesStepProps {
 }
 
 const bothRequired =
-  "Please choose both your preferred party and your willing party.";
+  "Please choose both your preferred party and your willing party";
 const mustDiffer =
-  "Your preferred party and your willing party cannot be the same.";
+  "Your preferred party and your willing party cannot be the same";
 
 /**
  * Step two of the entry form: which party would you rather vote for, and which

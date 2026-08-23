@@ -23,7 +23,7 @@ export function OpenPreElections({
             uppercase treatment and shouted as loudly as the title above it. */}
         <p className="lead text-body-secondary mb-0">
           Swap My Vote can help if voting for your preferred party doesn't make
-          sense in <strong>your</strong> constituency.
+          sense in <strong>your</strong> constituency
         </p>
       </Section>
 
@@ -48,7 +48,7 @@ export function HowItWorks({ hidePolls }: { hidePolls: boolean }) {
       <ol className="mb-0">
         <li>
           Choose the party you would prefer to vote for, and the party that you
-          are willing to vote for tactically in your own constituency.
+          are willing to vote for tactically in your own constituency
         </li>
         <li>
           We'll find you a list of people with the complementary preferences.

@@ -56,7 +56,7 @@ describe("PartiesStep", () => {
       await userEvent.click(next);
 
       expect(await screen.findByRole("alert")).toHaveTextContent(
-        "Please choose both your preferred party and your willing party.",
+        "Please choose both your preferred party and your willing party",
       );
       expect(onComplete).not.toHaveBeenCalled();
     });
@@ -69,7 +69,7 @@ describe("PartiesStep", () => {
       await userEvent.click(next);
 
       expect(await screen.findByRole("alert")).toHaveTextContent(
-        "Your preferred party and your willing party cannot be the same.",
+        "Your preferred party and your willing party cannot be the same",
       );
       expect(onComplete).not.toHaveBeenCalled();
     });

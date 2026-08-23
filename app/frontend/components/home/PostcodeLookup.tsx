@@ -65,7 +65,7 @@ export function PostcodeLookup({
       setError(
         caught instanceof PostcodeLookupError
           ? caught.message
-          : "Postcode lookup failed - please try again.",
+          : "Postcode lookup failed - please try again",
       );
       onConstituencyFound("");
     }

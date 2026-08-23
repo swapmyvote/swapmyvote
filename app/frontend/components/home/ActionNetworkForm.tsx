@@ -50,14 +50,14 @@ export function ActionNetworkForm() {
       <Alert variant="light" className="small">
         <p className="mb-2">
           Our newsletter sign-up form is hosted by Action Network, which sets
-          its own cookies, so we only load it if you have accepted cookies.
+          its own cookies, so we only load it if you have accepted cookies
         </p>
         {hasAnswered ? (
           <Button variant="outline-secondary" size="sm" onClick={accept}>
             Accept cookies and load the form
           </Button>
         ) : (
-          <span>Choose an option in the cookie banner to continue.</span>
+          <span>Choose an option in the cookie banner to continue</span>
         )}
       </Alert>
     );

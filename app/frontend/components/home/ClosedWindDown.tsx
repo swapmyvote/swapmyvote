@@ -16,11 +16,11 @@ export function ClosedWindDown({ election }: { election: Election }) {
 
           <p>
             Thank you for using Swap My Vote in the United Kingdom General
-            Election, 2024.
+            Election, 2024
           </p>
           <p>
             UPDATE: For the US Presidential Election, 2024, please visit our
-            cousin site stateside.
+            cousin site stateside
           </p>
           <p>
             Swap Your Vote to defeat Trump in swing states and cast protest
@@ -33,7 +33,7 @@ export function ClosedWindDown({ election }: { election: Election }) {
 
           <p>
             We will run Swap My Vote again for the next UK elections, whenever
-            that turns out to be.
+            that turns out to be
           </p>
 
           <p>
@@ -65,7 +65,7 @@ export function ClosedWindDown({ election }: { election: Election }) {
               Please help support our continued work on Swap My Vote and related
               projects - donate to{" "}
               <a href={election.donate.link} target="_blank" rel="noreferrer">
-                our crowdfunder.
+                our crowdfunder
               </a>
             </p>
           )}

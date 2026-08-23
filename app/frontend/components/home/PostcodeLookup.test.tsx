@@ -145,7 +145,7 @@ describe("PostcodeLookup", () => {
 
     const alert = await screen.findByRole("alert");
     expect(alert).toHaveTextContent(
-      "Postcode lookup failed - please try again.",
+      "Postcode lookup failed - please try again",
     );
     expect(alert).not.toHaveTextContent("Failed to fetch");
   });

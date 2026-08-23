@@ -43,7 +43,7 @@ export function ConstituencyStep({
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     if (onsId === "") {
-      setError("Please choose your constituency.");
+      setError("Please choose your constituency");
       return;
     }
     onComplete(onsId);
