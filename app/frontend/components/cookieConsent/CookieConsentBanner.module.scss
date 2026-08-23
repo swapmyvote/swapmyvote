@@ -1,0 +1,12 @@
+// Bootstrap's .fixed-bottom would do the pinning, but it also sets z-index 1030
+// — the same layer as the .sticky-top navigation — and its global rule wins on
+// source order over an equally-specific CSS-module class, so the banner ends up
+// under the nav. Owning the positioning here keeps one source of truth and puts
+// the banner one layer above the nav without reaching modal/toast territory.
+.banner {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+}

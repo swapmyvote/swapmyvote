@@ -1,12 +1,15 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
+import { CookieConsentBanner } from "@/components/cookieConsent/CookieConsentBanner";
 import { Footer } from "@/components/footer/Footer";
 import { Navigation } from "@/components/navigation/Navigation";
 import { About } from "@/components/static/About";
 import { Contact } from "@/components/static/Contact";
 import { Cookies } from "@/components/static/Cookies";
 import { Terms } from "@/components/static/Terms";
+import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
 import { queryClient } from "@/lib/queryClient";
 import { STATIC_PATHS } from "@/lib/staticPaths";
 import { Ping } from "@/pages/Ping";
@@ -21,6 +24,10 @@ function Layout({ children }: { children: ReactNode }) {
       <Navigation />
       <main>{children}</main>
       <Footer />
+      <GoogleTagManager />
+      {/* Last in the DOM on purpose: the banner is a landmark, not a dialog,
+          so keyboard users reach the page content before it. */}
+      <CookieConsentBanner />
     </>
   );
 }
@@ -28,17 +35,19 @@ function Layout({ children }: { children: ReactNode }) {
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/app/ping" element={<Ping />} />
-            <Route path={STATIC_PATHS.about} element={<About />} />
-            <Route path={STATIC_PATHS.contact} element={<Contact />} />
-            <Route path={STATIC_PATHS.cookies} element={<Cookies />} />
-            <Route path={STATIC_PATHS.terms} element={<Terms />} />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
+      <CookieConsentProvider>
+        <BrowserRouter>
+          <Layout>
+            <Routes>
+              <Route path="/app/ping" element={<Ping />} />
+              <Route path={STATIC_PATHS.about} element={<About />} />
+              <Route path={STATIC_PATHS.contact} element={<Contact />} />
+              <Route path={STATIC_PATHS.cookies} element={<Cookies />} />
+              <Route path={STATIC_PATHS.terms} element={<Terms />} />
+            </Routes>
+          </Layout>
+        </BrowserRouter>
+      </CookieConsentProvider>
     </QueryClientProvider>
   );
 }
