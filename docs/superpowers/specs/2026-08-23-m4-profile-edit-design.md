@@ -40,13 +40,16 @@ mobile number (M6): `preferred_party_id`, `willing_party_id`,
 Guards, in order:
 
 1. `require_logged_in!` → 401 `unauthenticated`
-2. `require_swapping_open!` → 403 `phase_forbidden`
-3. `reject_when_voting_info_locked!` → 403 `voting_info_locked`
+2. `reject_when_voting_info_locked!` → 403 `voting_info_locked`
 
-Guards 2 and 3 are new on `Api::V1::BaseController` and mirror
-`require_swapping_open` and `restricted_when_voting_open`
-(`app/controllers/users_controller.rb:92`). The legacy versions redirect; these
-return status codes.
+Guard 2 is new on `Api::V1::BaseController` and mirrors
+`restricted_when_voting_open` (`app/controllers/users_controller.rb:92`). The
+legacy version redirects; this returns a status code.
+
+The endpoint is deliberately **not** gated on swapping being open. The legacy
+`UsersController` gates only `#show` with `require_swapping_open`, so profile
+edits work in every phase today; gating the API would stop someone fixing their
+email during `closed-wind-down`.
 
 Success (200):
 
@@ -59,7 +62,9 @@ changed — captured after `assign_attributes` and before `save`, which is exact
 when the legacy controller reads it.
 
 Failure (422, `validation_failed`) carries the legacy message strings verbatim so
-copy does not drift between the two live sites:
+copy does not drift between the two live sites. Unlike the legacy screens —
+which save first and then flash the complaint — nothing is persisted when a
+required field is missing:
 
 - "You must state which party you would prefer to vote for."
 - "You must state which party you are willing to vote for."
@@ -98,8 +103,9 @@ percentages (`app/helpers/polls_helper.rb`) and the frontend does the same. Poll
 with zero votes are excluded, matching `poll_data_for`. Order is by votes
 descending.
 
-Serializer: `Api::V1::PollSerializer`, with `ConstituencySerializer` gaining an
-optional `polls` association used by `#show` only, so `#index` stays cheap.
+Serializers: `Api::V1::PollSerializer` for a row, and a separate
+`Api::V1::ConstituencyDetailSerializer` for `#show`, so the entry form's
+`#index` is provably untouched and never pays for polls it does not draw.
 
 ## Frontend
 
