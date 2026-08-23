@@ -17,6 +17,15 @@ Rails.application.routes.draw do
 
   post "pre_login", to: "home#pre_login"
 
+  # JSON API consumed by the React SPA. Versioned, and separate from the
+  # legacy top-level ApiController below (which is a redirect helper, not an
+  # API). Served same-origin, so Devise session cookies authenticate it.
+  namespace :api do
+    namespace :v1 do
+      resource :session, only: [:show, :destroy], controller: "session"
+    end
+  end
+
   # React SPA (Vite Ruby). Only migrated paths are routed to SpaController;
   # everything else keeps its HAML controller. Keep this allow-list in lockstep
   # with the react-router route table in app/frontend/app/App.tsx.

@@ -66,6 +66,7 @@ GEM
       airbrake-ruby (~> 6.0)
     airbrake-ruby (6.2.2)
       rbtree3 (~> 0.6)
+    alba (3.11.0)
     amazing_print (1.6.0)
     ast (2.4.2)
     autoprefixer-rails (10.4.16.0)
@@ -486,6 +487,7 @@ PLATFORMS
 DEPENDENCIES
   addressable
   airbrake
+  alba (~> 3.5)
   autoprefixer-rails
   bootsnap
   bundle-audit
