@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :session, only: [:show, :destroy], controller: "session"
+
+      # Reference data for the entry form: unauthenticated, ungated, cacheable.
+      resources :parties, only: [:index]
+      resources :constituencies, only: [:index]
+      resource :election, only: [:show], controller: "election"
     end
   end
 

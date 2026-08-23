@@ -69,6 +69,53 @@ export interface SessionPayload {
   swap: SwapSummary | null;
 }
 
+/** A constituency the site runs swaps in. `onsId` is the ONS GSS code. */
+export interface Constituency {
+  onsId: string;
+  name: string;
+}
+
+/**
+ * `GET /api/v1/election` — the election being run for, and the prose the
+ * headings are built from. Derived server-side from env vars and the
+ * constituency count (see Api::V1::ElectionPresenter), and immutable for the
+ * life of a deploy.
+ */
+export interface Election {
+  generalElection: boolean;
+  /** True when there are so few constituencies that poll numbers give the
+   *  answer away. */
+  hidePolls: boolean;
+  year: string;
+  /** ISO 8601, e.g. "2024-07-04". */
+  date: string;
+  season: "winter" | "spring" | "summer" | "autumn";
+  /** "July 4th" */
+  dateMd: string;
+  /** "4th July" */
+  dateDm: string;
+  /** "June 2022 by-elections" */
+  dateAndTypeMy: string;
+  /** "June 23rd 2022 by-elections" */
+  dateAndTypeMdy: string;
+  /** "2022 summer by-elections" */
+  dateSeasonType: string;
+  /** "General Election 2024" */
+  eventTitleWithYear: string;
+  /** "Wakefield or Tiverton & Honiton by-elections" */
+  eventChoice: string;
+  /** "#GeneralElection" */
+  hashtags: string;
+  /** "another constituency" / "the other constituency" */
+  constituencyOther: string;
+  /** "Wakefield and Tiverton & Honiton" */
+  constituenciesAsSentence: string;
+  donate: {
+    link: string;
+    show: boolean;
+  };
+}
+
 /** Every non-2xx response body from /api/v1. */
 export interface ApiErrorBody {
   error: {
