@@ -120,8 +120,14 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
 }
 
 .btn-primary {
-  --bs-btn-color: #fff;
-  --bs-btn-hover-color: #fff;
+  // Dark ink, not white: white on the brand magenta is 2.44:1 (and 2.70:1 on
+  // the darker hover magenta), well under the 4.5:1 WCAG AA needs, and the axe
+  // scan in playwright-tests/accessibility.spec.ts fails on it. #212529 — the
+  // same ink $link-color uses — gives 6.31:1 and 5.71:1 while leaving the
+  // magenta itself untouched. tacticalvote still has the white-on-magenta
+  // rule this was ported from; it needs the same fix.
+  --bs-btn-color: #212529;
+  --bs-btn-hover-color: #212529;
   --bs-btn-hover-bg: var(--mf-pink-dark);
   --bs-btn-hover-border-color: var(--mf-pink-dark);
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
