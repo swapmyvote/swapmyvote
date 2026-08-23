@@ -90,6 +90,41 @@ describe("ConstituencyAutocomplete", () => {
     expect(input).toHaveValue("Wakefield");
   });
 
+  describe("text that matches no constituency", () => {
+    it("is wiped when the field is left, as the legacy combobox did", async () => {
+      const { input, onChange } = renderAutocomplete();
+
+      await userEvent.type(input, "Wakef");
+      expect(input).toHaveValue("Wakef");
+
+      await userEvent.tab();
+
+      // A half-typed name must never sit in the box looking like a choice.
+      expect(input).toHaveValue("");
+      expect(onChange).toHaveBeenLastCalledWith("");
+    });
+
+    it("leaves a complete name alone", async () => {
+      const { input, onChange } = renderAutocomplete();
+
+      await userEvent.type(input, "Wakefield");
+      await userEvent.tab();
+
+      expect(input).toHaveValue("Wakefield");
+      expect(onChange).toHaveBeenLastCalledWith("E14001009");
+    });
+
+    it("leaves an empty field alone", async () => {
+      const { input, onChange } = renderAutocomplete();
+
+      await userEvent.click(input);
+      await userEvent.tab();
+
+      expect(input).toHaveValue("");
+      expect(onChange).not.toHaveBeenCalled();
+    });
+  });
+
   it("can be disabled", () => {
     render(
       <ConstituencyAutocomplete

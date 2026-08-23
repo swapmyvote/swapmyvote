@@ -45,15 +45,29 @@ export function ConstituencyAutocomplete({
     setText(selectedName);
   }, [selectedName]);
 
-  function handleChange(typed: string) {
-    setText(typed);
-    // Only a full, exact name is a selection — a partial one means the user is
-    // still typing, and nothing is selected yet.
-    const match = constituencies.find(
+  function matchFor(typed: string) {
+    return constituencies.find(
       (constituency) =>
         constituency.name.toLowerCase() === typed.trim().toLowerCase(),
     );
-    onChange(match?.onsId ?? "");
+  }
+
+  function handleChange(typed: string) {
+    setText(typed);
+    // Partial text narrows the suggestion list, but only a complete name is a
+    // selection — matching the legacy combobox, where `_source` filters on a
+    // substring while `_removeIfInvalid` requires an exact match.
+    onChange(matchFor(typed)?.onsId ?? "");
+  }
+
+  function handleBlur() {
+    // The legacy widget's `_removeIfInvalid`: text that matches no
+    // constituency is wiped on the way out, so a half-typed name can never sit
+    // in the box looking like a choice the user has made.
+    if (text !== "" && !matchFor(text)) {
+      setText("");
+      onChange("");
+    }
   }
 
   return (
@@ -64,9 +78,10 @@ export function ConstituencyAutocomplete({
         list={listId}
         value={text}
         onChange={(event) => handleChange(event.target.value)}
+        onBlur={handleBlur}
         disabled={disabled}
         autoComplete="off"
-        placeholder="Start typing a constituency name"
+        placeholder="Type to select your constituency"
       />
       <datalist id={listId}>
         {constituencies.map((constituency) => (
