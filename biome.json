@@ -7,6 +7,7 @@
       "app/frontend/**",
       "playwright-tests/**",
       "playwright.config.ts",
+      "scripts/**",
       "vite.config.mts",
       "vitest.config.mts",
       "!**/node_modules",

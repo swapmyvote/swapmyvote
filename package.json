@@ -26,12 +26,14 @@
   "homepage": "https://github.com/swapmyvote/swapmyvote#readme",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "lint": "biome check app/frontend playwright-tests playwright.config.ts",
-    "lint:fix": "biome check --write app/frontend playwright-tests playwright.config.ts",
-    "format": "biome format --write app/frontend playwright-tests playwright.config.ts",
+    "lint": "biome check app/frontend playwright-tests playwright.config.ts scripts",
+    "lint:fix": "biome check --write app/frontend playwright-tests playwright.config.ts scripts",
+    "format": "biome format --write app/frontend playwright-tests playwright.config.ts scripts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "deploy:staging": "node scripts/heroku-deploy.mjs staging",
+    "deploy:production": "node scripts/heroku-deploy.mjs production"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
