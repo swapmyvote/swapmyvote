@@ -2,6 +2,7 @@ import { EntryForm } from "@/components/home/EntryForm";
 import { GoVote } from "@/components/home/GoVote";
 import { HowItWorks } from "@/components/home/OpenPreElections";
 import { NewsSignUp } from "@/components/home/NewsSignUp";
+import { Section } from "@/components/home/Section";
 import type { Constituency, Election, Party } from "@/types/api";
 
 interface OpenAndVotingProps {
@@ -24,19 +25,19 @@ export function OpenAndVoting({
 
   return (
     <>
-      <div className="background-pattern border-bottom">
-        <div className="container text-center">
-          <h1>{title}</h1>
-          <h2>
-            You still have a bit of time to find a voting partner to swap with,
-            if you haven't already!
-          </h2>
-          <h2 className="subdued">
-            Swap My Vote can help if voting for your preferred party doesn't
-            make sense in <strong>your</strong> constituency.
-          </h2>
-        </div>
-      </div>
+      <Section centered>
+        <h1>{title}</h1>
+        {/* Both of these were h2s, so all three lines shouted in uppercase.
+            They are body copy under the title, not section headings. */}
+        <p className="lead mb-2">
+          You still have a bit of time to find a voting partner to swap with, if
+          you haven't already!
+        </p>
+        <p className="lead text-body-secondary mb-0">
+          Swap My Vote can help if voting for your preferred party doesn't make
+          sense in <strong>your</strong> constituency.
+        </p>
+      </Section>
 
       <EntryForm
         constituencies={constituencies}
@@ -46,12 +47,10 @@ export function OpenAndVoting({
 
       <HowItWorks hidePolls={election.hidePolls} />
 
-      <div className="background-pattern border-bottom">
-        <div className="container text-center">
-          <h2>Ready to vote?</h2>
-          <GoVote swapConfirmed={swapConfirmed} />
-        </div>
-      </div>
+      <Section centered>
+        <h2>Ready to vote?</h2>
+        <GoVote swapConfirmed={swapConfirmed} />
+      </Section>
 
       <NewsSignUp />
     </>

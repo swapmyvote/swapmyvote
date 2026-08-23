@@ -1,13 +1,14 @@
 import { ActionNetworkForm } from "@/components/home/ActionNetworkForm";
+import { Section } from "@/components/home/Section";
 import { SocialLinks } from "@/components/home/SocialLinks";
 import type { Election } from "@/types/api";
 
 // Ports app/views/home/_closed_wind_down.html.haml.
 export function ClosedWindDown({ election }: { election: Election }) {
   return (
-    <div className="background-pattern border-bottom">
-      <div className="container container-narrow">
-        <div className="card">
+    <Section narrow>
+      <div className="card">
+        <div className="card-body">
           <h2>
             {election.eventTitleWithYear}{" "}
             {election.generalElection ? "is" : "are"} a wrap!
@@ -74,6 +75,6 @@ export function ClosedWindDown({ election }: { election: Election }) {
           <SocialLinks intro={false} />
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

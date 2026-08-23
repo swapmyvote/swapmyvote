@@ -4,6 +4,18 @@
   position: relative;
 }
 
+// Focus belongs to the whole control, not just the text box. Bootstrap rings
+// the input alone, which put a magenta outline hard against the toggle
+// button's edge and read as two controls that had come apart.
+.combobox :global(.input-group):focus-within {
+  border-radius: var(--bs-border-radius);
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+.combobox :global(.form-control):focus {
+  box-shadow: none;
+}
+
 .menu {
   // Bootstrap's dropdowns are normally positioned by Popper; this one only
   // ever sits directly under its input, so plain absolute positioning avoids

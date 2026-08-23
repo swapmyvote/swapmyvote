@@ -2,6 +2,7 @@ import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import { ConstituencyStep } from "@/components/home/ConstituencyStep";
 import { PartiesStep } from "@/components/home/PartiesStep";
+import { Section } from "@/components/home/Section";
 import { apiClient } from "@/lib/apiClient";
 import type { Constituency, Party, PrePopulate } from "@/types/api";
 
@@ -82,29 +83,27 @@ export function EntryForm({
   }
 
   return (
-    <div className="plain-pattern border-bottom">
-      <div className="container text-center">
-        {error && (
-          <Alert variant="danger" className="small" role="alert">
-            {error}
-          </Alert>
-        )}
+    <Section tone="white" centered narrow>
+      {error && (
+        <Alert variant="danger" className="small" role="alert">
+          {error}
+        </Alert>
+      )}
 
-        {step === "constituency" ? (
-          <ConstituencyStep
-            constituencies={constituencies}
-            initialOnsId={onsId}
-            onComplete={handleConstituencyChosen}
-          />
-        ) : (
-          <PartiesStep
-            parties={parties}
-            constituencyOther={constituencyOther}
-            submitting={submitting}
-            onComplete={handlePartiesChosen}
-          />
-        )}
-      </div>
-    </div>
+      {step === "constituency" ? (
+        <ConstituencyStep
+          constituencies={constituencies}
+          initialOnsId={onsId}
+          onComplete={handleConstituencyChosen}
+        />
+      ) : (
+        <PartiesStep
+          parties={parties}
+          constituencyOther={constituencyOther}
+          submitting={submitting}
+          onComplete={handlePartiesChosen}
+        />
+      )}
+    </Section>
   );
 }

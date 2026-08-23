@@ -106,6 +106,8 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
 // Needed by the constituency combobox, whose menu is a .dropdown-menu of
 // .dropdown-items.
 @import "bootstrap/scss/dropdown";
+// Needed by the closed-phase landing screens, which sit their copy in a .card.
+@import "bootstrap/scss/card";
 @import "bootstrap/scss/nav";
 @import "bootstrap/scss/navbar";
 @import "bootstrap/scss/badge";

@@ -1,13 +1,14 @@
 import { ActionNetworkForm } from "@/components/home/ActionNetworkForm";
+import { Section } from "@/components/home/Section";
 import { SocialLinks } from "@/components/home/SocialLinks";
 import type { Election } from "@/types/api";
 
 // Ports app/views/home/_closed_warm_up.html.haml.
 export function ClosedWarmUp({ election }: { election: Election }) {
   return (
-    <div className="background-pattern border-bottom">
-      <div className="container container-narrow">
-        <div className="card">
+    <Section narrow>
+      <div className="card">
+        <div className="card-body">
           <h2>{titleCase(election.dateAndTypeMy)} Update</h2>
 
           <p>
@@ -35,7 +36,7 @@ export function ClosedWarmUp({ election }: { election: Election }) {
           <SocialLinks />
         </div>
       </div>
-    </div>
+    </Section>
   );
 }
 

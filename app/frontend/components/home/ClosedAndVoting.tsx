@@ -1,5 +1,6 @@
 import { GoVote } from "@/components/home/GoVote";
 import { NewsSignUp } from "@/components/home/NewsSignUp";
+import { Section } from "@/components/home/Section";
 import { SocialLinks } from "@/components/home/SocialLinks";
 
 interface ClosedAndVotingProps {
@@ -14,9 +15,9 @@ export function ClosedAndVoting({
 }: ClosedAndVotingProps) {
   return (
     <>
-      <div className="background-pattern border-bottom">
-        <div className="container container-narrow">
-          <div className="card">
+      <Section narrow>
+        <div className="card">
+          <div className="card-body">
             <h2>It's time to vote!</h2>
             <p>
               Now that the election polls are open, Swap My Vote is closed for
@@ -57,7 +58,7 @@ export function ClosedAndVoting({
             <SocialLinks />
           </div>
         </div>
-      </div>
+      </Section>
 
       <NewsSignUp />
     </>
