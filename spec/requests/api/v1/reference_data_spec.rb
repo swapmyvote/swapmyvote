@@ -3,6 +3,18 @@ require "rails_helper"
 # Reference data for the entry form: parties, constituencies, and the election
 # prose the SPA builds its headings from.
 RSpec.describe "Api::V1 reference data", type: :request do
+  # These endpoints return *every* party and constituency, and the election
+  # payload is derived from how many constituencies exist — so each example has
+  # to own the whole table, not just the rows it adds. Other specs in the suite
+  # leave parties and constituencies behind (CI loads the schema and seeds
+  # nothing, yet these tables arrive populated), and RSpec's random ordering
+  # means that only bites sometimes. Clearing inside the example's transaction
+  # is rolled back afterwards, so nothing leaks back out.
+  before do
+    OnsConstituency.delete_all
+    Party.delete_all
+  end
+
   def json
     JSON.parse(response.body)
   end
