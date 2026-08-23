@@ -27,7 +27,8 @@ module Api
       # Matches PollsHelper#poll_data_for: parties with no predicted votes are
       # left off the chart entirely, and the rest run biggest first.
       def chart_polls(constituency)
-        constituency.polls.reject { |poll| poll.votes.to_i.zero? }
+        constituency.polls.includes(:party)
+                    .reject { |poll| poll.votes.to_i.zero? }
                     .sort_by { |poll| -poll.votes }
       end
     end

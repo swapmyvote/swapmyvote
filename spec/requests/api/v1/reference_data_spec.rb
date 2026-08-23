@@ -122,6 +122,13 @@ RSpec.describe "Api::V1 reference data", type: :request do
       expect(response).to have_http_status(:not_found)
       expect(json["error"]["code"]).to eq "not_found"
     end
+
+    it "returns an empty list rather than an error when no polls exist yet" do
+      get "/api/v1/constituencies/#{constituency.ons_id}"
+
+      expect(response).to have_http_status(:ok)
+      expect(json["polls"]).to eq []
+    end
   end
 
   describe "GET /api/v1/election" do
