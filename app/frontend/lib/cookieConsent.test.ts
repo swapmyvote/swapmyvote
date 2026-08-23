@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   analyticsAllowed,
-  CONSENT_COOKIE_NAME,
+  consentCookieName,
   readConsent,
   saveConsent,
 } from "@/lib/cookieConsent";
@@ -16,7 +16,7 @@ function setDomainMeta(content: string) {
 }
 
 afterEach(() => {
-  clearTestCookie(CONSENT_COOKIE_NAME);
+  clearTestCookie(consentCookieName);
   for (const meta of document.head.querySelectorAll("meta")) {
     meta.remove();
   }
@@ -29,19 +29,19 @@ describe("readConsent", () => {
   });
 
   it("reads the legacy library's dismiss value", () => {
-    setTestCookie(CONSENT_COOKIE_NAME, "dismiss");
+    setTestCookie(consentCookieName, "dismiss");
     expect(readConsent()).toBe("dismiss");
   });
 
   it("reads allow and deny", () => {
-    setTestCookie(CONSENT_COOKIE_NAME, "allow");
+    setTestCookie(consentCookieName, "allow");
     expect(readConsent()).toBe("allow");
-    setTestCookie(CONSENT_COOKIE_NAME, "deny");
+    setTestCookie(consentCookieName, "deny");
     expect(readConsent()).toBe("deny");
   });
 
   it("treats an unrecognised value as unset", () => {
-    setTestCookie(CONSENT_COOKIE_NAME, "banana");
+    setTestCookie(consentCookieName, "banana");
     expect(readConsent()).toBeNull();
   });
 });

@@ -9,8 +9,8 @@ import { readMeta } from "@/lib/meta";
 //
 // No <noscript> iframe counterpart: the SPA renders nothing without JS anyway.
 
-export const GTM_ID_META = "google-tag-manager-id";
-export const GTM_SCRIPT_ID = "gtm-script";
+export const gtmIdMeta = "google-tag-manager-id";
+export const gtmScriptId = "gtm-script";
 
 declare global {
   interface Window {
@@ -21,14 +21,14 @@ declare global {
 function injectGoogleTagManager(id: string) {
   // Guard on the element rather than a module flag: a script tag cannot be
   // un-injected, and this stays correct under StrictMode's double effects.
-  if (document.getElementById(GTM_SCRIPT_ID) !== null) {
+  if (document.getElementById(gtmScriptId) !== null) {
     return;
   }
   window.dataLayer = window.dataLayer ?? [];
   window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
 
   const script = document.createElement("script");
-  script.id = GTM_SCRIPT_ID;
+  script.id = gtmScriptId;
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(id)}`;
   document.head.appendChild(script);
@@ -41,7 +41,7 @@ export function GoogleTagManager() {
     if (!analyticsAllowed) {
       return;
     }
-    const id = readMeta(GTM_ID_META);
+    const id = readMeta(gtmIdMeta);
     if (id === null) {
       return;
     }

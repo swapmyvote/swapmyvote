@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { Terms } from "@/components/static/Terms";
-import { FORWARD_DEMOCRACY_PRIVACY_POLICY_URL } from "@/lib/externalLinks";
-import { STATIC_PATHS } from "@/lib/staticPaths";
+import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
+import { staticPaths } from "@/lib/staticPaths";
 
 function renderTerms() {
   return render(
@@ -25,14 +25,14 @@ describe("Terms", () => {
     renderTerms();
     expect(
       screen.getByRole("link", { name: /^privacy policy$/i }),
-    ).toHaveAttribute("href", FORWARD_DEMOCRACY_PRIVACY_POLICY_URL);
+    ).toHaveAttribute("href", forwardDemocracyPrivacyPolicyUrl);
   });
 
   it("links to the Cookie Policy as an in-SPA route", () => {
     renderTerms();
     expect(
       screen.getByRole("link", { name: /cookie policy/i }),
-    ).toHaveAttribute("href", STATIC_PATHS.cookies);
+    ).toHaveAttribute("href", staticPaths.cookies);
   });
 
   it("shows the copyright notice", () => {

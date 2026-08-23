@@ -1,6 +1,6 @@
 import Table from "react-bootstrap/Table";
 import { StaticPage } from "@/components/static/StaticPage";
-import { FORWARD_DEMOCRACY_PRIVACY_POLICY_URL } from "@/lib/externalLinks";
+import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
 
 // Ported from app/views/static_pages/cookies.html.haml.
 export function Cookies() {
@@ -111,7 +111,7 @@ export function Cookies() {
       <p>
         See also{" "}
         <a
-          href={FORWARD_DEMOCRACY_PRIVACY_POLICY_URL}
+          href={forwardDemocracyPrivacyPolicyUrl}
           target="_blank"
           rel="noopener"
         >

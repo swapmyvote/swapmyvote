@@ -1,5 +1,5 @@
 import { StaticPage } from "@/components/static/StaticPage";
-import { GITHUB_URL } from "@/lib/externalLinks";
+import { githubUrl } from "@/lib/externalLinks";
 
 // Ported from app/views/static_pages/about.html.haml. Every link here crosses
 // out of the SPA (external sites, or the not-yet-migrated /api HAML page), so
@@ -82,7 +82,7 @@ export function About() {
         </li>
         <li>
           In the interests of transparency,{" "}
-          <a href={GITHUB_URL}>our entire codebase</a> is available for peer
+          <a href={githubUrl}>our entire codebase</a> is available for peer
           review.
         </li>
         <li>

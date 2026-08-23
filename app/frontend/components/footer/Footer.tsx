@@ -2,8 +2,8 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
-import { FORWARD_DEMOCRACY_PRIVACY_POLICY_URL } from "@/lib/externalLinks";
-import { STATIC_PATHS } from "@/lib/staticPaths";
+import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
+import { staticPaths } from "@/lib/staticPaths";
 
 // Ported from app/views/layouts/_footer.html.haml. Shown on every SPA page.
 //
@@ -29,19 +29,19 @@ export function Footer() {
                 <h3 className="h5">Swap My Vote</h3>
               </li>
               <li>
-                <Link className="small" to={STATIC_PATHS.about}>
+                <Link className="small" to={staticPaths.about}>
                   About
                 </Link>
               </li>
               <li>
-                <Link className="small" to={STATIC_PATHS.contact}>
+                <Link className="small" to={staticPaths.contact}>
                   Contact Us
                 </Link>
               </li>
               <li>
                 <a
                   className="small"
-                  href={FORWARD_DEMOCRACY_PRIVACY_POLICY_URL}
+                  href={forwardDemocracyPrivacyPolicyUrl}
                   target="_blank"
                   rel="noopener"
                 >
@@ -49,12 +49,12 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <Link className="small" to={STATIC_PATHS.terms}>
+                <Link className="small" to={staticPaths.terms}>
                   Terms of Use
                 </Link>
               </li>
               <li>
-                <Link className="small" to={STATIC_PATHS.cookies}>
+                <Link className="small" to={staticPaths.cookies}>
                   Cookie Policy
                 </Link>
               </li>

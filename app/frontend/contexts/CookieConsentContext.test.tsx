@@ -5,7 +5,7 @@ import {
   CookieConsentProvider,
   useCookieConsent,
 } from "@/contexts/CookieConsentContext";
-import { CONSENT_COOKIE_NAME } from "@/lib/cookieConsent";
+import { consentCookieName } from "@/lib/cookieConsent";
 import { clearTestCookie, setTestCookie } from "@/test/cookieHelpers";
 
 function Probe() {
@@ -35,7 +35,7 @@ function renderProbe() {
 }
 
 afterEach(() => {
-  clearTestCookie(CONSENT_COOKIE_NAME);
+  clearTestCookie(consentCookieName);
 });
 
 describe("CookieConsentProvider", () => {
@@ -47,7 +47,7 @@ describe("CookieConsentProvider", () => {
   });
 
   it("seeds from an existing legacy dismiss cookie", () => {
-    setTestCookie(CONSENT_COOKIE_NAME, "dismiss");
+    setTestCookie(consentCookieName, "dismiss");
     renderProbe();
     expect(screen.getByTestId("answered")).toHaveTextContent("true");
     expect(screen.getByTestId("analytics")).toHaveTextContent("true");
@@ -58,7 +58,7 @@ describe("CookieConsentProvider", () => {
     await userEvent.click(screen.getByRole("button", { name: "accept" }));
     expect(screen.getByTestId("status")).toHaveTextContent("allow");
     expect(screen.getByTestId("analytics")).toHaveTextContent("true");
-    expect(document.cookie).toContain(`${CONSENT_COOKIE_NAME}=allow`);
+    expect(document.cookie).toContain(`${consentCookieName}=allow`);
   });
 
   it("records a decline in state and in the cookie", async () => {
@@ -66,7 +66,7 @@ describe("CookieConsentProvider", () => {
     await userEvent.click(screen.getByRole("button", { name: "decline" }));
     expect(screen.getByTestId("status")).toHaveTextContent("deny");
     expect(screen.getByTestId("analytics")).toHaveTextContent("false");
-    expect(document.cookie).toContain(`${CONSENT_COOKIE_NAME}=deny`);
+    expect(document.cookie).toContain(`${consentCookieName}=deny`);
   });
 });
 

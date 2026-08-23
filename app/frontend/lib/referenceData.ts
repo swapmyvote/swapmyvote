@@ -6,7 +6,7 @@ import type { Constituency, Election, Party } from "@/types/api";
 // while someone is on the page: parties and constituencies change only when we
 // re-seed, and the election is fixed for the life of the deploy. So these
 // opt out of the refetching the query client defaults to.
-const NEVER_STALE = {
+const neverStale = {
   staleTime: Number.POSITIVE_INFINITY,
   refetchOnWindowFocus: false,
 } as const;
@@ -15,7 +15,7 @@ export function useParties(): UseQueryResult<Party[]> {
   return useQuery({
     queryKey: ["parties"],
     queryFn: () => apiClient.get<Party[]>("/parties"),
-    ...NEVER_STALE,
+    ...neverStale,
   });
 }
 
@@ -23,7 +23,7 @@ export function useConstituencies(): UseQueryResult<Constituency[]> {
   return useQuery({
     queryKey: ["constituencies"],
     queryFn: () => apiClient.get<Constituency[]>("/constituencies"),
-    ...NEVER_STALE,
+    ...neverStale,
   });
 }
 
@@ -31,6 +31,6 @@ export function useElection(): UseQueryResult<Election> {
   return useQuery({
     queryKey: ["election"],
     queryFn: () => apiClient.get<Election>("/election"),
-    ...NEVER_STALE,
+    ...neverStale,
   });
 }

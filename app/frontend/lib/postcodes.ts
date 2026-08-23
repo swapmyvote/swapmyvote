@@ -4,7 +4,7 @@
 // shared with tacticalvote's /api/lookup: see "Code sharing with tacticalvote"
 // in docs/frontend-modernization-plan.md.
 
-const POSTCODES_ENDPOINT = "https://api.postcodes.io/postcodes";
+const postcodesEndpoint = "https://api.postcodes.io/postcodes";
 
 /** The 2024 boundaries are the ones the whole domain keys on. */
 interface PostcodesIoResult {
@@ -54,7 +54,7 @@ export async function lookupPostcode(
   }
 
   const response = await fetch(
-    `${POSTCODES_ENDPOINT}/${encodeURIComponent(trimmed)}`,
+    `${postcodesEndpoint}/${encodeURIComponent(trimmed)}`,
   );
 
   if (!response.ok) {

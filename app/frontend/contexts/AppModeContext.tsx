@@ -16,7 +16,7 @@ export interface AppModeContextValue {
 // Everything defaults to closed until the server tells us otherwise, so a
 // slow or failed session fetch hides capabilities rather than offering ones
 // the API would then reject.
-export const CLOSED_APP_MODE: AppModeContextValue = {
+export const closedAppMode: AppModeContextValue = {
   appMode: null,
   loginsOpen: false,
   swappingOpen: false,
@@ -25,8 +25,7 @@ export const CLOSED_APP_MODE: AppModeContextValue = {
   isLoaded: false,
 };
 
-export const AppModeContext =
-  createContext<AppModeContextValue>(CLOSED_APP_MODE);
+export const AppModeContext = createContext<AppModeContextValue>(closedAppMode);
 
 /**
  * The operational phase, split out of the session payload so components that
@@ -49,7 +48,7 @@ export function AppModeProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<AppModeContextValue>(() => {
     if (appMode === null) {
-      return CLOSED_APP_MODE;
+      return closedAppMode;
     }
     return {
       appMode,

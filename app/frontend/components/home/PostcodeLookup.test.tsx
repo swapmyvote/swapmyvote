@@ -10,7 +10,7 @@ vi.mock("@/lib/postcodes", async (importOriginal) => {
   return { ...actual, lookupPostcode: vi.fn() };
 });
 
-const CONSTITUENCIES: Constituency[] = [
+const constituencyFixtures: Constituency[] = [
   { onsId: "E14001009", name: "Wakefield" },
   { onsId: "E14000996", name: "Tiverton and Honiton" },
 ];
@@ -19,7 +19,7 @@ function renderLookup() {
   const onConstituencyFound = vi.fn();
   render(
     <PostcodeLookup
-      constituencies={CONSTITUENCIES}
+      constituencies={constituencyFixtures}
       onConstituencyFound={onConstituencyFound}
     />,
   );
@@ -60,7 +60,7 @@ describe("PostcodeLookup", () => {
     render(
       <form onSubmit={onSubmit}>
         <PostcodeLookup
-          constituencies={CONSTITUENCIES}
+          constituencies={constituencyFixtures}
           onConstituencyFound={onConstituencyFound}
         />
       </form>,

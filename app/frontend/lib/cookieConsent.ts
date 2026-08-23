@@ -10,31 +10,31 @@ import { readMeta } from "@/lib/meta";
 // SameSite=Lax and Secure are additions the legacy library does not set. Neither
 // affects the legacy site: the cookie is first-party and still readable there.
 
-export const CONSENT_COOKIE_NAME = "_swapmyvote_cookie_consent";
-export const CONSENT_DOMAIN_META = "cookie-consent-domain";
+export const consentCookieName = "_swapmyvote_cookie_consent";
+export const consentDomainMeta = "cookie-consent-domain";
 
-const CONSENT_MAX_AGE_SECONDS = 365 * 24 * 60 * 60;
+const consentMaxAgeSeconds = 365 * 24 * 60 * 60;
 
 // "dismiss" is written by the legacy library's OK button; "allow"/"deny" are
 // its opt-in vocabulary, which the legacy site also reads as "already answered".
 export type ConsentStatus = "dismiss" | "allow" | "deny";
 
-const CONSENT_STATUSES: readonly string[] = ["dismiss", "allow", "deny"];
+const consentStatuses: readonly string[] = ["dismiss", "allow", "deny"];
 
 export function readConsent(): ConsentStatus | null {
-  const value = readCookie(CONSENT_COOKIE_NAME);
-  if (value !== null && CONSENT_STATUSES.includes(value)) {
+  const value = readCookie(consentCookieName);
+  if (value !== null && consentStatuses.includes(value)) {
     return value as ConsentStatus;
   }
   return null;
 }
 
 export function saveConsent(status: ConsentStatus): boolean {
-  const domain = readMeta(CONSENT_DOMAIN_META);
-  return writeCookie(CONSENT_COOKIE_NAME, status, {
+  const domain = readMeta(consentDomainMeta);
+  return writeCookie(consentCookieName, status, {
     domain: domain ?? undefined,
     path: "/",
-    maxAgeSeconds: CONSENT_MAX_AGE_SECONDS,
+    maxAgeSeconds: consentMaxAgeSeconds,
     sameSite: "Lax",
     secure: window.location.protocol === "https:",
   });

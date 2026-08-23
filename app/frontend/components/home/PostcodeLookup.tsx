@@ -14,7 +14,7 @@ interface PostcodeLookupProps {
   onConstituencyFound: (onsId: string) => void;
 }
 
-const NOT_COVERED = "Postcode is not in one of the accepted constituencies";
+const notCovered = "Postcode is not in one of the accepted constituencies";
 
 /**
  * Find a constituency from a postcode, as a convenience beside the
@@ -51,7 +51,7 @@ export function PostcodeLookup({
       if (covered) {
         onConstituencyFound(onsId);
       } else {
-        setError(NOT_COVERED);
+        setError(notCovered);
         onConstituencyFound("");
       }
     } catch (caught) {

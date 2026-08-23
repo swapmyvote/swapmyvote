@@ -9,11 +9,11 @@
 // page is verified and ready to serve production traffic.
 // Only migrated pages belong here — the FAQ is deferred to M2, so links to it
 // stay full-page anchors to the HAML route (`/faq`) until it is ported.
-export const STATIC_PATHS = {
+export const staticPaths = {
   about: "/app/about",
   contact: "/app/contact",
   terms: "/app/terms",
   cookies: "/app/cookies",
 } as const;
 
-export type StaticPageKey = keyof typeof STATIC_PATHS;
+export type StaticPageKey = keyof typeof staticPaths;

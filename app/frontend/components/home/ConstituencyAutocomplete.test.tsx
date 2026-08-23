@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 import { ConstituencyAutocomplete } from "@/components/home/ConstituencyAutocomplete";
 import type { Constituency } from "@/types/api";
 
-const CONSTITUENCIES: Constituency[] = [
+const constituencyFixtures: Constituency[] = [
   { onsId: "E14001009", name: "Wakefield" },
   { onsId: "E14000996", name: "Tiverton and Honiton" },
 ];
@@ -14,7 +14,7 @@ function renderAutocomplete(value = "") {
   const onChange = vi.fn();
   render(
     <ConstituencyAutocomplete
-      constituencies={CONSTITUENCIES}
+      constituencies={constituencyFixtures}
       value={value}
       onChange={onChange}
     />,
@@ -69,7 +69,7 @@ describe("ConstituencyAutocomplete", () => {
       return (
         <>
           <ConstituencyAutocomplete
-            constituencies={CONSTITUENCIES}
+            constituencies={constituencyFixtures}
             value={onsId}
             onChange={setOnsId}
           />
@@ -128,7 +128,7 @@ describe("ConstituencyAutocomplete", () => {
   it("can be disabled", () => {
     render(
       <ConstituencyAutocomplete
-        constituencies={CONSTITUENCIES}
+        constituencies={constituencyFixtures}
         value=""
         onChange={vi.fn()}
         disabled
