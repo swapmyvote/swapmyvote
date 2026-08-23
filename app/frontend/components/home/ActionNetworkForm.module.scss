@@ -1,0 +1,62 @@
+// Action Network injects its own markup and ships its own stylesheet, so the
+// embed needs taming from outside. The legacy _actionnetwork.html did this in
+// a ~130-line <style> block; these are the rules that still earn their place,
+// scoped to the embed so nothing here can reach the rest of the page.
+.embed {
+  // Their form is built as two floated columns, which is far too wide for the
+  // reading column it sits in.
+  :global(#can_embed_form.can_float) {
+    :global(#form_col1),
+    :global(#form_col2) {
+      float: none;
+      width: 100%;
+    }
+  }
+
+  // Their own "Swap My Vote" / "My Details" headings duplicate the heading we
+  // render above the embed. They also inherit our brand's uppercasing, since
+  // that applies to every h1-h6 on the page — which is where the shouting
+  // "MY DETAILS" came from.
+  :global(#can_embed_form) {
+    h2,
+    h4 {
+      display: none;
+    }
+  }
+
+  // "Sponsored by Forward Democracy" — we are Forward Democracy.
+  :global(.action_info_user) {
+    display: none;
+  }
+
+  // The share row draws a rule above itself that stops short of the container,
+  // which reads as a broken divider rather than a deliberate one.
+  // !important because Action Network's own stylesheet targets this by id and
+  // would otherwise win. The legacy block used it here for the same reason.
+  :global(#d_sharing) {
+    border-top: none !important;
+    padding: 0 !important;
+
+    ul {
+      margin-top: 0 !important;
+    }
+  }
+
+  // Their submit button shouts and carries their branding. Bring it into line
+  // with our own primary button, including the dark-on-magenta pairing that
+  // meets contrast.
+  :global(#can_embed_form) {
+    input[type="submit"],
+    :global(.can_button) {
+      text-transform: none;
+      font-family: inherit;
+      background-color: var(--bs-primary);
+      border: 0;
+      border-radius: var(--bs-border-radius);
+      color: var(--bs-body-color);
+      font-weight: 700;
+      padding: 0.375rem 0.75rem;
+      width: auto;
+    }
+  }
+}

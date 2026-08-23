@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import { useCookieConsent } from "@/contexts/CookieConsentContext";
+import styles from "./ActionNetworkForm.module.scss";
 
 const stylesheetUrl =
   "https://actionnetwork.org/css/style-embed-whitelabel-v3.css";
@@ -62,5 +63,11 @@ export function ActionNetworkForm() {
     );
   }
 
-  return <div id={targetId} ref={target} />;
+  return (
+    <div className={`card ${styles.embed}`}>
+      <div className="card-body text-start">
+        <div id={targetId} ref={target} />
+      </div>
+    </div>
+  );
 }
