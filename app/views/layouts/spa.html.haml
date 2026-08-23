@@ -3,6 +3,14 @@
   %head
     %meta{ charset: "utf-8" }
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
+    -#
+      Server config the SPA needs in the browser. Both are optional: without
+      SERVER_HOST the consent cookie is written host-only, and without a GTM
+      id the SPA loads no analytics at all. See app/frontend/lib/meta.ts.
+    - if ENV["SERVER_HOST"].present?
+      %meta{ name: "cookie-consent-domain", content: ENV["SERVER_HOST"] }
+    - if ENV["GOOGLE_TAG_MANAGER_ID"].present?
+      %meta{ name: "google-tag-manager-id", content: ENV["GOOGLE_TAG_MANAGER_ID"] }
     %title Swap My Vote
     = csrf_meta_tags
     = vite_react_refresh_tag
