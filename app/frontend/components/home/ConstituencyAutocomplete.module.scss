@@ -12,7 +12,18 @@
   box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
 }
 
-.combobox :global(.form-control):focus {
+// Every edge inside the group is the same neutral hairline, focused or not.
+// Two Bootstrap defaults fight that: a focused .form-control turns its border
+// the primary colour, which showed as a pink seam where the text box met the
+// toggle; and .btn-outline-secondary draws a much darker grey than the input
+// beside it. The halo above is the focus signal, so the borders stay quiet.
+.combobox :global(.form-control),
+.combobox :global(.form-control):focus,
+.combobox :global(.btn),
+.combobox :global(.btn):hover,
+.combobox :global(.btn):focus,
+.combobox :global(.btn):active {
+  border-color: var(--bs-border-color);
   box-shadow: none;
 }
 

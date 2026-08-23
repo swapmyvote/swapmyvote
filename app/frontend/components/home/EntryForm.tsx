@@ -83,7 +83,7 @@ export function EntryForm({
   }
 
   return (
-    <Section tone="white" centered narrow>
+    <Section tone="white" narrow>
       {error && (
         <Alert variant="danger" className="small" role="alert">
           {error}

@@ -76,11 +76,9 @@ export function ConstituencyStep({
           </Alert>
         )}
 
-        <div className="text-center">
-          <Button type="submit" variant="primary">
-            Next: Choose Parties
-          </Button>
-        </div>
+        <Button type="submit" variant="primary" className="mt-3">
+          Next: Choose Parties
+        </Button>
       </div>
     </form>
   );
