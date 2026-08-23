@@ -82,7 +82,7 @@ export function PostcodeLookup({
 
   return (
     <div>
-      <Form.Label htmlFor={inputId} className="mb-0">
+      <Form.Label htmlFor={inputId}>
         Or find my constituency using my postcode
       </Form.Label>
 
@@ -99,8 +99,11 @@ export function PostcodeLookup({
           onKeyDown={handleKeyDown}
           aria-describedby={error ? `${inputId}-error` : undefined}
         />
+        {/* Outline, not solid: beside the combobox's quiet toggle a filled
+            dark button read as the loudest thing on the form, which it is
+            not — the primary action is "Next". */}
         <Button
-          variant="secondary"
+          variant="outline-secondary"
           onClick={() => void handleSearch()}
           disabled={searching}
         >
@@ -111,7 +114,7 @@ export function PostcodeLookup({
       {error && (
         <Alert
           variant="danger"
-          className="small mt-2"
+          className="small mt-2 mb-0"
           id={`${inputId}-error`}
           role="alert"
         >
@@ -119,9 +122,9 @@ export function PostcodeLookup({
         </Alert>
       )}
 
-      <p className="small text-muted mt-2">
-        Enter your postcode only to find your constituency; we do not retain
-        this info.
+      <p className="small text-muted mt-2 mb-0">
+        Your postcode is only used to find your constituency; we do not retain
+        this info
       </p>
     </div>
   );

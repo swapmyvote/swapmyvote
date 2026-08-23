@@ -61,12 +61,10 @@ export function PartiesStep({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="d-flex flex-column align-items-center"
-    >
-      <div className="w-100" style={{ maxWidth: 480 }}>
-        <Form.Group className="mb-3" controlId="preferred-party">
+    <form onSubmit={handleSubmit}>
+      {/* Same rhythm as the constituency step: one gap between blocks. */}
+      <div className="d-flex flex-column gap-3">
+        <Form.Group controlId="preferred-party">
           <Form.Label>Which party would you most like to vote for?</Form.Label>
           <Form.Select
             value={preferredPartyId}
@@ -82,7 +80,7 @@ export function PartiesStep({
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="willing-party">
+        <Form.Group controlId="willing-party">
           <Form.Label>
             When we find someone to vote for your party in {constituencyOther},
             which party could you vote for in exchange?
@@ -104,7 +102,7 @@ export function PartiesStep({
         {error && (
           <Alert
             variant="danger"
-            className="small"
+            className="small mb-0"
             id="parties-error"
             role="alert"
           >
@@ -112,7 +110,13 @@ export function PartiesStep({
           </Alert>
         )}
 
-        <div className="text-center">
+        <p className="small text-muted mb-0">
+          We will match you with someone who will cast your preferred vote in a
+          different area where it could count for more. In return, you will cast
+          their preferred vote in your area.
+        </p>
+
+        <div className="d-flex justify-content-end">
           <Button
             type="submit"
             variant="primary"
@@ -122,12 +126,6 @@ export function PartiesStep({
             Next: Sign Up
           </Button>
         </div>
-
-        <p className="small text-muted mt-3">
-          We will match you with someone who will cast your preferred vote in a
-          different area where it could count for more. In return, you will cast
-          their preferred vote in your area.
-        </p>
       </div>
     </form>
   );

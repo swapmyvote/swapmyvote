@@ -50,35 +50,34 @@ export function ConstituencyStep({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="d-flex flex-column align-items-center"
-    >
-      <div className="w-100" style={{ maxWidth: 480 }}>
+    <form onSubmit={handleSubmit}>
+      {/* One gap between every block, from Bootstrap's spacing scale, rather
+          than each child bringing its own margin. */}
+      <div className="d-flex flex-column gap-3">
         <ConstituencyAutocomplete
           constituencies={constituencies}
           value={onsId}
           onChange={handleConstituencyPicked}
         />
 
-        <div className="mt-3">
-          <PostcodeLookup
-            constituencies={constituencies}
-            postcode={postcode}
-            onPostcodeChange={setPostcode}
-            onConstituencyFound={setOnsId}
-          />
-        </div>
+        <PostcodeLookup
+          constituencies={constituencies}
+          postcode={postcode}
+          onPostcodeChange={setPostcode}
+          onConstituencyFound={setOnsId}
+        />
 
         {error && (
-          <Alert variant="danger" className="small" role="alert">
+          <Alert variant="danger" className="small mb-0" role="alert">
             {error}
           </Alert>
         )}
 
-        <Button type="submit" variant="primary" className="mt-3">
-          Next: Choose Parties
-        </Button>
+        <div className="d-flex justify-content-end">
+          <Button type="submit" variant="primary">
+            Next: Choose Parties
+          </Button>
+        </div>
       </div>
     </form>
   );
