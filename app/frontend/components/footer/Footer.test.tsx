@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { Footer } from "@/components/footer/Footer";
-import { FORWARD_DEMOCRACY_PRIVACY_POLICY_URL } from "@/lib/externalLinks";
-import { STATIC_PATHS } from "@/lib/staticPaths";
+import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
+import { spaPaths } from "@/lib/spaPaths";
 
 function renderFooter() {
   return render(
@@ -18,19 +18,19 @@ describe("Footer", () => {
     renderFooter();
     expect(screen.getByRole("link", { name: /^about$/i })).toHaveAttribute(
       "href",
-      STATIC_PATHS.about,
+      spaPaths.about,
     );
     expect(screen.getByRole("link", { name: /contact us/i })).toHaveAttribute(
       "href",
-      STATIC_PATHS.contact,
+      spaPaths.contact,
     );
     expect(screen.getByRole("link", { name: /terms of use/i })).toHaveAttribute(
       "href",
-      STATIC_PATHS.terms,
+      spaPaths.terms,
     );
     expect(
       screen.getByRole("link", { name: /cookie policy/i }),
-    ).toHaveAttribute("href", STATIC_PATHS.cookies);
+    ).toHaveAttribute("href", spaPaths.cookies);
   });
 
   it("links the not-yet-migrated FAQ and API to the HAML routes (full-page)", () => {
@@ -53,7 +53,7 @@ describe("Footer", () => {
     renderFooter();
     expect(
       screen.getByRole("link", { name: /privacy policy/i }),
-    ).toHaveAttribute("href", FORWARD_DEMOCRACY_PRIVACY_POLICY_URL);
+    ).toHaveAttribute("href", forwardDemocracyPrivacyPolicyUrl);
   });
 
   it("links the social accounts", () => {

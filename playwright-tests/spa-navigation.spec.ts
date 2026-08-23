@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { STATIC_PATHS } from "@/lib/staticPaths";
+import { spaPaths } from "@/lib/spaPaths";
 import { documentWasReplaced, stampDocument } from "./support/documentStamp";
 
 // The SPA and the legacy HAML site coexist route by route, so the link
@@ -10,7 +10,7 @@ test.describe("SPA/HAML link boundary", () => {
   test("must navigate without a full page load when a link between migrated pages is followed", async ({
     page,
   }) => {
-    await page.goto(STATIC_PATHS.terms);
+    await page.goto(spaPaths.terms);
     await expect(
       page.getByRole("heading", { name: "Terms and Conditions of Use" }),
     ).toBeVisible();
@@ -23,7 +23,7 @@ test.describe("SPA/HAML link boundary", () => {
       .getByRole("link", { name: "Cookie Policy" })
       .click();
 
-    await expect(page).toHaveURL(STATIC_PATHS.cookies);
+    await expect(page).toHaveURL(spaPaths.cookies);
     await expect(
       page.getByRole("heading", { name: "Cookie Policy", level: 1 }),
     ).toBeVisible();
@@ -33,7 +33,7 @@ test.describe("SPA/HAML link boundary", () => {
   test("must do a full page load when a link to a page still served by Rails is followed", async ({
     page,
   }) => {
-    await page.goto(STATIC_PATHS.terms);
+    await page.goto(spaPaths.terms);
     await stampDocument(page);
 
     // The FAQ has not been migrated (M2), so the footer links to it with a

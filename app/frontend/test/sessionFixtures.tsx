@@ -15,7 +15,7 @@ import type {
 // SessionContext value directly rather than standing up react-query and a
 // fetch mock — SessionProvider's own wiring is covered by its own test.
 
-export const LOGGED_OUT_SESSION: SessionPayload = {
+export const loggedOutSession: SessionPayload = {
   appMode: "open",
   flags: {
     loginsOpen: true,
@@ -27,7 +27,7 @@ export const LOGGED_OUT_SESSION: SessionPayload = {
   swap: null,
 };
 
-export const TEST_USER: CurrentUser = {
+export const testUser: CurrentUser = {
   id: 1,
   name: "Ada Lovelace",
   email: "ada@example.com",
@@ -41,7 +41,7 @@ export const TEST_USER: CurrentUser = {
   willingParty: { id: 2, name: "Labour", color: "#DC241f", smvCode: "lab" },
 };
 
-export const TEST_SWAP: SwapSummary = {
+export const testSwap: SwapSummary = {
   id: 7,
   state: "outgoing",
   confirmed: false,
@@ -58,9 +58,9 @@ export function sessionPayload(
   } = {},
 ): SessionPayload {
   return {
-    ...LOGGED_OUT_SESSION,
+    ...loggedOutSession,
     ...overrides,
-    flags: { ...LOGGED_OUT_SESSION.flags, ...overrides.flags },
+    flags: { ...loggedOutSession.flags, ...overrides.flags },
   };
 }
 
@@ -68,11 +68,11 @@ export function sessionValue(
   overrides: Partial<SessionContextValue> = {},
 ): SessionContextValue {
   return {
-    session: LOGGED_OUT_SESSION,
+    session: loggedOutSession,
     isLoading: false,
     isError: false,
     refetchSession: () => Promise.resolve(null),
-    logOut: () => Promise.resolve(LOGGED_OUT_SESSION),
+    logOut: () => Promise.resolve(loggedOutSession),
     ...overrides,
   };
 }

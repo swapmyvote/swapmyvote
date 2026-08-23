@@ -1,7 +1,7 @@
-import { CSRF_HEADER, csrfToken } from "@/lib/csrf";
+import { csrfHeader, csrfToken } from "@/lib/csrf";
 import type { ApiErrorBody } from "@/types/api";
 
-const API_ROOT = "/api/v1";
+const apiRoot = "/api/v1";
 
 /**
  * A non-2xx response from /api/v1, carrying the server's error convention:
@@ -58,11 +58,11 @@ async function request<T>(
   if (method !== "GET") {
     const token = csrfToken();
     if (token) {
-      headers[CSRF_HEADER] = token;
+      headers[csrfHeader] = token;
     }
   }
 
-  const response = await fetch(`${API_ROOT}${path}`, {
+  const response = await fetch(`${apiRoot}${path}`, {
     method,
     headers,
     // The Devise session cookie is what authenticates us; the SPA is served

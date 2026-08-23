@@ -6,7 +6,7 @@ import type { SessionContextValue } from "@/contexts/SessionContext";
 import {
   sessionPayload,
   sessionValue,
-  TEST_USER,
+  testUser,
   TestSessionProvider,
 } from "@/test/sessionFixtures";
 
@@ -20,7 +20,7 @@ function renderNav(overrides: Partial<SessionContextValue> = {}) {
   return value;
 }
 
-function loggedInAs(user = TEST_USER) {
+function loggedInAs(user = testUser) {
   return { session: sessionPayload({ currentUser: user }) };
 }
 
@@ -93,7 +93,7 @@ describe("Navigation", () => {
       // Decorative: the adjacent name is the accessible label, so the avatar
       // carries an empty alt and is found by src rather than by role.
       const avatar = document.querySelector(
-        `img[src="${TEST_USER.imageUrl}"]`,
+        `img[src="${testUser.imageUrl}"]`,
       ) as HTMLImageElement;
       expect(avatar).not.toBeNull();
       expect(avatar.alt).toBe("");

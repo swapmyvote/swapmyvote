@@ -9,12 +9,18 @@ import type { Constituency } from "@/types/api";
 interface PostcodeLookupProps {
   /** The constituencies we actually run swaps in. */
   constituencies: Constituency[];
+  /** The postcode being typed. Controlled by the caller so that picking a
+   *  constituency by name can empty it — the two inputs are two ways of
+   *  answering one question, and the legacy widget kept them exclusive
+   *  (`autocompleteselect` did `$("#txt-postcode").val("")`). */
+  postcode: string;
+  onPostcodeChange: (postcode: string) => void;
   /** Called with the matched ONS GSS code, or "" when the postcode resolves
    *  to somewhere we do not cover. */
   onConstituencyFound: (onsId: string) => void;
 }
 
-const NOT_COVERED = "Postcode is not in one of the accepted constituencies";
+const notCovered = "Postcode is not in one of the accepted constituencies";
 
 /**
  * Find a constituency from a postcode, as a convenience beside the
@@ -33,10 +39,11 @@ const NOT_COVERED = "Postcode is not in one of the accepted constituencies";
  */
 export function PostcodeLookup({
   constituencies,
+  postcode,
+  onPostcodeChange,
   onConstituencyFound,
 }: PostcodeLookupProps) {
   const inputId = useId();
-  const [postcode, setPostcode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [searching, setSearching] = useState(false);
 
@@ -51,14 +58,14 @@ export function PostcodeLookup({
       if (covered) {
         onConstituencyFound(onsId);
       } else {
-        setError(NOT_COVERED);
+        setError(notCovered);
         onConstituencyFound("");
       }
     } catch (caught) {
       setError(
         caught instanceof PostcodeLookupError
           ? caught.message
-          : "Postcode lookup failed - please try again.",
+          : "Postcode lookup failed - please try again",
       );
       onConstituencyFound("");
     }
@@ -75,7 +82,7 @@ export function PostcodeLookup({
 
   return (
     <div>
-      <Form.Label htmlFor={inputId} className="mb-0">
+      <Form.Label htmlFor={inputId}>
         Or find my constituency using my postcode
       </Form.Label>
 
@@ -88,12 +95,15 @@ export function PostcodeLookup({
           maxLength={9}
           spellCheck={false}
           autoComplete="postal-code"
-          onChange={(event) => setPostcode(event.target.value)}
+          onChange={(event) => onPostcodeChange(event.target.value)}
           onKeyDown={handleKeyDown}
           aria-describedby={error ? `${inputId}-error` : undefined}
         />
+        {/* Outline, not solid: beside the combobox's quiet toggle a filled
+            dark button read as the loudest thing on the form, which it is
+            not — the primary action is "Next". */}
         <Button
-          variant="secondary"
+          variant="outline-secondary"
           onClick={() => void handleSearch()}
           disabled={searching}
         >
@@ -104,7 +114,7 @@ export function PostcodeLookup({
       {error && (
         <Alert
           variant="danger"
-          className="small mt-2"
+          className="small mt-2 mb-0"
           id={`${inputId}-error`}
           role="alert"
         >
@@ -112,9 +122,9 @@ export function PostcodeLookup({
         </Alert>
       )}
 
-      <p className="small text-muted mt-2">
-        Enter your postcode only to find your constituency; we do not retain
-        this info.
+      <p className="small text-muted mt-2 mb-0">
+        Your postcode is only used to find your constituency; we do not retain
+        this information
       </p>
     </div>
   );

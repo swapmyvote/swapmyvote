@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { StaticPage } from "@/components/static/StaticPage";
-import { FORWARD_DEMOCRACY_PRIVACY_POLICY_URL } from "@/lib/externalLinks";
-import { STATIC_PATHS } from "@/lib/staticPaths";
+import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
+import { spaPaths } from "@/lib/spaPaths";
 
 // Ported from app/views/static_pages/terms.html.haml. The Cookie Policy is
 // itself a migrated SPA page (in-SPA <Link>); the privacy policy lives on the
@@ -42,7 +42,7 @@ export function Terms() {
         <li>
           Our{" "}
           <a
-            href={FORWARD_DEMOCRACY_PRIVACY_POLICY_URL}
+            href={forwardDemocracyPrivacyPolicyUrl}
             target="_blank"
             rel="noopener"
           >
@@ -54,8 +54,8 @@ export function Terms() {
           you is accurate.
         </li>
         <li>
-          Our <Link to={STATIC_PATHS.cookies}>Cookie Policy</Link>, which sets
-          out information about the cookies on our website.
+          Our <Link to={spaPaths.cookies}>Cookie Policy</Link>, which sets out
+          information about the cookies on our website.
         </li>
       </ul>
 

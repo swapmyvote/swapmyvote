@@ -10,9 +10,9 @@ import { useSession } from "@/contexts/useSession";
 // Paths still served by the legacy HAML site. Crossing the SPA→HAML boundary
 // needs a real page load, so these are plain `href`s, never react-router
 // <Link>s. Each becomes a <Link> as its screen is ported.
-const HAML_HOME = "/";
-const HAML_SIGN_IN = "/users/sign_in";
-const HAML_EDIT_PROFILE = "/user/edit";
+const hamlHome = "/";
+const hamlSignIn = "/users/sign_in";
+const hamlEditProfile = "/user/edit";
 
 // Branded top bar. Matches the legacy site's look for now: the pink SwapMyVote
 // wordmark + icon (logo_nav) on a near-white bar with a subtle bottom border —
@@ -39,14 +39,14 @@ export function Navigation() {
       // the real session.
     }
     // Home is still legacy HAML, so leave the SPA with a full page load.
-    window.location.assign(HAML_HOME);
+    window.location.assign(hamlHome);
   }
 
   return (
     <div className="sticky-top">
       <Navbar bg="white" expand="md" className="py-2 border-bottom">
         <Container fluid className="px-3">
-          <Navbar.Brand href={HAML_HOME}>
+          <Navbar.Brand href={hamlHome}>
             <img
               src={logoNav}
               srcSet={`${logoNav} 1x, ${logoNav2x} 2x`}
@@ -59,7 +59,7 @@ export function Navigation() {
           {currentUser ? (
             <div className="d-flex align-items-center gap-2">
               <a
-                href={HAML_EDIT_PROFILE}
+                href={hamlEditProfile}
                 className="d-flex align-items-center gap-2 text-decoration-none"
               >
                 <img
@@ -83,7 +83,7 @@ export function Navigation() {
             </div>
           ) : (
             loginsOpen && (
-              <a href={HAML_SIGN_IN} className="small">
+              <a href={hamlSignIn} className="small">
                 Already been here? Log in
               </a>
             )

@@ -1,0 +1,40 @@
+// The combobox owns its own stacking context so the menu can hang beneath the
+// input group instead of pushing the rest of the form down the page.
+.combobox {
+  position: relative;
+}
+
+// Focus belongs to the whole control, not just the text box. Bootstrap rings
+// the input alone, which put a magenta outline hard against the toggle
+// button's edge and read as two controls that had come apart.
+.combobox :global(.input-group):focus-within {
+  border-radius: var(--bs-border-radius);
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+// Every edge inside the group is the same neutral hairline, focused or not.
+// Two Bootstrap defaults fight that: a focused .form-control turns its border
+// the primary colour, which showed as a pink seam where the text box met the
+// toggle; and .btn-outline-secondary draws a much darker grey than the input
+// beside it. The halo above is the focus signal, so the borders stay quiet.
+.combobox :global(.form-control),
+.combobox :global(.form-control):focus,
+.combobox :global(.btn),
+.combobox :global(.btn):hover,
+.combobox :global(.btn):focus,
+.combobox :global(.btn):active {
+  border-color: var(--bs-border-color);
+  box-shadow: none;
+}
+
+.menu {
+  // Bootstrap's dropdowns are normally positioned by Popper; this one only
+  // ever sits directly under its input, so plain absolute positioning avoids
+  // pulling that in.
+  position: absolute;
+  top: 100%;
+  left: 0;
+  // A general election puts 650 constituencies in here.
+  max-height: 16rem;
+  overflow-y: auto;
+}

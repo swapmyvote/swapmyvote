@@ -13,7 +13,8 @@ import { AppModeProvider } from "@/contexts/AppModeContext";
 import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { queryClient } from "@/lib/queryClient";
-import { STATIC_PATHS } from "@/lib/staticPaths";
+import { spaPaths } from "@/lib/spaPaths";
+import { Home } from "@/pages/Home";
 import { Ping } from "@/pages/Ping";
 
 // Shared chrome around every SPA route: branded nav + footer, matching the
@@ -47,10 +48,11 @@ export function App() {
               <Layout>
                 <Routes>
                   <Route path="/app/ping" element={<Ping />} />
-                  <Route path={STATIC_PATHS.about} element={<About />} />
-                  <Route path={STATIC_PATHS.contact} element={<Contact />} />
-                  <Route path={STATIC_PATHS.cookies} element={<Cookies />} />
-                  <Route path={STATIC_PATHS.terms} element={<Terms />} />
+                  <Route path={spaPaths.home} element={<Home />} />
+                  <Route path={spaPaths.about} element={<About />} />
+                  <Route path={spaPaths.contact} element={<Contact />} />
+                  <Route path={spaPaths.cookies} element={<Cookies />} />
+                  <Route path={spaPaths.terms} element={<Terms />} />
                 </Routes>
               </Layout>
             </BrowserRouter>

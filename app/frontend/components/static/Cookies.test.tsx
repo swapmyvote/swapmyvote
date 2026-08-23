@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { Cookies } from "@/components/static/Cookies";
-import { FORWARD_DEMOCRACY_PRIVACY_POLICY_URL } from "@/lib/externalLinks";
+import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
 
 describe("Cookies", () => {
   it("renders the Cookie Policy heading and its sections", () => {
@@ -26,7 +26,7 @@ describe("Cookies", () => {
     render(<Cookies />);
     expect(
       screen.getByRole("link", { name: /our privacy policy/i }),
-    ).toHaveAttribute("href", FORWARD_DEMOCRACY_PRIVACY_POLICY_URL);
+    ).toHaveAttribute("href", forwardDemocracyPrivacyPolicyUrl);
   });
 
   it("links to the browser cookies guide in a new tab", () => {

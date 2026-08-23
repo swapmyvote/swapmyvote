@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { About } from "@/components/static/About";
-import { GITHUB_URL } from "@/lib/externalLinks";
+import { githubUrl } from "@/lib/externalLinks";
 
 function renderAbout() {
   return render(
@@ -34,7 +34,7 @@ describe("About", () => {
     renderAbout();
     expect(
       screen.getByRole("link", { name: /our entire codebase/i }),
-    ).toHaveAttribute("href", GITHUB_URL);
+    ).toHaveAttribute("href", githubUrl);
   });
 
   it("links to the API page as a full-page link (not yet migrated)", () => {

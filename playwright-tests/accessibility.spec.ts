@@ -1,15 +1,15 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { STATIC_PATHS } from "@/lib/staticPaths";
+import { spaPaths } from "@/lib/spaPaths";
 
 // The M1 static pages, under the `/app/*` preview paths they are served from
-// until each one is cut over. STATIC_PATHS also carries `faq`, which is not
+// until each one is cut over. spaPaths also carries `faq`, which is not
 // migrated yet (M2) and has no Rails route, so it is deliberately not scanned.
 const migratedPages = [
-  { name: "About", path: STATIC_PATHS.about },
-  { name: "Contact", path: STATIC_PATHS.contact },
-  { name: "Cookie Policy", path: STATIC_PATHS.cookies },
-  { name: "Terms of Use", path: STATIC_PATHS.terms },
+  { name: "About", path: spaPaths.about },
+  { name: "Contact", path: spaPaths.contact },
+  { name: "Cookie Policy", path: spaPaths.cookies },
+  { name: "Terms of Use", path: spaPaths.terms },
 ];
 
 // Gate on the WCAG 2.0/2.1 A and AA rule sets — the conformance target — rather

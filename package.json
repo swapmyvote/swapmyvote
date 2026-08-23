@@ -5,6 +5,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.101.2",
     "bootstrap": "^5.3.8",
+    "downshift": "^9.4.0",
     "intl-tel-input": "16.0.7",
     "react": "^19.2.7",
     "react-bootstrap": "^2.10.10",

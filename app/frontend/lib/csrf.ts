@@ -7,7 +7,7 @@
  * Read lazily, never cached: Rails can rotate the token, and a stale copy
  * means a rejected request.
  */
-export const CSRF_HEADER = "X-CSRF-Token";
+export const csrfHeader = "X-CSRF-Token";
 
 export function csrfToken(): string | null {
   const meta = document.querySelector<HTMLMetaElement>(

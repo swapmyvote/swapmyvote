@@ -1,6 +1,10 @@
-import { useEffect, useId, useState } from "react";
+import { useCombobox } from "downshift";
+import { useId, useState } from "react";
+import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import type { Constituency } from "@/types/api";
+import styles from "./ConstituencyAutocomplete.module.scss";
 
 interface ConstituencyAutocompleteProps {
   constituencies: Constituency[];
@@ -13,11 +17,22 @@ interface ConstituencyAutocompleteProps {
 /**
  * Pick a constituency by typing its name.
  *
- * Replaces the legacy pairing of a `<select>` holding the ONS code and a
- * jQuery autocomplete input showing the name. A native `<datalist>` does the
- * same job with no library: the browser filters as you type, the control stays
- * a real text input for screen readers and keyboards, and it scales from the
- * two constituencies of a by-election to all 650 of a general election.
+ * Ports the legacy jQuery UI combobox (app/assets/javascripts/autocomplete.js),
+ * which paired a hidden `<select>` holding the ONS code with an autocomplete
+ * input showing the name. Its three behaviours are kept:
+ *
+ *  - `_source` filters on a case-insensitive **substring**, anywhere in the
+ *    name — not a prefix match.
+ *  - `_removeIfInvalid` accepts an exactly-typed name even if the menu was
+ *    never opened, and wipes anything else when the field is left, so a
+ *    half-typed name can never sit there looking like a choice.
+ *  - `_createShowAllButton` opens the full list on demand.
+ *
+ * Built on Downshift rather than a native `<datalist>` (a browser-drawn
+ * dropdown that cannot be positioned or styled) or react-bootstrap-typeahead
+ * (whose hint handling calls preventDefault on Tab, trapping keyboard focus
+ * in the field — WCAG 2.1.2). Downshift supplies the ARIA wiring and keyboard
+ * behaviour; the markup and styling are ours.
  *
  * The name is what the user sees and types; the ONS code is what leaves this
  * component, since that is what the whole domain keys on.
@@ -29,65 +44,119 @@ export function ConstituencyAutocomplete({
   disabled = false,
 }: ConstituencyAutocompleteProps) {
   const inputId = useId();
-  const listId = useId();
+  const [query, setQuery] = useState("");
 
-  const selectedName =
-    constituencies.find((constituency) => constituency.onsId === value)?.name ??
-    "";
+  const selectedItem =
+    constituencies.find((constituency) => constituency.onsId === value) ?? null;
 
-  // What the user has typed, which is only the selected name once they have
-  // actually matched one. Kept in step with `value` so that a selection made
-  // elsewhere — the postcode lookup filling this in, as the legacy helper did
-  // — shows up here, without fighting the user mid-keystroke.
-  const [text, setText] = useState(selectedName);
+  // Substring, anywhere in the name, case-insensitive — matching the legacy
+  // `_source` regex rather than a prefix match.
+  const trimmed = query.trim().toLowerCase();
+  const items =
+    trimmed === ""
+      ? constituencies
+      : constituencies.filter((constituency) =>
+          constituency.name.toLowerCase().includes(trimmed),
+        );
 
-  useEffect(() => {
-    setText(selectedName);
-  }, [selectedName]);
-
-  function matchFor(typed: string) {
+  function exactMatch(text: string) {
     return constituencies.find(
       (constituency) =>
-        constituency.name.toLowerCase() === typed.trim().toLowerCase(),
+        constituency.name.toLowerCase() === text.trim().toLowerCase(),
     );
   }
 
-  function handleChange(typed: string) {
-    setText(typed);
-    // Partial text narrows the suggestion list, but only a complete name is a
-    // selection — matching the legacy combobox, where `_source` filters on a
-    // substring while `_removeIfInvalid` requires an exact match.
-    onChange(matchFor(typed)?.onsId ?? "");
-  }
+  const {
+    isOpen,
+    getLabelProps,
+    getInputProps,
+    getMenuProps,
+    getItemProps,
+    getToggleButtonProps,
+    highlightedIndex,
+  } = useCombobox<Constituency>({
+    items,
+    selectedItem,
+    inputValue: query,
+    itemToString: (constituency) => constituency?.name ?? "",
+    onInputValueChange: ({ inputValue }) => setQuery(inputValue ?? ""),
+    onSelectedItemChange: ({ selectedItem: chosen }) => {
+      onChange(chosen?.onsId ?? "");
+    },
+    // Leaving the field is where the legacy `_removeIfInvalid` ran, and it is
+    // the one place Downshift's defaults differ from it: Downshift restores
+    // the last selection, where the legacy widget committed an exactly-typed
+    // name and wiped anything else.
+    stateReducer: (state, { type, changes }) => {
+      if (type !== useCombobox.stateChangeTypes.InputBlur) {
+        return changes;
+      }
+      const match = exactMatch(state.inputValue);
+      if (match) {
+        // An exact name counts as a choice even if the menu was never opened.
+        return { ...changes, selectedItem: match, inputValue: match.name };
+      }
+      // Anything else is wiped, so a half-typed name can never sit in the box
+      // looking like a selection the user has made.
+      return { ...changes, selectedItem: null, inputValue: "" };
+    },
+  });
 
-  function handleBlur() {
-    // The legacy widget's `_removeIfInvalid`: text that matches no
-    // constituency is wiped on the way out, so a half-typed name can never sit
-    // in the box looking like a choice the user has made.
-    if (text !== "" && !matchFor(text)) {
-      setText("");
-      onChange("");
-    }
+  // Keep the box in step with a selection made elsewhere — the postcode
+  // lookup filling this in, as the legacy helper did.
+  const selectedName = selectedItem?.name ?? "";
+  if (selectedName !== "" && query !== selectedName && !isOpen) {
+    setQuery(selectedName);
   }
 
   return (
-    <Form.Group controlId={inputId}>
-      <Form.Label>My constituency is</Form.Label>
-      <Form.Control
-        type="text"
-        list={listId}
-        value={text}
-        onChange={(event) => handleChange(event.target.value)}
-        onBlur={handleBlur}
-        disabled={disabled}
-        autoComplete="off"
-        placeholder="Type to select your constituency"
-      />
-      <datalist id={listId}>
-        {constituencies.map((constituency) => (
-          <option key={constituency.onsId} value={constituency.name} />
-        ))}
-      </datalist>
+    <Form.Group className={styles.combobox}>
+      <Form.Label {...getLabelProps({ htmlFor: inputId })}>
+        My constituency is
+      </Form.Label>
+      <InputGroup>
+        <Form.Control
+          {...getInputProps({
+            id: inputId,
+            disabled,
+            placeholder: "Type to select your constituency",
+          })}
+        />
+        <Button
+          variant="outline-secondary"
+          disabled={disabled}
+          // Downshift points the toggle's aria-labelledby at the field label,
+          // which would give the button the same accessible name as the input.
+          // Name it for what it does instead.
+          {...getToggleButtonProps({
+            "aria-label": "Show all constituencies",
+            "aria-labelledby": undefined,
+          })}
+        >
+          ▼
+        </Button>
+      </InputGroup>
+      <ul
+        {...getMenuProps()}
+        className={`dropdown-menu w-100 ${styles.menu} ${
+          isOpen && items.length > 0 ? "show" : ""
+        }`}
+      >
+        {isOpen &&
+          items.map((constituency, index) => (
+            <li key={constituency.onsId}>
+              <button
+                type="button"
+                className={`dropdown-item ${
+                  highlightedIndex === index ? "active" : ""
+                }`}
+                {...getItemProps({ item: constituency, index })}
+              >
+                {constituency.name}
+              </button>
+            </li>
+          ))}
+      </ul>
     </Form.Group>
   );
 }

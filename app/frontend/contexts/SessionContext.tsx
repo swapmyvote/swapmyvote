@@ -3,8 +3,8 @@ import { createContext, type ReactNode, useCallback, useMemo } from "react";
 import { apiClient } from "@/lib/apiClient";
 import type { SessionPayload } from "@/types/api";
 
-export const SESSION_PATH = "/session";
-export const SESSION_QUERY_KEY = ["session"] as const;
+export const sessionPath = "/session";
+export const sessionQueryKey = ["session"] as const;
 
 export interface SessionContextValue {
   /**
@@ -28,7 +28,7 @@ export interface SessionContextValue {
 export const SessionContext = createContext<SessionContextValue | null>(null);
 
 export function fetchSession(): Promise<SessionPayload> {
-  return apiClient.get<SessionPayload>(SESSION_PATH);
+  return apiClient.get<SessionPayload>(sessionPath);
 }
 
 /**
@@ -44,7 +44,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
 
   const query = useQuery({
-    queryKey: SESSION_QUERY_KEY,
+    queryKey: sessionQueryKey,
     queryFn: fetchSession,
     staleTime: 15_000,
     refetchInterval: 60_000,
@@ -55,8 +55,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const refetchSession = useCallback(() => refetch(), [refetch]);
 
   const logOut = useCallback(async () => {
-    const payload = await apiClient.delete<SessionPayload>(SESSION_PATH);
-    queryClient.setQueryData(SESSION_QUERY_KEY, payload);
+    const payload = await apiClient.delete<SessionPayload>(sessionPath);
+    queryClient.setQueryData(sessionQueryKey, payload);
     return payload;
   }, [queryClient]);
 

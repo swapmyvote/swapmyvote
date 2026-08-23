@@ -4,8 +4,8 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it } from "vitest";
 import { CookieConsentBanner } from "@/components/cookieConsent/CookieConsentBanner";
 import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
-import { CONSENT_COOKIE_NAME } from "@/lib/cookieConsent";
-import { STATIC_PATHS } from "@/lib/staticPaths";
+import { consentCookieName } from "@/lib/cookieConsent";
+import { spaPaths } from "@/lib/spaPaths";
 import { clearTestCookie, setTestCookie } from "@/test/cookieHelpers";
 
 function renderBanner() {
@@ -19,7 +19,7 @@ function renderBanner() {
 }
 
 afterEach(() => {
-  clearTestCookie(CONSENT_COOKIE_NAME);
+  clearTestCookie(consentCookieName);
 });
 
 describe("CookieConsentBanner", () => {
@@ -37,11 +37,11 @@ describe("CookieConsentBanner", () => {
     renderBanner();
     expect(
       screen.getByRole("link", { name: /cookie policy/i }),
-    ).toHaveAttribute("href", STATIC_PATHS.cookies);
+    ).toHaveAttribute("href", spaPaths.cookies);
   });
 
   it("stays hidden when the legacy site already recorded consent", () => {
-    setTestCookie(CONSENT_COOKIE_NAME, "dismiss");
+    setTestCookie(consentCookieName, "dismiss");
     renderBanner();
     expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   });
@@ -50,14 +50,14 @@ describe("CookieConsentBanner", () => {
     renderBanner();
     await userEvent.click(screen.getByRole("button", { name: /accept/i }));
     expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
-    expect(document.cookie).toContain(`${CONSENT_COOKIE_NAME}=allow`);
+    expect(document.cookie).toContain(`${consentCookieName}=allow`);
   });
 
   it("hides and persists deny when declined", async () => {
     renderBanner();
     await userEvent.click(screen.getByRole("button", { name: /decline/i }));
     expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
-    expect(document.cookie).toContain(`${CONSENT_COOKIE_NAME}=deny`);
+    expect(document.cookie).toContain(`${consentCookieName}=deny`);
   });
 
   it("puts both choices in the keyboard tab order", async () => {

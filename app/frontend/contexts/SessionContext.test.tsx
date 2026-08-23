@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { useSession } from "@/contexts/useSession";
 import { apiClient } from "@/lib/apiClient";
-import { sessionPayload, TEST_USER } from "@/test/sessionFixtures";
+import { sessionPayload, testUser } from "@/test/sessionFixtures";
 
 vi.mock("@/lib/apiClient", () => ({
   apiClient: { get: vi.fn(), delete: vi.fn() },
@@ -44,7 +44,7 @@ function renderWithProvider(children: ReactNode) {
 describe("SessionProvider", () => {
   beforeEach(() => {
     vi.mocked(apiClient.get).mockResolvedValue(
-      sessionPayload({ currentUser: TEST_USER }),
+      sessionPayload({ currentUser: testUser }),
     );
   });
 
