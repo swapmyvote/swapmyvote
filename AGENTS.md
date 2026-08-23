@@ -6,7 +6,7 @@ Some conventions here are ported from the sibling repo **tacticalvote** (`../tac
 
 ## What this project is
 
-swapmyvote is a **Ruby on Rails 6.1** app (Ruby 3.3.2; SQLite in dev/test, Postgres in prod) that matches voters who want to swap votes tactically. Core domain lives in `app/models/` (`user.rb`, `swap.rb`, `potential_swap.rb`, `poll.rb`, `ons_constituency.rb`). Auth is Devise + OmniAuth (Twitter/Facebook) with SMS OTP via MessageBird. A five-phase operational engine (`app/controllers/concerns/app_mode_concern.rb`, driven by `ENV["SWAPMYVOTE_MODE"]`) gates most actions.
+swapmyvote is a **Ruby on Rails 6.1** app (Ruby 3.3.12; SQLite in dev/test, Postgres in prod) that matches voters who want to swap votes tactically. Core domain lives in `app/models/` (`user.rb`, `swap.rb`, `potential_swap.rb`, `poll.rb`, `ons_constituency.rb`). Auth is Devise + OmniAuth (Twitter/Facebook) with SMS OTP via MessageBird. A five-phase operational engine (`app/controllers/concerns/app_mode_concern.rb`, driven by `ENV["SWAPMYVOTE_MODE"]`) gates most actions.
 
 ### Frontend modernization (in progress)
 
@@ -49,7 +49,7 @@ bin/rails db:prepare      # create + migrate dev DB
 
 ### Local environment gotchas
 
-- **Ruby**: the project pins **3.3.2** via rbenv (`.ruby-version`), but a newer system Ruby may shadow the rbenv shims. Prefix commands so the pinned Ruby wins, e.g. `PATH="$HOME/.rbenv/shims:$PATH" bundle exec …`, or use `rbenv exec`.
+- **Ruby**: the project pins **3.3.12** via rbenv (`.ruby-version`), but a newer system Ruby may shadow the rbenv shims. Prefix commands so the pinned Ruby wins, e.g. `PATH="$HOME/.rbenv/shims:$PATH" bundle exec …`, or use `rbenv exec`.
 - **Vite CLI**: use `bundle exec vite …` (not `bin/vite`) — `bin/vite`'s Bundler-binstub check can fail depending on how binstubs were generated. `Procfile.dev` already uses `bundle exec vite`.
 - **Legacy Webpacker packs** (`app/javascript/packs/*`) are built by webpack 4, which fails on Node ≥17 with an OpenSSL 3 error (`digital envelope routines::unsupported`). This breaks legacy HAML pages that still use `javascript_pack_tag` (e.g. the home page's `postcodesHelper`). It is unrelated to the Vite SPA and is resolved as those packs are ported to React (then the `webpacker` gem is removed).
 

@@ -9,7 +9,7 @@
   "repository": "https://github.com/swapmyvote/swapmyvote",
   "logo": "https://github.com/swapmyvote/swapmyvote/blob/master/app/assets/images/logo-1024x1024.png",
   "success_url": "/",
-  "stack": "heroku-22",
+  "stack": "heroku-26",
   "env": {
     "HEROKU_APP_NAME": {
       "required": true
