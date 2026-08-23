@@ -31,8 +31,11 @@ export function Section({
   const background = tone === "light" ? "bg-body-tertiary" : "bg-white";
   const inner = centered ? "text-center" : "";
 
+  // py-4 (1.5rem) rather than py-5: each band has a rule under it, so adjacent
+  // bands stack their padding and py-5 put 6rem between one band's content and
+  // the next.
   return (
-    <section className={`${background} border-bottom py-5`}>
+    <section className={`${background} border-bottom py-4`}>
       <div className="container">
         {narrow ? (
           <div className="row justify-content-center">

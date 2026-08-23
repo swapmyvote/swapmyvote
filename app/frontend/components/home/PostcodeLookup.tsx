@@ -124,7 +124,7 @@ export function PostcodeLookup({
 
       <p className="small text-muted mt-2 mb-0">
         Your postcode is only used to find your constituency; we do not retain
-        this info
+        this information
       </p>
     </div>
   );
