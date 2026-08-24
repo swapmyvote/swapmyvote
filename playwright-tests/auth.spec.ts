@@ -54,8 +54,17 @@ test("must sign up, then log out, then log back in", async ({ page }) => {
 
   await page.getByRole("button", { name: "Log out" }).click();
 
-  // Log out deliberately ends on the legacy HAML home page.
+  // Log out deliberately ends on the legacy HAML home page. A mere URL match
+  // would still pass if DELETE /api/v1/session silently failed server-side —
+  // Navigation.handleLogOut swallows that error and navigates anyway — so
+  // assert the real signal instead: the home page's layout renders
+  // layouts/_login (this link) when logged out and layouts/_current_user (a
+  // "Log out" link) when logged in, never both.
   await expect(page).toHaveURL(/\/$/);
+  await expect(
+    page.getByRole("link", { name: "Already been here? Log in" }),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Log out" })).toHaveCount(0);
 
   await page.goto(spaPaths.login);
   await page.getByLabel("Email").fill(email);
