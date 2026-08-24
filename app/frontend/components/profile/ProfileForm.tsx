@@ -4,8 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { ConstituencyAutocomplete } from "@/components/home/ConstituencyAutocomplete";
 import { PostcodeLookup } from "@/components/home/PostcodeLookup";
-import { ApiError } from "@/lib/apiClient";
-import { updateProfile } from "@/lib/profile";
+import { apiErrorMessages, updateProfile } from "@/lib/profile";
 import type {
   Constituency,
   CurrentUser,
@@ -85,11 +84,7 @@ export function ProfileForm({
       });
       onSaved(result);
     } catch (error) {
-      const messages =
-        error instanceof ApiError && error.messages.length > 0
-          ? error.messages
-          : ["Something went wrong - please try that again."];
-      setErrors(messages);
+      setErrors(apiErrorMessages(error));
     } finally {
       setSaving(false);
     }
@@ -178,8 +173,9 @@ export function ProfileForm({
 
         {errors.length > 0 && (
           <Alert variant="danger" className="small mb-0" role="alert">
-            {errors.map((message) => (
-              <p key={message} className="mb-0">
+            {errors.map((message, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: a static list rendered once per save; message text is not unique, so the index is the only stable key.
+              <p key={index} className="mb-0">
                 {message}
               </p>
             ))}

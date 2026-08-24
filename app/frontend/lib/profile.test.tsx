@@ -2,13 +2,21 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook, waitFor } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { apiClient } from "@/lib/apiClient";
-import { updateProfile, useConstituencyDetail } from "@/lib/profile";
+import { ApiError, apiClient } from "@/lib/apiClient";
+import {
+  apiErrorMessages,
+  updateProfile,
+  useConstituencyDetail,
+} from "@/lib/profile";
 import type { ConstituencyDetail } from "@/types/api";
 
-vi.mock("@/lib/apiClient", () => ({
-  apiClient: { get: vi.fn(), patch: vi.fn() },
-}));
+vi.mock("@/lib/apiClient", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/apiClient")>();
+  return {
+    ...actual,
+    apiClient: { get: vi.fn(), patch: vi.fn() },
+  };
+});
 
 const detail: ConstituencyDetail = {
   onsId: "E14001063",
@@ -24,6 +32,40 @@ function wrapper({ children }: { children: ReactNode }) {
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 }
+
+describe("apiErrorMessages", () => {
+  it("returns the API's own messages when there are any", () => {
+    const error = new ApiError(422, {
+      error: {
+        code: "validation_failed",
+        messages: ["Email is invalid", "Constituency is required"],
+        fields: {},
+      },
+    });
+
+    expect(apiErrorMessages(error)).toEqual([
+      "Email is invalid",
+      "Constituency is required",
+    ]);
+  });
+
+  it("falls back to the shared generic message for an ApiError with no messages", () => {
+    const error = new ApiError(500, null);
+
+    expect(apiErrorMessages(error)).toEqual([
+      "Something went wrong - please try that again.",
+    ]);
+  });
+
+  it("falls back to the shared generic message for a non-ApiError failure", () => {
+    expect(apiErrorMessages(new Error("network down"))).toEqual([
+      "Something went wrong - please try that again.",
+    ]);
+    expect(apiErrorMessages("not even an error")).toEqual([
+      "Something went wrong - please try that again.",
+    ]);
+  });
+});
 
 describe("updateProfile", () => {
   beforeEach(() => {

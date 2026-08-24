@@ -6,7 +6,10 @@ import { ApiError } from "@/lib/apiClient";
 import { updateProfile } from "@/lib/profile";
 import type { Constituency } from "@/types/api";
 
-vi.mock("@/lib/profile", () => ({ updateProfile: vi.fn() }));
+vi.mock("@/lib/profile", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/profile")>();
+  return { ...actual, updateProfile: vi.fn() };
+});
 
 const constituencies: Constituency[] = [
   { onsId: "E14001063", name: "Woking" },
