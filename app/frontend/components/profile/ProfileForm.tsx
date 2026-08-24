@@ -4,8 +4,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { ConstituencyAutocomplete } from "@/components/home/ConstituencyAutocomplete";
 import { PostcodeLookup } from "@/components/home/PostcodeLookup";
+import { apiErrorMessages } from "@/lib/apiErrors";
 import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
-import { apiErrorMessages, updateProfile } from "@/lib/profile";
+import { updateProfile } from "@/lib/profile";
 import type {
   Constituency,
   CurrentUser,

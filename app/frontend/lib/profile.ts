@@ -1,26 +1,10 @@
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
-import { apiClient, ApiError } from "@/lib/apiClient";
+import { apiClient } from "@/lib/apiClient";
 import type {
   ConstituencyDetail,
   ProfileUpdate,
   ProfileUpdateResult,
 } from "@/types/api";
-
-// Matches base_controller.rb's own copy for handle_unverified_request and
-// other unhandled failures.
-const genericFailureMessage = "Something went wrong - please try that again.";
-
-/**
- * The messages to show for a failed profile save: the API's own messages
- * when there are any, the shared fallback otherwise. Shared by
- * ConstituencyForm and ProfileForm so their catch blocks do not drift.
- */
-export function apiErrorMessages(error: unknown): string[] {
-  if (error instanceof ApiError && error.messages.length > 0) {
-    return error.messages;
-  }
-  return [genericFailureMessage];
-}
 
 /**
  * Save the logged-in user's profile. Only the fields passed are sent, so the
