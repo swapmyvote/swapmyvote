@@ -13,5 +13,12 @@ export async function signIn(
   await page.getByLabel("Email").fill(email);
   await page.getByLabel("Password").fill(password);
   await page.getByRole("button", { name: "Log in" }).click();
+
+  // "not signed-in URL" alone would also pass on a 500 or an unrelated
+  // redirect — assert a real signed-in signal instead, so a broken login
+  // fails loudly here rather than as a confusing timeout in whichever test
+  // called this. Devise lands on the legacy dashboard (still HAML), whose
+  // layout renders this "Log out" link whenever someone is signed in.
+  await expect(page.getByRole("link", { name: "Log out" })).toBeVisible();
   await expect(page).not.toHaveURL(/sign_in/);
 }

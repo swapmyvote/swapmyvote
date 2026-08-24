@@ -67,14 +67,6 @@ $body-bg: #f8f9fa;
 $link-color: #212529;
 $input-bg: #fff;
 
-// Bootstrap's default $card-bg tracks $body-bg via a CSS var fallback, so
-// without this a card would pick up the page's faint gray instead of white.
-// That's the intended "white card on a tinted page" look confirmed with a
-// one-off eyeball check, but it also nudges .btn-outline-secondary's text
-// (#6c757d, already at the edge of AA on white) just under the 4.5:1 minimum
-// — caught by the Constituency screen's axe scan (postcode Search button).
-$card-bg: #fff;
-
 // $code-color otherwise inherits $pink (#ff99ff), which is unreadable on the
 // light background. Use a dark magenta that keeps the brand tint but passes
 // contrast for inline <code> (e.g. cookie names on the Cookie Policy page).
@@ -109,6 +101,29 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
 @import "bootstrap/scss/grid";
 @import "bootstrap/scss/forms";
 @import "bootstrap/scss/buttons";
+
+// .btn-outline-secondary's default foreground/border is $secondary
+// ($gray-600, #6c757d): 4.689:1 on white (passes AA) but 4.449:1 on
+// $body-bg/bg-body-tertiary (both $gray-100, #f8f9fa — fails AA's 4.5:1).
+// The postcode Search button on /app/constituency sits on that background,
+// caught by its axe scan. Scoped to this one button variant rather than
+// redefining $secondary itself, which also drives badges, text-secondary,
+// and other elements not audited here. $gray-700 passes comfortably on
+// every surface this button appears on: 8.176:1 on white, 7.757:1 on
+// $body-bg/bg-body-tertiary.
+.btn-outline-secondary {
+  --#{$prefix}btn-color: #{$gray-700};
+  --#{$prefix}btn-border-color: #{$gray-700};
+  --#{$prefix}btn-hover-color: #{color-contrast($gray-700)};
+  --#{$prefix}btn-hover-bg: #{$gray-700};
+  --#{$prefix}btn-hover-border-color: #{$gray-700};
+  --#{$prefix}btn-active-color: #{color-contrast($gray-700)};
+  --#{$prefix}btn-active-bg: #{$gray-700};
+  --#{$prefix}btn-active-border-color: #{$gray-700};
+  --#{$prefix}btn-disabled-color: #{$gray-700};
+  --#{$prefix}btn-disabled-border-color: #{$gray-700};
+}
+
 @import "bootstrap/scss/transitions";
 @import "bootstrap/scss/button-group";
 // Needed by the constituency combobox, whose menu is a .dropdown-menu of

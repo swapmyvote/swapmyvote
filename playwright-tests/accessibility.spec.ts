@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, type Locator, type Page, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn } from "./support/auth";
 import { seedProfileUser } from "./support/seedProfileUser";
@@ -59,19 +59,43 @@ for (const { name, path } of migratedPages) {
 // save race the other's read.
 const credentials = seedProfileUser("-axe");
 
-const signedInPages = [
-  { name: "Profile", path: spaPaths.profile },
-  { name: "Constituency", path: spaPaths.constituency },
-  { name: "Review", path: spaPaths.review },
+// Unlike the public pages above, these three fetch reference data (parties,
+// constituencies, poll results) before showing real content, and show a
+// spinner meanwhile. `main` non-empty is satisfied by the heading alone —
+// that's the card's static header, present even while the body is just a
+// spinner — so it would let the scan run against a card containing nothing
+// but that spinner and miss anything (like the postcode Search button) that
+// only exists once the form has actually loaded. Wait for a locator that
+// only appears once the real content has rendered instead.
+const signedInPages: {
+  name: string;
+  path: string;
+  ready: (page: Page) => Locator;
+}[] = [
+  {
+    name: "Profile",
+    path: spaPaths.profile,
+    ready: (page) => page.getByRole("combobox", { name: "My constituency is" }),
+  },
+  {
+    name: "Constituency",
+    path: spaPaths.constituency,
+    ready: (page) => page.getByRole("combobox", { name: "My constituency is" }),
+  },
+  {
+    name: "Review",
+    path: spaPaths.review,
+    ready: (page) => page.getByRole("img", { name: /predicted vote share/i }),
+  },
 ];
 
-for (const { name, path } of signedInPages) {
+for (const { name, path, ready } of signedInPages) {
   test(`must report no WCAG A/AA violations when the ${name} page is rendered`, async ({
     page,
   }, testInfo) => {
     await signIn(page, credentials);
     await page.goto(path);
-    await expect(page.getByRole("main")).not.toBeEmpty();
+    await expect(ready(page)).toBeVisible();
 
     const { violations } = await new AxeBuilder({ page })
       .withTags(wcagTags)

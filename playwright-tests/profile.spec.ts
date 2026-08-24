@@ -34,16 +34,31 @@ test.describe("profile screen", () => {
     await expect(page.getByText(/predicted results for Woking/i)).toBeVisible();
   });
 
-  test("must save an email change without asking for a review", async ({
+  test("must save an email change, without asking for a review, and keep it", async ({
     page,
   }) => {
-    await page.goto(spaPaths.profile);
+    // A genuinely different address, not the one already there: filling in
+    // the value the field already holds would pass even if the save quietly
+    // dropped the edit. Reverted to the original at the end of the test so
+    // the fixture row (and signIn() for any other test/run reusing it) stays
+    // on the email seedProfileUser() actually seeds.
+    const updatedEmail = credentials.email.replace("@", "+updated@");
 
-    await page.getByLabel(/email address/i).fill(credentials.email);
+    await page.goto(spaPaths.profile);
+    await page.getByLabel(/email address/i).fill(updatedEmail);
     await page.getByRole("button", { name: "Save" }).click();
 
     await expect(page.getByText(/your profile has been saved/i)).toBeVisible();
     await expect(page).toHaveURL(new RegExp(`${spaPaths.profile}$`));
+
+    // Round-trip: reload from the server rather than trusting the form's own
+    // (already-submitted) local state.
+    await page.reload();
+    await expect(page.getByLabel(/email address/i)).toHaveValue(updatedEmail);
+
+    await page.getByLabel(/email address/i).fill(credentials.email);
+    await page.getByRole("button", { name: "Save" }).click();
+    await expect(page.getByText(/your profile has been saved/i)).toBeVisible();
   });
 });
 
