@@ -23,8 +23,9 @@ interface EntryFormProps {
  * The step the user is on is held here rather than in the Rails session. The
  * legacy flow round-tripped to the server between steps because it had to —
  * each step was a form POST. The answers are still stashed server-side after
- * each step (POST /api/v1/pre_populate), because they have to survive the trip
- * out to Devise and OmniAuth, which leaves the SPA entirely.
+ * each step (POST /api/v1/pre_populate), because that is where they are read
+ * from: the sign-up endpoint applies them to the new account itself, and the
+ * client never sends them.
  */
 export function EntryForm({
   constituencies,

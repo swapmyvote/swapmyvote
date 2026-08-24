@@ -54,10 +54,21 @@ because sign-up is the point at which those answers become a user.
 ## API
 
 Both endpoints answer with the **same `SessionPayload`** as
-`GET /api/v1/session`. The SPA primes its session cache from the response
-rather than racing a refetch — the pattern `SessionContext#logOut` already
-uses. The payload builder moves off `Api::V1::SessionController` into a shared
+`GET /api/v1/session`, so the caller learns who it is now talking as without a
+second round trip. `Login` and `SignUp` read the landing decision straight out
+of it and then `await refetchSession()`, so every other consumer of the
+react-query cache sees the new user too; `SessionContext#logOut` is the one
+that primes the cache from the response instead of refetching. The payload
+builder moves off `Api::V1::SessionController` into a shared
 `Api::V1::SessionPayload` concern that all three controllers include.
+
+All three session-changing endpoints also return the **rotated CSRF token** in
+an `X-CSRF-Token` response header. Signing in deletes `session[:_csrf_token]`
+(Devise's `csrf_cleaner` hook) and signing out throws the session away, so the
+token the SPA read from `<meta name="csrf-token">` at boot is dead from that
+point on and it has no other way to learn the replacement short of a full page
+load. Returning it is safe: same-origin only, and it is not a secret from a
+page that is already holding one.
 
 ### `POST /api/v1/session` — `Api::V1::SessionController#create`
 
@@ -68,17 +79,34 @@ and `Api::V1::PrePopulateController` already read their params:
 { "email": "…", "password": "…" }
 ```
 
-Guard: `require_logins_open!` → 403 `logins_closed`.
+Guards, in order:
+
+1. `require_logins_open!` → 403 `logins_closed`
+2. `reject_when_logged_in!` → 403 `already_authenticated`, mirroring the
+   `require_no_authentication` Devise prepends to its own
+   `SessionsController` — an already-signed-in caller must not be able to swap
+   accounts through this endpoint.
 
 Implementation is explicit rather than `warden.authenticate`:
 
 ```ruby
-user = User.find_by("lower(email) = ?", email.to_s.downcase)
+return render_invalid_credentials if email.blank?
+
+user = User.find_by("lower(email) = ?", email)
 return render_invalid_credentials unless user&.valid_password?(password)
 
-sign_in(user)
+sign_in(user, event: :authentication)
 remember_me(user)
 ```
+
+A blank `email` is refused before the lookup: a non-scalar one is dropped by
+`permit` and would otherwise reach `lower(email) = ''`, which matches the
+blank-email row a social sign-up leaves behind.
+
+`event: :authentication` is what makes Warden run Devise's
+`after_authentication` hooks, `csrf_cleaner` among them. `warden.authenticate!`
+does this on the legacy path; a plain `sign_in` would leave this endpoint
+weaker than the one it replaces.
 
 **Why not Warden.** Warden's `database_authenticatable` strategy reads
 credentials through `Rack::Request#POST`, which parses form and multipart
@@ -89,8 +117,9 @@ credentials and every login would fail. Only `:database_authenticatable` and
 `:timeoutable` — so `valid_password?` + `sign_in` is a faithful reimplementation
 of what the strategy would have done, not a shortcut past it.
 
-`remember_me` is unconditional, matching the legacy
-`params[:user].merge!(remember_me: 1)`.
+`remember_me` is unconditional **on login only**, matching the legacy
+`params[:user].merge!(remember_me: 1)` the login form sent. Registration does
+not remember: Devise's `sign_up` never did either.
 
 Failure is **401 `invalid_credentials`** with a single generic message. It never
 distinguishes "no such account" from "wrong password", so the endpoint is not an
@@ -107,13 +136,16 @@ Body:
   "password_confirmation": "…",
   "consent_news_email": false,
   "consent_to_data_processing": true,
-  "nickname": "" }
+  "swap_reference": "" }
 ```
 
 Guards, in order:
 
 1. `require_logins_open!` → 403 `logins_closed`
-2. `reject_honeypot!` → 422 `spam_detected`
+2. `reject_when_logged_in!` → 403 `already_authenticated` — without it a
+   logged-in user could create a second account, be switched into it, orphan
+   the first and consume their `pre_populate` stash
+3. `reject_honeypot!` → 422 `spam_detected`
 
 Permitted attributes mirror `Users::RegistrationsController#configure_sign_up_params`
 minus the party and constituency ids, which now come from the session (below):
@@ -123,10 +155,11 @@ minus the party and constituency ids, which now come from the session (below):
 `consent_to_data_processing` is a virtual attribute (`validates … acceptance: true`),
 not a column. `consent_news_email` is a real column.
 
-`name` is always sent, `""` rather than omitted when blank.
-`User#check_name_is_not_email` calls `name.include?("@")` unguarded, so a
-genuine `nil` raises `NoMethodError` before `validates :name, presence: true`
-can report it. An empty string validates normally.
+`name` is always sent, `""` rather than omitted when blank, and the controller
+defaults it to `""` besides. `User#check_name_is_not_email` calls
+`name.include?("@")` unguarded, so a genuine `nil` raises `NoMethodError`
+before `validates :name, presence: true` can report it — a 500 where a 422
+belongs. An empty string validates normally.
 
 `user.save!` → the existing `rescue_from ActiveRecord::RecordInvalid` → 422
 `validation_failed` with `fields`, so per-field messages need no new code.
@@ -166,9 +199,13 @@ dangling.
 HAML, so it cannot cross to a JSON API. `Users::RegistrationsController` keeps
 using the gem unchanged; the React form gets an equivalent.
 
-`SignUpForm` renders a permanently hidden `nickname` input, and
-`reject_honeypot!` answers 422 `spam_detected` when it arrives non-blank. It is not a `User` attribute, so it is
-permitted separately from the ones that are.
+`SignUpForm` renders a permanently hidden `swap_reference` input, and
+`reject_honeypot!` answers 422 `spam_detected` when it arrives non-blank. It is
+not a `User` attribute, so it is permitted separately from the ones that are.
+The field name is deliberately meaningless: `nickname` is a standard HTML
+autocomplete token, so a password manager would fill it in and hand a real user
+a 422 they can neither see nor clear — which is why `invisible_captcha`
+randomises its own field name.
 
 This is deliberately the weaker half of what the gem does — the timestamp check
 is already disabled on the legacy controller (`timestamp_enabled: false`,
@@ -210,6 +247,7 @@ New files under `app/frontend/`:
 | `components/auth/LoginForm.tsx` | Email + password, submit, error rendering. |
 | `components/auth/SignUpForm.tsx` | The six fields, the honeypot, per-field errors. |
 | `components/auth/RequireLoginsOpen.tsx` | Renders a "logins are closed" notice instead of its children when `!loginsOpen`, mirroring `RequireLogin`'s shape. |
+| `components/auth/RequireLoggedOut.tsx` | Redirects to `postAuthPath(session)` instead of its children when someone already logged in reaches either page. |
 | `pages/Login.tsx`, `pages/SignUp.tsx` | Page chrome, `RequireLoginsOpen`, and the navigation on success. |
 
 `spaPaths` gains `login: "/app/login"` and `signup: "/app/signup"`;
@@ -235,22 +273,28 @@ checkboxes stacked with labels aligned to the control. Errors render as a
 **Vitest** (`app/frontend/**/*.test.tsx`):
 
 - `LoginForm` — success calls `onSuccess`; 401 renders the generic message; a
-  failed submit re-enables the button.
+  failed submit re-enables the button; both links point where they should.
 - `SignUpForm` — success; 422 renders per-field messages against the right
   fields; the honeypot input exists and is hidden from the accessibility tree.
 - `RequireLoginsOpen` — children when open, notice when closed.
+- `RequireLoggedOut` — children when logged out, redirect when logged in.
+- `apiClient` — a rotated token in a response header is used on the next
+  request, in preference to the boot-time meta tag.
 - `postAuthPath` — both branches.
 
 **RSpec** (`spec/requests/api/v1/`):
 
 - `session_spec.rb` gains `POST` cases: success returns the logged-in payload
-  and sets the session; wrong password and unknown email both return the same
-  401 body; 403 when logins are closed; CSRF rejection.
+  and sets the session; wrong password, unknown email and a blank email all
+  return the same 401 body; 403 when logins are closed; 403 when already
+  logged in; CSRF rejection; and the token in the session actually rotates,
+  with the response carrying one the next request can use.
 - New `registration_spec.rb`: creates the user and signs them in; merges
   `pre_populate` written by `Api::V1::PrePopulateController` **and** by the
-  legacy deep-link route; 422 `spam_detected` on a filled honeypot; 422 with
-  tag-free messages on a duplicate email; 403 when logins are closed; CSRF
-  rejection.
+  legacy deep-link route; ignores party and constituency ids sent in the body;
+  422 `spam_detected` on a filled honeypot; 422 with tag-free messages on a
+  duplicate email; 422 rather than a 500 when `name` is omitted; 403 when
+  logins are closed; 403 when already logged in; CSRF rejection and rotation.
 
 **Playwright** (`playwright-tests/auth.spec.ts`): sign up through `/app/signup`,
 land on `/app/constituency`, log out, log back in through `/app/login`. Plus
