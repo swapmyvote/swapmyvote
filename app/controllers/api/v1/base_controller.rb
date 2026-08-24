@@ -70,8 +70,25 @@ module Api
       end
 
       def render_error(code:, status:, messages: [], fields: {})
-        render json: { error: { code: code, messages: messages, fields: fields } },
-               status: status
+        render json: {
+          error: {
+            code: code,
+            messages: messages.map { |message| plain_text(message) },
+            fields: fields.transform_values do |values|
+              Array(values).map { |value| plain_text(value) }
+            end
+          }
+        }, status: status
+      end
+
+      # Validation messages can carry markup: UserErrorsConcern builds its
+      # "email already taken" message with link_to. JSON is not a template, so
+      # a tag would reach React as literal text. Stripping here rather than in
+      # render_record_invalid covers every error the API emits, including
+      # Api::V1::UsersController, which renders its validation failures itself
+      # instead of raising.
+      def plain_text(message)
+        ActionController::Base.helpers.strip_tags(message.to_s)
       end
 
       def render_not_found(_exception)

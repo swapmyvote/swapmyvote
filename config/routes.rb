@@ -24,6 +24,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :session, only: [:show, :create, :destroy], controller: "session"
 
+      # Sign-up. The entry form's answers come from the session stash below,
+      # not from the client, so this takes only the account's own fields.
+      resource :registration, only: [:create], controller: "registration"
+
       # The logged-in user's own profile — the React profile and constituency
       # screens both patch this.
       resource :user, only: [:update], controller: "users"
