@@ -11,22 +11,25 @@ import {
   testUser,
   TestSessionProvider,
 } from "@/test/sessionFixtures";
+import type { SessionPayload } from "@/types/api";
 
 vi.mock("@/lib/auth", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@/lib/auth")>();
   return { ...actual, signUp: vi.fn() };
 });
 
-function renderPage(loginsOpen = true) {
+function renderPage(loginsOpen = true, session?: SessionPayload) {
   const refetchSession = vi.fn().mockResolvedValue(null);
   render(
     <TestSessionProvider
       value={sessionValue({
         refetchSession,
-        session: sessionPayload({
-          appMode: loginsOpen ? "open" : "closed-warm-up",
-          flags: { loginsOpen },
-        }),
+        session:
+          session ??
+          sessionPayload({
+            appMode: loginsOpen ? "open" : "closed-warm-up",
+            flags: { loginsOpen },
+          }),
       })}
     >
       <MemoryRouter initialEntries={[spaPaths.signup]}>
@@ -94,5 +97,15 @@ describe("SignUp", () => {
 
     expect(screen.queryByLabelText("Your name")).not.toBeInTheDocument();
     expect(screen.getByRole("alert")).toHaveTextContent(/not open/i);
+  });
+
+  // The endpoint refuses an already-authenticated caller (403
+  // already_authenticated) — without this a logged-in user could create a
+  // second account and orphan their first.
+  it("sends an already-logged-in visitor on instead of showing the form", () => {
+    renderPage(true, sessionPayload({ currentUser: testUser }));
+
+    expect(screen.queryByLabelText("Your name")).not.toBeInTheDocument();
+    expect(screen.getByText("Home")).toBeInTheDocument();
   });
 });

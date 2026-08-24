@@ -13,8 +13,10 @@ export interface Registration extends Credentials {
   consentNewsEmail: boolean;
   consentToDataProcessing: boolean;
   /** Honeypot. Always sent, always empty for a real person — the API rejects
-   *  a sign-up that arrives with anything in it. */
-  nickname: string;
+   *  a sign-up that arrives with anything in it. Named to look like nothing an
+   *  autocomplete heuristic recognises, so no password manager fills it in on
+   *  a real user's behalf. */
+  swapReference: string;
 }
 
 /** Log in. Answers with the logged-in session payload, so the caller can
@@ -42,7 +44,7 @@ export function signUp(registration: Registration): Promise<SessionPayload> {
     password_confirmation: registration.passwordConfirmation,
     consent_news_email: registration.consentNewsEmail,
     consent_to_data_processing: registration.consentToDataProcessing,
-    nickname: registration.nickname,
+    swap_reference: registration.swapReference,
   });
 }
 

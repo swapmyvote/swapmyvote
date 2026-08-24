@@ -1,6 +1,7 @@
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
+import { RequireLoggedOut } from "@/components/auth/RequireLoggedOut";
 import { RequireLoginsOpen } from "@/components/auth/RequireLoginsOpen";
 import { SignUpForm } from "@/components/auth/SignUpForm";
 import { useSession } from "@/contexts/useSession";
@@ -24,17 +25,19 @@ export function SignUp() {
   }
 
   return (
-    <RequireLoginsOpen>
-      <Container className="container-narrow py-4">
-        <Card>
-          <Card.Header>
-            <h1 className="h4 mb-0">Sign up</h1>
-          </Card.Header>
-          <Card.Body>
-            <SignUpForm onSignedUp={handleSignedUp} />
-          </Card.Body>
-        </Card>
-      </Container>
-    </RequireLoginsOpen>
+    <RequireLoggedOut>
+      <RequireLoginsOpen>
+        <Container className="container-narrow py-4">
+          <Card>
+            <Card.Header>
+              <h1 className="h4 mb-0">Sign up</h1>
+            </Card.Header>
+            <Card.Body>
+              <SignUpForm onSignedUp={handleSignedUp} />
+            </Card.Body>
+          </Card>
+        </Container>
+      </RequireLoginsOpen>
+    </RequireLoggedOut>
   );
 }

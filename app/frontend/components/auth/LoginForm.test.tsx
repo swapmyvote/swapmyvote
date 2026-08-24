@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { ApiError } from "@/lib/apiClient";
@@ -11,9 +12,15 @@ vi.mock("@/lib/auth", async (importOriginal) => {
   return { ...actual, logIn: vi.fn() };
 });
 
+// LoginForm links to the sign-up page with react-router's <Link>, which needs
+// a router in the tree.
 function renderForm() {
   const onLoggedIn = vi.fn();
-  render(<LoginForm onLoggedIn={onLoggedIn} />);
+  render(
+    <MemoryRouter>
+      <LoginForm onLoggedIn={onLoggedIn} />
+    </MemoryRouter>,
+  );
   return { onLoggedIn };
 }
 
@@ -83,5 +90,16 @@ describe("LoginForm", () => {
     expect(
       screen.getByRole("link", { name: /forgotten password/i }),
     ).toHaveAttribute("href", "/users/password/new");
+  });
+
+  // The legacy page offers this too, and without it /app/login is a dead end
+  // for someone who has no account yet.
+  it("links to the sign-up page, which is inside the SPA", () => {
+    renderForm();
+
+    expect(screen.getByRole("link", { name: /sign up/i })).toHaveAttribute(
+      "href",
+      "/app/signup",
+    );
   });
 });

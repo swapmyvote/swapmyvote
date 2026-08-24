@@ -1,9 +1,11 @@
 import { type FormEvent, useId, useState } from "react";
-import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
+import { FormErrors } from "@/components/forms/FormErrors";
 import { apiErrorMessages } from "@/lib/apiErrors";
 import { logIn } from "@/lib/auth";
+import { spaPaths } from "@/lib/spaPaths";
 import type { SessionPayload } from "@/types/api";
 
 interface LoginFormProps {
@@ -16,7 +18,9 @@ const hamlForgottenPassword = "/users/password/new";
 
 /**
  * Ports app/views/devise/sessions/new.html.erb — email, password, and the two
- * links that sit under it.
+ * ways off the page the legacy view offers: password reset and sign-up.
+ * Password reset is still Devise HAML, so it is a full-page anchor; sign-up
+ * has been ported, so it is a router <Link>.
  */
 export function LoginForm({ onLoggedIn }: LoginFormProps) {
   const emailId = useId();
@@ -65,16 +69,7 @@ export function LoginForm({ onLoggedIn }: LoginFormProps) {
           />
         </Form.Group>
 
-        {errors.length > 0 && (
-          <Alert variant="danger" className="small mb-0" role="alert">
-            {errors.map((message, index) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: a static list rendered once per submit; message text is not unique, so the index is the only stable key.
-              <p key={index} className="mb-0">
-                {message}
-              </p>
-            ))}
-          </Alert>
-        )}
+        <FormErrors messages={errors} />
 
         <Button type="submit" variant="primary" disabled={submitting}>
           Log in
@@ -82,6 +77,10 @@ export function LoginForm({ onLoggedIn }: LoginFormProps) {
 
         <p className="small subdued mb-0">
           <a href={hamlForgottenPassword}>Forgotten password?</a>
+        </p>
+
+        <p className="small subdued mb-0">
+          Or need to <Link to={spaPaths.signup}>sign up</Link>?
         </p>
       </div>
     </form>

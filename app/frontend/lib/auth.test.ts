@@ -41,7 +41,7 @@ describe("signUp", () => {
       passwordConfirmation: "correct-horse",
       consentNewsEmail: true,
       consentToDataProcessing: true,
-      nickname: "",
+      swapReference: "",
     });
 
     expect(apiClient.post).toHaveBeenCalledWith("/registration", {
@@ -51,7 +51,7 @@ describe("signUp", () => {
       password_confirmation: "correct-horse",
       consent_news_email: true,
       consent_to_data_processing: true,
-      nickname: "",
+      swap_reference: "",
     });
   });
 });

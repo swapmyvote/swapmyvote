@@ -59,7 +59,7 @@ describe("SignUpForm", () => {
         passwordConfirmation: "correct-horse",
         consentNewsEmail: false,
         consentToDataProcessing: true,
-        nickname: "",
+        swapReference: "",
       }),
     );
     expect(onSignedUp).toHaveBeenCalledWith(
@@ -92,14 +92,39 @@ describe("SignUpForm", () => {
   // has to exist, stay empty, and stay out of everyone's way.
   it("carries a honeypot that no real user can see or reach", () => {
     const { container } = renderForm();
+    // Deliberately not a name any autocomplete heuristic recognises: a
+    // password manager filling it in would hand a real user a 422 they can
+    // neither see nor clear.
     const honeypot = container.querySelector<HTMLInputElement>(
-      "input[name='nickname']",
+      "input[name='swap_reference']",
     );
 
     expect(honeypot).not.toBeNull();
     expect(honeypot).toHaveValue("");
     expect(honeypot).toHaveAttribute("tabindex", "-1");
     expect(honeypot).toHaveAttribute("aria-hidden", "true");
+    expect(honeypot).toHaveAttribute("autocomplete", "off");
+  });
+
+  it("shows a top-level failure that belongs to no single field", async () => {
+    vi.mocked(signUp).mockRejectedValue(
+      new ApiError(422, {
+        error: {
+          code: "spam_detected",
+          messages: ["Something went wrong - please try that again"],
+          fields: {},
+        },
+      }),
+    );
+    const { onSignedUp } = renderForm();
+
+    await fillIn();
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Something went wrong - please try that again",
+    );
+    expect(onSignedUp).not.toHaveBeenCalled();
+    expect(screen.getByRole("button", { name: /confirm/i })).toBeEnabled();
   });
 
   it("links to the login page for someone who already has an account", () => {

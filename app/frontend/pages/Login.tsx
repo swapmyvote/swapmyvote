@@ -2,6 +2,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
 import { LoginForm } from "@/components/auth/LoginForm";
+import { RequireLoggedOut } from "@/components/auth/RequireLoggedOut";
 import { RequireLoginsOpen } from "@/components/auth/RequireLoginsOpen";
 import { useSession } from "@/contexts/useSession";
 import { postAuthPath } from "@/lib/auth";
@@ -25,17 +26,19 @@ export function Login() {
   }
 
   return (
-    <RequireLoginsOpen>
-      <Container className="container-narrow py-4">
-        <Card>
-          <Card.Header>
-            <h1 className="h4 mb-0">Log in with email</h1>
-          </Card.Header>
-          <Card.Body>
-            <LoginForm onLoggedIn={handleLoggedIn} />
-          </Card.Body>
-        </Card>
-      </Container>
-    </RequireLoginsOpen>
+    <RequireLoggedOut>
+      <RequireLoginsOpen>
+        <Container className="container-narrow py-4">
+          <Card>
+            <Card.Header>
+              <h1 className="h4 mb-0">Log in with email</h1>
+            </Card.Header>
+            <Card.Body>
+              <LoginForm onLoggedIn={handleLoggedIn} />
+            </Card.Body>
+          </Card>
+        </Container>
+      </RequireLoginsOpen>
+    </RequireLoggedOut>
   );
 }

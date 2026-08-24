@@ -1,8 +1,8 @@
 import { type FormEvent, useId, useState } from "react";
-import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
+import { FormErrors } from "@/components/forms/FormErrors";
 import { apiErrorFields, apiErrorMessages } from "@/lib/apiErrors";
 import { signUp } from "@/lib/auth";
 import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
@@ -36,7 +36,7 @@ export function SignUpForm({ onSignedUp }: SignUpFormProps) {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [consentNewsEmail, setConsentNewsEmail] = useState(false);
   const [consentToDataProcessing, setConsentToDataProcessing] = useState(false);
-  const [nickname, setNickname] = useState("");
+  const [swapReference, setSwapReference] = useState("");
   const [errors, setErrors] = useState<string[]>([]);
   const [fields, setFields] = useState<Record<string, string[]>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -54,7 +54,7 @@ export function SignUpForm({ onSignedUp }: SignUpFormProps) {
         passwordConfirmation,
         consentNewsEmail,
         consentToDataProcessing,
-        nickname,
+        swapReference,
       });
       // Deliberately still submitting: the caller navigates away, and leaving
       // the button live would invite a second account on the way out.
@@ -169,28 +169,23 @@ export function SignUpForm({ onSignedUp }: SignUpFormProps) {
         </div>
 
         {/* The honeypot. Real people never see it, so anything in it came from
-            a bot and the API refuses the sign-up. */}
+            a bot and the API refuses the sign-up. The name is deliberately
+            meaningless: `nickname` is a standard HTML autocomplete token, so a
+            password manager would happily fill it in and hand a real user a
+            422 they can neither see nor clear. invisible_captcha randomises
+            its own field name for the same reason. */}
         <input
           className="honeypot-field"
           type="text"
-          name="nickname"
-          value={nickname}
+          name="swap_reference"
+          value={swapReference}
           tabIndex={-1}
           aria-hidden="true"
           autoComplete="off"
-          onChange={(event) => setNickname(event.target.value)}
+          onChange={(event) => setSwapReference(event.target.value)}
         />
 
-        {errors.length > 0 && (
-          <Alert variant="danger" className="small mb-0" role="alert">
-            {errors.map((message, index) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: a static list rendered once per submit; message text is not unique, so the index is the only stable key.
-              <p key={index} className="mb-0">
-                {message}
-              </p>
-            ))}
-          </Alert>
-        )}
+        <FormErrors messages={errors} />
 
         <Button type="submit" variant="primary" disabled={submitting}>
           Confirm and see swaps

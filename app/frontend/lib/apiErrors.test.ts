@@ -15,8 +15,22 @@ describe("apiErrorMessages", () => {
     expect(apiErrorMessages(error)).toEqual(["Name is too short"]);
   });
 
+  // What exercises the messages.length > 0 branch: an ApiError is not enough
+  // on its own, because a body-less failure carries no messages to show.
+  it("falls back to a generic message for an API failure with no body", () => {
+    expect(apiErrorMessages(new ApiError(500, null))).toEqual([
+      "Something went wrong - please try that again.",
+    ]);
+  });
+
   it("falls back to a generic message for a non-API failure", () => {
     expect(apiErrorMessages(new Error("network down"))).toEqual([
+      "Something went wrong - please try that again.",
+    ]);
+  });
+
+  it("falls back to a generic message for something that is not an Error", () => {
+    expect(apiErrorMessages("not even an error")).toEqual([
       "Something went wrong - please try that again.",
     ]);
   });
@@ -39,5 +53,9 @@ describe("apiErrorFields", () => {
 
   it("is empty for a non-API failure", () => {
     expect(apiErrorFields(new Error("network down"))).toEqual({});
+  });
+
+  it("is empty for something that is not an Error", () => {
+    expect(apiErrorFields("not even an error")).toEqual({});
   });
 });
