@@ -143,6 +143,24 @@ describe("ProfileForm", () => {
     ).toHaveAttribute("href", "/user/edit");
   });
 
+  it("explains why we need an email, linking out to the FAQ and the privacy policy", () => {
+    renderForm();
+
+    expect(
+      screen.getByText(/we need your email to keep you updated/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: /to allow your swap partner to reach out to you/i,
+      }),
+    ).toHaveAttribute("href", "/faq#trust");
+    expect(
+      screen.getByRole("link", {
+        name: /your details will stay private with us/i,
+      }),
+    ).toHaveAttribute("href", "https://forwarddemocracy.com/privacy-policy");
+  });
+
   it("links out to account deletion", () => {
     renderForm();
 

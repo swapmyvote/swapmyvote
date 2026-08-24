@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { ConstituencyAutocomplete } from "@/components/home/ConstituencyAutocomplete";
 import { PostcodeLookup } from "@/components/home/PostcodeLookup";
+import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
 import { apiErrorMessages, updateProfile } from "@/lib/profile";
 import type {
   Constituency,
@@ -29,6 +30,10 @@ interface ProfileFormProps {
 // migration plan's screen list at all.
 const hamlMobile = "/user/edit";
 const hamlDeleteAccount = "/confirm_account_deletion";
+
+// The FAQ is not ported (M2) — a full-page link to the HAML page, as
+// Footer.tsx also does.
+const hamlFaqTrust = "/faq#trust";
 
 /**
  * Ports app/views/users/edit.html.haml: the two party choices, the
@@ -162,6 +167,22 @@ export function ProfileForm({
               : "Verify your mobile number"}
           </a>
         </div>
+
+        <p className="subdued small mb-0">
+          We need your email to keep you updated on the swapping process, and
+          potentially{" "}
+          <a href={hamlFaqTrust} target="_blank" rel="noreferrer">
+            to allow your swap partner to reach out to you
+          </a>
+          .{" "}
+          <a
+            href={forwardDemocracyPrivacyPolicyUrl}
+            target="_blank"
+            rel="noopener"
+          >
+            Your details will stay private with us.
+          </a>
+        </p>
 
         {hasSwap && (
           <Alert variant={locked ? "info" : "danger"} className="small mb-0">
