@@ -60,6 +60,31 @@ describe("CookieConsentBanner", () => {
     expect(document.cookie).toContain(`${consentCookieName}=deny`);
   });
 
+  // The banner is fixed to the bottom of the viewport, so without this the
+  // footer's last rows sit underneath it. jsdom lays nothing out, so the
+  // height measures 0 — what matters here is that the variable is published
+  // while the banner is up and withdrawn the moment it is answered.
+  it("reserves its height at the foot of the page while it is showing", () => {
+    renderBanner();
+
+    expect(
+      document.documentElement.style.getPropertyValue(
+        "--cookie-consent-height",
+      ),
+    ).toBe("0px");
+  });
+
+  it("stops reserving that height once it is answered", async () => {
+    renderBanner();
+    await userEvent.click(screen.getByRole("button", { name: /accept/i }));
+
+    expect(
+      document.documentElement.style.getPropertyValue(
+        "--cookie-consent-height",
+      ),
+    ).toBe("");
+  });
+
   it("puts both choices in the keyboard tab order", async () => {
     renderBanner();
     await userEvent.tab();

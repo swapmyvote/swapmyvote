@@ -101,6 +101,29 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
 @import "bootstrap/scss/grid";
 @import "bootstrap/scss/forms";
 @import "bootstrap/scss/buttons";
+
+// .btn-outline-secondary's default foreground/border is $secondary
+// ($gray-600, #6c757d): 4.689:1 on white (passes AA) but 4.449:1 on
+// $body-bg/bg-body-tertiary (both $gray-100, #f8f9fa — fails AA's 4.5:1).
+// The postcode Search button on /app/constituency sits on that background,
+// caught by its axe scan. Scoped to this one button variant rather than
+// redefining $secondary itself, which also drives badges, text-secondary,
+// and other elements not audited here. $gray-700 passes comfortably on
+// every surface this button appears on: 8.176:1 on white, 7.757:1 on
+// $body-bg/bg-body-tertiary.
+.btn-outline-secondary {
+  --#{$prefix}btn-color: #{$gray-700};
+  --#{$prefix}btn-border-color: #{$gray-700};
+  --#{$prefix}btn-hover-color: #{color-contrast($gray-700)};
+  --#{$prefix}btn-hover-bg: #{$gray-700};
+  --#{$prefix}btn-hover-border-color: #{$gray-700};
+  --#{$prefix}btn-active-color: #{color-contrast($gray-700)};
+  --#{$prefix}btn-active-bg: #{$gray-700};
+  --#{$prefix}btn-active-border-color: #{$gray-700};
+  --#{$prefix}btn-disabled-color: #{$gray-700};
+  --#{$prefix}btn-disabled-border-color: #{$gray-700};
+}
+
 @import "bootstrap/scss/transitions";
 @import "bootstrap/scss/button-group";
 // Needed by the constituency combobox, whose menu is a .dropdown-menu of
@@ -119,6 +142,21 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
 @import "bootstrap/scss/utilities/api";
 
 /***** GLOBAL DEFAULT STYLES *****/
+
+// The reading column the legacy site puts forms and prose in. Both classes
+// exist only in app/assets/stylesheets/home.scss, which the SPA layout does
+// not load — so every React screen using them (the three M4 profile screens,
+// the logged-out prompt) was silently rendering at full container width.
+// Same values as the legacy stylesheet, so a ported screen sits where its
+// HAML original does.
+.container-narrow {
+  max-width: 610px;
+}
+
+.container-extra-narrow {
+  max-width: 520px;
+}
+
 .bg-red {
   --bs-bg-opacity: 1;
   background-color: rgba($red, var(--bs-bg-opacity)) !important;
@@ -281,7 +319,13 @@ main {
 footer {
   background: var(--bs-gray-300);
   padding-top: 2rem;
-  padding-bottom: 4rem;
+  // The cookie banner is fixed to the bottom of the viewport, so at the foot
+  // of the page it lands on top of the footer and hides the end of it. The
+  // banner reports its own height as --cookie-consent-height while it is on
+  // screen (CookieConsentBanner.tsx), and the footer grows by that much so
+  // nothing ends up underneath it. Padding rather than margin, so the grey
+  // band still runs to the bottom of the page behind the banner.
+  padding-bottom: calc(4rem + var(--cookie-consent-height, 0px));
   border-top: 2px solid var(--bs-gray-100);
 }
 

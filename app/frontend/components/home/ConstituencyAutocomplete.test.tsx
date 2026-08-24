@@ -163,6 +163,37 @@ describe("ConstituencyAutocomplete", () => {
       expect(input).toHaveValue("");
     });
 
+    it("clears a selection the user deletes down to nothing", async () => {
+      // Same harness as above, but the field is left empty rather than
+      // retyped over: no text ever gets a chance to differ from the
+      // constituency's name, which is what exposed a real bug — the sync
+      // effect that copies an externally-made selection into the box read a
+      // stale, not-yet-updated `value` prop and put the just-cleared name
+      // straight back in, even though `onChange("")` had already fired.
+      function Harness() {
+        const [onsId, setOnsId] = useState("E14001009");
+        return (
+          <>
+            <ConstituencyAutocomplete
+              constituencies={constituencyFixtures}
+              value={onsId}
+              onChange={setOnsId}
+            />
+            <output>{onsId || "none"}</output>
+          </>
+        );
+      }
+      render(<Harness />);
+      const input = screen.getByRole("combobox");
+      expect(input).toHaveValue("Wakefield");
+
+      await userEvent.clear(input);
+      await userEvent.tab();
+
+      expect(screen.getByRole("status")).toHaveTextContent("none");
+      expect(input).toHaveValue("");
+    });
+
     it("leaves an empty field alone", async () => {
       const { input, onChange } = renderAutocomplete();
 

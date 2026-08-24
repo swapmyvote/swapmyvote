@@ -65,9 +65,12 @@ jobs:
       - name: Set up development database
         # SQLite in development — the postgres service the `test` job needs is
         # for the production adapter and is irrelevant here. Schema only, no
-        # seeds: these specs render static pages that read nothing from the
-        # database, and seeding imports large constituency/poll CSV fixtures
-        # that would dominate the job's runtime.
+        # seeds: the full seed task imports large constituency/poll CSV
+        # fixtures that would dominate the job's runtime. The specs that need
+        # data (profile.spec.ts, the signed-in block of accessibility.spec.ts)
+        # create their own small fixture rows directly via `bin/rails runner`
+        # (see playwright-tests/support/seedProfileUser.ts) rather than
+        # relying on this step for anything beyond the schema.
         run: bin/rails db:create db:schema:load
       - name: Install Playwright browsers
         run: yarn playwright install --with-deps chromium

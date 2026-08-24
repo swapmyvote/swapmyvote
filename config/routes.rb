@@ -24,9 +24,15 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :session, only: [:show, :destroy], controller: "session"
 
+      # The logged-in user's own profile — the React profile and constituency
+      # screens both patch this.
+      resource :user, only: [:update], controller: "users"
+
       # Reference data for the entry form: unauthenticated, ungated, cacheable.
       resources :parties, only: [:index]
-      resources :constituencies, only: [:index]
+      # `param: :ons_id` because the ONS GSS code is the key the whole domain
+      # joins on — we never expose the row id.
+      resources :constituencies, only: [:index, :show], param: :ons_id
       resource :election, only: [:show], controller: "election"
 
       # The entry form's answers, stashed in the session so they survive the
@@ -48,6 +54,11 @@ Rails.application.routes.draw do
   get "app/terms", to: "spa#index"
   # M3 home / landing. `/` keeps serving HomeController until cutover.
   get "app/home", to: "spa#index"
+  # M4 profile screens. /user, /user/constituency and /user/review keep
+  # serving HAML until cutover.
+  get "app/constituency", to: "spa#index"
+  get "app/profile", to: "spa#index"
+  get "app/review", to: "spa#index"
 
   root "home#index"
 
