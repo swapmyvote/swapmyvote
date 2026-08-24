@@ -1,6 +1,8 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
+import { signIn } from "./support/auth";
+import { seedProfileUser } from "./support/seedProfileUser";
 
 // The M1 static pages, under the `/app/*` preview paths they are served from
 // until each one is cut over. spaPaths also carries `faq`, which is not
@@ -34,6 +36,48 @@ for (const { name, path } of migratedPages) {
       // The assertion below reports one line per violation; attach the full
       // axe output (selectors, failure summaries) to the HTML report so a CI
       // failure can be diagnosed without reproducing it locally.
+      await testInfo.attach("axe-violations.json", {
+        body: JSON.stringify(violations, null, 2),
+        contentType: "application/json",
+      });
+    }
+
+    expect(
+      violations.map(
+        (violation) =>
+          `${violation.id} (${violation.nodes.length} nodes): ${violation.help}`,
+      ),
+    ).toEqual([]);
+  });
+}
+
+// The M4 profile screens. These need a logged-in session, so each test signs
+// in itself rather than sharing the anonymous flow above. A dedicated suffix
+// keeps this fixture user's row separate from profile.spec.ts's: that spec
+// mutates its user (party, constituency), and fullyParallel can run these
+// files at the same time, so sharing a row would let one file's reseed or
+// save race the other's read.
+const credentials = seedProfileUser("-axe");
+
+const signedInPages = [
+  { name: "Profile", path: spaPaths.profile },
+  { name: "Constituency", path: spaPaths.constituency },
+  { name: "Review", path: spaPaths.review },
+];
+
+for (const { name, path } of signedInPages) {
+  test(`must report no WCAG A/AA violations when the ${name} page is rendered`, async ({
+    page,
+  }, testInfo) => {
+    await signIn(page, credentials);
+    await page.goto(path);
+    await expect(page.getByRole("main")).not.toBeEmpty();
+
+    const { violations } = await new AxeBuilder({ page })
+      .withTags(wcagTags)
+      .analyze();
+
+    if (violations.length > 0) {
       await testInfo.attach("axe-violations.json", {
         body: JSON.stringify(violations, null, 2),
         contentType: "application/json",

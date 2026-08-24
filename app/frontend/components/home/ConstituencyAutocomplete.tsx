@@ -1,5 +1,5 @@
 import { useCombobox } from "downshift";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -44,10 +44,18 @@ export function ConstituencyAutocomplete({
   disabled = false,
 }: ConstituencyAutocompleteProps) {
   const inputId = useId();
-  const [query, setQuery] = useState("");
 
   const selectedItem =
     constituencies.find((constituency) => constituency.onsId === value) ?? null;
+
+  // Seeded from `selectedItem`, not "", so a pre-filled value (this screen's
+  // usual case: editing an existing profile) shows correctly from the first
+  // paint. Syncing it in an effect instead left a real window, on mount,
+  // where the field displayed empty while the sync was still pending — long
+  // enough for a fast interaction (an E2E test typing immediately after
+  // navigation; conceivably a very quick real user) to land inside it and
+  // then get silently overwritten once the effect caught up.
+  const [query, setQuery] = useState(() => selectedItem?.name ?? "");
 
   // Substring, anywhere in the name, case-insensitive — matching the legacy
   // `_source` regex rather than a prefix match.
@@ -104,10 +112,24 @@ export function ConstituencyAutocomplete({
 
   // Keep the box in step with a selection made elsewhere — the postcode
   // lookup filling this in, as the legacy helper did.
+  //
+  // Keyed on `value` (the ons_id prop) rather than run unconditionally on
+  // every render: this component's own blur handling also drives `value` to
+  // "" via onChange, in a separate render pass from the one where `query` is
+  // cleared. Running this unconditionally raced that update — on the render
+  // where isOpen has already flipped to false but `value` hasn't caught up
+  // yet, it looked identical to an external change and put the just-cleared
+  // name straight back in the box.
   const selectedName = selectedItem?.name ?? "";
-  if (selectedName !== "" && query !== selectedName && !isOpen) {
-    setQuery(selectedName);
-  }
+  // Only `value` (via selectedName) marks a selection made elsewhere; `query`
+  // and `isOpen` are read to decide whether to act, not synced on — adding
+  // them would re-fire this on every keystroke, reintroducing the race above.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: query/isOpen deliberately excluded, see comment above.
+  useEffect(() => {
+    if (selectedName !== "" && query !== selectedName && !isOpen) {
+      setQuery(selectedName);
+    }
+  }, [selectedName]);
 
   return (
     <Form.Group className={styles.combobox}>
