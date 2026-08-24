@@ -61,6 +61,7 @@ export function Profile() {
                 constituencies={constituencies.data ?? []}
                 user={session.currentUser}
                 locked={session.flags.votingInfoLocked}
+                hasSwap={session.swap !== null}
                 onSaved={handleSaved}
               />
             )}

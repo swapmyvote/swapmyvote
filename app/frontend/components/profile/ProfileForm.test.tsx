@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ProfileForm } from "@/components/profile/ProfileForm";
+import { ApiError } from "@/lib/apiClient";
 import { updateProfile } from "@/lib/profile";
 import type { Constituency, CurrentUser, Party } from "@/types/api";
 
@@ -31,7 +32,9 @@ const user: CurrentUser = {
   willingParty: parties[1],
 };
 
-function renderForm(overrides: { user?: CurrentUser; locked?: boolean } = {}) {
+function renderForm(
+  overrides: { user?: CurrentUser; locked?: boolean; hasSwap?: boolean } = {},
+) {
   const onSaved = vi.fn();
   render(
     <ProfileForm
@@ -39,6 +42,7 @@ function renderForm(overrides: { user?: CurrentUser; locked?: boolean } = {}) {
       constituencies={constituencies}
       user={overrides.user ?? user}
       locked={overrides.locked ?? false}
+      hasSwap={overrides.hasSwap ?? true}
       onSaved={onSaved}
     />,
   );
@@ -64,6 +68,24 @@ describe("ProfileForm", () => {
     );
   });
 
+  it("falls back to blanks when the user has none of this yet", () => {
+    const sparseUser: CurrentUser = {
+      ...user,
+      preferredParty: null,
+      willingParty: null,
+      constituencyOnsId: null,
+      email: null,
+    };
+    renderForm({ user: sparseUser });
+
+    expect(screen.getByLabelText(/preferred party/i)).toHaveValue("");
+    expect(screen.getByLabelText(/willing to vote for/i)).toHaveValue("");
+    expect(
+      screen.getByRole("combobox", { name: /my constituency is/i }),
+    ).toHaveValue("");
+    expect(screen.getByLabelText(/email address/i)).toHaveValue("");
+  });
+
   it("saves every field, and hands the result back", async () => {
     const { onSaved } = renderForm();
 
@@ -85,15 +107,24 @@ describe("ProfileForm", () => {
   });
 
   it("warns that changing the profile undoes an agreed swap", () => {
-    renderForm();
+    renderForm({ hasSwap: true });
 
     expect(
       screen.getByText(/will undo any swap that you have agreed to/i),
     ).toBeInTheDocument();
   });
 
+  it("stays quiet about undoing a swap the user does not have", () => {
+    renderForm({ hasSwap: false });
+
+    expect(
+      screen.queryByText(/will undo any swap that you have agreed to/i),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText(/currently locked/i)).not.toBeInTheDocument();
+  });
+
   it("locks the swap fields on election day once the swap is confirmed", () => {
-    renderForm({ locked: true });
+    renderForm({ locked: true, hasSwap: true });
 
     expect(screen.getByLabelText(/preferred party/i)).toBeDisabled();
     expect(screen.getByLabelText(/willing to vote for/i)).toBeDisabled();
@@ -115,5 +146,31 @@ describe("ProfileForm", () => {
     expect(
       screen.getByRole("link", { name: /delete your account/i }),
     ).toHaveAttribute("href", "/confirm_account_deletion");
+  });
+
+  it("shows what went wrong when saving fails", async () => {
+    vi.mocked(updateProfile).mockRejectedValueOnce(
+      new ApiError(422, {
+        error: { code: "invalid", messages: ["Email is invalid"], fields: {} },
+      }),
+    );
+    renderForm({ hasSwap: false });
+
+    await userEvent.click(screen.getByRole("button", { name: /save/i }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Email is invalid",
+    );
+  });
+
+  it("falls back to a generic message when saving fails without one", async () => {
+    vi.mocked(updateProfile).mockRejectedValueOnce(new Error("network down"));
+    renderForm({ hasSwap: false });
+
+    await userEvent.click(screen.getByRole("button", { name: /save/i }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      /something went wrong/i,
+    );
   });
 });

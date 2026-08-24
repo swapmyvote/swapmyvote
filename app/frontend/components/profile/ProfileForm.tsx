@@ -19,6 +19,10 @@ interface ProfileFormProps {
   user: CurrentUser;
   /** Election day, swap confirmed: the swap fields are frozen. */
   locked: boolean;
+  /** Whether the user currently has an agreed swap — mirrors User#swapped?.
+   *  Only then does changing party preferences or constituency undo anything,
+   *  so only then is it worth warning about. */
+  hasSwap: boolean;
   onSaved: (result: ProfileUpdateResult) => void;
 }
 
@@ -42,6 +46,7 @@ export function ProfileForm({
   constituencies,
   user,
   locked,
+  hasSwap,
   onSaved,
 }: ProfileFormProps) {
   const preferredId = useId();
@@ -163,11 +168,13 @@ export function ProfileForm({
           </a>
         </div>
 
-        <Alert variant={locked ? "info" : "danger"} className="small mb-0">
-          {locked
-            ? "It's election day and you've already confirmed your swap, so your party preferences and constituency are currently locked"
-            : "Changing your party preferences or constituency will undo any swap that you have agreed to"}
-        </Alert>
+        {hasSwap && (
+          <Alert variant={locked ? "info" : "danger"} className="small mb-0">
+            {locked
+              ? "It's election day and you've already confirmed your swap, so your party preferences and constituency are currently locked"
+              : "Changing your party preferences or constituency will undo any swap that you have agreed to"}
+          </Alert>
+        )}
 
         {errors.length > 0 && (
           <Alert variant="danger" className="small mb-0" role="alert">
