@@ -43,6 +43,24 @@ function renderReview(
   );
 }
 
+// The interpretation/no-poll sentences are built from several JSX text nodes
+// (interpolated names sit in their own nodes), so a plain getByText string or
+// regex only ever matches a fragment and can't catch a swallowed separator
+// between nodes. This normalises an element's full textContent so a test can
+// assert the whole rendered sentence, word-for-word against the legacy Haml.
+function normalizeWhitespace(text: string): string {
+  return text.replace(/\s+/g, " ").trim();
+}
+
+function getSentence(text: string): HTMLElement {
+  return screen.getByText((_content, element) => {
+    if (element?.tagName !== "P") {
+      return false;
+    }
+    return normalizeWhitespace(element.textContent ?? "") === text;
+  });
+}
+
 describe("ProfileReview", () => {
   it("charts the constituency", () => {
     renderReview();
@@ -53,12 +71,11 @@ describe("ProfileReview", () => {
   it("says a marginal vote could make a difference", () => {
     renderReview();
 
-    expect(screen.getByText(/could make a difference/i)).toHaveTextContent(
-      /Labour/,
-    );
-    expect(screen.getByText(/could make a difference/i)).toHaveTextContent(
-      "5%",
-    );
+    expect(
+      getSentence(
+        "⭐ Looks like your vote could make a difference for Labour who are leading by 5% in the polls for Woking, so it's more likely that people supporting Labour will want to swap with you.",
+      ),
+    ).toBeInTheDocument();
   });
 
   it("calls a big lead a safe win", () => {
@@ -66,13 +83,33 @@ describe("ProfileReview", () => {
       polls: [poll({ marginalScore: 2400, signedMarginalScore: 2400 })],
     });
 
-    expect(screen.getByText(/safe win/i)).toBeInTheDocument();
+    expect(
+      getSentence(
+        "Looks like your vote may be supporting a safe win for Labour who are currently leading by 24% in the polls for Woking, so it's less likely that people supporting Labour will want to swap with you.",
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("says so when a big lead is against the willing party", () => {
+    renderReview({
+      polls: [poll({ marginalScore: 2400, signedMarginalScore: -2400 })],
+    });
+
+    expect(
+      getSentence(
+        "Labour are trailing by 24% in the polls for Woking, and may still lose despite this swap, so it's less likely that people supporting Labour will want to swap with you.",
+      ),
+    ).toBeInTheDocument();
   });
 
   it("says so when there is no poll for the willing party", () => {
     renderReview({ polls: [poll({ partyId: 99, partyName: "Green" })] });
 
-    expect(screen.getByText(/no polling data found/i)).toBeInTheDocument();
+    expect(
+      getSentence(
+        "No polling data found for Labour in Woking so we can't interpret that for you.",
+      ),
+    ).toBeInTheDocument();
   });
 
   it("offers a way onward and a way back", () => {

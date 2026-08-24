@@ -53,8 +53,8 @@ export function ProfileReview({
 
       {interpretation === null ? (
         <p className="mb-0">
-          No polling data found for {willingParty.name} in {constituencyName}
-          so we can't interpret that for you.
+          No polling data found for {willingParty.name} in {constituencyName} so
+          we can't interpret that for you.
         </p>
       ) : (
         <p className="mb-0">
