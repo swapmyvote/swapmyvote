@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   # API). Served same-origin, so Devise session cookies authenticate it.
   namespace :api do
     namespace :v1 do
-      resource :session, only: [:show, :destroy], controller: "session"
+      resource :session, only: [:show, :create, :destroy], controller: "session"
 
       # The logged-in user's own profile — the React profile and constituency
       # screens both patch this.

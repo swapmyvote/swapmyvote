@@ -41,6 +41,20 @@ module Api
         )
       end
 
+      # Mirrors ApplicationController#require_logins_open, which redirects to
+      # the home page. During closed-warm-up the database is expected to be
+      # empty and the site is not meant to look usable, so logging in and
+      # signing up are refused here, not merely hidden in the UI.
+      def require_logins_open!
+        return if logins_open?
+
+        render_error(
+          code: "logins_closed",
+          status: :forbidden,
+          messages: ["Logins are closed at the moment"]
+        )
+      end
+
       # Mirrors UsersController#restricted_when_voting_open: once voting is
       # open and this user's swap is confirmed, their voting information is
       # frozen. The legacy version redirects; this reports the refusal.

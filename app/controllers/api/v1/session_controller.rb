@@ -4,11 +4,40 @@ module Api
     # talking as and which operational phase the site is in.
     #
     #   GET    /api/v1/session  — the payload (works logged out: currentUser nil)
+    #   POST   /api/v1/session  — log in with an email and password
     #   DELETE /api/v1/session  — log out (CSRF-protected, login required)
     class SessionController < BaseController
+      include SessionPayload
+      include Devise::Controllers::Rememberable
+
+      before_action :require_logins_open!, only: :create
       before_action :require_logged_in!, only: :destroy
 
       def show
+        render json: session_payload
+      end
+
+      # Devise's own `database_authenticatable` strategy is deliberately not
+      # used here. Warden reads credentials through `Rack::Request#POST`, which
+      # parses form and multipart bodies but not JSON — Rails puts a parsed
+      # JSON body in `action_dispatch.request.request_parameters` instead — so
+      # the strategy would see no credentials at all. Only
+      # :database_authenticatable and :rememberable are enabled on User (no
+      # :lockable, :confirmable or :timeoutable), so this is the whole of what
+      # the strategy would have done.
+      def create
+        user = User.find_by("lower(email) = ?", credentials[:email].to_s.downcase)
+
+        unless user&.valid_password?(credentials[:password].to_s)
+          return render_invalid_credentials
+        end
+
+        sign_in(user)
+        # The legacy form always sent remember_me: 1, so logging in always
+        # remembers. Logging out clears the cookie through Devise's forgetable
+        # hook, so there is no matching call in #destroy.
+        remember_me(user)
+
         render json: session_payload
       end
 
@@ -21,22 +50,18 @@ module Api
 
       private
 
-      def session_payload
-        SessionSerializer.new(
-          SessionPresenter.new(
-            app_mode: app_mode,
-            current_user: current_user,
-            flags: {
-              logins_open: logins_open?,
-              swapping_open: swapping_open?,
-              voting_open: voting_open?,
-              # `swap_confirmed?` is nil (not false) for an unconfirmed swap,
-              # and the flags are a boolean contract — coerce.
-              voting_info_locked: voting_info_locked? || false
-            }
-          ),
-          params: { viewer: current_user }
-        ).to_h
+      def credentials
+        params.permit(:email, :password)
+      end
+
+      # One body for every failure, so the endpoint cannot be used to find out
+      # which email addresses have accounts.
+      def render_invalid_credentials
+        render_error(
+          code: "invalid_credentials",
+          status: :unauthorized,
+          messages: ["Sorry, we could not log you in with those details"]
+        )
       end
     end
   end

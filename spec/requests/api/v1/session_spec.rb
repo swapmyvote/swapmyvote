@@ -183,6 +183,102 @@ RSpec.describe "Api::V1::Session", type: :request do
     end
   end
 
+  describe "POST /api/v1/session" do
+    let!(:user) { create(:ready_to_swap_user1) }
+
+    it "logs the user in and answers with the logged-in payload" do
+      post "/api/v1/session",
+           params: { email: user.email, password: "john-password" },
+           as: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(json["currentUser"]).to include("id" => user.id)
+
+      # The session cookie the response set is what matters, not the body.
+      get "/api/v1/session"
+      expect(json["currentUser"]).to include("id" => user.id)
+    end
+
+    it "matches the email case-insensitively, as Devise stores it downcased" do
+      post "/api/v1/session",
+           params: { email: user.email.upcase, password: "john-password" },
+           as: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(json["currentUser"]).to include("id" => user.id)
+    end
+
+    it "remembers the user, as the legacy form's remember_me: 1 did" do
+      post "/api/v1/session",
+           params: { email: user.email, password: "john-password" },
+           as: :json
+
+      expect(user.reload.remember_created_at).to be_present
+    end
+
+    # The same body for both, so the endpoint is not an account-existence
+    # oracle: a wrong password and an unknown address are indistinguishable.
+    it "is 401 with a generic message when the password is wrong" do
+      post "/api/v1/session",
+           params: { email: user.email, password: "not-the-password" },
+           as: :json
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(json["error"]).to include("code" => "invalid_credentials")
+      expect(json["error"]["messages"].join).not_to match(/password|email/i)
+    end
+
+    it "is 401 with the same body when no such account exists" do
+      post "/api/v1/session",
+           params: { email: "nobody@example.com", password: "john-password" },
+           as: :json
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(json["error"]).to include("code" => "invalid_credentials")
+    end
+
+    it "is 401 for an account with no password, such as a social sign-up" do
+      social = create(:user, name: "Social Sal")
+      social.update_column(:encrypted_password, "")
+
+      post "/api/v1/session",
+           params: { email: social.email, password: "" },
+           as: :json
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "is 403 while logins are closed" do
+      stub_mode("closed-warm-up")
+
+      post "/api/v1/session",
+           params: { email: user.email, password: "john-password" },
+           as: :json
+
+      expect(response).to have_http_status(:forbidden)
+      expect(json["error"]).to include("code" => "logins_closed")
+    end
+
+    context "with forgery protection on (as in production)" do
+      around do |example|
+        original = ActionController::Base.allow_forgery_protection
+        ActionController::Base.allow_forgery_protection = true
+        example.run
+        ActionController::Base.allow_forgery_protection = original
+      end
+
+      it "rejects a login without a valid CSRF token, as JSON" do
+        post "/api/v1/session",
+             params: { email: user.email, password: "john-password" },
+             headers: { "X-CSRF-Token" => "not-the-token" },
+             as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json["error"]).to include("code" => "invalid_authenticity_token")
+      end
+    end
+  end
+
   describe "DELETE /api/v1/session" do
     let(:user) { create(:user) }
 
