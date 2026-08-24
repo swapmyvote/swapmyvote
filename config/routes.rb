@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   # serving HAML until cutover.
   get "app/constituency", to: "spa#index"
   get "app/profile", to: "spa#index"
+  get "app/review", to: "spa#index"
 
   root "home#index"
 
