@@ -23,6 +23,9 @@ interface ProfileFormProps {
    *  Only then does changing party preferences or constituency undo anything,
    *  so only then is it worth warning about. */
   hasSwap: boolean;
+  /** Fires when a save begins, before the request goes out — so the caller
+   *  can clear a stale "saved" state from a previous, unrelated save. */
+  onSaveStart?: () => void;
   onSaved: (result: ProfileUpdateResult) => void;
 }
 
@@ -51,6 +54,7 @@ export function ProfileForm({
   user,
   locked,
   hasSwap,
+  onSaveStart,
   onSaved,
 }: ProfileFormProps) {
   const preferredId = useId();
@@ -80,6 +84,7 @@ export function ProfileForm({
     event.preventDefault();
     setSaving(true);
     setErrors([]);
+    onSaveStart?.();
     try {
       const result = await updateProfile({
         preferredPartyId,

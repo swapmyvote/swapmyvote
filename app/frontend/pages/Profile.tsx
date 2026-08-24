@@ -62,6 +62,7 @@ export function Profile() {
                 user={session.currentUser}
                 locked={session.flags.votingInfoLocked}
                 hasSwap={session.swap !== null}
+                onSaveStart={() => setSaved(false)}
                 onSaved={handleSaved}
               />
             )}
