@@ -33,8 +33,15 @@ module Api
       # Derived, not stored: how far ahead (+) or behind (-) this party is of
       # the best of the others. `marginal_score` is its absolute value, but
       # only once the rake task has run, so the sign has to come from here.
+      #
+      # Computed by the controller from the whole constituency's polls in one
+      # pass (see Api::V1::ConstituenciesController#signed_marginal_scores)
+      # and handed down via `params`, rather than calling
+      # `Poll#signed_marginal_score` here — that method re-queries
+      # `poll.constituency.polls` per poll and blows up on a nil `others.max`
+      # or a nil sibling `votes`.
       attribute :signed_marginal_score do |poll|
-        poll.signed_marginal_score
+        params[:signed_marginal_scores][poll.id]
       end
     end
   end

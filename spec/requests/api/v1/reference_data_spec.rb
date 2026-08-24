@@ -110,6 +110,26 @@ RSpec.describe "Api::V1 reference data", type: :request do
       expect(json["polls"].first["marginalScore"]).to eq 3010
     end
 
+    it "returns a sensible signed marginal score when a constituency has only one poll" do
+      create(:poll, constituency_ons_id: constituency.ons_id, party_id: labour.id, votes: 4210)
+
+      get "/api/v1/constituencies/#{constituency.ons_id}"
+
+      expect(response).to have_http_status(:ok)
+      expect(json["polls"].first["signedMarginalScore"]).to eq 4210
+    end
+
+    it "returns a sensible signed marginal score when a sibling poll has no recorded votes yet" do
+      create(:poll, constituency_ons_id: constituency.ons_id, party_id: labour.id, votes: 4210)
+      create(:poll, constituency_ons_id: constituency.ons_id, party_id: green.id, votes: nil)
+
+      get "/api/v1/constituencies/#{constituency.ons_id}"
+
+      expect(response).to have_http_status(:ok)
+      expect(json["polls"].map { |poll| poll["partyName"] }).to eq %w[Labour]
+      expect(json["polls"].first["signedMarginalScore"]).to eq 4210
+    end
+
     it "is available logged out, like the rest of the reference data" do
       get "/api/v1/constituencies/#{constituency.ons_id}"
 
