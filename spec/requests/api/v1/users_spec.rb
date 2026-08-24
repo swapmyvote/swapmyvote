@@ -126,6 +126,27 @@ RSpec.describe "Api::V1::Users", type: :request do
       end
     end
 
+    context "with forgery protection on (as in production)" do
+      around do |example|
+        original = ActionController::Base.allow_forgery_protection
+        ActionController::Base.allow_forgery_protection = true
+        example.run
+        ActionController::Base.allow_forgery_protection = original
+      end
+
+      it "rejects a request without a valid CSRF token, as JSON" do
+        sign_in user
+
+        patch "/api/v1/user",
+              params: { email: "forged@example.com" },
+              headers: { "X-CSRF-Token" => "not-the-token" }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json["error"]).to include("code" => "invalid_authenticity_token")
+        expect(user.reload.email).to eq "voter@example.com"
+      end
+    end
+
     context "when voting is open and the swap is confirmed" do
       before do
         # A real confirmed swap rather than a stub: `user.swap` is
