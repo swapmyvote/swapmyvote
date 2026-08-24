@@ -1,0 +1,6 @@
+// Chart.js sizes its canvas to the parent, so the parent needs a height —
+// `maintainAspectRatio: false` means it will not invent one.
+.chart {
+  position: relative;
+  height: 220px;
+}
