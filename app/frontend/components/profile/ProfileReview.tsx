@@ -77,16 +77,20 @@ export function ProfileReview({
         </strong>
       </p>
 
-      <div className="d-flex gap-2">
+      {/* macOS button order: the row is right-aligned and the action that
+          carries on sits rightmost, with the way back to its left. The DOM
+          order is the visual order, so keyboard and screen-reader users meet
+          them the same way. */}
+      <div className="d-flex justify-content-end gap-2">
+        <Link to={spaPaths.profile} className="btn btn-secondary">
+          Change
+        </Link>
         {/* Plain anchor, not react-bootstrap's <Button href>: that component
             overrides the implicit anchor role to "button", which would break
             this link's accessible role. */}
         <a href={hamlDashboard} className="btn btn-primary">
           Proceed
         </a>
-        <Link to={spaPaths.profile} className="btn btn-secondary">
-          Change
-        </Link>
       </div>
     </div>
   );

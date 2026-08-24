@@ -125,6 +125,20 @@ describe("ProfileReview", () => {
     );
   });
 
+  it("puts the actions in macOS order: back on the left, onward on the right", () => {
+    renderReview();
+
+    const back = screen.getByRole("link", { name: /change/i });
+    const onward = screen.getByRole("link", { name: /proceed/i });
+
+    // DOM order is the visual order, so this pins what a keyboard user meets
+    // as well as what a mouse user sees.
+    expect(
+      back.compareDocumentPosition(onward) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(back.parentElement).toHaveClass("justify-content-end");
+  });
+
   it("shows the legacy 'you shouldn't be here' line with nothing to review", () => {
     renderReview({ willingParty: null });
 
