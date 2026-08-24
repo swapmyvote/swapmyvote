@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   # M4 profile screens. /user, /user/constituency and /user/review keep
   # serving HAML until cutover.
   get "app/constituency", to: "spa#index"
+  get "app/profile", to: "spa#index"
 
   root "home#index"
 

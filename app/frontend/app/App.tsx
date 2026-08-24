@@ -17,6 +17,7 @@ import { spaPaths } from "@/lib/spaPaths";
 import { Constituency } from "@/pages/Constituency";
 import { Home } from "@/pages/Home";
 import { Ping } from "@/pages/Ping";
+import { Profile } from "@/pages/Profile";
 
 // Shared chrome around every SPA route: branded nav + footer, matching the
 // tacticalvote layout. New routes are added to <Routes> as screens are
@@ -58,6 +59,7 @@ export function App() {
                     path={spaPaths.constituency}
                     element={<Constituency />}
                   />
+                  <Route path={spaPaths.profile} element={<Profile />} />
                 </Routes>
               </Layout>
             </BrowserRouter>
