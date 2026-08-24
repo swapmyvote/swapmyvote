@@ -61,10 +61,11 @@ uses. The payload builder moves off `Api::V1::SessionController` into a shared
 
 ### `POST /api/v1/session` — `Api::V1::SessionController#create`
 
-Body:
+Body — flat, not nested under `user`, matching how `Api::V1::UsersController`
+and `Api::V1::PrePopulateController` already read their params:
 
 ```json
-{ "user": { "email": "…", "password": "…" } }
+{ "email": "…", "password": "…" }
 ```
 
 Guard: `require_logins_open!` → 403 `logins_closed`.
@@ -102,10 +103,10 @@ Success is 200 with the logged-in `SessionPayload`.
 Body:
 
 ```json
-{ "user": { "name": "…", "email": "…", "password": "…",
-            "password_confirmation": "…",
-            "consent_news_email": false,
-            "consent_to_data_processing": true },
+{ "name": "…", "email": "…", "password": "…",
+  "password_confirmation": "…",
+  "consent_news_email": false,
+  "consent_to_data_processing": true,
   "nickname": "" }
 ```
 
@@ -147,10 +148,12 @@ UI.
 so `errors.full_messages` can contain `<a href="/users/sign_in">Log in
 instead.</a>`. Rendered into JSON that reaches React as a literal tag string.
 
-`BaseController#render_record_invalid` strips tags from every message and every
-`fields` value. It is a no-op for every message that exists today except this
-one, and it guarantees no markup escapes into the API regardless of what a
-future validation does.
+`BaseController#render_error` strips tags from every message and every `fields`
+value. Sanitising there rather than in `render_record_invalid` covers every
+error the API can emit, including `Api::V1::UsersController`, which renders its
+own validation failures instead of raising. It is a no-op for every message
+that exists today except this one, and it guarantees no markup escapes into
+the API regardless of what a future validation does.
 
 The stripped text reads "A user with this email address already exists. Log in
 instead." The sign-up page always renders an "Already have an account? Log in"
@@ -164,9 +167,8 @@ HAML, so it cannot cross to a JSON API. `Users::RegistrationsController` keeps
 using the gem unchanged; the React form gets an equivalent.
 
 `SignUpForm` renders a permanently hidden `nickname` input, and
-`reject_honeypot!` answers 422 `spam_detected` when it arrives non-blank. It is
-sent top-level, not nested under `user`, because it is not a `User` attribute
-and strong parameters would drop it.
+`reject_honeypot!` answers 422 `spam_detected` when it arrives non-blank. It is not a `User` attribute, so it is
+permitted separately from the ones that are.
 
 This is deliberately the weaker half of what the gem does — the timestamp check
 is already disabled on the legacy controller (`timestamp_enabled: false`,
@@ -178,7 +180,9 @@ either.
 `Api::V1::RegistrationController` reads `session[:pre_populate]` server-side and
 applies it to the new user:
 
-- `constituency_ons_id` → `constituency_ons_id`
+- `constituency_ons_id` → `constituency_ons_id`, resolved through the existing
+  `ApplicationController#default_ons_constituency`, which already handles the
+  deep link's `constituency_name` alternative
 - `preferred_party_name` → `preferred_party_id`
 - `willing_party_name` → `willing_party_id`
 
