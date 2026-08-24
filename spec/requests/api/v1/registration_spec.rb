@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Registration", type: :request do
+  include Devise::Test::IntegrationHelpers
+
   def json
     JSON.parse(response.body)
   end
@@ -43,11 +45,26 @@ RSpec.describe "Api::V1::Registration", type: :request do
       expect(User.find_by(email: "ada@example.com").consent_news_email).to be true
     end
 
-    it "remembers the new account, as login does" do
+    # Deliberately unlike login: only the legacy login *form* sent
+    # remember_me: 1, and Devise's own sign_up never remembered a new account,
+    # so registering here must not hand out a persistent cookie POST /users
+    # does not.
+    it "does not remember the new account, as Devise's sign_up does not" do
       post "/api/v1/registration", params: valid_params, as: :json
 
       expect(User.find_by(email: "ada@example.com").remember_created_at)
-        .to be_present
+        .to be_nil
+    end
+
+    it "is 422, not a 500, when the name is omitted altogether" do
+      # A nil name reaches User#check_name_is_not_email, whose unguarded
+      # name.include?("@") would raise NoMethodError.
+      post "/api/v1/registration",
+           params: valid_params(email: "ada@realmail.example").except(:name),
+           as: :json
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(json["error"]["fields"]).to have_key("name")
     end
 
     it "is 422 with per-field messages when the passwords do not match" do
@@ -98,7 +115,7 @@ RSpec.describe "Api::V1::Registration", type: :request do
 
     it "is 422 when the honeypot is filled in" do
       post "/api/v1/registration",
-           params: valid_params(nickname: "spambot"), as: :json
+           params: valid_params(swap_reference: "spambot"), as: :json
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(json["error"]).to include("code" => "spam_detected")
@@ -107,7 +124,7 @@ RSpec.describe "Api::V1::Registration", type: :request do
 
     it "ignores an empty honeypot" do
       post "/api/v1/registration",
-           params: valid_params(nickname: ""), as: :json
+           params: valid_params(swap_reference: ""), as: :json
 
       expect(response).to have_http_status(:created)
     end
@@ -119,6 +136,41 @@ RSpec.describe "Api::V1::Registration", type: :request do
 
       expect(response).to have_http_status(:forbidden)
       expect(json["error"]).to include("code" => "logins_closed")
+    end
+
+    # Devise prepends require_no_authentication to its own
+    # RegistrationsController for this reason: without it a logged-in user can
+    # create a second account, be switched into it, and orphan the first.
+    it "is 403 when the caller is already logged in" do
+      sign_in create(:user, name: "Already Alice")
+
+      post "/api/v1/registration", params: valid_params, as: :json
+
+      expect(response).to have_http_status(:forbidden)
+      expect(json["error"]).to include("code" => "already_authenticated")
+      expect(User.find_by(email: "ada@example.com")).to be_nil
+    end
+
+    # The hardening this endpoint has over the legacy path: the party and
+    # constituency ids come from the session stash the entry form wrote, never
+    # from the body, so a caller cannot set them directly.
+    it "ignores party and constituency ids sent in the body" do
+      constituency = create(:ons_constituency, name: "Woking",
+                                               ons_id: "E14001063")
+      party = create(:party, name: "Green", color: "#6AB023")
+
+      post "/api/v1/registration",
+           params: valid_params(
+             preferred_party_id: party.id,
+             willing_party_id: party.id,
+             constituency_ons_id: constituency.ons_id
+           ), as: :json
+
+      expect(response).to have_http_status(:created)
+      user = User.find_by(email: "ada@example.com")
+      expect(user.preferred_party).to be_nil
+      expect(user.willing_party).to be_nil
+      expect(user.constituency_ons_id).to be_nil
     end
 
     context "with the entry form's answers stashed in the session" do
@@ -207,6 +259,26 @@ RSpec.describe "Api::V1::Registration", type: :request do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(json["error"]).to include("code" => "invalid_authenticity_token")
+      end
+
+      # Signing in rotates the session's CSRF token (Devise's csrf_cleaner
+      # hook), which would strand a SPA that only ever read the boot-time meta
+      # tag — and postAuthPath sends a new account straight into a PATCH.
+      it "rotates the CSRF token and hands the new one back" do
+        get "/app/login"
+        token_before = response.body[/name="csrf-token" content="([^"]+)"/, 1]
+        session_token_before = session[:_csrf_token]
+        expect(token_before).to be_present
+
+        post "/api/v1/registration",
+             params: valid_params,
+             headers: { "X-CSRF-Token" => token_before },
+             as: :json
+
+        expect(response).to have_http_status(:created)
+        expect(session[:_csrf_token]).to be_present
+        expect(session[:_csrf_token]).not_to eq session_token_before
+        expect(response.headers["X-CSRF-Token"]).to be_present
       end
     end
   end

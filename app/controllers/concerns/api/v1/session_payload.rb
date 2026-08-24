@@ -2,12 +2,31 @@ module Api
   module V1
     # The `GET /api/v1/session` body, shared by every endpoint that can change
     # who we are logged in as. Login, registration and log out all answer with
-    # it so the SPA can prime its session cache from the response instead of
-    # racing a refetch.
+    # it, so the caller knows who it is now talking as without a second round
+    # trip.
     module SessionPayload
       extend ActiveSupport::Concern
 
+      CSRF_TOKEN_HEADER = "X-CSRF-Token".freeze
+
       private
+
+      # Renders the payload for an endpoint that has just changed who we are
+      # logged in as, and hands back the CSRF token that goes with the new
+      # session. Devise's csrf_cleaner hook deletes session[:_csrf_token] on
+      # authentication and sign_out clears the session outright, so the token
+      # the SPA read from <meta name="csrf-token"> at page load is stale from
+      # here on — and it has no other way to learn the replacement short of a
+      # full page load.
+      #
+      # Returning it in a header is safe: the SPA is same-origin, and the token
+      # is not a secret from a page that is already holding one. CSRF
+      # protection rests on a cross-origin page being unable to read this
+      # response at all, not on the token being unguessable to this page.
+      def render_session_payload(status: :ok)
+        response.set_header(CSRF_TOKEN_HEADER, form_authenticity_token)
+        render json: session_payload, status: status
+      end
 
       def session_payload
         SessionSerializer.new(

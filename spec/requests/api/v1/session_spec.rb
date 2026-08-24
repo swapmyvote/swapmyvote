@@ -248,6 +248,26 @@ RSpec.describe "Api::V1::Session", type: :request do
       expect(response).to have_http_status(:unauthorized)
     end
 
+    # A blank email would otherwise reach `lower(email) = ''`, which matches
+    # the blank-email row a social sign-up leaves behind.
+    it "is 401 when the email is blank, without looking anyone up" do
+      create(:user, name: "Social Sal").update_column(:email, "")
+
+      post "/api/v1/session", params: { password: "john-password" }, as: :json
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(json["error"]).to include("code" => "invalid_credentials")
+    end
+
+    it "is 401 when the email is not a scalar, which permit drops" do
+      post "/api/v1/session",
+           params: { email: { "$ne" => "" }, password: "john-password" },
+           as: :json
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(json["error"]).to include("code" => "invalid_credentials")
+    end
+
     it "is 403 while logins are closed" do
       stub_mode("closed-warm-up")
 
@@ -259,12 +279,36 @@ RSpec.describe "Api::V1::Session", type: :request do
       expect(json["error"]).to include("code" => "logins_closed")
     end
 
+    # Devise prepends require_no_authentication to its own SessionsController
+    # for this reason: an already-signed-in caller must not be able to swap
+    # accounts through the login endpoint.
+    it "is 403 when the caller is already logged in" do
+      other = create(:user, name: "Already Alice")
+      sign_in other
+
+      post "/api/v1/session",
+           params: { email: user.email, password: "john-password" },
+           as: :json
+
+      expect(response).to have_http_status(:forbidden)
+      expect(json["error"]).to include("code" => "already_authenticated")
+
+      get "/api/v1/session"
+      expect(json["currentUser"]).to include("id" => other.id)
+    end
+
     context "with forgery protection on (as in production)" do
       around do |example|
         original = ActionController::Base.allow_forgery_protection
         ActionController::Base.allow_forgery_protection = true
         example.run
         ActionController::Base.allow_forgery_protection = original
+      end
+
+      # The SPA shell is the only place the browser ever reads a token from,
+      # and csrf_meta_tags render nothing unless forgery protection is on.
+      def meta_csrf_token
+        response.body[/name="csrf-token" content="([^"]+)"/, 1]
       end
 
       it "rejects a login without a valid CSRF token, as JSON" do
@@ -275,6 +319,45 @@ RSpec.describe "Api::V1::Session", type: :request do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(json["error"]).to include("code" => "invalid_authenticity_token")
+      end
+
+      # Legacy POST /users/sign_in rotates through warden.authenticate!;
+      # `sign_in(user, event: :authentication)` is what keeps this endpoint
+      # from being the weaker of the two.
+      it "rotates the session's CSRF token on login" do
+        get "/app/login"
+        session_token_before = session[:_csrf_token]
+        expect(meta_csrf_token).to be_present
+
+        post "/api/v1/session",
+             params: { email: user.email, password: "john-password" },
+             headers: { "X-CSRF-Token" => meta_csrf_token },
+             as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(session[:_csrf_token]).to be_present
+        expect(session[:_csrf_token]).not_to eq session_token_before
+      end
+
+      # Rotation would strand the SPA otherwise: it read its token from a meta
+      # tag at page load and has no other way to learn the replacement.
+      it "hands back a token the next request can use, and retires the old" do
+        get "/app/login"
+        stale_token = meta_csrf_token
+
+        post "/api/v1/session",
+             params: { email: user.email, password: "john-password" },
+             headers: { "X-CSRF-Token" => stale_token },
+             as: :json
+
+        rotated_token = response.headers["X-CSRF-Token"]
+        expect(rotated_token).to be_present
+
+        delete "/api/v1/session", headers: { "X-CSRF-Token" => stale_token }
+        expect(response).to have_http_status(:unprocessable_entity)
+
+        delete "/api/v1/session", headers: { "X-CSRF-Token" => rotated_token }
+        expect(response).to have_http_status(:ok)
       end
     end
   end
@@ -292,6 +375,16 @@ RSpec.describe "Api::V1::Session", type: :request do
 
       get "/api/v1/session"
       expect(json["currentUser"]).to be_nil
+    end
+
+    # sign_out clears the session, so the token the SPA is holding dies with
+    # it — the logged-out client still has to be able to POST a login.
+    it "hands back the CSRF token that goes with the new, empty session" do
+      sign_in user
+
+      delete "/api/v1/session"
+
+      expect(response.headers["X-CSRF-Token"]).to be_present
     end
 
     it "is 401 with the error convention when not logged in" do

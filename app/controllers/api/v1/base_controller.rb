@@ -55,6 +55,21 @@ module Api
         )
       end
 
+      # Mirrors the `require_no_authentication` Devise prepends to its own
+      # SessionsController and RegistrationsController, which bounces an
+      # already-signed-in visitor rather than letting them log in again or
+      # create a second account. Without it a logged-in user could register a
+      # second account, be switched into it, and orphan the first.
+      def reject_when_logged_in!
+        return unless logged_in?
+
+        render_error(
+          code: "already_authenticated",
+          status: :forbidden,
+          messages: ["You are already logged in"]
+        )
+      end
+
       # Mirrors UsersController#restricted_when_voting_open: once voting is
       # open and this user's swap is confirmed, their voting information is
       # frozen. The legacy version redirects; this reports the refusal.
