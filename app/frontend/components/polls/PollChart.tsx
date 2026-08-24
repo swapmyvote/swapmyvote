@@ -47,6 +47,7 @@ export function PollChart({ polls, constituencyName }: PollChartProps) {
           data={data}
           options={options}
           aria-label={`Predicted vote share by party in ${constituencyName}`}
+          role="img"
         />
       </div>
 
@@ -61,7 +62,7 @@ export function PollChart({ polls, constituencyName }: PollChartProps) {
         <tbody>
           {polls.map((poll) => (
             <tr key={poll.partyId}>
-              <th scope="row">{poll.partyName}</th>
+              <th scope="row">{poll.partyName ?? poll.partyShortName}</th>
               <td>{Math.round(poll.votes / 100)}%</td>
             </tr>
           ))}
