@@ -58,6 +58,10 @@ Rails.application.routes.draw do
   get "app/terms", to: "spa#index"
   # M3 home / landing. `/` keeps serving HomeController until cutover.
   get "app/home", to: "spa#index"
+  # M5 auth. /users/sign_in and /users/sign_up keep serving Devise HAML until
+  # cutover.
+  get "app/login", to: "spa#index"
+  get "app/signup", to: "spa#index"
   # M4 profile screens. /user, /user/constituency and /user/review keep
   # serving HAML until cutover.
   get "app/constituency", to: "spa#index"
