@@ -37,8 +37,16 @@ class Poll < ApplicationRecord
     end
   end
 
+  # How far ahead (+) or behind (-) of the best of the other parties this one
+  # is. `marginal_score` is its absolute value, stored by the rake task above.
+  #
+  # Two shapes of incomplete data have to survive this, because both reach it:
+  # a constituency holding a single poll (nothing to compare against, so the
+  # party leads by its whole share), and a `votes` of nil, which the column
+  # allows with no default. Either used to raise out of the subtraction, and
+  # the HAML swap views call this straight from the page.
   def signed_marginal_score
-    other_poll_votes = constituency.polls.select { |p| p.id != id }.map(&:votes)
-    votes - other_poll_votes.max
+    other_poll_votes = constituency.polls.reject { |p| p.id == id }.filter_map(&:votes)
+    votes.to_i - (other_poll_votes.max || 0)
   end
 end

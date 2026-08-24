@@ -59,4 +59,51 @@ RSpec.describe Poll, type: :model do
       end
     end
   end
+
+  describe "#signed_marginal_score" do
+    let(:constituency) { create(:ons_constituency, ons_id: "signed-marginal-score-con") }
+
+    def poll_with(votes)
+      create(:poll, votes: votes, constituency: constituency, party: create(:party))
+    end
+
+    it "is how far ahead of the next party this one is" do
+      leader = poll_with(4210)
+      poll_with(1200)
+
+      expect(leader.signed_marginal_score).to eq 3010
+    end
+
+    it "is negative for a party that is behind" do
+      poll_with(4210)
+      trailing = poll_with(1200)
+
+      expect(trailing.signed_marginal_score).to eq(-3010)
+    end
+
+    # The one-poll case is real: a constituency can be seeded with a single
+    # party, and the marginal-score rake task walks every constituency there
+    # is. There is nothing to compare against, so the party leads by all of it.
+    it "is the whole vote share when nobody else is standing" do
+      only = poll_with(4210)
+
+      expect(only.signed_marginal_score).to eq 4210
+    end
+
+    # `polls.votes` is nullable with no default, so a partially seeded
+    # constituency can hold a row we know nothing about.
+    it "ignores a party whose vote share we do not have" do
+      leader = poll_with(4210)
+      poll_with(nil)
+
+      expect(leader.signed_marginal_score).to eq 4210
+    end
+
+    it "treats our own missing vote share as none" do
+      unknown = poll_with(nil)
+      poll_with(1200)
+
+      expect(unknown.signed_marginal_score).to eq(-1200)
+    end
+  end
 end
