@@ -319,7 +319,13 @@ main {
 footer {
   background: var(--bs-gray-300);
   padding-top: 2rem;
-  padding-bottom: 4rem;
+  // The cookie banner is fixed to the bottom of the viewport, so at the foot
+  // of the page it lands on top of the footer and hides the end of it. The
+  // banner reports its own height as --cookie-consent-height while it is on
+  // screen (CookieConsentBanner.tsx), and the footer grows by that much so
+  // nothing ends up underneath it. Padding rather than margin, so the grey
+  // band still runs to the bottom of the page behind the banner.
+  padding-bottom: calc(4rem + var(--cookie-consent-height, 0px));
   border-top: 2px solid var(--bs-gray-100);
 }
 
