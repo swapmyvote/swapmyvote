@@ -29,13 +29,19 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
   ],
-  webServer: {
-    command: "foreman start -f Procfile.dev",
-    url: "http://localhost:3000/app/ping",
-    // Locally, reuse whatever stack the developer already has running; on CI
-    // there is never one to reuse, and reusing would mask a stack that failed
-    // to boot.
-    reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
-  },
+  // E2E_BASE_URL means "a stack is already running, here" — so don't boot one.
+  // Without this, the suite still waits on port 3000 even when pointed
+  // elsewhere, which hangs whenever something else holds that port: another
+  // checkout's server, or a worktree running on its own ports.
+  webServer: process.env.E2E_BASE_URL
+    ? undefined
+    : {
+        command: "foreman start -f Procfile.dev",
+        url: "http://localhost:3000/app/ping",
+        // Locally, reuse whatever stack the developer already has running; on
+        // CI there is never one to reuse, and reusing would mask a stack that
+        // failed to boot.
+        reuseExistingServer: !process.env.CI,
+        timeout: 120_000,
+      },
 });

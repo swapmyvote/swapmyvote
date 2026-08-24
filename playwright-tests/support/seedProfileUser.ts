@@ -1,5 +1,11 @@
 import { execFileSync } from "node:child_process";
 
+// Spring keeps a preloader around between `bin/rails` calls, and a stale one
+// leaves `runner` hanging with no output — which stalls the whole suite before
+// a single test starts, since seeding happens at module load. Seeding is a
+// handful of one-shot calls, so the preloader buys nothing here anyway.
+const railsEnv = { ...process.env, DISABLE_SPRING: "1" };
+
 export interface TestCredentials {
   email: string;
   password: string;
@@ -59,6 +65,7 @@ export function seedProfileUser(suffix = ""): TestCredentials {
   };
   execFileSync("bin/rails", ["runner", buildScript(credentials)], {
     stdio: "inherit",
+    env: railsEnv,
   });
   return credentials;
 }
@@ -88,6 +95,9 @@ export function seedUserWithoutConstituency(): TestCredentials {
     user.constituency_ons_id = nil
     user.save!
   `;
-  execFileSync("bin/rails", ["runner", script], { stdio: "inherit" });
+  execFileSync("bin/rails", ["runner", script], {
+    stdio: "inherit",
+    env: railsEnv,
+  });
   return credentials;
 }
