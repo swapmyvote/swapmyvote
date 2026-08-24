@@ -21,11 +21,14 @@ const marginalThreshold = 1000;
  * Ruby's "%.1g" rounds half to even and JavaScript's toPrecision rounds half
  * away from zero, so an exact half (8.5%) differs by a rounding step. Polling
  * numbers are estimates to begin with, so that is not worth emulating.
+ *
+ * Ruby's "%d" truncates towards zero rather than rounding, so `Math.trunc`
+ * matches it where `Math.round` would not (e.g. 12.7% stays "12%", not "13%").
  */
 function formatPercent(marginalScore: number): string {
   const percent = marginalScore / 100;
   if (percent >= 9) {
-    return `${Math.round(percent)}%`;
+    return `${Math.trunc(percent)}%`;
   }
   return `${Number(percent.toPrecision(1))}%`;
 }

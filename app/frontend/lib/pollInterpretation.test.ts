@@ -82,6 +82,13 @@ describe("interpretPoll", () => {
     ).toBe("12%");
   });
 
+  it('truncates rather than rounds, matching Ruby\'s "%d" (12.7% stays 12%)', () => {
+    expect(
+      interpretPoll(poll({ marginalScore: 1270, signedMarginalScore: 1270 }))
+        ?.percent,
+    ).toBe("12%");
+  });
+
   it("has nothing to say without a poll", () => {
     expect(interpretPoll(null)).toBeNull();
     expect(interpretPoll(undefined)).toBeNull();
