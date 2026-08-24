@@ -36,7 +36,7 @@ export function ProfileReview({
           back here when you're done.
         </p>
         <Link to={spaPaths.profile} className="btn btn-primary">
-          Edit profile
+          Edit Profile
         </Link>
       </Alert>
     );
@@ -53,19 +53,19 @@ export function ProfileReview({
 
       {interpretation === null ? (
         <p className="mb-0">
-          No polling data found for {willingParty.name} in {constituencyName},
+          No polling data found for {willingParty.name} in {constituencyName}
           so we can't interpret that for you.
         </p>
       ) : (
         <p className="mb-0">
           {interpretation.kind === "could-make-a-difference" &&
-            `⭐ Looks like your vote could make a difference for ${willingParty.name}, who are ${
+            `⭐ Looks like your vote could make a difference for ${willingParty.name} who are ${
               interpretation.leading
                 ? "leading"
                 : "only trailing the leading party"
             } by ${interpretation.percent} in the polls for ${constituencyName}, so it's more likely that people supporting ${willingParty.name} will want to swap with you.`}
           {interpretation.kind === "safe-win" &&
-            `Looks like your vote may be supporting a safe win for ${willingParty.name}, who are currently leading by ${interpretation.percent} in the polls for ${constituencyName}, so it's less likely that people supporting ${willingParty.name} will want to swap with you.`}
+            `Looks like your vote may be supporting a safe win for ${willingParty.name} who are currently leading by ${interpretation.percent} in the polls for ${constituencyName}, so it's less likely that people supporting ${willingParty.name} will want to swap with you.`}
           {interpretation.kind === "trailing" &&
             `${willingParty.name} are trailing by ${interpretation.percent} in the polls for ${constituencyName}, and may still lose despite this swap, so it's less likely that people supporting ${willingParty.name} will want to swap with you.`}
         </p>

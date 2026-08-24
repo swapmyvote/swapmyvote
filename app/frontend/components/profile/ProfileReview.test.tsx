@@ -93,4 +93,19 @@ describe("ProfileReview", () => {
 
     expect(screen.getByText(/you shouldn't be here/i)).toBeInTheDocument();
   });
+
+  it("names the missing constituency when only that is unknown", () => {
+    renderReview({ constituencyName: null });
+
+    expect(
+      screen.getByText(
+        /we don't know the constituency you're going to vote in/i,
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        /we don't know the party you are offering to vote for/i,
+      ),
+    ).not.toBeInTheDocument();
+  });
 });
