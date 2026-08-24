@@ -2,16 +2,17 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
+import { Link } from "react-router-dom";
 import logoNav from "@/assets/images/logo_nav.png";
 import logoNav2x from "@/assets/images/logo_nav@2x.png";
 import { useAppMode } from "@/contexts/useAppMode";
 import { useSession } from "@/contexts/useSession";
+import { spaPaths } from "@/lib/spaPaths";
 
 // Paths still served by the legacy HAML site. Crossing the SPA→HAML boundary
 // needs a real page load, so these are plain `href`s, never react-router
 // <Link>s. Each becomes a <Link> as its screen is ported.
 const hamlHome = "/";
-const hamlSignIn = "/users/sign_in";
 const hamlEditProfile = "/user/edit";
 
 // Branded top bar. Matches the legacy site's look for now: the pink SwapMyVote
@@ -83,9 +84,9 @@ export function Navigation() {
             </div>
           ) : (
             loginsOpen && (
-              <a href={hamlSignIn} className="small">
+              <Link to={spaPaths.login} className="small">
                 Already been here? Log in
-              </a>
+              </Link>
             )
           )}
         </Container>

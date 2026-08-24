@@ -2,11 +2,9 @@ import type { ReactNode } from "react";
 import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
 import Spinner from "react-bootstrap/Spinner";
+import { Link } from "react-router-dom";
 import { useSession } from "@/contexts/useSession";
-
-// Devise's sign-in page is still HAML, so this is a full-page link out of the
-// SPA rather than a react-router route. It becomes an in-app route in M5.
-const hamlSignIn = "/users/sign_in";
+import { spaPaths } from "@/lib/spaPaths";
 
 /**
  * Shows its children only to a logged-in user. UX only: every endpoint behind
@@ -31,7 +29,9 @@ export function RequireLogin({ children }: { children: ReactNode }) {
       <Container className="container-narrow py-5">
         <Alert variant="warning">
           <p>You need to be logged in to see this page</p>
-          <Alert.Link href={hamlSignIn}>Log in</Alert.Link>
+          <Alert.Link as={Link} to={spaPaths.login}>
+            Log in
+          </Alert.Link>
         </Alert>
       </Container>
     );

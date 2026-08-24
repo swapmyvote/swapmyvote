@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
+import { useNavigate } from "react-router-dom";
 import { ConstituencyStep } from "@/components/home/ConstituencyStep";
 import { PartiesStep } from "@/components/home/PartiesStep";
 import { Section } from "@/components/home/Section";
 import { apiClient } from "@/lib/apiClient";
+import { spaPaths } from "@/lib/spaPaths";
 import type { Constituency, Party, PrePopulate } from "@/types/api";
 
 interface EntryFormProps {
@@ -12,10 +14,6 @@ interface EntryFormProps {
   /** "another constituency" / "the other constituency", from the election. */
   constituencyOther: string;
 }
-
-// Sign-up is still Devise-rendered HAML, so finishing the form leaves the SPA.
-// Becomes an in-app route when auth is ported.
-const hamlSignUp = "/users/sign_in";
 
 /**
  * The two-step form on the home page: constituency, then parties, then off to
@@ -37,6 +35,7 @@ export function EntryForm({
   const [step, setStep] = useState<"constituency" | "parties">("constituency");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   async function stash(answers: {
     constituencyOnsId: string;
@@ -79,7 +78,7 @@ export function EntryForm({
       );
       return;
     }
-    window.location.assign(hamlSignUp);
+    navigate(spaPaths.signup);
   }
 
   return (

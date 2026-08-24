@@ -1,8 +1,10 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { EntryForm } from "@/components/home/EntryForm";
 import { apiClient } from "@/lib/apiClient";
+import { spaPaths } from "@/lib/spaPaths";
 import type { Constituency, Party } from "@/types/api";
 
 vi.mock("@/lib/apiClient", () => ({ apiClient: { post: vi.fn() } }));
@@ -17,11 +19,21 @@ const partyFixtures: Party[] = [
 
 function renderForm() {
   render(
-    <EntryForm
-      constituencies={constituencyFixtures}
-      parties={partyFixtures}
-      constituencyOther="another constituency"
-    />,
+    <MemoryRouter initialEntries={["/"]}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <EntryForm
+              constituencies={constituencyFixtures}
+              parties={partyFixtures}
+              constituencyOther="another constituency"
+            />
+          }
+        />
+        <Route path={spaPaths.signup} element={<p>Sign up</p>} />
+      </Routes>
+    </MemoryRouter>,
   );
 }
 
@@ -45,15 +57,8 @@ async function completePartiesStep() {
 }
 
 describe("EntryForm", () => {
-  let assign: ReturnType<typeof vi.fn>;
-
   beforeEach(() => {
     vi.mocked(apiClient.post).mockResolvedValue({});
-    assign = vi.fn();
-    vi.spyOn(window, "location", "get").mockReturnValue({
-      ...window.location,
-      assign,
-    } as unknown as Location);
   });
 
   afterEach(() => {
@@ -104,7 +109,9 @@ describe("EntryForm", () => {
         willing_party_id: "2",
       });
     });
-    expect(assign).toHaveBeenCalledWith("/users/sign_in");
+    await waitFor(() =>
+      expect(screen.getByText("Sign up")).toBeInTheDocument(),
+    );
   });
 
   it("moves on even if stashing the constituency fails", async () => {
@@ -132,6 +139,6 @@ describe("EntryForm", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent(
       /something went wrong saving your choices/i,
     );
-    expect(assign).not.toHaveBeenCalled();
+    expect(screen.queryByText("Sign up")).not.toBeInTheDocument();
   });
 });

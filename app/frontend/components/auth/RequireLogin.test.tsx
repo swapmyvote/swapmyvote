@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { RequireLogin } from "@/components/auth/RequireLogin";
 import {
@@ -33,9 +34,11 @@ function renderWithSession(session: SessionPayload | null, isLoading = false) {
   };
   render(
     <SessionContext.Provider value={value}>
-      <RequireLogin>
-        <p>Secret</p>
-      </RequireLogin>
+      <MemoryRouter>
+        <RequireLogin>
+          <p>Secret</p>
+        </RequireLogin>
+      </MemoryRouter>
     </SessionContext.Provider>,
   );
 }
@@ -65,7 +68,7 @@ describe("RequireLogin", () => {
     expect(screen.queryByText("Secret")).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: /log in/i })).toHaveAttribute(
       "href",
-      "/users/sign_in",
+      "/app/login",
     );
   });
 
