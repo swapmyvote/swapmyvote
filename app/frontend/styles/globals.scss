@@ -142,6 +142,21 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
 @import "bootstrap/scss/utilities/api";
 
 /***** GLOBAL DEFAULT STYLES *****/
+
+// The reading column the legacy site puts forms and prose in. Both classes
+// exist only in app/assets/stylesheets/home.scss, which the SPA layout does
+// not load — so every React screen using them (the three M4 profile screens,
+// the logged-out prompt) was silently rendering at full container width.
+// Same values as the legacy stylesheet, so a ported screen sits where its
+// HAML original does.
+.container-narrow {
+  max-width: 610px;
+}
+
+.container-extra-narrow {
+  max-width: 520px;
+}
+
 .bg-red {
   --bs-bg-opacity: 1;
   background-color: rgba($red, var(--bs-bg-opacity)) !important;

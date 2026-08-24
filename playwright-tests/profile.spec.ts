@@ -62,6 +62,22 @@ test.describe("profile screen", () => {
   });
 });
 
+// `.container-narrow` is defined in globals.scss, not in the Sprockets
+// stylesheet the SPA never loads — this is what catches it going missing
+// again, since jsdom loads no CSS and the component tests cannot see width.
+test("must hold the profile form in the legacy reading column", async ({
+  page,
+}) => {
+  await signIn(page, credentials);
+  await page.goto(spaPaths.profile);
+
+  const container = page.locator(".container-narrow");
+  await expect(container).toBeVisible();
+
+  const box = await container.boundingBox();
+  expect(box?.width).toBeLessThanOrEqual(610);
+});
+
 test("must refuse to save the constituency screen with nothing chosen", async ({
   page,
 }) => {
