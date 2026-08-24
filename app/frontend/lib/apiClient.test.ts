@@ -1,8 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ApiError, apiClient } from "@/lib/apiClient";
+import { setCsrfToken } from "@/lib/csrf";
 
-function jsonResponse(status: number, body: unknown) {
-  return new Response(JSON.stringify(body), { status });
+function jsonResponse(status: number, body: unknown, headers?: HeadersInit) {
+  return new Response(JSON.stringify(body), { status, headers });
 }
 
 function setCsrfMeta(token: string | null) {
@@ -27,6 +28,9 @@ async function rejection(promise: Promise<unknown>): Promise<ApiError> {
 
 describe("apiClient", () => {
   beforeEach(() => {
+    // Module-level state in lib/csrf: clear anything an earlier example
+    // taught it, so each one starts from the boot-time meta tag.
+    setCsrfToken(null);
     setCsrfMeta("test-csrf-token");
     // A fresh Response per call: a Response body can only be read once, and
     // several examples make more than one request.
@@ -35,6 +39,7 @@ describe("apiClient", () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+    setCsrfToken(null);
     document.head.innerHTML = "";
   });
 
@@ -73,6 +78,40 @@ describe("apiClient", () => {
     await apiClient.post("/session");
 
     expect(lastRequestHeaders()["X-CSRF-Token"]).toBe("rotated-token");
+  });
+
+  // Logging in, signing up and logging out all rotate the token server-side,
+  // and answer with the replacement. Without picking it up the SPA's next
+  // non-GET would be a 422 — and a new account goes straight into a PATCH.
+  it("learns a rotated CSRF token from the response and sends it next time", async () => {
+    vi.mocked(global.fetch).mockImplementationOnce(async () =>
+      jsonResponse(200, { ok: true }, { "X-CSRF-Token": "rotated-token" }),
+    );
+
+    await apiClient.post("/session", { email: "ada@example.com" });
+    await apiClient.patch("/user", { name: "Ada" });
+
+    expect(lastRequestHeaders()["X-CSRF-Token"]).toBe("rotated-token");
+  });
+
+  it("keeps the learned token in preference to a now-stale meta tag", async () => {
+    vi.mocked(global.fetch).mockImplementationOnce(async () =>
+      jsonResponse(200, { ok: true }, { "X-CSRF-Token": "rotated-token" }),
+    );
+
+    await apiClient.post("/session");
+    // A response header beats the tag the page booted with, which Rails
+    // cannot re-render without a full page load.
+    setCsrfMeta("stale-boot-time-token");
+    await apiClient.post("/pre_populate");
+
+    expect(lastRequestHeaders()["X-CSRF-Token"]).toBe("rotated-token");
+  });
+
+  it("leaves the token alone for a response that carries no new one", async () => {
+    await apiClient.post("/session");
+
+    expect(lastRequestHeaders()["X-CSRF-Token"]).toBe("test-csrf-token");
   });
 
   it("omits the CSRF header when the page has no token", async () => {

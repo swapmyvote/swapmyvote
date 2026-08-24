@@ -1,4 +1,4 @@
-import { csrfHeader, csrfToken } from "@/lib/csrf";
+import { csrfHeader, csrfToken, setCsrfToken } from "@/lib/csrf";
 import type { ApiErrorBody } from "@/types/api";
 
 const apiRoot = "/api/v1";
@@ -70,6 +70,15 @@ async function request<T>(
     credentials: "same-origin",
     body: body === undefined ? undefined : JSON.stringify(body),
   });
+
+  // Logging in, signing up and logging out all replace the session, and with
+  // it the CSRF token the page booted with. Those endpoints answer with the
+  // new one; learn it here so the next non-GET is not rejected. Safe to trust:
+  // this is a same-origin response from our own API.
+  const refreshedToken = response.headers.get(csrfHeader);
+  if (refreshedToken) {
+    setCsrfToken(refreshedToken);
+  }
 
   const parsed = await parseBody(response);
 
