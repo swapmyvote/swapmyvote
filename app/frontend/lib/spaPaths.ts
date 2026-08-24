@@ -17,6 +17,7 @@ export const spaPaths = {
   contact: "/app/contact",
   terms: "/app/terms",
   cookies: "/app/cookies",
+  constituency: "/app/constituency",
 } as const;
 
 export type SpaPathKey = keyof typeof spaPaths;

@@ -54,6 +54,9 @@ Rails.application.routes.draw do
   get "app/terms", to: "spa#index"
   # M3 home / landing. `/` keeps serving HomeController until cutover.
   get "app/home", to: "spa#index"
+  # M4 profile screens. /user, /user/constituency and /user/review keep
+  # serving HAML until cutover.
+  get "app/constituency", to: "spa#index"
 
   root "home#index"
 

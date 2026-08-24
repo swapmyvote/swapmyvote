@@ -14,6 +14,7 @@ import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { queryClient } from "@/lib/queryClient";
 import { spaPaths } from "@/lib/spaPaths";
+import { Constituency } from "@/pages/Constituency";
 import { Home } from "@/pages/Home";
 import { Ping } from "@/pages/Ping";
 
@@ -53,6 +54,10 @@ export function App() {
                   <Route path={spaPaths.contact} element={<Contact />} />
                   <Route path={spaPaths.cookies} element={<Cookies />} />
                   <Route path={spaPaths.terms} element={<Terms />} />
+                  <Route
+                    path={spaPaths.constituency}
+                    element={<Constituency />}
+                  />
                 </Routes>
               </Layout>
             </BrowserRouter>
