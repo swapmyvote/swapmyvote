@@ -6,10 +6,10 @@
  *
  * The meta tag is only ever right until the session changes: logging in and
  * signing up rotate the token (Devise's csrf_cleaner hook), and logging out
- * throws the session away. Those three endpoints answer with the replacement
- * in an `X-CSRF-Token` response header, which apiClient feeds to
- * `setCsrfToken` — so a token learned at runtime always wins over the one the
- * page booted with.
+ * signs out of all scopes, which throws the whole session away. Those three
+ * endpoints answer with the replacement in an `X-CSRF-Token` response header,
+ * which apiClient feeds to `setCsrfToken` — so a token learned at runtime
+ * always wins over the one the page booted with.
  */
 export const csrfHeader = "X-CSRF-Token";
 

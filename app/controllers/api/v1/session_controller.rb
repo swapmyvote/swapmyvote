@@ -57,7 +57,15 @@ module Api
       end
 
       def destroy
-        sign_out(current_user)
+        # Bare `sign_out`, not `sign_out(current_user)`: Devise's own
+        # Devise::SessionsController#destroy signs out of all scopes because
+        # config.sign_out_all_scopes defaults to true (left at its default
+        # here), and only the all-scopes form reaches Warden::Proxy#logout
+        # with no scopes given, which is what makes it call reset_session!.
+        # `sign_out(current_user)` passes a scope, so Warden only forgets that
+        # scope's user and leaves the rest of the session — including
+        # session[:_csrf_token] — in place.
+        sign_out
         # Answer with a fresh payload rather than 204 so the SPA can prime its
         # session cache from the response instead of racing a refetch.
         render_session_payload

@@ -377,14 +377,33 @@ RSpec.describe "Api::V1::Session", type: :request do
       expect(json["currentUser"]).to be_nil
     end
 
-    # sign_out clears the session, so the token the SPA is holding dies with
-    # it — the logged-out client still has to be able to POST a login.
-    it "hands back the CSRF token that goes with the new, empty session" do
-      sign_in user
+    # The bare, all-scopes `sign_out` reaches Warden::Proxy#logout with no
+    # scopes, which calls reset_session! — so the token the SPA is holding
+    # dies with the rest of the session, and the logged-out client still has
+    # to be able to POST a login with the replacement.
+    it "clears the session, rotating the CSRF token, on logout" do
+      # A real login, not the sign_in test helper, so session[:_csrf_token]
+      # is genuinely populated (csrf_cleaner rotates it on authentication) —
+      # sign_in bypasses Warden entirely and never touches it.
+      post "/api/v1/session",
+           params: { email: user.email, password: "john-password" }, as: :json
+      # The raw session value, not the response header: form_authenticity_token
+      # masks it with a fresh one-time pad on every call, so two header reads
+      # always differ even when the underlying session token has not rotated.
+      raw_token_before = session[:_csrf_token]
+      expect(raw_token_before).to be_present
+
+      # Anything the entry form stashed ahead of logging in is session state
+      # too — proof the session was actually thrown away, not just the user.
+      post "/api/v1/pre_populate", params: {}, as: :json
+      expect(session[:pre_populate]).to be_present
 
       delete "/api/v1/session"
 
       expect(response.headers["X-CSRF-Token"]).to be_present
+      expect(session[:_csrf_token]).to be_present
+      expect(session[:_csrf_token]).not_to eq raw_token_before
+      expect(session[:pre_populate]).to be_nil
     end
 
     it "is 401 with the error convention when not logged in" do

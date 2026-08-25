@@ -14,10 +14,12 @@ module Api
       # Renders the payload for an endpoint that has just changed who we are
       # logged in as, and hands back the CSRF token that goes with the new
       # session. Devise's csrf_cleaner hook deletes session[:_csrf_token] on
-      # authentication and sign_out clears the session outright, so the token
-      # the SPA read from <meta name="csrf-token"> at page load is stale from
-      # here on — and it has no other way to learn the replacement short of a
-      # full page load.
+      # authentication, and the bare, all-scopes `sign_out` in
+      # SessionController#destroy reaches Warden::Proxy#logout with no scopes,
+      # which calls reset_session! and throws the whole session away — so
+      # either way, the token the SPA read from <meta name="csrf-token"> at
+      # page load is stale from here on, and it has no other way to learn the
+      # replacement short of a full page load.
       #
       # Returning it in a header is safe: the SPA is same-origin, and the token
       # is not a secret from a page that is already holding one. CSRF
