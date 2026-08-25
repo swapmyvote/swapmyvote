@@ -33,15 +33,21 @@ module Api
 
       private
 
-      # `name` defaults to "" rather than being left absent: a body with no
-      # `name` key at all hands User#check_name_is_not_email a nil, and its
-      # unguarded name.include?("@") raises NoMethodError — a 500 where the
-      # presence validation should have given a 422. An empty string validates
-      # normally.
+      # `name` is coerced to a string rather than left as whatever `permit`
+      # handed back: a body with no `name` key at all, *or* an explicit
+      # `"name": null` (NilClass is one of strong parameters'
+      # PERMITTED_SCALAR_TYPES, so it survives `permit` unchanged), both hand
+      # User#check_name_is_not_email a nil, and its unguarded
+      # name.include?("@") raises NoMethodError — a 500 where the presence
+      # validation should have given a 422. `reverse_merge` alone only covers
+      # the absent-key case; `.to_s` covers both, and an empty string
+      # validates normally.
       def registration_params
-        params.permit(:name, :email, :password, :password_confirmation,
-                      :consent_news_email, :consent_to_data_processing)
-              .reverse_merge(name: "")
+        permitted = params.permit(:name, :email, :password,
+                                  :password_confirmation, :consent_news_email,
+                                  :consent_to_data_processing)
+        permitted[:name] = permitted[:name].to_s
+        permitted
       end
 
       # invisible_captcha renders a randomly-named field from a view helper, so

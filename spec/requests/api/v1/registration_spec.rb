@@ -67,6 +67,18 @@ RSpec.describe "Api::V1::Registration", type: :request do
       expect(json["error"]["fields"]).to have_key("name")
     end
 
+    it "is 422, not a 500, when the name is explicitly null" do
+      # NilClass is one of strong parameters' PERMITTED_SCALAR_TYPES, so a
+      # body with an explicit "name": null survives `permit` unchanged —
+      # unlike the omitted-key case, `.except(:name)` never exercises this.
+      post "/api/v1/registration",
+           params: valid_params(email: "ada@realmail.example", name: nil),
+           as: :json
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(json["error"]["fields"]).to have_key("name")
+    end
+
     it "is 422 with per-field messages when the passwords do not match" do
       post "/api/v1/registration",
            params: valid_params(password_confirmation: "something-else"),
