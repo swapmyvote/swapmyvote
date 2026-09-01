@@ -477,3 +477,15 @@ i.party-other {
 div.party-other {
   background-color: var(--other-party-color);
 }
+
+// The sign-up honeypot: present in the DOM for a bot to fill in, but not
+// rendered, not focusable and not announced. `display: none` alone is skipped
+// by some form-filling bots, which is the point of moving it off-screen
+// instead.
+.honeypot-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

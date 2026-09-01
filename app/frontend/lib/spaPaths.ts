@@ -13,6 +13,8 @@
 // full-page anchors to `/faq`.
 export const spaPaths = {
   home: "/app/home",
+  login: "/app/login",
+  signup: "/app/signup",
   about: "/app/about",
   contact: "/app/contact",
   terms: "/app/terms",

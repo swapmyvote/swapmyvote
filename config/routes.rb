@@ -22,7 +22,11 @@ Rails.application.routes.draw do
   # API). Served same-origin, so Devise session cookies authenticate it.
   namespace :api do
     namespace :v1 do
-      resource :session, only: [:show, :destroy], controller: "session"
+      resource :session, only: [:show, :create, :destroy], controller: "session"
+
+      # Sign-up. The entry form's answers come from the session stash below,
+      # not from the client, so this takes only the account's own fields.
+      resource :registration, only: [:create], controller: "registration"
 
       # The logged-in user's own profile — the React profile and constituency
       # screens both patch this.
@@ -54,6 +58,10 @@ Rails.application.routes.draw do
   get "app/terms", to: "spa#index"
   # M3 home / landing. `/` keeps serving HomeController until cutover.
   get "app/home", to: "spa#index"
+  # M5 auth. /users/sign_in and /users/sign_up keep serving Devise HAML until
+  # cutover.
+  get "app/login", to: "spa#index"
+  get "app/signup", to: "spa#index"
   # M4 profile screens. /user, /user/constituency and /user/review keep
   # serving HAML until cutover.
   get "app/constituency", to: "spa#index"

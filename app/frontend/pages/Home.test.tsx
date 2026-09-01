@@ -1,5 +1,6 @@
 import type { UseQueryResult } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Home } from "@/pages/Home";
 import {
@@ -79,7 +80,9 @@ function renderHome({
         session: sessionPayload({ appMode, flags, ...session }),
       })}
     >
-      <Home />
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
     </TestSessionProvider>,
   );
 }

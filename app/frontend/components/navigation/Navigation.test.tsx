@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Navigation } from "@/components/navigation/Navigation";
 import type { SessionContextValue } from "@/contexts/SessionContext";
@@ -14,7 +15,9 @@ function renderNav(overrides: Partial<SessionContextValue> = {}) {
   const value = sessionValue(overrides);
   render(
     <TestSessionProvider value={value}>
-      <Navigation />
+      <MemoryRouter>
+        <Navigation />
+      </MemoryRouter>
     </TestSessionProvider>,
   );
   return value;
@@ -51,7 +54,7 @@ describe("Navigation", () => {
 
       expect(screen.getByRole("link", { name: /log in/i })).toHaveAttribute(
         "href",
-        "/users/sign_in",
+        "/app/login",
       );
     });
 

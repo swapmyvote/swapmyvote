@@ -16,9 +16,11 @@ import { queryClient } from "@/lib/queryClient";
 import { spaPaths } from "@/lib/spaPaths";
 import { Constituency } from "@/pages/Constituency";
 import { Home } from "@/pages/Home";
+import { Login } from "@/pages/Login";
 import { Ping } from "@/pages/Ping";
 import { Profile } from "@/pages/Profile";
 import { Review } from "@/pages/Review";
+import { SignUp } from "@/pages/SignUp";
 
 // Shared chrome around every SPA route: branded nav + footer, matching the
 // tacticalvote layout. New routes are added to <Routes> as screens are
@@ -52,6 +54,8 @@ export function App() {
                 <Routes>
                   <Route path="/app/ping" element={<Ping />} />
                   <Route path={spaPaths.home} element={<Home />} />
+                  <Route path={spaPaths.login} element={<Login />} />
+                  <Route path={spaPaths.signup} element={<SignUp />} />
                   <Route path={spaPaths.about} element={<About />} />
                   <Route path={spaPaths.contact} element={<Contact />} />
                   <Route path={spaPaths.cookies} element={<Cookies />} />

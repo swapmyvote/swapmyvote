@@ -12,6 +12,8 @@ const migratedPages = [
   { name: "Contact", path: spaPaths.contact },
   { name: "Cookie Policy", path: spaPaths.cookies },
   { name: "Terms of Use", path: spaPaths.terms },
+  { name: "Log in", path: spaPaths.login },
+  { name: "Sign up", path: spaPaths.signup },
 ];
 
 // Gate on the WCAG 2.0/2.1 A and AA rule sets — the conformance target — rather

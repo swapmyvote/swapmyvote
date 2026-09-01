@@ -41,6 +41,35 @@ module Api
         )
       end
 
+      # Mirrors ApplicationController#require_logins_open, which redirects to
+      # the home page. During closed-warm-up the database is expected to be
+      # empty and the site is not meant to look usable, so logging in and
+      # signing up are refused here, not merely hidden in the UI.
+      def require_logins_open!
+        return if logins_open?
+
+        render_error(
+          code: "logins_closed",
+          status: :forbidden,
+          messages: ["Logins are closed at the moment"]
+        )
+      end
+
+      # Mirrors the `require_no_authentication` Devise prepends to its own
+      # SessionsController and RegistrationsController, which bounces an
+      # already-signed-in visitor rather than letting them log in again or
+      # create a second account. Without it a logged-in user could register a
+      # second account, be switched into it, and orphan the first.
+      def reject_when_logged_in!
+        return unless logged_in?
+
+        render_error(
+          code: "already_authenticated",
+          status: :forbidden,
+          messages: ["You are already logged in"]
+        )
+      end
+
       # Mirrors UsersController#restricted_when_voting_open: once voting is
       # open and this user's swap is confirmed, their voting information is
       # frozen. The legacy version redirects; this reports the refusal.
@@ -56,8 +85,25 @@ module Api
       end
 
       def render_error(code:, status:, messages: [], fields: {})
-        render json: { error: { code: code, messages: messages, fields: fields } },
-               status: status
+        render json: {
+          error: {
+            code: code,
+            messages: messages.map { |message| plain_text(message) },
+            fields: fields.transform_values do |values|
+              Array(values).map { |value| plain_text(value) }
+            end
+          }
+        }, status: status
+      end
+
+      # Validation messages can carry markup: UserErrorsConcern builds its
+      # "email already taken" message with link_to. JSON is not a template, so
+      # a tag would reach React as literal text. Stripping here rather than in
+      # render_record_invalid covers every error the API emits, including
+      # Api::V1::UsersController, which renders its validation failures itself
+      # instead of raising.
+      def plain_text(message)
+        ActionController::Base.helpers.strip_tags(message.to_s)
       end
 
       def render_not_found(_exception)

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
+import { useNavigate } from "react-router-dom";
 import { ConstituencyStep } from "@/components/home/ConstituencyStep";
 import { PartiesStep } from "@/components/home/PartiesStep";
 import { Section } from "@/components/home/Section";
 import { apiClient } from "@/lib/apiClient";
+import { spaPaths } from "@/lib/spaPaths";
 import type { Constituency, Party, PrePopulate } from "@/types/api";
 
 interface EntryFormProps {
@@ -13,10 +15,6 @@ interface EntryFormProps {
   constituencyOther: string;
 }
 
-// Sign-up is still Devise-rendered HAML, so finishing the form leaves the SPA.
-// Becomes an in-app route when auth is ported.
-const hamlSignUp = "/users/sign_in";
-
 /**
  * The two-step form on the home page: constituency, then parties, then off to
  * sign up. Ports app/views/home/_swap_form.html.haml and the `pre_login_flow`
@@ -25,8 +23,9 @@ const hamlSignUp = "/users/sign_in";
  * The step the user is on is held here rather than in the Rails session. The
  * legacy flow round-tripped to the server between steps because it had to —
  * each step was a form POST. The answers are still stashed server-side after
- * each step (POST /api/v1/pre_populate), because they have to survive the trip
- * out to Devise and OmniAuth, which leaves the SPA entirely.
+ * each step (POST /api/v1/pre_populate), because that is where they are read
+ * from: the sign-up endpoint applies them to the new account itself, and the
+ * client never sends them.
  */
 export function EntryForm({
   constituencies,
@@ -37,6 +36,7 @@ export function EntryForm({
   const [step, setStep] = useState<"constituency" | "parties">("constituency");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   async function stash(answers: {
     constituencyOnsId: string;
@@ -79,7 +79,7 @@ export function EntryForm({
       );
       return;
     }
-    window.location.assign(hamlSignUp);
+    navigate(spaPaths.signup);
   }
 
   return (
