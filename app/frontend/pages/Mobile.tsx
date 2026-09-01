@@ -77,10 +77,12 @@ export function Mobile() {
                       ? "Thank you for verifying your mobile phone number"
                       : "Your mobile phone number has already been verified"}
                   </p>
-                  <div className="d-flex gap-2">
-                    <Link to={spaPaths.profile} className="btn btn-primary">
-                      Continue
-                    </Link>
+                  {/* Trailing edge, default action rightmost, as macOS puts
+                      dialog buttons — and as ProfileReview's Change/Proceed
+                      pair already does. DOM order is the visual order, so
+                      keyboard and screen-reader users meet them in the same
+                      sequence. */}
+                  <div className="d-flex justify-content-end gap-2">
                     <Button
                       type="button"
                       variant="outline-secondary"
@@ -91,6 +93,9 @@ export function Mobile() {
                     >
                       Use a different number
                     </Button>
+                    <Link to={spaPaths.profile} className="btn btn-primary">
+                      Continue
+                    </Link>
                   </div>
                 </div>
               )}

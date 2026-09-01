@@ -144,15 +144,11 @@ export function MobileVerification({
           go back and check the number
         </p>
 
-        <div className="d-flex gap-2">
-          <Button
-            type="button"
-            variant="outline-secondary"
-            disabled={busy}
-            onClick={() => send(sentTo)}
-          >
-            Send another code
-          </Button>
+        {/* Trailing edge, likeliest action rightmost, matching the Verify row
+            above and the way macOS orders dialog buttons. Neither of these is
+            the form's default action — that is Verify — so both stay
+            secondary; re-sending is simply the more likely of the two. */}
+        <div className="d-flex justify-content-end gap-2">
           <Button
             type="button"
             variant="outline-secondary"
@@ -160,6 +156,14 @@ export function MobileVerification({
             onClick={handleChangeNumber}
           >
             Use a different number
+          </Button>
+          <Button
+            type="button"
+            variant="outline-secondary"
+            disabled={busy}
+            onClick={() => send(sentTo)}
+          >
+            Send another code
           </Button>
         </div>
       </div>
