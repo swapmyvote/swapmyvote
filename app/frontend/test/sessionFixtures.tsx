@@ -35,6 +35,7 @@ export const testUser: CurrentUser = {
   hasConstituency: true,
   constituencyName: "Woking",
   constituencyOnsId: "E14001009",
+  mobileNumber: "+447911123456",
   mobileVerified: true,
   mobileSetButNotVerified: false,
   preferredParty: { id: 1, name: "Green", color: "#6AB023", smvCode: "grn" },

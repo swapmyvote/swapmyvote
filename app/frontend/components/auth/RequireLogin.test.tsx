@@ -18,6 +18,7 @@ const user: CurrentUser = {
   constituencyOnsId: "E14001063",
   mobileVerified: true,
   mobileSetButNotVerified: false,
+  mobileNumber: "+447911123456",
   preferredParty: null,
   willingParty: null,
 };

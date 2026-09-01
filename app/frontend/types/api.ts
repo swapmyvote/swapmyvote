@@ -40,6 +40,8 @@ export interface CurrentUser {
   hasConstituency: boolean;
   constituencyName: string | null;
   constituencyOnsId: string | null;
+  /** The number on the account, verified or not. Null when there is none. */
+  mobileNumber: string | null;
   mobileVerified: boolean;
   mobileSetButNotVerified: boolean;
   preferredParty: Party | null;
@@ -169,4 +171,11 @@ export interface ProfileUpdateResult {
   /** The willing party or the constituency changed, so the user is sent to
    *  the review screen — mirrors User#swap_profile_changed?. */
   reviewRequired: boolean;
+}
+
+/** `POST /api/v1/mobile_phone/verifications` — an SMS code is on its way to
+ *  `number`. Confirming it answers with a `SessionPayload` instead. */
+export interface MobileVerificationSent {
+  number: string;
+  sent: true;
 }
