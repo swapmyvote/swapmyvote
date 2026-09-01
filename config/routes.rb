@@ -76,6 +76,8 @@ Rails.application.routes.draw do
   get "app/constituency", to: "spa#index"
   get "app/profile", to: "spa#index"
   get "app/review", to: "spa#index"
+  # M6 mobile verification. /user/edit and /mobile_phone/* keep serving HAML.
+  get "app/mobile", to: "spa#index"
 
   root "home#index"
 

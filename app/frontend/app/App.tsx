@@ -17,6 +17,7 @@ import { spaPaths } from "@/lib/spaPaths";
 import { Constituency } from "@/pages/Constituency";
 import { Home } from "@/pages/Home";
 import { Login } from "@/pages/Login";
+import { Mobile } from "@/pages/Mobile";
 import { Ping } from "@/pages/Ping";
 import { Profile } from "@/pages/Profile";
 import { Review } from "@/pages/Review";
@@ -66,6 +67,7 @@ export function App() {
                   />
                   <Route path={spaPaths.profile} element={<Profile />} />
                   <Route path={spaPaths.review} element={<Review />} />
+                  <Route path={spaPaths.mobile} element={<Mobile />} />
                 </Routes>
               </Layout>
             </BrowserRouter>
