@@ -122,6 +122,30 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       expect(user.reload.mobile_phone.number).to eq other_number
     end
 
+    # BaseController's RecordNotUnique rescue_from exists for exactly this
+    # race: the pre-check above (number_taken?) and this write are not
+    # atomic, so two concurrent sends for the same number can both pass the
+    # check and then collide on mobile_phones' unique index. That is
+    # impractical to reproduce for real inside a transactional request spec,
+    # so stub the raise at User#mobile_number= rather than skip covering the
+    # handler — a renamed or misspelled :with on that rescue_from would
+    # otherwise only surface in production, on a race nobody can reproduce on
+    # demand. any_instance_of because Devise reloads current_user from the
+    # session on each request, so it is never the `user` let's own instance.
+    it "422s when the write loses a uniqueness race to the database's own unique index" do
+      allow(SwapMyVote::MessageBird).to receive(:verify_create).and_return(otp)
+      # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(User)
+        .to receive(:mobile_number=)
+        .and_raise(ActiveRecord::RecordNotUnique.new("duplicate key value"))
+      # rubocop:enable RSpec/AnyInstance
+
+      post path, params: { number: number }, as: :json
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(json["error"]["code"]).to eq "validation_failed"
+    end
+
     # Regression pin: a transient send failure must not touch a number that
     # was already on the account and already verified. The old
     # assign-then-send order destroyed the verified row to make room for a

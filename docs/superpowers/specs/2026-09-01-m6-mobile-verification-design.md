@@ -182,9 +182,9 @@ from the same concern and renders it directly.
 ## Fake OTP driver
 
 `SwapMyVote::MessageBird` gains a fake branch, active only when
-`ENV["MESSAGEBIRD_FAKE_OTP"]` is set and `Rails.env.production?` is false — a
-production deploy with the variable set raises at boot rather than silently
-accepting a fixed code.
+`ENV["MESSAGEBIRD_FAKE_OTP"]` is set and `Rails.env` is `development` or
+`test` — a deploy to any other environment with the variable set raises
+rather than silently accepting a fixed code.
 
 - `verify_create` returns a stub object exposing `id`, without calling the API.
 - `verify_delete` is a no-op.

@@ -29,22 +29,28 @@ export function Mobile() {
   const verified = user?.mobileVerified ?? false;
 
   async function handleVerified() {
-    try {
-      await refetchSession();
-    } catch {
-      // The confirm already succeeded server-side — the code was right, and
-      // MobileVerification's handleCodeSubmit calls this without awaiting
-      // it, deliberately leaving its own busy flag true on the assumption
-      // that this resolves. A failed refetch here must not leave that form
-      // frozen until the 60-second session poll happens to heal the cache;
-      // showing the success card is correct even though this render still
-      // has the pre-verification session in hand.
-    }
+    // The confirm already succeeded server-side — the code was right — so
+    // this refetch is purely to pick up the new `mobileVerified` flag for
+    // the rest of the app. If it fails, `session` keeps holding the
+    // pre-verification payload and `verified` (derived from it, below)
+    // stays false; `justVerified` is what actually carries the success
+    // across that gap, via `showForm`. There is nothing to catch here:
+    // `refetchSession` is react-query's `refetch()`, and nothing in this
+    // app sets `throwOnError`, so a failed refetch resolves with an error
+    // result on the query rather than rejecting this await. The 60-second
+    // session poll will retry regardless.
+    await refetchSession();
     setChanging(false);
     setJustVerified(true);
   }
 
-  const showForm = !verified || changing;
+  // `justVerified` (not just `verified`) keeps the success card up even when
+  // the post-confirm refetch above failed: without it, a failed refetch
+  // would leave `verified` false and this would flip back to the form,
+  // re-rendering MobileVerification in place with its `busy` state
+  // preserved from the confirm that just succeeded — freezing the button
+  // until the 60-second poll happens to heal the cache.
+  const showForm = (!verified && !justVerified) || changing;
 
   return (
     <RequireLogin>
