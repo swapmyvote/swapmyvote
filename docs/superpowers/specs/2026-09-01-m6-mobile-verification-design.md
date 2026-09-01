@@ -198,14 +198,22 @@ Rails `SpaController` allow-list in lockstep.
 | `components/mobile/PhoneNumberField.tsx` | `react-phone-number-input` with `defaultCountry="GB"`, Bootstrap styling, left-aligned label, and the `phoneNumberProblem` message rendered inline. |
 | `components/mobile/VerificationCodeField.tsx` | Six digits: `inputMode="numeric"`, `pattern="[0-9]{6}"`, `maxLength={6}`. |
 | `components/mobile/MobileVerification.tsx` | The `"number" \| "code"` state machine: send, show the code step with the number that was sent to, confirm, re-send. Owns error display, mapping `ApiError.code` to the right message and putting a failed confirm back in the code step rather than restarting. |
-| `pages/Mobile.tsx` | `RequireLogin` wrapper, the success state, and the already-verified card — which offers the form again, since changing a number is a re-verification. |
+| `components/auth/RequireSwappingOpen.tsx` | The client mirror of `require_swapping_open!`, alongside the existing `RequireLogin` / `RequireLoginsOpen`. M6 is the first screen to need it; M7's swap screens reuse it. |
+| `pages/Mobile.tsx` | `RequireLogin` + `RequireSwappingOpen` wrappers, the success state, and the already-verified card — which offers the form again, since changing a number is a re-verification. |
 
 `ProfileForm.tsx` drops its `hamlMobile = "/user/edit"` anchor for a
 react-router `<Link>` to `spaPaths.mobile`, and the comment explaining the
 placeholder goes with it.
 
-`types/api.ts` gains `MobileVerificationRequest`, `MobileVerificationSent` and
-`MobileVerificationConfirm`, mirroring the two endpoints.
+`types/api.ts` gains `MobileVerificationSent` for the send endpoint; confirming
+answers with the `SessionPayload` that is already modelled.
+
+`UserSerializer` gains a `mobileNumber` attribute, and `CurrentUser` gains the
+matching `mobileNumber: string | null`. Without it the verification form would
+start empty for a user who already has a number on file, and the profile
+screen could say only whether a number is verified, not which one — the legacy
+profile form shows the number itself. It is the user's own data, in a payload
+that already carries their email, and it is serialized only for them.
 
 Copy follows the house rules already in the SPA: labels and fields
 left-aligned, and one-sentence UI strings carry no trailing full stop. The
