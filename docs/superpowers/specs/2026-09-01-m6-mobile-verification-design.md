@@ -112,9 +112,9 @@ link does.
 | Already verified, and no number given or the number is unchanged | 409 `already_verified` |
 | No number given and none on file | 422 `number_missing`, "Please enter your mobile phone number before you swap" (legacy wording) |
 | Number given but not E.164 (`/\A\+[1-9]\d{6,14}\z/`) | 422 `invalid_number` |
-| Number already belongs to another account | 422 `validation_failed` from `MobilePhone`'s uniqueness validation |
-| MessageBird refuses the send | 502 `sms_send_failed`, "Sorry, I couldn't send you a verification SMS! Please try again later." (legacy wording), Airbrake notified, **phone row destroyed** |
-| Sent | 200 `{ "number": "+447700900123", "sent": true }` |
+| Number already belongs to another account | 422 `validation_failed`, checked before the send |
+| MessageBird refuses the send | 502 `sms_send_failed`, "Sorry, I couldn't send you a verification SMS! Please try again later." (legacy wording), Airbrake notified, **nothing persisted** |
+| Sent | 200 `{ "number": "+447911123456", "sent": true }` |
 
 **A verified user submitting a *different* number is not refused.** That is how
 a number gets changed today — the profile form assigns through
@@ -123,16 +123,27 @@ unverified one — and since `/app/profile` no longer carries a number field,
 `/app/mobile` is the only place left that can do it. Only a pointless
 re-verification of the number already on file is refused.
 
-Failure clean-up differs from the legacy controller in one place, deliberately.
-`MobilePhoneController#rescue_error` calls `phone&.update(number: nil)`, but
-`MobilePhone` validates `number` for uniqueness *including* nil, so the second
-account to take that path fails the validation and the update silently returns
-false, leaving the bad number in place. Destroying the row instead achieves
-what the legacy code was reaching for — no unsendable number sitting on the
-account looking verifiable — without depending on a validation that does not
-hold. The duplicate-number case needs no clean-up at all: `mobile_number=`
-wraps its destroy-and-create in a transaction, so a uniqueness failure rolls
-back and the account keeps whatever it had.
+**Nothing is persisted until MessageBird has accepted the send.** The guards
+run, the number is checked against the other accounts with an explicit query,
+the OTP goes out, and only then is the number assigned and the `verify_id`
+stored.
+
+That ordering is not the obvious one, and it is what makes every failure path
+safe. `User#mobile_number=` destroys the existing `MobilePhone` row and commits
+its replacement inside its own transaction, so assigning before sending would
+mean a transient MessageBird outage during a number change left an
+already-verified user with **no number at all** — their old row destroyed and
+committed, the new one rolled back or cleaned up. Sending first means a failed
+send mutates nothing, which also disposes of the clean-up the legacy controller
+needs: `MobilePhoneController#rescue_error` calls `phone&.update(number: nil)`,
+and since `MobilePhone` validates `number` for uniqueness *including* nil, the
+second account to take that path fails the validation and the update silently
+returns false, leaving the bad number in place. There is nothing here for that
+bug to happen to.
+
+Checking uniqueness with an explicit query rather than leaning on the model
+validation follows from the same ordering: the collision has to be found before
+the SMS goes out, or we text a code to a number we are about to refuse.
 
 A previous `verify_id` is deleted through `SwapMyVote::MessageBird.verify_delete`
 before the new one is stored, as `delete_previous_verify_id` does, and with the

@@ -27,6 +27,17 @@
 
 ### Task 1: `POST /api/v1/mobile_phone/verifications` — send a code
 
+> **Amended during execution (2026-09-01).** Step 5's `create` assigns the
+> number before asking MessageBird to send, which is unsafe: `User#mobile_number=`
+> destroys the existing row and commits its replacement in its own transaction,
+> so a transient send failure during a number change leaves an already-verified
+> user with no number at all. The implemented version **sends first and persists
+> second** — guards, then an explicit uniqueness query (422 before any SMS goes
+> out), then the send, then the assignment and `verify_id`. `request_otp`'s
+> `phone.destroy!` clean-up is gone: a failed send now mutates nothing. Status
+> codes, error codes and user-facing strings are unchanged. See the amended
+> "Failure clean-up" section of the design doc, and the ledger entry.
+
 **Files:**
 - Create: `app/controllers/api/v1/mobile_phone_verifications_controller.rb`
 - Modify: `app/controllers/api/v1/base_controller.rb`
