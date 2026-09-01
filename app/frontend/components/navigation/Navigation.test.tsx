@@ -27,6 +27,13 @@ function loggedInAs(user = testUser) {
   return { session: sessionPayload({ currentUser: user }) };
 }
 
+// Everything a logged-in user can do lives behind the avatar menu, so the
+// tests have to open it first — that it is closed until then is itself
+// asserted below.
+async function openUserMenu(name: RegExp = /ada lovelace/i) {
+  await userEvent.click(screen.getByRole("button", { name }));
+}
+
 describe("Navigation", () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -83,11 +90,22 @@ describe("Navigation", () => {
   });
 
   describe("when logged in", () => {
-    it("shows the user's name, linking to the (legacy) profile page", () => {
+    it("labels the menu with the user's name", () => {
       renderNav(loggedInAs());
 
-      const profile = screen.getByRole("link", { name: /ada lovelace/i });
-      expect(profile).toHaveAttribute("href", "/user/edit");
+      expect(
+        screen.getByRole("button", { name: /ada lovelace/i }),
+      ).toBeVisible();
+    });
+
+    it("links to the (legacy) profile page from the menu", async () => {
+      renderNav(loggedInAs());
+
+      await openUserMenu();
+
+      expect(
+        screen.getByRole("link", { name: /edit profile/i }),
+      ).toHaveAttribute("href", "/user/edit");
     });
 
     it("shows the user's avatar", () => {
@@ -102,11 +120,21 @@ describe("Navigation", () => {
       expect(avatar.alt).toBe("");
     });
 
-    it("offers log out instead of log in", () => {
+    it("offers log out instead of log in", async () => {
       renderNav(loggedInAs());
+
+      await openUserMenu();
 
       expect(screen.getByRole("button", { name: /log out/i })).toBeVisible();
       expect(screen.queryByRole("link", { name: /log in/i })).toBeNull();
+    });
+
+    // Log out used to sit in the bar next to the name, one stray click from
+    // the logo. It is only reachable through the menu now.
+    it("keeps log out out of the bar until the menu is opened", () => {
+      renderNav(loggedInAs());
+
+      expect(screen.queryByRole("button", { name: /log out/i })).toBeNull();
     });
 
     it("logs out through the API, then leaves the SPA for the legacy home", async () => {
@@ -121,6 +149,7 @@ describe("Navigation", () => {
 
       renderNav({ ...loggedInAs(), logOut });
 
+      await openUserMenu();
       await userEvent.click(screen.getByRole("button", { name: /log out/i }));
 
       expect(logOut).toHaveBeenCalledOnce();
@@ -137,6 +166,7 @@ describe("Navigation", () => {
 
       renderNav({ ...loggedInAs(), logOut });
 
+      await openUserMenu();
       await userEvent.click(screen.getByRole("button", { name: /log out/i }));
 
       expect(assign).toHaveBeenCalledWith("/");
