@@ -18,9 +18,14 @@ export function sendVerification(
 }
 
 /**
- * Check the code. Answers with the whole session payload, because verifying
- * flips `mobileVerified` — so the caller can prime its session cache from the
- * response rather than racing a refetch.
+ * Check the code. The server answers with the whole session payload —
+ * `mobileVerified` flips here — but the current caller
+ * (MobileVerification.tsx) discards it and calls `onVerified`, which
+ * Mobile.tsx uses to trigger a plain `refetchSession()` instead of reading
+ * this response. The payload is still returned so a future caller can prime
+ * its session cache from it rather than racing a refetch, which was the
+ * original intent for shipping it here; nothing in this codebase does that
+ * yet.
  */
 export function confirmVerification(token: string): Promise<SessionPayload> {
   return apiClient.post<SessionPayload>(`${verificationsPath}/confirm`, {

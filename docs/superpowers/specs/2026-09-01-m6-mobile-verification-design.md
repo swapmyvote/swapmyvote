@@ -103,7 +103,7 @@ endpoint, and M7's swap endpoints will reuse it.
 
 ### `POST /api/v1/mobile_phone/verifications`
 
-Body `{ "number": "+447700900123" }`. The number is **optional**: omitting it
+Body `{ "number": "+447911123456" }`. The number is **optional**: omitting it
 re-sends to the number already on file, which is what the legacy "re-sending"
 link does.
 

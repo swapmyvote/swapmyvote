@@ -41,13 +41,35 @@ RSpec.describe SwapMyVote::MessageBird do
         end
     end
 
-    it "refuses to run in production" do
-      allow(Rails).to receive(:env).and_return(
-        ActiveSupport::StringInquirer.new("production")
-      )
+    # The guard is a default-deny allowlist (development/test only), not a
+    # `Rails.env.production?` blacklist, so it has to refuse in any other
+    # environment name — staging included, since doc/admin-guide.md records
+    # a standing wish to bypass SMS verification there. Asserted for all
+    # three methods: a refactor that moved the fake_otp call out of
+    # verify_delete or verify_token should not silently regress the guard.
+    %w[staging production].each do |env_name|
+      context "in the #{env_name} environment" do
+        before do
+          allow(Rails).to receive(:env).and_return(
+            ActiveSupport::StringInquirer.new(env_name)
+          )
+        end
 
-      expect { described_class.verify_create("+447911123456", "t") }
-        .to raise_error(/MESSAGEBIRD_FAKE_OTP/)
+        it "refuses to create a verification" do
+          expect { described_class.verify_create("+447911123456", "t") }
+            .to raise_error(/MESSAGEBIRD_FAKE_OTP/)
+        end
+
+        it "refuses to delete a verification" do
+          expect { described_class.verify_delete("anything") }
+            .to raise_error(/MESSAGEBIRD_FAKE_OTP/)
+        end
+
+        it "refuses to check a token" do
+          expect { described_class.verify_token("id", "123456") }
+            .to raise_error(/MESSAGEBIRD_FAKE_OTP/)
+        end
+      end
     end
   end
 

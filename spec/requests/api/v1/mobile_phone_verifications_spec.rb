@@ -85,6 +85,20 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       expect(json["error"]["code"]).to eq "number_missing"
     end
 
+    # A MobilePhone row with a nil number is a state the legacy controller
+    # actively creates on a failed send (mobile_phone_controller.rb's
+    # `phone&.update(number: nil)`), and both flows share one row. A re-send
+    # against that row must read as "no number", not fall through to a
+    # misleading uniqueness 422 or a 502 from sending to nil.
+    it "422s when there is no number to send to and the existing row's number is nil" do
+      user.create_mobile_phone!(number: nil)
+
+      post path, params: {}, as: :json
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(json["error"]["code"]).to eq "number_missing"
+    end
+
     it "422s a number that is not in E.164 form" do
       post path, params: { number: "07911 123456" }, as: :json
 
@@ -104,6 +118,7 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(json["error"]["code"]).to eq "validation_failed"
+      expect(json["error"]["messages"]).to eq ["Number has already been taken"]
       expect(user.reload.mobile_phone.number).to eq other_number
     end
 
@@ -160,6 +175,29 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       phone = user.reload.mobile_phone
       expect(phone.number).to eq number
       expect(phone.verified).to be_falsey
+      expect(phone.verify_id).to eq "verify-1"
+    end
+
+    # The case previous_verify_id exists for: a number that was never
+    # verified, but already had a code sent to it (a live verify_id), gets
+    # replaced by a different number before that code was ever entered. The
+    # old MobilePhone row is destroyed by User#mobile_number= and a fresh one
+    # created, so the old verify_id has to be captured and retired before
+    # that reassignment happens — reading it off the row afterwards would
+    # read nil.
+    it "retires the old verify_id when an unverified number is replaced with a different one" do
+      user.create_mobile_phone!(number: other_number, verify_id: "verify-0")
+      expect(SwapMyVote::MessageBird)
+        .to receive(:verify_delete).with("verify-0")
+      expect(SwapMyVote::MessageBird)
+        .to receive(:verify_create).and_return(otp)
+
+      post path, params: { number: number }, as: :json
+
+      expect(response).to have_http_status(:ok)
+      phone = user.reload.mobile_phone
+      expect(phone.number).to eq number
+      expect(phone.verify_id).to eq "verify-1"
     end
 
     it "502s and drops the number when the SMS cannot be sent" do
@@ -176,12 +214,39 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
     end
   end
 
-  # This block's lets sit on top of the five already memoized by the file's
-  # top-level describe (user, number, other_number, otp, path), so it trips
-  # RSpec/MultipleMemoizedHelpers even though no example in it uses all six.
-  # rubocop:disable RSpec/MultipleMemoizedHelpers
+  context "with forgery protection on (as in production)" do
+    around do |example|
+      original = ActionController::Base.allow_forgery_protection
+      ActionController::Base.allow_forgery_protection = true
+      example.run
+      ActionController::Base.allow_forgery_protection = original
+    end
+
+    before { sign_in user }
+
+    # create is the action that spends money (an SMS through MessageBird),
+    # so it is the one CSRF absolutely must not let through — asserted
+    # alongside confirm's equivalent example below rather than only there.
+    it "rejects a send without a valid CSRF token, as JSON" do
+      post path,
+           params: { number: number },
+           headers: { "X-CSRF-Token" => "not-the-token" },
+           as: :json
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(json["error"]).to include("code" => "invalid_authenticity_token")
+    end
+  end
+
   describe "POST /api/v1/mobile_phone/verifications/confirm" do
-    let(:confirm_path) { "/api/v1/mobile_phone/verifications/confirm" }
+    # A plain method, not `let`: confirm_path is a static string, so
+    # memoisation buys nothing, and a `let` here would be the sixth helper
+    # memoized in this example group's chain (on top of the five from the
+    # file's top-level describe), tripping RSpec/MultipleMemoizedHelpers for
+    # no benefit.
+    def confirm_path
+      "/api/v1/mobile_phone/verifications/confirm"
+    end
 
     context "when logged out" do
       it "401s" do
@@ -307,7 +372,6 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       end
     end
   end
-  # rubocop:enable RSpec/MultipleMemoizedHelpers
 
   describe "the user serializer" do
     before { sign_in user }

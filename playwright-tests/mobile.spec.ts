@@ -83,7 +83,7 @@ test.describe("mobile verification", () => {
     await expect(page.getByLabel("The 6 digit code")).toBeVisible();
   });
 
-  test("must refuse a number that is not a mobile, without asking the server", async ({
+  test("must refuse a number that is not a mobile and never show the code step", async ({
     page,
   }) => {
     await signIn(page, credentials);

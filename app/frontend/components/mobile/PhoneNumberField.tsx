@@ -48,8 +48,8 @@ export function PhoneNumberField({
           id: inputId,
           className: "form-control",
           autoComplete: "tel",
-          "aria-describedby": problem ? problemId : undefined,
-          "aria-invalid": problem ? true : undefined,
+          "aria-describedby": problem !== null ? problemId : undefined,
+          "aria-invalid": problem !== null ? true : undefined,
         }}
         countrySelectProps={{ "aria-label": "Country" }}
         // The component wants undefined, not "", for an empty field.

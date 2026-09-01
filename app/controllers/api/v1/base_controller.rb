@@ -13,6 +13,13 @@ module Api
     class BaseController < ApplicationController
       rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
       rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
+      # A model uniqueness validation loses a genuine race to a database
+      # unique index (e.g. mobile_phones.number) and the second write raises
+      # this instead of RecordInvalid. Nothing persists — the transaction
+      # rolls back — so this is only about answering with the API's error
+      # convention instead of a 500. Belongs to the API as a whole, not to
+      # any one controller.
+      rescue_from ActiveRecord::RecordNotUnique, with: :render_record_not_unique
 
       # ApplicationController answers a forged request with a flash +
       # redirect_back, which is meaningless to a fetch() caller. Answer with
@@ -133,6 +140,17 @@ module Api
           status: :unprocessable_entity,
           messages: exception.record.errors.full_messages,
           fields: exception.record.errors.to_hash(true)
+        )
+      end
+
+      # Deliberately generic: RecordNotUnique carries the raw database error,
+      # not a validated record with field-level messages, so this cannot
+      # report which field collided the way render_record_invalid does.
+      def render_record_not_unique(_exception)
+        render_error(
+          code: "validation_failed",
+          status: :unprocessable_entity,
+          messages: ["That has already been taken"]
         )
       end
     end

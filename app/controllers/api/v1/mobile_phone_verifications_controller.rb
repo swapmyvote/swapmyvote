@@ -29,7 +29,14 @@ module Api
         number = params[:number].presence
 
         return render_already_verified if pointless_reverification?(number)
-        return render_number_missing if number.nil? && phone.nil?
+        # phone&.number.blank?, not phone.nil?: a MobilePhone row can exist
+        # with a nil number — the legacy controller creates exactly that
+        # state on a failed send (mobile_phone_controller.rb's
+        # `phone&.update(number: nil)`), and both flows share one row. A
+        # re-send in that state must still read as "no number", not fall
+        # through to a misleading uniqueness 422 or a 502 from sending to
+        # nil.
+        return render_number_missing if number.nil? && phone&.number.blank?
         return render_invalid_number if number && !number.match?(E164)
 
         target_number = number || phone.number
@@ -85,6 +92,12 @@ module Api
 
         otp = request_otp(target_number)
         return if performed?
+        # verify_create can come back nil without raising (a MessageBird gem
+        # quirk, not documented behaviour we can rule out). The legacy
+        # controller guarded this explicitly (mobile_phone_controller.rb, `if
+        # otp.nil?`); without the same guard here, otp.id below would raise
+        # NoMethodError — a 500, with the number half-processed in memory.
+        return render_sms_send_failed if otp.nil?
 
         current_user.mobile_number = number if number && number != phone&.number
         delete_previous_verify_id(previous_verify_id) if previous_verify_id
@@ -99,13 +112,20 @@ module Api
         notify_error_exception(
           ex, "Failed to send verification code to #{target_number}"
         )
+        render_sms_send_failed
+        nil
+      end
+
+      # Shared by both the point where MessageBird raises and the point
+      # where it merely returns nil, so the response body cannot drift
+      # between the two.
+      def render_sms_send_failed
         render_error(
           code: "sms_send_failed",
           status: :bad_gateway,
           messages: ["Sorry, I couldn't send you a verification SMS! " \
                      "Please try again later."]
         )
-        nil
       end
 
       # Ported from MobilePhoneController#delete_previous_verify_id: a verify
@@ -151,7 +171,7 @@ module Api
         render_error(
           code: "invalid_number",
           status: :unprocessable_entity,
-          messages: ["That doesn't look like a phone number."]
+          messages: ["This doesn't look like a phone number"]
         )
       end
 
@@ -203,7 +223,7 @@ module Api
           return render_error(
             code: "verification_failed",
             status: :bad_gateway,
-            messages: ["Something went wrong when verifying your number."]
+            messages: ["Something went wrong when verifying your number"]
           )
         end
 

@@ -41,15 +41,24 @@ class SwapMyVote::MessageBird
 
     # Dev and E2E have no MessageBird key, so an OTP journey cannot be driven
     # end to end against the real API. With this set, the SMS is skipped and
-    # one fixed code is accepted — which is only ever safe away from real
-    # users, hence the production refusal.
+    # one fixed code is accepted — which is only ever safe in development and
+    # test.
+    #
+    # This guard is deliberately a default-deny allowlist rather than a
+    # `Rails.env.production?` blacklist. This flag disables the whole
+    # anti-fake-account control (with it set, "123456" verifies any number on
+    # any account), so it must fail closed for every environment it doesn't
+    # explicitly recognise — not just production. doc/admin-guide.md records
+    # a standing operational wish to bypass SMS verification on staging, so a
+    # config/environments/staging.rb is a plausible next environment, and a
+    # blacklist would silently accept the flag there.
     def fake_otp
       token = ENV["MESSAGEBIRD_FAKE_OTP"]
       return nil if token.blank?
 
-      if Rails.env.production?
-        raise "MESSAGEBIRD_FAKE_OTP is set in production: refusing to accept " \
-              "a fixed verification code"
+      unless Rails.env.development? || Rails.env.test?
+        raise "MESSAGEBIRD_FAKE_OTP is set outside development/test: " \
+              "refusing to accept a fixed verification code"
       end
 
       token

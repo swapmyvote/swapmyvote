@@ -29,7 +29,17 @@ export function Mobile() {
   const verified = user?.mobileVerified ?? false;
 
   async function handleVerified() {
-    await refetchSession();
+    try {
+      await refetchSession();
+    } catch {
+      // The confirm already succeeded server-side — the code was right, and
+      // MobileVerification's handleCodeSubmit calls this without awaiting
+      // it, deliberately leaving its own busy flag true on the assumption
+      // that this resolves. A failed refetch here must not leave that form
+      // frozen until the 60-second session poll happens to heal the cache;
+      // showing the success card is correct even though this render still
+      // has the pre-verification session in hand.
+    }
     setChanging(false);
     setJustVerified(true);
   }
