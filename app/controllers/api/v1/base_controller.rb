@@ -55,6 +55,19 @@ module Api
         )
       end
 
+      # Mirrors ApplicationController#require_swapping_open, which redirects to
+      # the home page. The first gate on a mutation endpoint; M7's swap
+      # endpoints reuse it.
+      def require_swapping_open!
+        return if swapping_open?
+
+        render_error(
+          code: "swapping_closed",
+          status: :forbidden,
+          messages: ["Swapping is closed at the moment"]
+        )
+      end
+
       # Mirrors the `require_no_authentication` Devise prepends to its own
       # SessionsController and RegistrationsController, which bounces an
       # already-signed-in visitor rather than letting them log in again or
