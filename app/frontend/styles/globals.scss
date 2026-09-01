@@ -335,12 +335,13 @@ footer {
   }
 }
 
-// tacticalvote recolours footer underlines to the magenta primary on hover.
-// Deliberately not carried over: links here are already underlined
-// (--bs-link-decoration), so hover only changed the underline's colour, which
-// reads as a highlight rather than as feedback and puts the brand accent on
-// whichever link the pointer happens to be near. The underline keeps the
-// link's own ink instead.
+// Footer links are already underlined (--bs-link-decoration), so hover picks
+// the underline out in the magenta primary rather than adding one. Shared
+// Forward Democracy brand behaviour — tacticalvote does the same, and the two
+// sites are meant to feel like one.
+footer a:hover {
+  text-decoration-color: var(--bs-primary);
+}
 
 .footer ul svg {
   color: var(--bs-black);
