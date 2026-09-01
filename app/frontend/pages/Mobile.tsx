@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RequireLogin } from "@/components/auth/RequireLogin";
 import { RequireSwappingOpen } from "@/components/auth/RequireSwappingOpen";
 import { MobileVerification } from "@/components/mobile/MobileVerification";
@@ -22,7 +22,6 @@ import { spaPaths } from "@/lib/spaPaths";
  */
 export function Mobile() {
   const { session, refetchSession } = useSession();
-  const navigate = useNavigate();
   const [justVerified, setJustVerified] = useState(false);
   const [changing, setChanging] = useState(false);
 
@@ -63,13 +62,9 @@ export function Mobile() {
                       : "Your mobile phone number has already been verified"}
                   </p>
                   <div className="d-flex gap-2">
-                    <Button
-                      type="button"
-                      variant="primary"
-                      onClick={() => navigate(spaPaths.profile)}
-                    >
+                    <Link to={spaPaths.profile} className="btn btn-primary">
                       Continue
-                    </Button>
+                    </Link>
                     <Button
                       type="button"
                       variant="outline-secondary"

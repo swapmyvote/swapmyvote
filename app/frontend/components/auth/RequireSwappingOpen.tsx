@@ -8,6 +8,10 @@ import { useAppMode } from "@/contexts/useAppMode";
  * `require_swapping_open`. UX only: every endpoint behind these screens calls
  * `require_swapping_open!` itself, so a client that skipped this would gain
  * nothing.
+ *
+ * Swapping is closed in any mode whose name does not contain "open" —
+ * `closed-warm-up`, `closed-and-voting` and `closed-wind-down` — per
+ * `AppModeConcern#swapping_open?`.
  */
 export function RequireSwappingOpen({ children }: { children: ReactNode }) {
   const { swappingOpen } = useAppMode();

@@ -70,4 +70,13 @@ describe("Mobile", () => {
 
     expect(screen.getByLabelText("My mobile number is")).toBeInTheDocument();
   });
+
+  it("links Continue to the profile page", () => {
+    renderPage(testUser);
+
+    expect(screen.getByRole("link", { name: "Continue" })).toHaveAttribute(
+      "href",
+      "/app/profile",
+    );
+  });
 });
