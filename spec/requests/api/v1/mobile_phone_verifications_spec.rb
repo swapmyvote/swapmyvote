@@ -22,8 +22,8 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
   end
 
   let(:user) { create(:user, email: "voter@example.com") }
-  let(:number) { "+447911123456" }
-  let(:other_number) { "+447911123457" }
+  let(:number) { "+447400123456" }
+  let(:other_number) { "+447400123457" }
   let(:otp) { MessageBird::Verify.new("id" => "verify-1") }
 
   let(:path) { "/api/v1/mobile_phone/verifications" }
@@ -100,7 +100,7 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
     end
 
     it "422s a number that is not in E.164 form" do
-      post path, params: { number: "07911 123456" }, as: :json
+      post path, params: { number: "07400 123456" }, as: :json
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(json["error"]["code"]).to eq "invalid_number"

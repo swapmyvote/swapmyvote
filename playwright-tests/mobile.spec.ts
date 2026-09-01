@@ -15,7 +15,7 @@ const credentials = seedProfileUser("-mobile");
 
 // A number no other spec uses. MobilePhone enforces uniqueness across the
 // whole table, so a shared number would fail the second spec to run.
-const number = "+447911123456";
+const number = "+447400123456";
 
 // All three tests below submit that one number against that one fixture
 // user. `fullyParallel` (playwright.config.ts) runs the tests in a file in

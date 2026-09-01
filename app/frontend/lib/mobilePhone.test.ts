@@ -12,18 +12,18 @@ describe("sendVerification", () => {
   beforeEach(() => {
     vi.mocked(apiClient.post).mockReset();
     vi.mocked(apiClient.post).mockResolvedValue({
-      number: "+447911123456",
+      number: "+447400123456",
       sent: true,
     });
   });
 
   it("posts the number", async () => {
-    const sent = await sendVerification("+447911123456");
+    const sent = await sendVerification("+447400123456");
 
     expect(apiClient.post).toHaveBeenCalledWith("/mobile_phone/verifications", {
-      number: "+447911123456",
+      number: "+447400123456",
     });
-    expect(sent.number).toBe("+447911123456");
+    expect(sent.number).toBe("+447400123456");
   });
 
   // The endpoint treats a missing number as "re-send to the one on file".

@@ -8,7 +8,7 @@ const notAMobileNumber = "This doesn't look like a mobile phone number";
 
 describe("phoneNumberProblem", () => {
   it("accepts a UK mobile number", () => {
-    expect(phoneNumberProblem("+447911123456")).toBeNull();
+    expect(phoneNumberProblem("+447400123456")).toBeNull();
   });
 
   // The legacy check accepts FIXED_LINE_OR_MOBILE as well as MOBILE, which is

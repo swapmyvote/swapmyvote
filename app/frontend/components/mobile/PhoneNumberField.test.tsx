@@ -24,11 +24,11 @@ describe("PhoneNumberField", () => {
 
     await userEvent.type(
       screen.getByLabelText("My mobile number is"),
-      "+447911123456",
+      "+447400123456",
     );
 
     expect(onChange).toHaveBeenCalled();
-    expect(onChange.mock.calls.at(-1)?.[0]).toContain("447911123456");
+    expect(onChange.mock.calls.at(-1)?.[0]).toContain("447400123456");
   });
 
   it("shows the problem and marks the field invalid", () => {
@@ -50,7 +50,7 @@ describe("PhoneNumberField", () => {
   it("says nothing when there is no problem", () => {
     render(
       <PhoneNumberField
-        value="+447911123456"
+        value="+447400123456"
         onChange={vi.fn()}
         problem={null}
       />,

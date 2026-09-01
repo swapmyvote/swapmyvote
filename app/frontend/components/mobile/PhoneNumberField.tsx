@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import flags from "react-phone-number-input/flags";
 import PhoneInput, { type Value } from "react-phone-number-input/max";
 import "react-phone-number-input/style.css";
+import styles from "./PhoneNumberField.module.scss";
 
 interface PhoneNumberFieldProps {
   value: string;
@@ -41,9 +42,15 @@ export function PhoneNumberField({
         defaultCountry="GB"
         flags={flags}
         disabled={disabled}
+        // The border, padding and focus ring live on the wrapper, so the flag
+        // and the number sit inside one box — see the stylesheet. The invalid
+        // state has to go here too, for the same reason.
+        className={
+          problem !== null ? `${styles.field} ${styles.invalid}` : styles.field
+        }
         // The library renders a country <select> and the number <input> as
-        // siblings, so the id and the Bootstrap class have to be aimed at the
-        // input rather than at the wrapper.
+        // siblings, so the id has to be aimed at the input rather than at the
+        // wrapper for the label to find it.
         numberInputProps={{
           id: inputId,
           className: "form-control",

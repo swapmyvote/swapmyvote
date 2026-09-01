@@ -11,7 +11,7 @@ vi.mock("@/lib/mobilePhone", () => ({
   confirmVerification: vi.fn(),
 }));
 
-const number = "+447911123456";
+const number = "+447400123456";
 
 function renderForm(initialNumber = "") {
   const onVerified = vi.fn();
@@ -51,7 +51,7 @@ describe("MobileVerification", () => {
     const input = screen.getByLabelText(
       "My mobile number is",
     ) as HTMLInputElement;
-    expect(input.value.replace(/\D/g, "")).toContain("7911123456");
+    expect(input.value.replace(/\D/g, "")).toContain("7400123456");
   });
 
   it("sends a code and moves to the code step", async () => {
@@ -182,7 +182,7 @@ describe("MobileVerification", () => {
   // differently-formatted number (as a real server's normalisation would)
   // forces the assertion to tell the two apart.
   it("re-sends to the number the server confirmed, not the raw typed number", async () => {
-    const normalizedNumber = "+44 7911 123456";
+    const normalizedNumber = "+44 7400 123456";
     vi.mocked(sendVerification).mockResolvedValueOnce({
       number: normalizedNumber,
       sent: true,

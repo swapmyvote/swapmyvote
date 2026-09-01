@@ -103,7 +103,7 @@ endpoint, and M7's swap endpoints will reuse it.
 
 ### `POST /api/v1/mobile_phone/verifications`
 
-Body `{ "number": "+447911123456" }`. The number is **optional**: omitting it
+Body `{ "number": "+447400123456" }`. The number is **optional**: omitting it
 re-sends to the number already on file, which is what the legacy "re-sending"
 link does.
 
@@ -114,7 +114,7 @@ link does.
 | Number given but not E.164 (`/\A\+[1-9]\d{6,14}\z/`) | 422 `invalid_number` |
 | Number already belongs to another account | 422 `validation_failed`, checked before the send |
 | MessageBird refuses the send | 502 `sms_send_failed`, "Sorry, I couldn't send you a verification SMS! Please try again later." (legacy wording), Airbrake notified, **nothing persisted** |
-| Sent | 200 `{ "number": "+447911123456", "sent": true }` |
+| Sent | 200 `{ "number": "+447400123456", "sent": true }` |
 
 **A verified user submitting a *different* number is not refused.** That is how
 a number gets changed today — the profile form assigns through

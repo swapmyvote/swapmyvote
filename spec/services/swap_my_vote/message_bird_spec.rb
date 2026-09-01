@@ -12,7 +12,7 @@ RSpec.describe SwapMyVote::MessageBird do
     it "creates a verification without calling MessageBird" do
       expect(described_class).not_to receive(:client)
 
-      otp = described_class.verify_create("+447911123456", "template")
+      otp = described_class.verify_create("+447400123456", "template")
 
       expect(otp.id).to be_present
     end
@@ -56,7 +56,7 @@ RSpec.describe SwapMyVote::MessageBird do
         end
 
         it "refuses to create a verification" do
-          expect { described_class.verify_create("+447911123456", "t") }
+          expect { described_class.verify_create("+447400123456", "t") }
             .to raise_error(/MESSAGEBIRD_FAKE_OTP/)
         end
 
@@ -83,7 +83,7 @@ RSpec.describe SwapMyVote::MessageBird do
         MessageBird::Verify.new("id" => "real-1")
       )
 
-      expect(described_class.verify_create("+447911123456", "t").id)
+      expect(described_class.verify_create("+447400123456", "t").id)
         .to eq "real-1"
     end
   end
