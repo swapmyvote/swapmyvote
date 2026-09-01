@@ -38,6 +38,21 @@ module Api
         send_verification(number, target_number)
       end
 
+      def confirm
+        return render_already_verified if phone&.verified
+        return render_no_verification_pending if phone&.verify_id.blank?
+        return unless check_token
+
+        phone.update!(verified: true, verify_id: nil)
+
+        # Answer with the whole session payload rather than 204: mobileVerified
+        # and mobileSetButNotVerified both flip here, and returning them saves
+        # the SPA a round trip before it can show the verified state. Not
+        # render_session_payload — that also rotates the CSRF token, which is
+        # only correct for endpoints that change who we are logged in as.
+        render json: session_payload
+      end
+
       private
 
       # A verified user re-sending to the number they already verified has
@@ -151,6 +166,64 @@ module Api
           messages: ["Number has already been taken"],
           fields: { number: ["has already been taken"] }
         )
+      end
+
+      def render_no_verification_pending
+        render_error(
+          code: "no_verification_pending",
+          status: :conflict,
+          messages: ["We haven't sent you a code yet. Please request one."]
+        )
+      end
+
+      # Ported from MobilePhoneController#verify_failure_reason. Order
+      # matters: "already been processed" must be matched before the looser
+      # /expired/ and /token is invalid/ patterns, as the legacy `case` does.
+      FAILURE_REASONS = [
+        [/token has already been processed/, "code_already_used",
+         "This code has already been used."],
+        [/expired/, "code_expired", "The code expired."],
+        [/token is invalid/, "code_incorrect",
+         "The code you entered was incorrect."]
+      ].freeze
+
+      def check_token
+        SwapMyVote::MessageBird.verify_token(phone.verify_id, params[:token].to_s)
+        true
+      rescue MessageBird::ErrorException => ex
+        render_verify_failure(ex)
+        false
+      end
+
+      def render_verify_failure(ex)
+        code, message = failure_reason(ex)
+
+        if code.nil?
+          notify_error_exception(ex, "Verifying number #{phone.number} failed")
+          return render_error(
+            code: "verification_failed",
+            status: :bad_gateway,
+            messages: ["Something went wrong when verifying your number."]
+          )
+        end
+
+        render_error(
+          code: code,
+          status: :unprocessable_entity,
+          messages: ["#{message} Please use the code sent most recently."]
+        )
+      end
+
+      def failure_reason(ex)
+        ex.errors.each do |error|
+          next unless error.code == 10
+
+          FAILURE_REASONS.each do |pattern, code, message|
+            return [code, message] if error.description =~ pattern
+          end
+        end
+
+        [nil, nil]
       end
 
       # Ported verbatim from MobilePhoneController, minus the flash.

@@ -176,6 +176,139 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
     end
   end
 
+  # This block's lets sit on top of the five already memoized by the file's
+  # top-level describe (user, number, other_number, otp, path), so it trips
+  # RSpec/MultipleMemoizedHelpers even though no example in it uses all six.
+  # rubocop:disable RSpec/MultipleMemoizedHelpers
+  describe "POST /api/v1/mobile_phone/verifications/confirm" do
+    let(:confirm_path) { "/api/v1/mobile_phone/verifications/confirm" }
+
+    context "when logged out" do
+      it "401s" do
+        post confirm_path, params: { token: "123456" }, as: :json
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(json["error"]["code"]).to eq "unauthenticated"
+      end
+    end
+
+    context "when logged in" do
+      before { sign_in user }
+
+      it "403s while swapping is closed" do
+        stub_mode("closed-warm-up")
+
+        post confirm_path, params: { token: "123456" }, as: :json
+
+        expect(response).to have_http_status(:forbidden)
+        expect(json["error"]["code"]).to eq "swapping_closed"
+      end
+
+      it "verifies the number and answers with the session payload" do
+        user.create_mobile_phone!(number: number, verify_id: "verify-1")
+        expect(SwapMyVote::MessageBird)
+          .to receive(:verify_token).with("verify-1", "123456")
+
+        post confirm_path, params: { token: "123456" }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(json["currentUser"]).to include(
+          "mobileVerified" => true,
+          "mobileSetButNotVerified" => false
+        )
+        phone = user.reload.mobile_phone
+        expect(phone.verified).to be true
+        expect(phone.verify_id).to be_nil
+      end
+
+      it "409s when no code has been sent" do
+        user.create_mobile_phone!(number: number)
+
+        post confirm_path, params: { token: "123456" }, as: :json
+
+        expect(response).to have_http_status(:conflict)
+        expect(json["error"]["code"]).to eq "no_verification_pending"
+      end
+
+      it "409s when there is no number at all" do
+        post confirm_path, params: { token: "123456" }, as: :json
+
+        expect(response).to have_http_status(:conflict)
+        expect(json["error"]["code"]).to eq "no_verification_pending"
+      end
+
+      it "409s when the number is already verified" do
+        user.create_mobile_phone!(number: number, verified: true)
+
+        post confirm_path, params: { token: "123456" }, as: :json
+
+        expect(response).to have_http_status(:conflict)
+        expect(json["error"]["code"]).to eq "already_verified"
+      end
+
+      # MessageBird reports all three as error code 10 and tells them apart
+      # only in the description, exactly as
+      # MobilePhoneController#verify_failure_reason reads them.
+      {
+        "The token has already been processed" => "code_already_used",
+        "The token has expired" => "code_expired",
+        "The token is invalid" => "code_incorrect"
+      }.each do |description, code|
+        it "reports #{code} for '#{description}'" do
+          user.create_mobile_phone!(number: number, verify_id: "verify-1")
+          allow(SwapMyVote::MessageBird)
+            .to receive(:verify_token)
+            .and_raise(message_bird_error(10, description))
+
+          post confirm_path, params: { token: "000000" }, as: :json
+
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(json["error"]["code"]).to eq code
+          expect(json["error"]["messages"].first)
+            .to end_with "Please use the code sent most recently."
+          expect(user.reload.mobile_phone.verified).to be_falsey
+        end
+      end
+
+      it "502s and notifies Airbrake for an unrecognised failure" do
+        user.create_mobile_phone!(number: number, verify_id: "verify-1")
+        expect(Airbrake).to receive(:notify)
+        allow(SwapMyVote::MessageBird)
+          .to receive(:verify_token)
+          .and_raise(message_bird_error(2, "Request not allowed"))
+
+        post confirm_path, params: { token: "000000" }, as: :json
+
+        expect(response).to have_http_status(:bad_gateway)
+        expect(json["error"]["code"]).to eq "verification_failed"
+      end
+    end
+
+    context "with forgery protection on (as in production)" do
+      around do |example|
+        original = ActionController::Base.allow_forgery_protection
+        ActionController::Base.allow_forgery_protection = true
+        example.run
+        ActionController::Base.allow_forgery_protection = original
+      end
+
+      before { sign_in user }
+
+      it "rejects a confirm without a valid CSRF token, as JSON" do
+        user.create_mobile_phone!(number: number, verify_id: "verify-1")
+
+        post confirm_path,
+             params: { token: "123456" },
+             headers: { "X-CSRF-Token" => "not-the-token" },
+             as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json["error"]).to include("code" => "invalid_authenticity_token")
+      end
+    end
+  end
+  # rubocop:enable RSpec/MultipleMemoizedHelpers
+
   describe "the user serializer" do
     before { sign_in user }
 
