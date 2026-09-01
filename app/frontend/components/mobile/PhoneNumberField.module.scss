@@ -61,6 +61,22 @@
   margin-right: 0.5rem;
 }
 
+// The library carries a rule commented "Fixes weird vertical space above the
+// flag icon", but scopes it to .PhoneInputCountryIconImg — the class it puts
+// on the <img> it renders for itself. A flag supplied through the documented
+// `flags` prop is a React component that renders a bare <svg> with no class,
+// so that rule never reaches it: the SVG stays `display: inline`, is aligned
+// on the text baseline, and hangs about 4px below the outline drawn around
+// it. The outline is centred; the flag inside it is not.
+//
+// Same three declarations the library uses, aimed at whatever the icon
+// actually contains rather than at a class our flags never get.
+.field :global(.PhoneInputCountryIcon) > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .invalid {
   border-color: var(--bs-danger);
 }
