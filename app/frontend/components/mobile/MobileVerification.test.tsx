@@ -85,6 +85,39 @@ describe("MobileVerification", () => {
     ).not.toBeInTheDocument();
   });
 
+  // errors is only reset inside send(), which a client-side refusal never
+  // reaches — so a stale server error from a previous failed send could
+  // otherwise sit on screen next to a fresh client-side validity message.
+  it("clears a stale server error once the edited number fails client-side validation", async () => {
+    vi.mocked(sendVerification).mockRejectedValueOnce(
+      new ApiError(502, {
+        error: {
+          code: "sms_send_failed",
+          messages: [
+            "Sorry, I couldn't send you a verification SMS! Please try again later.",
+          ],
+          fields: {},
+        },
+      }),
+    );
+    renderForm(number);
+
+    await submitNumber();
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      /couldn't send you a verification SMS/,
+    );
+
+    const input = screen.getByLabelText("My mobile number is");
+    await userEvent.clear(input);
+    await userEvent.type(input, "+442079460000");
+    await submitNumber();
+
+    expect(
+      screen.getByText("This doesn't look like a mobile phone number"),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
   it("shows the API's message when the SMS cannot be sent", async () => {
     vi.mocked(sendVerification).mockRejectedValue(
       new ApiError(502, {
@@ -143,7 +176,17 @@ describe("MobileVerification", () => {
     expect(onVerified).not.toHaveBeenCalled();
   });
 
-  it("re-sends to the same number", async () => {
+  // The mock echoes back whatever it is handed, so a re-send to the raw
+  // `number` state would pass this test just as easily as a re-send to the
+  // server-confirmed `sentTo`. Making the first send resolve with a
+  // differently-formatted number (as a real server's normalisation would)
+  // forces the assertion to tell the two apart.
+  it("re-sends to the number the server confirmed, not the raw typed number", async () => {
+    const normalizedNumber = "+44 7911 123456";
+    vi.mocked(sendVerification).mockResolvedValueOnce({
+      number: normalizedNumber,
+      sent: true,
+    });
     renderForm(number);
 
     await submitNumber();
@@ -152,7 +195,7 @@ describe("MobileVerification", () => {
     );
 
     await waitFor(() => expect(sendVerification).toHaveBeenCalledTimes(2));
-    expect(vi.mocked(sendVerification).mock.calls[1][0]).toBe(number);
+    expect(vi.mocked(sendVerification).mock.calls[1][0]).toBe(normalizedNumber);
   });
 
   it("goes back to the number step to change the number", async () => {

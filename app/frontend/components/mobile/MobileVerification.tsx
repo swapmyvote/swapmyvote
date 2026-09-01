@@ -59,6 +59,10 @@ export function MobileVerification({
     // Only complain once they have asked us to send: an error message that
     // appears on the first keystroke is noise.
     setShowProblem(true);
+    // Clear any stale server error (e.g. from a previous failed send) before
+    // deciding whether the edited number is even worth sending: otherwise a
+    // client-side refusal would sit on screen next to a leftover API error.
+    setErrors([]);
     if (problem !== null) {
       return;
     }
@@ -137,7 +141,7 @@ export function MobileVerification({
 
         <p className="small subdued mb-0">
           If it does not arrive within 5 minutes, you can send another code or
-          go back and check the number.
+          go back and check the number
         </p>
 
         <div className="d-flex gap-2">
