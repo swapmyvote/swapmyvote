@@ -8,6 +8,7 @@ import logoNav2x from "@/assets/images/logo_nav@2x.png";
 import { useAppMode } from "@/contexts/useAppMode";
 import { useSession } from "@/contexts/useSession";
 import { spaPaths } from "@/lib/spaPaths";
+import styles from "./Navigation.module.scss";
 
 // Paths still served by the legacy HAML site. Crossing the SPA→HAML boundary
 // needs a real page load, so these are plain `href`s, never react-router
@@ -69,12 +70,16 @@ export function Navigation() {
               {/* The avatar is decorative — the name beside it is the toggle's
                   accessible label, so the alt stays empty rather than repeating
                   it. `variant="link"` for a button that reads as the user's
-                  name, with the underline and link colour that variant brings
-                  turned back off. */}
+                  name, with what that variant brings turned back off: the
+                  underline, the link colour, the bold globals.scss puts on
+                  every .btn-link, and the Rubik stack $btn-font-family puts on
+                  every button (see the module — Rubik ships Bold only here, so
+                  fw-normal on its own would still render bold). A name is not
+                  emphasis. */}
               <Dropdown.Toggle
                 variant="link"
                 id="user-menu"
-                className="d-flex align-items-center gap-2 p-0 text-body text-decoration-none"
+                className={`d-flex align-items-center gap-2 p-0 text-body text-decoration-none fw-normal ${styles.userMenuToggle}`}
               >
                 <img
                   src={currentUser.imageUrl}
