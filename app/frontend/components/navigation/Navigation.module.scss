@@ -1,0 +1,16 @@
+// The logged-in user's name is body text, not a heading.
+//
+// `$btn-font-family` puts every button on the Rubik stack, and this project
+// ships a single Rubik face — Bold. CSS font matching resolves a request the
+// family cannot satisfy to the nearest face *within that family*, so asking
+// for weight 400 still renders Rubik Bold; family fallback only happens when
+// the family has no faces at all. A `fw-normal` utility alone therefore looks
+// like it does nothing. Naming the body family is what actually gets a
+// regular face.
+// Qualified with the element on purpose: Bootstrap's own `.btn` sets
+// font-family at the same specificity and is loaded after this module, so a
+// bare `.userMenuToggle` loses on source order. (`fw-normal` has no such
+// problem — Bootstrap's utilities carry !important.)
+button.userMenuToggle {
+  font-family: var(--bs-body-font-family);
+}
