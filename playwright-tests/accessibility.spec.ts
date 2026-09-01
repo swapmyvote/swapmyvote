@@ -89,6 +89,11 @@ const signedInPages: {
     path: spaPaths.review,
     ready: (page) => page.getByRole("img", { name: /predicted vote share/i }),
   },
+  {
+    name: "Mobile",
+    path: spaPaths.mobile,
+    ready: (page) => page.getByLabel("My mobile number is"),
+  },
 ];
 
 for (const { name, path, ready } of signedInPages) {
