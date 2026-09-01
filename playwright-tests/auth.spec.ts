@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 
 // See seedProfileUser.ts: a stale Spring preloader leaves `runner` hanging
@@ -11,6 +11,21 @@ const railsEnv = { ...process.env, DISABLE_SPRING: "1" };
 // no other spec touches.
 const email = "e2e-auth@example.com";
 const password = "e2e-auth-password";
+const name = "E2E Auth";
+
+// User#name appends " (test user)" for @example.com addresses, and that is
+// what the nav renders — so it is also the accessible name of the menu toggle.
+const menuLabel = `${name} (test user)`;
+
+// Everything a logged-in user can do lives behind the avatar menu, so the
+// toggle is the nav's logged-in signal and log out is only reachable through
+// it.
+const userMenu = (page: Page) => page.getByRole("button", { name: menuLabel });
+
+async function logOutFromMenu(page: Page) {
+  await userMenu(page).click();
+  await page.getByRole("button", { name: "Log out" }).click();
+}
 
 test.beforeEach(() => {
   execFileSync(
@@ -35,7 +50,7 @@ test("must sign up, then log out, then log back in", async ({ page }) => {
   // ("Opt-in to Forward Democracy email updates") and the "Confirm password"
   // field's accessible name both contain these labels as substrings, and
   // Playwright's getByLabel matches substrings by default.
-  await page.getByLabel("Your name").fill("E2E Auth");
+  await page.getByLabel("Your name").fill(name);
   await page.getByLabel("Email", { exact: true }).fill(email);
   await page.getByLabel("Password", { exact: true }).fill(password);
   await page.getByLabel("Confirm password").fill(password);
@@ -50,9 +65,9 @@ test("must sign up, then log out, then log back in", async ({ page }) => {
     page.getByRole("combobox", { name: "My constituency is" }),
   ).toBeVisible();
   // The nav bar reflects the new session, not just the page.
-  await expect(page.getByRole("button", { name: "Log out" })).toBeVisible();
+  await expect(userMenu(page)).toBeVisible();
 
-  await page.getByRole("button", { name: "Log out" }).click();
+  await logOutFromMenu(page);
 
   // Log out deliberately ends on the legacy HAML home page. A mere URL match
   // would still pass if DELETE /api/v1/session silently failed server-side —
@@ -72,7 +87,7 @@ test("must sign up, then log out, then log back in", async ({ page }) => {
   await page.getByRole("button", { name: "Log in" }).click();
 
   await expect(page).toHaveURL(new RegExp(`${spaPaths.constituency}$`));
-  await expect(page.getByRole("button", { name: "Log out" })).toBeVisible();
+  await expect(userMenu(page)).toBeVisible();
 });
 
 test("must refuse a wrong password without saying which field was wrong", async ({
