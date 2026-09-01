@@ -6,8 +6,12 @@ import { defineConfig, devices } from "@playwright/test";
 // `yarn e2e` in another) still works. Foreman must be on PATH — it is
 // installed as a standalone gem, not through the Gemfile.
 //
-// Current coverage is the M1 static pages: an axe scan of each, plus the
-// SPA/HAML link boundary. The full swap flow lands in M7.
+// Procfile.dev sets MESSAGEBIRD_FAKE_OTP so the mobile verification spec can
+// enter a known code (see fakeOtp in playwright-tests/support/otp.ts) instead
+// of needing a MessageBird key.
+//
+// Current coverage is the M1 static pages, the M4/M5 signed-in screens and
+// the M6 mobile verification journey. The full swap flow lands in M7.
 export default defineConfig({
   testDir: "./playwright-tests",
   fullyParallel: true,

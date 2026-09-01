@@ -1,4 +1,7 @@
 # `bundle exec vite` rather than `bin/vite` so the Vite dev server starts
 # regardless of how the Bundler binstubs were generated.
 vite: bundle exec vite dev
-web: bin/rails s -p 3000
+# MESSAGEBIRD_FAKE_OTP skips the SMS and accepts one fixed code, so the mobile
+# verification screen can be driven locally and by Playwright without a
+# MessageBird key. SwapMyVote::MessageBird refuses it in production.
+web: MESSAGEBIRD_FAKE_OTP=123456 bin/rails s -p 3000
