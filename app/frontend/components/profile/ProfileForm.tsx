@@ -2,12 +2,14 @@ import { type FormEvent, useId, useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 import { FormErrors } from "@/components/forms/FormErrors";
 import { ConstituencyAutocomplete } from "@/components/home/ConstituencyAutocomplete";
 import { PostcodeLookup } from "@/components/home/PostcodeLookup";
 import { apiErrorMessages } from "@/lib/apiErrors";
 import { forwardDemocracyPrivacyPolicyUrl } from "@/lib/externalLinks";
 import { updateProfile } from "@/lib/profile";
+import { spaPaths } from "@/lib/spaPaths";
 import type {
   Constituency,
   CurrentUser,
@@ -31,9 +33,8 @@ interface ProfileFormProps {
   onSaved: (result: ProfileUpdateResult) => void;
 }
 
-// Both still HAML. The mobile form is M6; account deletion is not in the
-// migration plan's screen list at all.
-const hamlMobile = "/user/edit";
+// Account deletion is not in the migration plan's screen list at all, so this
+// still crosses to HAML.
 const hamlDeleteAccount = "/confirm_account_deletion";
 
 // The FAQ is not ported (M2) — a full-page link to the HAML page, as
@@ -45,10 +46,10 @@ const hamlFaqTrust = "/faq#trust";
  * constituency, the email, and the warnings that come with changing any of
  * them.
  *
- * The mobile number is deliberately not editable here. It is M6's, and
- * standing up a second copy of the intl-tel-input widget only to throw it away
- * would be waste — so this reports the number's state and links to the legacy
- * page that changes it.
+ * The mobile number is deliberately not edited here. Verifying a number is a
+ * two-step journey with its own screen (/app/mobile, M6), and a number that
+ * changes has to be re-verified — so this reports the number's state and
+ * links there.
  */
 export function ProfileForm({
   parties,
@@ -168,11 +169,11 @@ export function ProfileForm({
             My mobile number is{" "}
             {user.mobileVerified ? "verified" : "not verified"}
           </p>
-          <a href={hamlMobile}>
+          <Link to={spaPaths.mobile}>
             {user.mobileVerified
               ? "Change your mobile number"
               : "Verify your mobile number"}
-          </a>
+          </Link>
         </div>
 
         <p className="subdued small mb-0">
