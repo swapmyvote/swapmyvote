@@ -59,7 +59,7 @@ M6 line means by "map `verify_failure_reason` messages to a JSON
 | Number editing on `/app/profile` | **Stays out.** The profile form keeps a status line, now linking to `/app/mobile` instead of `/user/edit`. One phone widget, one screen. |
 | Error convention | The existing `{ error: { code, messages, fields } }`, with codes per failure reason. The plan's "`error.reason`" would have been a second convention for one endpoint. |
 | Server-side number check | **Add a light E.164 format check.** The legacy server trusts the client completely; a JSON endpoint is trivially callable without the widget. The mobile-type check stays client-side, as today — it needs metadata we are not going to load server-side. |
-| E2E strategy | **Fake OTP driver** behind an env flag, refused in production, so Playwright can drive the real controller path end to end. Without it the OTP journey is untestable outside RSpec, because dev and CI have no MessageBird key. |
+| E2E strategy | **Fake OTP driver** behind an env flag, refused outside development and test, so Playwright can drive the real controller path end to end. Without it the OTP journey is untestable outside RSpec, because dev and CI have no MessageBird key. |
 | Cutover | **None.** `/app/mobile` is a preview path; `/user/edit`, `/mobile_phone/*` and the admin bypass page all keep serving HAML, per the single-cutover policy. |
 
 ## API
