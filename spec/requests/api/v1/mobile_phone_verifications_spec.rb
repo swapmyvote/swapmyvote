@@ -90,20 +90,43 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(json["error"]["code"]).to eq "invalid_number"
+      expect(user.reload.mobile_phone).to be_nil
     end
 
-    # MobilePhone validates uniqueness, and User#mobile_number= wraps its
-    # destroy-and-create in a transaction, so the failure rolls back and this
-    # account keeps the number it already had.
+    # The collision is refused before any send: nothing is mutated, and no
+    # code is texted to a number we are about to reject.
     it "422s a number that belongs to another account, leaving this one alone" do
       create(:user, name: "Jane").create_mobile_phone!(number: number)
       user.create_mobile_phone!(number: other_number)
+      expect(SwapMyVote::MessageBird).not_to receive(:verify_create)
 
       post path, params: { number: number }, as: :json
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(json["error"]["code"]).to eq "validation_failed"
       expect(user.reload.mobile_phone.number).to eq other_number
+    end
+
+    # Regression pin: a transient send failure must not touch a number that
+    # was already on the account and already verified. The old
+    # assign-then-send order destroyed the verified row to make room for a
+    # number that was never actually sent, and then destroyed the
+    # replacement too on the way out, leaving the account with no number at
+    # all.
+    it "leaves a verified user's original number alone when the send to a new number fails" do
+      user.create_mobile_phone!(number: other_number, verified: true)
+      allow(Airbrake).to receive(:notify)
+      allow(SwapMyVote::MessageBird)
+        .to receive(:verify_create)
+        .and_raise(message_bird_error(21, "Something went wrong"))
+
+      post path, params: { number: number }, as: :json
+
+      expect(response).to have_http_status(:bad_gateway)
+      expect(json["error"]["code"]).to eq "sms_send_failed"
+      phone = user.reload.mobile_phone
+      expect(phone.number).to eq other_number
+      expect(phone.verified).to be true
     end
 
     it "409s a pointless re-verification of the verified number" do

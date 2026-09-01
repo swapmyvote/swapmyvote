@@ -32,12 +32,10 @@ module Api
         return render_number_missing if number.nil? && phone.nil?
         return render_invalid_number if number && !number.match?(E164)
 
-        # RecordInvalid from the uniqueness validation is caught by
-        # BaseController's rescue_from, and User#mobile_number='s transaction
-        # rolls back, so the account keeps the number it had.
-        current_user.mobile_number = number if number && number != phone&.number
+        target_number = number || phone.number
+        return render_validation_failed if number_taken?(target_number)
 
-        send_verification
+        send_verification(number, target_number)
       end
 
       private
@@ -52,27 +50,40 @@ module Api
         number.nil? || number == phone.number
       end
 
-      def send_verification
-        otp = request_otp
+      # Checked explicitly, and before the send, rather than left to
+      # MobilePhone's uniqueness validation: texting a code to a number we
+      # are about to refuse would be pointless, and nothing here may mutate
+      # the record until MessageBird has accepted the send (see
+      # send_verification).
+      def number_taken?(target_number)
+        MobilePhone.where(number: target_number)
+                   .where.not(user_id: current_user.id)
+                   .exists?
+      end
+
+      # Nothing is persisted until the send has succeeded. A transient
+      # MessageBird failure must leave the account exactly as it was found —
+      # in particular, it must not destroy an existing verified number to
+      # make room for one that was never actually sent.
+      def send_verification(number, target_number)
+        previous_verify_id = phone&.verify_id
+
+        otp = request_otp(target_number)
         return if performed?
 
-        delete_previous_verify_id if phone.verify_id
+        current_user.mobile_number = number if number && number != phone&.number
+        delete_previous_verify_id(previous_verify_id) if previous_verify_id
         phone.update!(verify_id: otp.id)
 
         render json: { number: phone.number, sent: true }
       end
 
-      def request_otp
-        SwapMyVote::MessageBird.verify_create(phone.number, SMS_TEMPLATE)
+      def request_otp(target_number)
+        SwapMyVote::MessageBird.verify_create(target_number, SMS_TEMPLATE)
       rescue MessageBird::ErrorException => ex
         notify_error_exception(
-          ex, "Failed to send verification code to #{phone.number}"
+          ex, "Failed to send verification code to #{target_number}"
         )
-        # Nothing can be done with a number we cannot send to, and leaving it
-        # on the account makes it look verifiable. The legacy controller nils
-        # the number instead, which MobilePhone's own uniqueness validation
-        # can silently refuse once another row already has a nil number.
-        phone.destroy!
         render_error(
           code: "sms_send_failed",
           status: :bad_gateway,
@@ -83,13 +94,16 @@ module Api
       end
 
       # Ported from MobilePhoneController#delete_previous_verify_id: a verify
-      # object that has already gone is not a problem worth reporting.
-      def delete_previous_verify_id
-        SwapMyVote::MessageBird.verify_delete(phone.verify_id)
+      # object that has already gone is not a problem worth reporting. Takes
+      # the id explicitly, captured before send_verification's reassignment,
+      # because a changed number destroys and recreates the MobilePhone row
+      # and the fresh row has no verify_id of its own yet.
+      def delete_previous_verify_id(verify_id)
+        SwapMyVote::MessageBird.verify_delete(verify_id)
       rescue MessageBird::ErrorException => ex
         return if verify_object_missing?(ex)
 
-        notify_error_exception(ex, "verify_delete(#{phone.verify_id}) failed")
+        notify_error_exception(ex, "verify_delete(#{verify_id}) failed")
       end
 
       # Duplicated from MobilePhoneController rather than extracted: that
@@ -126,9 +140,22 @@ module Api
         )
       end
 
+      # Same code and message MobilePhone's `validates :number, uniqueness:
+      # true` would have produced via BaseController's RecordInvalid
+      # rescue_from — this path exists so the check runs before the send,
+      # not because the failure means anything different.
+      def render_validation_failed
+        render_error(
+          code: "validation_failed",
+          status: :unprocessable_entity,
+          messages: ["Number has already been taken"],
+          fields: { number: ["has already been taken"] }
+        )
+      end
+
       # Ported verbatim from MobilePhoneController, minus the flash.
       # MobilePhoneController is frozen until M9 cleanup (it still serves a
-      # live HAML page), so these four helpers cannot be extracted into a
+      # live HAML page), so these three helpers cannot be extracted into a
       # shared module yet — the duplication collapses then.
       def notify_error_exception(ex, action)
         ex.errors.each { |error| notify_error(error) }
