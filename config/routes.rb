@@ -51,6 +51,9 @@ Rails.application.routes.draw do
           post :confirm, on: :collection
         end
       end
+
+      # Ported from User::SwapsController; /user/swap keeps serving HAML.
+      resources :potential_swaps, only: [:index], param: :user_id
     end
   end
 

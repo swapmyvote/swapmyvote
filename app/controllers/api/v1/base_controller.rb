@@ -72,6 +72,33 @@ module Api
         )
       end
 
+      # Mirrors User::SwapsController#assert_parties_exist, which redirects to
+      # the profile edit screen. Both parties are what match generation keys
+      # on, so without them there is nothing to search for.
+      def require_swap_profile_complete!
+        return if current_user.willing_party && current_user.preferred_party
+
+        render_error(
+          code: "profile_incomplete",
+          status: :forbidden,
+          messages: ["Please tell us which parties you prefer and are " \
+                     "willing to vote for before you swap"]
+        )
+      end
+
+      # Mirrors the `redirect_to user_path if @user.swapped?` at the top of
+      # User::SwapsController#show. Generating matches for someone who already
+      # has a partner would destroy the swap they have.
+      def reject_when_already_swapped!
+        return unless current_user.swapped?
+
+        render_error(
+          code: "already_swapped",
+          status: :conflict,
+          messages: ["You already have a swap"]
+        )
+      end
+
       # Mirrors the `require_no_authentication` Devise prepends to its own
       # SessionsController and RegistrationsController, which bounces an
       # already-signed-in visitor rather than letting them log in again or
