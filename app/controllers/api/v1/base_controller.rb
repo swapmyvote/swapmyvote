@@ -147,7 +147,7 @@ module Api
         render_error(
           code: "validation_failed",
           status: :unprocessable_entity,
-          messages: ["That has already been taken"]
+          messages: ["Those details are already in use"]
         )
       end
     end
