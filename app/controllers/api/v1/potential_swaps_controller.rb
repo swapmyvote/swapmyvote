@@ -29,6 +29,23 @@ module Api
           expiryMinutes: potential_swap_expiry_mins
         }
       end
+
+      # Deliberately scoped to this user's own current candidates rather than
+      # User.find: a bare lookup would let anyone read any account's profile
+      # card by id, which is what legacy User::SwapsController#new does.
+      #
+      # find raises RecordNotFound, which BaseController renders as 404.
+      def show
+        candidate = User
+                    .where(id: current_user.potential_swaps.select(:target_user_id))
+                    .find(params[:user_id])
+
+        render json: {
+          potentialSwap: SwapCandidateSerializer.new(
+            candidate, params: candidate_params([candidate])
+          ).to_h
+        }
+      end
     end
   end
 end

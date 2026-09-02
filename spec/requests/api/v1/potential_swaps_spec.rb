@@ -147,4 +147,37 @@ RSpec.describe "Api::V1::PotentialSwaps", type: :request do
       end
     end
   end
+
+  describe "GET /api/v1/potential_swaps/:user_id" do
+    before { sign_in user }
+
+    it "returns one candidate the user has actually been offered" do
+      user.potential_swaps.create!(target_user: candidate)
+
+      get "/api/v1/potential_swaps/#{candidate.id}"
+
+      expect(response).to have_http_status(:ok)
+      expect(json["potentialSwap"]["userId"]).to eq candidate.id
+      expect(json["potentialSwap"]["name"]).to eq "Grace H (test user)"
+      expect(json["potentialSwap"]["polls"].length).to eq 2
+    end
+
+    it "404s for a user who is not one of our candidates" do
+      stranger = create(:user, name: "Alan Turing", email: "alan@example.com",
+                               constituency_ons_id: wakefield.ons_id,
+                               preferred_party: labour, willing_party: green)
+
+      get "/api/v1/potential_swaps/#{stranger.id}"
+
+      expect(response).to have_http_status(:not_found)
+      expect(json["error"]["code"]).to eq "not_found"
+    end
+
+    it "404s rather than generating a fresh match set" do
+      get "/api/v1/potential_swaps/#{candidate.id}"
+
+      expect(response).to have_http_status(:not_found)
+      expect(user.potential_swaps.reload).to be_empty
+    end
+  end
 end
