@@ -142,8 +142,15 @@ returns false, leaving the bad number in place. There is nothing here for that
 bug to happen to.
 
 Checking uniqueness with an explicit query rather than leaning on the model
-validation follows from the same ordering: the collision has to be found before
-the SMS goes out, or we text a code to a number we are about to refuse.
+validation follows from the same ordering: a collision found before the SMS
+goes out is one we have not texted a code to before refusing it.
+
+That check is best-effort, not a guarantee. It and the write are not atomic, so
+two concurrent sends for the same number can both pass it and then collide on
+`mobile_phones`' unique index — after the SMS has gone out. The controller
+rescues `ActiveRecord::RecordNotUnique` and answers exactly as the pre-send
+check does, so the client sees one shape for the collision either way. The
+wasted SMS in that window is the cost of checking outside a transaction.
 
 A previous `verify_id` is deleted through `SwapMyVote::MessageBird.verify_delete`
 before the new one is stored, as `delete_previous_verify_id` does, and with the

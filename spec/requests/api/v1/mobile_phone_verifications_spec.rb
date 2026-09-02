@@ -133,7 +133,12 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       post path, params: { number: number }, as: :json
 
       expect(response).to have_http_status(:unprocessable_entity)
+      # Byte-identical to what the pre-send check returns above: the same
+      # collision must not reach the client in two shapes depending on which
+      # side of the race it lands.
       expect(json["error"]["code"]).to eq "validation_failed"
+      expect(json["error"]["messages"]).to eq ["Number has already been taken"]
+      expect(json["error"]["fields"]).to eq("number" => ["has already been taken"])
     end
 
     # A transient send failure must not touch a number already on the

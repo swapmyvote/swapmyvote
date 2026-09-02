@@ -16,6 +16,13 @@ module Api
       before_action :require_logged_in!
       before_action :require_swapping_open!
 
+      # Every unique index this controller can collide with is
+      # mobile_phones.number, so a lost race reports exactly what the
+      # pre-send number_taken? check reports. BaseController's generic
+      # handler cannot name the field; here we can, and the client should not
+      # see two different shapes for the same collision depending on timing.
+      rescue_from ActiveRecord::RecordNotUnique, with: :render_validation_failed
+
       def create
         number = params[:number].presence
 
