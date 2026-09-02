@@ -184,6 +184,29 @@ p a {
   font-weight: 700;
 }
 
+// An action that belongs inside a sentence — "you can send another code" —
+// has to be a <button>, because it does something rather than going
+// somewhere, and an anchor without an href is not keyboard-operable. But it
+// has to read as one of the links above, and .btn-link alone does not get
+// there: .btn brings its own padding, box and, most easily missed, the Rubik
+// display family, of which only the Bold weight is loaded. The result reads
+// as a heavier, larger word wedged into the line.
+//
+// Scoped to a paragraph so it cannot touch standalone .btn-link buttons, and
+// two classes deep so it beats Bootstrap's own .btn rather than needing
+// !important. Everything here is either inherited from the sentence or taken
+// from `p a`, so any inline action anywhere on the site matches the links
+// beside it by construction — font-weight is already 700 from .btn-link.
+p .btn-link {
+  padding: 0;
+  border: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  vertical-align: baseline;
+  color: var(--bs-link-color);
+}
+
 /* TYPOGRAPHY */
 body {
   font-size: 18px;

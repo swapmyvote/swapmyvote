@@ -6,7 +6,6 @@ import { VerificationCodeField } from "@/components/mobile/VerificationCodeField
 import { apiErrorMessages } from "@/lib/apiErrors";
 import { confirmVerification, sendVerification } from "@/lib/mobilePhone";
 import { phoneNumberProblem } from "@/lib/phone";
-import styles from "./MobileVerification.module.scss";
 
 interface MobileVerificationProps {
   /** The number already on the account, so the form starts from it rather
@@ -148,7 +147,6 @@ export function MobileVerification({
           <Button
             type="button"
             variant="link"
-            className={styles.inlineAction}
             disabled={busy}
             onClick={() => send(sentTo)}
           >
@@ -158,7 +156,6 @@ export function MobileVerification({
           <Button
             type="button"
             variant="link"
-            className={styles.inlineAction}
             disabled={busy}
             onClick={handleChangeNumber}
           >
