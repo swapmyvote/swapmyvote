@@ -22,6 +22,7 @@ export const spaPaths = {
   constituency: "/app/constituency",
   profile: "/app/profile",
   review: "/app/review",
+  mobile: "/app/mobile",
 } as const;
 
 export type SpaPathKey = keyof typeof spaPaths;

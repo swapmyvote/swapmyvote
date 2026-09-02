@@ -13,6 +13,11 @@ module Api
     class BaseController < ApplicationController
       rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
       rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
+      # A model uniqueness validation loses a genuine race to a database
+      # unique index, and the second write raises this instead of
+      # RecordInvalid. Nothing persists either way; this is only about
+      # answering with the error convention rather than a 500.
+      rescue_from ActiveRecord::RecordNotUnique, with: :render_record_not_unique
 
       # ApplicationController answers a forged request with a flash +
       # redirect_back, which is meaningless to a fetch() caller. Answer with
@@ -52,6 +57,18 @@ module Api
           code: "logins_closed",
           status: :forbidden,
           messages: ["Logins are closed at the moment"]
+        )
+      end
+
+      # Mirrors ApplicationController#require_swapping_open, which redirects
+      # to the home page.
+      def require_swapping_open!
+        return if swapping_open?
+
+        render_error(
+          code: "swapping_closed",
+          status: :forbidden,
+          messages: ["Swapping is closed at the moment"]
         )
       end
 
@@ -120,6 +137,17 @@ module Api
           status: :unprocessable_entity,
           messages: exception.record.errors.full_messages,
           fields: exception.record.errors.to_hash(true)
+        )
+      end
+
+      # RecordNotUnique carries the raw database error, not a validated
+      # record, so unlike render_record_invalid this cannot say which field
+      # collided.
+      def render_record_not_unique(_exception)
+        render_error(
+          code: "validation_failed",
+          status: :unprocessable_entity,
+          messages: ["Those details are already in use"]
         )
       end
     end

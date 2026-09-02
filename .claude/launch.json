@@ -9,8 +9,18 @@
     },
     {
       "name": "rails",
-      "runtimeExecutable": "bin/rails",
-      "runtimeArgs": ["s", "-p", "3000"],
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "MESSAGEBIRD_FAKE_OTP=123456",
+        "rbenv",
+        "exec",
+        "bundle",
+        "exec",
+        "rails",
+        "s",
+        "-p",
+        "3000"
+      ],
       "port": 3000
     }
   ]

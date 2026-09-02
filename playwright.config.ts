@@ -6,8 +6,7 @@ import { defineConfig, devices } from "@playwright/test";
 // `yarn e2e` in another) still works. Foreman must be on PATH — it is
 // installed as a standalone gem, not through the Gemfile.
 //
-// Current coverage is the M1 static pages: an axe scan of each, plus the
-// SPA/HAML link boundary. The full swap flow lands in M7.
+// The full swap flow lands in M7.
 export default defineConfig({
   testDir: "./playwright-tests",
   fullyParallel: true,

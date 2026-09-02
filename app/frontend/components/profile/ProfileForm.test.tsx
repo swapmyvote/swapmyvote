@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ProfileForm } from "@/components/profile/ProfileForm";
 import { ApiError } from "@/lib/apiClient";
@@ -31,6 +32,7 @@ const user: CurrentUser = {
   constituencyOnsId: "E14001063",
   mobileVerified: false,
   mobileSetButNotVerified: true,
+  mobileNumber: "+447400123456",
   preferredParty: parties[0],
   willingParty: parties[1],
 };
@@ -40,14 +42,16 @@ function renderForm(
 ) {
   const onSaved = vi.fn();
   render(
-    <ProfileForm
-      parties={parties}
-      constituencies={constituencies}
-      user={overrides.user ?? user}
-      locked={overrides.locked ?? false}
-      hasSwap={overrides.hasSwap ?? true}
-      onSaved={onSaved}
-    />,
+    <MemoryRouter>
+      <ProfileForm
+        parties={parties}
+        constituencies={constituencies}
+        user={overrides.user ?? user}
+        locked={overrides.locked ?? false}
+        hasSwap={overrides.hasSwap ?? true}
+        onSaved={onSaved}
+      />
+    </MemoryRouter>,
   );
   return { onSaved };
 }
@@ -134,13 +138,21 @@ describe("ProfileForm", () => {
     expect(screen.getByText(/currently locked/i)).toBeInTheDocument();
   });
 
-  it("links out to the legacy mobile page, reporting what we have", () => {
+  it("links to the React mobile screen, reporting what we have", () => {
     renderForm();
 
     expect(screen.getByText(/not verified/i)).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /verify your mobile/i }),
-    ).toHaveAttribute("href", "/user/edit");
+    ).toHaveAttribute("href", "/app/mobile");
+  });
+
+  it("offers a verified user the way to change their number", () => {
+    renderForm({ user: { ...user, mobileVerified: true } });
+
+    expect(
+      screen.getByRole("link", { name: /change your mobile number/i }),
+    ).toHaveAttribute("href", "/app/mobile");
   });
 
   it("explains why we need an email, linking out to the FAQ and the privacy policy", () => {

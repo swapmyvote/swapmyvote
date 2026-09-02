@@ -35,6 +35,12 @@ module Api
         user.mobile_phone.present? && !user.mobile_phone.verified
       end
 
+      # So the React verification form can start from the number on file
+      # rather than making the user retype it.
+      attribute :mobile_number do |user|
+        user.mobile_number
+      end
+
       one :preferred_party, resource: PartySerializer
       one :willing_party, resource: PartySerializer
     end

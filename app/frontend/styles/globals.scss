@@ -184,6 +184,26 @@ p a {
   font-weight: 700;
 }
 
+// An action inside a sentence has to be a <button> — it acts rather than
+// navigates, and an anchor without an href is not keyboard-operable — but it
+// has to read as one of the links above. .btn-link alone does not get there:
+// .btn brings its own box and, most easily missed, the Rubik display family,
+// of which only Bold is loaded, so the words come out heavier and larger than
+// the line around them.
+//
+// Scoped to a paragraph so it cannot touch standalone .btn-link buttons; the
+// element+class selector outweighs Bootstrap's .btn without !important.
+// font-weight is already 700, from .btn-link above.
+p .btn-link {
+  padding: 0;
+  border: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  vertical-align: baseline;
+  color: var(--bs-link-color);
+}
+
 /* TYPOGRAPHY */
 body {
   font-size: 18px;

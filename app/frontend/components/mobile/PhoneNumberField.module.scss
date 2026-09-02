@@ -1,0 +1,70 @@
+// The country <select> and the number <input> are siblings in an unstyled
+// flex wrapper, so .form-control on the input alone boxes the number and
+// leaves the flag outside it. The chrome belongs on the wrapper — the same
+// treatment ConstituencyAutocomplete.module.scss gives the postcode combobox.
+.field {
+  display: flex;
+  align-items: center;
+  // .form-control's own padding, so this lines up with the fields above it.
+  padding: 0.375rem 0.75rem;
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+
+  // The library drives the flag ring and the arrow from its own accent
+  // (`--PhoneInput-color--focus: #03b2cb`), so both turn teal on focus. Pin
+  // the focus variants to the resting values.
+  //
+  // The ring keeps the library's default strength: flags that are mostly
+  // white at the edge (Guernsey, Japan, Poland) dissolve into the field
+  // without it and read as an empty box.
+  --PhoneInputCountryFlag-borderColor--focus: var(
+    --PhoneInputCountryFlag-borderColor
+  );
+  --PhoneInputCountrySelectArrow-color: var(--bs-body-color);
+  --PhoneInputCountrySelectArrow-color--focus: var(--bs-body-color);
+}
+
+// Ringing the input alone would halo the number but not the flag.
+.field:focus-within {
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+// The input keeps .form-control's typography and gives up its chrome —
+// including on focus, where Bootstrap would draw a second, inner ring.
+.field :global(.form-control),
+.field :global(.form-control):focus {
+  height: auto;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+  // Without this the input will not shrink below its default width, and
+  // pushes the flag out of the box on a narrow screen.
+  min-width: 0;
+}
+
+// The library's margin assumes the input has its own left padding.
+.field :global(.PhoneInputCountry) {
+  margin-right: 0.5rem;
+}
+
+// The library's own fix for this ("Fixes weird vertical space above the flag
+// icon") is scoped to .PhoneInputCountryIconImg, the class it puts on the
+// <img> it renders itself. Flags passed through the documented `flags` prop
+// are React components rendering a bare <svg> with no class, so the rule
+// never reaches them and the SVG hangs ~4px below its own outline. Same
+// declarations, aimed at whatever the icon actually contains.
+.field :global(.PhoneInputCountryIcon) > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.invalid {
+  border-color: var(--bs-danger);
+}
+
+.invalid:focus-within {
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25);
+}

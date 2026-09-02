@@ -1504,7 +1504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:^2.3.2":
+"classnames@npm:^2.3.2, classnames@npm:^2.5.1":
   version: 2.5.1
   resolution: "classnames@npm:2.5.1"
   checksum: da424a8a6f3a96a2e87d01a432ba19315503294ac7e025f9fece656db6b6a0f7b5003bb1fbb51cbb0d9624d964f1b9bb35a51c73af9b2434c7b292c42231c1e5
@@ -1582,6 +1582,13 @@ __metadata:
   version: 1.1.1
   resolution: "cookie@npm:1.1.1"
   checksum: e40c4ff817a73ec0a41413654ca9a71e6207bd6e511151bb1d307aef2903eb59771127a85474afe0e12a8982804f7b03cce0bda798b55c306aca9608b4b9acab
+  languageName: node
+  linkType: hard
+
+"country-flag-icons@npm:^1.6.14":
+  version: 1.6.20
+  resolution: "country-flag-icons@npm:1.6.20"
+  checksum: 507a0a1fe460f7d770411eecae9e8da234c1507315d09c527c9ecfbf163131ec867306a6da5db3d5934c507d6fb28005ddb5405ab3a1ddc9f311cbce4f903df9
   languageName: node
   linkType: hard
 
@@ -2080,6 +2087,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"input-format@npm:^0.3.14":
+  version: 0.3.14
+  resolution: "input-format@npm:0.3.14"
+  dependencies:
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ">=18.1.0"
+    react-dom: ">=18.1.0"
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 8776bd706ff86f97aa017a84bb1f1e3e48f6f60257cbf45fa6d1283f64fddbea8baac2e02f9eb85044cd25ef1a10b7d9c84c07e82f0fbed90161df183e75a460
+  languageName: node
+  linkType: hard
+
 "intl-tel-input@npm:16.0.7":
   version: 16.0.7
   resolution: "intl-tel-input@npm:16.0.7"
@@ -2259,6 +2283,13 @@ __metadata:
     canvas:
       optional: true
   checksum: 6b402242b3359ecafe626edea5d9cdde65570867d81ddcb5d704ade8dce006a4680b73ccbb477fde675acb7864a8b832c35914cdac2674c478d8cbb7d74e319b
+  languageName: node
+  linkType: hard
+
+"libphonenumber-js@npm:^1.13.11, libphonenumber-js@npm:^1.13.12":
+  version: 1.13.12
+  resolution: "libphonenumber-js@npm:1.13.12"
+  checksum: bc51adc00d848f77141b77e9b1da583e4352f08ee60935aac39c765496c6bc5e29ced57a8cae719c41a0f3260d64b12ce8458265a6c70d139c2a69ec4d9f490b
   languageName: node
   linkType: hard
 
@@ -3359,6 +3390,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-phone-number-input@npm:^3.4.18":
+  version: 3.4.18
+  resolution: "react-phone-number-input@npm:3.4.18"
+  dependencies:
+    classnames: ^2.5.1
+    country-flag-icons: ^1.6.14
+    input-format: ^0.3.14
+    libphonenumber-js: ^1.13.11
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: eb8cab8510836aec6a9276f84cd5eadfdfbe80ad1ae1dbcd6efbf6e5b4871c480dbc59641e6f3cb19da779402918a8172409cd52008dbc644f7abf82cbf236fb
+  languageName: node
+  linkType: hard
+
 "react-router-dom@npm:^7.18.1":
   version: 7.18.1
   resolution: "react-router-dom@npm:7.18.1"
@@ -3815,6 +3862,7 @@ __metadata:
     downshift: ^9.4.0
     intl-tel-input: 16.0.7
     jsdom: ^29.1.1
+    libphonenumber-js: ^1.13.12
     postcss-flexbugs-fixes: ^4.2.1
     postcss-import: ^12.0.1
     postcss-preset-env: ^6.7.0
@@ -3823,6 +3871,7 @@ __metadata:
     react-chartjs-2: ^5.3.1
     react-dom: ^19.2.7
     react-icons: ^5.7.0
+    react-phone-number-input: ^3.4.18
     react-router-dom: ^7.18.1
     sass: ^1.101.0
     typescript: ^7.0.2
