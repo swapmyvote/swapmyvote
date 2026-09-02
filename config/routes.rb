@@ -43,8 +43,8 @@ Rails.application.routes.draw do
       # trip out to Devise/OmniAuth sign-up.
       resource :pre_populate, only: [:create], controller: "pre_populate"
 
-      # Mobile-number verification (M6), ported from MobilePhoneController.
-      # Its /mobile_phone/verify_* routes below keep serving HAML.
+      # Ported from MobilePhoneController, whose /mobile_phone/verify_*
+      # routes below keep serving HAML.
       scope :mobile_phone do
         resources :verifications, only: [:create],
                   controller: "mobile_phone_verifications" do

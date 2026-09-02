@@ -1,20 +1,11 @@
 module Api
   module V1
-    # Mobile-number verification, ported from MobilePhoneController.
-    #
-    #   POST /api/v1/mobile_phone/verifications         — send an OTP by SMS
-    #   POST /api/v1/mobile_phone/verifications/confirm — check the code
-    #
-    # The legacy controller's two before_actions (require_login,
-    # require_swapping_open) are mirrored here as guards that report their
-    # refusal instead of redirecting, and its flash-and-redirect_back failure
-    # paths become the shared JSON error convention.
+    # Ported from MobilePhoneController, which still serves the legacy HAML
+    # pages and is unchanged.
     class MobilePhoneVerificationsController < BaseController
       include SessionPayload
 
-      # The legacy server trusts whatever intl-tel-input put in the hidden
-      # field. A JSON endpoint is callable without the widget, so check the
-      # shape at least. The "is it a mobile?" check stays client-side: it
+      # Shape only. Whether it is a *mobile* stays a client-side check: that
       # needs libphonenumber metadata we do not load server-side.
       E164 = /\A\+[1-9]\d{6,14}\z/.freeze
 
@@ -29,13 +20,9 @@ module Api
         number = params[:number].presence
 
         return render_already_verified if pointless_reverification?(number)
-        # phone&.number.blank?, not phone.nil?: a MobilePhone row can exist
-        # with a nil number — the legacy controller creates exactly that
-        # state on a failed send (mobile_phone_controller.rb's
-        # `phone&.update(number: nil)`), and both flows share one row. A
-        # re-send in that state must still read as "no number", not fall
-        # through to a misleading uniqueness 422 or a 502 from sending to
-        # nil.
+        # Not phone.nil?: the legacy controller nils the number of an
+        # existing row on a failed send, and both flows share one row. That
+        # state has to read as "no number" here too.
         return render_number_missing if number.nil? && phone&.number.blank?
         return render_invalid_number if number && !number.match?(E164)
 
@@ -52,19 +39,15 @@ module Api
 
         phone.update!(verified: true, verify_id: nil)
 
-        # Answer with the whole session payload rather than 204: mobileVerified
-        # and mobileSetButNotVerified both flip here, and returning them saves
-        # the SPA a round trip before it can show the verified state. Not
-        # render_session_payload — that also rotates the CSRF token, which is
-        # only correct for endpoints that change who we are logged in as.
+        # Not render_session_payload: that also returns a CSRF token header,
+        # which only matters where the logged-in user changes.
         render json: session_payload
       end
 
       private
 
-      # A verified user re-sending to the number they already verified has
-      # nothing to gain. A *different* number is a real change, and is
-      # allowed: it is how a number gets replaced now that the React profile
+      # A verified user sending a *different* number is allowed, not refused:
+      # it is the only way a number gets replaced now that the React profile
       # screen has no number field.
       def pointless_reverification?(number)
         return false unless phone&.verified
@@ -72,11 +55,8 @@ module Api
         number.nil? || number == phone.number
       end
 
-      # Checked explicitly, and before the send, rather than left to
-      # MobilePhone's uniqueness validation: texting a code to a number we
-      # are about to refuse would be pointless, and nothing here may mutate
-      # the record until MessageBird has accepted the send (see
-      # send_verification).
+      # Explicit rather than left to MobilePhone's uniqueness validation, so
+      # the collision is found before we text a code to the number.
       def number_taken?(target_number)
         MobilePhone.where(number: target_number)
                    .where.not(user_id: current_user.id)
@@ -91,12 +71,12 @@ module Api
         previous_verify_id = phone&.verify_id
 
         otp = request_otp(target_number)
+        # request_otp has already rendered on its rescue path. Without this,
+        # the otp.nil? check below renders a second time and every MessageBird
+        # exception becomes a DoubleRenderError.
         return if performed?
-        # verify_create can come back nil without raising (a MessageBird gem
-        # quirk, not documented behaviour we can rule out). The legacy
-        # controller guarded this explicitly (mobile_phone_controller.rb, `if
-        # otp.nil?`); without the same guard here, otp.id below would raise
-        # NoMethodError — a 500, with the number half-processed in memory.
+        # verify_create can also come back nil without raising, which the
+        # legacy controller guarded too.
         return render_sms_send_failed if otp.nil?
 
         current_user.mobile_number = number if number && number != phone&.number
@@ -116,9 +96,6 @@ module Api
         nil
       end
 
-      # Shared by both the point where MessageBird raises and the point
-      # where it merely returns nil, so the response body cannot drift
-      # between the two.
       def render_sms_send_failed
         render_error(
           code: "sms_send_failed",
@@ -128,11 +105,9 @@ module Api
         )
       end
 
-      # Ported from MobilePhoneController#delete_previous_verify_id: a verify
-      # object that has already gone is not a problem worth reporting. Takes
-      # the id explicitly, captured before send_verification's reassignment,
-      # because a changed number destroys and recreates the MobilePhone row
-      # and the fresh row has no verify_id of its own yet.
+      # Takes the id explicitly, captured before send_verification reassigns
+      # the number: a changed number destroys and recreates the MobilePhone
+      # row, so reading verify_id off it afterwards reads nil.
       def delete_previous_verify_id(verify_id)
         SwapMyVote::MessageBird.verify_delete(verify_id)
       rescue MessageBird::ErrorException => ex
@@ -141,9 +116,6 @@ module Api
         notify_error_exception(ex, "verify_delete(#{verify_id}) failed")
       end
 
-      # Duplicated from MobilePhoneController rather than extracted: that
-      # controller is frozen until M9 cleanup because it still serves a live
-      # HAML page. The duplication collapses then.
       def verify_object_missing?(ex)
         return false unless ex.errors.length == 1
 
@@ -175,10 +147,9 @@ module Api
         )
       end
 
-      # Same code and message MobilePhone's `validates :number, uniqueness:
-      # true` would have produced via BaseController's RecordInvalid
-      # rescue_from — this path exists so the check runs before the send,
-      # not because the failure means anything different.
+      # Must stay identical to what MobilePhone's uniqueness validation
+      # produces through BaseController's RecordInvalid rescue_from: the same
+      # collision reaches callers by both routes.
       def render_validation_failed
         render_error(
           code: "validation_failed",
@@ -196,9 +167,8 @@ module Api
         )
       end
 
-      # Ported from MobilePhoneController#verify_failure_reason. Order
-      # matters: "already been processed" must be matched before the looser
-      # /expired/ and /token is invalid/ patterns, as the legacy `case` does.
+      # Order matters: "already been processed" must be matched before the
+      # looser /expired/ and /token is invalid/, as the legacy `case` did.
       FAILURE_REASONS = [
         [/token has already been processed/, "code_already_used",
          "This code has already been used."],
@@ -246,10 +216,8 @@ module Api
         [nil, nil]
       end
 
-      # Ported verbatim from MobilePhoneController, minus the flash.
-      # MobilePhoneController is frozen until M9 cleanup (it still serves a
-      # live HAML page), so these three helpers cannot be extracted into a
-      # shared module yet — the duplication collapses then.
+      # Duplicated from MobilePhoneController, which is frozen until M9
+      # cleanup because it still serves a live HAML page.
       def notify_error_exception(ex, action)
         ex.errors.each { |error| notify_error(error) }
         msg = action + ":\n" + ex.errors.map { |e| error_message(e) }.join("\n")

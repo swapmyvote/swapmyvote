@@ -35,9 +35,8 @@ module Api
         user.mobile_phone.present? && !user.mobile_phone.verified
       end
 
-      # The number itself, so the React verification form can start from it
-      # and the profile screen can show which number is on the account. Only
-      # ever serialized for the user themselves.
+      # So the React verification form can start from the number on file
+      # rather than making the user retype it.
       attribute :mobile_number do |user|
         user.mobile_number
       end

@@ -8,15 +8,9 @@ interface VerificationCodeFieldProps {
 }
 
 /**
- * The 6-digit code field from app/views/mobile_phone/verify_create.html.haml,
- * with the same pattern and length constraints. `one-time-code` lets iOS and
- * Android offer the code straight from the SMS, which the legacy field did
- * not.
- *
- * The legacy field called `setCustomValidity("Please enter 6 digits")` on a
- * pattern mismatch. `title` is the idiomatic React equivalent — browsers
- * append it to the pattern-mismatch validation message — without reaching
- * for a ref and imperative DOM calls.
+ * `title` carries the message the legacy field set with
+ * `setCustomValidity("Please enter 6 digits")`: browsers append it to the
+ * pattern-mismatch text, so no ref and no imperative DOM call.
  */
 export function VerificationCodeField({
   value,

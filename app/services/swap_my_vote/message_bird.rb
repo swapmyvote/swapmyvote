@@ -39,10 +39,8 @@ class SwapMyVote::MessageBird
 
     private
 
-    # Dev and E2E have no MessageBird key, so an OTP journey cannot be driven
-    # end to end against the real API. With this set, the SMS is skipped and
-    # one fixed code is accepted — which is only ever safe in development and
-    # test.
+    # Dev and E2E have no MessageBird key, so with this set the SMS is
+    # skipped and one fixed code is accepted.
     #
     # This guard is deliberately a default-deny allowlist rather than a
     # `Rails.env.production?` blacklist. This flag disables the whole

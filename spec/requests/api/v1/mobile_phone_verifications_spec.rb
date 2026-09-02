@@ -12,9 +12,8 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
     allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return(mode)
   end
 
-  # MessageBird reports every problem as a list of errors on one exception.
-  # MessageBird::Error inherits MessageBird::Base, which assigns from a hash
-  # of camelCase keys, so this is the real class the controller will see.
+  # The real classes the controller will see, not doubles: MessageBird::Base
+  # assigns from the hash, so the shape has to be right.
   def message_bird_error(code, description)
     MessageBird::ErrorException.new(
       [MessageBird::Error.new("code" => code, "description" => description)]
@@ -85,11 +84,8 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       expect(json["error"]["code"]).to eq "number_missing"
     end
 
-    # A MobilePhone row with a nil number is a state the legacy controller
-    # actively creates on a failed send (mobile_phone_controller.rb's
-    # `phone&.update(number: nil)`), and both flows share one row. A re-send
-    # against that row must read as "no number", not fall through to a
-    # misleading uniqueness 422 or a 502 from sending to nil.
+    # The legacy controller creates this state on a failed send, and both
+    # flows share one row.
     it "422s when there is no number to send to and the existing row's number is nil" do
       user.create_mobile_phone!(number: nil)
 
@@ -107,8 +103,7 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       expect(user.reload.mobile_phone).to be_nil
     end
 
-    # The collision is refused before any send: nothing is mutated, and no
-    # code is texted to a number we are about to reject.
+    # Refused before any send, so no code is texted to a number we reject.
     it "422s a number that belongs to another account, leaving this one alone" do
       create(:user, name: "Jane").create_mobile_phone!(number: number)
       user.create_mobile_phone!(number: other_number)
@@ -122,16 +117,11 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       expect(user.reload.mobile_phone.number).to eq other_number
     end
 
-    # BaseController's RecordNotUnique rescue_from exists for exactly this
-    # race: the pre-check above (number_taken?) and this write are not
-    # atomic, so two concurrent sends for the same number can both pass the
-    # check and then collide on mobile_phones' unique index. That is
-    # impractical to reproduce for real inside a transactional request spec,
-    # so stub the raise at User#mobile_number= rather than skip covering the
-    # handler — a renamed or misspelled :with on that rescue_from would
-    # otherwise only surface in production, on a race nobody can reproduce on
-    # demand. any_instance_of because Devise reloads current_user from the
-    # session on each request, so it is never the `user` let's own instance.
+    # number_taken? and the write are not atomic, so concurrent sends can
+    # both pass the check and collide on the unique index. Stubbed rather
+    # than raced for real: a renamed :with on that rescue_from would
+    # otherwise only surface in production. any_instance_of because Devise
+    # reloads current_user per request, so it is never this `user` instance.
     it "422s when the write loses a uniqueness race to the database's own unique index" do
       allow(SwapMyVote::MessageBird).to receive(:verify_create).and_return(otp)
       # rubocop:disable RSpec/AnyInstance
@@ -146,12 +136,10 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       expect(json["error"]["code"]).to eq "validation_failed"
     end
 
-    # Regression pin: a transient send failure must not touch a number that
-    # was already on the account and already verified. The old
-    # assign-then-send order destroyed the verified row to make room for a
-    # number that was never actually sent, and then destroyed the
-    # replacement too on the way out, leaving the account with no number at
-    # all.
+    # A transient send failure must not touch a number already on the
+    # account. Assigning before sending would destroy the verified row to
+    # make room for one that never went out, then clear the replacement too,
+    # leaving no number at all.
     it "leaves a verified user's original number alone when the send to a new number fails" do
       user.create_mobile_phone!(number: other_number, verified: true)
       allow(Airbrake).to receive(:notify)
@@ -186,8 +174,8 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       expect(json["error"]["code"]).to eq "already_verified"
     end
 
-    # Changing a number is how it gets re-verified. /app/profile no longer
-    # carries a number field, so refusing this would leave no way to do it.
+    # /app/profile has no number field, so refusing this would leave no way
+    # to change a number at all.
     it "accepts a different number from a verified user" do
       user.create_mobile_phone!(number: other_number, verified: true)
       expect(SwapMyVote::MessageBird)
@@ -202,13 +190,9 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       expect(phone.verify_id).to eq "verify-1"
     end
 
-    # The case previous_verify_id exists for: a number that was never
-    # verified, but already had a code sent to it (a live verify_id), gets
-    # replaced by a different number before that code was ever entered. The
-    # old MobilePhone row is destroyed by User#mobile_number= and a fresh one
-    # created, so the old verify_id has to be captured and retired before
-    # that reassignment happens — reading it off the row afterwards would
-    # read nil.
+    # What previous_verify_id exists for: User#mobile_number= destroys the
+    # old row, so the live verify_id has to be captured and retired before
+    # the reassignment rather than read off the row afterwards.
     it "retires the old verify_id when an unverified number is replaced with a different one" do
       user.create_mobile_phone!(number: other_number, verify_id: "verify-0")
       expect(SwapMyVote::MessageBird)
@@ -248,9 +232,8 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
 
     before { sign_in user }
 
-    # create is the action that spends money (an SMS through MessageBird),
-    # so it is the one CSRF absolutely must not let through — asserted
-    # alongside confirm's equivalent example below rather than only there.
+    # create is the action that spends money, so it is the one CSRF must
+    # not let through.
     it "rejects a send without a valid CSRF token, as JSON" do
       post path,
            params: { number: number },
@@ -263,11 +246,9 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
   end
 
   describe "POST /api/v1/mobile_phone/verifications/confirm" do
-    # A plain method, not `let`: confirm_path is a static string, so
-    # memoisation buys nothing, and a `let` here would be the sixth helper
-    # memoized in this example group's chain (on top of the five from the
-    # file's top-level describe), tripping RSpec/MultipleMemoizedHelpers for
-    # no benefit.
+    # A plain method, not a `let`: a static string gains nothing from
+    # memoisation, and a sixth memoized helper here trips
+    # RSpec/MultipleMemoizedHelpers.
     def confirm_path
       "/api/v1/mobile_phone/verifications/confirm"
     end
@@ -335,9 +316,8 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
         expect(json["error"]["code"]).to eq "already_verified"
       end
 
-      # MessageBird reports all three as error code 10 and tells them apart
-      # only in the description, exactly as
-      # MobilePhoneController#verify_failure_reason reads them.
+      # All three are error code 10, told apart only by the description,
+      # exactly as MobilePhoneController#verify_failure_reason reads them.
       {
         "The token has already been processed" => "code_already_used",
         "The token has expired" => "code_expired",

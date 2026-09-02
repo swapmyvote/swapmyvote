@@ -64,8 +64,6 @@ describe("MobileVerification", () => {
     expect(screen.getByText(/sent to/)).toHaveTextContent(number);
   });
 
-  // The legacy widget blocked submission with a custom validity message; the
-  // React form refuses to post instead, and says the same thing.
   it("refuses to send a number that is not a mobile", async () => {
     renderForm("+442079460000");
 
@@ -85,9 +83,8 @@ describe("MobileVerification", () => {
     ).not.toBeInTheDocument();
   });
 
-  // errors is only reset inside send(), which a client-side refusal never
-  // reaches — so a stale server error from a previous failed send could
-  // otherwise sit on screen next to a fresh client-side validity message.
+  // A client-side refusal must clear any server error left by a previous
+  // failed send, or the two sit on screen together saying different things.
   it("clears a stale server error once the edited number fails client-side validation", async () => {
     vi.mocked(sendVerification).mockRejectedValueOnce(
       new ApiError(502, {
@@ -176,11 +173,9 @@ describe("MobileVerification", () => {
     expect(onVerified).not.toHaveBeenCalled();
   });
 
-  // The mock echoes back whatever it is handed, so a re-send to the raw
-  // `number` state would pass this test just as easily as a re-send to the
-  // server-confirmed `sentTo`. Making the first send resolve with a
-  // differently-formatted number (as a real server's normalisation would)
-  // forces the assertion to tell the two apart.
+  // The first send resolves with a differently-formatted number so the
+  // assertion can tell a re-send to `sentTo` from one to the raw `number`
+  // state; with the mock echoing its argument back, both would pass.
   it("re-sends to the number the server confirmed, not the raw typed number", async () => {
     const normalizedNumber = "+44 7400 123456";
     vi.mocked(sendVerification).mockResolvedValueOnce({

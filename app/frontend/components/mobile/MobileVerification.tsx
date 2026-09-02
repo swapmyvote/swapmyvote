@@ -8,8 +8,8 @@ import { confirmVerification, sendVerification } from "@/lib/mobilePhone";
 import { phoneNumberProblem } from "@/lib/phone";
 
 interface MobileVerificationProps {
-  /** The number already on the account, so the form starts from it rather
-   *  than making the user retype it. Empty when there is none. */
+  /** Empty when there is none, and when the user has said they want to
+   *  replace the one on file. */
   initialNumber: string;
   onVerified: () => void;
 }
@@ -17,12 +17,8 @@ interface MobileVerificationProps {
 type Step = "number" | "code";
 
 /**
- * Ports the whole legacy verification journey — the number field on
- * app/views/users/edit.html.haml plus mobile_phone/verify_create and
- * verify_token — into one two-step form.
- *
  * The number check is the client's own (lib/phone.ts, the ported
- * intl-tel-input rules); every other refusal comes from the API, which
+ * intl-tel-input rules). Every other refusal comes from the API, which
  * re-checks everything regardless.
  */
 export function MobileVerification({
@@ -56,12 +52,11 @@ export function MobileVerification({
 
   async function handleNumberSubmit(event: FormEvent) {
     event.preventDefault();
-    // Only complain once they have asked us to send: an error message that
-    // appears on the first keystroke is noise.
+    // Only complain once they have asked us to send: a message on the first
+    // keystroke is noise.
     setShowProblem(true);
-    // Clear any stale server error (e.g. from a previous failed send) before
-    // deciding whether the edited number is even worth sending: otherwise a
-    // client-side refusal would sit on screen next to a leftover API error.
+    // Before the early return below, or a client-side refusal renders beside
+    // a leftover server error from a previous send.
     setErrors([]);
     if (problem !== null) {
       return;
@@ -137,17 +132,16 @@ export function MobileVerification({
           </Button>
         </div>
 
-        {/* The sentence carries both actions rather than describing them and
-            then repeating them as buttons underneath, which is how the legacy
-            page put its own re-send link. They remain <button>s — see the
-            stylesheet — because both do something rather than going
-            somewhere. */}
+        {/* <button>s, not links — they act rather than navigate. See
+            `p .btn-link` in globals.scss for what makes them read as links. */}
         <p className="small subdued mb-0">
           If it does not arrive within 5 minutes, you can{" "}
           <Button
             type="button"
             variant="link"
             disabled={busy}
+            // sentTo, not `number`: re-send to what the server confirmed it
+            // sent to, not to whatever the field happens to hold.
             onClick={() => send(sentTo)}
           >
             send another code

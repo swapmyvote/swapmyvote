@@ -46,10 +46,8 @@ const hamlFaqTrust = "/faq#trust";
  * constituency, the email, and the warnings that come with changing any of
  * them.
  *
- * The mobile number is deliberately not edited here. Verifying a number is a
- * two-step journey with its own screen (/app/mobile, M6), and a number that
- * changes has to be re-verified — so this reports the number's state and
- * links there.
+ * The mobile number is not edited here: changing one has to be re-verified,
+ * so it belongs to /app/mobile.
  */
 export function ProfileForm({
   parties,
@@ -169,10 +167,8 @@ export function ProfileForm({
             My mobile number is{" "}
             {user.mobileVerified ? "verified" : "not verified"}
           </p>
-          {/* "Change" states an intent, so carry it: without this the
-              verified user lands on the already-verified card and has to say
-              the same thing a second time. An unverified user gets the form
-              regardless, so the state only matters on the first branch. */}
+          {/* Carry the intent, or a verified user lands on the
+              already-verified card and has to state it again. */}
           <Link
             to={spaPaths.mobile}
             state={{ changeNumber: user.mobileVerified }}

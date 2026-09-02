@@ -30,9 +30,8 @@ RSpec.describe SwapMyVote::MessageBird do
         .not_to raise_error
     end
 
-    # The same exception the real API raises for a wrong code, so the
-    # controller's rescue and its reason-mapping are the ones under test in
-    # an end-to-end run, not a parallel happy path.
+    # The exception the real API raises, so an end-to-end run exercises the
+    # controller's own rescue and reason-mapping.
     it "raises MessageBird's own invalid-token error for anything else" do
       expect { described_class.verify_token("id", "000000") }
         .to raise_error(MessageBird::ErrorException) do |ex|
@@ -41,12 +40,10 @@ RSpec.describe SwapMyVote::MessageBird do
         end
     end
 
-    # The guard is a default-deny allowlist (development/test only), not a
-    # `Rails.env.production?` blacklist, so it has to refuse in any other
-    # environment name — staging included, since doc/admin-guide.md records
-    # a standing wish to bypass SMS verification there. Asserted for all
-    # three methods: a refactor that moved the fake_otp call out of
-    # verify_delete or verify_token should not silently regress the guard.
+    # Asserted for all three methods: a refactor moving the fake_otp call
+    # out of verify_delete or verify_token must not silently regress the
+    # guard. (Why an allowlist rather than a production blacklist: see
+    # fake_otp.)
     %w[staging production].each do |env_name|
       context "in the #{env_name} environment" do
         before do

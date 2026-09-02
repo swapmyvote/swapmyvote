@@ -40,7 +40,6 @@ export interface CurrentUser {
   hasConstituency: boolean;
   constituencyName: string | null;
   constituencyOnsId: string | null;
-  /** The number on the account, verified or not. Null when there is none. */
   mobileNumber: string | null;
   mobileVerified: boolean;
   mobileSetButNotVerified: boolean;
@@ -173,8 +172,8 @@ export interface ProfileUpdateResult {
   reviewRequired: boolean;
 }
 
-/** `POST /api/v1/mobile_phone/verifications` — an SMS code is on its way to
- *  `number`. Confirming it answers with a `SessionPayload` instead. */
+/** `POST /api/v1/mobile_phone/verifications`. Confirming a code answers with
+ *  a `SessionPayload` instead. */
 export interface MobileVerificationSent {
   number: string;
   sent: true;

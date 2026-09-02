@@ -9,28 +9,23 @@ import { seedProfileUser } from "./support/seedProfileUser";
 // with no output, which stalls the suite before a test starts.
 const railsEnv = { ...process.env, DISABLE_SPRING: "1" };
 
-// Its own fixture row: this spec verifies and re-verifies a number, and
-// fullyParallel would otherwise let that race the profile spec's saves.
+// Its own fixture row: this spec verifies and re-verifies, which would race
+// the profile spec's saves under fullyParallel.
 const credentials = seedProfileUser("-mobile");
 
-// A number no other spec uses. MobilePhone enforces uniqueness across the
-// whole table, so a shared number would fail the second spec to run.
+// A number no other spec uses: MobilePhone enforces uniqueness table-wide,
+// so a shared one fails whichever spec runs second.
 const number = "+447400123456";
 
-// All three tests below submit that one number against that one fixture
-// user. `fullyParallel` (playwright.config.ts) runs the tests in a file in
-// separate workers by default — same as it does across files — so without
-// `serial` here two of these could hit the API at the same moment: one
-// worker's confirm (correct code) landing between another worker's send and
-// its own confirm (wrong code) leaves the second worker looking at an
-// already-verified number instead of the "incorrect code" response it
-// submitted for. Serial keeps them in one worker, in file order, exactly
-// like profile.spec.ts's shared-fixture describe block.
+// All three share that number and that user, and `fullyParallel` runs tests
+// within a file in separate workers. Without `serial`, one worker's confirm
+// with the right code can land between another's send and its own confirm
+// with a wrong one, leaving the second looking at an already-verified number
+// instead of the refusal it submitted for.
 test.describe("mobile verification", () => {
   test.describe.configure({ mode: "serial" });
 
-  // Each test starts from "no number on the account", whatever the last run
-  // left behind.
+  // Start from "no number", whatever the last run left behind.
   test.beforeEach(() => {
     execFileSync(
       "bin/rails",

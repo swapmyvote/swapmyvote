@@ -8,22 +8,19 @@ import styles from "./PhoneNumberField.module.scss";
 interface PhoneNumberFieldProps {
   value: string;
   onChange: (value: string) => void;
-  /** The validity message to show, or null when there is nothing to say.
-   *  Owned by the caller so the field can stay quiet until it is submitted
-   *  rather than complaining at the first keystroke. */
+  /** Owned by the caller so the field can stay quiet until submitted rather
+   *  than complaining at the first keystroke. */
   problem: string | null;
   disabled?: boolean;
 }
 
 /**
- * Replaces the `input[type=tel]` that app/frontend/entrypoints/intlTelInput.js
- * decorates on the legacy profile page: same country dropdown, same
- * international formatting, same E.164 value.
+ * Replaces the `input[type=tel]` that intlTelInput.js decorates on the legacy
+ * profile page.
  *
- * `/max` metadata, matching lib/phone.ts, so both share one metadata bundle.
- * `flags` is imported explicitly because the default renders flags from a
- * remote SVG host — a network dependency this page does not need and E2E runs
- * should not have.
+ * `/max` matches lib/phone.ts so both share one metadata bundle. `flags` is
+ * imported explicitly because the default fetches flags from a remote SVG
+ * host, which this page and the E2E runs must not depend on.
  */
 export function PhoneNumberField({
   value,
@@ -42,15 +39,13 @@ export function PhoneNumberField({
         defaultCountry="GB"
         flags={flags}
         disabled={disabled}
-        // The border, padding and focus ring live on the wrapper, so the flag
-        // and the number sit inside one box — see the stylesheet. The invalid
-        // state has to go here too, for the same reason.
+        // Chrome lives on the wrapper — see the stylesheet — so the invalid
+        // state goes there too.
         className={
           problem !== null ? `${styles.field} ${styles.invalid}` : styles.field
         }
-        // The library renders a country <select> and the number <input> as
-        // siblings, so the id has to be aimed at the input rather than at the
-        // wrapper for the label to find it.
+        // The id must reach the <input>, not the wrapper, or the label has
+        // nothing to point at.
         numberInputProps={{
           id: inputId,
           className: "form-control",

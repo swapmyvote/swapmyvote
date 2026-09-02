@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { phoneNumberProblem } from "@/lib/phone";
 
-// The two messages intlTelInput.js set as HTML5 custom validity, reproduced
-// exactly so the React screen complains in the same words as the live site.
+// Word for word what intlTelInput.js sets, so both pages complain alike.
 const notAPhoneNumber = "This doesn't look like a phone number";
 const notAMobileNumber = "This doesn't look like a mobile phone number";
 
@@ -11,8 +10,8 @@ describe("phoneNumberProblem", () => {
     expect(phoneNumberProblem("+447400123456")).toBeNull();
   });
 
-  // The legacy check accepts FIXED_LINE_OR_MOBILE as well as MOBILE, which is
-  // what most North American numbers report.
+  // FIXED_LINE_OR_MOBILE is accepted too, which is what most North American
+  // numbers report.
   it("accepts a number whose type is fixed-line-or-mobile", () => {
     expect(phoneNumberProblem("+12025550123")).toBeNull();
   });

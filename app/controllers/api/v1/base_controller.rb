@@ -14,11 +14,9 @@ module Api
       rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
       rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
       # A model uniqueness validation loses a genuine race to a database
-      # unique index (e.g. mobile_phones.number) and the second write raises
-      # this instead of RecordInvalid. Nothing persists — the transaction
-      # rolls back — so this is only about answering with the API's error
-      # convention instead of a 500. Belongs to the API as a whole, not to
-      # any one controller.
+      # unique index, and the second write raises this instead of
+      # RecordInvalid. Nothing persists either way; this is only about
+      # answering with the error convention rather than a 500.
       rescue_from ActiveRecord::RecordNotUnique, with: :render_record_not_unique
 
       # ApplicationController answers a forged request with a flash +
@@ -62,9 +60,8 @@ module Api
         )
       end
 
-      # Mirrors ApplicationController#require_swapping_open, which redirects to
-      # the home page. The first gate on a mutation endpoint; M7's swap
-      # endpoints reuse it.
+      # Mirrors ApplicationController#require_swapping_open, which redirects
+      # to the home page.
       def require_swapping_open!
         return if swapping_open?
 
@@ -143,9 +140,9 @@ module Api
         )
       end
 
-      # Deliberately generic: RecordNotUnique carries the raw database error,
-      # not a validated record with field-level messages, so this cannot
-      # report which field collided the way render_record_invalid does.
+      # RecordNotUnique carries the raw database error, not a validated
+      # record, so unlike render_record_invalid this cannot say which field
+      # collided.
       def render_record_not_unique(_exception)
         render_error(
           code: "validation_failed",

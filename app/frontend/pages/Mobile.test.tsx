@@ -19,8 +19,8 @@ vi.mock("@/lib/mobilePhone", () => ({
 
 function renderPage(
   user: CurrentUser | null,
-  // What the profile screen's "Change your mobile number" link puts in
-  // history state; undefined is a plain visit to /app/mobile.
+  // What the profile screen's link puts in history state; undefined is a
+  // plain visit to /app/mobile.
   state?: { changeNumber: boolean },
 ) {
   render(
@@ -77,9 +77,6 @@ describe("Mobile", () => {
     expect(screen.getByLabelText("My mobile number is")).toBeInTheDocument();
   });
 
-  // Arriving from the profile screen's "Change your mobile number" link is
-  // already a statement of intent, so the already-verified card would only ask
-  // for it again.
   it("goes straight to the form when sent here to change the number", () => {
     renderPage(testUser, { changeNumber: true });
 
@@ -89,9 +86,8 @@ describe("Mobile", () => {
     ).not.toBeInTheDocument();
   });
 
-  // The field does not start from the number on the account: that is the one
-  // they have just said they want to replace. It is not empty either — the
-  // widget shows the country's calling code — so assert on the digits.
+  // Not empty — the widget shows the country's calling code — so assert on
+  // the digits.
   it("does not prefill the number it was asked to replace", () => {
     renderPage(testUser, { changeNumber: true });
 
@@ -110,12 +106,9 @@ describe("Mobile", () => {
     );
   });
 
-  // Regression pin: handleVerified's refetchSession() can fail (a dropped
-  // connection right after a successful confirm), and when it does, `session`
-  // is stuck holding the pre-verification payload — so `verified` never
-  // becomes true. The success card has to appear anyway, driven by
-  // `justVerified`, rather than leaving MobileVerification rendered with the
-  // `busy` state it deliberately kept true on the way out.
+  // A failed refetch leaves `session` on the pre-verification payload, so
+  // `verified` never becomes true. The success card still has to appear, or
+  // the form stays mounted with the `busy` it deliberately kept.
   it("shows the success card once verified, even when the post-confirm session refetch fails", async () => {
     vi.mocked(sendVerification).mockResolvedValue({
       number: testUser.mobileNumber ?? "",
@@ -135,11 +128,8 @@ describe("Mobile", () => {
               mobileSetButNotVerified: true,
             },
           }),
-          // Simulates a failed refetch the way react-query's refetch()
-          // actually behaves: it resolves (nothing sets throwOnError) but
-          // the query result carries the error instead of fresh data, so the
-          // session in context — this fixture's static `session` value —
-          // never updates to the post-verification payload.
+          // How refetch() actually fails: it resolves, carrying the error
+          // on the query rather than rejecting, so the session never updates.
           refetchSession: () => Promise.resolve(null),
         })}
       >
