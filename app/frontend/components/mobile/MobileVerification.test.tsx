@@ -191,7 +191,7 @@ describe("MobileVerification", () => {
 
     await submitNumber();
     await userEvent.click(
-      screen.getByRole("button", { name: "Send another code" }),
+      screen.getByRole("button", { name: "send another code" }),
     );
 
     await waitFor(() => expect(sendVerification).toHaveBeenCalledTimes(2));
@@ -203,7 +203,7 @@ describe("MobileVerification", () => {
 
     await submitNumber();
     await userEvent.click(
-      screen.getByRole("button", { name: "Use a different number" }),
+      screen.getByRole("button", { name: "use a different number" }),
     );
 
     expect(screen.getByLabelText("My mobile number is")).toBeInTheDocument();

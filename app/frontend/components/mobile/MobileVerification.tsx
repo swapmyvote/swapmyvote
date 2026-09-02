@@ -6,6 +6,7 @@ import { VerificationCodeField } from "@/components/mobile/VerificationCodeField
 import { apiErrorMessages } from "@/lib/apiErrors";
 import { confirmVerification, sendVerification } from "@/lib/mobilePhone";
 import { phoneNumberProblem } from "@/lib/phone";
+import styles from "./MobileVerification.module.scss";
 
 interface MobileVerificationProps {
   /** The number already on the account, so the form starts from it rather
@@ -137,35 +138,33 @@ export function MobileVerification({
           </Button>
         </div>
 
-        <hr className="my-0" />
-
+        {/* The sentence carries both actions rather than describing them and
+            then repeating them as buttons underneath, which is how the legacy
+            page put its own re-send link. They remain <button>s — see the
+            stylesheet — because both do something rather than going
+            somewhere. */}
         <p className="small subdued mb-0">
-          If it does not arrive within 5 minutes, you can send another code or
-          go back and check the number
-        </p>
-
-        {/* Trailing edge, likeliest action rightmost, matching the Verify row
-            above and the way macOS orders dialog buttons. Neither of these is
-            the form's default action — that is Verify — so both stay
-            secondary; re-sending is simply the more likely of the two. */}
-        <div className="d-flex justify-content-end gap-2">
+          If it does not arrive within 5 minutes, you can{" "}
           <Button
             type="button"
-            variant="outline-secondary"
-            disabled={busy}
-            onClick={handleChangeNumber}
-          >
-            Use a different number
-          </Button>
-          <Button
-            type="button"
-            variant="outline-secondary"
+            variant="link"
+            className={styles.inlineAction}
             disabled={busy}
             onClick={() => send(sentTo)}
           >
-            Send another code
+            send another code
+          </Button>{" "}
+          or{" "}
+          <Button
+            type="button"
+            variant="link"
+            className={styles.inlineAction}
+            disabled={busy}
+            onClick={handleChangeNumber}
+          >
+            use a different number
           </Button>
-        </div>
+        </p>
       </div>
     </form>
   );
