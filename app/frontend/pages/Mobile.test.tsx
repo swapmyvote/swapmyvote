@@ -17,14 +17,19 @@ vi.mock("@/lib/mobilePhone", () => ({
   confirmVerification: vi.fn(),
 }));
 
-function renderPage(user: CurrentUser | null) {
+function renderPage(
+  user: CurrentUser | null,
+  // What the profile screen's "Change your mobile number" link puts in
+  // history state; undefined is a plain visit to /app/mobile.
+  state?: { changeNumber: boolean },
+) {
   render(
     <TestSessionProvider
       value={sessionValue({
         session: sessionPayload({ currentUser: user }),
       })}
     >
-      <MemoryRouter>
+      <MemoryRouter initialEntries={[{ pathname: "/app/mobile", state }]}>
         <Mobile />
       </MemoryRouter>
     </TestSessionProvider>,
@@ -70,6 +75,30 @@ describe("Mobile", () => {
     );
 
     expect(screen.getByLabelText("My mobile number is")).toBeInTheDocument();
+  });
+
+  // Arriving from the profile screen's "Change your mobile number" link is
+  // already a statement of intent, so the already-verified card would only ask
+  // for it again.
+  it("goes straight to the form when sent here to change the number", () => {
+    renderPage(testUser, { changeNumber: true });
+
+    expect(screen.getByLabelText("My mobile number is")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Your mobile phone number has already been verified"),
+    ).not.toBeInTheDocument();
+  });
+
+  // The field does not start from the number on the account: that is the one
+  // they have just said they want to replace. It is not empty either — the
+  // widget shows the country's calling code — so assert on the digits.
+  it("does not prefill the number it was asked to replace", () => {
+    renderPage(testUser, { changeNumber: true });
+
+    const field = screen.getByLabelText(
+      "My mobile number is",
+    ) as HTMLInputElement;
+    expect(field.value.replace(/\D/g, "")).not.toContain("7400123456");
   });
 
   it("links Continue to the profile page", () => {

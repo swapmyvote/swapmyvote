@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { RequireLogin } from "@/components/auth/RequireLogin";
 import { RequireSwappingOpen } from "@/components/auth/RequireSwappingOpen";
 import { MobileVerification } from "@/components/mobile/MobileVerification";
@@ -20,10 +20,20 @@ import { spaPaths } from "@/lib/spaPaths";
  * them to the dashboard, which is M7 and unported — swap the destination when
  * it lands.
  */
+/** Set by the profile screen's "Change your mobile number" link. Arriving
+ *  with it means the user has already said what they want, so the
+ *  already-verified card would be a step asking them to say it again. */
+export interface MobileLocationState {
+  changeNumber?: boolean;
+}
+
 export function Mobile() {
   const { session, refetchSession } = useSession();
+  const location = useLocation();
   const [justVerified, setJustVerified] = useState(false);
-  const [changing, setChanging] = useState(false);
+  const [changing, setChanging] = useState(
+    Boolean((location.state as MobileLocationState | null)?.changeNumber),
+  );
 
   const user = session?.currentUser ?? null;
   const verified = user?.mobileVerified ?? false;

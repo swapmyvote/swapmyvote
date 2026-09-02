@@ -169,7 +169,14 @@ export function ProfileForm({
             My mobile number is{" "}
             {user.mobileVerified ? "verified" : "not verified"}
           </p>
-          <Link to={spaPaths.mobile}>
+          {/* "Change" states an intent, so carry it: without this the
+              verified user lands on the already-verified card and has to say
+              the same thing a second time. An unverified user gets the form
+              regardless, so the state only matters on the first branch. */}
+          <Link
+            to={spaPaths.mobile}
+            state={{ changeNumber: user.mobileVerified }}
+          >
             {user.mobileVerified
               ? "Change your mobile number"
               : "Verify your mobile number"}
