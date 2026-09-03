@@ -23,6 +23,15 @@ export const spaPaths = {
   profile: "/app/profile",
   review: "/app/review",
   mobile: "/app/mobile",
+  dashboard: "/app/dashboard",
+  swap: "/app/swap",
+  swapNew: "/app/swap/new/:userId",
 } as const;
 
 export type SpaPathKey = keyof typeof spaPaths;
+
+/** `spaPaths.swapNew` with its parameter filled in — react-router matches the
+ *  pattern, but a `<Link to>` needs the real path. */
+export function swapNewPath(userId: number): string {
+  return `/app/swap/new/${userId}`;
+}

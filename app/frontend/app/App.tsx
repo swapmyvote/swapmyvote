@@ -22,6 +22,7 @@ import { Ping } from "@/pages/Ping";
 import { Profile } from "@/pages/Profile";
 import { Review } from "@/pages/Review";
 import { SignUp } from "@/pages/SignUp";
+import { Swap } from "@/pages/Swap";
 
 // Shared chrome around every SPA route: branded nav + footer, matching the
 // tacticalvote layout. New routes are added to <Routes> as screens are
@@ -68,6 +69,7 @@ export function App() {
                   <Route path={spaPaths.profile} element={<Profile />} />
                   <Route path={spaPaths.review} element={<Review />} />
                   <Route path={spaPaths.mobile} element={<Mobile />} />
+                  <Route path={spaPaths.swap} element={<Swap />} />
                 </Routes>
               </Layout>
             </BrowserRouter>

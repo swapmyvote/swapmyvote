@@ -82,6 +82,10 @@ Rails.application.routes.draw do
   get "app/review", to: "spa#index"
   # M6 mobile verification. /user/edit and /mobile_phone/* keep serving HAML.
   get "app/mobile", to: "spa#index"
+  # M7 swap flow. /user, /user/swap and /user/swap/new keep serving HAML.
+  get "app/dashboard", to: "spa#index"
+  get "app/swap", to: "spa#index"
+  get "app/swap/new/:user_id", to: "spa#index"
 
   root "home#index"
 
