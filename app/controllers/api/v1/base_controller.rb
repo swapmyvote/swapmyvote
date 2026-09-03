@@ -99,6 +99,48 @@ module Api
         )
       end
 
+      # Mirrors assert_has_email / assert_has_constituency /
+      # assert_mobile_phone_present / assert_mobile_phone_verified, which the
+      # legacy controller runs on #new, #create and #update. Order matches, so
+      # someone missing several fields is told about the same one first.
+      #
+      # mobile_verification_missing? rather than mobile_phone_verified?, so
+      # TEST_USERS_SKIP_MOBILE_VERIFICATION keeps working for the E2E accounts.
+      # rubocop:disable Metrics/MethodLength
+      def require_ready_to_swap!
+        if current_user.email.blank?
+          return render_swap_prerequisite(
+            "email_missing", "Please enter your email address before you swap"
+          )
+        end
+
+        if current_user.constituency_ons_id.blank?
+          return render_swap_prerequisite(
+            "constituency_missing",
+            "Please enter your postcode or constituency before you swap"
+          )
+        end
+
+        if current_user.mobile_phone.blank?
+          return render_swap_prerequisite(
+            "mobile_missing",
+            "Please enter your mobile phone number before you swap"
+          )
+        end
+
+        return unless current_user.mobile_verification_missing?
+
+        render_swap_prerequisite(
+          "mobile_unverified",
+          "Please verify your mobile phone number before you swap"
+        )
+      end
+      # rubocop:enable Metrics/MethodLength
+
+      def render_swap_prerequisite(code, message)
+        render_error(code: code, status: :forbidden, messages: [message])
+      end
+
       # Mirrors the `require_no_authentication` Devise prepends to its own
       # SessionsController and RegistrationsController, which bounces an
       # already-signed-in visitor rather than letting them log in again or

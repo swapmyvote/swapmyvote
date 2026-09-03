@@ -134,4 +134,120 @@ RSpec.describe "Api::V1::Swaps", type: :request do
       end
     end
   end
+
+  describe "POST /api/v1/swap" do
+    def stub_mode(mode)
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return(mode)
+    end
+
+    # The four assert_* guards on the legacy #create all have to pass before
+    # a swap can be offered.
+    def make_ready(voter)
+      create(:mobile_phone, user: voter, number: "+44740012#{voter.id}", verified: true)
+    end
+
+    before do
+      make_ready(user)
+      partner
+    end
+
+    it "401s when logged out" do
+      post "/api/v1/swap", params: { user_id: partner.id, consent_share_email: true },
+                           as: :json
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    context "when logged in and ready" do
+      before { sign_in user }
+
+      it "creates the outgoing swap and answers with swap and session" do
+        expect {
+          post "/api/v1/swap", params: { user_id: partner.id, consent_share_email: true },
+                               as: :json
+        }.to change { user.reload.outgoing_swap }.from(nil)
+
+        expect(response).to have_http_status(:created)
+        expect(json["swap"]).to include("state" => "outgoing", "confirmed" => false,
+                                        "consentGiven" => true)
+        expect(json["session"]["currentUser"]["id"]).to eq user.id
+        expect(json["session"]["swap"]["state"]).to eq "outgoing"
+      end
+
+      it "emails the chosen user" do
+        expect {
+          post "/api/v1/swap", params: { user_id: partner.id, consent_share_email: true },
+                               as: :json
+        }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+
+      it "422s without consent, and creates nothing" do
+        post "/api/v1/swap", params: { user_id: partner.id, consent_share_email: false },
+                             as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json["error"]["code"]).to eq "consent_required"
+        expect(json["error"]["messages"].first).to include "establish trust between you"
+        expect(user.reload.outgoing_swap).to be_nil
+      end
+
+      it "409s when the chosen user is already swapped" do
+        third = create(:user, name: "Alan Turing", email: "alan@example.com",
+                              constituency_ons_id: wakefield.ons_id,
+                              preferred_party: labour, willing_party: green)
+        partner.create_outgoing_swap!(chosen_user: third, confirmed: false)
+        partner.save!
+
+        post "/api/v1/swap", params: { user_id: partner.id, consent_share_email: true },
+                             as: :json
+
+        expect(response).to have_http_status(:conflict)
+        expect(json["error"]["code"]).to eq "swap_conflict"
+        expect(json["error"]["messages"]).to include "Chosen user is already swapped"
+      end
+
+      it "403s when swapping is closed" do
+        stub_mode("closed-wind-down")
+
+        post "/api/v1/swap", params: { user_id: partner.id, consent_share_email: true },
+                             as: :json
+
+        expect(response).to have_http_status(:forbidden)
+        expect(json["error"]["code"]).to eq "swapping_closed"
+      end
+
+      it "403s when the mobile number is not verified" do
+        user.mobile_phone.update!(verified: false)
+
+        post "/api/v1/swap", params: { user_id: partner.id, consent_share_email: true },
+                             as: :json
+
+        expect(response).to have_http_status(:forbidden)
+        expect(json["error"]["code"]).to eq "mobile_unverified"
+      end
+
+      it "403s when the user has no email address" do
+        user.update_columns(email: "")
+
+        post "/api/v1/swap", params: { user_id: partner.id, consent_share_email: true },
+                             as: :json
+
+        expect(response).to have_http_status(:forbidden)
+        expect(json["error"]["code"]).to eq "email_missing"
+        expect(json["error"]["messages"])
+          .to eq ["Please enter your email address before you swap"]
+      end
+
+      it "403s when the user has no constituency" do
+        user.update!(constituency_ons_id: nil)
+
+        post "/api/v1/swap", params: { user_id: partner.id, consent_share_email: true },
+                             as: :json
+
+        expect(response).to have_http_status(:forbidden)
+        expect(json["error"]["code"]).to eq "constituency_missing"
+      end
+    end
+  end
 end

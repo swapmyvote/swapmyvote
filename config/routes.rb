@@ -53,7 +53,7 @@ Rails.application.routes.draw do
       end
 
       # Ported from User::SwapsController; /user/swap keeps serving HAML.
-      resource :swap, only: [:show], controller: "swaps"
+      resource :swap, only: [:show, :create], controller: "swaps"
       resources :potential_swaps, only: [:index, :show], param: :user_id
     end
   end
