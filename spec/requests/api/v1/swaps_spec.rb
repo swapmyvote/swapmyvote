@@ -124,6 +124,14 @@ RSpec.describe "Api::V1::Swaps", type: :request do
 
         expect(json["swap"]["consentGiven"]).to be false
       end
+
+      it "discloses a chooser partner's contact details once they have consented" do
+        get "/api/v1/swap"
+
+        expect(json["swap"]["partner"]["contact"]).to include(
+          "email" => "grace@example.com"
+        )
+      end
     end
   end
 end
