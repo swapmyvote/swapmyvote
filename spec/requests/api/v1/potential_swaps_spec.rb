@@ -12,12 +12,14 @@ RSpec.describe "Api::V1::PotentialSwaps", type: :request do
     allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return(mode)
   end
 
-  let(:woking) { create(:ons_constituency, name: "Woking", ons_id: "E14001063") }
   let(:wakefield) { create(:ons_constituency, name: "Wakefield", ons_id: "E14001009") }
   let(:green) { create(:party, name: "Green", color: "#6AB023") }
   let(:labour) { create(:party, name: "Labour", color: "#DC241f") }
 
+  # Woking is created inline rather than as its own `let`: nothing else refers
+  # to it, and RSpec/MultipleMemoizedHelpers caps this group at five.
   let(:user) do
+    woking = create(:ons_constituency, name: "Woking", ons_id: "E14001063")
     create(:user, name: "Ada Lovelace", email: "ada@example.com",
                   constituency_ons_id: woking.ons_id,
                   preferred_party: green, willing_party: labour)
