@@ -61,6 +61,33 @@ describe("Swap", () => {
 
     expect(screen.getByTestId("searching")).toBeInTheDocument();
     expect(screen.queryByTestId("candidate-list")).not.toBeInTheDocument();
+    expect(usePotentialSwaps).toHaveBeenCalledWith(true);
+  });
+
+  it("shows a spinner while the candidate list is loading", () => {
+    usePotentialSwaps.mockReturnValue({
+      data: undefined,
+      isPending: true,
+      isError: false,
+    });
+
+    renderPage(loggedIn);
+
+    expect(screen.getByRole("status")).toHaveTextContent("Loading");
+  });
+
+  it("shows an error message when the candidate list fails to load", () => {
+    usePotentialSwaps.mockReturnValue({
+      data: undefined,
+      isPending: false,
+      isError: true,
+    });
+
+    renderPage(loggedIn);
+
+    expect(
+      screen.getByText(/We couldn't load your potential swaps/),
+    ).toBeInTheDocument();
   });
 
   it("shows the list when there are candidates", () => {
@@ -86,6 +113,7 @@ describe("Swap", () => {
     );
 
     expect(screen.getByText("Dashboard")).toBeInTheDocument();
+    expect(usePotentialSwaps).toHaveBeenCalledWith(false);
   });
 
   it("ends with the info summary", () => {
