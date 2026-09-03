@@ -85,6 +85,13 @@ RSpec.describe "Api::V1::Swaps", type: :request do
                                    consent_share_email_chooser: true,
                                    consent_share_email_chosen: true)
         user.save!
+        # `partner`'s own factory creation poisoned its incoming_swap cache
+        # empty (see User#clear_swap), same as `user`'s above, and
+        # chosen_user: partner just handed that exact poisoned object to the
+        # new swap's chosen_user association — current_user.swapped_with
+        # returns it verbatim. Reload so consented_to_share_email? sees the
+        # database, not the empty cache from before this swap existed.
+        partner.reload
         sign_in user
       end
 
@@ -109,6 +116,15 @@ RSpec.describe "Api::V1::Swaps", type: :request do
         partner.create_outgoing_swap!(chosen_user: user, confirmed: false,
                                       consent_share_email_chooser: true)
         partner.save!
+        # User#clear_swap (a before_save callback) reads incoming_swap /
+        # outgoing_swap during `user`'s own factory creation above, which
+        # caches both as empty on this object before the swap below could
+        # possibly exist. The swap is created through `partner`, not
+        # `user`, so that stale empty cache is never refreshed by it. In
+        # production each request deserializes current_user afresh, but
+        # Devise's test-mode sign_in hands Warden this exact object for
+        # every request in the example, so reload here to see the swap.
+        user.reload
         sign_in user
       end
 
@@ -261,6 +277,15 @@ RSpec.describe "Api::V1::Swaps", type: :request do
         partner.create_outgoing_swap!(chosen_user: user, confirmed: false,
                                       consent_share_email_chooser: true)
         partner.save!
+        # User#clear_swap (a before_save callback) reads incoming_swap /
+        # outgoing_swap during `user`'s own factory creation above, which
+        # caches both as empty on this object before the swap below could
+        # possibly exist. The swap is created through `partner`, not
+        # `user`, so that stale empty cache is never refreshed by it. In
+        # production each request deserializes current_user afresh, but
+        # Devise's test-mode sign_in hands Warden this exact object for
+        # every request in the example, so reload here to see the swap.
+        user.reload
         sign_in user
       end
 
@@ -328,6 +353,30 @@ RSpec.describe "Api::V1::Swaps", type: :request do
         expect(json["error"]["code"]).to eq "no_swap"
       end
     end
+
+    # User::SwapsController declares assert_swap_exists before the four
+    # readiness asserts, so a user missing both a swap and a prerequisite is
+    # told about the swap, not the prerequisite.
+    context "with no swap and an unmet readiness prerequisite" do
+      before do
+        # create(:mobile_phone, user: user, ...) above sets user's own
+        # mobile_phone association cache via Rails' automatic inverse
+        # detection at creation time, independent of this class-level
+        # delete — so without the reload, current_user.mobile_phone.blank?
+        # would still see the stale (destroyed) cached record and mask the
+        # very prerequisite failure this test needs to trigger.
+        MobilePhone.where(user_id: user.id).destroy_all
+        user.reload
+        sign_in user
+      end
+
+      it "409s with no_swap rather than 403ing on the missing prerequisite" do
+        patch "/api/v1/swap", params: { consent_share_email: true }, as: :json
+
+        expect(response).to have_http_status(:conflict)
+        expect(json["error"]["code"]).to eq "no_swap"
+      end
+    end
   end
 
   describe "DELETE /api/v1/swap" do
@@ -339,6 +388,15 @@ RSpec.describe "Api::V1::Swaps", type: :request do
       before do
         partner.create_outgoing_swap!(chosen_user: user, confirmed: false)
         partner.save!
+        # User#clear_swap (a before_save callback) reads incoming_swap /
+        # outgoing_swap during `user`'s own factory creation above, which
+        # caches both as empty on this object before the swap below could
+        # possibly exist. The swap is created through `partner`, not
+        # `user`, so that stale empty cache is never refreshed by it. In
+        # production each request deserializes current_user afresh, but
+        # Devise's test-mode sign_in hands Warden this exact object for
+        # every request in the example, so reload here to see the swap.
+        user.reload
         sign_in user
       end
 

@@ -13,8 +13,11 @@ module Api
 
       before_action :require_logged_in!
       before_action :require_swapping_open!, only: [:show, :create]
-      before_action :require_ready_to_swap!, only: [:create, :update]
+      # Order matters and mirrors the legacy declaration order: for #update
+      # assert_swap_exists runs *before* the four readiness asserts, so a
+      # user with no swap is told that, whatever else they are missing.
       before_action :require_any_swap!, only: [:update]
+      before_action :require_ready_to_swap!, only: [:create, :update]
       before_action :require_incoming_swap!, only: [:destroy]
 
       def show
@@ -62,12 +65,15 @@ module Api
 
       # clear_swap's before_destroy hook sends both cancellation emails.
       #
-      # The reload matters here in a way it doesn't for #update: clear_swap
-      # destroys the cached incoming_swap/outgoing_swap record in place
-      # without clearing current_user's association cache, and
-      # session_payload (built as an argument to render_swap, so evaluated
-      # before render_swap's own reload runs) would otherwise still see the
-      # destroyed swap.
+      # The reload is load-bearing in production, not a test artifact:
+      # require_incoming_swap! already reads and caches current_user's
+      # incoming_swap above, clear_swap destroys that cached record in place
+      # via the same association, and has_one association readers do not
+      # clear their owner's cache just because the target was destroyed.
+      # Without this, both the swap: key below and session_payload's
+      # session.swap (built as an argument here, so evaluated before
+      # render_swap's own read of current_user.swap) would report the
+      # just-destroyed swap as still present.
       def destroy
         current_user.clear_swap
         current_user.reload
@@ -103,14 +109,6 @@ module Api
 
       # One body shape for the read and, from Task 5 on, for every mutation.
       def render_swap(status: :ok, extra: {})
-        # User#clear_swap (a before_save callback) reads incoming_swap /
-        # outgoing_swap on every create, including this user's own, which
-        # caches both as loaded-but-empty before either association could
-        # possibly hold anything. That empty cache survives on the in-memory
-        # object indefinitely — reload clears it so #swap and #swapped_with
-        # below see whatever the database actually holds right now, not
-        # whatever was true at signup.
-        current_user.reload
         swap = current_user.swap
 
         render json: { swap: swap_json(swap) }.merge(extra), status: status
