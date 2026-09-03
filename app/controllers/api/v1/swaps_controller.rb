@@ -13,7 +13,9 @@ module Api
 
       before_action :require_logged_in!
       before_action :require_swapping_open!, only: [:show, :create]
-      before_action :require_ready_to_swap!, only: [:create]
+      before_action :require_ready_to_swap!, only: [:create, :update]
+      before_action :require_any_swap!, only: [:update]
+      before_action :require_incoming_swap!, only: [:destroy]
 
       def show
         render_swap
@@ -41,7 +43,43 @@ module Api
         render_error(code: "swap_conflict", status: :conflict, messages: messages)
       end
 
+      # Reproduces the legacy branch exactly, including its consequence:
+      # confirming with consent withheld does *not* confirm. swap_consent_given?
+      # refuses, and the legacy controller then falls through to update_swap,
+      # which does nothing. Here that refusal is the 422 and nothing is written.
+      def update
+        if confirming?
+          return render_consent_required unless consent?
+
+          current_user.confirm_swap(consent_share_email_chosen: true,
+                                    confirmed: true)
+        else
+          current_user.update_swap(consent_share_email: consent?)
+        end
+
+        render_swap(extra: { session: session_payload })
+      end
+
+      # clear_swap's before_destroy hook sends both cancellation emails.
+      #
+      # The reload matters here in a way it doesn't for #update: clear_swap
+      # destroys the cached incoming_swap/outgoing_swap record in place
+      # without clearing current_user's association cache, and
+      # session_payload (built as an argument to render_swap, so evaluated
+      # before render_swap's own reload runs) would otherwise still see the
+      # destroyed swap.
+      def destroy
+        current_user.clear_swap
+        current_user.reload
+
+        render_swap(extra: { session: session_payload })
+      end
+
       private
+
+      def confirming?
+        params[:confirmed] == true || params[:confirmed] == "true"
+      end
 
       # The legacy form sends an unchecked box as an absent parameter and a
       # checked one as "on"; the SPA sends a real boolean. Accept both.

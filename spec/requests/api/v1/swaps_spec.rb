@@ -250,4 +250,132 @@ RSpec.describe "Api::V1::Swaps", type: :request do
       end
     end
   end
+
+  describe "PATCH /api/v1/swap" do
+    before do
+      create(:mobile_phone, user: user, number: "+447400123456", verified: true)
+    end
+
+    context "with an incoming swap" do
+      before do
+        partner.create_outgoing_swap!(chosen_user: user, confirmed: false,
+                                      consent_share_email_chooser: true)
+        partner.save!
+        sign_in user
+      end
+
+      it "confirms the swap when consent is given" do
+        patch "/api/v1/swap", params: { confirmed: true, consent_share_email: true },
+                              as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(json["swap"]).to include("confirmed" => true, "consentGiven" => true)
+        expect(user.reload.incoming_swap.confirmed).to be true
+      end
+
+      it "shows the partner's real name once confirmed" do
+        patch "/api/v1/swap", params: { confirmed: true, consent_share_email: true },
+                              as: :json
+
+        expect(json["swap"]["partner"]["name"]).to eq "Grace Hopper (test user)"
+      end
+
+      # Preserved from the legacy controller, where swap_consent_given? adds an
+      # error and control falls through to update_swap, which does nothing.
+      it "refuses to confirm without consent, and leaves the swap unconfirmed" do
+        patch "/api/v1/swap", params: { confirmed: true, consent_share_email: false },
+                              as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json["error"]["code"]).to eq "consent_required"
+        expect(user.reload.incoming_swap.confirmed).to be_falsey
+      end
+
+      it "records consent alone without confirming" do
+        patch "/api/v1/swap", params: { consent_share_email: true }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(json["swap"]).to include("confirmed" => false, "consentGiven" => true)
+      end
+    end
+
+    context "with an outgoing swap" do
+      before do
+        user.create_outgoing_swap!(chosen_user: partner, confirmed: false,
+                                   consent_share_email_chooser: false)
+        # create_outgoing_swap! writes the swaps row and sets the association in
+        # memory, but users.swap_id is only persisted by saving the chooser —
+        # and Swap#choosing_user reads that column.
+        user.save!
+        sign_in user
+      end
+
+      it "records the chooser's consent" do
+        patch "/api/v1/swap", params: { consent_share_email: true }, as: :json
+
+        expect(json["swap"]["consentGiven"]).to be true
+        expect(user.reload.outgoing_swap.consent_share_email_chooser).to be true
+      end
+    end
+
+    context "with no swap" do
+      before { sign_in user }
+
+      it "409s" do
+        patch "/api/v1/swap", params: { consent_share_email: true }, as: :json
+
+        expect(response).to have_http_status(:conflict)
+        expect(json["error"]["code"]).to eq "no_swap"
+      end
+    end
+  end
+
+  describe "DELETE /api/v1/swap" do
+    before do
+      create(:mobile_phone, user: user, number: "+447400123456", verified: true)
+    end
+
+    context "with an incoming swap" do
+      before do
+        partner.create_outgoing_swap!(chosen_user: user, confirmed: false)
+        partner.save!
+        sign_in user
+      end
+
+      it "destroys the swap and answers with a null swap" do
+        expect {
+          delete "/api/v1/swap", as: :json
+        }.to change(Swap, :count).by(-1)
+
+        expect(response).to have_http_status(:ok)
+        expect(json["swap"]).to be_nil
+        expect(json["session"]["swap"]).to be_nil
+      end
+
+      it "emails both sides" do
+        expect {
+          delete "/api/v1/swap", as: :json
+        }.to change { ActionMailer::Base.deliveries.count }.by(2)
+      end
+    end
+
+    # Faithful to assert_incoming_swap_exists: the HAML outgoing view offers no
+    # cancel control at all, and #destroy refuses without an incoming swap.
+    context "with only an outgoing swap" do
+      before do
+        user.create_outgoing_swap!(chosen_user: partner, confirmed: false)
+        user.save!
+        sign_in user
+      end
+
+      it "409s and leaves the swap alone" do
+        expect {
+          delete "/api/v1/swap", as: :json
+        }.not_to change(Swap, :count)
+
+        expect(response).to have_http_status(:conflict)
+        expect(json["error"]["code"]).to eq "no_swap"
+      end
+    end
+  end
 end

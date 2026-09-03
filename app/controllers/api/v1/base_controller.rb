@@ -141,6 +141,31 @@ module Api
         render_error(code: code, status: :forbidden, messages: [message])
       end
 
+      # Mirrors assert_swap_exists, which User::SwapsController runs on #update.
+      #
+      # The reload matters: User#clear_swap (a before_save callback) reads
+      # incoming_swap / outgoing_swap on every create, including this user's
+      # own, which caches both as loaded-but-empty before either association
+      # could possibly hold anything. That empty cache survives on the
+      # in-memory object indefinitely (see render_swap) — reload clears it so
+      # this guard sees whatever the database actually holds right now.
+      def require_any_swap!
+        return if current_user.reload.swap
+
+        render_error(code: "no_swap", status: :conflict,
+                     messages: ["You don't have a swap!"])
+      end
+
+      # Mirrors assert_incoming_swap_exists, which runs on #destroy only.
+      # Rejecting is the chosen user's move: the outgoing HAML view offers no
+      # cancel control at all.
+      def require_incoming_swap!
+        return if current_user.reload.incoming_swap
+
+        render_error(code: "no_swap", status: :conflict,
+                     messages: ["You don't have a swap!"])
+      end
+
       # Mirrors the `require_no_authentication` Devise prepends to its own
       # SessionsController and RegistrationsController, which bounces an
       # already-signed-in visitor rather than letting them log in again or
