@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { SwapNew } from "@/pages/SwapNew";
+import { ApiError } from "@/lib/apiClient";
 import {
   sessionPayload,
   sessionValue,
@@ -84,6 +85,19 @@ describe("SwapNew", () => {
     ).toBeInTheDocument();
   });
 
+  it("shows a spinner while the candidate is loading", () => {
+    usePotentialSwap.mockReturnValue({
+      data: undefined,
+      isPending: true,
+      isError: false,
+    });
+
+    renderPage();
+
+    expect(screen.getByRole("status")).toHaveTextContent("Loading");
+    expect(screen.queryByTestId("profile-card")).not.toBeInTheDocument();
+  });
+
   it("will not submit until consent is given", async () => {
     renderPage();
 
@@ -120,9 +134,12 @@ describe("SwapNew", () => {
 
   it("reports what the server refused", async () => {
     mutateAsync.mockRejectedValue(
-      Object.assign(new Error("nope"), {
-        name: "ApiError",
-        messages: ["Chosen user is already swapped"],
+      new ApiError(409, {
+        error: {
+          code: "swap_conflict",
+          messages: ["Chosen user is already swapped"],
+          fields: {},
+        },
       }),
     );
     renderPage();
@@ -138,7 +155,7 @@ describe("SwapNew", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText("Something went wrong - please try that again."),
+        screen.getByText("Chosen user is already swapped"),
       ).toBeInTheDocument(),
     );
   });
