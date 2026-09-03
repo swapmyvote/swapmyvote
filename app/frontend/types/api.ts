@@ -178,3 +178,75 @@ export interface MobileVerificationSent {
   number: string;
   sent: true;
 }
+
+/** The four verification icons on a swap profile card. */
+export interface SwapBadges {
+  mobileVerified: boolean;
+  /** null for an email-only account. */
+  provider: "twitter" | "facebook" | null;
+  hasEmail: boolean;
+}
+
+/** One tactical-voting site's verdict on a constituency. `text` is null when
+ *  `match` is "unknown" — the site made no recommendation there. */
+export interface SwapRecommendation {
+  siteId: string;
+  siteName: string;
+  siteLink: string;
+  siteMetaDesc: string;
+  match: "good" | "bad" | "unknown";
+  text: string | null;
+}
+
+/** Someone you could swap with. `name` is always redacted — a real name
+ *  arrives only on a confirmed swap's partner. No email address, ever. */
+export interface SwapCandidate {
+  userId: number;
+  name: string | null;
+  imageUrl: string;
+  constituencyName: string | null;
+  constituencyOnsId: string | null;
+  badges: SwapBadges;
+  preferredParty: Party | null;
+  willingParty: Party | null;
+  polls: ConstituencyPoll[];
+  recommendations: SwapRecommendation[];
+}
+
+/** Serialized only once the partner has consented to share. */
+export interface SwapContact {
+  email: string | null;
+  profileUrl: string | null;
+  provider: "twitter" | "facebook" | null;
+  facebookLogin: boolean;
+}
+
+/** The other side of a live swap. `name` is redacted until `confirmed`. */
+export interface SwapPartnerDetail extends Omit<SwapCandidate, "userId"> {
+  contact: SwapContact | null;
+}
+
+/** `GET /api/v1/swap` — the dashboard's read. */
+export interface SwapDetail {
+  id: number;
+  state: "outgoing" | "incoming";
+  confirmed: boolean;
+  /** *This* user's consent to share their address, not the partner's. */
+  consentGiven: boolean;
+  /** Hours an unconfirmed swap survives before Swap.cancel_old expires it. */
+  validityHours: number;
+  partner: SwapPartnerDetail | null;
+}
+
+export interface PotentialSwapsResponse {
+  potentialSwaps: SwapCandidate[];
+  /** How long a generated match set lasts before it is regenerated. */
+  expiryMinutes: number;
+}
+
+/** Every swap mutation answers with both, so one round trip primes both
+ *  caches: the dashboard needs the swap, the chrome needs the session. */
+export interface SwapMutationResult {
+  swap: SwapDetail | null;
+  session: SessionPayload;
+}
