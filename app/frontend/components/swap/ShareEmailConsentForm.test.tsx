@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ShareEmailConsentForm } from "@/components/swap/ShareEmailConsentForm";
+import { ApiError } from "@/lib/apiClient";
 
 const useSwapMutation = vi.hoisted(() => vi.fn());
 const shareEmail = vi.hoisted(() => vi.fn());
@@ -51,8 +52,16 @@ describe("ShareEmailConsentForm", () => {
     await waitFor(() => expect(mutateAsync).toHaveBeenCalledWith(undefined));
   });
 
-  it("reports a failure rather than pretending it worked", async () => {
-    mutateAsync.mockRejectedValue(new Error("boom"));
+  it("surfaces the message the server refused with", async () => {
+    mutateAsync.mockRejectedValue(
+      new ApiError(422, {
+        error: {
+          code: "consent_required",
+          messages: ["You already shared your email address"],
+          fields: {},
+        },
+      }),
+    );
     render(<ShareEmailConsentForm label="Share it" submitLabel="Share" />);
 
     await userEvent.click(screen.getByRole("checkbox", { name: "Share it" }));
@@ -60,7 +69,7 @@ describe("ShareEmailConsentForm", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText("Something went wrong - please try that again."),
+        screen.getByText("You already shared your email address"),
       ).toBeInTheDocument(),
     );
   });
