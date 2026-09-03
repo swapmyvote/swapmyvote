@@ -85,15 +85,18 @@ describe("SwapProfileCard", () => {
     ).toBeInTheDocument();
   });
 
-  it("hides every poll when the election hides polls", () => {
+  it("hides the poll chart, but not the interpretation, when the election hides polls", () => {
+    // Mirrors _swap_profile.html.haml: hide_polls? gates only the
+    // drawPollChart call, not the recommendations/interpretation block below
+    // it, which sits inside its own `unless constituency.nil?` guard.
     useElection.mockReturnValue({ data: { hidePolls: true } });
 
     renderCard({ candidate: candidate() });
 
     expect(screen.queryByTestId("poll-chart")).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/could make a difference/),
-    ).not.toBeInTheDocument();
+      screen.getByText(/this swap could make a difference for Green/),
+    ).toBeInTheDocument();
   });
 
   it("offers to swap only when given a link", () => {
@@ -120,5 +123,38 @@ describe("SwapProfileCard", () => {
 
     expect(screen.getByText(/in Unknown\?/)).toBeInTheDocument();
     expect(screen.queryByTestId("poll-chart")).not.toBeInTheDocument();
+  });
+
+  it("keeps showing tactical voting recommendations when the election hides polls", () => {
+    useElection.mockReturnValue({ data: { hidePolls: true } });
+
+    renderCard({
+      candidate: candidate({
+        recommendations: [
+          {
+            siteId: "tacticalvote-co-uk",
+            siteName: "Tactical Vote",
+            siteLink: "https://tacticalvote.co.uk/",
+            siteMetaDesc: "Want to get the Tories out?",
+            match: "good",
+            text: "Green",
+          },
+        ],
+      }),
+    });
+
+    expect(
+      screen.getByText(/Tactical voting recommendations for Wakefield/),
+    ).toBeInTheDocument();
+  });
+
+  it("copes with a candidate whose willing or preferred party is unknown", () => {
+    renderCard({
+      candidate: candidate({ willingParty: null, preferredParty: null }),
+    });
+
+    expect(screen.getByText(/will vote/)).toHaveTextContent(
+      "will vote Unknown? if you vote Unknown?",
+    );
   });
 });

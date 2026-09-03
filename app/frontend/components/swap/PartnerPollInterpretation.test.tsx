@@ -33,6 +33,23 @@ describe("PartnerPollInterpretation", () => {
     expect(screen.getByText(/leading by 4%/)).toBeInTheDocument();
   });
 
+  // Ports .profile-recommendations.smv-card: the legacy card wraps this
+  // paragraph the same way it wraps the recommendations list next to it, in
+  // every branch — not just the one under test above.
+  it.each([
+    ["could-make-a-difference", poll()],
+    ["safe-win", poll({ marginalScore: 2200, signedMarginalScore: 2200 })],
+    ["trailing", poll({ marginalScore: 2200, signedMarginalScore: -2200 })],
+  ])("wraps the %s message in the same card as the recommendations", (_kind, thePoll) => {
+    const { container } = render(
+      <PartnerPollInterpretation poll={thePoll} party={labour} />,
+    );
+
+    const card = container.querySelector(":scope > .card");
+    expect(card).not.toBeNull();
+    expect(card?.querySelector(".card-body > p")).not.toBeNull();
+  });
+
   it("says trailing the leading party when the party is behind in a marginal", () => {
     render(
       <PartnerPollInterpretation

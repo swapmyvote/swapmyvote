@@ -43,6 +43,12 @@ export function PartyRecommendations({
               {rec.match === "unknown"
                 ? "has no recommendation"
                 : `recommend ${rec.text}`}
+              {rec.match === "good" && (
+                // The tick above is aria-hidden and, for a "bad" match, the
+                // sentence reads identically ("recommend {text}") — this is
+                // the only way a screen reader hears that the two differ.
+                <span className="visually-hidden">, matching this swap</span>
+              )}
             </li>
           ))}
         </ul>

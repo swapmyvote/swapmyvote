@@ -47,6 +47,20 @@ describe("PartyRecommendations", () => {
     expect(screen.getByText(/recommend Labour/)).toBeInTheDocument();
   });
 
+  // The tick is aria-hidden and "recommend {text}" reads the same whether or
+  // not it matches, so a screen reader has no other way to hear that this
+  // recommendation matches the swap.
+  it("tells assistive tech when a recommendation matches, not just sighted users", () => {
+    render(
+      <PartyRecommendations
+        constituencyName="Wakefield"
+        recommendations={[recommendation()]}
+      />,
+    );
+
+    expect(screen.getByText(/matching this swap/)).toBeInTheDocument();
+  });
+
   it("reports a non-matching recommendation without the tick", () => {
     render(
       <PartyRecommendations
@@ -57,6 +71,7 @@ describe("PartyRecommendations", () => {
 
     expect(screen.queryByText("✅")).not.toBeInTheDocument();
     expect(screen.getByText(/recommend Green/)).toBeInTheDocument();
+    expect(screen.queryByText(/matching this swap/)).not.toBeInTheDocument();
   });
 
   it("says so when a site made no recommendation", () => {

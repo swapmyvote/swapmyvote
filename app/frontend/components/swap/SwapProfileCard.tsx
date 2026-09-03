@@ -66,8 +66,9 @@ export function SwapProfileCard({
             </div>
 
             <div>
-              will vote <strong>{willingParty?.name}</strong> if you vote{" "}
-              <strong>{candidate.preferredParty?.name}</strong>
+              will vote <strong>{willingParty?.name ?? "Unknown?"}</strong> if
+              you vote{" "}
+              <strong>{candidate.preferredParty?.name ?? "Unknown?"}</strong>
             </div>
           </div>
         </div>
@@ -86,8 +87,7 @@ export function SwapProfileCard({
             </div>
           )}
 
-        {!hidePolls &&
-          constituencyName !== null &&
+        {constituencyName !== null &&
           willingParty !== null &&
           (willingPoll !== undefined ||
             candidate.recommendations.length > 0) && (
