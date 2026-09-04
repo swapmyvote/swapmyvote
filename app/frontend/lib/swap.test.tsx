@@ -59,6 +59,19 @@ describe("useSwap", () => {
     expect(apiClient.get).toHaveBeenCalledWith("/swap");
     expect(result.current.data).toEqual(swapDetail);
   });
+
+  // /api/v1/swap requires a logged-in user (require_logged_in!), so a caller
+  // with no session must be able to disable the poll — otherwise it 401s
+  // every 15 seconds for as long as an anonymous visitor sits on the page.
+  it("does not fetch when disabled", async () => {
+    const { Wrapper } = harness();
+
+    const { result } = renderHook(() => useSwap(false), { wrapper: Wrapper });
+
+    await waitFor(() => expect(result.current.isPending).toBe(true));
+    expect(result.current.fetchStatus).toBe("idle");
+    expect(apiClient.get).not.toHaveBeenCalled();
+  });
 });
 
 describe("useSwapMutation", () => {

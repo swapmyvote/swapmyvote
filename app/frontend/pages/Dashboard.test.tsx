@@ -65,12 +65,16 @@ describe("Dashboard", () => {
     renderPage();
 
     expect(screen.getByRole("link", { name: "Log in" })).toBeInTheDocument();
+    // /api/v1/swap requires a logged-in user: polling it for an anonymous
+    // visitor would just 401 every 15 seconds behind this prompt.
+    expect(useSwap).toHaveBeenCalledWith(false);
   });
 
   it("sends a user with no swap off to find one", () => {
     renderPage(loggedIn);
 
     expect(screen.getByText("Find a swap")).toBeInTheDocument();
+    expect(useSwap).toHaveBeenCalledWith(true);
   });
 
   it("sends a user with no constituency to set one", () => {

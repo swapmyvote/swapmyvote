@@ -23,7 +23,7 @@ import { useSwap } from "@/lib/swap";
 export function Dashboard() {
   const { session } = useSession();
   const user = session?.currentUser ?? null;
-  const swap = useSwap();
+  const swap = useSwap(user !== null);
 
   // Mirrors UsersController#show: a profile without a constituency or an email
   // address cannot swap, and is sent to fix that first.

@@ -34,13 +34,17 @@ const potentialSwapsPath = "/potential_swaps";
  * can confirm or reject while this page is open, and Swap.cancel_old expires
  * unconfirmed swaps on a schedule.
  */
-export function useSwap(): UseQueryResult<SwapDetail | null> {
+export function useSwap(enabled = true): UseQueryResult<SwapDetail | null> {
   return useQuery({
     queryKey: swapQueryKey,
     queryFn: async () => {
       const body = await apiClient.get<{ swap: SwapDetail | null }>(swapPath);
       return body.swap;
     },
+    // Gated for the same reason usePotentialSwaps is: /api/v1/swap requires a
+    // logged-in user, and refetchInterval would otherwise keep 401ing every
+    // 15 seconds behind RequireLogin's prompt, which never unmounts this page.
+    enabled,
     staleTime: 5_000,
     refetchInterval: 15_000,
     refetchOnWindowFocus: true,
