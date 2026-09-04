@@ -72,6 +72,32 @@ describe("ReachOutToSwap", () => {
     expect(
       screen.getByRole("link", { name: "unfortunately this may not work" }),
     ).toHaveAttribute("href", "/faq#facebook-profile");
+    expect(
+      screen.getByRole("link", { name: "cancel your swap" }),
+    ).toHaveAttribute("href", "/faq#reset");
+  });
+
+  it("offers no escape hatch when there is more than one way to make contact", () => {
+    render(
+      <ReachOutToSwap
+        partner={partner({
+          email: "grace@example.com",
+          profileUrl: "https://twitter.com/gracehopper",
+          provider: "twitter",
+          facebookLogin: false,
+        })}
+      />,
+    );
+
+    expect(
+      screen.getByRole("link", { name: "on Twitter" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "by email at grace@example.com" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: "cancel your swap" }),
+    ).not.toBeInTheDocument();
   });
 
   it("says so when nothing has been shared, and offers a way out", () => {
