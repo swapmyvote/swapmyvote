@@ -10,8 +10,10 @@ const resetFaq = "/faq#reset";
  * UsersHelper#contact_methods.
  *
  * Everything here comes from `partner.contact`, which the server only
- * serializes once that partner has consented to share — so an absent `contact`
- * is the "has not shared" case, not a rendering decision made here.
+ * serializes on a confirmed swap; within it, `email` additionally requires
+ * that partner's own consent, while the social profile fields are always
+ * present. An absent `contact` is the "has not shared" case, not a rendering
+ * decision made here.
  */
 export function ReachOutToSwap({ partner }: { partner: SwapPartnerDetail }) {
   const contact = partner.contact;

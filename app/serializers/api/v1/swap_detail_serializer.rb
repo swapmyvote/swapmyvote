@@ -12,9 +12,11 @@ module Api
     #
     #   * the partner's real name is only serialized once the swap is
     #     confirmed — every pre-confirmation HAML view calls `redacted_name`;
-    #   * the partner's contact details are only serialized when *they* have
-    #     consented to share, which is what UsersHelper#contact_methods checks
-    #     before printing an address.
+    #   * the partner's contact details are only serialized once the swap is
+    #     confirmed; within that, only `email` additionally requires *they*
+    #     have consented to share — `profileUrl`/`provider`/`facebookLogin`
+    #     are unconditional, matching UsersHelper#contact_methods, which
+    #     gates only the email branch it prints.
     class SwapDetailSerializer
       include Alba::Resource
       include SwapsHelper
