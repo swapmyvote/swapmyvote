@@ -15,6 +15,7 @@ import { SessionProvider } from "@/contexts/SessionContext";
 import { queryClient } from "@/lib/queryClient";
 import { spaPaths } from "@/lib/spaPaths";
 import { Constituency } from "@/pages/Constituency";
+import { Dashboard } from "@/pages/Dashboard";
 import { Home } from "@/pages/Home";
 import { Login } from "@/pages/Login";
 import { Mobile } from "@/pages/Mobile";
@@ -70,6 +71,7 @@ export function App() {
                   <Route path={spaPaths.profile} element={<Profile />} />
                   <Route path={spaPaths.review} element={<Review />} />
                   <Route path={spaPaths.mobile} element={<Mobile />} />
+                  <Route path={spaPaths.dashboard} element={<Dashboard />} />
                   <Route path={spaPaths.swap} element={<Swap />} />
                   <Route path={spaPaths.swapNew} element={<SwapNew />} />
                 </Routes>

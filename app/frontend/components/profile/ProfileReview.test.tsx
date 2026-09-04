@@ -117,7 +117,7 @@ describe("ProfileReview", () => {
 
     expect(screen.getByRole("link", { name: /proceed/i })).toHaveAttribute(
       "href",
-      "/user",
+      "/app/dashboard",
     );
     expect(screen.getByRole("link", { name: /change/i })).toHaveAttribute(
       "href",
