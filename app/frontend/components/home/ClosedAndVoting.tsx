@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import { GoVote } from "@/components/home/GoVote";
 import { NewsSignUp } from "@/components/home/NewsSignUp";
 import { Section } from "@/components/home/Section";
 import { SocialLinks } from "@/components/home/SocialLinks";
+import { spaPaths } from "@/lib/spaPaths";
 
 interface ClosedAndVotingProps {
   loggedIn: boolean;
@@ -27,8 +29,8 @@ export function ClosedAndVoting({
             {loggedIn && swapConfirmed ? (
               <p>
                 But that doesn't affect you since you managed to{" "}
-                {/* Still HAML, so a full page load. */}
-                <a href="/user">confirm a swap</a> - congratulations!
+                <Link to={spaPaths.dashboard}>confirm a swap</Link> -
+                congratulations!
               </p>
             ) : (
               <p>

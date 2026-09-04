@@ -1,14 +1,12 @@
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Spinner from "react-bootstrap/Spinner";
+import { useNavigate } from "react-router-dom";
 import { RequireLogin } from "@/components/auth/RequireLogin";
 import { ConstituencyForm } from "@/components/profile/ConstituencyForm";
 import { useSession } from "@/contexts/useSession";
 import { useConstituencies, useParties } from "@/lib/referenceData";
-
-// Where the legacy controller sends people once their constituency is saved.
-// Still HAML until M7, so this is a full page load.
-const hamlSwap = "/user/swap";
+import { spaPaths } from "@/lib/spaPaths";
 
 /**
  * Ports app/views/user/constituencies/edit.html.haml — the screen a new
@@ -18,10 +16,11 @@ export function Constituency() {
   const { session, refetchSession } = useSession();
   const constituencies = useConstituencies();
   const parties = useParties();
+  const navigate = useNavigate();
 
   async function handleSaved() {
     await refetchSession();
-    window.location.assign(hamlSwap);
+    navigate(spaPaths.swap);
   }
 
   const loading = constituencies.isPending || parties.isPending;
