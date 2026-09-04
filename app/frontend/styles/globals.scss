@@ -176,6 +176,30 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
 }
 
+// Social-share buttons (SocialShare.tsx). Ported from
+// app/assets/stylesheets/button.scss, which the SPA layout never loads —
+// spa.html.haml pulls in no Sprockets stylesheets, so a bare .btn there is
+// transparent with no border. Same colours, same #{$prefix}btn-* pattern as
+// .btn-outline-secondary above; that file stays untouched for the live HAML
+// site, so these are not shared, just kept in sync by eye.
+$facebook-color: #4267b2;
+$twitter-color: #55acee;
+$email-color: #5f55ee;
+
+@each $name, $color in (facebook: $facebook-color, twitter: $twitter-color, email: $email-color) {
+  .btn-#{$name} {
+    --#{$prefix}btn-color: #{color-contrast($color)};
+    --#{$prefix}btn-bg: #{$color};
+    --#{$prefix}btn-border-color: #{$color};
+    --#{$prefix}btn-hover-color: #{color-contrast($color)};
+    --#{$prefix}btn-hover-bg: #{shade-color($color, 10%)};
+    --#{$prefix}btn-hover-border-color: #{shade-color($color, 10%)};
+    --#{$prefix}btn-active-color: #{color-contrast($color)};
+    --#{$prefix}btn-active-bg: #{shade-color($color, 10%)};
+    --#{$prefix}btn-active-border-color: #{shade-color($color, 10%)};
+  }
+}
+
 .btn-link {
   font-weight: 700;
 }

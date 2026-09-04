@@ -11,9 +11,6 @@ interface ProfileReviewProps {
   willingParty: Party | null;
 }
 
-// The dashboard is still HAML (M7), so proceeding leaves the SPA.
-const hamlDashboard = "/user";
-
 /**
  * Ports app/views/users/review.haml: after a change to the offered vote, show
  * what the polls say about it before the user commits.
@@ -85,12 +82,9 @@ export function ProfileReview({
         <Link to={spaPaths.profile} className="btn btn-secondary">
           Change
         </Link>
-        {/* Plain anchor, not react-bootstrap's <Button href>: that component
-            overrides the implicit anchor role to "button", which would break
-            this link's accessible role. */}
-        <a href={hamlDashboard} className="btn btn-primary">
+        <Link to={spaPaths.dashboard} className="btn btn-primary">
           Proceed
-        </a>
+        </Link>
       </div>
     </div>
   );

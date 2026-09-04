@@ -4,7 +4,19 @@ import { execFileSync } from "node:child_process";
 // leaves `runner` hanging with no output — which stalls the whole suite before
 // a single test starts, since seeding happens at module load. Seeding is a
 // handful of one-shot calls, so the preloader buys nothing here anyway.
-const railsEnv = { ...process.env, DISABLE_SPRING: "1" };
+//
+// SERVER_HOST (config/application.rb's action_mailer.default_url_options)
+// falls back to "localhost" the same way .env.test does: this `runner`
+// process is separate from whatever process is serving the app under test,
+// so it does not inherit that server's own SERVER_HOST just because it is
+// set there. Without it, ActionMailer raises building any mail that links
+// back to the site — which clear_swap can trigger below, since destroying an
+// existing swap emails both sides.
+const railsEnv = {
+  ...process.env,
+  DISABLE_SPRING: "1",
+  SERVER_HOST: process.env.SERVER_HOST || "localhost",
+};
 
 export interface TestCredentials {
   email: string;
@@ -100,4 +112,79 @@ export function seedUserWithoutConstituency(): TestCredentials {
     env: railsEnv,
   });
   return credentials;
+}
+
+export interface SwapPair {
+  chooser: TestCredentials;
+  chosen: TestCredentials;
+}
+
+/**
+ * Two complementary, swap-ready users in different constituencies, plus polls
+ * for both — everything User#complementary_voters requires before it will
+ * offer them to each other.
+ *
+ * Both get a verified mobile number: the swap endpoints refuse without one,
+ * and verifying twice through the UI would double the runtime of every test
+ * here for no extra coverage — mobile.spec.ts already covers that journey.
+ *
+ * The parties are named per-suffix (Green-e2e, Green-axe, …), not shared
+ * "Green"/"Labour" rows: complementary_voters matches purely on party id, and
+ * fullyParallel runs this file alongside accessibility.spec.ts's own
+ * seedSwapPair("-axe") call, each in its own worker. Sharing party rows would
+ * let one pair's chooser generate the other pair's chosen user as a
+ * candidate, and a suffix on the emails alone would not stop that.
+ *
+ * Any existing swap between them is cleared, so a re-run starts from the same
+ * place as a first run.
+ */
+export function seedSwapPair(suffix = ""): SwapPair {
+  const chooser: TestCredentials = {
+    email: `e2e-swap-chooser${suffix}@example.com`,
+    password: "e2e-swap-chooser-password",
+  };
+  const chosen: TestCredentials = {
+    email: `e2e-swap-chosen${suffix}@example.com`,
+    password: "e2e-swap-chosen-password",
+  };
+
+  const script = `
+    woking = OnsConstituency.find_or_create_by!(ons_id: "E14001063") { |c| c.name = "Woking" }
+    wakefield = OnsConstituency.find_or_create_by!(ons_id: "E14001009") { |c| c.name = "Wakefield" }
+    green = Party.find_or_create_by!(name: "Green${suffix}") { |p| p.color = "#6AB023" }
+    labour = Party.find_or_create_by!(name: "Labour${suffix}") { |p| p.color = "#DC241f" }
+
+    [[woking, green, 1200], [woking, labour, 4210],
+     [wakefield, green, 3100], [wakefield, labour, 3500]].each do |seat, party, votes|
+      poll = Poll.find_or_initialize_by(constituency_ons_id: seat.ons_id, party_id: party.id)
+      poll.update!(votes: votes, marginal_score: 400)
+    end
+
+    pairs = [
+      ["${chooser.email}", "${chooser.password}", "E2E Chooser", woking, green, labour, "+447700900001${suffix}"],
+      ["${chosen.email}", "${chosen.password}", "E2E Chosen", wakefield, labour, green, "+447700900002${suffix}"]
+    ]
+
+    pairs.each do |email, password, name, seat, preferred, willing, number|
+      person = User.find_or_initialize_by(email: email)
+      person.password = password
+      person.name = name
+      person.constituency_ons_id = seat.ons_id
+      person.preferred_party = preferred
+      person.willing_party = willing
+      person.save!
+      person.clear_swap
+      phone = MobilePhone.find_or_initialize_by(user_id: person.id)
+      phone.number = number
+      phone.verified = true
+      phone.save!
+    end
+  `;
+
+  execFileSync("bin/rails", ["runner", script], {
+    stdio: "inherit",
+    env: railsEnv,
+  });
+
+  return { chooser, chosen };
 }

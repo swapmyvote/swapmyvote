@@ -15,6 +15,7 @@ import { SessionProvider } from "@/contexts/SessionContext";
 import { queryClient } from "@/lib/queryClient";
 import { spaPaths } from "@/lib/spaPaths";
 import { Constituency } from "@/pages/Constituency";
+import { Dashboard } from "@/pages/Dashboard";
 import { Home } from "@/pages/Home";
 import { Login } from "@/pages/Login";
 import { Mobile } from "@/pages/Mobile";
@@ -22,6 +23,8 @@ import { Ping } from "@/pages/Ping";
 import { Profile } from "@/pages/Profile";
 import { Review } from "@/pages/Review";
 import { SignUp } from "@/pages/SignUp";
+import { Swap } from "@/pages/Swap";
+import { SwapNew } from "@/pages/SwapNew";
 
 // Shared chrome around every SPA route: branded nav + footer, matching the
 // tacticalvote layout. New routes are added to <Routes> as screens are
@@ -68,6 +71,9 @@ export function App() {
                   <Route path={spaPaths.profile} element={<Profile />} />
                   <Route path={spaPaths.review} element={<Review />} />
                   <Route path={spaPaths.mobile} element={<Mobile />} />
+                  <Route path={spaPaths.dashboard} element={<Dashboard />} />
+                  <Route path={spaPaths.swap} element={<Swap />} />
+                  <Route path={spaPaths.swapNew} element={<SwapNew />} />
                 </Routes>
               </Layout>
             </BrowserRouter>

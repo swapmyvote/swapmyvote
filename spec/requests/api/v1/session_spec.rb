@@ -131,7 +131,7 @@ RSpec.describe "Api::V1::Session", type: :request do
       # existed, so their associations would still be cached as empty.
       before { swap }
 
-      it "is 'outgoing' for the user who chose, naming their partner" do
+      it "is 'outgoing' for the user who chose" do
         sign_in chooser.reload
 
         get "/api/v1/session"
@@ -142,9 +142,13 @@ RSpec.describe "Api::V1::Session", type: :request do
           "confirmed" => false
         )
         expect(json["swap"]["partner"]).to include(
-          "name" => chosen.name,
           "constituencyName" => "Constituency2"
         )
+        # The partner's real name is only ever shown once the swap is
+        # confirmed (SwapPartnerDetailSerializer, reached through
+        # GET /api/v1/swap) — never through this session payload, which has
+        # no confirmed gate to redact it with.
+        expect(json["swap"]["partner"]).not_to have_key("name")
         # The partner's email is only ever shared through the explicit consent
         # step in the swap flow, never through the session payload.
         expect(json["swap"]["partner"]).not_to have_key("email")
@@ -156,9 +160,7 @@ RSpec.describe "Api::V1::Session", type: :request do
         get "/api/v1/session"
 
         expect(json["swap"]).to include("state" => "incoming")
-        expect(json["swap"]["partner"]).to include(
-          "name" => chooser.name
-        )
+        expect(json["swap"]["partner"]).not_to have_key("name")
       end
 
       it "locks voting info once voting is open and the swap is confirmed" do
