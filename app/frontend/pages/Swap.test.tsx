@@ -29,6 +29,7 @@ function renderPage(value = sessionValue()) {
         <Routes>
           <Route path="/app/swap" element={<Swap />} />
           <Route path="/app/dashboard" element={<div>Dashboard</div>} />
+          <Route path="/app/profile" element={<div>Profile</div>} />
         </Routes>
       </TestSessionProvider>
     </MemoryRouter>,
@@ -38,6 +39,20 @@ function renderPage(value = sessionValue()) {
 const loggedIn = sessionValue({
   session: sessionPayload({ currentUser: testUser }),
 });
+
+const noPreferredParty = sessionValue({
+  session: sessionPayload({
+    currentUser: { ...testUser, preferredParty: null },
+  }),
+});
+
+const noWillingParty = sessionValue({
+  session: sessionPayload({
+    currentUser: { ...testUser, willingParty: null },
+  }),
+});
+
+const sessionLoading = sessionValue({ session: null, isLoading: true });
 
 describe("Swap", () => {
   beforeEach(() => {
@@ -120,5 +135,35 @@ describe("Swap", () => {
     renderPage(loggedIn);
 
     expect(screen.getByTestId("info-summary")).toBeInTheDocument();
+  });
+
+  it("sends a user with no preferred party to their profile", () => {
+    renderPage(noPreferredParty);
+
+    expect(screen.getByText("Profile")).toBeInTheDocument();
+    expect(usePotentialSwaps).toHaveBeenCalledWith(false);
+  });
+
+  it("sends a user with no willing party to their profile", () => {
+    renderPage(noWillingParty);
+
+    expect(screen.getByText("Profile")).toBeInTheDocument();
+    expect(usePotentialSwaps).toHaveBeenCalledWith(false);
+  });
+
+  it("does not redirect a complete profile, and enables the query", () => {
+    renderPage(loggedIn);
+
+    expect(screen.queryByText("Profile")).not.toBeInTheDocument();
+    expect(usePotentialSwaps).toHaveBeenCalledWith(true);
+  });
+
+  it("does not redirect anywhere while the session is still loading", () => {
+    renderPage(sessionLoading);
+
+    expect(screen.queryByText("Profile")).not.toBeInTheDocument();
+    expect(screen.queryByText("Dashboard")).not.toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("Loading");
+    expect(usePotentialSwaps).toHaveBeenCalledWith(false);
   });
 });

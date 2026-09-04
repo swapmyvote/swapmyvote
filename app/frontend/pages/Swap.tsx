@@ -15,17 +15,31 @@ import { usePotentialSwaps } from "@/lib/swap";
  * Ports app/views/user/swaps/show.html.haml — the find-a-swap screen.
  *
  * Fetching the candidate list *generates* it server-side, so the query is only
- * enabled for a logged-in user who does not already have a swap; anyone else
- * would trigger match generation they cannot use, or a 409.
+ * enabled for a logged-in user who does not already have a swap and has a
+ * complete profile; anyone else would trigger match generation they cannot
+ * use, a 409, or a 403 `profile_incomplete`.
  */
 export function Swap() {
   const { session } = useSession();
-  const loggedIn = session?.currentUser != null;
+  const user = session?.currentUser ?? null;
+  const loggedIn = user != null;
   const swapped = session?.swap != null;
-  const candidates = usePotentialSwaps(loggedIn && !swapped);
+  // Mirrors User::SwapsController#assert_parties_exist: a profile missing
+  // either party cannot swap, and is sent to fix that first. Guarded on
+  // `user` (not just `loggedIn`) so this never fires while the session is
+  // still loading — `user` is null until the session query resolves.
+  const profileIncomplete =
+    user != null && (!user.preferredParty || !user.willingParty);
+  const candidates = usePotentialSwaps(
+    loggedIn && !swapped && !profileIncomplete,
+  );
 
   if (swapped) {
     return <Navigate to={spaPaths.dashboard} replace />;
+  }
+
+  if (profileIncomplete) {
+    return <Navigate to={spaPaths.profile} replace />;
   }
 
   return (
