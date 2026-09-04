@@ -35,13 +35,18 @@ module Api
         }
       end
 
-      # Null unless this partner has consented to share. shared/_reach_out_to_swap
-      # renders from exactly these four values.
+      # Null until the swap is confirmed — offering or accepting a swap always
+      # implies consent, so gating on consent alone would leak this while a
+      # swap is still pending. Once confirmed, `email` additionally requires
+      # this partner's own consent, but `profileUrl`/`provider`/
+      # `facebookLogin` are unconditional: shared/_reach_out_to_swap and
+      # UsersHelper#contact_methods disclose the social link regardless of
+      # email consent.
       attribute :contact do |user|
-        next nil unless user.consented_to_share_email?
+        next nil unless params[:swap_confirmed]
 
         {
-          email: user.email.presence,
+          email: user.consented_to_share_email? ? user.email.presence : nil,
           profileUrl: user.profile_url,
           provider: user.provider,
           facebookLogin: user.facebook_login?

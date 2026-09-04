@@ -131,6 +131,15 @@ export function cancelSwap(): Promise<SwapMutationResult> {
  * Wraps any of the four mutations above with the cache work they all need:
  * prime the swap and session caches from the one response, and drop the
  * candidate list, which the mutation has either consumed or invalidated.
+ *
+ * `removeQueries`, not `invalidateQueries`: usePotentialSwaps sets
+ * `refetchOnMount: false`, and with cached data present, tanstack-query's
+ * `shouldFetchOnMount` returns false without ever consulting
+ * `isInvalidated` — an invalidated-but-cached query silently never
+ * refetches on remount. Removing the cache entry entirely instead makes the
+ * next mount see no data and fetch, exactly once. Also drop every single-
+ * candidate cache (`["potentialSwap", userId]`), which nothing else ever
+ * clears.
  */
 export function useSwapMutation<TInput>(
   mutationFn: (input: TInput) => Promise<SwapMutationResult>,
@@ -142,7 +151,8 @@ export function useSwapMutation<TInput>(
     onSuccess: (result) => {
       queryClient.setQueryData(swapQueryKey, result.swap);
       queryClient.setQueryData(sessionQueryKey, result.session);
-      queryClient.invalidateQueries({ queryKey: potentialSwapsQueryKey });
+      queryClient.removeQueries({ queryKey: potentialSwapsQueryKey });
+      queryClient.removeQueries({ queryKey: ["potentialSwap"] });
     },
   });
 }

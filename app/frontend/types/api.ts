@@ -47,9 +47,11 @@ export interface CurrentUser {
   willingParty: Party | null;
 }
 
-/** The other side of a swap: strictly less than CurrentUser — no id, no email. */
+/** The other side of a swap, on the session payload: strictly less than
+ *  CurrentUser — no id, no email, and no name either (a real name would sit
+ *  next to the redacted one SwapPartnerDetail carries in the same mutation
+ *  response — see SwapPartnerSerializer). */
 export interface SwapPartner {
-  name: string | null;
   imageUrl: string;
   constituencyName: string | null;
 }

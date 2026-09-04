@@ -71,6 +71,10 @@ RSpec.describe "Api::V1::Swaps", type: :request do
         expect(json["swap"]["partner"]["name"]).to eq "Grace H (test user)"
       end
 
+      # True here for two independent reasons — the swap is unconfirmed *and*
+      # the partner has not consented — but the swap being unconfirmed is
+      # enough on its own: see "withholds contact details from an unconfirmed
+      # swap even when the partner has consented" below, which isolates that.
       it "withholds contact details while the partner has not consented" do
         get "/api/v1/swap"
 
@@ -111,6 +115,33 @@ RSpec.describe "Api::V1::Swaps", type: :request do
       end
     end
 
+    # UsersHelper#contact_methods gates only the email branch on consent;
+    # social_contact_methods returns the profile link unconditionally. A
+    # serializer that nulls the whole contact object on missing consent would
+    # misreport a contactable Twitter partner as unreachable.
+    context "with a confirmed swap the partner has not consented to share" do
+      before do
+        create(:identity, user: partner, provider: "twitter", uid: "123545")
+        user.create_outgoing_swap!(chosen_user: partner, confirmed: true,
+                                   consent_share_email_chooser: true,
+                                   consent_share_email_chosen: false)
+        user.save!
+        partner.reload
+        sign_in user
+      end
+
+      it "exposes the partner's profile link but withholds their email" do
+        get "/api/v1/swap"
+
+        expect(json["swap"]["partner"]["contact"]).to include(
+          "email" => nil,
+          "profileUrl" => "https://twitter.com/intent/user?user_id=123545",
+          "provider" => "twitter"
+        )
+        expect(response.body).not_to include "grace@example.com"
+      end
+    end
+
     context "with an incoming swap" do
       before do
         partner.create_outgoing_swap!(chosen_user: user, confirmed: false,
@@ -141,12 +172,16 @@ RSpec.describe "Api::V1::Swaps", type: :request do
         expect(json["swap"]["consentGiven"]).to be false
       end
 
-      it "discloses a chooser partner's contact details once they have consented" do
+      # This is the critical case: offering a swap requires consent (the API
+      # 422s otherwise), so consent_share_email_chooser is true on every
+      # outgoing offer — meaning contact must not disclose from consent
+      # alone, or every chosen user would see their chooser's real email
+      # during the 15-second dashboard poll before confirming anything.
+      it "withholds contact details from an unconfirmed swap even when the partner has consented" do
         get "/api/v1/swap"
 
-        expect(json["swap"]["partner"]["contact"]).to include(
-          "email" => "grace@example.com"
-        )
+        expect(json["swap"]["partner"]["contact"]).to be_nil
+        expect(response.body).not_to include "grace@example.com"
       end
     end
   end

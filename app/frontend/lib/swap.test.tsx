@@ -96,13 +96,13 @@ describe("useSwapMutation", () => {
     expect(queryClient.getQueryData(sessionQueryKey)).toEqual(loggedOutSession);
   });
 
-  it("invalidates the candidate list, which the swap has just consumed", async () => {
+  it("drops the candidate list, which the swap has just consumed", async () => {
     vi.mocked(apiClient.delete).mockResolvedValue({
       swap: null,
       session: loggedOutSession,
     });
     const { queryClient, Wrapper } = harness();
-    const invalidate = vi.spyOn(queryClient, "invalidateQueries");
+    const remove = vi.spyOn(queryClient, "removeQueries");
 
     const { result } = renderHook(() => useSwapMutation(cancelSwap), {
       wrapper: Wrapper,
@@ -110,9 +110,37 @@ describe("useSwapMutation", () => {
     result.current.mutate(undefined);
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
-    expect(invalidate).toHaveBeenCalledWith({
-      queryKey: potentialSwapsQueryKey,
+    expect(remove).toHaveBeenCalledWith({ queryKey: potentialSwapsQueryKey });
+    expect(remove).toHaveBeenCalledWith({ queryKey: ["potentialSwap"] });
+  });
+
+  // Regression test for a real bug: invalidateQueries alone left a stale,
+  // cached candidate list on screen after a mutation, because
+  // usePotentialSwaps' refetchOnMount: false short-circuits before ever
+  // consulting isInvalidated when data is already cached. Asserting the
+  // cache entry is gone (not merely marked stale) is the only way to catch
+  // that regression — a spy on removeQueries being called proves intent,
+  // not effect.
+  it("actually removes the cached candidate data, not just marks it stale", async () => {
+    vi.mocked(apiClient.delete).mockResolvedValue({
+      swap: null,
+      session: loggedOutSession,
     });
+    const { queryClient, Wrapper } = harness();
+    queryClient.setQueryData(potentialSwapsQueryKey, {
+      potentialSwaps: [],
+      expiryMinutes: 120,
+    });
+    queryClient.setQueryData(["potentialSwap", 3], { userId: 3 });
+
+    const { result } = renderHook(() => useSwapMutation(cancelSwap), {
+      wrapper: Wrapper,
+    });
+    result.current.mutate(undefined);
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    expect(queryClient.getQueryData(potentialSwapsQueryKey)).toBeUndefined();
+    expect(queryClient.getQueryData(["potentialSwap", 3])).toBeUndefined();
   });
 });
 

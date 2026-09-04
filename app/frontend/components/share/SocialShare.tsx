@@ -1,3 +1,4 @@
+import { FaEnvelope, FaFacebook, FaTwitter } from "react-icons/fa";
 import { useElection } from "@/lib/referenceData";
 import type { Election } from "@/types/api";
 
@@ -65,20 +66,20 @@ export function SocialShare() {
         className="btn btn-facebook w-100"
         onClick={shareOnFacebook}
       >
-        Share on Facebook
+        <FaFacebook aria-hidden="true" /> Share on Facebook
       </button>
       <button
         type="button"
         className="btn btn-twitter w-100"
         onClick={shareOnTwitter}
       >
-        Share on Twitter
+        <FaTwitter aria-hidden="true" /> Share on Twitter
       </button>
       <a
         className="btn btn-email w-100"
         href={`mailto:?subject=SwapMyVote&body=${encodeURIComponent(emailBody(election.data))}`}
       >
-        Share on Email
+        <FaEnvelope aria-hidden="true" /> Share on Email
       </a>
     </div>
   );

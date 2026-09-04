@@ -165,11 +165,20 @@ without re-running match generation.
   rules enforced **in the serializer, not the view**:
   - `name` is unredacted only when `swap.confirmed`;
   - `contact { email, profileUrl, provider, facebookLogin }` is serialized only
-    when that partner's own `consented_to_share_email?` is true, and is null
-    otherwise. This is what `ReachOutToSwap` renders, and it is the one place in
-    the API where one user's email address can reach another.
+    when `swap.confirmed` — offering or accepting a swap always implies
+    consent, so gating on consent alone would disclose it while a swap is
+    still pending. Within a confirmed `contact`, `email` additionally requires
+    that partner's own `consented_to_share_email?`; `profileUrl`, `provider`
+    and `facebookLogin` are unconditional, matching `UsersHelper
+    #contact_methods`, which gates only the email branch. This is what
+    `ReachOutToSwap` renders, and it is the one place in the API where one
+    user's email address can reach another.
 
-`SessionSerializer` and its `SwapSerializer` are untouched.
+`SessionSerializer`'s `SwapSerializer` carries no `name` on `partner` at all
+(only `imageUrl`, `constituencyName`) — the session poll has no `confirmed`
+gate to redact a name with, and every swap mutation already returns a
+redacted name under `swap.partner.name` in the same response, so an
+unredacted one under `session.swap.partner.name` would contradict it.
 
 Every shape is mirrored in `app/frontend/types/api.ts`, which stays the FE/BE
 contract.
