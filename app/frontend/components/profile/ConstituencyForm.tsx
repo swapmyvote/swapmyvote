@@ -6,7 +6,7 @@ import { ConstituencyAutocomplete } from "@/components/home/ConstituencyAutocomp
 import { PostcodeLookup } from "@/components/home/PostcodeLookup";
 import { apiErrorMessages } from "@/lib/apiErrors";
 import { updateProfile } from "@/lib/profile";
-import type { Constituency } from "@/types/api";
+import type { Constituency, Party } from "@/types/api";
 
 interface ConstituencyFormProps {
   constituencies: Constituency[];
@@ -14,11 +14,26 @@ interface ConstituencyFormProps {
   /** The legacy screen asks for an email only when the account has none. */
   needsEmail: boolean;
   initialEmail: string;
+  parties: Party[];
+  /** A visitor who skipped the entry form (going straight to /app/signup)
+   *  reaches this screen with no parties at all. The API refuses to save
+   *  anything until both are set, so this screen has to be able to collect
+   *  them itself — mirrors needsEmail. */
+  needsParties: boolean;
+  initialPreferredPartyId: string;
+  initialWillingPartyId: string;
   onSaved: () => void;
 }
 
 const constituencyRequired =
   "You must tell us your constituency. Without it, the swaps we offer may not make sense.";
+
+// Wording copied verbatim from Api::V1::UsersController#missing_field_errors
+// so both sites say the same thing.
+const preferredPartyRequired =
+  "You must state which party you would prefer to vote for.";
+const willingPartyRequired =
+  "You must state which party you are willing to vote for.";
 
 /**
  * Where a new account says which constituency it votes in. Ports
@@ -31,11 +46,21 @@ export function ConstituencyForm({
   initialOnsId,
   needsEmail,
   initialEmail,
+  parties,
+  needsParties,
+  initialPreferredPartyId,
+  initialWillingPartyId,
   onSaved,
 }: ConstituencyFormProps) {
+  const preferredId = useId();
+  const willingId = useId();
   const emailId = useId();
   const [onsId, setOnsId] = useState(initialOnsId);
   const [postcode, setPostcode] = useState("");
+  const [preferredPartyId, setPreferredPartyId] = useState(
+    initialPreferredPartyId,
+  );
+  const [willingPartyId, setWillingPartyId] = useState(initialWillingPartyId);
   const [email, setEmail] = useState(initialEmail);
   const [errors, setErrors] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
@@ -49,10 +74,25 @@ export function ConstituencyForm({
     }
   }
 
+  function localErrors(): string[] {
+    const messages: string[] = [];
+    if (needsParties && preferredPartyId === "") {
+      messages.push(preferredPartyRequired);
+    }
+    if (needsParties && willingPartyId === "") {
+      messages.push(willingPartyRequired);
+    }
+    if (onsId === "") {
+      messages.push(constituencyRequired);
+    }
+    return messages;
+  }
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    if (onsId === "") {
-      setErrors([constituencyRequired]);
+    const validationErrors = localErrors();
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
@@ -61,6 +101,7 @@ export function ConstituencyForm({
     try {
       await updateProfile({
         constituencyOnsId: onsId,
+        ...(needsParties ? { preferredPartyId, willingPartyId } : {}),
         ...(needsEmail ? { email } : {}),
       });
       onSaved();
@@ -86,6 +127,40 @@ export function ConstituencyForm({
           onPostcodeChange={setPostcode}
           onConstituencyFound={setOnsId}
         />
+
+        {needsParties && (
+          <>
+            <Form.Group controlId={preferredId}>
+              <Form.Label>My preferred party is</Form.Label>
+              <Form.Select
+                value={preferredPartyId}
+                onChange={(event) => setPreferredPartyId(event.target.value)}
+              >
+                <option value="">...</option>
+                {parties.map((party) => (
+                  <option key={party.id} value={String(party.id)}>
+                    {party.name}
+                  </option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group controlId={willingId}>
+              <Form.Label>but I'm willing to vote for</Form.Label>
+              <Form.Select
+                value={willingPartyId}
+                onChange={(event) => setWillingPartyId(event.target.value)}
+              >
+                <option value="">...</option>
+                {parties.map((party) => (
+                  <option key={party.id} value={String(party.id)}>
+                    {party.name}
+                  </option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+          </>
+        )}
 
         {needsEmail && (
           <Form.Group controlId={emailId}>

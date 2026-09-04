@@ -4,7 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { RequireLogin } from "@/components/auth/RequireLogin";
 import { ConstituencyForm } from "@/components/profile/ConstituencyForm";
 import { useSession } from "@/contexts/useSession";
-import { useConstituencies } from "@/lib/referenceData";
+import { useConstituencies, useParties } from "@/lib/referenceData";
 
 // Where the legacy controller sends people once their constituency is saved.
 // Still HAML until M7, so this is a full page load.
@@ -17,11 +17,19 @@ const hamlSwap = "/user/swap";
 export function Constituency() {
   const { session, refetchSession } = useSession();
   const constituencies = useConstituencies();
+  const parties = useParties();
 
   async function handleSaved() {
     await refetchSession();
     window.location.assign(hamlSwap);
   }
+
+  const loading = constituencies.isPending || parties.isPending;
+  const currentUser = session?.currentUser;
+  // A visitor who skipped the entry form (straight to /app/signup) reaches
+  // this screen with neither party set — see ConstituencyForm's needsParties.
+  const needsParties =
+    !currentUser?.preferredParty || !currentUser?.willingParty;
 
   return (
     <RequireLogin>
@@ -31,7 +39,7 @@ export function Constituency() {
             <h1 className="h4 mb-0">Where do you vote?</h1>
           </Card.Header>
           <Card.Body>
-            {constituencies.isPending ? (
+            {loading ? (
               <div className="text-center">
                 <Spinner animation="border" role="status">
                   <span className="visually-hidden">Loading</span>
@@ -40,9 +48,21 @@ export function Constituency() {
             ) : (
               <ConstituencyForm
                 constituencies={constituencies.data ?? []}
-                initialOnsId={session?.currentUser?.constituencyOnsId ?? ""}
-                needsEmail={!session?.currentUser?.email}
-                initialEmail={session?.currentUser?.email ?? ""}
+                initialOnsId={currentUser?.constituencyOnsId ?? ""}
+                needsEmail={!currentUser?.email}
+                initialEmail={currentUser?.email ?? ""}
+                parties={parties.data ?? []}
+                needsParties={needsParties}
+                initialPreferredPartyId={
+                  currentUser?.preferredParty
+                    ? String(currentUser.preferredParty.id)
+                    : ""
+                }
+                initialWillingPartyId={
+                  currentUser?.willingParty
+                    ? String(currentUser.willingParty.id)
+                    : ""
+                }
                 onSaved={handleSaved}
               />
             )}
