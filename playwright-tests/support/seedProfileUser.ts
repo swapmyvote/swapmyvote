@@ -18,6 +18,18 @@ const railsEnv = {
   SERVER_HOST: process.env.SERVER_HOST || "localhost",
 };
 
+// The ONS ids below must be the ones the real boundary data uses for these
+// seats, because `find_or_create_by!` only applies the name when it creates
+// the row. On a database that has been through `db:seed` — which
+// `bin/rails db:prepare` does on a fresh database, so most local ones — the
+// row already exists and keeps whatever name the seeds gave it. Woking was
+// previously seeded here as E14001063, which is really Aldershot: on a
+// fixtures-only database (CI) that created a seat called Woking and passed,
+// and on a seeded one it silently put the fixture user in Aldershot, failing
+// profile.spec.ts's "predicted results for Woking".
+const WOKING = "E14001592";
+const WAKEFIELD = "E14001009";
+
 export interface TestCredentials {
   email: string;
   password: string;
@@ -36,8 +48,8 @@ export interface TestCredentials {
 // between.
 function buildScript(credentials: TestCredentials): string {
   return `
-    woking = OnsConstituency.find_or_create_by!(ons_id: "E14001063") { |c| c.name = "Woking" }
-    OnsConstituency.find_or_create_by!(ons_id: "E14001009") { |c| c.name = "Wakefield" }
+    woking = OnsConstituency.find_or_create_by!(ons_id: "${WOKING}") { |c| c.name = "Woking" }
+    OnsConstituency.find_or_create_by!(ons_id: "${WAKEFIELD}") { |c| c.name = "Wakefield" }
     conservative = Party.find_or_create_by!(name: "Conservative") { |p| p.color = "#0087DC" }
     green = Party.find_or_create_by!(name: "Green") { |p| p.color = "#6AB023" }
     labour = Party.find_or_create_by!(name: "Labour") { |p| p.color = "#DC241f" }
@@ -149,8 +161,8 @@ export function seedSwapPair(suffix = ""): SwapPair {
   };
 
   const script = `
-    woking = OnsConstituency.find_or_create_by!(ons_id: "E14001063") { |c| c.name = "Woking" }
-    wakefield = OnsConstituency.find_or_create_by!(ons_id: "E14001009") { |c| c.name = "Wakefield" }
+    woking = OnsConstituency.find_or_create_by!(ons_id: "${WOKING}") { |c| c.name = "Woking" }
+    wakefield = OnsConstituency.find_or_create_by!(ons_id: "${WAKEFIELD}") { |c| c.name = "Wakefield" }
     green = Party.find_or_create_by!(name: "Green${suffix}") { |p| p.color = "#6AB023" }
     labour = Party.find_or_create_by!(name: "Labour${suffix}") { |p| p.color = "#DC241f" }
 
