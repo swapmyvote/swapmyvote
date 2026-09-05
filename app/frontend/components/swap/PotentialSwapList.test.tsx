@@ -10,6 +10,15 @@ vi.mock("@/components/polls/PollChart", () => ({
   PollChart: () => <div data-testid="poll-chart" />,
 }));
 
+const matchingRecommendation = {
+  siteId: "tacticalvote-co-uk",
+  siteName: "Tactical Vote",
+  siteLink: "https://tacticalvote.co.uk/",
+  siteMetaDesc: "Want to get the Tories out?",
+  match: "good" as const,
+  text: "Green",
+};
+
 function candidate(userId: number, name: string): SwapCandidate {
   return {
     userId,
@@ -21,7 +30,7 @@ function candidate(userId: number, name: string): SwapCandidate {
     preferredParty: { id: 2, name: "Labour", color: "#DC241f", smvCode: "lab" },
     willingParty: { id: 1, name: "Green", color: "#6AB023", smvCode: "grn" },
     polls: [],
-    recommendations: [],
+    recommendations: [matchingRecommendation],
   };
 }
 
@@ -60,6 +69,16 @@ describe("PotentialSwapList", () => {
 
     const [first] = screen.getAllByRole("link", { name: "Offer to swap" });
     expect(first).toHaveAttribute("href", "/app/swap/new/3");
+  });
+
+  // The key used to sit inside every card, which put it against each of five
+  // candidates and directly above each "Offer to swap".
+  it("explains the tick once for the whole list, not once per candidate", () => {
+    renderList();
+
+    expect(
+      screen.getAllByText(/marks a site that recommends the same party/),
+    ).toHaveLength(1);
   });
 
   it("says when the matches will be recalculated", () => {

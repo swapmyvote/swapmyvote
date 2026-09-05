@@ -17,6 +17,9 @@ interface PartyRecommendationsProps {
  * panel inside a bordered panel inside the profile card was three nested
  * boxes deep. The heading is what separates it from the poll interpretation
  * above.
+ *
+ * What the tick means is explained by RecommendationsKey, which is rendered
+ * once per screen rather than once per list of rows.
  */
 export function PartyRecommendations({
   constituencyName,
@@ -25,12 +28,6 @@ export function PartyRecommendations({
   if (recommendations.length === 0) {
     return null;
   }
-
-  // RecommendationsHelper#fullest_recommendations_for marks a site `good` when
-  // it recommends exactly the party this swap offers. Without a legend the
-  // tick is unexplained — a "bad" row (site recommends a different party) and
-  // an "unknown" one (site has no view on this seat) both simply lack it.
-  const anyMatch = recommendations.some((rec) => rec.match === "good");
 
   return (
     <div className="d-flex flex-column gap-2">
@@ -59,12 +56,6 @@ export function PartyRecommendations({
           </li>
         ))}
       </ul>
-      {anyMatch && (
-        <p className="small subdued mb-0">
-          <span aria-hidden="true">✅</span> marks a site that recommends the
-          same party as this swap.
-        </p>
-      )}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { RecommendationsKey } from "@/components/swap/RecommendationsKey";
 import { SwapProfileCard } from "@/components/swap/SwapProfileCard";
 import { useElection } from "@/lib/referenceData";
 import { swapNewPath } from "@/lib/spaPaths";
@@ -28,11 +29,20 @@ export function PotentialSwapList({
         </p>
       )}
 
+      {/* One key for the whole list, above the cards so the tick is explained
+          before it is met, rather than repeated against every candidate. */}
+      <RecommendationsKey
+        recommendations={candidates.flatMap(
+          (candidate) => candidate.recommendations,
+        )}
+      />
+
       {candidates.map((candidate) => (
         <SwapProfileCard
           key={candidate.userId}
           candidate={candidate}
           offerLink={swapNewPath(candidate.userId)}
+          showRecommendationsKey={false}
         />
       ))}
 

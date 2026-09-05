@@ -112,6 +112,33 @@ describe("SwapProfileCard", () => {
     );
   });
 
+  // A single-card screen — the dashboard, the offer page — keeps the key,
+  // and gets it without having to remember to render one.
+  it("explains the tick by default, and lets a list opt out", () => {
+    const withKey = candidate();
+    withKey.recommendations = [
+      {
+        siteId: "tacticalvote-co-uk",
+        siteName: "Tactical Vote",
+        siteLink: "https://tacticalvote.co.uk/",
+        siteMetaDesc: "Want to get the Tories out?",
+        match: "good",
+        text: "Green",
+      },
+    ];
+
+    const { unmount } = renderCard({ candidate: withKey });
+    expect(
+      screen.getByText(/marks a site that recommends the same party/),
+    ).toBeInTheDocument();
+    unmount();
+
+    renderCard({ candidate: withKey, showRecommendationsKey: false });
+    expect(
+      screen.queryByText(/marks a site that recommends the same party/),
+    ).not.toBeInTheDocument();
+  });
+
   // The action row sits right, as ProfileReview's Change/Proceed pair and the
   // profile, constituency and mobile forms all do. This card was the odd one
   // out, left-aligning it.

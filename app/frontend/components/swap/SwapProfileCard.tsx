@@ -4,6 +4,7 @@ import { ActionRow } from "@/components/forms/ActionRow";
 import { PollChart } from "@/components/polls/PollChart";
 import { PartnerPollInterpretation } from "@/components/swap/PartnerPollInterpretation";
 import { PartyRecommendations } from "@/components/swap/PartyRecommendations";
+import { RecommendationsKey } from "@/components/swap/RecommendationsKey";
 import { useElection } from "@/lib/referenceData";
 import type { SwapCandidate, SwapPartnerDetail } from "@/types/api";
 import styles from "./SwapProfileCard.module.scss";
@@ -14,6 +15,9 @@ interface SwapProfileCardProps {
   candidate: SwapCandidate | SwapPartnerDetail;
   /** When given, the card ends with an "Offer to swap" button pointing here. */
   offerLink?: string;
+  /** False on the find-a-swap list, which shows one key above all the cards
+   *  instead of repeating it inside each. */
+  showRecommendationsKey?: boolean;
 }
 
 /**
@@ -27,6 +31,7 @@ interface SwapProfileCardProps {
 export function SwapProfileCard({
   candidate,
   offerLink,
+  showRecommendationsKey = true,
 }: SwapProfileCardProps) {
   const election = useElection();
   const hidePolls = election.data?.hidePolls ?? false;
@@ -102,6 +107,11 @@ export function SwapProfileCard({
                 constituencyName={constituencyName}
                 recommendations={candidate.recommendations}
               />
+              {showRecommendationsKey && (
+                <RecommendationsKey
+                  recommendations={candidate.recommendations}
+                />
+              )}
             </div>
           )}
 
