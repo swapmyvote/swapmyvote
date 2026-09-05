@@ -67,6 +67,14 @@ $body-bg: #f8f9fa;
 $link-color: #212529;
 $input-bg: #fff;
 
+// Bootstrap 5.3 defaults $card-bg to $body-bg, which here leaves a card the
+// exact colour of the page behind it — a 1px border at 17.6% black was the
+// only thing separating one from the other, and the swap screens stack
+// several. Each potential swap partner is one card, so the fill is what makes
+// them read as separate people rather than one long column of text. White for
+// the same reason $input-bg above is white.
+$card-bg: #fff;
+
 // $code-color otherwise inherits $pink (#ff99ff), which is unreadable on the
 // light background. Use a dark magenta that keeps the brand tint but passes
 // contrast for inline <code> (e.g. cookie names on the Cookie Policy page).
