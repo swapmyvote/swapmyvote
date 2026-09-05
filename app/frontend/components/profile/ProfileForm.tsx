@@ -3,6 +3,7 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { FormErrors } from "@/components/forms/FormErrors";
 import { ConstituencyAutocomplete } from "@/components/home/ConstituencyAutocomplete";
 import { PostcodeLookup } from "@/components/home/PostcodeLookup";
@@ -205,11 +206,11 @@ export function ProfileForm({
 
         <FormErrors messages={errors} />
 
-        <div className="d-flex justify-content-end">
+        <ActionRow>
           <Button type="submit" variant="primary" disabled={saving}>
             Save
           </Button>
-        </div>
+        </ActionRow>
 
         <hr className="my-0" />
 

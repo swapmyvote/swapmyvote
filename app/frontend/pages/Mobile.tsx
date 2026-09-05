@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import { Link, useLocation } from "react-router-dom";
 import { RequireLogin } from "@/components/auth/RequireLogin";
 import { RequireSwappingOpen } from "@/components/auth/RequireSwappingOpen";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { MobileVerification } from "@/components/mobile/MobileVerification";
 import { useSession } from "@/contexts/useSession";
 import { spaPaths } from "@/lib/spaPaths";
@@ -71,7 +72,7 @@ export function Mobile() {
                   {/* Default action rightmost, as ProfileReview's
                       Change/Proceed pair also does. DOM order is visual order,
                       so keyboard users meet them in the same sequence. */}
-                  <div className="d-flex justify-content-end gap-2">
+                  <ActionRow>
                     <Button
                       type="button"
                       variant="outline-secondary"
@@ -82,12 +83,16 @@ export function Mobile() {
                     >
                       Use a different number
                     </Button>
-                    {/* /app/profile only because the dashboard the legacy
-                        card sends people to is M7 and unported. */}
-                    <Link to={spaPaths.profile} className="btn btn-primary">
+                    {/* Where verify_create.html.haml's Continue goes —
+                        `user_path`, the dashboard. It sorts out where this
+                        user actually belongs: on to the swap they have, to
+                        /app/swap to find one, or back to /app/constituency if
+                        the profile is still short of a constituency or an
+                        email. */}
+                    <Link to={spaPaths.dashboard} className="btn btn-primary">
                       Continue
                     </Link>
-                  </div>
+                  </ActionRow>
                 </div>
               )}
             </Card.Body>

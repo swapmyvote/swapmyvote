@@ -1,5 +1,6 @@
 import { type FormEvent, useState } from "react";
 import Button from "react-bootstrap/Button";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { FormErrors } from "@/components/forms/FormErrors";
 import { PhoneNumberField } from "@/components/mobile/PhoneNumberField";
 import { VerificationCodeField } from "@/components/mobile/VerificationCodeField";
@@ -103,11 +104,11 @@ export function MobileVerification({
 
           <FormErrors messages={errors} />
 
-          <div className="d-flex justify-content-end">
+          <ActionRow>
             <Button type="submit" variant="primary" disabled={busy}>
               Send me a code
             </Button>
-          </div>
+          </ActionRow>
         </div>
       </form>
     );
@@ -126,11 +127,11 @@ export function MobileVerification({
 
         <FormErrors messages={errors} />
 
-        <div className="d-flex justify-content-end">
+        <ActionRow>
           <Button type="submit" variant="primary" disabled={busy}>
             Verify
           </Button>
-        </div>
+        </ActionRow>
 
         {/* <button>s, not links — they act rather than navigate. See
             `p .btn-link` in globals.scss for what makes them read as links. */}

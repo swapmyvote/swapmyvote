@@ -1,6 +1,7 @@
 import { type FormEvent, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { FormErrors } from "@/components/forms/FormErrors";
 import { RejectSwapModal } from "@/components/swap/RejectSwapModal";
 import { SwapProfileCard } from "@/components/swap/SwapProfileCard";
@@ -84,7 +85,7 @@ export function ConfirmIncomingSwap({ swap }: { swap: SwapDetail }) {
               label={`I understand that my email address will be shared with ${partner.name}`}
             />
 
-            <div>
+            <ActionRow>
               <button
                 type="submit"
                 className="btn btn-primary"
@@ -92,7 +93,7 @@ export function ConfirmIncomingSwap({ swap }: { swap: SwapDetail }) {
               >
                 Swap with {partner.name}
               </button>
-            </div>
+            </ActionRow>
           </Form>
         </>
       ) : (

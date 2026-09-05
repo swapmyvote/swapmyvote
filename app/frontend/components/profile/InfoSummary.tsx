@@ -21,7 +21,10 @@ export function InfoSummary() {
   }
 
   return (
-    <Container className="py-3">
+    // container-narrow, matching the page above it: every screen that ends
+    // with this summary renders its own content in that reading column, and a
+    // full-width footer under a 610px column reads as a different page.
+    <Container className="container-narrow py-3">
       <p className="mb-1">
         Your preferred party is{" "}
         <strong>{user.preferredParty?.name ?? "?"}</strong> but you are willing

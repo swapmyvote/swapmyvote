@@ -1,5 +1,6 @@
 import Alert from "react-bootstrap/Alert";
 import { Link } from "react-router-dom";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { PollChart } from "@/components/polls/PollChart";
 import { interpretPoll } from "@/lib/pollInterpretation";
 import { spaPaths } from "@/lib/spaPaths";
@@ -78,14 +79,14 @@ export function ProfileReview({
           carries on sits rightmost, with the way back to its left. The DOM
           order is the visual order, so keyboard and screen-reader users meet
           them the same way. */}
-      <div className="d-flex justify-content-end gap-2">
+      <ActionRow>
         <Link to={spaPaths.profile} className="btn btn-secondary">
           Change
         </Link>
         <Link to={spaPaths.dashboard} className="btn btn-primary">
           Proceed
         </Link>
-      </div>
+      </ActionRow>
     </div>
   );
 }

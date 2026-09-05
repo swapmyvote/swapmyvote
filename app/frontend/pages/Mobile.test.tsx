@@ -97,12 +97,15 @@ describe("Mobile", () => {
     expect(field.value.replace(/\D/g, "")).not.toContain("7400123456");
   });
 
-  it("links Continue to the profile page", () => {
+  // Where verify_create.html.haml's Continue goes (`user_path`). The
+  // dashboard then routes on by itself — to the swap, to /app/swap, or back
+  // to /app/constituency — so this link does not have to.
+  it("links Continue to the dashboard", () => {
     renderPage(testUser);
 
     expect(screen.getByRole("link", { name: "Continue" })).toHaveAttribute(
       "href",
-      "/app/profile",
+      "/app/dashboard",
     );
   });
 

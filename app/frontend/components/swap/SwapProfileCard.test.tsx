@@ -112,6 +112,20 @@ describe("SwapProfileCard", () => {
     );
   });
 
+  // The action row sits right, as ProfileReview's Change/Proceed pair and the
+  // profile, constituency and mobile forms all do. This card was the odd one
+  // out, left-aligning it.
+  it("puts the offer button in a right-aligned action row", () => {
+    const { container } = renderCard({
+      candidate: candidate(),
+      offerLink: "/app/swap/new/3",
+    });
+
+    const link = screen.getByRole("link", { name: "Offer to swap" });
+    expect(link.parentElement).toHaveClass("justify-content-end");
+    expect(container.querySelector(".card .card")).toBeNull();
+  });
+
   it("copes with a candidate whose constituency is unknown", () => {
     renderCard({
       candidate: candidate({

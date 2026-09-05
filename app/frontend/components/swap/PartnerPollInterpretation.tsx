@@ -52,12 +52,10 @@ export function PartnerPollInterpretation({
     );
   }
 
-  // Same card the legacy _swap_profile partial wraps this paragraph in
-  // (.profile-recommendations.smv-card) — a sibling of the recommendations
-  // card below it, not loose text next to a bordered panel.
-  return (
-    <div className="card">
-      <div className="card-body">{body}</div>
-    </div>
-  );
+  // No card of its own. The legacy partial wrapped this in
+  // .profile-recommendations.smv-card, but inside SwapProfileCard's card that
+  // is a box in a box — and the recommendations below it dropped their card
+  // for the same reason. The "Does this help your vote count?" heading above
+  // already groups the two.
+  return body;
 }

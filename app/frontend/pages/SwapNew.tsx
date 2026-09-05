@@ -6,6 +6,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RequireLogin } from "@/components/auth/RequireLogin";
 import { RequireSwappingOpen } from "@/components/auth/RequireSwappingOpen";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { FormErrors } from "@/components/forms/FormErrors";
 import { SwapProfileCard } from "@/components/swap/SwapProfileCard";
 import { apiErrorMessages } from "@/lib/apiErrors";
@@ -110,7 +111,7 @@ export function SwapNew() {
                   label={`I understand that my email address will be shared with ${candidate.data.name} when the swap is confirmed`}
                 />
 
-                <div>
+                <ActionRow>
                   <button
                     type="submit"
                     className="btn btn-primary"
@@ -118,7 +119,7 @@ export function SwapNew() {
                   >
                     Swap with {candidate.data.name}
                   </button>
-                </div>
+                </ActionRow>
               </Form>
 
               <p className="small subdued mb-0">

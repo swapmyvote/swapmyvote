@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "react-bootstrap/Modal";
+import { ConfirmDialog } from "@/components/forms/ConfirmDialog";
 import { FormErrors } from "@/components/forms/FormErrors";
 import { apiErrorMessages } from "@/lib/apiErrors";
 import { cancelSwap, useSwapMutation } from "@/lib/swap";
@@ -16,7 +16,7 @@ interface RejectSwapModalProps {
  * opens with jQuery.
  *
  * Rejecting destroys the swap, and Swap's before_destroy hook emails both
- * sides — so the warning is not decoration.
+ * sides — so the warning in the body is not decoration.
  */
 export function RejectSwapModal({
   partnerName,
@@ -37,33 +37,20 @@ export function RejectSwapModal({
   }
 
   return (
-    <Modal
+    <ConfirmDialog
+      ariaLabel={`Reject ${partnerName}`}
       show={show}
       onHide={onHide}
-      centered
-      aria-label={`Reject ${partnerName}`}
+      onConfirm={reject}
+      confirmLabel="Reject"
+      confirmDisabled={mutation.isPending}
     >
-      <Modal.Body>
-        <p>Are you sure you want to reject {partnerName}?</p>
-        <p className="subdued small mb-0">
-          Some voting preferences are in high demand, and we can't be sure that
-          we'll find anyone else to swap with if you turn down {partnerName}.
-        </p>
-        <FormErrors messages={errors} />
-      </Modal.Body>
-      <Modal.Footer>
-        <button type="button" className="btn btn-secondary" onClick={onHide}>
-          Cancel
-        </button>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={reject}
-          disabled={mutation.isPending}
-        >
-          Reject
-        </button>
-      </Modal.Footer>
-    </Modal>
+      <p>Are you sure you want to reject {partnerName}?</p>
+      <p className="subdued small mb-0">
+        Some voting preferences are in high demand, and we can't be sure that
+        we'll find anyone else to swap with if you turn down {partnerName}.
+      </p>
+      <FormErrors messages={errors} />
+    </ConfirmDialog>
   );
 }

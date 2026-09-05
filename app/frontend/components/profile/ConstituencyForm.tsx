@@ -1,6 +1,7 @@
 import { type FormEvent, useId, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { FormErrors } from "@/components/forms/FormErrors";
 import { ConstituencyAutocomplete } from "@/components/home/ConstituencyAutocomplete";
 import { PostcodeLookup } from "@/components/home/PostcodeLookup";
@@ -180,11 +181,11 @@ export function ConstituencyForm({
 
         <FormErrors messages={errors} />
 
-        <div className="d-flex justify-content-end">
+        <ActionRow>
           <Button type="submit" variant="primary" disabled={saving}>
             Save
           </Button>
-        </div>
+        </ActionRow>
       </div>
     </form>
   );

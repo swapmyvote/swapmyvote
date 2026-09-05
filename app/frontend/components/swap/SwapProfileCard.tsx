@@ -1,5 +1,6 @@
 import { FaEnvelope, FaFacebook, FaPhone, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { PollChart } from "@/components/polls/PollChart";
 import { PartnerPollInterpretation } from "@/components/swap/PartnerPollInterpretation";
 import { PartyRecommendations } from "@/components/swap/PartyRecommendations";
@@ -105,11 +106,11 @@ export function SwapProfileCard({
           )}
 
         {offerLink !== undefined && (
-          <div>
+          <ActionRow>
             <Link to={offerLink} className="btn btn-primary">
               Offer to swap
             </Link>
-          </div>
+          </ActionRow>
         )}
       </div>
     </div>

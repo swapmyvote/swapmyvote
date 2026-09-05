@@ -1,5 +1,6 @@
 import { type FormEvent, useState } from "react";
 import Form from "react-bootstrap/Form";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { FormErrors } from "@/components/forms/FormErrors";
 import { apiErrorMessages } from "@/lib/apiErrors";
 import { shareEmail, useSwapMutation } from "@/lib/swap";
@@ -51,7 +52,7 @@ export function ShareEmailConsentForm({
         label={label}
       />
 
-      <div>
+      <ActionRow>
         <button
           type="submit"
           className="btn btn-primary"
@@ -59,7 +60,7 @@ export function ShareEmailConsentForm({
         >
           {submitLabel}
         </button>
-      </div>
+      </ActionRow>
     </Form>
   );
 }
