@@ -1,5 +1,6 @@
 import Alert from "react-bootstrap/Alert";
 import { Link } from "react-router-dom";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { PollChart } from "@/components/polls/PollChart";
 import { interpretPoll } from "@/lib/pollInterpretation";
 import { spaPaths } from "@/lib/spaPaths";
@@ -10,9 +11,6 @@ interface ProfileReviewProps {
   polls: ConstituencyPoll[];
   willingParty: Party | null;
 }
-
-// The dashboard is still HAML (M7), so proceeding leaves the SPA.
-const hamlDashboard = "/user";
 
 /**
  * Ports app/views/users/review.haml: after a change to the offered vote, show
@@ -81,17 +79,14 @@ export function ProfileReview({
           carries on sits rightmost, with the way back to its left. The DOM
           order is the visual order, so keyboard and screen-reader users meet
           them the same way. */}
-      <div className="d-flex justify-content-end gap-2">
+      <ActionRow>
         <Link to={spaPaths.profile} className="btn btn-secondary">
           Change
         </Link>
-        {/* Plain anchor, not react-bootstrap's <Button href>: that component
-            overrides the implicit anchor role to "button", which would break
-            this link's accessible role. */}
-        <a href={hamlDashboard} className="btn btn-primary">
+        <Link to={spaPaths.dashboard} className="btn btn-primary">
           Proceed
-        </a>
-      </div>
+        </Link>
+      </ActionRow>
     </div>
   );
 }

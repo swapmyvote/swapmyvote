@@ -47,7 +47,6 @@ export const testSwap: SwapSummary = {
   state: "outgoing",
   confirmed: false,
   partner: {
-    name: "Grace Hopper",
     imageUrl: "https://example.com/grace.png",
     constituencyName: "Wakefield",
   },

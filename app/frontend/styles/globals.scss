@@ -67,6 +67,14 @@ $body-bg: #f8f9fa;
 $link-color: #212529;
 $input-bg: #fff;
 
+// Bootstrap 5.3 defaults $card-bg to $body-bg, which here leaves a card the
+// exact colour of the page behind it — a 1px border at 17.6% black was the
+// only thing separating one from the other, and the swap screens stack
+// several. Each potential swap partner is one card, so the fill is what makes
+// them read as separate people rather than one long column of text. White for
+// the same reason $input-bg above is white.
+$card-bg: #fff;
+
 // $code-color otherwise inherits $pink (#ff99ff), which is unreadable on the
 // light background. Use a dark magenta that keeps the brand tint but passes
 // contrast for inline <code> (e.g. cookie names on the Cookie Policy page).
@@ -174,6 +182,30 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
   --bs-btn-hover-bg: var(--mf-pink-dark);
   --bs-btn-hover-border-color: var(--mf-pink-dark);
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
+}
+
+// Social-share buttons (SocialShare.tsx). Ported from
+// app/assets/stylesheets/button.scss, which the SPA layout never loads —
+// spa.html.haml pulls in no Sprockets stylesheets, so a bare .btn there is
+// transparent with no border. Same colours, same #{$prefix}btn-* pattern as
+// .btn-outline-secondary above; that file stays untouched for the live HAML
+// site, so these are not shared, just kept in sync by eye.
+$facebook-color: #4267b2;
+$twitter-color: #55acee;
+$email-color: #5f55ee;
+
+@each $name, $color in (facebook: $facebook-color, twitter: $twitter-color, email: $email-color) {
+  .btn-#{$name} {
+    --#{$prefix}btn-color: #{color-contrast($color)};
+    --#{$prefix}btn-bg: #{$color};
+    --#{$prefix}btn-border-color: #{$color};
+    --#{$prefix}btn-hover-color: #{color-contrast($color)};
+    --#{$prefix}btn-hover-bg: #{shade-color($color, 10%)};
+    --#{$prefix}btn-hover-border-color: #{shade-color($color, 10%)};
+    --#{$prefix}btn-active-color: #{color-contrast($color)};
+    --#{$prefix}btn-active-bg: #{shade-color($color, 10%)};
+    --#{$prefix}btn-active-border-color: #{shade-color($color, 10%)};
+  }
 }
 
 .btn-link {

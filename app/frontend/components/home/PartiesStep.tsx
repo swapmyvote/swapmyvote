@@ -2,6 +2,7 @@ import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { ActionRow } from "@/components/forms/ActionRow";
 import type { Party } from "@/types/api";
 
 interface PartiesStepProps {
@@ -116,7 +117,7 @@ export function PartiesStep({
           their preferred vote in your area.
         </p>
 
-        <div className="d-flex justify-content-end">
+        <ActionRow>
           <Button
             type="submit"
             variant="primary"
@@ -125,7 +126,7 @@ export function PartiesStep({
           >
             Next: Sign Up
           </Button>
-        </div>
+        </ActionRow>
       </div>
     </form>
   );

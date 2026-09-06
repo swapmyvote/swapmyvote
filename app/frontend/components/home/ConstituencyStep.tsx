@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import { ActionRow } from "@/components/forms/ActionRow";
 import { ConstituencyAutocomplete } from "@/components/home/ConstituencyAutocomplete";
 import { PostcodeLookup } from "@/components/home/PostcodeLookup";
 import type { Constituency } from "@/types/api";
@@ -73,11 +74,11 @@ export function ConstituencyStep({
           </Alert>
         )}
 
-        <div className="d-flex justify-content-end">
+        <ActionRow>
           <Button type="submit" variant="primary">
             Next: Choose Parties
           </Button>
-        </div>
+        </ActionRow>
       </div>
     </form>
   );

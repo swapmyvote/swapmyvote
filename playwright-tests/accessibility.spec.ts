@@ -2,7 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, type Locator, type Page, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn } from "./support/auth";
-import { seedProfileUser } from "./support/seedProfileUser";
+import { seedProfileUser, seedSwapPair } from "./support/seedProfileUser";
 
 // The M1 static pages, under the `/app/*` preview paths they are served from
 // until each one is cut over. spaPaths also carries `faq`, which is not
@@ -94,6 +94,14 @@ const signedInPages: {
     path: spaPaths.mobile,
     ready: (page) => page.getByLabel("My mobile number is"),
   },
+  {
+    name: "Swap",
+    path: spaPaths.swap,
+    ready: (page) =>
+      page.getByRole("heading", {
+        name: "We’re looking for a voting partner for you",
+      }),
+  },
 ];
 
 for (const { name, path, ready } of signedInPages) {
@@ -123,3 +131,44 @@ for (const { name, path, ready } of signedInPages) {
     ).toEqual([]);
   });
 }
+
+// The M7 swap flow. Unlike signedInPages, these two screens only exist once
+// this fixture has a live outgoing swap, which the shared fixture user above
+// deliberately does not have — so this gets its own pair and its own test,
+// scanning the offer screen and the resulting dashboard in one pass.
+const axePair = seedSwapPair("-axe");
+
+test("must report no WCAG A/AA violations across the offer and dashboard screens", async ({
+  page,
+}, testInfo) => {
+  await signIn(page, axePair.chooser);
+
+  await page.goto(spaPaths.swap);
+  await page.getByRole("link", { name: "Offer to swap" }).first().click();
+  await expect(page.getByRole("checkbox")).toBeVisible();
+
+  const offer = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
+
+  await page.getByRole("checkbox").check();
+  await page.getByRole("button", { name: /^Swap with / }).click();
+  await expect(
+    page.getByRole("heading", { name: /You've asked to swap your vote with/ }),
+  ).toBeVisible();
+
+  const dashboard = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
+
+  const violations = [...offer.violations, ...dashboard.violations];
+  if (violations.length > 0) {
+    await testInfo.attach("axe-violations.json", {
+      body: JSON.stringify(violations, null, 2),
+      contentType: "application/json",
+    });
+  }
+
+  expect(
+    violations.map(
+      (violation) =>
+        `${violation.id} (${violation.nodes.length} nodes): ${violation.help}`,
+    ),
+  ).toEqual([]);
+});

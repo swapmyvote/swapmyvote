@@ -1,0 +1,8 @@
+// Bootstrap's `rounded-circle` handles the shape; only the fixed size (so the
+// name/badges/votes column lines up consistently) needs custom CSS.
+.avatar {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
