@@ -8,6 +8,10 @@ Some conventions here are ported from the sibling repo **tacticalvote** (`../tac
 
 swapmyvote is a **Ruby on Rails 6.1** app (Ruby 3.3.12; SQLite in dev/test, Postgres in prod) that matches voters who want to swap votes tactically. Core domain lives in `app/models/` (`user.rb`, `swap.rb`, `potential_swap.rb`, `poll.rb`, `ons_constituency.rb`). Auth is Devise + OmniAuth (Twitter/Facebook) with SMS OTP via MessageBird. A five-phase operational engine (`app/controllers/concerns/app_mode_concern.rb`, driven by `ENV["SWAPMYVOTE_MODE"]`) gates most actions.
 
+### Rails upgrade (planned, not started)
+
+Rails 6.1 is end of life, and the last 16 open Dependabot alerts (2 critical) are all gated on it. The plan to move to **Rails 8.1** — target rationale, the four probes that sized it, the four-PR order, and why Rack 3 is deliberately deferred — is in [`docs/rails-upgrade-plan.md`](docs/rails-upgrade-plan.md). It is independent of the frontend migration below and is **not** waiting on the cutover.
+
 ### Frontend modernization (in progress)
 
 The frontend is being migrated from server-rendered HAML + jQuery/CoffeeScript to a **Vite + React 19 + TypeScript SPA** styled like tacticalvote (Bootstrap 5.3 + react-bootstrap, Rubik Bold uppercase headings, magenta `#ff66ff` primary, per-party colour classes). Rails is becoming a JSON API under `/api/v1`; the SPA is served **same-origin via `vite_rails`** during migration so Devise sessions, CSRF, and OmniAuth redirects work without cross-origin complexity. Rollout is an **incremental build behind a single cutover** — screens are ported one at a time under `/app/*` preview paths, old HAML and new React coexist, and nothing flips until the whole site is approved.
