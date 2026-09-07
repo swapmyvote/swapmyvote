@@ -56,7 +56,7 @@ Four PRs. The staging is deliberate but light: with session invalidation off the
 - **Step 3 — Rails 7.2.3.2 and `load_defaults` 7.2**, with `gem "rack", "~> 2.2"` pinned (see below). ✅ **Landed in #1070.** Devise 4.9.4 → 5.0.4, sqlite3 1.7.3 → 2.9.6 and `rspec-rails` 6.1.x → 8.0.4 came with it, and `bundler-audit` reports **no vulnerabilities**. Four small code changes were needed, none of them behavioural: `config.fixture_path` → `fixture_paths` (rspec-rails 7), `config.action_mailer.preview_path` → `preview_paths` (Rails 7.1), `enum provider: {...}` → `enum :provider, {...}` (keyword form is removed in Rails 8, so this was a step-4 blocker found early), and six view snapshots regenerated for Rails 7 helper output — attribute ordering, plus `favicon_link_tag` emitting `rel="icon"` instead of `rel="shortcut icon"`. The `require "logger"` shim in `config/boot.rb` was removed, as its own comment asked, now that Rails no longer depends on concurrent-ruby for it.
 
   Two things surfaced that the probes could not have: Rails 7.2's SQLite adapter sets its own default pragmas, where 6.1 set none. `journal_mode` now defaults to WAL, which writes `-shm`/`-wal` sidecars next to the database that `.gitignore` did not cover, so they are added there. And SQLite write contention became visible in the Playwright suite — workers run in parallel and each seeds through `bin/rails runner` while the server is also writing, which started failing with `SQLite3::BusyException: database is locked`, taking a different spec down on each run. The suite now runs `workers: 1`; that costs about 30s on a one-minute suite and removes the flake completely. This matters for CI as well as locally, because the Playwright job drives the development stack on SQLite.
-- **Step 4 — Rails 8.1.3.1 and `load_defaults` 8.x**, unpinning Rack and letting Rack 3 land.
+- **Step 4 — Rails 8.1.3.1 and `load_defaults` 8.1**, unpinning Rack and letting Rack 3 land. ✅ **Landed in #1071.** Rack 2.2.24 → 3.2.7 needed **no code changes** — the middleware stack (airbrake, OmniAuth, `vite_rails`, `invisible_captcha`) came through untouched, and the suite, `yarn e2e` and a booted app on both pipelines are all green. `omniauth-rails_csrf_protection` was unpinned from `~> 0.1` (a 2020 release) to `~> 2.0`: its 0.1.2 `token_verifier.rb` includes `ActiveSupport::Configurable`, which Rails 8.1 deprecates and 8.2 removes, so this was the app's only remaining deprecation warning and a future blocker.
 
 Keep the intermediate 7.2 stop even though the app is small, for a reason unrelated to sessions: Rails signposts each removal as a deprecation in the version *before* it lands, so jumping 6.1 → 8.1 directly trades warnings for unexplained hard failures. The suite emits zero deprecations today, which makes that signal clean and worth spending.
 
@@ -67,6 +67,8 @@ Keep the intermediate 7.2 stop even though the app is small, for a reason unrela
 Rack 2 → 3 is the largest genuine behavioural change in this upgrade — downcased header names, stricter response-body semantics — and it reaches the airbrake middleware, OmniAuth, Devise, `invisible_captcha` and `vite_rails`.
 
 It is also **optional**. Both targets accept Rack 2: Action Pack 7.2.3.2 requires `rack >= 2.2.4, < 3.3` and 8.1.3.1 requires `rack >= 2.2.4`. Pinning `gem "rack", "~> 2.2"` through step 3 keeps the alert-clearing PR free of the one change most likely to break something subtly, and confines Rack 3 to step 4 where it is the only variable. Verified: the full Gemfile resolves on Rails 7.2.3.2 with Rack pinned to 2.2.24.
+
+**Outcome:** Rack 3.2.7 landed in step 4 with **no code changes at all**. Deferring it cost one line of Gemfile and was still the right call — had something broken, it would have broken alone rather than inside the PR that clears the security alerts.
 
 ---
 
@@ -84,9 +86,9 @@ The two efforts do not otherwise collide: this plan touches `config/`, the Gemfi
 
 ## Key risks and de-risking
 
-1. **Devise 4.9.4 → 5.0.4** on a live auth system, with OmniAuth identities still wired up so legacy social accounts keep working. Devise 5 is a major with breaking changes. Read its changelog against `app/controllers/users/*` (six Devise subclasses) before step 3, and drive login, registration, password reset and one social round-trip by hand — `playwright-tests/auth.spec.ts` covers email/password only.
-2. **Rack 3, in step 4.** Deferred as above so it lands alone. Check the airbrake middleware and `vite_rails` first; both sit in the middleware stack.
-3. **Sprockets, CoffeeScript and sassc at runtime.** They *resolve* on 8.1; this plan has not booted them there. Five `.coffee` files and 11 `.scss` files behind `sprockets 4.4.1` and the unmaintained `sassc-rails`. Boot the app and load a legacy HAML page early in step 3 rather than trusting `bundle install`.
+1. ~~**Devise 4.9.4 → 5.0.4** on a live auth system.~~ **Landed in step 3 (#1070) with no code changes**, and `playwright-tests/auth.spec.ts` (sign-up, log out, log back in, wrong-password refusal) passes. **Still worth a manual pass before deploying**: the e2e specs cover email/password only, so password reset and a social round-trip through `Users::OmniauthCallbacksController` are unexercised, and step 4 moved `omniauth-rails_csrf_protection` across two majors.
+2. ~~**Rack 3, in step 4.**~~ **Landed in #1071 with no code changes.** The airbrake middleware, OmniAuth, `invisible_captcha` and `vite_rails` all came through untouched.
+3. ~~**Sprockets, CoffeeScript and sassc at runtime.**~~ **Verified.** The booted app serves `/`, `/faq` and `/users/sign_in` (Sprockets) alongside `/app/ping` (Vite) on both 7.2 and 8.1.
 4. **`rspec-rails` 4 → 8 is four majors, taken in two hops.** **Settled.** The 4.0.1 → 6.1.5 hop in step 2 needed no spec changes at all. The 6.1.5 → 8.0.4 hop in step 3 needed exactly one: `config.fixture_path =` became `config.fixture_paths = [...]` in `spec/rails_helper.rb`, which rspec-rails 7 renamed. So the anticipated `rails_helper` churn was real but a single line, and it belonged to the second hop.
 5. **Cookie invalidation at `load_defaults` 7.0** (`key_generator_hash_digest_class` SHA1 → SHA256) logs every user out. **Accepted** — see Context. `config.action_dispatch.cookies_serializer` is already `:json`, so the other half of this problem does not arise.
 
@@ -110,3 +112,11 @@ Not blockers, but worth folding in while we are here.
 - **`yarn e2e`** (25 Playwright/axe specs) at steps 3 and 4; it drives real auth, so it is the cheapest check on the Devise 5 bump.
 - **`bundle exec bundler-audit check --update`** at the end of step 3 should report clean. That is the definition of done for this plan.
 - **Alert count:** confirm on the Dependabot page that all 16 are closed after step 3 deploys.
+
+---
+
+## Left for later
+
+- **The Playwright suite runs `workers: 1`.** Rails 7.2 exposed SQLite write contention in the parallel seeds (`SQLite3::BusyException`); Rails 8.1 fixes that specific cause by beginning SQLite transactions as IMMEDIATE, and the BusyExceptions are gone. What still fails about one parallel run in three is inside `playwright-tests/profile.spec.ts`: `seedProfileUser()` is called once at module scope, and both tests in its `profile screen` block mutate that one user — one changes the offered party, the other the email — so they race each other. Giving those two tests their own fixture rows would let parallelism come back and save ~30s a run.
+- **`require "rails/all"` still loads Active Storage, Action Cable, Action Text and Action Mailbox**, none of which the app uses. Now that the advisories are closed this is no longer urgent, but selective requires would still cut boot time and attack surface.
+- **The `net-http`, `csv`, `mutex_m` and `drb` entries in the Gemfile** are shims the comment above them describes as "probably removable when upgrading beyond Rails 6.1". They were left alone deliberately — they are harmless, and removing them is a separate change with its own verification.
