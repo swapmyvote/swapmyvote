@@ -11,11 +11,11 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.email_address_shared(user_one, user_two)
   end
 
-  def swap_confirmed
+  def swap_confirmed_with_email_consent
     UserMailer.swap_confirmed(user_one, user_two, true)
   end
 
-  def swap_confirmed
+  def swap_confirmed_without_email_consent
     UserMailer.swap_confirmed(user_one, user_two, false)
   end
 
