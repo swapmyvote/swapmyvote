@@ -10,6 +10,14 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./playwright-tests",
   fullyParallel: true,
+  // One worker, deliberately. The specs drive the development stack, which is
+  // SQLite (see .github/workflows/playwright.yml), and each spec seeds through
+  // `bin/rails runner` while the running server is also writing. Rails 7.2's
+  // SQLite adapter made that contention visible -- parallel workers hit
+  // `SQLite3::BusyException: database is locked` in the seeds, failing a
+  // different spec on each run. One writer at a time costs ~30s on a ~1min
+  // suite and removes the flake entirely.
+  workers: 1,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   // CI also writes the HTML report so the workflow can upload it as an
