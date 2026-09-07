@@ -248,11 +248,12 @@ and every other legacy spec. Nothing in `app/views/user/` is touched.
 
 ## Follow-up in tacticalvote
 
-Raise an issue on `forwarddemocracy/tacticalvote` proposing the same upgrade:
+Raised as
+[forwarddemocracy/tacticalvote#971](https://github.com/forwarddemocracy/tacticalvote/issues/971):
 replace `react-web-share` with `react-share` + `navigator.share`, resolving the
-deferral in PR #536 and the root cause in issue #66. It should reference the
+deferral in PR #536 and the root cause in issue #66. It references the
 `proto-react-share-fallback` branch as prior art and this milestone as a landed
-reference implementation, and note that TV additionally has to decide the X
+reference implementation, and notes that TV additionally has to decide the X
 question and handle the SSR hydration pass that swapmyvote does not have.
 
 ## Out of scope
