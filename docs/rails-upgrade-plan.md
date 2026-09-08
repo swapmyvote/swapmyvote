@@ -103,6 +103,7 @@ Not blockers, but worth folding in while we are here.
 
 ## Verification
 
+- **Run the suite against Postgres, not just SQLite.** This is the one that bit us: everything below was green on SQLite while CI's `test` job (which uses Postgres) failed 12 examples. `where("col IS ?", nil)` emits `IS $1` under Rails 7.2, which SQLite accepts and Postgres rejects as a syntax error. `docker run -d --rm -e POSTGRES_DB=rails_test -e POSTGRES_USER=rails -e POSTGRES_PASSWORD=password -p 5433:5432 postgres:16`, then `RAILS_ENV=test DATABASE_URL=postgres://rails:password@localhost:5433/rails_test bundle exec rspec`. `pg` needs Homebrew's libpq to build — see the gotcha in `AGENTS.md`.
 - **Per step:** `bin/rake spec` (579 examples) and `bin/rake lint` green; `yarn lint`, `yarn typecheck`, `yarn test` unaffected but re-run at step 3 and 4 in case a Rails change reaches the SPA shell.
 - **Set `SERVER_HOST=localhost`** when running the suite locally, as CI does — without it ten specs fail on `Missing host to link to!` and mask real regressions.
 - **Boot the app, don't just resolve it.** At each of steps 3 and 4, run `foreman start -f Procfile.dev` and load both a legacy HAML page (`/users/sign_in`) and an SPA page (`/app/ping`) — the Sprockets and Vite pipelines are the parts a green suite does not exercise.
