@@ -41,6 +41,13 @@ module Api
         user.mobile_number
       end
 
+      # `users.has_voted` is `default: false` but nullable, so coerce for the
+      # same reason SwapSerializer#confirmed does — the SPA's boolean contract
+      # must not see nil.
+      attribute :has_voted do |user|
+        user.has_voted || false
+      end
+
       one :preferred_party, resource: PartySerializer
       one :willing_party, resource: PartySerializer
     end

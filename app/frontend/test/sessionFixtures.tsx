@@ -38,6 +38,7 @@ export const testUser: CurrentUser = {
   mobileNumber: "+447400123456",
   mobileVerified: true,
   mobileSetButNotVerified: false,
+  hasVoted: false,
   preferredParty: { id: 1, name: "Green", color: "#6AB023", smvCode: "grn" },
   willingParty: { id: 2, name: "Labour", color: "#DC241f", smvCode: "lab" },
 };
