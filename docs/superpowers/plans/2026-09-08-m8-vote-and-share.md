@@ -1562,10 +1562,10 @@ export function seedConfirmedSwapPair(suffix = ""): SwapPair {
     chooser = User.find_by!(email: "${pair.chooser.email}")
     chosen = User.find_by!(email: "${pair.chosen.email}")
 
-    swap = Swap.create!(chosen_user: chosen, confirmed: true,
-                        consent_share_email_chooser: true,
-                        consent_share_email_chosen: true)
-    chooser.update!(swap: swap, has_voted: false)
+    chooser.create_outgoing_swap!(chosen_user: chosen, confirmed: true,
+                                  consent_share_email_chooser: true,
+                                  consent_share_email_chosen: true)
+    chooser.update!(has_voted: false)
     chosen.update!(has_voted: false)
   `;
 
@@ -1578,11 +1578,12 @@ export function seedConfirmedSwapPair(suffix = ""): SwapPair {
 }
 ```
 
-Check `app/models/swap.rb` before running: if `Swap` requires the chooser to be
-set through `User#swap` rather than a column on the swap (M7's
-`SwapDetailSerializer` notes `choosing_user` is a `has_one` over `users.swap_id`),
-the `chooser.update!(swap: swap)` above is what establishes it — which is why it
-is written that way rather than passing a `choosing_user:` to `create!`.
+**Do not write `chooser.update!(swap: swap)`.** `User#swap` is a plain reader
+(`incoming_swap || outgoing_swap` in `app/models/user.rb`) with no `swap=`
+writer, so that raises `NoMethodError` — task 3 hit exactly this. The swap has
+to go through the `outgoing_swap` association, and `create_outgoing_swap!`
+persists `swap_id` on the chooser itself. This is the same idiom
+`spec/requests/api/v1/vote_spec.rb` and `swaps_spec.rb` use.
 
 - [ ] **Step 2: Write the failing spec**
 
