@@ -2,7 +2,11 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, type Locator, type Page, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn } from "./support/auth";
-import { seedProfileUser, seedSwapPair } from "./support/seedProfileUser";
+import {
+  seedConfirmedSwapPair,
+  seedProfileUser,
+  seedSwapPair,
+} from "./support/seedProfileUser";
 
 // The M1 static pages, under the `/app/*` preview paths they are served from
 // until each one is cut over. spaPaths also carries `faq`, which is not
@@ -102,6 +106,11 @@ const signedInPages: {
         name: "We’re looking for a voting partner for you",
       }),
   },
+  {
+    name: "Share",
+    path: spaPaths.share,
+    ready: (page) => page.getByRole("link", { name: /No Thanks, Skip/ }),
+  },
 ];
 
 for (const { name, path, ready } of signedInPages) {
@@ -158,6 +167,38 @@ test("must report no WCAG A/AA violations across the offer and dashboard screens
   const dashboard = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
 
   const violations = [...offer.violations, ...dashboard.violations];
+  if (violations.length > 0) {
+    await testInfo.attach("axe-violations.json", {
+      body: JSON.stringify(violations, null, 2),
+      contentType: "application/json",
+    });
+  }
+
+  expect(
+    violations.map(
+      (violation) =>
+        `${violation.id} (${violation.nodes.length} nodes): ${violation.help}`,
+    ),
+  ).toEqual([]);
+});
+
+// The M8 vote screen, which only exists once a swap is confirmed — so it gets
+// its own already-confirmed pair rather than joining signedInPages above.
+const axeVotePair = seedConfirmedSwapPair("-axe-vote");
+
+test("must report no WCAG A/AA violations when the vote page is rendered", async ({
+  page,
+}, testInfo) => {
+  await signIn(page, axeVotePair.chooser);
+  await page.goto(spaPaths.vote);
+  await expect(
+    page.getByRole("button", { name: /Yes, I've voted/ }),
+  ).toBeVisible();
+
+  const { violations } = await new AxeBuilder({ page })
+    .withTags(wcagTags)
+    .analyze();
+
   if (violations.length > 0) {
     await testInfo.attach("axe-violations.json", {
       body: JSON.stringify(violations, null, 2),

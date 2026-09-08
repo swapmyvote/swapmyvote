@@ -200,3 +200,35 @@ export function seedSwapPair(suffix = ""): SwapPair {
 
   return { chooser, chosen };
 }
+
+/**
+ * A swap pair that is already confirmed, for screens that only exist past
+ * confirmation. Builds on seedSwapPair — which clears any existing swap — then
+ * creates the swap directly rather than driving offer-and-confirm through the
+ * UI, which swap.spec.ts already covers and which would double this file's
+ * runtime.
+ *
+ * `has_voted` is reset too, so a re-run starts from the same place as a first
+ * run.
+ */
+export function seedConfirmedSwapPair(suffix = ""): SwapPair {
+  const pair = seedSwapPair(suffix);
+
+  const script = `
+    chooser = User.find_by!(email: "${pair.chooser.email}")
+    chosen = User.find_by!(email: "${pair.chosen.email}")
+
+    chooser.create_outgoing_swap!(chosen_user: chosen, confirmed: true,
+                                  consent_share_email_chooser: true,
+                                  consent_share_email_chosen: true)
+    chooser.update!(has_voted: false)
+    chosen.update!(has_voted: false)
+  `;
+
+  execFileSync("bin/rails", ["runner", script], {
+    stdio: "inherit",
+    env: railsEnv,
+  });
+
+  return pair;
+}
