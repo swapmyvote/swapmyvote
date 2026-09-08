@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { spaPaths } from "@/lib/spaPaths";
+
 interface GoVoteProps {
   /** Whether this user has a confirmed swap, which adds the reminder to tell
    *  their partner once they have voted. */
@@ -18,8 +21,9 @@ export function GoVote({ swapConfirmed }: GoVoteProps) {
       {swapConfirmed && (
         <p>
           And please don't forget to come back here when you've voted and{" "}
-          {/* Still HAML, so a full page load. */}
-          <a href="/user/vote">let your swap partner know you've voted!</a>
+          <Link to={spaPaths.vote}>
+            let your swap partner know you've voted!
+          </Link>
         </p>
       )}
     </>
