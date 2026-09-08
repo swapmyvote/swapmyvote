@@ -160,6 +160,23 @@ module Api
                      messages: ["You don't have a swap!"])
       end
 
+      # The vote screen's gate. Legacy User::VoteController#require_swap tests
+      # `swapped?`, true for any swap, and its view then prints the partner's
+      # real name — which contradicts the rule SwapPartnerDetailSerializer
+      # enforces, that a real name is disclosed only once a swap is confirmed.
+      # The loose guard is unreachable in practice: shared/_go_vote only links
+      # to the screen when `swap_confirmed?`. So confirm-or-refuse here, and
+      # the vote screen needs no second, ungated name path.
+      def require_confirmed_swap!
+        return if current_user.swap_confirmed?
+
+        render_error(
+          code: "swap_not_confirmed",
+          status: :conflict,
+          messages: ["You don't have a confirmed swap!"]
+        )
+      end
+
       # Mirrors the `require_no_authentication` Devise prepends to its own
       # SessionsController and RegistrationsController, which bounces an
       # already-signed-in visitor rather than letting them log in again or
