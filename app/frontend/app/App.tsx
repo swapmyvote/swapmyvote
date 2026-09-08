@@ -22,9 +22,11 @@ import { Mobile } from "@/pages/Mobile";
 import { Ping } from "@/pages/Ping";
 import { Profile } from "@/pages/Profile";
 import { Review } from "@/pages/Review";
+import { Share } from "@/pages/Share";
 import { SignUp } from "@/pages/SignUp";
 import { Swap } from "@/pages/Swap";
 import { SwapNew } from "@/pages/SwapNew";
+import { Vote } from "@/pages/Vote";
 
 // Shared chrome around every SPA route: branded nav + footer, matching the
 // tacticalvote layout. New routes are added to <Routes> as screens are
@@ -74,6 +76,8 @@ export function App() {
                   <Route path={spaPaths.dashboard} element={<Dashboard />} />
                   <Route path={spaPaths.swap} element={<Swap />} />
                   <Route path={spaPaths.swapNew} element={<SwapNew />} />
+                  <Route path={spaPaths.share} element={<Share />} />
+                  <Route path={spaPaths.vote} element={<Vote />} />
                 </Routes>
               </Layout>
             </BrowserRouter>

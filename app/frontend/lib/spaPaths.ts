@@ -26,6 +26,8 @@ export const spaPaths = {
   dashboard: "/app/dashboard",
   swap: "/app/swap",
   swapNew: "/app/swap/new/:userId",
+  share: "/app/share",
+  vote: "/app/vote",
 } as const;
 
 export type SpaPathKey = keyof typeof spaPaths;
