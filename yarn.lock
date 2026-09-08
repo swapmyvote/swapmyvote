@@ -1708,6 +1708,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:^2.1.3":
+  version: 2.6.9
+  resolution: "debug@npm:2.6.9"
+  dependencies:
+    ms: 2.0.0
+  checksum: d2f51589ca66df60bf36e1fa6e4386b318c3f1e06772280eea5b1ae9fd3d05e9c2b7fd8a7d862457d00853c75b00451aa2d7459b924629ee385287a650f58fe6
+  languageName: node
+  linkType: hard
+
 "decimal.js@npm:^10.6.0":
   version: 10.6.0
   resolution: "decimal.js@npm:10.6.0"
@@ -2286,6 +2295,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsonp@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "jsonp@npm:0.2.1"
+  dependencies:
+    debug: ^2.1.3
+  checksum: 90aabd9deb3a9ba83aedf8d40e1aaff1fc29f3f3fe42985a661782498dde526a7cd9b7bec4b8721f7d0beafab9e5ccfdafd46640f7dd6c58d529a6bb5238e2b8
+  languageName: node
+  linkType: hard
+
 "libphonenumber-js@npm:^1.13.11, libphonenumber-js@npm:^1.13.12":
   version: 1.13.12
   resolution: "libphonenumber-js@npm:1.13.12"
@@ -2609,6 +2627,13 @@ __metadata:
   bin:
     mkdirp: bin/cmd.js
   checksum: a96865108c6c3b1b8e1d5e9f11843de1e077e57737602de1b82030815f311be11f96f09cce59bd5b903d0b29834733e5313f9301e3ed6d6f6fba2eae0df4298f
+  languageName: node
+  linkType: hard
+
+"ms@npm:2.0.0":
+  version: 2.0.0
+  resolution: "ms@npm:2.0.0"
+  checksum: 0e6a22b8b746d2e0b65a430519934fefd41b6db0682e3477c10f60c76e947c4c0ad06f63ffdf1d78d335f83edee8c0aa928aa66a36c7cd95b69b26f468d527f4
   languageName: node
   linkType: hard
 
@@ -3434,6 +3459,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-share@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "react-share@npm:5.3.0"
+  dependencies:
+    classnames: ^2.3.2
+    jsonp: ^0.2.1
+  peerDependencies:
+    react: ^17 || ^18 || ^19
+  checksum: 36798e027ba142a8af4ddb99468161423eb07d9c4b0b4beef9bcfb24b98b2ced7c2e0d6833bd9579662e39ab4b3c04edb7a308df26cf2b0525d1359ede4531db
+  languageName: node
+  linkType: hard
+
 "react-stately@npm:3.48.0":
   version: 3.48.0
   resolution: "react-stately@npm:3.48.0"
@@ -3873,6 +3910,7 @@ __metadata:
     react-icons: ^5.7.0
     react-phone-number-input: ^3.4.18
     react-router-dom: ^7.18.1
+    react-share: ^5.3.0
     sass: ^1.101.0
     typescript: ^7.0.2
     vite: ^8.0.0
