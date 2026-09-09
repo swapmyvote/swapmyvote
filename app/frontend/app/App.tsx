@@ -5,6 +5,7 @@ import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
 import { CookieConsentBanner } from "@/components/cookieConsent/CookieConsentBanner";
 import { Footer } from "@/components/footer/Footer";
 import { Navigation } from "@/components/navigation/Navigation";
+import { ScrollToTop } from "@/components/navigation/ScrollToTop";
 import { About } from "@/components/static/About";
 import { Contact } from "@/components/static/Contact";
 import { Cookies } from "@/components/static/Cookies";
@@ -54,6 +55,9 @@ export function App() {
         <AppModeProvider>
           <CookieConsentProvider>
             <BrowserRouter>
+              {/* Inside the router so it can watch the location, and outside
+                  <Routes> so it survives every route change. */}
+              <ScrollToTop />
               <Layout>
                 <Routes>
                   <Route path="/app/ping" element={<Ping />} />

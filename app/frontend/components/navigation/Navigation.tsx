@@ -10,11 +10,13 @@ import { useSession } from "@/contexts/useSession";
 import { spaPaths } from "@/lib/spaPaths";
 import styles from "./Navigation.module.scss";
 
-// Paths still served by the legacy HAML site. Crossing the SPA→HAML boundary
-// needs a real page load, so these are plain `href`s, never react-router
-// <Link>s. Each becomes a <Link> as its screen is ported.
+// The legacy home page. Only log out goes here now, and deliberately: it wants
+// a full page load so the whole SPA is torn down and rebuilt against the
+// signed-out session (see handleLogOut below). Every *navigational* link in
+// this bar points inside the SPA — a screen that has been ported must not be
+// linked to by its legacy path, or the user is dropped into the Bootstrap 4
+// site with no way back.
 const hamlHome = "/";
-const hamlEditProfile = "/user/edit";
 
 // Branded top bar. Matches the legacy site's look for now: the pink SwapMyVote
 // wordmark + icon (logo_nav) on a near-white bar with a subtle bottom border —
@@ -55,7 +57,7 @@ export function Navigation() {
     <div className="sticky-top">
       <Navbar bg="white" expand="md" className="py-2 border-bottom">
         <Container fluid className="px-3">
-          <Navbar.Brand href={hamlHome}>
+          <Navbar.Brand as={Link} to={spaPaths.home}>
             <img
               src={logoNav}
               srcSet={`${logoNav} 1x, ${logoNav2x} 2x`}
@@ -92,9 +94,11 @@ export function Navigation() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                {/* Still legacy HAML (M6 owns the mobile number this page also
-                    carries), so a real page load. */}
-                <Dropdown.Item href={hamlEditProfile}>
+                {/* /user/edit's content was ported in two halves — the parties,
+                    constituency and email to /app/profile in M4, the mobile
+                    number to /app/mobile in M6, which ProfileForm links on to —
+                    so this stays inside the SPA. */}
+                <Dropdown.Item as={Link} to={spaPaths.profile}>
                   Edit profile
                 </Dropdown.Item>
                 <Dropdown.Divider />

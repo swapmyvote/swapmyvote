@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Navigation } from "@/components/navigation/Navigation";
 import type { SessionContextValue } from "@/contexts/SessionContext";
+import { spaPaths } from "@/lib/spaPaths";
 import {
   sessionPayload,
   sessionValue,
@@ -39,12 +40,12 @@ describe("Navigation", () => {
     vi.restoreAllMocks();
   });
 
-  it("renders the brand as a full-page link to the (legacy) home route", () => {
+  // The home page was ported in M3, so the brand stays inside the SPA rather
+  // than dropping the user onto the Bootstrap 4 HAML home from every screen.
+  it("renders the brand as a link to the ported home screen", () => {
     renderNav();
     const brand = screen.getByRole("link", { name: /swapmyvote/i });
-    // A real anchor with href="/" (full page load), not a react-router
-    // client-side link — "/" is still served by the legacy HAML home.
-    expect(brand).toHaveAttribute("href", "/");
+    expect(brand).toHaveAttribute("href", spaPaths.home);
   });
 
   it("shows the SwapMyVote logo image (pink wordmark + icon)", () => {
@@ -98,14 +99,18 @@ describe("Navigation", () => {
       ).toBeVisible();
     });
 
-    it("links to the (legacy) profile page from the menu", async () => {
+    // /user/edit's content was ported in two halves — the parties,
+    // constituency and email to /app/profile in M4, the mobile number to
+    // /app/mobile in M6 — so this stays inside the SPA. Pointing it at the
+    // HAML page dropped the user into the Bootstrap 4 site with no way back.
+    it("links to the profile screen from the menu, staying in the SPA", async () => {
       renderNav(loggedInAs());
 
       await openUserMenu();
 
       expect(
         screen.getByRole("link", { name: /edit profile/i }),
-      ).toHaveAttribute("href", "/user/edit");
+      ).toHaveAttribute("href", spaPaths.profile);
     });
 
     it("shows the user's avatar", () => {
