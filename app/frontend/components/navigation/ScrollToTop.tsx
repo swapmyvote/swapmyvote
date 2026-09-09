@@ -16,6 +16,7 @@ import { useLocation } from "react-router-dom";
 export function ScrollToTop() {
   const { pathname } = useLocation();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: pathname is the trigger, not a value the body reads. Biome sees it unused inside and offers to drop it, which would leave [] — scrolling once on mount and never again on navigation, defeating the component. tacticalvote suppresses the identical case in its own ShareButton.
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
