@@ -3,6 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { About } from "@/components/static/About";
 import { githubUrl } from "@/lib/externalLinks";
+import { spaPaths } from "@/lib/spaPaths";
 
 function renderAbout() {
   return render(
@@ -37,13 +38,11 @@ describe("About", () => {
     ).toHaveAttribute("href", githubUrl);
   });
 
-  it("links to the API page as a full-page link (not yet migrated)", () => {
+  it("links to the API page as an in-SPA route", () => {
     renderAbout();
-    // The /api page is still HAML, so this must be a plain anchor, not a
-    // client-side <Link>.
     expect(screen.getByRole("link", { name: /^API$/ })).toHaveAttribute(
       "href",
-      "/api",
+      spaPaths.api,
     );
   });
 });

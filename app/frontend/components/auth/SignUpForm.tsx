@@ -13,9 +13,7 @@ interface SignUpFormProps {
   onSignedUp: (session: SessionPayload) => void;
 }
 
-// The FAQ is not ported (M2), so this stays a full-page link, as Footer.tsx
-// and ProfileForm.tsx also do.
-const hamlFaqTrust = "/faq#trust";
+const faqTrust = `${spaPaths.faq}#trust`;
 
 /**
  * Ports app/views/devise/registrations/new.html.erb.
@@ -152,9 +150,9 @@ export function SignUpForm({ onSignedUp }: SignUpFormProps) {
             <p className="small subdued mt-1 mb-0">
               Once you confirm a swap, we will share your email address and
               voting preferences with your partner{" "}
-              <a href={hamlFaqTrust} target="_blank" rel="noreferrer">
+              <Link to={faqTrust} target="_blank" rel="noreferrer">
                 so they know who you are
-              </a>
+              </Link>
               . We may send this information by email or text message.{" "}
               <a
                 href={forwardDemocracyPrivacyPolicyUrl}

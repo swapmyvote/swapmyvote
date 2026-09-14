@@ -35,12 +35,10 @@ interface ProfileFormProps {
 }
 
 // Account deletion is not in the migration plan's screen list at all, so this
-// still crosses to HAML.
+// still crosses to HAML. M10 owns porting it.
 const hamlDeleteAccount = "/confirm_account_deletion";
 
-// The FAQ is not ported (M2) — a full-page link to the HAML page, as
-// Footer.tsx also does.
-const hamlFaqTrust = "/faq#trust";
+const faqTrust = `${spaPaths.faq}#trust`;
 
 /**
  * Ports app/views/users/edit.html.haml: the two party choices, the
@@ -183,9 +181,9 @@ export function ProfileForm({
         <p className="subdued small mb-0">
           We need your email to keep you updated on the swapping process, and
           potentially{" "}
-          <a href={hamlFaqTrust} target="_blank" rel="noreferrer">
+          <Link to={faqTrust} target="_blank" rel="noreferrer">
             to allow your swap partner to reach out to you
-          </a>
+          </Link>
           .{" "}
           <a
             href={forwardDemocracyPrivacyPolicyUrl}
