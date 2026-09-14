@@ -4,6 +4,12 @@ import { Link, MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ScrollToTop } from "@/components/navigation/ScrollToTop";
 
+// jsdom implements no scrolling at all, so `Element.prototype.scrollIntoView`
+// does not exist and there is nothing for `vi.spyOn` to wrap. Install the mock
+// on the prototype instead; its recorded `this` tells us which element was
+// scrolled to.
+const scrollIntoView = vi.fn();
+
 function renderRoutes() {
   return render(
     <MemoryRouter initialEntries={["/first"]}>
@@ -15,11 +21,22 @@ function renderRoutes() {
             <>
               <Link to="/second">go to second</Link>
               <Link to="/third#middle">go to an anchor</Link>
+              <Link to="/third#nowhere">go to a missing anchor</Link>
+              <Link to="/third#a%20spaced%20id">go to an encoded anchor</Link>
             </>
           }
         />
         <Route path="/second" element={<p>second page</p>} />
-        <Route path="/third" element={<p>third page</p>} />
+        <Route
+          path="/third"
+          element={
+            <>
+              <p>third page</p>
+              <p id="middle">the middle of the third page</p>
+              <p id="a spaced id">an id that needs decoding</p>
+            </>
+          }
+        />
       </Routes>
     </MemoryRouter>,
   );
@@ -28,6 +45,8 @@ function renderRoutes() {
 describe("ScrollToTop", () => {
   beforeEach(() => {
     vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+    Element.prototype.scrollIntoView = scrollIntoView;
+    scrollIntoView.mockClear();
   });
 
   it("scrolls to the top when the route changes", async () => {
@@ -56,9 +75,10 @@ describe("ScrollToTop", () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  // The browser resolves the fragment itself. Scrolling to the top here would
-  // undo that — which is the whole point of a /faq#legal link.
-  it("leaves the scroll alone when the destination carries a hash", async () => {
+  // `history.pushState` performs no fragment navigation, and this app has no
+  // <ScrollRestoration>, so nothing else resolves the hash: a /faq#legal link
+  // only lands on its heading because this component puts it there.
+  it("scrolls the hash's target into view", async () => {
     renderRoutes();
     vi.mocked(window.scrollTo).mockClear();
 
@@ -67,7 +87,38 @@ describe("ScrollToTop", () => {
     );
 
     expect(screen.getByText("third page")).toBeInTheDocument();
+    expect(scrollIntoView).toHaveBeenCalledTimes(1);
+    expect(scrollIntoView.mock.contexts[0]).toBe(
+      screen.getByText("the middle of the third page"),
+    );
     expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
+  it("decodes a percent-encoded hash before looking the element up", async () => {
+    renderRoutes();
+    vi.mocked(window.scrollTo).mockClear();
+
+    await userEvent.click(
+      screen.getByRole("link", { name: "go to an encoded anchor" }),
+    );
+
+    expect(scrollIntoView.mock.contexts[0]).toBe(
+      screen.getByText("an id that needs decoding"),
+    );
+    expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
+  it("falls back to the top when the hash names no element", async () => {
+    renderRoutes();
+    vi.mocked(window.scrollTo).mockClear();
+
+    await userEvent.click(
+      screen.getByRole("link", { name: "go to a missing anchor" }),
+    );
+
+    expect(screen.getByText("third page")).toBeInTheDocument();
+    expect(scrollIntoView).not.toHaveBeenCalled();
+    expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
   });
 
   it("still scrolls when the destination has no hash", async () => {
