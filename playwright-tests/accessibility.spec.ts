@@ -8,14 +8,15 @@ import {
   seedSwapPair,
 } from "./support/seedProfileUser";
 
-// The M1 static pages, under the `/app/*` preview paths they are served from
-// until each one is cut over. spaPaths also carries `faq`, which is not
-// migrated yet (M2) and has no Rails route, so it is deliberately not scanned.
+// The static pages, under the `/app/*` preview paths they are served from
+// until each one is cut over.
 const migratedPages = [
   { name: "About", path: spaPaths.about },
   { name: "Contact", path: spaPaths.contact },
   { name: "Cookie Policy", path: spaPaths.cookies },
   { name: "Terms of Use", path: spaPaths.terms },
+  { name: "FAQ", path: spaPaths.faq },
+  { name: "API", path: spaPaths.api },
   { name: "Log in", path: spaPaths.login },
   { name: "Sign up", path: spaPaths.signup },
 ];
