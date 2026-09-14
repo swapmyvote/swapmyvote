@@ -78,12 +78,4 @@ class HomeController < ApplicationController
   def prepopulated_party(param)
     canonical_name(prepops[param])
   end
-
-  def whats_the_magic_word
-    if params.key?(:opensesame)
-      session[:sesame] = params[:opensesame]
-    elsif params.key?(:closesesame)
-      session.delete :sesame
-    end
-  end
 end

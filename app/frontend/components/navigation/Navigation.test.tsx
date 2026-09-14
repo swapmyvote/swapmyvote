@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Navigation } from "@/components/navigation/Navigation";
 import type { SessionContextValue } from "@/contexts/SessionContext";
+import { spaPaths } from "@/lib/spaPaths";
 import {
   sessionPayload,
   sessionValue,
@@ -98,14 +99,14 @@ describe("Navigation", () => {
       ).toBeVisible();
     });
 
-    it("links to the (legacy) profile page from the menu", async () => {
+    it("links to the ported profile screen from the menu", async () => {
       renderNav(loggedInAs());
 
       await openUserMenu();
 
       expect(
         screen.getByRole("link", { name: /edit profile/i }),
-      ).toHaveAttribute("href", "/user/edit");
+      ).toHaveAttribute("href", spaPaths.profile);
     });
 
     it("shows the user's avatar", () => {
@@ -137,7 +138,7 @@ describe("Navigation", () => {
       expect(screen.queryByRole("button", { name: /log out/i })).toBeNull();
     });
 
-    it("logs out through the API, then leaves the SPA for the legacy home", async () => {
+    it("logs out through the API, then reloads onto the SPA home", async () => {
       const assign = vi.fn();
       vi.spyOn(window, "location", "get").mockReturnValue({
         ...window.location,
@@ -153,7 +154,7 @@ describe("Navigation", () => {
       await userEvent.click(screen.getByRole("button", { name: /log out/i }));
 
       expect(logOut).toHaveBeenCalledOnce();
-      expect(assign).toHaveBeenCalledWith("/");
+      expect(assign).toHaveBeenCalledWith(spaPaths.home);
     });
 
     it("still leaves for home when logging out fails", async () => {
@@ -169,7 +170,7 @@ describe("Navigation", () => {
       await openUserMenu();
       await userEvent.click(screen.getByRole("button", { name: /log out/i }));
 
-      expect(assign).toHaveBeenCalledWith("/");
+      expect(assign).toHaveBeenCalledWith(spaPaths.home);
     });
   });
 });

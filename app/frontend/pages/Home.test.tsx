@@ -1,6 +1,6 @@
 import type { UseQueryResult } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, useLocation } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Home } from "@/pages/Home";
 import {
@@ -15,6 +15,7 @@ import {
   testUser,
   TestSessionProvider,
 } from "@/test/sessionFixtures";
+import { spaPaths } from "@/lib/spaPaths";
 import type { AppMode, Election, SessionFlags } from "@/types/api";
 
 vi.mock("@/lib/referenceData", () => ({
@@ -45,6 +46,11 @@ const election: Election = {
   constituenciesAsSentence: "Wakefield and Tiverton & Honiton",
   donate: { link: "https://crowdfunder.co.uk/swapmyvote", show: false },
 };
+
+// Renders the router's current path so a redirect can be asserted on.
+function LocationProbe() {
+  return <span data-testid="path">{useLocation().pathname}</span>;
+}
 
 // The hooks are mocked, so tests only need the two fields Home reads.
 function loaded<T>(data: T) {
@@ -82,6 +88,7 @@ function renderHome({
     >
       <MemoryRouter>
         <Home />
+        <LocationProbe />
       </MemoryRouter>
     </TestSessionProvider>,
   );
@@ -97,6 +104,35 @@ const closed = {
 describe("Home", () => {
   afterEach(() => {
     vi.clearAllMocks();
+  });
+
+  // Ports the `redirect_to user_path if logged_in? && swapping_open?` that
+  // HomeController has always done. Without it a logged-in user who clicks the
+  // brand, or lands here after signing up, gets the logged-out entry form with
+  // an empty constituency box — as though their answers had been discarded.
+  describe("a logged-in user while swapping is open", () => {
+    it("is sent to their dashboard rather than the entry form", () => {
+      renderHome({
+        appMode: "open",
+        flags: { swappingOpen: true },
+        session: { currentUser: testUser },
+      });
+
+      expect(screen.getByTestId("path")).toHaveTextContent(spaPaths.dashboard);
+    });
+
+    it("still sees the wind-down screen once swapping has closed", () => {
+      renderHome({
+        appMode: "closed-wind-down",
+        flags: closed,
+        session: { currentUser: testUser },
+      });
+
+      expect(screen.getByTestId("path")).toHaveTextContent("/");
+      expect(screen.queryByTestId("path")).not.toHaveTextContent(
+        spaPaths.dashboard,
+      );
+    });
   });
 
   describe("the five phases", () => {

@@ -65,10 +65,10 @@ describe("postAuthPath", () => {
     expect(postAuthPath(session)).toBe(spaPaths.constituency);
   });
 
-  it("sends a complete account home", () => {
+  it("sends a complete account to its dashboard", () => {
     const session = sessionPayload({ currentUser: testUser });
 
-    expect(postAuthPath(session)).toBe(spaPaths.home);
+    expect(postAuthPath(session)).toBe(spaPaths.dashboard);
   });
 
   it("sends a payload with no user home rather than nowhere", () => {

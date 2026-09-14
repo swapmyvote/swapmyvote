@@ -10,11 +10,10 @@ import { useSession } from "@/contexts/useSession";
 import { spaPaths } from "@/lib/spaPaths";
 import styles from "./Navigation.module.scss";
 
-// Paths still served by the legacy HAML site. Crossing the SPA→HAML boundary
-// needs a real page load, so these are plain `href`s, never react-router
-// <Link>s. Each becomes a <Link> as its screen is ported.
+// The brand still points at the legacy HAML home: `/` is the canonical route
+// and keeps serving HAML until the M9 cutover, so crossing that boundary needs
+// a real page load rather than a react-router <Link>.
 const hamlHome = "/";
-const hamlEditProfile = "/user/edit";
 
 // Branded top bar. Matches the legacy site's look for now: the pink SwapMyVote
 // wordmark + icon (logo_nav) on a near-white bar with a subtle bottom border —
@@ -47,8 +46,12 @@ export function Navigation() {
       // resolved by landing on the server-rendered home page, which re-reads
       // the real session.
     }
-    // Home is still legacy HAML, so leave the SPA with a full page load.
-    window.location.assign(hamlHome);
+    // A full page load rather than a client-side navigation: signing out
+    // throws the whole Rails session away, and reloading is the cheapest way
+    // to be sure nothing cached in this tab outlives it. Onto the SPA's own
+    // home, though — bouncing out to the HAML site dropped the tester into the
+    // other Bootstrap mid-preview, and took the ?opensesame override with it.
+    window.location.assign(spaPaths.home);
   }
 
   return (
@@ -92,9 +95,9 @@ export function Navigation() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                {/* Still legacy HAML (M6 owns the mobile number this page also
-                    carries), so a real page load. */}
-                <Dropdown.Item href={hamlEditProfile}>
+                {/* M4 ported the profile screen and M6 the mobile number it
+                    also carries, so this stays inside the SPA. */}
+                <Dropdown.Item as={Link} to={spaPaths.profile}>
                   Edit profile
                 </Dropdown.Item>
                 <Dropdown.Divider />

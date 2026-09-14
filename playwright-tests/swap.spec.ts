@@ -26,11 +26,11 @@ function userMenu(page: Page, name: string) {
 async function logOutFromMenu(page: Page, name: string) {
   await userMenu(page, name).click();
   await page.getByRole("button", { name: "Log out" }).click();
-  // Navigation.handleLogOut ends with a full page load to the legacy home
-  // page. Waiting for it here, rather than immediately navigating again,
-  // avoids racing that in-flight navigation with the next page.goto (which
-  // Chromium answers with net::ERR_ABORTED).
-  await expect(page).toHaveURL(/\/$/);
+  // Navigation.handleLogOut ends with a full page load to the SPA home page.
+  // Waiting for it here, rather than immediately navigating again, avoids
+  // racing that in-flight navigation with the next page.goto (which Chromium
+  // answers with net::ERR_ABORTED).
+  await expect(page).toHaveURL(new RegExp(`${spaPaths.home}$`));
 }
 
 test.describe("the swap flow", () => {

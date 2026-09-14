@@ -36,6 +36,7 @@ function renderPage(loginsOpen = true, session?: SessionPayload) {
         <Routes>
           <Route path={spaPaths.signup} element={<SignUp />} />
           <Route path={spaPaths.home} element={<p>Home</p>} />
+          <Route path={spaPaths.dashboard} element={<p>Dashboard</p>} />
           <Route path={spaPaths.constituency} element={<p>Constituency</p>} />
         </Routes>
       </MemoryRouter>
@@ -81,7 +82,7 @@ describe("SignUp", () => {
     expect(refetchSession).toHaveBeenCalled();
   });
 
-  it("goes home when the entry form already supplied a constituency", async () => {
+  it("goes to the dashboard when the entry form already supplied a constituency", async () => {
     vi.mocked(signUp).mockResolvedValue(
       sessionPayload({ currentUser: testUser }),
     );
@@ -89,7 +90,9 @@ describe("SignUp", () => {
 
     await submit();
 
-    await waitFor(() => expect(screen.getByText("Home")).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText("Dashboard")).toBeInTheDocument(),
+    );
   });
 
   it("shows the closed notice instead of the form during closed-warm-up", () => {
@@ -106,6 +109,6 @@ describe("SignUp", () => {
     renderPage(true, sessionPayload({ currentUser: testUser }));
 
     expect(screen.queryByLabelText("Your name")).not.toBeInTheDocument();
-    expect(screen.getByText("Home")).toBeInTheDocument();
+    expect(screen.getByText("Dashboard")).toBeInTheDocument();
   });
 });

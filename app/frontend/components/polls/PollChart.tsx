@@ -51,23 +51,29 @@ export function PollChart({ polls, constituencyName }: PollChartProps) {
         />
       </div>
 
-      <table className="visually-hidden">
-        <caption>Predicted vote share in {constituencyName}</caption>
-        <thead>
-          <tr>
-            <th scope="col">Party</th>
-            <th scope="col">Predicted vote share</th>
-          </tr>
-        </thead>
-        <tbody>
-          {polls.map((poll) => (
-            <tr key={poll.partyId}>
-              <th scope="row">{poll.partyName ?? poll.partyShortName}</th>
-              <td>{Math.round(poll.votes / 100)}%</td>
+      {/* The class goes on a block wrapper, never on the <table>: a table
+          lays out to fit its content whatever width is set on it, so
+          `visually-hidden` left it clipped-but-full-width and pushed the
+          page into horizontal scroll on a phone. */}
+      <div className="visually-hidden">
+        <table>
+          <caption>Predicted vote share in {constituencyName}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Party</th>
+              <th scope="col">Predicted vote share</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {polls.map((poll) => (
+              <tr key={poll.partyId}>
+                <th scope="row">{poll.partyName ?? poll.partyShortName}</th>
+                <td>{Math.round(poll.votes / 100)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </figure>
   );
 }
