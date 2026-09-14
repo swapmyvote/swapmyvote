@@ -5,6 +5,7 @@ RSpec.describe User::ConstituenciesController, type: :controller do
 
   context "when configured for swaps and voting is not yet open" do
     before do
+      allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return("open")
     end
 
