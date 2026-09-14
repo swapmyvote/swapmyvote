@@ -6,3 +6,7 @@ export const forwardDemocracyPrivacyPolicyUrl =
   "https://forwarddemocracy.com/privacy-policy";
 
 export const githubUrl = "https://github.com/swapmyvote/swapmyvote/";
+
+// Mirrors StaticPagesHelper#constituency_ons_id_dataset_url.
+export const constituencyOnsIdDatasetUrl =
+  "https://pages.mysociety.org/2025-constituencies/datasets/parliament_con_2025/latest";
