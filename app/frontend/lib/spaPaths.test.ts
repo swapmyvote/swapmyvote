@@ -33,7 +33,10 @@ const UNPORTED_HAML_PATHS = new Set([
 ]);
 
 function viewLayerFiles(): string[] {
-  return readdirSync(frontendRoot, { recursive: true, encoding: "utf8" }).filter(
+  return readdirSync(frontendRoot, {
+    recursive: true,
+    encoding: "utf8",
+  }).filter(
     (file) =>
       /^(components|pages)\//.test(file) &&
       /\.tsx?$/.test(file) &&
