@@ -6,9 +6,9 @@ gem "webrick", "~> 1.8"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #
-# `>= 7.2.3.2` alongside the `~>` because Bundler otherwise settles on the
-# three-segment 7.2.3, which is still vulnerable.
-gem "rails", "~> 7.2.3", ">= 7.2.3.2"
+# `>= 8.1.3.1` alongside the `~>` because Bundler otherwise settles on the
+# three-segment 8.1.3, which is still vulnerable.
+gem "rails", "~> 8.1.3", ">= 8.1.3.1"
 # Use SCSS for stylesheets
 gem "sassc-rails"
 # Use Uglifier as compressor for JavaScript assets
@@ -48,7 +48,7 @@ gem "devise"
 
 gem "omniauth-facebook"
 gem "omniauth-twitter"
-gem "omniauth-rails_csrf_protection", "~> 0.1"
+gem "omniauth-rails_csrf_protection", "~> 2.0"
 
 gem "haml-rails"
 gem "addressable"
@@ -129,11 +129,6 @@ group :production do
   gem "pg"
   gem "puma"
 end
-
-# Rack 3 is deliberately deferred to the Rails 8.1 step: Action Pack 7.2
-# accepts `rack >= 2.2.4, < 3.3`, so pinning here keeps the PR that clears the
-# security alerts free of the largest behavioural change in the upgrade.
-gem "rack", "~> 2.2"
 
 gem "vite_rails", "~> 3.11"
 
