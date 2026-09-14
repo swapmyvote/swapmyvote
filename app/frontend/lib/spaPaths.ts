@@ -9,8 +9,7 @@
 //
 // Centralising them here is what makes that eventual cutover one edit: drop
 // the `/app` prefix, repoint config/routes.rb, retire the HAML controllers.
-// Only ported screens belong here — the FAQ is not ported, so links to it stay
-// full-page anchors to `/faq`.
+// Only ported screens belong here.
 export const spaPaths = {
   home: "/app/home",
   login: "/app/login",
@@ -19,6 +18,8 @@ export const spaPaths = {
   contact: "/app/contact",
   terms: "/app/terms",
   cookies: "/app/cookies",
+  faq: "/app/faq",
+  api: "/app/api",
   constituency: "/app/constituency",
   profile: "/app/profile",
   review: "/app/review",

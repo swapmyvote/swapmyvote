@@ -56,3 +56,17 @@ test.describe("SPA/HAML link boundary", () => {
     expect(await documentWasReplaced(page)).toBe(true);
   });
 });
+
+test("must serve the FAQ and API pages from the SPA shell", async ({
+  page,
+}) => {
+  await page.goto(spaPaths.faq);
+  await expect(
+    page.getByRole("heading", { name: "FAQ", level: 1 }),
+  ).toBeVisible();
+
+  await page.goto(spaPaths.api);
+  await expect(
+    page.getByRole("heading", { name: "Swap My Vote API", level: 1 }),
+  ).toBeVisible();
+});

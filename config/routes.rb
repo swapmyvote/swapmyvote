@@ -94,6 +94,10 @@ Rails.application.routes.draw do
   # M8 vote and share. /user/vote and /user/share keep serving HAML.
   get "app/share", to: "spa#index"
   get "app/vote", to: "spa#index"
+  # M9 static content. /faq and /api keep serving StaticPagesController until
+  # cutover.
+  get "app/faq", to: "spa#index"
+  get "app/api", to: "spa#index"
 
   root "home#index"
 
