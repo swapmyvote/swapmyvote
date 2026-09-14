@@ -1,6 +1,20 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+// `decodeURIComponent` throws `URIError` on a malformed escape sequence, and
+// a hash is whatever the address bar happens to contain: `/app/faq#%zz` is
+// enough. Thrown from inside the effect that would take the whole route down,
+// so fall back to the undecoded fragment — still a plausible element id, and
+// at worst it matches nothing and we scroll to the top as usual.
+function elementIdFromHash(hash: string): string {
+  const fragment = hash.slice(1);
+  try {
+    return decodeURIComponent(fragment);
+  } catch {
+    return fragment;
+  }
+}
+
 /**
  * Restores the scroll position on every client-side navigation: to the top
  * normally, or to the element named by the destination's hash.
@@ -28,7 +42,7 @@ export function ScrollToTop() {
   // biome-ignore lint/correctness/useExhaustiveDependencies: pathname is a trigger, not a value the body reads. Biome sees it unused inside and offers to drop it, which would leave [hash] — no longer scrolling on an ordinary navigation, defeating the component.
   useEffect(() => {
     if (hash) {
-      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      const target = document.getElementById(elementIdFromHash(hash));
       if (target) {
         target.scrollIntoView();
         return;

@@ -1,4 +1,3 @@
-import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { StaticPage } from "@/components/static/StaticPage";
 import {
@@ -34,25 +33,25 @@ import { spaPaths } from "@/lib/spaPaths";
 export function Faq() {
   const election = useElection();
 
-  // Gated rather than defaulted, as ApiDocs and Home already are: the swap
-  // expiry and the election's name are both mid-sentence here, so rendering
-  // before the payload lands shows "not currently available during the ." and
-  // then a 48 that flips to the real figure. `useElection` is not prefetched,
-  // so a cold visit really does hit that window.
-  if (election.isPending) {
-    return (
-      <StaticPage>
-        <div className="text-center">
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading</span>
-          </Spinner>
-        </div>
-      </StaticPage>
-    );
-  }
-
-  const expiryHours = election.data?.swapValidityHours ?? 48;
-  const dateSeasonType = election.data?.dateSeasonType ?? "";
+  // Deliberately NOT gated on `election.isPending`. This is a 400-line static
+  // document with exactly two dynamic values in it, and holding all of it
+  // behind a spinner broke every deep link into the page: ScrollToTop resolves
+  // the hash once, on arrival, and a cold visit (from the footer, or from
+  // ReachOutToSwap — none of which fetch `useElection`) had nothing but the
+  // spinner in the DOM at that moment, so #legal and #trust silently fell back
+  // to the top of the page. That is a regression against the HAML site, where
+  // these were full-page loads the browser resolved itself.
+  //
+  // Both values are therefore rendered as optional *clauses* rather than as
+  // bare interpolations with defaults: the sentence reads correctly with the
+  // clause absent, so a pending query produces true, well-formed prose that
+  // simply gains a detail when the payload lands. Nothing wrong is ever shown
+  // and then corrected — in particular there is no `?? 48` standing in for a
+  // swap expiry we do not yet know.
+  const expiryHours = election.data?.swapValidityHours;
+  const dateSeasonType = election.data?.dateSeasonType;
+  const expiryClause = expiryHours ? ` after ${expiryHours} hours` : "";
+  const seasonClause = dateSeasonType ? ` during the ${dateSeasonType}` : "";
 
   return (
     <StaticPage>
@@ -108,7 +107,7 @@ export function Faq() {
         biggest public social networks used in the UK (Twitter and Facebook) as
         another way to check that there is a real person at the other end of the
         swap. However, due to technical challenges these are not currently
-        available during the {dateSeasonType}.
+        available{seasonClause}.
       </p>
 
       <h2 id="privacy">Do my voting intentions stay private?</h2>
@@ -253,8 +252,8 @@ export function Faq() {
       <h2>My swap hasn't been confirmed; what should I do?</h2>
       <p>
         If your partner hasn't confirmed the swap, it will now automatically
-        expire after {expiryHours} hours and we will email both parties to let
-        them know to log in to find a new partner.
+        expire{expiryClause} and we will email both parties to let them know to
+        log in to find a new partner.
       </p>
       <p>
         However if you don't want to wait, you can{" "}

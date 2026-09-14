@@ -23,6 +23,7 @@ function renderRoutes() {
               <Link to="/third#middle">go to an anchor</Link>
               <Link to="/third#nowhere">go to a missing anchor</Link>
               <Link to="/third#a%20spaced%20id">go to an encoded anchor</Link>
+              <Link to="/third#%zz">go to a malformed anchor</Link>
             </>
           }
         />
@@ -106,6 +107,22 @@ describe("ScrollToTop", () => {
       screen.getByText("an id that needs decoding"),
     );
     expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
+  // `decodeURIComponent("%zz")` throws URIError, and an uncaught throw here is
+  // inside an effect — it would unmount the route rather than merely fail to
+  // scroll.
+  it("survives a malformed percent-encoded hash", async () => {
+    renderRoutes();
+    vi.mocked(window.scrollTo).mockClear();
+
+    await userEvent.click(
+      screen.getByRole("link", { name: "go to a malformed anchor" }),
+    );
+
+    expect(screen.getByText("third page")).toBeInTheDocument();
+    expect(scrollIntoView).not.toHaveBeenCalled();
+    expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
   });
 
   it("falls back to the top when the hash names no element", async () => {
