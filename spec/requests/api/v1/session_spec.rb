@@ -113,6 +113,22 @@ RSpec.describe "Api::V1::Session", type: :request do
 
         expect(json["swap"]).to be_nil
       end
+
+      it "reports whether the user has recorded their vote" do
+        sign_in create(:user, name: "Hasnt Voted")
+
+        get "/api/v1/session"
+
+        expect(json["currentUser"]["hasVoted"]).to eq(false)
+      end
+
+      it "reports a user who has voted" do
+        sign_in create(:user, name: "Has Voted", has_voted: true)
+
+        get "/api/v1/session"
+
+        expect(json["currentUser"]["hasVoted"]).to eq(true)
+      end
     end
 
     context "when the user has a swap" do
