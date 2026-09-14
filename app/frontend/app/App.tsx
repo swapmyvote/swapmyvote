@@ -5,6 +5,7 @@ import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
 import { CookieConsentBanner } from "@/components/cookieConsent/CookieConsentBanner";
 import { Footer } from "@/components/footer/Footer";
 import { Navigation } from "@/components/navigation/Navigation";
+import { ScrollToTop } from "@/components/navigation/ScrollToTop";
 import { About } from "@/components/static/About";
 import { Contact } from "@/components/static/Contact";
 import { Cookies } from "@/components/static/Cookies";
@@ -22,9 +23,11 @@ import { Mobile } from "@/pages/Mobile";
 import { Ping } from "@/pages/Ping";
 import { Profile } from "@/pages/Profile";
 import { Review } from "@/pages/Review";
+import { Share } from "@/pages/Share";
 import { SignUp } from "@/pages/SignUp";
 import { Swap } from "@/pages/Swap";
 import { SwapNew } from "@/pages/SwapNew";
+import { Vote } from "@/pages/Vote";
 
 // Shared chrome around every SPA route: branded nav + footer, matching the
 // tacticalvote layout. New routes are added to <Routes> as screens are
@@ -54,6 +57,9 @@ export function App() {
         <AppModeProvider>
           <CookieConsentProvider>
             <BrowserRouter>
+              {/* Inside the router so it can watch the location, and outside
+                  <Routes> so it survives every route change. */}
+              <ScrollToTop />
               <Layout>
                 <Routes>
                   <Route path="/app/ping" element={<Ping />} />
@@ -74,6 +80,8 @@ export function App() {
                   <Route path={spaPaths.dashboard} element={<Dashboard />} />
                   <Route path={spaPaths.swap} element={<Swap />} />
                   <Route path={spaPaths.swapNew} element={<SwapNew />} />
+                  <Route path={spaPaths.share} element={<Share />} />
+                  <Route path={spaPaths.vote} element={<Vote />} />
                 </Routes>
               </Layout>
             </BrowserRouter>

@@ -191,17 +191,15 @@ $theme-colors: map-remove($theme-colors, "info");
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
 }
 
-// Social-share buttons (SocialShare.tsx). Ported from
-// app/assets/stylesheets/button.scss, which the SPA layout never loads —
-// spa.html.haml pulls in no Sprockets stylesheets, so a bare .btn there is
-// transparent with no border. Same colours, same #{$prefix}btn-* pattern as
-// .btn-outline-secondary above; that file stays untouched for the live HAML
-// site, so these are not shared, just kept in sync by eye.
-$facebook-color: #4267b2;
-$twitter-color: #55acee;
-$email-color: #5f55ee;
+// Social-share buttons (SocialShare.tsx). The React site shares via WhatsApp,
+// Bluesky and the OS share sheet — the Facebook/Twitter/email button colours
+// this block used to define went with the buttons in M8. app/assets/
+// stylesheets/button.scss still carries them for the live HAML site, which is
+// untouched.
+$whatsapp-color: #25d366;
+$bluesky-color: #0085ff;
 
-@each $name, $color in (facebook: $facebook-color, twitter: $twitter-color, email: $email-color) {
+@each $name, $color in (whatsapp: $whatsapp-color, bluesky: $bluesky-color) {
   .btn-#{$name} {
     --#{$prefix}btn-color: #{color-contrast($color)};
     --#{$prefix}btn-bg: #{$color};

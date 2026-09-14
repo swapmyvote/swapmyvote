@@ -32,6 +32,7 @@ const user: CurrentUser = {
   constituencyOnsId: "E14001063",
   mobileVerified: false,
   mobileSetButNotVerified: true,
+  hasVoted: false,
   mobileNumber: "+447400123456",
   preferredParty: parties[0],
   willingParty: parties[1],

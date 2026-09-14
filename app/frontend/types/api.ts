@@ -43,6 +43,8 @@ export interface CurrentUser {
   mobileNumber: string | null;
   mobileVerified: boolean;
   mobileSetButNotVerified: boolean;
+  /** Whether they have told us they voted — `POST /api/v1/vote`. */
+  hasVoted: boolean;
   preferredParty: Party | null;
   willingParty: Party | null;
 }

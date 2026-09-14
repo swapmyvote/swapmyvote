@@ -55,6 +55,11 @@ Rails.application.routes.draw do
       # Ported from User::SwapsController; /user/swap keeps serving HAML.
       resource :swap, only: [:show, :create, :update, :destroy], controller: "swaps"
       resources :potential_swaps, only: [:index, :show], param: :user_id
+
+      # Ported from User::VoteController; /user/vote keeps serving HAML.
+      # Write-only: everything the screen reads is already on the session
+      # payload or GET /api/v1/swap.
+      resource :vote, only: [:create], controller: "vote"
     end
   end
 
@@ -86,6 +91,9 @@ Rails.application.routes.draw do
   get "app/dashboard", to: "spa#index"
   get "app/swap", to: "spa#index"
   get "app/swap/new/:user_id", to: "spa#index"
+  # M8 vote and share. /user/vote and /user/share keep serving HAML.
+  get "app/share", to: "spa#index"
+  get "app/vote", to: "spa#index"
 
   root "home#index"
 

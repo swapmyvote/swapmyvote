@@ -10,11 +10,6 @@ import { useSession } from "@/contexts/useSession";
 import { spaPaths } from "@/lib/spaPaths";
 import styles from "./Navigation.module.scss";
 
-// The brand still points at the legacy HAML home: `/` is the canonical route
-// and keeps serving HAML until the M9 cutover, so crossing that boundary needs
-// a real page load rather than a react-router <Link>.
-const hamlHome = "/";
-
 // Branded top bar. Matches the legacy site's look for now: the pink SwapMyVote
 // wordmark + icon (logo_nav) on a near-white bar with a subtle bottom border —
 // deliberately NOT the tacticalvote black bar, so the SPA doesn't diverge from
@@ -43,14 +38,17 @@ export function Navigation() {
       await logOut();
     } catch {
       // A failed log out (already logged out, expired CSRF token) is still
-      // resolved by landing on the server-rendered home page, which re-reads
-      // the real session.
+      // resolved by the reload below, which re-reads the real session.
     }
-    // A full page load rather than a client-side navigation: signing out
-    // throws the whole Rails session away, and reloading is the cheapest way
-    // to be sure nothing cached in this tab outlives it. Onto the SPA's own
-    // home, though — bouncing out to the HAML site dropped the tester into the
-    // other Bootstrap mid-preview, and took the ?opensesame override with it.
+    // A full page load rather than a client-side navigation, deliberately:
+    // signing out throws the whole Rails session away, and reloading is the
+    // cheapest way to be sure the SPA is torn down and rebuilt against the
+    // signed-out session with nothing cached in this tab outliving it.
+    //
+    // Onto the SPA's own home, though, not HAML `/`: the reload is what this
+    // wants, leaving the SPA is not. Bouncing out dropped the user into the
+    // Bootstrap 4 site with no route back — the same trap the navigational
+    // links above were fixed for — and took any ?opensesame override with it.
     window.location.assign(spaPaths.home);
   }
 
@@ -58,7 +56,7 @@ export function Navigation() {
     <div className="sticky-top">
       <Navbar bg="white" expand="md" className="py-2 border-bottom">
         <Container fluid className="px-3">
-          <Navbar.Brand href={hamlHome}>
+          <Navbar.Brand as={Link} to={spaPaths.home}>
             <img
               src={logoNav}
               srcSet={`${logoNav} 1x, ${logoNav2x} 2x`}
@@ -95,8 +93,10 @@ export function Navigation() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                {/* M4 ported the profile screen and M6 the mobile number it
-                    also carries, so this stays inside the SPA. */}
+                {/* /user/edit's content was ported in two halves — the parties,
+                    constituency and email to /app/profile in M4, the mobile
+                    number to /app/mobile in M6, which ProfileForm links on to —
+                    so this stays inside the SPA. */}
                 <Dropdown.Item as={Link} to={spaPaths.profile}>
                   Edit profile
                 </Dropdown.Item>
