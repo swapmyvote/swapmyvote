@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module SwapMyVote
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.1
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -22,7 +22,14 @@ module SwapMyVote
     config.action_mailer.default_url_options = {
       host: ENV["SERVER_HOST_PORT"] || ENV["SERVER_HOST"]
     }
-    config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
+    # Outside app/ deliberately: app/mailers is an eager-load root, so a
+    # previews/ directory under it has to define Previews::UserMailerPreview
+    # to satisfy Zeitwerk. Rails only registers preview_path as its own
+    # autoload root when show_previews is true, which in production depends on
+    # MAILER_PREVIEWS -- so leaving it under app/ boots fine in development and
+    # raises Zeitwerk::NameError in production. spec/ mirrors Rails' own
+    # test/mailers/previews default.
+    config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
