@@ -136,8 +136,12 @@ class User < ApplicationRecord
         willing_party_id: preferred_party_id
       )
       .where("users.email like '_%'") # We need emails to send confirmation emails
-      .where("swaps.chosen_user_id IS ?", nil) # not in an incoming swap
-      .where("outgoing_swaps_users.id IS ?", nil) # not in an outgoing swap
+      # Hash conditions rather than `IS ?`: Rails 7.2 binds the nil as a real
+      # parameter, so the string form emits `IS $1`, which Postgres rejects as
+      # a syntax error (SQLite accepts `IS ?`, which is why this only failed in
+      # CI). The hash form emits `IS NULL` on every adapter.
+      .where(swaps: { chosen_user_id: nil }) # not in an incoming swap
+      .where(outgoing_swaps_users: { id: nil }) # not in an outgoing swap
       .where.not(users: { id: user_ids_we_dont_want }) # Ignore if already included in potential swaps, or if me
       .where.not(users: { constituency_ons_id: constituency_ons_id }) # Ignore if my constituency
   end

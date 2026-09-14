@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module SwapMyVote
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.2
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -29,7 +29,7 @@ module SwapMyVote
     # MAILER_PREVIEWS -- so leaving it under app/ boots fine in development and
     # raises Zeitwerk::NameError in production. spec/ mirrors Rails' own
     # test/mailers/previews default.
-    config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
+    config.action_mailer.preview_paths = ["#{Rails.root}/spec/mailers/previews"]
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

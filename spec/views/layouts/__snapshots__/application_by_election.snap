@@ -21,12 +21,12 @@
 <meta content='Make votes matter! Swap yours with someone in a constituency where both could count for more. You get to vote for who you really want, and help someone else do the same. Turn tactical voting into a win-win!' property='description'>
 <meta content='' property='og:description'>
 <meta content='https://www.swapmyvote.uk' property='og:url'>
-<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon_16-e03b154a5696ead4723b4d8944d477bae9498aca3c21b42cacb709f82f0de10e.png" sizes="16x16" />
-<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon_32-6298b02d0a593ae79b52178f262d5d5b6d914a781bdee08a2df143f3ef517965.png" sizes="32x32" />
+<link rel="icon" type="image/x-icon" href="/assets/favicon_16-e03b154a5696ead4723b4d8944d477bae9498aca3c21b42cacb709f82f0de10e.png" sizes="16x16" />
+<link rel="icon" type="image/x-icon" href="/assets/favicon_32-6298b02d0a593ae79b52178f262d5d5b6d914a781bdee08a2df143f3ef517965.png" sizes="32x32" />
 <link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' rel='stylesheet'>
 <link href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
 <script src='https://www.gstatic.com/charts/loader.js' type='text/javascript'></script>
-<link rel="stylesheet" media="all" href="/assets/application-0064fa2f940726150ba9b0f4453ca43595d8aa259f5dbfe2d06e4b289f040a1b.css" data-turbolinks-track="true" />
+<link rel="stylesheet" href="/assets/application-0064fa2f940726150ba9b0f4453ca43595d8aa259f5dbfe2d06e4b289f040a1b.css" media="all" data-turbolinks-track="true" />
 <script src="/assets/application-433049023f0605c8096c516b1c9fca1230a5e95a719e6165860a0d53b6ee9cfc.js" data-turbolinks-track="true"></script>
 
 

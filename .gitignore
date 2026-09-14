@@ -7,9 +7,12 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore the default SQLite database.
+# Ignore the default SQLite database. Rails 7.2's SQLite adapter defaults to
+# WAL journal mode, which writes the -shm and -wal sidecars alongside it.
 /db/*.sqlite3
 /db/*.sqlite3-journal
+/db/*.sqlite3-shm
+/db/*.sqlite3-wal
 
 # Ignore SQLite database backups, copies etc.
 /db/*.sqlite3.*

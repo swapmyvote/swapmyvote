@@ -15,7 +15,7 @@ constituency.
 </div>
 <div class='plain-pattern border-bottom'>
 <div class='container text-center'>
-<form class="new_user" id="new_user" action="/pre_login" accept-charset="UTF-8" method="post"><div class='d-flex flex-column align-items-center'>
+<form id="new_user" class="new_user" action="/pre_login" accept-charset="UTF-8" method="post"><div class='d-flex flex-column align-items-center'>
 <p class='choose-constituency'>
 My constituency is
 <select name="user[constituency_ons_id]" id="user_constituency_ons_id"><option value="">Please select</option>
