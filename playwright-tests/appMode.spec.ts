@@ -2,11 +2,21 @@ import { expect, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { setAppMode } from "./support/appMode";
 import { signIn, userMenu } from "./support/auth";
-import { seedProfileUser } from "./support/seedProfileUser";
+import {
+  seedConfirmedSwapPair,
+  seedProfileUser,
+} from "./support/seedProfileUser";
 
 // Its own fixture row — this file signs in and reads, but the suffix keeps it
 // off the row profile.spec.ts mutates. See seedProfileUser's docstring.
 const credentials = seedProfileUser("-appmode");
+
+// A separate, already-confirmed pair for the open-and-voting guard test
+// below: reject_when_voting_info_locked! only fires for a user whose swap is
+// confirmed, which the shared fixture above deliberately is not. Its own
+// suffix keeps this pair's rows off vote.spec.ts's ("-vote") and
+// accessibility.spec.ts's ("-axe-vote"), which also seed confirmed pairs.
+const lockedPair = seedConfirmedSwapPair("-appmode-locked");
 
 // One distinguishing, phase-specific phrase per home screen. Deliberately
 // static copy: the headings interpolate election data (dateSeasonType,
@@ -136,6 +146,64 @@ test.describe("closed-and-voting closes swapping", () => {
     expect(response.status()).toBe(403);
     expect(await response.json()).toMatchObject({
       error: { code: "swapping_closed" },
+    });
+  });
+});
+
+// open-and-voting: unlike closed-and-voting, swapping stays open on election
+// day — but a user whose swap is already confirmed is frozen so they cannot
+// change the details their (possibly already-voting) partner is relying on.
+// That is reject_when_voting_info_locked!, a distinct guard from the two
+// above: it is not reachable through either closed-and-voting (swapping
+// itself is refused there first) or the logged-out/closed-warm-up cases.
+test.describe("open-and-voting locks a confirmed swapper's voting info", () => {
+  test("must disable the profile form and explain why", async ({ page }) => {
+    await signIn(page, lockedPair.chooser);
+    await setAppMode(page, "open-and-voting");
+    await page.goto(spaPaths.profile);
+
+    // ProfileForm.tsx only renders this alert when `hasSwap` — true here,
+    // since lockedPair's chooser has a confirmed outgoing swap — and it is
+    // the one piece of copy that is specific to the locked state, rather
+    // than to the fields simply being disabled (which could also mean the
+    // page is still loading).
+    await expect(
+      page.getByText(
+        /election day and you've already confirmed your swap, so your party preferences and constituency are currently locked/i,
+      ),
+    ).toBeVisible();
+
+    // The form itself is unusable, not merely marked so.
+    await expect(
+      page.getByRole("combobox", { name: "My preferred party is" }),
+    ).toBeDisabled();
+  });
+
+  test("must refuse PATCH /api/v1/user, not merely disable it", async ({
+    page,
+  }) => {
+    // Reach the guard honestly: sign in for real (so require_logged_in!, the
+    // before_action ahead of reject_when_voting_info_locked! on
+    // Api::V1::UsersController, passes) and send the real CSRF token the way
+    // the SPA does (so this doesn't instead hit
+    // ApplicationController#handle_unverified_request) — the same approach
+    // the closed-warm-up POST /api/v1/session test above uses.
+    await signIn(page, lockedPair.chooser);
+    await setAppMode(page, "open-and-voting");
+
+    const csrfToken = await page
+      .locator('meta[name="csrf-token"]')
+      .getAttribute("content");
+    expect(csrfToken).toBeTruthy();
+
+    const response = await page.request.patch("/api/v1/user", {
+      headers: { "X-CSRF-Token": csrfToken as string },
+      data: { preferred_party_id: "" },
+    });
+
+    expect(response.status()).toBe(403);
+    expect(await response.json()).toMatchObject({
+      error: { code: "voting_info_locked" },
     });
   });
 });

@@ -12,7 +12,12 @@ on:
     paths:
       - "app/frontend/**"
       - "app/views/layouts/spa.html.haml"
-      - "app/controllers/spa_controller.rb"
+      # The whole directory, not just spa_controller.rb: appMode.spec.ts and
+      # home.spec.ts now exercise ApplicationController#whats_the_magic_word
+      # and AppModeConcern (app/controllers/concerns/), reached via
+      # SpaController — so a change anywhere in app/controllers/** can affect
+      # what these specs assert, not only a change to SpaController itself.
+      - "app/controllers/**"
       - "config/routes.rb"
       - "config/vite.json"
       - "playwright-tests/**"
@@ -27,7 +32,12 @@ on:
     paths:
       - "app/frontend/**"
       - "app/views/layouts/spa.html.haml"
-      - "app/controllers/spa_controller.rb"
+      # The whole directory, not just spa_controller.rb: appMode.spec.ts and
+      # home.spec.ts now exercise ApplicationController#whats_the_magic_word
+      # and AppModeConcern (app/controllers/concerns/), reached via
+      # SpaController — so a change anywhere in app/controllers/** can affect
+      # what these specs assert, not only a change to SpaController itself.
+      - "app/controllers/**"
       - "config/routes.rb"
       - "config/vite.json"
       - "playwright-tests/**"
