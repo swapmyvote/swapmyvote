@@ -1,4 +1,3 @@
-import Container from "react-bootstrap/Container";
 import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { StaticPage } from "@/components/static/StaticPage";
@@ -17,18 +16,6 @@ import type { Constituency, Party } from "@/types/api";
 function swapUrl(params: Record<string, string>): string {
   const query = new URLSearchParams(params);
   return `${window.location.origin}/swap?${query.toString()}`;
-}
-
-// Matches Party#parameterize.gsub('-', '_') from the HAML example URLs
-// (`labour_party`), which is deliberately a different spelling from the
-// documented list's `canonicalName` (`labour`) below. Both are accepted by
-// Api::V1::RegistrationController#party_id_for, so this is not a bug.
-function parameterizedPartyName(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .replace(/-/g, "_");
 }
 
 function ByElectionConstituencies({
@@ -76,11 +63,13 @@ export function ApiDocs({ random = Math.random }: { random?: () => number }) {
 
   if (parties.isPending || constituencies.isPending || election.isPending) {
     return (
-      <Container className="py-5 text-center">
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading</span>
-        </Spinner>
-      </Container>
+      <StaticPage>
+        <div className="text-center">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading</span>
+          </Spinner>
+        </div>
+      </StaticPage>
     );
   }
 
@@ -94,14 +83,18 @@ export function ApiDocs({ random = Math.random }: { random?: () => number }) {
   const party1 = pickParty();
   const party2 = pickParty();
 
+  // The HAML spells the example URLs' party with its own
+  // `parameterize.gsub('-', '_')` (`labour_party`) and the documented list
+  // with `canonical_name` (`labour`). Both resolve through
+  // Api::V1::RegistrationController#party_id_for, so the port uses the
+  // canonical spelling for both rather than reimplementing a Ruby transform
+  // the PartySerializer exists to keep on the server.
   const url1 = swapUrl({
-    willing_party_name: party1 ? parameterizedPartyName(party1.name ?? "") : "",
+    willing_party_name: party1?.canonicalName ?? "",
     constituency_name: "Aberdeen North",
   });
   const url2 = swapUrl({
-    preferred_party_name: party2
-      ? parameterizedPartyName(party2.name ?? "")
-      : "",
+    preferred_party_name: party2?.canonicalName ?? "",
     constituency_ons_id: "E14001605",
   });
 

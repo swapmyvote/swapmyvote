@@ -63,7 +63,10 @@ describe("ApiDocs", () => {
     });
     expect(example).toHaveAttribute(
       "href",
-      expect.stringContaining("willing_party_name=green"),
+      // Trailing "&" on purpose: the example URLs now use the same
+      // canonicalName as the documented list, so this must not also pass for
+      // the HAML's `green_party`-style spelling.
+      expect.stringContaining("willing_party_name=green&"),
     );
   });
 
@@ -74,7 +77,7 @@ describe("ApiDocs", () => {
       screen.getAllByRole("link", { name: /willing_party_name=/ })[0],
     ).toHaveAttribute(
       "href",
-      expect.stringContaining("willing_party_name=labour"),
+      expect.stringContaining("willing_party_name=labour&"),
     );
   });
 

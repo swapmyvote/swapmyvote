@@ -1,3 +1,4 @@
+import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { StaticPage } from "@/components/static/StaticPage";
 import {
@@ -32,6 +33,24 @@ import { spaPaths } from "@/lib/spaPaths";
 //     instructions further down the page.
 export function Faq() {
   const election = useElection();
+
+  // Gated rather than defaulted, as ApiDocs and Home already are: the swap
+  // expiry and the election's name are both mid-sentence here, so rendering
+  // before the payload lands shows "not currently available during the ." and
+  // then a 48 that flips to the real figure. `useElection` is not prefetched,
+  // so a cold visit really does hit that window.
+  if (election.isPending) {
+    return (
+      <StaticPage>
+        <div className="text-center">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading</span>
+          </Spinner>
+        </div>
+      </StaticPage>
+    );
+  }
+
   const expiryHours = election.data?.swapValidityHours ?? 48;
   const dateSeasonType = election.data?.dateSeasonType ?? "";
 

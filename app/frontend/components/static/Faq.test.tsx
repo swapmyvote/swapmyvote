@@ -7,7 +7,7 @@ import { spaPaths } from "@/lib/spaPaths";
 
 vi.mock("@/lib/referenceData", () => ({
   useElection: () => ({
-    data: { dateSeasonType: "2026 summer by-elections", swapValidityHours: 48 },
+    data: { dateSeasonType: "2026 summer by-elections", swapValidityHours: 72 },
     isPending: false,
   }),
 }));
@@ -86,7 +86,7 @@ describe("Faq", () => {
     renderFaq();
 
     for (const link of screen.getAllByRole("link", {
-      name: /cancel your swap|cancelling your swap|section on trust/i,
+      name: /cancel your swap|cancelling your swap/i,
     })) {
       expect(link.getAttribute("href")).toMatch(/^#/);
     }
@@ -109,9 +109,10 @@ describe("Faq", () => {
     // getByText's default matcher (getNodeText) concatenates only the DIRECT
     // text-node children of each element, so a number rendered inline via
     // {expiryHours} does still land in the same joined string as its
-    // surrounding prose — no custom matcher turned out to be necessary here.
-    // Left as a plain regex; see task-5-report.md for the verification.
-    expect(screen.getByText(/after 48 hours/i)).toBeInTheDocument();
+    // surrounding prose — no custom matcher is necessary. 72 is deliberately
+    // not the component's `?? 48` fallback, so this fails if the payload
+    // field stops being read.
+    expect(screen.getByText(/after 72 hours/i)).toBeInTheDocument();
   });
 
   it("names the current election in the trust section", () => {
