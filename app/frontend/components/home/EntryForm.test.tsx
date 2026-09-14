@@ -13,8 +13,8 @@ const constituencyFixtures: Constituency[] = [
   { onsId: "E14001009", name: "Wakefield" },
 ];
 const partyFixtures: Party[] = [
-  { id: 1, name: "Green", color: null, smvCode: "grn" },
-  { id: 2, name: "Labour", color: null, smvCode: "lab" },
+  { id: 1, name: "Green", color: null, smvCode: "grn", canonicalName: "green" },
+  { id: 2, name: "Labour", color: null, smvCode: "lab", canonicalName: "labour" },
 ];
 
 function renderForm() {

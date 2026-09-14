@@ -30,6 +30,10 @@ export interface Party {
   color: string | null;
   /** Short code the `.party-*` colour classes key off. */
   smvCode: string | null;
+  /** The spelling `/swap?willing_party_name=` accepts, e.g. `liberal_democrat`.
+   *  Derived server-side (PartySerializer) because the inbound matcher uses the
+   *  same helper. */
+  canonicalName: string | null;
 }
 
 export interface CurrentUser {

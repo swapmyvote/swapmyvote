@@ -28,7 +28,7 @@ RSpec.describe "Api::V1 reference data", type: :request do
 
       expect(response).to have_http_status(:ok)
       expect(json.map { |party| party["name"] }).to eq %w[Aardvark Zebra]
-      expect(json.first.keys).to match_array(%w[id name color smvCode])
+      expect(json.first.keys).to match_array(%w[id name color smvCode canonicalName])
     end
 
     it "is available logged out — the entry form comes before sign up" do
@@ -42,6 +42,25 @@ RSpec.describe "Api::V1 reference data", type: :request do
 
       expect(response).to have_http_status(:ok)
       expect(json).to eq []
+    end
+
+    describe "canonicalName" do
+      def canonical_for(name)
+        create(:party, name: name)
+        get "/api/v1/parties"
+        json.find { |party| party["name"] == name }["canonicalName"]
+      end
+
+      it "lowercases and underscores the name" do
+        expect(canonical_for("Liberal Democrat")).to eq("liberal_democrat")
+      end
+
+      # The suffix is dropped so "Labour Party" and "Labour" are one key. The
+      # inbound side of the deep link (Api::V1::RegistrationController
+      # #party_id_for) applies the same function, so both spellings resolve.
+      it "drops a trailing 'party'" do
+        expect(canonical_for("Labour Party")).to eq("labour")
+      end
     end
   end
 
