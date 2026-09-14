@@ -95,7 +95,7 @@ group :development, :test do
   gem "sqlite3"
 
   # add rspec
-  gem "rspec-rails", "~> 4.0"
+  gem "rspec-rails", "~> 6.1"
   gem "capybara"
   gem "database_cleaner"
   gem "rspec-snapshot"
