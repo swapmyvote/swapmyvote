@@ -14,7 +14,13 @@ const constituencyFixtures: Constituency[] = [
 ];
 const partyFixtures: Party[] = [
   { id: 1, name: "Green", color: null, smvCode: "grn", canonicalName: "green" },
-  { id: 2, name: "Labour", color: null, smvCode: "lab", canonicalName: "labour" },
+  {
+    id: 2,
+    name: "Labour",
+    color: null,
+    smvCode: "lab",
+    canonicalName: "labour",
+  },
 ];
 
 function renderForm() {

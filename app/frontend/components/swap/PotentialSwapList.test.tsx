@@ -27,8 +27,20 @@ function candidate(userId: number, name: string): SwapCandidate {
     constituencyName: "Wakefield",
     constituencyOnsId: "E14001009",
     badges: { mobileVerified: false, provider: null, hasEmail: true },
-    preferredParty: { id: 2, name: "Labour", color: "#DC241f", smvCode: "lab", canonicalName: "labour" },
-    willingParty: { id: 1, name: "Green", color: "#6AB023", smvCode: "grn", canonicalName: "green" },
+    preferredParty: {
+      id: 2,
+      name: "Labour",
+      color: "#DC241f",
+      smvCode: "lab",
+      canonicalName: "labour",
+    },
+    willingParty: {
+      id: 1,
+      name: "Green",
+      color: "#6AB023",
+      smvCode: "grn",
+      canonicalName: "green",
+    },
     polls: [],
     recommendations: [matchingRecommendation],
   };

@@ -17,8 +17,20 @@ const constituencies: Constituency[] = [
 ];
 
 const parties: Party[] = [
-  { id: 1, name: "Green", color: "#6AB023", smvCode: "grn", canonicalName: "green" },
-  { id: 2, name: "Labour", color: "#DC241f", smvCode: "lab", canonicalName: "labour" },
+  {
+    id: 1,
+    name: "Green",
+    color: "#6AB023",
+    smvCode: "grn",
+    canonicalName: "green",
+  },
+  {
+    id: 2,
+    name: "Labour",
+    color: "#DC241f",
+    smvCode: "lab",
+    canonicalName: "labour",
+  },
 ];
 
 function renderForm(

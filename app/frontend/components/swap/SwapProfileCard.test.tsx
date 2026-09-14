@@ -21,8 +21,20 @@ function candidate(overrides: Partial<SwapCandidate> = {}): SwapCandidate {
     constituencyName: "Wakefield",
     constituencyOnsId: "E14001009",
     badges: { mobileVerified: true, provider: "twitter", hasEmail: true },
-    preferredParty: { id: 2, name: "Labour", color: "#DC241f", smvCode: "lab", canonicalName: "labour" },
-    willingParty: { id: 1, name: "Green", color: "#6AB023", smvCode: "grn", canonicalName: "green" },
+    preferredParty: {
+      id: 2,
+      name: "Labour",
+      color: "#DC241f",
+      smvCode: "lab",
+      canonicalName: "labour",
+    },
+    willingParty: {
+      id: 1,
+      name: "Green",
+      color: "#6AB023",
+      smvCode: "grn",
+      canonicalName: "green",
+    },
     polls: [
       {
         partyId: 1,
