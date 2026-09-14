@@ -30,7 +30,12 @@ module Api
         event_choice: :election_event_choice,
         hashtags: :election_hashtags,
         constituency_other: :election_constituency_other,
-        constituencies_as_sentence: :by_election_constituencies_as_sentence
+        constituencies_as_sentence: :by_election_constituencies_as_sentence,
+        # Not a property of the election, strictly. It lives here because this
+        # endpoint is already "deploy-immutable config the client caches
+        # forever", which is exactly what SWAP_EXPIRY_HOURS is. See the M9
+        # design doc — a recorded decision, not a drift.
+        swap_validity_hours: :swap_validity_hours
       }.freeze
 
       # @param context [Object] anything including ApplicationHelper — in

@@ -223,5 +223,25 @@ RSpec.describe "Api::V1 reference data", type: :request do
         "show" => true
       )
     end
+
+    describe "swapValidityHours" do
+      it "defaults to 48 when SWAP_EXPIRY_HOURS is unset" do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with("SWAP_EXPIRY_HOURS").and_return(nil)
+
+        get "/api/v1/election"
+
+        expect(json["swapValidityHours"]).to eq(48)
+      end
+
+      it "reports the configured expiry when SWAP_EXPIRY_HOURS is set" do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with("SWAP_EXPIRY_HOURS").and_return("72")
+
+        get "/api/v1/election"
+
+        expect(json["swapValidityHours"]).to eq(72)
+      end
+    end
   end
 end

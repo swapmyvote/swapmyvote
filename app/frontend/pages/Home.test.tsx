@@ -43,6 +43,7 @@ const election: Election = {
   hashtags: "#Wakefield or #TivertonandHoniton #byelection",
   constituencyOther: "the other constituency",
   constituenciesAsSentence: "Wakefield and Tiverton & Honiton",
+  swapValidityHours: 48,
   donate: { link: "https://crowdfunder.co.uk/swapmyvote", show: false },
 };
 

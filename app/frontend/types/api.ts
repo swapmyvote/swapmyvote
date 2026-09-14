@@ -115,6 +115,10 @@ export interface Election {
   constituencyOther: string;
   /** "Wakefield and Tiverton & Honiton" */
   constituenciesAsSentence: string;
+  /** How long an unconfirmed swap survives before it expires, in hours
+   *  (`SWAP_EXPIRY_HOURS`, default 48). Deploy-immutable config that happens
+   *  to ride on this endpoint — see the M9 design doc. */
+  swapValidityHours: number;
   donate: {
     link: string;
     show: boolean;
