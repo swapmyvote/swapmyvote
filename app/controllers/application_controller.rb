@@ -5,6 +5,17 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # The phase override, honoured on every path rather than only the legacy
+  # home page. `AppModeConcern#app_mode` prefers session[:sesame] over
+  # ENV["SWAPMYVOTE_MODE"], and it validates the value, so an unknown mode
+  # raises here rather than silently doing nothing.
+  #
+  # This lived on HomeController until swapmyvote/swapmyvote#1079. It moved up
+  # because the React SPA is served by SpaController, and at cutover "/" is
+  # SpaController too — leaving the lever on HomeController would have retired
+  # it along with the legacy home page.
+  before_action :whats_the_magic_word
+
   def handle_unverified_request
     flash[:errors] = ["Something went wrong - please try that again."]
     redirect_back fallback_location: root_path
@@ -14,6 +25,14 @@ class ApplicationController < ActionController::Base
     uri = Addressable::URI.parse(url)
     uri.query_values = uri.query_values.except(param.to_s)
     return uri.to_s.chomp("?")
+  end
+
+  def whats_the_magic_word
+    if params.key?(:opensesame)
+      session[:sesame] = params[:opensesame]
+    elsif params.key?(:closesesame)
+      session.delete :sesame
+    end
   end
 
   def require_login
