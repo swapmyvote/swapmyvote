@@ -1,6 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import {
+  Link,
+  MemoryRouter,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ApiError } from "@/lib/apiClient";
 import { spaPaths } from "@/lib/spaPaths";
@@ -34,9 +40,10 @@ function mutationState(overrides: Record<string, unknown> = {}) {
 
 function renderPage(
   path = `${spaPaths.passwordEdit}?reset_password_token=a-token`,
+  value = sessionValue(),
 ) {
   render(
-    <TestSessionProvider value={sessionValue()}>
+    <TestSessionProvider value={value}>
       <MemoryRouter initialEntries={[path]}>
         <Routes>
           <Route path={spaPaths.passwordEdit} element={<PasswordEdit />} />
@@ -57,6 +64,48 @@ async function submit() {
   );
   await userEvent.click(
     screen.getByRole("button", { name: "Change my password" }),
+  );
+}
+
+// A back button outside the route table, so a test can walk history the way
+// a browser's Back does.
+function BackButton() {
+  const navigate = useNavigate();
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        navigate(-1);
+      }}
+    >
+      Back
+    </button>
+  );
+}
+
+// Entered one step before the reset form, so there is somewhere for Back to
+// land other than the form itself.
+function historyTree() {
+  return (
+    <TestSessionProvider value={sessionValue()}>
+      <MemoryRouter initialEntries={[spaPaths.passwordNew]}>
+        <BackButton />
+        <Routes>
+          <Route
+            path={spaPaths.passwordNew}
+            element={
+              <Link
+                to={`${spaPaths.passwordEdit}?reset_password_token=a-token`}
+              >
+                Open the link
+              </Link>
+            }
+          />
+          <Route path={spaPaths.passwordEdit} element={<PasswordEdit />} />
+          <Route path={spaPaths.dashboard} element={<p>Dashboard</p>} />
+        </Routes>
+      </MemoryRouter>
+    </TestSessionProvider>
   );
 }
 
@@ -96,6 +145,44 @@ describe("PasswordEdit", () => {
 
     renderPage();
 
+    expect(screen.getByText("Dashboard")).toBeInTheDocument();
+  });
+
+  // `replace`: the token is spent once the reset succeeds, so Back must not
+  // return to a form that can no longer be submitted.
+  it("replaces history, so Back does not return to the spent reset form", async () => {
+    const { rerender } = render(historyTree());
+
+    await userEvent.click(screen.getByRole("link", { name: "Open the link" }));
+    expect(screen.getByLabelText("New password")).toBeInTheDocument();
+
+    useResetPasswordMock.mockReturnValue(
+      mutationState({
+        isSuccess: true,
+        data: sessionPayload({ currentUser: testUser }),
+      }),
+    );
+    rerender(historyTree());
+    expect(screen.getByText("Dashboard")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Back" }));
+
+    expect(screen.queryByLabelText("New password")).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Open the link" }),
+    ).toBeInTheDocument();
+  });
+
+  // RequireLoggedOut, mirroring the API's own reject_when_logged_in!: a stale
+  // link opened in a session that is already signed in goes where logging in
+  // would have, rather than showing a form the endpoint would refuse.
+  it("bounces a signed-in visitor rather than showing the form", () => {
+    renderPage(
+      `${spaPaths.passwordEdit}?reset_password_token=a-token`,
+      sessionValue({ session: sessionPayload({ currentUser: testUser }) }),
+    );
+
+    expect(screen.queryByLabelText("New password")).not.toBeInTheDocument();
     expect(screen.getByText("Dashboard")).toBeInTheDocument();
   });
 

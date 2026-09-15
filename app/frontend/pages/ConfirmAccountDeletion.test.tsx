@@ -1,6 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import {
+  Link,
+  MemoryRouter,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ApiError } from "@/lib/apiClient";
 import { ConfirmAccountDeletion } from "@/pages/ConfirmAccountDeletion";
@@ -55,6 +61,53 @@ function renderPage({ locked = false } = {}) {
   );
 }
 
+// A back button outside the route table, so a test can walk history the way
+// a browser's Back does.
+function BackButton() {
+  const navigate = useNavigate();
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        navigate(-1);
+      }}
+    >
+      Back
+    </button>
+  );
+}
+
+// Entered at the profile, the screen the confirmation is reached from, so
+// there is somewhere for Back to land other than the confirmation itself.
+function historyTree() {
+  return (
+    <TestSessionProvider
+      value={sessionValue({
+        session: sessionPayload({ currentUser: testUser }),
+      })}
+    >
+      <MemoryRouter initialEntries={[spaPaths.profile]}>
+        <BackButton />
+        <Routes>
+          <Route
+            path={spaPaths.profile}
+            element={
+              <Link to={spaPaths.confirmAccountDeletion}>
+                Delete my account
+              </Link>
+            }
+          />
+          <Route
+            path={spaPaths.confirmAccountDeletion}
+            element={<ConfirmAccountDeletion />}
+          />
+          <Route path={spaPaths.accountDeleted} element={<p>Deleted</p>} />
+        </Routes>
+      </MemoryRouter>
+    </TestSessionProvider>
+  );
+}
+
 describe("ConfirmAccountDeletion", () => {
   beforeEach(() => {
     mutate.mockReset();
@@ -91,7 +144,7 @@ describe("ConfirmAccountDeletion", () => {
     expect(mutate).toHaveBeenCalled();
   });
 
-  it("navigates to the deleted screen, replacing history, once the delete succeeds", () => {
+  it("navigates to the deleted screen once the delete succeeds", () => {
     useDeleteAccountMock.mockReturnValue(
       mutationState({ isSuccess: true, data: sessionPayload() }),
     );
@@ -99,6 +152,35 @@ describe("ConfirmAccountDeletion", () => {
     renderPage();
 
     expect(screen.getByText("Deleted")).toBeInTheDocument();
+  });
+
+  // `replace`: Back must not return to a confirmation page offering to delete
+  // an account that no longer exists.
+  it("replaces history, so Back does not return to the confirmation page", async () => {
+    const { rerender } = render(historyTree());
+
+    await userEvent.click(
+      screen.getByRole("link", { name: "Delete my account" }),
+    );
+    await userEvent.click(
+      screen.getByRole("button", { name: "Yes, delete my account" }),
+    );
+    expect(mutate).toHaveBeenCalled();
+
+    useDeleteAccountMock.mockReturnValue(
+      mutationState({ isSuccess: true, data: sessionPayload() }),
+    );
+    rerender(historyTree());
+    expect(screen.getByText("Deleted")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Back" }));
+
+    expect(
+      screen.queryByRole("button", { name: "Yes, delete my account" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Delete my account" }),
+    ).toBeInTheDocument();
   });
 
   it("disables the button and explains why when voting information is locked", () => {
@@ -136,7 +218,7 @@ describe("ConfirmAccountDeletion", () => {
     expect(screen.queryByText("Deleted")).not.toBeInTheDocument();
   });
 
-  it("surfaces a record_not_destroyed failure rather than navigating", () => {
+  it("surfaces a not_destroyed failure rather than navigating", () => {
     useDeleteAccountMock.mockReturnValue(
       mutationState({
         isError: true,

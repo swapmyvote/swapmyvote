@@ -22,9 +22,19 @@ export interface PasswordReset {
  * registered — the API deliberately will not say which (see the M10 design
  * doc), so the screen must not promise the caller that mail is on its way to
  * an account that exists.
+ *
+ * Deliberately does not touch the session cache, unlike its sibling below:
+ * asking for reset instructions does not change who is logged in, and the 202
+ * carries no session payload to prime it from.
  */
-export function requestPasswordReset(email: string): Promise<unknown> {
-  return apiClient.post(passwordPath, { email });
+export function useRequestPasswordReset(): UseMutationResult<
+  unknown,
+  Error,
+  string
+> {
+  return useMutation({
+    mutationFn: (email: string) => apiClient.post(passwordPath, { email }),
+  });
 }
 
 /**

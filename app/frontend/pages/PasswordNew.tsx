@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import { RequireLoggedOut } from "@/components/auth/RequireLoggedOut";
 import { FormErrors } from "@/components/forms/FormErrors";
 import { apiErrorMessages } from "@/lib/apiErrors";
-import { requestPasswordReset } from "@/lib/password";
+import { useRequestPasswordReset } from "@/lib/password";
 
 /**
  * Ports app/views/devise/passwords/new.html.erb.
@@ -19,23 +19,19 @@ export function PasswordNew() {
   const emailId = useId();
 
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState<string[]>([]);
-  const [submitting, setSubmitting] = useState(false);
 
-  async function handleSubmit(event: FormEvent) {
+  const requestReset = useRequestPasswordReset();
+
+  function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    setSubmitting(true);
-    setErrors([]);
-    try {
-      await requestPasswordReset(email);
-      setSubmitted(true);
-    } catch (error) {
-      setErrors(apiErrorMessages(error));
-    } finally {
-      setSubmitting(false);
-    }
+    requestReset.mutate(email);
   }
+
+  // Empty until a failed submit — apiErrorMessages falls back to a generic
+  // message for a non-ApiError, which null (no submit yet) is not.
+  const errorMessages = requestReset.isError
+    ? apiErrorMessages(requestReset.error)
+    : [];
 
   return (
     <RequireLoggedOut>
@@ -45,7 +41,7 @@ export function PasswordNew() {
             <h1 className="h4 mb-0">Reset password</h1>
           </Card.Header>
           <Card.Body>
-            {submitted ? (
+            {requestReset.isSuccess ? (
               <p className="mb-0">
                 If that address is registered, we've sent reset instructions to
                 it. Please check your inbox, and your spam folder.
@@ -57,6 +53,7 @@ export function PasswordNew() {
                     <Form.Label>Email</Form.Label>
                     <Form.Control
                       type="email"
+                      required
                       autoFocus
                       autoComplete="email"
                       value={email}
@@ -64,9 +61,13 @@ export function PasswordNew() {
                     />
                   </Form.Group>
 
-                  <FormErrors messages={errors} />
+                  <FormErrors messages={errorMessages} />
 
-                  <Button type="submit" variant="primary" disabled={submitting}>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    disabled={requestReset.isPending}
+                  >
                     Send reset instructions
                   </Button>
                 </div>
