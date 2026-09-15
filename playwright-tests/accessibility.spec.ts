@@ -72,7 +72,12 @@ const migratedPages: {
   {
     name: "Password reset form",
     path: `${spaPaths.passwordEdit}?reset_password_token=test-token`,
-    ready: (page) => page.getByLabel("New password"),
+    // `exact`, because getByLabel matches on substring by default and this
+    // form's other field is labelled "Confirm new password" — without it the
+    // locator resolves to both and Playwright's strict mode fails. React
+    // Testing Library's getByLabelText is exact by default, which is why the
+    // component tests never saw this.
+    ready: (page) => page.getByLabel("New password", { exact: true }),
   },
   // No auth guard at all (see AccountDeleted.tsx) — DELETE /api/v1/user signs
   // the caller out as part of destroying the account, so anyone landing here
