@@ -60,6 +60,11 @@ Rails.application.routes.draw do
       # Write-only: everything the screen reads is already on the session
       # payload or GET /api/v1/swap.
       resource :vote, only: [:create], controller: "vote"
+
+      # Ported from Devise::PasswordsController; /users/password/{new,edit}
+      # keep serving Devise HAML until cutover — which is what keeps the
+      # reset links in already-sent emails working.
+      resource :password, only: [:create, :update], controller: "passwords"
     end
   end
 
