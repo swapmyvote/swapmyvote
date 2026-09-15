@@ -1,8 +1,6 @@
 class HomeController < ApplicationController
   include HomeHelper
 
-  before_action :whats_the_magic_word
-
   def index
     if params.key?(:clear)
       session.delete("pre_populate")

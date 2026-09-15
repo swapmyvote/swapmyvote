@@ -8,10 +8,30 @@ import {
   seedSwapPair,
 } from "./support/seedProfileUser";
 
-// The M1 static pages, under the `/app/*` preview paths they are served from
-// until each one is cut over. spaPaths also carries `faq`, which is not
-// migrated yet (M2) and has no Rails route, so it is deliberately not scanned.
-const migratedPages = [
+// The logged-out screens, under the `/app/*` preview paths they are served
+// from until each one is cut over. spaPaths also carries `faq`, which is not
+// migrated yet (M2) and has no Rails route, so it is deliberately not
+// scanned.
+//
+// `ready` is optional and defaults to "main has rendered something" — true
+// the instant these mount, since they have no data to wait on. Home (M3) is
+// the one dynamic entry: it fetches session/election/constituency/party data
+// first and shows a Spinner *inside* `<main>` meanwhile (see Home.tsx), which
+// satisfies "main is non-empty" on its own. Left ungated, the scan would very
+// likely run against that spinner — the first paint Playwright can observe —
+// and pass having examined no real content at all. Wait for the postcode
+// search button instead: it only exists once EntryForm (the real page) has
+// rendered.
+const migratedPages: {
+  name: string;
+  path: string;
+  ready?: (page: Page) => Locator;
+}[] = [
+  {
+    name: "Home",
+    path: spaPaths.home,
+    ready: (page) => page.getByRole("button", { name: "Search" }),
+  },
   { name: "About", path: spaPaths.about },
   { name: "Contact", path: spaPaths.contact },
   { name: "Cookie Policy", path: spaPaths.cookies },
@@ -25,14 +45,19 @@ const migratedPages = [
 // (such as requiring an h1) that are not part of that target.
 const wcagTags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
 
-for (const { name, path } of migratedPages) {
+for (const { name, path, ready } of migratedPages) {
   test(`must report no WCAG A/AA violations when the ${name} page is rendered`, async ({
     page,
   }, testInfo) => {
     await page.goto(path);
-    // React mounts into an empty #root, so wait for real content — otherwise
-    // axe can scan the pre-hydration shell and pass on an empty page.
-    await expect(page.getByRole("main")).not.toBeEmpty();
+    if (ready) {
+      await expect(ready(page)).toBeVisible();
+    } else {
+      // React mounts into an empty #root, so wait for real content —
+      // otherwise axe can scan the pre-hydration shell and pass on an empty
+      // page.
+      await expect(page.getByRole("main")).not.toBeEmpty();
+    }
 
     const { violations } = await new AxeBuilder({ page })
       .withTags(wcagTags)
