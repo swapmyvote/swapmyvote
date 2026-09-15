@@ -22,6 +22,8 @@ import { Dashboard } from "@/pages/Dashboard";
 import { Home } from "@/pages/Home";
 import { Login } from "@/pages/Login";
 import { Mobile } from "@/pages/Mobile";
+import { PasswordEdit } from "@/pages/PasswordEdit";
+import { PasswordNew } from "@/pages/PasswordNew";
 import { Ping } from "@/pages/Ping";
 import { Profile } from "@/pages/Profile";
 import { Review } from "@/pages/Review";
@@ -86,6 +88,14 @@ export function App() {
                   <Route path={spaPaths.swapNew} element={<SwapNew />} />
                   <Route path={spaPaths.share} element={<Share />} />
                   <Route path={spaPaths.vote} element={<Vote />} />
+                  <Route
+                    path={spaPaths.passwordNew}
+                    element={<PasswordNew />}
+                  />
+                  <Route
+                    path={spaPaths.passwordEdit}
+                    element={<PasswordEdit />}
+                  />
                 </Routes>
               </Layout>
             </BrowserRouter>

@@ -29,6 +29,11 @@ export const spaPaths = {
   swapNew: "/app/swap/new/:userId",
   share: "/app/share",
   vote: "/app/vote",
+  // Cutover maps these onto the Devise paths — /users/password/new and
+  // /users/password/edit — not onto themselves minus the `/app` prefix. The
+  // second is what the reset email links to, and the mailer is never edited.
+  passwordNew: "/app/password/new",
+  passwordEdit: "/app/password/edit",
 } as const;
 
 export type SpaPathKey = keyof typeof spaPaths;

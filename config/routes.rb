@@ -103,6 +103,10 @@ Rails.application.routes.draw do
   # cutover.
   get "app/faq", to: "spa#index"
   get "app/api", to: "spa#index"
+  # M10 account lifecycle. /users/password/* keep serving Devise HAML until
+  # cutover, which is what keeps already-sent reset links working.
+  get "app/password/new", to: "spa#index"
+  get "app/password/edit", to: "spa#index"
 
   root "home#index"
 
