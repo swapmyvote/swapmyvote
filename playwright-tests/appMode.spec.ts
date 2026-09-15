@@ -209,6 +209,15 @@ test.describe("open-and-voting locks a confirmed swapper's voting info", () => {
 });
 
 // The lever is per-session, and signing in must not wash it out.
+//
+// The phase is asserted on the session payload rather than on screen copy.
+// `setAppMode` lands on the home screen, but Home redirects a signed-in user
+// with swapping open straight to the dashboard (Home.tsx), so none of the
+// per-phase home copy this file matches on elsewhere is reachable while signed
+// in — an earlier version of this test looked for OpenAndVoting's "bit of
+// time to find a voting partner" line and could never have found it. The
+// payload is where the mode actually lives: it is what AppModeConcern#app_mode
+// resolves `session[:sesame]` into, and what the SPA branches on.
 test("must keep the session signed in across a phase change", async ({
   page,
 }) => {
@@ -216,7 +225,10 @@ test("must keep the session signed in across a phase change", async ({
   await setAppMode(page, "open-and-voting");
 
   await expect(userMenu(page)).toBeVisible();
-  await expect(
-    page.getByText(/You still have a bit of time to find a voting partner/i),
-  ).toBeVisible();
+
+  const session = await page.request.get("/api/v1/session");
+  expect(await session.json()).toMatchObject({
+    appMode: "open-and-voting",
+    currentUser: { email: credentials.email },
+  });
 });
