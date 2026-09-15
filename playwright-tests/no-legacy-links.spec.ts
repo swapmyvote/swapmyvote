@@ -4,6 +4,7 @@ import { signIn } from "./support/auth";
 import {
   seedConfirmedSwapPair,
   seedProfileUser,
+  seedSwapPair,
 } from "./support/seedProfileUser";
 
 // Every canonical path a ported screen replaced. A link to one of these from
@@ -126,7 +127,16 @@ const loggedOutPages: {
     path: spaPaths.login,
     ready: (page) => page.getByRole("button", { name: "Log in" }),
   },
-  { name: "sign-up", path: spaPaths.signup },
+  {
+    // Same RequireLoggedOut wrapper as login above (see expectNoLegacyLinks'
+    // docstring): ungated, the crawl can read the nav/footer off the Spinner
+    // state and pass without ever seeing SignUpForm's links. Gate on its
+    // submit button, which only the loaded form renders.
+    name: "sign-up",
+    path: spaPaths.signup,
+    ready: (page) =>
+      page.getByRole("button", { name: "Confirm and see swaps" }),
+  },
   {
     name: "password reset request",
     path: spaPaths.passwordNew,
@@ -228,4 +238,28 @@ test("must not link out to a replaced HAML path from the confirmed-swap screens"
   await expectNoLegacyLinks(page, spaPaths.vote, (vote) =>
     vote.getByRole("button", { name: /Yes, I've voted/ }),
   );
+});
+
+// spaPaths.swapNew (SwapNew.tsx, the "offer to swap" screen) carries its own
+// links to spaPaths.swap and spaPaths.mobile, so it needs crawling too — but
+// its path takes a candidate's userId, which is assigned server-side and not
+// known ahead of time, so it cannot be reached with a plain `page.goto` like
+// the other entries. Reached the same way accessibility.spec.ts's offer-flow
+// axe scan reaches it: a fresh, unconfirmed pair, sign in as the chooser, and
+// click through from the swap list rather than navigating directly.
+const offerPair = seedSwapPair("-links-offer");
+
+test("must not link out to a replaced HAML path from the swap-offer screen", async ({
+  page,
+}) => {
+  await signIn(page, offerPair.chooser);
+
+  await page.goto(spaPaths.swap);
+  await page.getByRole("link", { name: "Offer to swap" }).first().click();
+  await expect(page.getByRole("checkbox")).toBeVisible();
+
+  expect(
+    await hrefsOn(page).then((hrefs) => hrefs.filter(isLegacy)),
+    "swap-offer screen",
+  ).toEqual([]);
 });

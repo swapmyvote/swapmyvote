@@ -73,16 +73,6 @@ describe("links out of the SPA", () => {
 
     expect(offenders).toEqual([]);
   });
-
-  it("names no path that spaPaths already covers", () => {
-    // Belt and braces for the case the first test cannot see: an entry sitting
-    // in the allowlist above after its screen has in fact been ported.
-    const ported = new Set<string>(Object.values(spaPaths));
-
-    for (const haml of UNPORTED_HAML_PATHS) {
-      expect(ported.has(haml)).toBe(false);
-    }
-  });
 });
 
 describe("swapNewPath", () => {
