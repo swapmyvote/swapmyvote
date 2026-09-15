@@ -42,12 +42,14 @@ const candidate = {
   recommendations: [],
 };
 
-function renderPage() {
+function renderPage({ mobileVerified = true } = {}) {
   return render(
     <MemoryRouter initialEntries={["/app/swap/new/3"]}>
       <TestSessionProvider
         value={sessionValue({
-          session: sessionPayload({ currentUser: testUser }),
+          session: sessionPayload({
+            currentUser: { ...testUser, mobileVerified },
+          }),
         })}
       >
         <Routes>
@@ -175,5 +177,39 @@ describe("SwapNew", () => {
     expect(
       screen.getByRole("link", { name: "Find another swap" }),
     ).toHaveAttribute("href", "/app/swap");
+  });
+
+  // The API refuses the swap with a 403 when the mobile number is not
+  // verified, which left the page offering a button whose only outcome was an
+  // error with no way out of it. SearchingForSwap and ConfirmIncomingSwap both
+  // check first and link to /app/mobile; this screen has to agree with them.
+  describe("when the mobile number is not verified", () => {
+    it("explains why, and links to the verification screen", () => {
+      renderPage({ mobileVerified: false });
+
+      expect(
+        screen.getByText(/verify your mobile number before you swap/i),
+      ).toBeVisible();
+      expect(
+        screen.getByRole("link", { name: /verify your mobile number/i }),
+      ).toHaveAttribute("href", "/app/mobile");
+    });
+
+    it("does not offer a swap button that can only fail", () => {
+      renderPage({ mobileVerified: false });
+
+      expect(
+        screen.queryByRole("button", { name: /swap with grace h/i }),
+      ).toBeNull();
+      expect(screen.queryByRole("checkbox")).toBeNull();
+    });
+
+    it("still offers the swap once the number is verified", () => {
+      renderPage({ mobileVerified: true });
+
+      expect(
+        screen.getByRole("button", { name: /swap with grace h/i }),
+      ).toBeVisible();
+    });
   });
 });

@@ -76,4 +76,20 @@ describe("PollChart", () => {
 
     expect(screen.getByRole("row", { name: /lab/i })).toHaveTextContent("42%");
   });
+
+  // `visually-hidden` sets width/height to 1px, but a <table> treats width as
+  // a minimum and lays out to fit its content regardless. `clip` hid it, so it
+  // was invisible while still sizing to ~355px — enough to push the document's
+  // scrollWidth past the viewport and give every screen carrying a chart a
+  // horizontal scrollbar on a phone. A block wrapper does collapse.
+  it("hides the data table on a wrapper, not on the table itself", () => {
+    render(<PollChart polls={polls} constituencyName="Wakefield" />);
+
+    const table = screen.getByRole("table");
+    expect(table).not.toHaveClass("visually-hidden");
+
+    const wrapper = table.parentElement;
+    expect(wrapper).toHaveClass("visually-hidden");
+    expect(wrapper?.tagName).toBe("DIV");
+  });
 });

@@ -25,6 +25,7 @@ function renderGuard(session: SessionPayload | null, isLoading = false) {
             }
           />
           <Route path={spaPaths.home} element={<p>Home</p>} />
+          <Route path={spaPaths.dashboard} element={<p>Dashboard</p>} />
           <Route path={spaPaths.constituency} element={<p>Constituency</p>} />
         </Routes>
       </MemoryRouter>
@@ -43,7 +44,7 @@ describe("RequireLoggedOut", () => {
     renderGuard(sessionPayload({ currentUser: testUser }));
 
     expect(screen.queryByText("Log in form")).not.toBeInTheDocument();
-    expect(screen.getByText("Home")).toBeInTheDocument();
+    expect(screen.getByText("Dashboard")).toBeInTheDocument();
   });
 
   it("respects postAuthPath for an account with no constituency", () => {

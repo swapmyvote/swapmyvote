@@ -148,6 +148,8 @@ export function SignUpForm({ onSignedUp }: SignUpFormProps) {
               onChange={(event) =>
                 setConsentToDataProcessing(event.target.checked)
               }
+              feedbackType="invalid"
+              feedback={fieldError("consent_to_data_processing")}
             />
             <p className="small subdued mt-1 mb-0">
               Once you confirm a swap, we will share your email address and

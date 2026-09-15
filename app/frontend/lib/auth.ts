@@ -51,12 +51,20 @@ export function signUp(registration: Registration): Promise<SessionPayload> {
 /**
  * Where to send someone who has just logged in or signed up. An account with
  * no constituency goes to the screen that asks for one — the same rule
- * `users#show` applies before it will show a dashboard. Everyone else goes
- * home, until M7 ports the dashboard itself.
+ * `users#show` applies before it will show a dashboard. Everyone else goes to
+ * their dashboard, which forwards to the find-a-swap screen when they have no
+ * swap yet, mirroring HomeController's `redirect_to user_path`.
+ *
+ * Landing them on the home page instead put a logged-in user in front of the
+ * logged-out entry form with its constituency box empty, which reads as though
+ * the answers they had just given were thrown away.
  */
 export function postAuthPath(session: SessionPayload): string {
-  if (session.currentUser && !session.currentUser.hasConstituency) {
+  if (!session.currentUser) {
+    return spaPaths.home;
+  }
+  if (!session.currentUser.hasConstituency) {
     return spaPaths.constituency;
   }
-  return spaPaths.home;
+  return spaPaths.dashboard;
 }

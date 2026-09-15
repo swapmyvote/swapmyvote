@@ -88,6 +88,33 @@ describe("SignUpForm", () => {
     expect(screen.getByText("doesn't match Password")).toBeInTheDocument();
   });
 
+  // Every other field renders its API message beside itself as well as in the
+  // summary. The consent box set `isInvalid` — so it turned red — but rendered
+  // no message, leaving the only explanation in the summary at the far end of
+  // a long form.
+  it("shows the consent error beside the checkbox, not only in the summary", async () => {
+    vi.mocked(signUp).mockRejectedValue(
+      new ApiError(422, {
+        error: {
+          code: "validation_failed",
+          messages: ["Consent to data processing must be accepted"],
+          fields: { consent_to_data_processing: ["must be accepted"] },
+        },
+      }),
+    );
+    renderForm();
+
+    await fillIn();
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Consent to data processing must be accepted",
+    );
+    expect(
+      screen.getByLabelText(/i consent to swapmyvote processing/i),
+    ).toHaveClass("is-invalid");
+    expect(screen.getByText("must be accepted")).toBeInTheDocument();
+  });
+
   // The API rejects a sign-up whose honeypot arrives non-blank, so the field
   // has to exist, stay empty, and stay out of everyone's way.
   it("carries a honeypot that no real user can see or reach", () => {
