@@ -17,6 +17,8 @@ import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { queryClient } from "@/lib/queryClient";
 import { spaPaths } from "@/lib/spaPaths";
+import { AccountDeleted } from "@/pages/AccountDeleted";
+import { ConfirmAccountDeletion } from "@/pages/ConfirmAccountDeletion";
 import { Constituency } from "@/pages/Constituency";
 import { Dashboard } from "@/pages/Dashboard";
 import { Home } from "@/pages/Home";
@@ -95,6 +97,14 @@ export function App() {
                   <Route
                     path={spaPaths.passwordEdit}
                     element={<PasswordEdit />}
+                  />
+                  <Route
+                    path={spaPaths.confirmAccountDeletion}
+                    element={<ConfirmAccountDeletion />}
+                  />
+                  <Route
+                    path={spaPaths.accountDeleted}
+                    element={<AccountDeleted />}
                   />
                 </Routes>
               </Layout>

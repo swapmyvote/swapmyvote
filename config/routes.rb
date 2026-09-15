@@ -107,6 +107,10 @@ Rails.application.routes.draw do
   # cutover, which is what keeps already-sent reset links working.
   get "app/password/new", to: "spa#index"
   get "app/password/edit", to: "spa#index"
+  # /confirm_account_deletion and /account_deleted keep serving
+  # StaticPagesController until cutover.
+  get "app/account/delete", to: "spa#index"
+  get "app/account/deleted", to: "spa#index"
 
   root "home#index"
 

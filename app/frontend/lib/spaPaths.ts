@@ -34,6 +34,10 @@ export const spaPaths = {
   // second is what the reset email links to, and the mailer is never edited.
   passwordNew: "/app/password/new",
   passwordEdit: "/app/password/edit",
+  // Cutover maps these onto /confirm_account_deletion and /account_deleted —
+  // not onto themselves minus the `/app` prefix.
+  confirmAccountDeletion: "/app/account/delete",
+  accountDeleted: "/app/account/deleted",
 } as const;
 
 export type SpaPathKey = keyof typeof spaPaths;
