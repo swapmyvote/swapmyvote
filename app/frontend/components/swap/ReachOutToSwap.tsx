@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
+import { spaPaths } from "@/lib/spaPaths";
 import type { SwapPartnerDetail } from "@/types/api";
 
-// The FAQ is not ported, so these stay full-page anchors — see spaPaths.ts.
-const facebookFaq = "/faq#facebook-profile";
-const resetFaq = "/faq#reset";
+const facebookFaq = `${spaPaths.faq}#facebook-profile`;
+const resetFaq = `${spaPaths.faq}#reset`;
 
 /**
  * Ports app/views/shared/_reach_out_to_swap.html.haml and
@@ -38,7 +39,7 @@ export function ReachOutToSwap({ partner }: { partner: SwapPartnerDetail }) {
         <a href={contact.profileUrl} target="_blank" rel="noreferrer">
           on Facebook
         </a>{" "}
-        (although <a href={facebookFaq}>unfortunately this may not work</a>)
+        (although <Link to={facebookFaq}>unfortunately this may not work</Link>)
       </span>,
     );
   }
@@ -61,7 +62,7 @@ export function ReachOutToSwap({ partner }: { partner: SwapPartnerDetail }) {
       <p className="mb-0">
         Unfortunately {partner.name} has not shared their email address or
         social media profile. If this makes you uncomfortable you can{" "}
-        <a href={resetFaq}>cancel your swap</a>.
+        <Link to={resetFaq}>cancel your swap</Link>.
       </p>
     );
   }
@@ -81,7 +82,7 @@ export function ReachOutToSwap({ partner }: { partner: SwapPartnerDetail }) {
         <>
           {" "}
           If this makes you uncomfortable you can{" "}
-          <a href={resetFaq}>cancel your swap</a>.
+          <Link to={resetFaq}>cancel your swap</Link>.
         </>
       )}
     </p>

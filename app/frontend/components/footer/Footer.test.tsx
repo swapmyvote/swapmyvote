@@ -33,19 +33,18 @@ describe("Footer", () => {
     ).toHaveAttribute("href", spaPaths.cookies);
   });
 
-  it("links the not-yet-migrated FAQ and API to the HAML routes (full-page)", () => {
+  it("links the FAQ and API as in-SPA routes", () => {
     renderFooter();
-    // FAQ is deferred to M2, /api is still HAML — both must be plain anchors.
     expect(screen.getByRole("link", { name: /^faq$/i })).toHaveAttribute(
       "href",
-      "/faq",
+      spaPaths.faq,
     );
     expect(
       screen.getByRole("link", { name: /^is this legal\?$/i }),
-    ).toHaveAttribute("href", "/faq#legal");
+    ).toHaveAttribute("href", `${spaPaths.faq}#legal`);
     expect(screen.getByRole("link", { name: /^api$/i })).toHaveAttribute(
       "href",
-      "/api",
+      spaPaths.api,
     );
   });
 

@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { ReachOutToSwap } from "@/components/swap/ReachOutToSwap";
+import { spaPaths } from "@/lib/spaPaths";
 import type { SwapPartnerDetail } from "@/types/api";
 
 function partner(contact: SwapPartnerDetail["contact"]): SwapPartnerDetail {
@@ -18,18 +20,22 @@ function partner(contact: SwapPartnerDetail["contact"]): SwapPartnerDetail {
   };
 }
 
+function renderPartner(contact: SwapPartnerDetail["contact"]) {
+  return render(
+    <MemoryRouter>
+      <ReachOutToSwap partner={partner(contact)} />
+    </MemoryRouter>,
+  );
+}
+
 describe("ReachOutToSwap", () => {
   it("offers an email address when one has been shared", () => {
-    render(
-      <ReachOutToSwap
-        partner={partner({
-          email: "grace@example.com",
-          profileUrl: null,
-          provider: null,
-          facebookLogin: false,
-        })}
-      />,
-    );
+    renderPartner({
+      email: "grace@example.com",
+      profileUrl: null,
+      provider: null,
+      facebookLogin: false,
+    });
 
     expect(
       screen.getByRole("link", { name: "by email at grace@example.com" }),
@@ -37,16 +43,12 @@ describe("ReachOutToSwap", () => {
   });
 
   it("offers a Twitter profile when there is one", () => {
-    render(
-      <ReachOutToSwap
-        partner={partner({
-          email: null,
-          profileUrl: "https://twitter.com/gracehopper",
-          provider: "twitter",
-          facebookLogin: false,
-        })}
-      />,
-    );
+    renderPartner({
+      email: null,
+      profileUrl: "https://twitter.com/gracehopper",
+      provider: "twitter",
+      facebookLogin: false,
+    });
 
     expect(screen.getByRole("link", { name: "on Twitter" })).toHaveAttribute(
       "href",
@@ -55,39 +57,31 @@ describe("ReachOutToSwap", () => {
   });
 
   it("warns that Facebook links may not work", () => {
-    render(
-      <ReachOutToSwap
-        partner={partner({
-          email: null,
-          profileUrl: "https://facebook.com/gracehopper",
-          provider: "facebook",
-          facebookLogin: true,
-        })}
-      />,
-    );
+    renderPartner({
+      email: null,
+      profileUrl: "https://facebook.com/gracehopper",
+      provider: "facebook",
+      facebookLogin: true,
+    });
 
     expect(
       screen.getByRole("link", { name: "on Facebook" }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "unfortunately this may not work" }),
-    ).toHaveAttribute("href", "/faq#facebook-profile");
+    ).toHaveAttribute("href", `${spaPaths.faq}#facebook-profile`);
     expect(
       screen.getByRole("link", { name: "cancel your swap" }),
-    ).toHaveAttribute("href", "/faq#reset");
+    ).toHaveAttribute("href", `${spaPaths.faq}#reset`);
   });
 
   it("offers no escape hatch when there is more than one way to make contact", () => {
-    render(
-      <ReachOutToSwap
-        partner={partner({
-          email: "grace@example.com",
-          profileUrl: "https://twitter.com/gracehopper",
-          provider: "twitter",
-          facebookLogin: false,
-        })}
-      />,
-    );
+    renderPartner({
+      email: "grace@example.com",
+      profileUrl: "https://twitter.com/gracehopper",
+      provider: "twitter",
+      facebookLogin: false,
+    });
 
     expect(
       screen.getByRole("link", { name: "on Twitter" }),
@@ -101,7 +95,7 @@ describe("ReachOutToSwap", () => {
   });
 
   it("says so when nothing has been shared, and offers a way out", () => {
-    render(<ReachOutToSwap partner={partner(null)} />);
+    renderPartner(null);
 
     expect(
       screen.getByText(
@@ -110,6 +104,6 @@ describe("ReachOutToSwap", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "cancel your swap" }),
-    ).toHaveAttribute("href", "/faq#reset");
+    ).toHaveAttribute("href", `${spaPaths.faq}#reset`);
   });
 });

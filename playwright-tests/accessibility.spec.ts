@@ -9,19 +9,25 @@ import {
 } from "./support/seedProfileUser";
 
 // The logged-out screens, under the `/app/*` preview paths they are served
-// from until each one is cut over. spaPaths also carries `faq`, which is not
-// migrated yet (M2) and has no Rails route, so it is deliberately not
-// scanned.
+// from until each one is cut over.
 //
 // `ready` is optional and defaults to "main has rendered something" — true
-// the instant these mount, since they have no data to wait on. Home (M3) is
-// the one dynamic entry: it fetches session/election/constituency/party data
-// first and shows a Spinner *inside* `<main>` meanwhile (see Home.tsx), which
-// satisfies "main is non-empty" on its own. Left ungated, the scan would very
-// likely run against that spinner — the first paint Playwright can observe —
-// and pass having examined no real content at all. Wait for the postcode
-// search button instead: it only exists once EntryForm (the real page) has
-// rendered.
+// the instant most of these mount, since they have no data to wait on. Two
+// entries are dynamic and gate on their real content instead, because each
+// renders a Spinner *inside* `<main>` while it loads, which satisfies "main
+// is non-empty" on its own — left ungated the scan would very likely run
+// against that spinner, the first paint Playwright can observe, and pass
+// having examined no real content at all.
+//
+//   - Home (M3) fetches session/election/constituency/party data first (see
+//     Home.tsx); wait for the postcode search button, which only exists once
+//     EntryForm — the real page — has rendered.
+//   - API (M9) blocks on parties/constituencies/election together (see
+//     ApiDocs.tsx); wait for its h1, which the loading branch does not render.
+//
+// The FAQ (M9) needs no gate: it renders its whole static body immediately
+// and lets its two dynamic values arrive late, precisely so deep links into
+// its anchors resolve on a cold load.
 const migratedPages: {
   name: string;
   path: string;
@@ -36,6 +42,13 @@ const migratedPages: {
   { name: "Contact", path: spaPaths.contact },
   { name: "Cookie Policy", path: spaPaths.cookies },
   { name: "Terms of Use", path: spaPaths.terms },
+  { name: "FAQ", path: spaPaths.faq },
+  {
+    name: "API",
+    path: spaPaths.api,
+    ready: (page) =>
+      page.getByRole("heading", { name: "Swap My Vote API", level: 1 }),
+  },
   { name: "Log in", path: spaPaths.login },
   { name: "Sign up", path: spaPaths.signup },
 ];

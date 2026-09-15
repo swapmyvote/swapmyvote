@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ProfileForm } from "@/components/profile/ProfileForm";
 import { ApiError } from "@/lib/apiClient";
 import { updateProfile } from "@/lib/profile";
+import { spaPaths } from "@/lib/spaPaths";
 import type { Constituency, CurrentUser, Party } from "@/types/api";
 
 vi.mock("@/lib/profile", async (importOriginal) => {
@@ -13,8 +14,20 @@ vi.mock("@/lib/profile", async (importOriginal) => {
 });
 
 const parties: Party[] = [
-  { id: 1, name: "Green", color: "#6AB023", smvCode: "grn" },
-  { id: 2, name: "Labour", color: "#DC241f", smvCode: "lab" },
+  {
+    id: 1,
+    name: "Green",
+    color: "#6AB023",
+    smvCode: "grn",
+    canonicalName: "green",
+  },
+  {
+    id: 2,
+    name: "Labour",
+    color: "#DC241f",
+    smvCode: "lab",
+    canonicalName: "labour",
+  },
 ];
 
 const constituencies: Constituency[] = [
@@ -166,7 +179,7 @@ describe("ProfileForm", () => {
       screen.getByRole("link", {
         name: /to allow your swap partner to reach out to you/i,
       }),
-    ).toHaveAttribute("href", "/faq#trust");
+    ).toHaveAttribute("href", `${spaPaths.faq}#trust`);
     expect(
       screen.getByRole("link", {
         name: /your details will stay private with us/i,

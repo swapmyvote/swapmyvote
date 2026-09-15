@@ -33,26 +33,36 @@ test.describe("SPA/HAML link boundary", () => {
   test("must do a full page load when a link to a page still served by Rails is followed", async ({
     page,
   }) => {
-    await page.goto(spaPaths.terms);
+    await page.goto(spaPaths.login);
     await stampDocument(page);
 
-    // The FAQ has not been migrated (M2), so the footer links to it with a
-    // plain <a>. Of the un-migrated pages the footer links to, this one reads
-    // nothing from the database — /api renders sampled Party rows and would
-    // 500 against the schema-only database CI builds, which the assertions
-    // below would not catch, since a full load to an error page still counts
-    // as a full load.
-    await page
-      .getByRole("contentinfo")
-      .getByRole("link", { name: "FAQ", exact: true })
-      .click();
+    // The FAQ and API pages are both migrated now, so the footer no longer
+    // has an un-migrated internal link. Password reset is still Devise HAML
+    // (M5), so the login screen's "Forgotten password?" link is a plain <a>;
+    // it doesn't touch the database, so it renders cleanly against the
+    // schema-only database CI builds.
+    await page.getByRole("link", { name: "Forgotten password?" }).click();
 
-    await expect(page).toHaveURL("/faq");
+    await expect(page).toHaveURL("/users/password/new");
     // Assert the legacy page actually rendered, so this cannot pass against a
     // Rails error page.
     await expect(
-      page.getByRole("heading", { name: "FAQ", level: 1 }),
+      page.getByRole("heading", { name: "Reset password", level: 2 }),
     ).toBeVisible();
     expect(await documentWasReplaced(page)).toBe(true);
   });
+});
+
+test("must serve the FAQ and API pages from the SPA shell", async ({
+  page,
+}) => {
+  await page.goto(spaPaths.faq);
+  await expect(
+    page.getByRole("heading", { name: "FAQ", level: 1 }),
+  ).toBeVisible();
+
+  await page.goto(spaPaths.api);
+  await expect(
+    page.getByRole("heading", { name: "Swap My Vote API", level: 1 }),
+  ).toBeVisible();
 });

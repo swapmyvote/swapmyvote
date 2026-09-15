@@ -7,8 +7,10 @@ import { Footer } from "@/components/footer/Footer";
 import { Navigation } from "@/components/navigation/Navigation";
 import { ScrollToTop } from "@/components/navigation/ScrollToTop";
 import { About } from "@/components/static/About";
+import { ApiDocs } from "@/components/static/ApiDocs";
 import { Contact } from "@/components/static/Contact";
 import { Cookies } from "@/components/static/Cookies";
+import { Faq } from "@/components/static/Faq";
 import { Terms } from "@/components/static/Terms";
 import { AppModeProvider } from "@/contexts/AppModeContext";
 import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
@@ -70,6 +72,8 @@ export function App() {
                   <Route path={spaPaths.contact} element={<Contact />} />
                   <Route path={spaPaths.cookies} element={<Cookies />} />
                   <Route path={spaPaths.terms} element={<Terms />} />
+                  <Route path={spaPaths.faq} element={<Faq />} />
+                  <Route path={spaPaths.api} element={<ApiDocs />} />
                   <Route
                     path={spaPaths.constituency}
                     element={<Constituency />}

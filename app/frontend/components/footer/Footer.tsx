@@ -10,9 +10,8 @@ import { spaPaths } from "@/lib/spaPaths";
 // Three equal-width columns via the Bootstrap grid (col-md-4) so they stay
 // balanced regardless of link length, stacking on mobile.
 //
-// Link boundary: pages already migrated to React (about/contact/terms/cookies)
-// use in-SPA <Link>; pages still served by HAML (the FAQ — deferred to M2 — and
-// the /api page) use full-page <a href>; off-site links are plain anchors.
+// Link boundary: pages already migrated to React (about/contact/terms/cookies/
+// faq/api) use in-SPA <Link>; off-site links are plain anchors.
 //
 // The legacy footer also shows a conditional "Donate" link gated on
 // donate_info[:show] (an ENV flag). That is server state not yet available to
@@ -87,10 +86,9 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                {/* /api is still a HAML page — full-page navigation. */}
-                <a className="small" href="/api">
+                <Link className="small" to={spaPaths.api}>
                   API
-                </a>
+                </Link>
               </li>
             </ul>
           </Col>
@@ -99,26 +97,25 @@ export function Footer() {
             <ul className="list-unstyled">
               <li>
                 <h3 className="h5">
-                  {/* FAQ is not yet migrated (M2) — full-page link to the HAML page. */}
-                  <a className="stealth-link" href="/faq">
+                  <Link className="stealth-link" to={spaPaths.faq}>
                     FAQ
-                  </a>
+                  </Link>
                 </h3>
               </li>
               <li>
-                <a className="small" href="/faq#legal">
+                <Link className="small" to={`${spaPaths.faq}#legal`}>
                   Is this legal?
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="small" href="/faq#trust">
+                <Link className="small" to={`${spaPaths.faq}#trust`}>
                   How do I know my partner will vote (for who I want)?
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="small" href="/faq">
+                <Link className="small" to={spaPaths.faq}>
                   More ...
-                </a>
+                </Link>
               </li>
             </ul>
           </Col>

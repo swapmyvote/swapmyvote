@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
 import { StaticPage } from "@/components/static/StaticPage";
 import { githubUrl } from "@/lib/externalLinks";
+import { spaPaths } from "@/lib/spaPaths";
 
 // Ported from app/views/static_pages/about.html.haml. Every link here crosses
-// out of the SPA (external sites, or the not-yet-migrated /api HAML page), so
-// they are all plain <a> anchors — no react-router <Link>.
+// out of the SPA except the API page, so they are all plain <a> anchors —
+// only the API link is a react-router <Link>.
 export function About() {
   return (
     <StaticPage>
@@ -77,8 +79,9 @@ export function About() {
           at the Forward Democracy website.
         </li>
         <li>
-          For developers &amp; campaigns: our <a href="/api">API</a> allows your
-          site to integrate Swap My Vote and help voters find a swap.
+          For developers &amp; campaigns: our <Link to={spaPaths.api}>API</Link>{" "}
+          allows your site to integrate Swap My Vote and help voters find a
+          swap.
         </li>
         <li>
           In the interests of transparency,{" "}

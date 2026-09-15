@@ -9,7 +9,8 @@ module Api
       attributes :general_election, :hide_polls, :year, :season, :date_md,
                  :date_dm, :date_and_type_my, :date_and_type_mdy,
                  :date_season_type, :event_title_with_year, :event_choice,
-                 :hashtags, :constituency_other, :constituencies_as_sentence
+                 :hashtags, :constituency_other, :constituencies_as_sentence,
+                 :swap_validity_hours
 
       # ISO 8601, so the client can format or compare it without parsing prose.
       attribute :date do |election|

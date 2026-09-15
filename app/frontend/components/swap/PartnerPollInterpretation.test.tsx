@@ -8,6 +8,7 @@ const labour: Party = {
   name: "Labour",
   color: "#DC241f",
   smvCode: "lab",
+  canonicalName: "labour",
 };
 
 function poll(overrides: Partial<ConstituencyPoll> = {}): ConstituencyPoll {

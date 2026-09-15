@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { Contact } from "@/components/static/Contact";
+import { spaPaths } from "@/lib/spaPaths";
 
 function renderContact() {
   return render(
@@ -19,12 +20,10 @@ describe("Contact", () => {
     ).toBeInTheDocument();
   });
 
-  it("links the not-yet-migrated FAQ to the HAML route (full-page)", () => {
+  it("links the FAQ as an in-SPA route", () => {
     renderContact();
-    // FAQ is deferred to M2 and has no SPA route — an in-SPA <Link> would
-    // render a blank page.
     const faqLink = screen.getByRole("link", { name: /faq/i });
-    expect(faqLink).toHaveAttribute("href", "/faq");
+    expect(faqLink).toHaveAttribute("href", spaPaths.faq);
   });
 
   it("offers a mailto link to the team", () => {

@@ -30,6 +30,10 @@ export interface Party {
   color: string | null;
   /** Short code the `.party-*` colour classes key off. */
   smvCode: string | null;
+  /** The spelling `/swap?willing_party_name=` accepts, e.g. `liberal_democrat`.
+   *  Derived server-side (PartySerializer) because the inbound matcher uses the
+   *  same helper. */
+  canonicalName: string | null;
 }
 
 export interface CurrentUser {
@@ -115,6 +119,10 @@ export interface Election {
   constituencyOther: string;
   /** "Wakefield and Tiverton & Honiton" */
   constituenciesAsSentence: string;
+  /** How long an unconfirmed swap survives before it expires, in hours
+   *  (`SWAP_EXPIRY_HOURS`, default 48). Deploy-immutable config that happens
+   *  to ride on this endpoint — see the M9 design doc. */
+  swapValidityHours: number;
   donate: {
     link: string;
     show: boolean;
