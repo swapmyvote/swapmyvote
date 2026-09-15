@@ -18,6 +18,13 @@ module Api
       # RecordInvalid. Nothing persists either way; this is only about
       # answering with the error convention rather than a 500.
       rescue_from ActiveRecord::RecordNotUnique, with: :render_record_not_unique
+      # Raised by `destroy!` (Api::V1::UsersController#destroy) when a
+      # before_destroy callback throws :abort — e.g. one of User's own
+      # `dependent: :destroy` associations (mobile_phone, identity) failing to
+      # destroy its target. Unlike RecordNotUnique this does carry a record,
+      # so the response can include field errors when the abort left any
+      # behind.
+      rescue_from ActiveRecord::RecordNotDestroyed, with: :render_record_not_destroyed
 
       # ApplicationController answers a forged request with a flash +
       # redirect_back, which is meaningless to a fetch() caller. Answer with
@@ -253,6 +260,19 @@ module Api
           code: "validation_failed",
           status: :unprocessable_entity,
           messages: ["Those details are already in use"]
+        )
+      end
+
+      # RecordNotDestroyed carries the record whose before_destroy callback
+      # threw :abort, so unlike render_record_not_unique this can report field
+      # errors if the abort left any on the record.
+      def render_record_not_destroyed(exception)
+        render_error(
+          code: "not_destroyed",
+          status: :unprocessable_entity,
+          messages: exception.record.errors.full_messages.presence ||
+                    ["Something went wrong - please try that again."],
+          fields: exception.record.errors.to_hash(true)
         )
       end
     end

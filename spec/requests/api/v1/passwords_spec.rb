@@ -157,5 +157,36 @@ RSpec.describe "Api::V1::Passwords", type: :request do
       expect(response).to have_http_status(:forbidden)
       expect(json["error"]["code"]).to eq("already_authenticated")
     end
+
+    # Mirrors the "with forgery protection on" context in
+    # spec/requests/api/v1/users_spec.rb. This endpoint changes a password
+    # and signs a session in, so the forged request must be refused, and the
+    # password + session must be provably untouched afterwards — not just
+    # the status code.
+    context "with forgery protection on (as in production)" do
+      around do |example|
+        original = ActionController::Base.allow_forgery_protection
+        ActionController::Base.allow_forgery_protection = true
+        example.run
+        ActionController::Base.allow_forgery_protection = original
+      end
+
+      it "rejects a request without a valid CSRF token, as JSON, and changes nothing" do
+        user = create(:user, name: "Ada Lovelace")
+        token = reset_token_for(user)
+
+        put "/api/v1/password",
+            params: { token: token, password: "correct-horse-battery",
+                      password_confirmation: "correct-horse-battery" },
+            headers: { "X-CSRF-Token" => "not-the-token" }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json["error"]).to include("code" => "invalid_authenticity_token")
+        expect(user.reload.valid_password?("correct-horse-battery")).to be(false)
+
+        get "/api/v1/session"
+        expect(json["currentUser"]).to be_nil
+      end
+    end
   end
 end
