@@ -34,10 +34,6 @@ interface ProfileFormProps {
   onSaved: (result: ProfileUpdateResult) => void;
 }
 
-// Account deletion is not in the migration plan's screen list at all, so this
-// still crosses to HAML. M10 owns porting it.
-const hamlDeleteAccount = "/confirm_account_deletion";
-
 const faqTrust = `${spaPaths.faq}#trust`;
 
 /**
@@ -214,7 +210,7 @@ export function ProfileForm({
 
         <p className="small subdued mb-0">
           If you no longer want to take part in Swap My Vote, you can{" "}
-          <a href={hamlDeleteAccount}>delete your account</a>.
+          <Link to={spaPaths.confirmAccountDeletion}>delete your account</Link>.
         </p>
       </div>
     </form>

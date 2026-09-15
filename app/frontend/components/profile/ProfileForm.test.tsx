@@ -187,12 +187,12 @@ describe("ProfileForm", () => {
     ).toHaveAttribute("href", "https://forwarddemocracy.com/privacy-policy");
   });
 
-  it("links out to account deletion", () => {
+  it("links to the account deletion screen, staying in the SPA", () => {
     renderForm();
 
     expect(
       screen.getByRole("link", { name: /delete your account/i }),
-    ).toHaveAttribute("href", "/confirm_account_deletion");
+    ).toHaveAttribute("href", spaPaths.confirmAccountDeletion);
   });
 
   it("shows what went wrong when saving fails", async () => {

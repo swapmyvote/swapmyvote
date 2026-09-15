@@ -29,8 +29,8 @@ Rails.application.routes.draw do
       resource :registration, only: [:create], controller: "registration"
 
       # The logged-in user's own profile — the React profile and constituency
-      # screens both patch this.
-      resource :user, only: [:update], controller: "users"
+      # screens both patch this; the account-deletion screen destroys it.
+      resource :user, only: [:update, :destroy], controller: "users"
 
       # Reference data for the entry form: unauthenticated, ungated, cacheable.
       resources :parties, only: [:index]
@@ -60,6 +60,11 @@ Rails.application.routes.draw do
       # Write-only: everything the screen reads is already on the session
       # payload or GET /api/v1/swap.
       resource :vote, only: [:create], controller: "vote"
+
+      # Ported from Devise::PasswordsController; /users/password/{new,edit}
+      # keep serving Devise HAML until cutover — which is what keeps the
+      # reset links in already-sent emails working.
+      resource :password, only: [:create, :update], controller: "passwords"
     end
   end
 
@@ -98,6 +103,14 @@ Rails.application.routes.draw do
   # cutover.
   get "app/faq", to: "spa#index"
   get "app/api", to: "spa#index"
+  # M10 account lifecycle. /users/password/* keep serving Devise HAML until
+  # cutover, which is what keeps already-sent reset links working.
+  get "app/password/new", to: "spa#index"
+  get "app/password/edit", to: "spa#index"
+  # /confirm_account_deletion and /account_deleted keep serving
+  # StaticPagesController until cutover.
+  get "app/account/delete", to: "spa#index"
+  get "app/account/deleted", to: "spa#index"
 
   root "home#index"
 

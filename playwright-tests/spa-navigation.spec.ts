@@ -30,27 +30,23 @@ test.describe("SPA/HAML link boundary", () => {
     expect(await documentWasReplaced(page)).toBe(false);
   });
 
-  test("must do a full page load when a link to a page still served by Rails is followed", async ({
-    page,
-  }) => {
-    await page.goto(spaPaths.login);
-    await stampDocument(page);
-
-    // The FAQ and API pages are both migrated now, so the footer no longer
-    // has an un-migrated internal link. Password reset is still Devise HAML
-    // (M5), so the login screen's "Forgotten password?" link is a plain <a>;
-    // it doesn't touch the database, so it renders cleanly against the
-    // schema-only database CI builds.
-    await page.getByRole("link", { name: "Forgotten password?" }).click();
-
-    await expect(page).toHaveURL("/users/password/new");
-    // Assert the legacy page actually rendered, so this cannot pass against a
-    // Rails error page.
-    await expect(
-      page.getByRole("heading", { name: "Reset password", level: 2 }),
-    ).toBeVisible();
-    expect(await documentWasReplaced(page)).toBe(true);
-  });
+  // Retired at M10. Its partner — "must do a full page load when a link to a
+  // page still served by Rails is followed" — asserted the other side of the
+  // boundary, and there is no longer a link that crosses it. It had already
+  // been re-targeted twice as screens were ported (the footer's FAQ link, then
+  // the login screen's "Forgotten password?"), and M10 ports password reset
+  // and account deletion, which were the last two. Every internal link from a
+  // ported screen is now a router <Link> that stays in the SPA, so nothing is
+  // left to click: the only remaining full-page navigations are external
+  // (forwarddemocracy.com, GitHub), the deliberate log-out `window.location`
+  // to the legacy home, and ApiDocs' documented /swap entry point — an API
+  // redirect shown as example text, not an internal navigation link.
+  //
+  // Re-targeting it at any of those would be testing something else under this
+  // test's name. The thing worth guarding now is the inverse — that no link
+  // points at a path the SPA has replaced — which playwright-tests/
+  // no-legacy-links.spec.ts asserts across every ported screen. At cutover the
+  // boundary disappears entirely, so this test does not come back.
 });
 
 test("must serve the FAQ and API pages from the SPA shell", async ({

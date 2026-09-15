@@ -12,7 +12,7 @@ import {
 // from until each one is cut over.
 //
 // `ready` is optional and defaults to "main has rendered something" — true
-// the instant most of these mount, since they have no data to wait on. Two
+// the instant most of these mount, since they have no data to wait on. Four
 // entries are dynamic and gate on their real content instead, because each
 // renders a Spinner *inside* `<main>` while it loads, which satisfies "main
 // is non-empty" on its own — left ungated the scan would very likely run
@@ -24,6 +24,9 @@ import {
 //     EntryForm — the real page — has rendered.
 //   - API (M9) blocks on parties/constituencies/election together (see
 //     ApiDocs.tsx); wait for its h1, which the loading branch does not render.
+//   - Password reset request and Password reset form (M10) sit behind
+//     RequireLoggedOut, which renders that same Spinner while it checks the
+//     session; wait for content only their loaded form renders.
 //
 // The FAQ (M9) needs no gate: it renders its whole static body immediately
 // and lets its two dynamic values arrive late, precisely so deep links into
@@ -51,6 +54,35 @@ const migratedPages: {
   },
   { name: "Log in", path: spaPaths.login },
   { name: "Sign up", path: spaPaths.signup },
+  // Same RequireLoggedOut wrapper as Log in / Sign up above — but unlike
+  // those two, this needs a `ready` gate (see the file header note): reusing
+  // the locator no-legacy-links.spec.ts already gates this same screen on.
+  {
+    name: "Password reset request",
+    path: spaPaths.passwordNew,
+    ready: (page) =>
+      page.getByRole("heading", { name: "Reset password", level: 1 }),
+  },
+  // Any non-empty token renders the real form: PasswordEdit only falls back
+  // to its "link no longer works" state for a *blank* token or a failed
+  // submit, and this test never submits. The token does not need to be real,
+  // so — unlike no-legacy-links.spec.ts's blank-token gate on this same
+  // screen's fallback link — the gate here waits on the real form's password
+  // field, since that is the state this token actually renders.
+  {
+    name: "Password reset form",
+    path: `${spaPaths.passwordEdit}?reset_password_token=test-token`,
+    // `exact`, because getByLabel matches on substring by default and this
+    // form's other field is labelled "Confirm new password" — without it the
+    // locator resolves to both and Playwright's strict mode fails. React
+    // Testing Library's getByLabelText is exact by default, which is why the
+    // component tests never saw this.
+    ready: (page) => page.getByLabel("New password", { exact: true }),
+  },
+  // No auth guard at all (see AccountDeleted.tsx) — DELETE /api/v1/user signs
+  // the caller out as part of destroying the account, so anyone landing here
+  // is already logged out by design.
+  { name: "Account deleted", path: spaPaths.accountDeleted },
 ];
 
 // Gate on the WCAG 2.0/2.1 A and AA rule sets — the conformance target — rather
@@ -148,6 +180,12 @@ const signedInPages: {
     name: "Share",
     path: spaPaths.share,
     ready: (page) => page.getByRole("link", { name: /No Thanks, Skip/ }),
+  },
+  {
+    name: "Confirm account deletion",
+    path: spaPaths.confirmAccountDeletion,
+    ready: (page) =>
+      page.getByRole("button", { name: "Yes, delete my account" }),
   },
 ];
 

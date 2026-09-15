@@ -176,4 +176,125 @@ RSpec.describe "Api::V1::Users", type: :request do
       end
     end
   end
+
+  describe "DELETE /api/v1/user" do
+    it "refuses an unauthenticated caller" do
+      delete "/api/v1/user"
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(json["error"]["code"]).to eq("unauthenticated")
+    end
+
+    it "deletes the account and answers with a signed-out session" do
+      user = create(:user, name: "Ada Lovelace")
+      sign_in user
+
+      delete "/api/v1/user"
+
+      expect(response).to have_http_status(:ok)
+      expect(json["currentUser"]).to be_nil
+      expect(User.find_by(id: user.id)).to be_nil
+    end
+
+    it "leaves the caller signed out afterwards" do
+      sign_in create(:user, name: "Ada Lovelace")
+
+      delete "/api/v1/user"
+      get "/api/v1/session"
+
+      expect(json["currentUser"]).to be_nil
+    end
+
+    # Mirrors PATCH /api/v1/user's "with forgery protection on" context
+    # above. This is the one endpoint in this milestone that cannot be
+    # undone, so it checks the row survives the forged request, not just the
+    # status code — a CSRF test that only asserted 422 would still pass if
+    # the account were destroyed before the forgery check ran.
+    context "with forgery protection on (as in production)" do
+      around do |example|
+        original = ActionController::Base.allow_forgery_protection
+        ActionController::Base.allow_forgery_protection = true
+        example.run
+        ActionController::Base.allow_forgery_protection = original
+      end
+
+      it "rejects a request without a valid CSRF token, as JSON, and leaves the account intact" do
+        user = create(:user, name: "Ada Lovelace")
+        sign_in user
+
+        delete "/api/v1/user", headers: { "X-CSRF-Token" => "not-the-token" }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json["error"]).to include("code" => "invalid_authenticity_token")
+        expect(User.find_by(id: user.id)).to be_present
+      end
+    end
+
+    # Api::V1::BaseController#render_record_not_destroyed converts the
+    # exception `destroy!` raises when a before_destroy callback throws
+    # :abort (e.g. one of User's `dependent: :destroy` associations failing
+    # to destroy its target) into the API's JSON error convention instead of
+    # a 500 HTML error page. Stubbing `destroy!` directly is more reliable
+    # here than trying to make a real before_destroy hook throw :abort:
+    # User's own hooks (clear_swap) call plain `.destroy` on the swap, whose
+    # own abort only halts the swap's destroy, not the user's.
+    it "converts a RecordNotDestroyed exception into the JSON error convention" do
+      user = create(:user, name: "Ada Lovelace")
+      sign_in user
+
+      allow(user).to receive(:destroy!).and_raise(
+        ActiveRecord::RecordNotDestroyed.new("Failed to destroy User", user)
+      )
+
+      delete "/api/v1/user"
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(json["error"]["code"]).to eq("not_destroyed")
+      expect(User.find_by(id: user.id)).to be_present
+    end
+
+    # The models do this, not the controller: User before_destroy :clear_swap,
+    # Swap before_destroy :notify_users_of_cancelled_swap. Asserted here
+    # because it is the promise the confirmation screen makes.
+    #
+    # Swap#notify_users_of_cancelled_swap sends two mails — one to each
+    # party, each `to: @user.email` — so this checks the partner is actually
+    # among the recipients, not just that some mail went out: a delivery
+    # count alone would pass even if both mails went to the wrong address.
+    it "cancels the swap and tells the partner" do
+      user = create(:user, name: "Ada Lovelace")
+      partner = create(:user, name: "Grace Hopper")
+      user.create_outgoing_swap!(chosen_user: partner, confirmed: true)
+      user.save!
+      sign_in user
+
+      delete "/api/v1/user"
+
+      recipients = ActionMailer::Base.deliveries.map(&:to).flatten
+      expect(recipients).to include(partner.email)
+      expect(partner.reload.swap).to be_nil
+    end
+
+    # Mirrors UsersController#restricted_when_voting_open, which redirects
+    # silently. Deleting mid-election would destroy a confirmed swap on the
+    # day it matters.
+    #
+    # Follows this file's own convention (see "when voting is open and the
+    # swap is confirmed" above) for driving the phase gate: a real confirmed
+    # swap plus a stubbed SWAPMYVOTE_MODE, not allow_any_instance_of.
+    it "refuses once voting is open and the swap is confirmed" do
+      user = create(:user, name: "Ada Lovelace")
+      create(:swap, chosen_user: user, confirmed: true)
+      user.reload
+      sign_in user
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return("open-and-voting")
+
+      delete "/api/v1/user"
+
+      expect(response).to have_http_status(:forbidden)
+      expect(json["error"]["code"]).to eq("voting_info_locked")
+      expect(User.find_by(id: user.id)).to be_present
+    end
+  end
 end

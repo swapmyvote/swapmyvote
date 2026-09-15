@@ -12,15 +12,11 @@ interface LoginFormProps {
   onLoggedIn: (session: SessionPayload) => void;
 }
 
-// Password reset is still Devise HAML (see the M5 design), so this crosses the
-// SPA boundary and needs a real page load.
-const hamlForgottenPassword = "/users/password/new";
-
 /**
  * Ports app/views/devise/sessions/new.html.erb — email, password, and the two
- * ways off the page the legacy view offers: password reset and sign-up.
- * Password reset is still Devise HAML, so it is a full-page anchor; sign-up
- * has been ported, so it is a router <Link>.
+ * ways off the page the legacy view offers: password reset and sign-up. Both
+ * are ported now (M10 and M5), so both are router <Link>s and neither drops
+ * the user out of the SPA.
  */
 export function LoginForm({ onLoggedIn }: LoginFormProps) {
   const emailId = useId();
@@ -76,7 +72,7 @@ export function LoginForm({ onLoggedIn }: LoginFormProps) {
         </Button>
 
         <p className="small subdued mb-0">
-          <a href={hamlForgottenPassword}>Forgotten password?</a>
+          <Link to={spaPaths.passwordNew}>Forgotten password?</Link>
         </p>
 
         <p className="small subdued mb-0">

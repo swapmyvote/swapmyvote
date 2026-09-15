@@ -295,10 +295,10 @@ export function Faq() {
       </h2>
       <p>
         You can{" "}
-        {/* Not yet an SPA screen — M10 ports /confirm_account_deletion and
-            repoints this. Deliberately a full-page <a> until then. */}
-        <a href="/confirm_account_deletion">permanently remove your account</a>.
-        Please note that you may no longer get emails from us with news on
+        <Link to={spaPaths.confirmAccountDeletion}>
+          permanently remove your account
+        </Link>
+        . Please note that you may no longer get emails from us with news on
         electoral reform or reminders for future elections.
       </p>
       <p>

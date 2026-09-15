@@ -35,6 +35,42 @@ export interface TestCredentials {
   password: string;
 }
 
+/**
+ * Requests a real password reset for an already-seeded user and returns the
+ * raw token, straight from `User#send_reset_password_instructions` — Devise
+ * only ever persists that token's digest, so the plaintext otherwise exists
+ * nowhere but the email it sends. This adds no production-facing code: it is
+ * the instance method Devise ships, called the same way the M10 API
+ * controller calls the class-level `send_reset_password_instructions`, just
+ * with a handle on the return value that controller throws away.
+ *
+ * `railsEnv` matters doubly here: this deliberately generates a mail (Devise's
+ * reset-instructions notification), which is exactly the case `SERVER_HOST`
+ * exists for — see the comment above.
+ *
+ * The token comes back on a marked line rather than as bare stdout, because
+ * `runner`'s own boot output (deprecation notices, and the like) can land on
+ * the same stream as whatever the script prints.
+ */
+export function requestPasswordResetToken(email: string): string {
+  const script = `
+    user = User.find_by!(email: "${email}")
+    token = user.send_reset_password_instructions
+    puts "RESET_TOKEN=#{token}"
+  `;
+  const output = execFileSync("bin/rails", ["runner", script], {
+    env: railsEnv,
+  }).toString();
+
+  const match = output.match(/^RESET_TOKEN=(\S+)$/m);
+  if (!match) {
+    throw new Error(
+      `could not find a reset token in \`bin/rails runner\` output:\n${output}`,
+    );
+  }
+  return match[1];
+}
+
 // Ruby, run against the dev database the stack is already serving. Everything
 // is idempotent (find_or_create_by / update) so re-running the suite does not
 // pile up rows, and the user is left in a known state whatever the last run

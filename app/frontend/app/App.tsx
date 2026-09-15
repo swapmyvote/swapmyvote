@@ -17,11 +17,15 @@ import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { queryClient } from "@/lib/queryClient";
 import { spaPaths } from "@/lib/spaPaths";
+import { AccountDeleted } from "@/pages/AccountDeleted";
+import { ConfirmAccountDeletion } from "@/pages/ConfirmAccountDeletion";
 import { Constituency } from "@/pages/Constituency";
 import { Dashboard } from "@/pages/Dashboard";
 import { Home } from "@/pages/Home";
 import { Login } from "@/pages/Login";
 import { Mobile } from "@/pages/Mobile";
+import { PasswordEdit } from "@/pages/PasswordEdit";
+import { PasswordNew } from "@/pages/PasswordNew";
 import { Ping } from "@/pages/Ping";
 import { Profile } from "@/pages/Profile";
 import { Review } from "@/pages/Review";
@@ -86,6 +90,22 @@ export function App() {
                   <Route path={spaPaths.swapNew} element={<SwapNew />} />
                   <Route path={spaPaths.share} element={<Share />} />
                   <Route path={spaPaths.vote} element={<Vote />} />
+                  <Route
+                    path={spaPaths.passwordNew}
+                    element={<PasswordNew />}
+                  />
+                  <Route
+                    path={spaPaths.passwordEdit}
+                    element={<PasswordEdit />}
+                  />
+                  <Route
+                    path={spaPaths.confirmAccountDeletion}
+                    element={<ConfirmAccountDeletion />}
+                  />
+                  <Route
+                    path={spaPaths.accountDeleted}
+                    element={<AccountDeleted />}
+                  />
                 </Routes>
               </Layout>
             </BrowserRouter>

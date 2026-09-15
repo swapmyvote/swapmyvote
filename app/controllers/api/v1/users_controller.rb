@@ -8,6 +8,8 @@ module Api
     # UsersController gates only #show, so people can still fix their email
     # while swapping is closed.
     class UsersController < BaseController
+      include SessionPayload
+
       before_action :require_logged_in!
       before_action :reject_when_voting_info_locked!
 
@@ -27,6 +29,26 @@ module Api
           user: UserSerializer.new(current_user).to_h,
           reviewRequired: review_required
         }
+      end
+
+      # Ports UsersController#destroy.
+      #
+      # The swap teardown and the partner's cancellation email are the models'
+      # work — User before_destroy :clear_swap, Swap before_destroy
+      # :notify_users_of_cancelled_swap — so there is deliberately nothing
+      # about swaps here.
+      #
+      # Bare `sign_out`, not `reset_session`: Warden memoises `current_user`,
+      # and `reset_session` does not clear that memo, so render_session_payload
+      # would go on to serialize the account this action just destroyed. Bare,
+      # all-scopes `sign_out` reaches Warden::Proxy#logout, which calls
+      # reset_session! itself and discards the whole session — see
+      # SessionController#destroy and the SessionPayload concern for the same
+      # reasoning.
+      def destroy
+        current_user.destroy!
+        sign_out
+        render_session_payload
       end
 
       private
