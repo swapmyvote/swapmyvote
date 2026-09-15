@@ -176,4 +176,72 @@ RSpec.describe "Api::V1::Users", type: :request do
       end
     end
   end
+
+  describe "DELETE /api/v1/user" do
+    it "refuses an unauthenticated caller" do
+      delete "/api/v1/user"
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(json["error"]["code"]).to eq("unauthenticated")
+    end
+
+    it "deletes the account and answers with a signed-out session" do
+      user = create(:user, name: "Ada Lovelace")
+      sign_in user
+
+      delete "/api/v1/user"
+
+      expect(response).to have_http_status(:ok)
+      expect(json["currentUser"]).to be_nil
+      expect(User.find_by(id: user.id)).to be_nil
+    end
+
+    it "leaves the caller signed out afterwards" do
+      sign_in create(:user, name: "Ada Lovelace")
+
+      delete "/api/v1/user"
+      get "/api/v1/session"
+
+      expect(json["currentUser"]).to be_nil
+    end
+
+    # The models do this, not the controller: User before_destroy :clear_swap,
+    # Swap before_destroy :notify_users_of_cancelled_swap. Asserted here
+    # because it is the promise the confirmation screen makes.
+    it "cancels the swap and tells the partner" do
+      user = create(:user, name: "Ada Lovelace")
+      partner = create(:user, name: "Grace Hopper")
+      user.create_outgoing_swap!(chosen_user: partner, confirmed: true)
+      user.save!
+      sign_in user
+
+      expect {
+        delete "/api/v1/user"
+      }.to change { ActionMailer::Base.deliveries.count }.by_at_least(1)
+
+      expect(partner.reload.swap).to be_nil
+    end
+
+    # Mirrors UsersController#restricted_when_voting_open, which redirects
+    # silently. Deleting mid-election would destroy a confirmed swap on the
+    # day it matters.
+    #
+    # Follows this file's own convention (see "when voting is open and the
+    # swap is confirmed" above) for driving the phase gate: a real confirmed
+    # swap plus a stubbed SWAPMYVOTE_MODE, not allow_any_instance_of.
+    it "refuses once voting is open and the swap is confirmed" do
+      user = create(:user, name: "Ada Lovelace")
+      create(:swap, chosen_user: user, confirmed: true)
+      user.reload
+      sign_in user
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with("SWAPMYVOTE_MODE").and_return("open-and-voting")
+
+      delete "/api/v1/user"
+
+      expect(response).to have_http_status(:forbidden)
+      expect(json["error"]["code"]).to eq("voting_info_locked")
+      expect(User.find_by(id: user.id)).to be_present
+    end
+  end
 end

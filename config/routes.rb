@@ -29,8 +29,8 @@ Rails.application.routes.draw do
       resource :registration, only: [:create], controller: "registration"
 
       # The logged-in user's own profile — the React profile and constituency
-      # screens both patch this.
-      resource :user, only: [:update], controller: "users"
+      # screens both patch this; the account-deletion screen destroys it.
+      resource :user, only: [:update, :destroy], controller: "users"
 
       # Reference data for the entry form: unauthenticated, ungated, cacheable.
       resources :parties, only: [:index]
