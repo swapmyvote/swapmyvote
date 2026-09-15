@@ -104,8 +104,10 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
     end
 
     # Refused before any send, so no code is texted to a number we reject.
-    it "422s a number that belongs to another account, leaving this one alone" do
-      create(:user, name: "Jane").create_mobile_phone!(number: number)
+    # Only a *verified* holder blocks — see the eviction cases below.
+    it "422s a number another account has verified, leaving this one alone" do
+      create(:user, name: "Jane")
+        .create_mobile_phone!(number: number, verified: true)
       user.create_mobile_phone!(number: other_number)
       expect(SwapMyVote::MessageBird).not_to receive(:verify_create)
 
@@ -115,6 +117,41 @@ RSpec.describe "Api::V1::MobilePhoneVerifications", type: :request do
       expect(json["error"]["code"]).to eq "validation_failed"
       expect(json["error"]["messages"]).to eq ["Number has already been taken"]
       expect(user.reload.mobile_phone.number).to eq other_number
+    end
+
+    # An unverified row is a claim nobody ever proved: the code was sent and
+    # never entered. Left to block, it squats on the number forever, and the
+    # only way out is console access — so the claim is evicted instead.
+    # A verified holder is a different question entirely (see #1085).
+    it "takes over a number another account claimed but never verified" do
+      squatter = create(:user, name: "Jane")
+      squatter.create_mobile_phone!(number: number, verify_id: "verify-0")
+      expect(SwapMyVote::MessageBird)
+        .to receive(:verify_create).with(number, anything).and_return(otp)
+
+      post path, params: { number: number }, as: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(json).to eq("number" => number, "sent" => true)
+      expect(user.reload.mobile_phone.number).to eq number
+      expect(squatter.reload.mobile_phone).to be_nil
+    end
+
+    # The eviction is a side effect of a successful claim, not of asking to
+    # claim. A transient MessageBird failure must leave the other account
+    # exactly as it was found.
+    it "leaves an unverified claim alone when the send fails" do
+      squatter = create(:user, name: "Jane")
+      squatter.create_mobile_phone!(number: number)
+      allow(Airbrake).to receive(:notify)
+      allow(SwapMyVote::MessageBird)
+        .to receive(:verify_create)
+        .and_raise(message_bird_error(21, "Something went wrong"))
+
+      post path, params: { number: number }, as: :json
+
+      expect(response).to have_http_status(:bad_gateway)
+      expect(squatter.reload.mobile_phone.number).to eq number
     end
 
     # number_taken? and the write are not atomic, so concurrent sends can
