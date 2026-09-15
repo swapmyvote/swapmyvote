@@ -64,10 +64,30 @@ module Api
 
       # Explicit rather than left to MobilePhone's uniqueness validation, so
       # the collision is found before we text a code to the number.
+      #
+      # Only a *verified* holder blocks. An unverified row is a claim nobody
+      # ever proved — the code was sent and never entered — and left to block
+      # it squatted on the number permanently, with no way out but console
+      # access: the account holding it may be abandoned, and de-verifying via
+      # the admin screen did not help because this check ignored `verified`.
+      # Those claims are evicted by release_unverified_claims instead.
+      #
+      # Reclaiming a number a *verified* account holds is a separate and much
+      # bigger question — it needs the loser notified, and swap state thought
+      # about. See #1085.
       def number_taken?(target_number)
-        MobilePhone.where(number: target_number)
+        MobilePhone.where(number: target_number, verified: true)
                    .where.not(user_id: current_user.id)
                    .exists?
+      end
+
+      # Runs at claim time, not at check time, so a transient MessageBird
+      # failure cannot destroy a stranger's pending claim for a code that
+      # never went out. `verified` is nullable, so unverified is [false, nil].
+      def release_unverified_claims(target_number)
+        MobilePhone.where(number: target_number, verified: [false, nil])
+                   .where.not(user_id: current_user.id)
+                   .destroy_all
       end
 
       # Nothing is persisted until the send has succeeded. A transient
@@ -86,7 +106,13 @@ module Api
         # legacy controller guarded too.
         return render_sms_send_failed if otp.nil?
 
-        current_user.mobile_number = number if number && number != phone&.number
+        if number && number != phone&.number
+          # One transaction: the eviction must not outlive a failed claim.
+          User.transaction do
+            release_unverified_claims(number)
+            current_user.mobile_number = number
+          end
+        end
         delete_previous_verify_id(previous_verify_id) if previous_verify_id
         phone.update!(verify_id: otp.id)
 
