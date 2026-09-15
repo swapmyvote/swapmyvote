@@ -121,6 +121,17 @@ describe("Faq", () => {
     ).toHaveAttribute("href", spaPaths.profile);
   });
 
+  // M9 left this one as a full-page <a> because account deletion had not been
+  // ported. M10 ported it, so the #deactivate section must stay in the SPA
+  // like every other cross-reference on this page.
+  it("links to the account deletion screen, staying in the SPA", () => {
+    renderFaq();
+
+    expect(
+      screen.getByRole("link", { name: /permanently remove your account/i }),
+    ).toHaveAttribute("href", spaPaths.confirmAccountDeletion);
+  });
+
   it("reports the configured swap expiry", () => {
     renderFaq();
 

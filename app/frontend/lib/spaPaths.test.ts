@@ -24,13 +24,14 @@ const frontendRoot = resolve(process.cwd(), "app/frontend");
  */
 
 /** HAML screens with no React equivalent. Remove an entry as it is ported —
- *  and delete the links along with it, which is the point of this test. */
-const UNPORTED_HAML_PATHS = new Set([
-  "/faq", // No React FAQ; the deep anchors below hang off it.
-  "/api", // API documentation page, never part of the SPA migration.
-  "/users/password/new", // Devise password reset, not ported.
-  "/confirm_account_deletion", // Account deletion, not ported.
-]);
+ *  and delete the links along with it, which is the point of this test.
+ *
+ *  Empty as of M10: every user-facing screen is ported, so no link out of the
+ *  view layer is legitimate any more. The last four entries went with their
+ *  screens — /faq and /api at M9, /users/password/new and
+ *  /confirm_account_deletion here. Adding an entry back now means a screen has
+ *  genuinely not been ported, not that a link was left behind. */
+const UNPORTED_HAML_PATHS = new Set<string>([]);
 
 function viewLayerFiles(): string[] {
   return readdirSync(frontendRoot, {

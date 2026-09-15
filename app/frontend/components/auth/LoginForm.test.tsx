@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { ApiError } from "@/lib/apiClient";
 import { logIn } from "@/lib/auth";
+import { spaPaths } from "@/lib/spaPaths";
 import { sessionPayload, testUser } from "@/test/sessionFixtures";
 
 vi.mock("@/lib/auth", async (importOriginal) => {
@@ -84,12 +85,12 @@ describe("LoginForm", () => {
     expect(screen.getByRole("button", { name: "Log in" })).toBeEnabled();
   });
 
-  it("links out to the legacy password reset page", () => {
+  it("links to the password reset screen, staying in the SPA", () => {
     renderForm();
 
     expect(
       screen.getByRole("link", { name: /forgotten password/i }),
-    ).toHaveAttribute("href", "/users/password/new");
+    ).toHaveAttribute("href", spaPaths.passwordNew);
   });
 
   // The legacy page offers this too, and without it /app/login is a dead end
