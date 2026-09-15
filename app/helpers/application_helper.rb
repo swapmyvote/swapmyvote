@@ -140,6 +140,15 @@ module ApplicationHelper
     Date.parse("2022-6-23")
   end
 
+  # The site-wide meta description, and the og:description fallback for any
+  # page that does not set its own. Shared by both layouts via
+  # layouts/_social_meta.
+  def default_meta_description
+    "Make votes matter! Swap yours with someone in a constituency where " \
+      "both could count for more. You get to vote for who you really want, " \
+      "and help someone else do the same. Turn tactical voting into a win-win!"
+  end
+
   def election_date_and_type_mdy
     # "June 23rd 2022 by-elections"
     day = election_date.day.ordinalize

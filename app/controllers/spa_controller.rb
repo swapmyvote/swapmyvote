@@ -13,6 +13,12 @@
 class SpaController < ApplicationController
   layout "spa"
 
+  # Every SPA screen is phase-dependent (the session payload carries app_mode),
+  # so `?opensesame=` has to work on /app/* exactly as it does on the HAML
+  # home page — otherwise a tester handed an /app/* link with the override on
+  # it gets the deployment's own phase and no indication why.
+  before_action :whats_the_magic_word
+
   def index
     # Render the `spa` layout with an empty body; React mounts into the
     # layout's #root. Use an explicit html_safe empty string rather than nil

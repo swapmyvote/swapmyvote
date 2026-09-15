@@ -5,6 +5,19 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # The phase override, honoured on every path rather than only the legacy
+  # home page. `AppModeConcern#app_mode` prefers session[:sesame] over
+  # ENV["SWAPMYVOTE_MODE"], and it validates the value — but lazily, on the
+  # next read of `app_mode`, not here. This filter only stashes or clears the
+  # raw param; an unknown mode sits in the session unnoticed until some later
+  # request reads app_mode and raises (see spec/requests/app_mode_sesame_spec.rb).
+  #
+  # This lived on HomeController until swapmyvote/swapmyvote#1079. It moved up
+  # because the React SPA is served by SpaController, and at cutover "/" is
+  # SpaController too — leaving the lever on HomeController would have retired
+  # it along with the legacy home page.
+  before_action :whats_the_magic_word
+
   def handle_unverified_request
     flash[:errors] = ["Something went wrong - please try that again."]
     redirect_back fallback_location: root_path
@@ -15,6 +28,22 @@ class ApplicationController < ActionController::Base
     uri.query_values = uri.query_values.except(param.to_s)
     return uri.to_s.chomp("?")
   end
+
+  def whats_the_magic_word
+    if params.key?(:opensesame)
+      session[:sesame] = params[:opensesame]
+    elsif params.key?(:closesesame)
+      session.delete :sesame
+    end
+  end
+  # This file has no `private` section (every other method here is called
+  # from views or subclasses), so mark this one method private explicitly
+  # rather than introducing one. `before_action` runs private methods fine;
+  # being public bought this nothing except joining `action_methods` on every
+  # controller. Not routable (no `:controller/:action` wildcard in
+  # config/routes.rb), so not exploitable, but there's no reason to leave it
+  # public.
+  private :whats_the_magic_word
 
   def require_login
     if logged_in?

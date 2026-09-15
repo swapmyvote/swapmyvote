@@ -92,8 +92,11 @@ $focus-ring-color: rgba(white, 0.25);
 
 @import "bootstrap/scss/variables";
 
-// Remove unused theme colours to trim generated CSS
-$theme-colors: map-remove($theme-colors, "info", "warning");
+// Remove unused theme colours to trim generated CSS. "warning" stays: seven
+// components render <Alert variant="warning"> (the not-logged-in, swapping-
+// closed and couldn't-load-your-swap notices), and removing it left those with
+// no .alert-warning rule to match, so they drew as unstyled text.
+$theme-colors: map-remove($theme-colors, "info");
 
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
@@ -142,6 +145,10 @@ $theme-colors: map-remove($theme-colors, "info", "warning");
 @import "bootstrap/scss/nav";
 @import "bootstrap/scss/navbar";
 @import "bootstrap/scss/badge";
+// Needed by FormErrors and every other <Alert>: without this the .alert and
+// .alert-danger classes exist in the markup but carry no styling at all, so
+// error summaries render as ordinary body text.
+@import "bootstrap/scss/alert";
 @import "bootstrap/scss/close";
 @import "bootstrap/scss/modal";
 @import "bootstrap/scss/spinners";

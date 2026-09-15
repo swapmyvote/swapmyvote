@@ -9,6 +9,7 @@ import { RequireSwappingOpen } from "@/components/auth/RequireSwappingOpen";
 import { ActionRow } from "@/components/forms/ActionRow";
 import { FormErrors } from "@/components/forms/FormErrors";
 import { SwapProfileCard } from "@/components/swap/SwapProfileCard";
+import { useSession } from "@/contexts/useSession";
 import { apiErrorMessages } from "@/lib/apiErrors";
 import { useElection } from "@/lib/referenceData";
 import { spaPaths } from "@/lib/spaPaths";
@@ -22,8 +23,10 @@ import {
 /**
  * Ports app/views/user/swaps/new.html.haml and User::SwapsController#create.
  *
- * The consent box is checked here as well as on the server, because the server
- * refusing is a wasted round trip for something the page already knows.
+ * The consent box and the mobile number are both checked here as well as on
+ * the server, because the server refusing is a wasted round trip for something
+ * the page already knows — and, in the mobile case, a dead end: the 403 says
+ * to enter a number but the screen carried no way to go and do it.
  */
 export function SwapNew() {
   const { userId } = useParams();
@@ -31,6 +34,8 @@ export function SwapNew() {
   const candidate = usePotentialSwap(userId ? Number(userId) : null);
   const election = useElection();
   const hidePolls = election.data?.hidePolls ?? false;
+  const { session } = useSession();
+  const mobileVerified = session?.currentUser?.mobileVerified ?? false;
   const mutation = useSwapMutation(offerSwap);
   const [consented, setConsented] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
@@ -97,35 +102,49 @@ export function SwapNew() {
                 {candidate.data.name}?
               </p>
 
-              <Form
-                onSubmit={handleSubmit}
-                className="d-flex flex-column gap-3"
-              >
-                <FormErrors messages={errors} />
-
-                <Form.Check
-                  type="checkbox"
-                  id="consent-share-email"
-                  checked={consented}
-                  onChange={(event) => setConsented(event.target.checked)}
-                  label={`I understand that my email address will be shared with ${candidate.data.name} when the swap is confirmed`}
-                />
-
-                <ActionRow>
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    disabled={mutation.isPending}
+              {mobileVerified ? (
+                <>
+                  <Form
+                    onSubmit={handleSubmit}
+                    className="d-flex flex-column gap-3"
                   >
-                    Swap with {candidate.data.name}
-                  </button>
-                </ActionRow>
-              </Form>
+                    <FormErrors messages={errors} />
 
-              <p className="small subdued mb-0">
-                We'll send {candidate.data.name} a confirmation email, and if
-                they agree, you're all good to go! Democracy here we come.
-              </p>
+                    <Form.Check
+                      type="checkbox"
+                      id="consent-share-email"
+                      checked={consented}
+                      onChange={(event) => setConsented(event.target.checked)}
+                      label={`I understand that my email address will be shared with ${candidate.data.name} when the swap is confirmed`}
+                    />
+
+                    <ActionRow>
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        disabled={mutation.isPending}
+                      >
+                        Swap with {candidate.data.name}
+                      </button>
+                    </ActionRow>
+                  </Form>
+
+                  <p className="small subdued mb-0">
+                    We'll send {candidate.data.name} a confirmation email, and
+                    if they agree, you're all good to go! Democracy here we
+                    come.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="mb-0">
+                    You must verify your mobile number before you swap
+                  </p>
+                  <p className="mb-0">
+                    <Link to={spaPaths.mobile}>Verify your mobile number</Link>
+                  </p>
+                </>
+              )}
             </div>
           )}
         </Container>

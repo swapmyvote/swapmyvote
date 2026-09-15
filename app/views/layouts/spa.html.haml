@@ -12,6 +12,11 @@
     - if ENV["GOOGLE_TAG_MANAGER_ID"].present?
       %meta{ name: "google-tag-manager-id", content: ENV["GOOGLE_TAG_MANAGER_ID"] }
     %title Swap My Vote
+    -#
+      Shared with application.html.haml. The SPA's routes are client-side, so
+      there is no per-page content_for here — every SPA route shares the
+      site-wide description.
+    = render "layouts/social_meta", og_description: default_meta_description
     = csrf_meta_tags
     = vite_react_refresh_tag
     = vite_client_tag
