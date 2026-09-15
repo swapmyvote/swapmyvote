@@ -51,6 +51,21 @@ const migratedPages: {
   },
   { name: "Log in", path: spaPaths.login },
   { name: "Sign up", path: spaPaths.signup },
+  // Same RequireLoggedOut wrapper as Log in / Sign up above, with no data
+  // fetch of its own beyond the session check that wrapper already does — so
+  // it needs no `ready` gate for the same reason those two don't get one.
+  { name: "Password reset request", path: spaPaths.passwordNew },
+  // Any non-empty token renders the real form: PasswordEdit only falls back
+  // to its "link no longer works" state for a *blank* token or a failed
+  // submit, and this test never submits. The token does not need to be real.
+  {
+    name: "Password reset form",
+    path: `${spaPaths.passwordEdit}?reset_password_token=test-token`,
+  },
+  // No auth guard at all (see AccountDeleted.tsx) — DELETE /api/v1/user signs
+  // the caller out as part of destroying the account, so anyone landing here
+  // is already logged out by design.
+  { name: "Account deleted", path: spaPaths.accountDeleted },
 ];
 
 // Gate on the WCAG 2.0/2.1 A and AA rule sets — the conformance target — rather
@@ -148,6 +163,12 @@ const signedInPages: {
     name: "Share",
     path: spaPaths.share,
     ready: (page) => page.getByRole("link", { name: /No Thanks, Skip/ }),
+  },
+  {
+    name: "Confirm account deletion",
+    path: spaPaths.confirmAccountDeletion,
+    ready: (page) =>
+      page.getByRole("button", { name: "Yes, delete my account" }),
   },
 ];
 
