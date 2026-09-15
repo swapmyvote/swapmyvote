@@ -36,6 +36,7 @@ function renderPage(loginsOpen = true, session?: SessionPayload) {
         <Routes>
           <Route path={spaPaths.login} element={<Login />} />
           <Route path={spaPaths.home} element={<p>Home</p>} />
+          <Route path={spaPaths.dashboard} element={<p>Dashboard</p>} />
           <Route path={spaPaths.constituency} element={<p>Constituency</p>} />
         </Routes>
       </MemoryRouter>
@@ -55,7 +56,7 @@ describe("Login", () => {
     vi.mocked(logIn).mockReset();
   });
 
-  it("refetches the session and goes home once logged in", async () => {
+  it("refetches the session and goes to the dashboard once logged in", async () => {
     vi.mocked(logIn).mockResolvedValue(
       sessionPayload({ currentUser: testUser }),
     );
@@ -63,7 +64,9 @@ describe("Login", () => {
 
     await submit();
 
-    await waitFor(() => expect(screen.getByText("Home")).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText("Dashboard")).toBeInTheDocument(),
+    );
     expect(refetchSession).toHaveBeenCalled();
   });
 
@@ -96,6 +99,6 @@ describe("Login", () => {
     renderPage(true, sessionPayload({ currentUser: testUser }));
 
     expect(screen.queryByLabelText("Email")).not.toBeInTheDocument();
-    expect(screen.getByText("Home")).toBeInTheDocument();
+    expect(screen.getByText("Dashboard")).toBeInTheDocument();
   });
 });

@@ -1,0 +1,32 @@
+-#
+  Social sharing / SEO head, shared by application.html.haml (legacy HAML) and
+  spa.html.haml (React). It lives here because the two layouts had drifted:
+  the SPA layout carried none of this, so every link shared from a migrated
+  screen lost its preview card and its favicon.
+
+  `og_description` is a local rather than a `yield` so each layout can decide
+  where it comes from: the HAML pages set it per page with
+  `content_for(:meta_og_description)`, while the SPA's routes are client-side
+  and so only ever have the default.
+%meta{ property: "fb:app_id", content: "#{ENV['FACEBOOK_KEY']}" }
+%meta{ property: "og:type", content: "website" }
+%meta{ property: "og:title", content: "Swap My Vote | Make your vote count in the #{election_date_and_type_mdy}! Don’t wait for electoral reform." }
+%meta{ property: "og:image", content: image_url("facebook_sharing_banner_GE2024.png") }
+%meta{ property: "og:image:width", content: "1200" }
+%meta{ property: "og:image:height", content: "630" }
+%meta{ property: "og:site_name", content: "Swap My Vote" }
+
+%meta{ name: "twitter:card", content: "summary_large_image" }
+%meta{ name: "twitter:site", content: "@SwapMyVote" }
+%meta{ name: "twitter:creator", content: "@SwapMyVote" }
+%meta{ name: "twitter:title", content: "Swap My Vote" }
+%meta{ name: "twitter:description", content: "Make your vote count in the #{election_date_and_type_mdy}!" }
+%meta{ name: "twitter:image", content: image_url("facebook_sharing_banner_GE2024.png") }
+
+%meta{ property: "description", content: default_meta_description }
+%meta{ property: "og:description", content: og_description }
+
+%meta{ property: "og:url", content: "https://www.swapmyvote.uk" }
+
+= favicon_link_tag(source="favicon_16.png", {sizes: "16x16"})
+= favicon_link_tag(source="favicon_32.png", {sizes: "32x32"})

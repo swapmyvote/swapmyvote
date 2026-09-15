@@ -8,15 +8,47 @@ import {
   seedSwapPair,
 } from "./support/seedProfileUser";
 
-// The static pages, under the `/app/*` preview paths they are served from
-// until each one is cut over.
-const migratedPages = [
+// The logged-out screens, under the `/app/*` preview paths they are served
+// from until each one is cut over.
+//
+// `ready` is optional and defaults to "main has rendered something" — true
+// the instant most of these mount, since they have no data to wait on. Two
+// entries are dynamic and gate on their real content instead, because each
+// renders a Spinner *inside* `<main>` while it loads, which satisfies "main
+// is non-empty" on its own — left ungated the scan would very likely run
+// against that spinner, the first paint Playwright can observe, and pass
+// having examined no real content at all.
+//
+//   - Home (M3) fetches session/election/constituency/party data first (see
+//     Home.tsx); wait for the postcode search button, which only exists once
+//     EntryForm — the real page — has rendered.
+//   - API (M9) blocks on parties/constituencies/election together (see
+//     ApiDocs.tsx); wait for its h1, which the loading branch does not render.
+//
+// The FAQ (M9) needs no gate: it renders its whole static body immediately
+// and lets its two dynamic values arrive late, precisely so deep links into
+// its anchors resolve on a cold load.
+const migratedPages: {
+  name: string;
+  path: string;
+  ready?: (page: Page) => Locator;
+}[] = [
+  {
+    name: "Home",
+    path: spaPaths.home,
+    ready: (page) => page.getByRole("button", { name: "Search" }),
+  },
   { name: "About", path: spaPaths.about },
   { name: "Contact", path: spaPaths.contact },
   { name: "Cookie Policy", path: spaPaths.cookies },
   { name: "Terms of Use", path: spaPaths.terms },
   { name: "FAQ", path: spaPaths.faq },
-  { name: "API", path: spaPaths.api },
+  {
+    name: "API",
+    path: spaPaths.api,
+    ready: (page) =>
+      page.getByRole("heading", { name: "Swap My Vote API", level: 1 }),
+  },
   { name: "Log in", path: spaPaths.login },
   { name: "Sign up", path: spaPaths.signup },
 ];
@@ -26,14 +58,19 @@ const migratedPages = [
 // (such as requiring an h1) that are not part of that target.
 const wcagTags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
 
-for (const { name, path } of migratedPages) {
+for (const { name, path, ready } of migratedPages) {
   test(`must report no WCAG A/AA violations when the ${name} page is rendered`, async ({
     page,
   }, testInfo) => {
     await page.goto(path);
-    // React mounts into an empty #root, so wait for real content — otherwise
-    // axe can scan the pre-hydration shell and pass on an empty page.
-    await expect(page.getByRole("main")).not.toBeEmpty();
+    if (ready) {
+      await expect(ready(page)).toBeVisible();
+    } else {
+      // React mounts into an empty #root, so wait for real content —
+      // otherwise axe can scan the pre-hydration shell and pass on an empty
+      // page.
+      await expect(page.getByRole("main")).not.toBeEmpty();
+    }
 
     const { violations } = await new AxeBuilder({ page })
       .withTags(wcagTags)

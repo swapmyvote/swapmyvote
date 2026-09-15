@@ -69,17 +69,17 @@ test("must sign up, then log out, then log back in", async ({ page }) => {
 
   await logOutFromMenu(page);
 
-  // Log out deliberately ends on the legacy HAML home page. A mere URL match
-  // would still pass if DELETE /api/v1/session silently failed server-side —
-  // Navigation.handleLogOut swallows that error and navigates anyway — so
-  // assert the real signal instead: the home page's layout renders
-  // layouts/_login (this link) when logged out and layouts/_current_user (a
-  // "Log out" link) when logged in, never both.
-  await expect(page).toHaveURL(/\/$/);
+  // Log out ends with a full page load onto the SPA home page. A mere URL
+  // match would still pass if DELETE /api/v1/session silently failed
+  // server-side — Navigation.handleLogOut swallows that error and navigates
+  // anyway — so assert the real signal instead: the nav renders the log in
+  // link when logged out and the avatar menu when logged in, never both, and
+  // it reads that from the session the reloaded page fetched.
+  await expect(page).toHaveURL(new RegExp(`${spaPaths.home}$`));
   await expect(
     page.getByRole("link", { name: "Already been here? Log in" }),
   ).toBeVisible();
-  await expect(page.getByRole("link", { name: "Log out" })).toHaveCount(0);
+  await expect(userMenu(page)).toHaveCount(0);
 
   await page.goto(spaPaths.login);
   await page.getByLabel("Email").fill(email);

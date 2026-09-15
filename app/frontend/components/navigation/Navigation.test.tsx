@@ -142,7 +142,7 @@ describe("Navigation", () => {
       expect(screen.queryByRole("button", { name: /log out/i })).toBeNull();
     });
 
-    it("logs out through the API, then leaves the SPA for the legacy home", async () => {
+    it("logs out through the API, then reloads onto the SPA home", async () => {
       const assign = vi.fn();
       vi.spyOn(window, "location", "get").mockReturnValue({
         ...window.location,
@@ -158,7 +158,7 @@ describe("Navigation", () => {
       await userEvent.click(screen.getByRole("button", { name: /log out/i }));
 
       expect(logOut).toHaveBeenCalledOnce();
-      expect(assign).toHaveBeenCalledWith("/");
+      expect(assign).toHaveBeenCalledWith(spaPaths.home);
     });
 
     it("still leaves for home when logging out fails", async () => {
@@ -174,7 +174,7 @@ describe("Navigation", () => {
       await openUserMenu();
       await userEvent.click(screen.getByRole("button", { name: /log out/i }));
 
-      expect(assign).toHaveBeenCalledWith("/");
+      expect(assign).toHaveBeenCalledWith(spaPaths.home);
     });
   });
 });

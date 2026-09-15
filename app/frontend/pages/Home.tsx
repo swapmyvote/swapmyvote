@@ -5,6 +5,7 @@ import { ClosedWarmUp } from "@/components/home/ClosedWarmUp";
 import { ClosedWindDown } from "@/components/home/ClosedWindDown";
 import { OpenAndVoting } from "@/components/home/OpenAndVoting";
 import { OpenPreElections } from "@/components/home/OpenPreElections";
+import { Navigate } from "react-router-dom";
 import { useAppMode } from "@/contexts/useAppMode";
 import { useSession } from "@/contexts/useSession";
 import {
@@ -12,6 +13,7 @@ import {
   useElection,
   useParties,
 } from "@/lib/referenceData";
+import { spaPaths } from "@/lib/spaPaths";
 
 /**
  * The landing page. Ports app/views/home/index.html.haml, whose whole job is
@@ -26,10 +28,10 @@ import {
  * The phase comes from the session payload, so the server stays the one place
  * those rules live.
  *
- * One thing the HAML does that this deliberately does not: HomeController
- * redirects a logged-in user to their dashboard while swapping is open, so the
- * open screens never render for them. That redirect stays in Rails until the
- * dashboard itself is ported.
+ * Mirrors HomeController's `redirect_to user_path if logged_in? &&
+ * swapping_open?` too: the open screens are the logged-out entry form, so
+ * rendering them for someone who has already answered shows an empty
+ * constituency box and reads as though their answers were thrown away.
  */
 export function Home() {
   const { session, isLoading } = useSession();
@@ -65,6 +67,10 @@ export function Home() {
 
   const swapConfirmed = session?.swap?.confirmed ?? false;
   const loggedIn = session?.currentUser != null;
+
+  if (loggedIn && swappingOpen) {
+    return <Navigate to={spaPaths.dashboard} replace />;
+  }
 
   if (swappingOpen) {
     return votingOpen ? (

@@ -10,14 +10,6 @@ import { useSession } from "@/contexts/useSession";
 import { spaPaths } from "@/lib/spaPaths";
 import styles from "./Navigation.module.scss";
 
-// The legacy home page. Only log out goes here now, and deliberately: it wants
-// a full page load so the whole SPA is torn down and rebuilt against the
-// signed-out session (see handleLogOut below). Every *navigational* link in
-// this bar points inside the SPA — a screen that has been ported must not be
-// linked to by its legacy path, or the user is dropped into the Bootstrap 4
-// site with no way back.
-const hamlHome = "/";
-
 // Branded top bar. Matches the legacy site's look for now: the pink SwapMyVote
 // wordmark + icon (logo_nav) on a near-white bar with a subtle bottom border —
 // deliberately NOT the tacticalvote black bar, so the SPA doesn't diverge from
@@ -46,11 +38,18 @@ export function Navigation() {
       await logOut();
     } catch {
       // A failed log out (already logged out, expired CSRF token) is still
-      // resolved by landing on the server-rendered home page, which re-reads
-      // the real session.
+      // resolved by the reload below, which re-reads the real session.
     }
-    // Home is still legacy HAML, so leave the SPA with a full page load.
-    window.location.assign(hamlHome);
+    // A full page load rather than a client-side navigation, deliberately:
+    // signing out throws the whole Rails session away, and reloading is the
+    // cheapest way to be sure the SPA is torn down and rebuilt against the
+    // signed-out session with nothing cached in this tab outliving it.
+    //
+    // Onto the SPA's own home, though, not HAML `/`: the reload is what this
+    // wants, leaving the SPA is not. Bouncing out dropped the user into the
+    // Bootstrap 4 site with no route back — the same trap the navigational
+    // links above were fixed for — and took any ?opensesame override with it.
+    window.location.assign(spaPaths.home);
   }
 
   return (

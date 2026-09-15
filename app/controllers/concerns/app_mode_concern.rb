@@ -39,6 +39,19 @@ module AppModeConcern
     return sesame_mode.present? ? sesame_mode : env_mode
   end
 
+  # The `?opensesame=<mode>` / `?closesesame` phase override testers use to
+  # preview a phase the deployment is not in. It lives next to the reader in
+  # `app_mode` because it is the only thing that writes session[:sesame]; any
+  # controller that renders a phase-dependent screen must run it as a
+  # before_action, or the override silently does nothing on that path.
+  def whats_the_magic_word
+    if params.key?(:opensesame)
+      session[:sesame] = params[:opensesame]
+    elsif params.key?(:closesesame)
+      session.delete :sesame
+    end
+  end
+
   def raise_invalid_mode(type, mode)
     raise "Invalid #{type} '#{mode}'; should be one of: #{VALID_MODES}"
   end
