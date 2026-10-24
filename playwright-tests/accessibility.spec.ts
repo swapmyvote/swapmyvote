@@ -2,11 +2,9 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, type Locator, type Page, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn } from "./support/auth";
-import {
-  seedConfirmedSwapPair,
-  seedProfileUser,
-  seedSwapPair,
-} from "./support/seedProfileUser";
+import { seedBeforeAll } from "./support/seedProfileUser";
+
+const seeds = seedBeforeAll();
 
 // The logged-out screens, under the `/app/*` preview paths they are served
 // from until each one is cut over.
@@ -133,7 +131,7 @@ for (const { name, path, ready } of migratedPages) {
 // mutates its user (party, constituency), and fullyParallel can run these
 // files at the same time, so sharing a row would let one file's reseed or
 // save race the other's read.
-const credentials = seedProfileUser("-axe");
+const credentials = seeds.profileUser("-axe");
 
 // Unlike the public pages above, these three fetch reference data (parties,
 // constituencies, poll results) before showing real content, and show a
@@ -221,7 +219,7 @@ for (const { name, path, ready } of signedInPages) {
 // this fixture has a live outgoing swap, which the shared fixture user above
 // deliberately does not have — so this gets its own pair and its own test,
 // scanning the offer screen and the resulting dashboard in one pass.
-const axePair = seedSwapPair("-axe");
+const axePair = seeds.swapPair("-axe");
 
 test("must report no WCAG A/AA violations across the offer and dashboard screens", async ({
   page,
@@ -260,7 +258,7 @@ test("must report no WCAG A/AA violations across the offer and dashboard screens
 
 // The M8 vote screen, which only exists once a swap is confirmed — so it gets
 // its own already-confirmed pair rather than joining signedInPages above.
-const axeVotePair = seedConfirmedSwapPair("-axe-vote");
+const axeVotePair = seeds.confirmedSwapPair("-axe-vote");
 
 test("must report no WCAG A/AA violations when the vote page is rendered", async ({
   page,

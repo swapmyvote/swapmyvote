@@ -1,15 +1,14 @@
 import { expect, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn } from "./support/auth";
-import {
-  seedProfileUser,
-  seedUserWithoutConstituency,
-} from "./support/seedProfileUser";
+import { seedBeforeAll } from "./support/seedProfileUser";
+
+const seeds = seedBeforeAll();
 
 // Its own row — this file only reads, but the suffix keeps it off the row
-// profile.spec.ts mutates. See seedProfileUser's docstring.
-const credentials = seedProfileUser("-review");
-const credentialsWithoutConstituency = seedUserWithoutConstituency();
+// profile.spec.ts mutates. See seedBeforeAll's profileUser.
+const credentials = seeds.profileUser("-review");
+const credentialsWithoutConstituency = seeds.userWithoutConstituency();
 
 test.describe("/app/review", () => {
   test("must show the polls for the offered vote", async ({ page }) => {
@@ -19,7 +18,7 @@ test.describe("/app/review", () => {
     await expect(
       page.getByRole("heading", { name: "Your offered vote" }),
     ).toBeVisible();
-    // seedProfileUser puts this user in Woking, with Labour as the offered
+    // profileUser puts this user in Woking, with Labour as the offered
     // vote and polls for Woking seeded alongside.
     await expect(page.getByText(/Predicted results for Woking/i)).toBeVisible();
     // The brief expects "safe-win" (Woking seeded Labour 4210 / Green 1200,
@@ -28,7 +27,7 @@ test.describe("/app/review", () => {
     // file that seeds Woking fixtures, and Poll#signed_marginal_score sums
     // *all* Woking polls, not just this fixture's own Labour/Green pair.
     // Other files seed their own "Labour-<suffix>" parties at the same 4210
-    // votes (seedSwapPair, seedConfirmedSwapPair), and whichever of those
+    // votes (swapPair, confirmedSwapPair), and whichever of those
     // happen to already exist in the database changes this poll's computed
     // sign -- so "leading" vs "trailing" is not something one spec file run
     // can pin down; it depends on suite composition and history, not on this

@@ -3,13 +3,15 @@ import { spaPaths } from "@/lib/spaPaths";
 import { signIn, userMenu } from "./support/auth";
 import {
   requestPasswordResetToken,
-  seedProfileUser,
+  seedBeforeAll,
 } from "./support/seedProfileUser";
+
+const seeds = seedBeforeAll();
 
 // Its own suffix keeps this file's fixture row off the ones other specs
 // mutate — playwright.config.ts runs fullyParallel, and this spec changes
 // the account's password, which no other spec's fixture user should see.
-const credentials = seedProfileUser("-password-reset");
+const credentials = seeds.profileUser("-password-reset");
 const newPassword = "e2e-password-reset-new-password";
 
 async function logOutFromMenu(page: Page) {

@@ -3,7 +3,9 @@ import { expect, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn } from "./support/auth";
 import { fakeOtp } from "./support/otp";
-import { seedProfileUser } from "./support/seedProfileUser";
+import { seedBeforeAll } from "./support/seedProfileUser";
+
+const seeds = seedBeforeAll();
 
 // See seedProfileUser.ts: a stale Spring preloader leaves `runner` hanging
 // with no output, which stalls the suite before a test starts.
@@ -11,7 +13,7 @@ const railsEnv = { ...process.env, DISABLE_SPRING: "1" };
 
 // Its own fixture row: this spec verifies and re-verifies, which would race
 // the profile spec's saves under fullyParallel.
-const credentials = seedProfileUser("-mobile");
+const credentials = seeds.profileUser("-mobile");
 
 // A number no other spec uses: MobilePhone enforces uniqueness table-wide,
 // so a shared one fails whichever spec runs second.

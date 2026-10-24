@@ -1,17 +1,16 @@
 import { expect, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn } from "./support/auth";
-import {
-  seedConfirmedSwapPair,
-  seedProfileUser,
-} from "./support/seedProfileUser";
+import { seedBeforeAll } from "./support/seedProfileUser";
+
+const seeds = seedBeforeAll();
 
 // Serial for the same reason swap.spec.ts is: both tests below act on the one
 // shared pair, and the first mutates has_voted.
 test.describe.configure({ mode: "serial" });
 
-const pair = seedConfirmedSwapPair("-vote");
-const noSwapUser = seedProfileUser("-vote-noswap");
+const pair = seeds.confirmedSwapPair("-vote");
+const noSwapUser = seeds.profileUser("-vote-noswap");
 
 test.describe("/app/vote", () => {
   test("records a vote and then offers sharing", async ({ page }) => {

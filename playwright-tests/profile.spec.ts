@@ -1,13 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn } from "./support/auth";
-import {
-  seedProfileUser,
-  seedUserWithoutConstituency,
-} from "./support/seedProfileUser";
+import { seedBeforeAll } from "./support/seedProfileUser";
 
-const credentials = seedProfileUser();
-const credentialsWithoutConstituency = seedUserWithoutConstituency();
+const seeds = seedBeforeAll();
+
+const credentials = seeds.profileUser();
+const credentialsWithoutConstituency = seeds.userWithoutConstituency();
 
 // These two tests share one fixture user and mutate it (party, email).
 // `fullyParallel` (playwright.config.ts) would otherwise run them in separate
@@ -41,7 +40,7 @@ test.describe("profile screen", () => {
     // the value the field already holds would pass even if the save quietly
     // dropped the edit. Reverted to the original at the end of the test so
     // the fixture row (and signIn() for any other test/run reusing it) stays
-    // on the email seedProfileUser() actually seeds.
+    // on the email seeds.profileUser() actually seeds.
     const updatedEmail = credentials.email.replace("@", "+updated@");
 
     await page.goto(spaPaths.profile);
@@ -82,7 +81,8 @@ test("must refuse to save the constituency screen with nothing chosen", async ({
   page,
 }) => {
   // A dedicated fixture with no constituency at all, rather than clearing
-  // the shared fixture's pre-filled one: see seedUserWithoutConstituency.
+  // the shared fixture's pre-filled one: see seedBeforeAll's
+  // userWithoutConstituency.
   await signIn(page, credentialsWithoutConstituency);
   await page.goto(spaPaths.constituency);
 

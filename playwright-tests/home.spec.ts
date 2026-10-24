@@ -1,12 +1,14 @@
 import { expect, type Page, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { setAppMode } from "./support/appMode";
-import { seedProfileUser } from "./support/seedProfileUser";
+import { seedBeforeAll } from "./support/seedProfileUser";
+
+const seeds = seedBeforeAll();
 
 // Not for the user — for the constituency, party and poll rows it creates.
 // The entry form needs real Woking/Wakefield rows in the reference data the
 // SPA fetches. The suffix keeps its user row off profile.spec.ts's.
-seedProfileUser("-home");
+seeds.profileUser("-home");
 
 const WOKING_ONS_ID = "E14001592";
 
