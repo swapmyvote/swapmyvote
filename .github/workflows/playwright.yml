@@ -62,6 +62,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Enable Corepack
+        # Yarn is pinned by "packageManager" in package.json. Corepack must be
+        # on before setup-node, whose yarn cache lookup runs `yarn` itself.
+        run: corepack enable
       - name: Install Node
         uses: actions/setup-node@v3
         with:

@@ -43,9 +43,13 @@ installed.
     since the PostgreSQL database is not normally needed for local
     development (sqlite is used instead).
 
--   Install npm packages with Yarn:
+-   Install npm packages with Yarn, through Corepack:
 
-        yarn install
+        corepack yarn install
+
+    Corepack ships with Node 22 (the version in `.nvmrc`) and runs the
+    Yarn release pinned by `packageManager` in `package.json`. A global
+    `yarn` on your PATH is not used.
 
     If you get an error similar to "The engine "node" is incompatible with this module" then
     you may need to update to a more recent version of [node.js](https://nodejs.org/en/download/).
