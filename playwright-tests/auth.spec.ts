@@ -33,7 +33,7 @@ test.beforeEach(() => {
     [
       "runner",
       `User.where(email: "${email}").destroy_all
-       OnsConstituency.find_or_create_by!(ons_id: "E14001063") { |c| c.name = "Woking" }`,
+       OnsConstituency.find_or_create_by!(ons_id: "E14001592") { |c| c.name = "Woking" }`,
     ],
     { stdio: "inherit", env: railsEnv },
   );

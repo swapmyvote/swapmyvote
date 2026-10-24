@@ -1,11 +1,9 @@
 import { expect, type Locator, type Page, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn } from "./support/auth";
-import {
-  seedConfirmedSwapPair,
-  seedProfileUser,
-  seedSwapPair,
-} from "./support/seedProfileUser";
+import { seedBeforeAll } from "./support/seedProfileUser";
+
+const seeds = seedBeforeAll();
 
 // Every canonical path a ported screen replaced. A link to one of these from
 // inside the SPA drops the user into the Bootstrap 4 HAML site with no way
@@ -162,11 +160,9 @@ for (const { name, path, ready } of loggedOutPages) {
   });
 }
 
-// seedProfileUser is synchronous — it shells out to `bin/rails runner` and
-// returns TestCredentials, not a promise. Its own suffix keeps this file's
-// fixture row off the ones profile.spec.ts and accessibility.spec.ts mutate,
-// since playwright.config.ts runs fullyParallel.
-const profileUser = seedProfileUser("-links");
+// Its own suffix keeps this file's fixture row off the ones profile.spec.ts
+// and accessibility.spec.ts mutate.
+const profileUser = seeds.profileUser("-links");
 
 // One test, not one per screen: each `signIn` is a real round trip through the
 // login form, and this fixture's screens are cheap to walk once signed in.
@@ -225,7 +221,7 @@ test("must not link out to a replaced HAML path from the signed-in screens", asy
 // straight to /app/swap — so they need their own pair. They are worth the
 // extra seed: between them they render SwapConfirmed, InfoSummary and
 // ReachOutToSwap, which is more link-bearing markup than any other screen.
-const swapPair = seedConfirmedSwapPair("-links");
+const swapPair = seeds.confirmedSwapPair("-links");
 
 test("must not link out to a replaced HAML path from the confirmed-swap screens", async ({
   page,
@@ -247,7 +243,7 @@ test("must not link out to a replaced HAML path from the confirmed-swap screens"
 // the other entries. Reached the same way accessibility.spec.ts's offer-flow
 // axe scan reaches it: a fresh, unconfirmed pair, sign in as the chooser, and
 // click through from the swap list rather than navigating directly.
-const offerPair = seedSwapPair("-links-offer");
+const offerPair = seeds.swapPair("-links-offer");
 
 test("must not link out to a replaced HAML path from the swap-offer screen", async ({
   page,

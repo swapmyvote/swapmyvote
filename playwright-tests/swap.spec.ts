@@ -1,14 +1,16 @@
 import { expect, type Page, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn } from "./support/auth";
-import { seedSwapPair } from "./support/seedProfileUser";
+import { reseedSwapPair, seedBeforeAll } from "./support/seedProfileUser";
+
+const seeds = seedBeforeAll();
 
 // Serial: the two accounts are one shared swap, and the tests below walk it
 // through its states in order. Running them in parallel would race on the same
 // two rows.
 test.describe.configure({ mode: "serial" });
 
-const { chooser, chosen } = seedSwapPair("-e2e");
+const { chooser, chosen } = seeds.swapPair("-e2e");
 
 // User#redacted_name keeps the first name and the first letter of the second
 // (NameRedactor) plus the " (test user)" suffix — "E2E Chooser" and
@@ -87,7 +89,7 @@ test.describe("the swap flow", () => {
 
   test("rejects a swap from the chosen side", async ({ page }) => {
     // A fresh offer, since the previous test confirmed the last one.
-    const pair = seedSwapPair("-e2e");
+    const pair = reseedSwapPair("-e2e");
 
     await signIn(page, pair.chooser);
     await page.goto(spaPaths.swap);

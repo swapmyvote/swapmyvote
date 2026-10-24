@@ -1,13 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { signIn, userMenu } from "./support/auth";
-import { seedConfirmedSwapPair } from "./support/seedProfileUser";
+import { seedBeforeAll } from "./support/seedProfileUser";
 
-// seedConfirmedSwapPair is synchronous — it shells out to `bin/rails runner`
-// and returns the pair directly, not a promise. Its own suffix keeps this
-// file's rows off the ones other specs mutate, since playwright.config.ts
-// runs fullyParallel.
-const { chooser, chosen } = seedConfirmedSwapPair("-account-deletion");
+const seeds = seedBeforeAll();
+
+// Its own suffix keeps this file's rows off the ones other specs mutate.
+const { chooser, chosen } = seeds.confirmedSwapPair("-account-deletion");
 
 test("must delete the account, sign the user out, and cancel the partner's swap", async ({
   page,

@@ -2,21 +2,20 @@ import { expect, test } from "@playwright/test";
 import { spaPaths } from "@/lib/spaPaths";
 import { setAppMode } from "./support/appMode";
 import { signIn, userMenu } from "./support/auth";
-import {
-  seedConfirmedSwapPair,
-  seedProfileUser,
-} from "./support/seedProfileUser";
+import { seedBeforeAll } from "./support/seedProfileUser";
+
+const seeds = seedBeforeAll();
 
 // Its own fixture row — this file signs in and reads, but the suffix keeps it
-// off the row profile.spec.ts mutates. See seedProfileUser's docstring.
-const credentials = seedProfileUser("-appmode");
+// off the row profile.spec.ts mutates. See seedBeforeAll's profileUser.
+const credentials = seeds.profileUser("-appmode");
 
 // A separate, already-confirmed pair for the open-and-voting guard test
 // below: reject_when_voting_info_locked! only fires for a user whose swap is
 // confirmed, which the shared fixture above deliberately is not. Its own
 // suffix keeps this pair's rows off vote.spec.ts's ("-vote") and
 // accessibility.spec.ts's ("-axe-vote"), which also seed confirmed pairs.
-const lockedPair = seedConfirmedSwapPair("-appmode-locked");
+const lockedPair = seeds.confirmedSwapPair("-appmode-locked");
 
 // One distinguishing, phase-specific phrase per home screen. Deliberately
 // static copy: the headings interpolate election data (dateSeasonType,
