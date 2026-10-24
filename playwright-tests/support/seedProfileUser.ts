@@ -97,18 +97,53 @@ function profileUserCredentials(suffix: string): TestCredentials {
 // user's preferred party precisely so it is never the target of that switch,
 // leaving Green and Labour free to be the pair the willing-party test swaps
 // between.
-function profileUserScript(credentials: TestCredentials): string {
-  return `
+//
+// Labour's Woking poll is set far above anything else in the seat, so it is
+// always the leading party there. Poll#signed_marginal_score compares a poll
+// with every other poll in the same constituency, not just this fixture's,
+// and every fixture shares Woking: swapPair seeds its own Labour-<suffix> at
+// 4210, and a database that has been through `db:seed` has the real Woking
+// polls as well. At 4210 this poll tied with swapPair's, so whether the
+// review screen said "safe win" or "trailing" depended on which other spec
+// files had already run (#1081). marginal_score is still set explicitly, so
+// the percentage the screen shows does not move.
+const leadingVotes = 50_000;
+
+const sharedRowsScript = `
     woking = OnsConstituency.find_or_create_by!(ons_id: "${WOKING}") { |c| c.name = "Woking" }
     OnsConstituency.find_or_create_by!(ons_id: "${WAKEFIELD}") { |c| c.name = "Wakefield" }
-    conservative = Party.find_or_create_by!(name: "Conservative") { |p| p.color = "#0087DC" }
+    Party.find_or_create_by!(name: "Conservative") { |p| p.color = "#0087DC" }
     green = Party.find_or_create_by!(name: "Green") { |p| p.color = "#6AB023" }
     labour = Party.find_or_create_by!(name: "Labour") { |p| p.color = "#DC241f" }
 
-    [[green, 1200], [labour, 4210]].each do |party, votes|
+    [[green, 1200], [labour, ${leadingVotes}]].each do |party, votes|
       poll = Poll.find_or_initialize_by(constituency_ons_id: woking.ons_id, party_id: party.id)
       poll.update!(votes: votes, marginal_score: 3010)
     end
+  `;
+
+/**
+ * Creates the rows profileUser shares between spec files — the two
+ * constituencies, the three parties and the two Woking polls — once, before
+ * any worker starts. Run from playwright.config.ts's globalSetup.
+ *
+ * Spec files run in parallel, and each seeds its fixtures in its own worker.
+ * On a fresh database (CI's is schema-only), two workers creating the same
+ * shared row at once race. `parties.name` has no unique index, so that can
+ * leave two "Green" parties and an ambiguous party dropdown. The
+ * constituency and poll indexes are unique, so there it raises
+ * RecordNotUnique instead. Creating them here first means every later
+ * `find_or_create_by!` only finds.
+ */
+export function seedSharedRows(): void {
+  runRails(sharedRowsScript);
+}
+
+function profileUserScript(credentials: TestCredentials): string {
+  return `
+    woking = OnsConstituency.find_by!(ons_id: "${WOKING}")
+    conservative = Party.find_by!(name: "Conservative")
+    labour = Party.find_by!(name: "Labour")
 
     user = User.find_or_initialize_by(email: "${credentials.email}")
     user.password = "${credentials.password}"
@@ -120,10 +155,12 @@ function profileUserScript(credentials: TestCredentials): string {
   `;
 }
 
-const userWithoutConstituencyCredentials: TestCredentials = {
-  email: "e2e-profile-no-constituency@example.com",
-  password: "e2e-profile-password",
-};
+function userWithoutConstituencyCredentials(suffix: string): TestCredentials {
+  return {
+    email: `e2e-profile-no-constituency${suffix}@example.com`,
+    password: "e2e-profile-password",
+  };
+}
 
 function userWithoutConstituencyScript(credentials: TestCredentials): string {
   return `
@@ -253,9 +290,12 @@ export function seedBeforeAll() {
     /**
      * A fixture user, plus the parties, constituency and polls it needs.
      *
-     * `suffix` gives each spec file its own user row, so specs that mutate
-     * the user (profile.spec.ts changes party and email) do not stomp on one
-     * another.
+     * `suffix` gives each spec file its own **user** row, so specs that
+     * mutate the user (profile.spec.ts changes party and email) do not stomp
+     * on one another. It isolates nothing else: the constituency, the three
+     * parties and the two Woking polls are shared by every caller. That is
+     * safe only because every caller writes them with the same values, and
+     * no spec changes them.
      */
     profileUser(suffix = ""): TestCredentials {
       const credentials = profileUserCredentials(suffix);
@@ -276,12 +316,13 @@ export function seedBeforeAll() {
      * it, but scripted input reliably did. Starting from no constituency at
      * all tests the same "must choose one" validation without depending on
      * that interaction.
+     *
+     * `suffix` gives each spec file its own row, like profileUser's.
      */
-    userWithoutConstituency(): TestCredentials {
-      scripts.push(
-        userWithoutConstituencyScript(userWithoutConstituencyCredentials),
-      );
-      return userWithoutConstituencyCredentials;
+    userWithoutConstituency(suffix = ""): TestCredentials {
+      const credentials = userWithoutConstituencyCredentials(suffix);
+      scripts.push(userWithoutConstituencyScript(credentials));
+      return credentials;
     },
 
     /**

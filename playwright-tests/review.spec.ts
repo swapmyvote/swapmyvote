@@ -8,7 +8,7 @@ const seeds = seedBeforeAll();
 // Its own row — this file only reads, but the suffix keeps it off the row
 // profile.spec.ts mutates. See seedBeforeAll's profileUser.
 const credentials = seeds.profileUser("-review");
-const credentialsWithoutConstituency = seeds.userWithoutConstituency();
+const credentialsWithoutConstituency = seeds.userWithoutConstituency("-review");
 
 test.describe("/app/review", () => {
   test("must show the polls for the offered vote", async ({ page }) => {
@@ -21,33 +21,12 @@ test.describe("/app/review", () => {
     // profileUser puts this user in Woking, with Labour as the offered
     // vote and polls for Woking seeded alongside.
     await expect(page.getByText(/Predicted results for Woking/i)).toBeVisible();
-    // The brief expects "safe-win" (Woking seeded Labour 4210 / Green 1200,
-    // this user offering the leading party). A real run instead showed
-    // "trailing" -- because this dev database is shared across every spec
-    // file that seeds Woking fixtures, and Poll#signed_marginal_score sums
-    // *all* Woking polls, not just this fixture's own Labour/Green pair.
-    // Other files seed their own "Labour-<suffix>" parties at the same 4210
-    // votes (swapPair, confirmedSwapPair), and whichever of those
-    // happen to already exist in the database changes this poll's computed
-    // sign -- so "leading" vs "trailing" is not something one spec file run
-    // can pin down; it depends on suite composition and history, not on this
-    // fixture's own inputs.
-    //
-    // What *is* stable regardless of that: marginal_score itself is a column
-    // this fixture sets explicitly (3010, above the 1000 marginalThreshold),
-    // so the "could make a difference" branch can never fire here, the
-    // formatted percentage is always "30%" (formatPercent reads the stored
-    // column, not the dynamic sign), and both remaining branches
-    // (safe-win / trailing) end in the exact same sentence tail. Assert that
-    // shared, specific text -- narrower than the brief's bare /Labour/, but
-    // not the full sentence, since which of the two openings appears is
-    // genuinely not deterministic here.
-    await expect(
-      page.getByText(/by 30% in the polls for Woking/),
-    ).toBeVisible();
+    // profileUser keeps Labour the leading party in Woking whatever else is
+    // in the database, with marginal_score 3010 (above the 1000 marginal
+    // threshold), so this is always the "safe win" reading.
     await expect(
       page.getByText(
-        /so it's less likely that people supporting Labour will want to swap with you\.$/,
+        "Looks like your vote may be supporting a safe win for Labour who are currently leading by 30% in the polls for Woking, so it's less likely that people supporting Labour will want to swap with you.",
       ),
     ).toBeVisible();
   });
